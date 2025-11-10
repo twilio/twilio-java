@@ -17,68 +17,77 @@ package com.twilio.rest.ipmessaging.v1.service.user;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Map;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.util.Map;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UserChannel extends Resource {
 
-    public static UserChannelReader reader(
-        final String pathServiceSid,
-        final String pathUserSid
-    ) {
-        return new UserChannelReader(pathServiceSid, pathUserSid);
+
+
+
+
+
+
+    public static UserChannelReader reader(final String pathServiceSid, final String pathUserSid) {
+        return new UserChannelReader(
+             pathServiceSid,  pathUserSid
+        );
     }
 
-    public enum ChannelStatus {
-        JOINED("joined"),
-        INVITED("invited"),
-        NOT_PARTICIPATING("not_participating");
 
-        private final String value;
+    
 
-        private ChannelStatus(final String value) {
-            this.value = value;
-        }
+public enum ChannelStatus {
+    JOINED("joined"),
+    INVITED("invited"),
+    NOT_PARTICIPATING("not_participating");
 
-        public String toString() {
-            return value;
-        }
+    private final String value;
 
-        @JsonCreator
-        public static ChannelStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ChannelStatus.values());
-        }
+    private ChannelStatus(final String value) {
+        this.value = value;
     }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static ChannelStatus forValue(final String value) {
+        return Promoter.enumFromString(value, ChannelStatus.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a UserChannel object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return UserChannel object represented by the provided JSON
-     */
-    public static UserChannel fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a UserChannel object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return UserChannel object represented by the provided JSON
+    */
+    public static UserChannel fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UserChannel.class);
@@ -90,17 +99,14 @@ public class UserChannel extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a UserChannel object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return UserChannel object represented by the provided JSON
-     */
-    public static UserChannel fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a UserChannel object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return UserChannel object represented by the provided JSON
+    */
+    public static UserChannel fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UserChannel.class);
@@ -122,91 +128,92 @@ public class UserChannel extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String channelSid;
-
     @Getter
     private final Integer lastConsumedMessageIndex;
-
     @Getter
     private final Map<String, String> links;
-
     @Getter
     private final String memberSid;
-
     @Getter
     private final String serviceSid;
-
     @Getter
     private final UserChannel.ChannelStatus status;
-
     @Getter
     private final Integer unreadMessagesCount;
 
-    @JsonCreator
-    private UserChannel(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("channel_sid") final String channelSid,
-        @JsonProperty(
-            "last_consumed_message_index"
-        ) final Integer lastConsumedMessageIndex,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("member_sid") final String memberSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("status") final UserChannel.ChannelStatus status,
-        @JsonProperty("unread_messages_count") final Integer unreadMessagesCount
-    ) {
-        this.accountSid = accountSid;
-        this.channelSid = channelSid;
-        this.lastConsumedMessageIndex = lastConsumedMessageIndex;
-        this.links = links;
-        this.memberSid = memberSid;
-        this.serviceSid = serviceSid;
-        this.status = status;
-        this.unreadMessagesCount = unreadMessagesCount;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        UserChannel other = (UserChannel) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(channelSid, other.channelSid) &&
-            Objects.equals(
-                lastConsumedMessageIndex,
-                other.lastConsumedMessageIndex
-            ) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(memberSid, other.memberSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(unreadMessagesCount, other.unreadMessagesCount)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            channelSid,
-            lastConsumedMessageIndex,
-            links,
-            memberSid,
-            serviceSid,
-            status,
-            unreadMessagesCount
-        );
-    }
+@JsonCreator
+private UserChannel(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("channel_sid")
+    final String channelSid, 
+    @JsonProperty("last_consumed_message_index")
+    final Integer lastConsumedMessageIndex, 
+    @JsonProperty("links")
+    final Map<String, String> links, 
+    @JsonProperty("member_sid")
+    final String memberSid, 
+    @JsonProperty("service_sid")
+    final String serviceSid, 
+    @JsonProperty("status")
+    final UserChannel.ChannelStatus status, 
+    @JsonProperty("unread_messages_count")
+    final Integer unreadMessagesCount
+){
+    this.accountSid = accountSid;
+    this.channelSid = channelSid;
+    this.lastConsumedMessageIndex = lastConsumedMessageIndex;
+    this.links = links;
+    this.memberSid = memberSid;
+    this.serviceSid = serviceSid;
+    this.status = status;
+    this.unreadMessagesCount = unreadMessagesCount;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    UserChannel other = (UserChannel) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(channelSid, other.channelSid) && 
+            Objects.equals(lastConsumedMessageIndex, other.lastConsumedMessageIndex) && 
+            Objects.equals(links, other.links) && 
+            Objects.equals(memberSid, other.memberSid) && 
+            Objects.equals(serviceSid, other.serviceSid) && 
+            Objects.equals(status, other.status) && 
+            Objects.equals(unreadMessagesCount, other.unreadMessagesCount)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            channelSid, 
+            lastConsumedMessageIndex, 
+            links, 
+            memberSid, 
+            serviceSid, 
+            status, 
+            unreadMessagesCount
+    );
+}
+
+
+
+}
+

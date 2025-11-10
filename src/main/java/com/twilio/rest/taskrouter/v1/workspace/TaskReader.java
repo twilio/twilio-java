@@ -14,9 +14,7 @@
 
 package com.twilio.rest.taskrouter.v1.workspace;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -28,12 +26,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.util.List;
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class TaskReader extends Reader<Task> {
 
-    private String pathWorkspaceSid;
+        private String pathWorkspaceSid;
     private Integer priority;
     private List<String> assignmentStatus;
     private String workflowSid;
@@ -46,84 +48,90 @@ public class TaskReader extends Reader<Task> {
     private Boolean hasAddons;
     private Long pageSize;
 
-    public TaskReader(final String pathWorkspaceSid) {
+        public TaskReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
-    public TaskReader setPriority(final Integer priority) {
-        this.priority = priority;
-        return this;
-    }
+    
+public TaskReader setPriority(final Integer priority){
+    this.priority = priority;
+    return this;
+}
 
-    public TaskReader setAssignmentStatus(final List<String> assignmentStatus) {
-        this.assignmentStatus = assignmentStatus;
-        return this;
-    }
 
-    public TaskReader setAssignmentStatus(final String assignmentStatus) {
-        return setAssignmentStatus(Promoter.listOfOne(assignmentStatus));
-    }
+public TaskReader setAssignmentStatus(final List<String> assignmentStatus){
+    this.assignmentStatus = assignmentStatus;
+    return this;
+}
 
-    public TaskReader setWorkflowSid(final String workflowSid) {
-        this.workflowSid = workflowSid;
-        return this;
-    }
+public TaskReader setAssignmentStatus(final String assignmentStatus){
+    return setAssignmentStatus(Promoter.listOfOne(assignmentStatus));
+}
 
-    public TaskReader setWorkflowName(final String workflowName) {
-        this.workflowName = workflowName;
-        return this;
-    }
+public TaskReader setWorkflowSid(final String workflowSid){
+    this.workflowSid = workflowSid;
+    return this;
+}
 
-    public TaskReader setTaskQueueSid(final String taskQueueSid) {
-        this.taskQueueSid = taskQueueSid;
-        return this;
-    }
 
-    public TaskReader setTaskQueueName(final String taskQueueName) {
-        this.taskQueueName = taskQueueName;
-        return this;
-    }
+public TaskReader setWorkflowName(final String workflowName){
+    this.workflowName = workflowName;
+    return this;
+}
 
-    public TaskReader setEvaluateTaskAttributes(
-        final String evaluateTaskAttributes
-    ) {
-        this.evaluateTaskAttributes = evaluateTaskAttributes;
-        return this;
-    }
 
-    public TaskReader setRoutingTarget(final String routingTarget) {
-        this.routingTarget = routingTarget;
-        return this;
-    }
+public TaskReader setTaskQueueSid(final String taskQueueSid){
+    this.taskQueueSid = taskQueueSid;
+    return this;
+}
 
-    public TaskReader setOrdering(final String ordering) {
-        this.ordering = ordering;
-        return this;
-    }
 
-    public TaskReader setHasAddons(final Boolean hasAddons) {
-        this.hasAddons = hasAddons;
-        return this;
-    }
+public TaskReader setTaskQueueName(final String taskQueueName){
+    this.taskQueueName = taskQueueName;
+    return this;
+}
 
-    public TaskReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
 
-    @Override
+public TaskReader setEvaluateTaskAttributes(final String evaluateTaskAttributes){
+    this.evaluateTaskAttributes = evaluateTaskAttributes;
+    return this;
+}
+
+
+public TaskReader setRoutingTarget(final String routingTarget){
+    this.routingTarget = routingTarget;
+    return this;
+}
+
+
+public TaskReader setOrdering(final String ordering){
+    this.ordering = ordering;
+    return this;
+}
+
+
+public TaskReader setHasAddons(final Boolean hasAddons){
+    this.hasAddons = hasAddons;
+    return this;
+}
+
+
+public TaskReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+        @Override
     public ResourceSet<Task> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<Task> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Workspaces/{WorkspaceSid}/Tasks";
+        
+    String path = "/v1/Workspaces/{WorkspaceSid}/Tasks";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
+    path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -135,171 +143,135 @@ public class TaskReader extends Reader<Task> {
         return pageForRequest(client, request);
     }
 
-    private Page<Task> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Task> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Task read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Task read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "tasks",
             response.getContent(),
             Task.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<Task> previousPage(
-        final Page<Task> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Task> previousPage(final Page<Task> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Task> nextPage(
-        final Page<Task> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<Task> nextPage(final Page<Task> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<Task> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Task> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (priority != null) {
-            Serializer.toString(
-                request,
-                "Priority",
-                priority,
-                ParameterType.QUERY
-            );
-        }
 
-        if (assignmentStatus != null) {
-            for (String param : assignmentStatus) {
-                Serializer.toString(
-                    request,
-                    "AssignmentStatus",
-                    param,
-                    ParameterType.QUERY
-                );
-            }
-        }
 
-        if (workflowSid != null) {
-            Serializer.toString(
-                request,
-                "WorkflowSid",
-                workflowSid,
-                ParameterType.QUERY
-            );
-        }
+    if (priority != null) {
+        Serializer.toString(request, "Priority", priority, ParameterType.QUERY);
+    }
 
-        if (workflowName != null) {
-            Serializer.toString(
-                request,
-                "WorkflowName",
-                workflowName,
-                ParameterType.QUERY
-            );
-        }
 
-        if (taskQueueSid != null) {
-            Serializer.toString(
-                request,
-                "TaskQueueSid",
-                taskQueueSid,
-                ParameterType.QUERY
-            );
-        }
 
-        if (taskQueueName != null) {
-            Serializer.toString(
-                request,
-                "TaskQueueName",
-                taskQueueName,
-                ParameterType.QUERY
-            );
-        }
 
-        if (evaluateTaskAttributes != null) {
-            Serializer.toString(
-                request,
-                "EvaluateTaskAttributes",
-                evaluateTaskAttributes,
-                ParameterType.QUERY
-            );
-        }
 
-        if (routingTarget != null) {
-            Serializer.toString(
-                request,
-                "RoutingTarget",
-                routingTarget,
-                ParameterType.QUERY
-            );
-        }
 
-        if (ordering != null) {
-            Serializer.toString(
-                request,
-                "Ordering",
-                ordering,
-                ParameterType.QUERY
-            );
-        }
 
-        if (hasAddons != null) {
-            Serializer.toString(
-                request,
-                "HasAddons",
-                hasAddons,
-                ParameterType.QUERY
-            );
-        }
-
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
+    if (assignmentStatus != null) {
+        for (String param: assignmentStatus) {
+            Serializer.toString(request, "AssignmentStatus", param, ParameterType.QUERY);
         }
     }
+
+
+
+    if (workflowSid != null) {
+        Serializer.toString(request, "WorkflowSid", workflowSid, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (workflowName != null) {
+        Serializer.toString(request, "WorkflowName", workflowName, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (taskQueueSid != null) {
+        Serializer.toString(request, "TaskQueueSid", taskQueueSid, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (taskQueueName != null) {
+        Serializer.toString(request, "TaskQueueName", taskQueueName, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (evaluateTaskAttributes != null) {
+        Serializer.toString(request, "EvaluateTaskAttributes", evaluateTaskAttributes, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (routingTarget != null) {
+        Serializer.toString(request, "RoutingTarget", routingTarget, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (ordering != null) {
+        Serializer.toString(request, "Ordering", ordering, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (hasAddons != null) {
+        Serializer.toString(request, "HasAddons", hasAddons, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

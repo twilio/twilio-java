@@ -23,54 +23,47 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class DomainConfigFetcher extends Fetcher<DomainConfig> {
+    public class DomainConfigFetcher extends Fetcher<DomainConfig> {
 
-    private String pathDomainSid;
+            private String pathDomainSid;
 
-    public DomainConfigFetcher(final String pathDomainSid) {
+            public DomainConfigFetcher(final String pathDomainSid) {
         this.pathDomainSid = pathDomainSid;
     }
 
-    @Override
+        
+            @Override
     public DomainConfig fetch(final TwilioRestClient client) {
-        String path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
+    
+    String path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
 
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
+    path = path.replace("{"+"DomainSid"+"}", this.pathDomainSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.MESSAGING.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "DomainConfig fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("DomainConfig fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-        return DomainConfig.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return DomainConfig.fromJson(response.getStream(), client.getObjectMapper());
     }
-}
+    }

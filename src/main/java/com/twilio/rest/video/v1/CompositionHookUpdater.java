@@ -27,13 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.net.URI;
 import java.util.List;
+import com.twilio.type.*;
 
-public class CompositionHookUpdater extends Updater<CompositionHook> {
-
-    private String pathSid;
+    public class CompositionHookUpdater extends Updater<CompositionHook> {
+            private String pathSid;
     private String friendlyName;
     private Boolean enabled;
     private Object videoLayout;
@@ -45,96 +46,89 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
 
-    public CompositionHookUpdater(
-        final String pathSid,
-        final String friendlyName
-    ) {
+            public CompositionHookUpdater(final String pathSid, final String friendlyName) {
         this.pathSid = pathSid;
         this.friendlyName = friendlyName;
     }
 
-    public CompositionHookUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+        
+public CompositionHookUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public CompositionHookUpdater setEnabled(final Boolean enabled) {
-        this.enabled = enabled;
-        return this;
-    }
 
-    public CompositionHookUpdater setVideoLayout(final Object videoLayout) {
-        this.videoLayout = videoLayout;
-        return this;
-    }
+public CompositionHookUpdater setEnabled(final Boolean enabled){
+    this.enabled = enabled;
+    return this;
+}
 
-    public CompositionHookUpdater setAudioSources(
-        final List<String> audioSources
-    ) {
-        this.audioSources = audioSources;
-        return this;
-    }
 
-    public CompositionHookUpdater setAudioSources(final String audioSources) {
-        return setAudioSources(Promoter.listOfOne(audioSources));
-    }
+public CompositionHookUpdater setVideoLayout(final Object videoLayout){
+    this.videoLayout = videoLayout;
+    return this;
+}
 
-    public CompositionHookUpdater setAudioSourcesExcluded(
-        final List<String> audioSourcesExcluded
-    ) {
-        this.audioSourcesExcluded = audioSourcesExcluded;
-        return this;
-    }
 
-    public CompositionHookUpdater setAudioSourcesExcluded(
-        final String audioSourcesExcluded
-    ) {
-        return setAudioSourcesExcluded(
-            Promoter.listOfOne(audioSourcesExcluded)
-        );
-    }
+public CompositionHookUpdater setAudioSources(final List<String> audioSources){
+    this.audioSources = audioSources;
+    return this;
+}
 
-    public CompositionHookUpdater setTrim(final Boolean trim) {
-        this.trim = trim;
-        return this;
-    }
+public CompositionHookUpdater setAudioSources(final String audioSources){
+    return setAudioSources(Promoter.listOfOne(audioSources));
+}
 
-    public CompositionHookUpdater setFormat(
-        final CompositionHook.Format format
-    ) {
-        this.format = format;
-        return this;
-    }
+public CompositionHookUpdater setAudioSourcesExcluded(final List<String> audioSourcesExcluded){
+    this.audioSourcesExcluded = audioSourcesExcluded;
+    return this;
+}
 
-    public CompositionHookUpdater setResolution(final String resolution) {
-        this.resolution = resolution;
-        return this;
-    }
+public CompositionHookUpdater setAudioSourcesExcluded(final String audioSourcesExcluded){
+    return setAudioSourcesExcluded(Promoter.listOfOne(audioSourcesExcluded));
+}
 
-    public CompositionHookUpdater setStatusCallback(final URI statusCallback) {
-        this.statusCallback = statusCallback;
-        return this;
-    }
+public CompositionHookUpdater setTrim(final Boolean trim){
+    this.trim = trim;
+    return this;
+}
 
-    public CompositionHookUpdater setStatusCallback(
-        final String statusCallback
-    ) {
-        return setStatusCallback(Promoter.uriFromString(statusCallback));
-    }
 
-    public CompositionHookUpdater setStatusCallbackMethod(
-        final HttpMethod statusCallbackMethod
-    ) {
-        this.statusCallbackMethod = statusCallbackMethod;
-        return this;
-    }
+public CompositionHookUpdater setFormat(final CompositionHook.Format format){
+    this.format = format;
+    return this;
+}
 
-    @Override
+
+public CompositionHookUpdater setResolution(final String resolution){
+    this.resolution = resolution;
+    return this;
+}
+
+
+public CompositionHookUpdater setStatusCallback(final URI statusCallback){
+    this.statusCallback = statusCallback;
+    return this;
+}
+
+public CompositionHookUpdater setStatusCallback(final String statusCallback){
+    return setStatusCallback(Promoter.uriFromString(statusCallback));
+}
+
+public CompositionHookUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
+    this.statusCallbackMethod = statusCallbackMethod;
+    return this;
+}
+
+
+            @Override
     public CompositionHook update(final TwilioRestClient client) {
-        String path = "/v1/CompositionHooks/{Sid}";
+    
+    String path = "/v1/CompositionHooks/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
@@ -142,126 +136,88 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "CompositionHook update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("CompositionHook update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return CompositionHook.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return CompositionHook.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (enabled != null) {
-            Serializer.toString(
-                request,
-                "Enabled",
-                enabled,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (videoLayout != null) {
-            Serializer.toString(
-                request,
-                "VideoLayout",
-                videoLayout,
-                ParameterType.URLENCODED
-            );
-        }
+    if (enabled != null) {
+        Serializer.toString(request, "Enabled", enabled, ParameterType.URLENCODED);
+    }
 
-        if (audioSources != null) {
-            for (String param : audioSources) {
-                Serializer.toString(
-                    request,
-                    "AudioSources",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (audioSourcesExcluded != null) {
-            for (String param : audioSourcesExcluded) {
-                Serializer.toString(
-                    request,
-                    "AudioSourcesExcluded",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (trim != null) {
-            Serializer.toString(
-                request,
-                "Trim",
-                trim,
-                ParameterType.URLENCODED
-            );
-        }
+    if (videoLayout != null) {
+        Serializer.toString(request, "VideoLayout", videoLayout, ParameterType.URLENCODED);
+    }
 
-        if (format != null) {
-            Serializer.toString(
-                request,
-                "Format",
-                format,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (resolution != null) {
-            Serializer.toString(
-                request,
-                "Resolution",
-                resolution,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (statusCallback != null) {
-            Serializer.toString(
-                request,
-                "StatusCallback",
-                statusCallback,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (statusCallbackMethod != null) {
-            Serializer.toString(
-                request,
-                "StatusCallbackMethod",
-                statusCallbackMethod,
-                ParameterType.URLENCODED
-            );
+    if (audioSources != null) {
+        for (String param: audioSources) {
+            Serializer.toString(request, "AudioSources", param, ParameterType.URLENCODED);
         }
     }
+
+
+
+    if (audioSourcesExcluded != null) {
+        for (String param: audioSourcesExcluded) {
+            Serializer.toString(request, "AudioSourcesExcluded", param, ParameterType.URLENCODED);
+        }
+    }
+
+
+    if (trim != null) {
+        Serializer.toString(request, "Trim", trim, ParameterType.URLENCODED);
+    }
+
+
+
+    if (format != null) {
+        Serializer.toString(request, "Format", format, ParameterType.URLENCODED);
+    }
+
+
+
+    if (resolution != null) {
+        Serializer.toString(request, "Resolution", resolution, ParameterType.URLENCODED);
+    }
+
+
+
+    if (statusCallback != null) {
+        Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
+    }
+
+
+
+    if (statusCallbackMethod != null) {
+        Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

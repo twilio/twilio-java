@@ -17,60 +17,84 @@ package com.twilio.rest.flexapi.v1.plugin;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PluginVersions extends Resource {
 
-    public static PluginVersionsCreator creator(
-        final String pathPluginSid,
-        final String version,
-        final URI pluginUrl
-    ) {
-        return new PluginVersionsCreator(pathPluginSid, version, pluginUrl);
+
+
+    public static PluginVersionsCreator creator(final String pathPluginSid, final String version, final URI pluginUrl) {
+        return new PluginVersionsCreator(
+             pathPluginSid,  version,  pluginUrl
+        );
     }
 
-    public static PluginVersionsFetcher fetcher(
-        final String pathPluginSid,
-        final String pathSid
-    ) {
-        return new PluginVersionsFetcher(pathPluginSid, pathSid);
+
+
+
+
+
+    
+
+
+
+
+    public static PluginVersionsFetcher fetcher(final String pathPluginSid, final String pathSid) {
+        return new PluginVersionsFetcher(
+             pathPluginSid,  pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static PluginVersionsReader reader(final String pathPluginSid) {
-        return new PluginVersionsReader(pathPluginSid);
+        return new PluginVersionsReader(
+             pathPluginSid
+        );
     }
 
+
+    
+
+
+
     /**
-     * Converts a JSON String into a PluginVersions object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return PluginVersions object represented by the provided JSON
-     */
-    public static PluginVersions fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a PluginVersions object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return PluginVersions object represented by the provided JSON
+    */
+    public static PluginVersions fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PluginVersions.class);
@@ -82,17 +106,14 @@ public class PluginVersions extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a PluginVersions object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return PluginVersions object represented by the provided JSON
-     */
-    public static PluginVersions fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a PluginVersions object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return PluginVersions object represented by the provided JSON
+    */
+    public static PluginVersions fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PluginVersions.class);
@@ -114,109 +135,114 @@ public class PluginVersions extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final Boolean archived;
-
     @Getter
     private final String changelog;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final String pluginSid;
-
     @Getter
     private final URI pluginUrl;
-
     @Getter
     private final Boolean _private;
-
     @Getter
     private final String sid;
-
     @Getter
     private final URI url;
-
     @Getter
     private final Boolean validated;
-
     @Getter
     private final String version;
 
-    @JsonCreator
-    private PluginVersions(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("archived") final Boolean archived,
-        @JsonProperty("changelog") final String changelog,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("plugin_sid") final String pluginSid,
-        @JsonProperty("plugin_url") final URI pluginUrl,
-        @JsonProperty("private") final Boolean _private,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("validated") final Boolean validated,
-        @JsonProperty("version") final String version
-    ) {
-        this.accountSid = accountSid;
-        this.archived = archived;
-        this.changelog = changelog;
-        this.dateCreated = dateCreated;
-        this.pluginSid = pluginSid;
-        this.pluginUrl = pluginUrl;
-        this._private = _private;
-        this.sid = sid;
-        this.url = url;
-        this.validated = validated;
-        this.version = version;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        PluginVersions other = (PluginVersions) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(archived, other.archived) &&
-            Objects.equals(changelog, other.changelog) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(pluginSid, other.pluginSid) &&
-            Objects.equals(pluginUrl, other.pluginUrl) &&
-            Objects.equals(_private, other._private) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(validated, other.validated) &&
-            Objects.equals(version, other.version)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            archived,
-            changelog,
-            dateCreated,
-            pluginSid,
-            pluginUrl,
-            _private,
-            sid,
-            url,
-            validated,
-            version
-        );
-    }
+@JsonCreator
+private PluginVersions(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("archived")
+    final Boolean archived, 
+    @JsonProperty("changelog")
+    final String changelog, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("plugin_sid")
+    final String pluginSid, 
+    @JsonProperty("plugin_url")
+    final URI pluginUrl, 
+    @JsonProperty("private")
+    final Boolean _private, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("url")
+    final URI url, 
+    @JsonProperty("validated")
+    final Boolean validated, 
+    @JsonProperty("version")
+    final String version
+){
+    this.accountSid = accountSid;
+    this.archived = archived;
+    this.changelog = changelog;
+    this.dateCreated = dateCreated;
+    this.pluginSid = pluginSid;
+    this.pluginUrl = pluginUrl;
+    this._private = _private;
+    this.sid = sid;
+    this.url = url;
+    this.validated = validated;
+    this.version = version;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    PluginVersions other = (PluginVersions) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(archived, other.archived) && 
+            Objects.equals(changelog, other.changelog) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(pluginSid, other.pluginSid) && 
+            Objects.equals(pluginUrl, other.pluginUrl) && 
+            Objects.equals(_private, other._private) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(url, other.url) && 
+            Objects.equals(validated, other.validated) && 
+            Objects.equals(version, other.version)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            archived, 
+            changelog, 
+            dateCreated, 
+            pluginSid, 
+            pluginUrl, 
+            _private, 
+            sid, 
+            url, 
+            validated, 
+            version
+    );
+}
+
+
+
+}
+

@@ -23,51 +23,47 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class CountryFetcher extends Fetcher<Country> {
+    public class CountryFetcher extends Fetcher<Country> {
 
-    private String pathIsoCountry;
+            private String pathIsoCountry;
 
-    public CountryFetcher(final String pathIsoCountry) {
+            public CountryFetcher(final String pathIsoCountry) {
         this.pathIsoCountry = pathIsoCountry;
     }
 
-    @Override
+        
+            @Override
     public Country fetch(final TwilioRestClient client) {
-        String path = "/v1/PhoneNumbers/Countries/{IsoCountry}";
+    
+    String path = "/v1/PhoneNumbers/Countries/{IsoCountry}";
 
-        path =
-            path.replace(
-                "{" + "IsoCountry" + "}",
-                this.pathIsoCountry.toString()
-            );
+    path = path.replace("{"+"IsoCountry"+"}", this.pathIsoCountry.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.PRICING.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Country fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Country fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
         return Country.fromJson(response.getStream(), client.getObjectMapper());
     }
-}
+    }

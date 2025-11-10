@@ -23,54 +23,50 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class WorkerFetcher extends Fetcher<Worker> {
+    public class WorkerFetcher extends Fetcher<Worker> {
 
-    private String pathWorkspaceSid;
+            private String pathWorkspaceSid;
     private String pathSid;
 
-    public WorkerFetcher(final String pathWorkspaceSid, final String pathSid) {
+            public WorkerFetcher(final String pathWorkspaceSid, final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
     }
 
-    @Override
+        
+            @Override
     public Worker fetch(final TwilioRestClient client) {
-        String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}";
+    
+    String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Worker fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Worker fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
         return Worker.fromJson(response.getStream(), client.getObjectMapper());
     }
-}
+    }

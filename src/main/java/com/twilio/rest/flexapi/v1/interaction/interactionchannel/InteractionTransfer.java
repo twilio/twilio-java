@@ -17,118 +17,125 @@ package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InteractionTransfer extends Resource {
 
-    public static InteractionTransferCreator creator(
-        final String pathInteractionSid,
-        final String pathChannelSid
-    ) {
+
+
+    public static InteractionTransferCreator creator(final String pathInteractionSid, final String pathChannelSid) {
         return new InteractionTransferCreator(
-            pathInteractionSid,
-            pathChannelSid
+             pathInteractionSid,  pathChannelSid
         );
     }
 
-    public static InteractionTransferFetcher fetcher(
-        final String pathInteractionSid,
-        final String pathChannelSid,
-        final String pathSid
-    ) {
+
+
+
+
+
+    
+
+
+
+
+    public static InteractionTransferFetcher fetcher(final String pathInteractionSid, final String pathChannelSid, final String pathSid) {
         return new InteractionTransferFetcher(
-            pathInteractionSid,
-            pathChannelSid,
-            pathSid
+             pathInteractionSid,  pathChannelSid,  pathSid
         );
     }
 
-    public static InteractionTransferUpdater updater(
-        final String pathInteractionSid,
-        final String pathChannelSid,
-        final String pathSid
-    ) {
+
+
+    
+
+
+
+
+
+
+    public static InteractionTransferUpdater updater(final String pathInteractionSid, final String pathChannelSid, final String pathSid) {
         return new InteractionTransferUpdater(
-            pathInteractionSid,
-            pathChannelSid,
-            pathSid
+             pathInteractionSid,  pathChannelSid,  pathSid
         );
     }
 
-    public enum TransferStatus {
-        ACTIVE("active"),
-        FAILED("failed"),
-        COMPLETED("completed");
+    
 
-        private final String value;
+public enum TransferStatus {
+    ACTIVE("active"),
+    FAILED("failed"),
+    COMPLETED("completed");
 
-        private TransferStatus(final String value) {
-            this.value = value;
-        }
+    private final String value;
 
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TransferStatus forValue(final String value) {
-            return Promoter.enumFromString(value, TransferStatus.values());
-        }
+    private TransferStatus(final String value) {
+        this.value = value;
     }
 
-    public enum TransferType {
-        WARM("warm"),
-        COLD("cold"),
-        EXTERNAL("external");
-
-        private final String value;
-
-        private TransferType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TransferType forValue(final String value) {
-            return Promoter.enumFromString(value, TransferType.values());
-        }
+    public String toString() {
+        return value;
     }
+
+    @JsonCreator
+    public static TransferStatus forValue(final String value) {
+        return Promoter.enumFromString(value, TransferStatus.values());
+    }
+}
+public enum TransferType {
+    WARM("warm"),
+    COLD("cold"),
+    EXTERNAL("external");
+
+    private final String value;
+
+    private TransferType(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static TransferType forValue(final String value) {
+        return Promoter.enumFromString(value, TransferType.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a InteractionTransfer object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return InteractionTransfer object represented by the provided JSON
-     */
-    public static InteractionTransfer fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a InteractionTransfer object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return InteractionTransfer object represented by the provided JSON
+    */
+    public static InteractionTransfer fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InteractionTransfer.class);
@@ -140,17 +147,14 @@ public class InteractionTransfer extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a InteractionTransfer object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return InteractionTransfer object represented by the provided JSON
-     */
-    public static InteractionTransfer fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a InteractionTransfer object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return InteractionTransfer object represented by the provided JSON
+    */
+    public static InteractionTransfer fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InteractionTransfer.class);
@@ -172,139 +176,143 @@ public class InteractionTransfer extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String channelSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String executionSid;
-
     @Getter
     private final String from;
-
     @Getter
     private final String instanceSid;
-
     @Getter
     private final String interactionSid;
-
     @Getter
     private final String noteSid;
-
     @Getter
     private final String sid;
-
     @Getter
     private final InteractionTransfer.TransferStatus status;
-
     @Getter
     private final String summarySid;
-
     @Getter
     private final String to;
-
     @Getter
     private final InteractionTransfer.TransferType type;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private InteractionTransfer(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("channel_sid") final String channelSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("execution_sid") final String executionSid,
-        @JsonProperty("from") final String from,
-        @JsonProperty("instance_sid") final String instanceSid,
-        @JsonProperty("interaction_sid") final String interactionSid,
-        @JsonProperty("note_sid") final String noteSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("status") final InteractionTransfer.TransferStatus status,
-        @JsonProperty("summary_sid") final String summarySid,
-        @JsonProperty("to") final String to,
-        @JsonProperty("type") final InteractionTransfer.TransferType type,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.channelSid = channelSid;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.executionSid = executionSid;
-        this.from = from;
-        this.instanceSid = instanceSid;
-        this.interactionSid = interactionSid;
-        this.noteSid = noteSid;
-        this.sid = sid;
-        this.status = status;
-        this.summarySid = summarySid;
-        this.to = to;
-        this.type = type;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        InteractionTransfer other = (InteractionTransfer) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(channelSid, other.channelSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(executionSid, other.executionSid) &&
-            Objects.equals(from, other.from) &&
-            Objects.equals(instanceSid, other.instanceSid) &&
-            Objects.equals(interactionSid, other.interactionSid) &&
-            Objects.equals(noteSid, other.noteSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(summarySid, other.summarySid) &&
-            Objects.equals(to, other.to) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            channelSid,
-            dateCreated,
-            dateUpdated,
-            executionSid,
-            from,
-            instanceSid,
-            interactionSid,
-            noteSid,
-            sid,
-            status,
-            summarySid,
-            to,
-            type,
-            url
-        );
-    }
+@JsonCreator
+private InteractionTransfer(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("channel_sid")
+    final String channelSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("execution_sid")
+    final String executionSid, 
+    @JsonProperty("from")
+    final String from, 
+    @JsonProperty("instance_sid")
+    final String instanceSid, 
+    @JsonProperty("interaction_sid")
+    final String interactionSid, 
+    @JsonProperty("note_sid")
+    final String noteSid, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("status")
+    final InteractionTransfer.TransferStatus status, 
+    @JsonProperty("summary_sid")
+    final String summarySid, 
+    @JsonProperty("to")
+    final String to, 
+    @JsonProperty("type")
+    final InteractionTransfer.TransferType type, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.channelSid = channelSid;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.executionSid = executionSid;
+    this.from = from;
+    this.instanceSid = instanceSid;
+    this.interactionSid = interactionSid;
+    this.noteSid = noteSid;
+    this.sid = sid;
+    this.status = status;
+    this.summarySid = summarySid;
+    this.to = to;
+    this.type = type;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    InteractionTransfer other = (InteractionTransfer) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(channelSid, other.channelSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(executionSid, other.executionSid) && 
+            Objects.equals(from, other.from) && 
+            Objects.equals(instanceSid, other.instanceSid) && 
+            Objects.equals(interactionSid, other.interactionSid) && 
+            Objects.equals(noteSid, other.noteSid) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(status, other.status) && 
+            Objects.equals(summarySid, other.summarySid) && 
+            Objects.equals(to, other.to) && 
+            Objects.equals(type, other.type) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            channelSid, 
+            dateCreated, 
+            dateUpdated, 
+            executionSid, 
+            from, 
+            instanceSid, 
+            interactionSid, 
+            noteSid, 
+            sid, 
+            status, 
+            summarySid, 
+            to, 
+            type, 
+            url
+    );
+}
+
+
+
+}
+

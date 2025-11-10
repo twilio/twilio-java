@@ -14,7 +14,19 @@
 
 package com.twilio.rest.numbers.v3;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import com.twilio.auth_strategy.NoAuthStrategy;
 import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
+import com.twilio.base.Reader;
+import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -27,9 +39,41 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Currency;
 import java.util.List;
+import java.util.Map;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
 
@@ -51,145 +95,136 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     private HostedNumberOrder.VerificationType verificationType;
     private String verificationDocumentSid;
 
-    public HostedNumberOrderCreator(
-        final com.twilio.type.PhoneNumber phoneNumber,
-        final Boolean smsCapability
-    ) {
+    public HostedNumberOrderCreator(final com.twilio.type.PhoneNumber phoneNumber, final Boolean smsCapability) {
         this.phoneNumber = phoneNumber;
         this.smsCapability = smsCapability;
     }
 
-    public HostedNumberOrderCreator setPhoneNumber(
-        final com.twilio.type.PhoneNumber phoneNumber
-    ) {
-        this.phoneNumber = phoneNumber;
-        return this;
-    }
 
-    public HostedNumberOrderCreator setPhoneNumber(final String phoneNumber) {
-        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
-    }
+public HostedNumberOrderCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber){
+    this.phoneNumber = phoneNumber;
+    return this;
+}
 
-    public HostedNumberOrderCreator setSmsCapability(
-        final Boolean smsCapability
-    ) {
-        this.smsCapability = smsCapability;
-        return this;
-    }
+public HostedNumberOrderCreator setPhoneNumber(final String phoneNumber){
+    return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
+}
 
-    public HostedNumberOrderCreator setAccountSid(final String accountSid) {
-        this.accountSid = accountSid;
-        return this;
-    }
+public HostedNumberOrderCreator setSmsCapability(final Boolean smsCapability){
+    this.smsCapability = smsCapability;
+    return this;
+}
 
-    public HostedNumberOrderCreator setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
 
-    public HostedNumberOrderCreator setUniqueName(final String uniqueName) {
-        this.uniqueName = uniqueName;
-        return this;
-    }
+public HostedNumberOrderCreator setAccountSid(final String accountSid){
+    this.accountSid = accountSid;
+    return this;
+}
 
-    public HostedNumberOrderCreator setCcEmails(final List<String> ccEmails) {
-        this.ccEmails = ccEmails;
-        return this;
-    }
 
-    public HostedNumberOrderCreator setCcEmails(final String ccEmails) {
-        return setCcEmails(Promoter.listOfOne(ccEmails));
-    }
+public HostedNumberOrderCreator setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public HostedNumberOrderCreator setSmsUrl(final URI smsUrl) {
-        this.smsUrl = smsUrl;
-        return this;
-    }
 
-    public HostedNumberOrderCreator setSmsUrl(final String smsUrl) {
-        return setSmsUrl(Promoter.uriFromString(smsUrl));
-    }
+public HostedNumberOrderCreator setUniqueName(final String uniqueName){
+    this.uniqueName = uniqueName;
+    return this;
+}
 
-    public HostedNumberOrderCreator setSmsMethod(final HttpMethod smsMethod) {
-        this.smsMethod = smsMethod;
-        return this;
-    }
 
-    public HostedNumberOrderCreator setSmsFallbackUrl(
-        final URI smsFallbackUrl
-    ) {
-        this.smsFallbackUrl = smsFallbackUrl;
-        return this;
-    }
+public HostedNumberOrderCreator setCcEmails(final List<String> ccEmails){
+    this.ccEmails = ccEmails;
+    return this;
+}
 
-    public HostedNumberOrderCreator setSmsFallbackUrl(
-        final String smsFallbackUrl
-    ) {
-        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
-    }
+public HostedNumberOrderCreator setCcEmails(final String ccEmails){
+    return setCcEmails(Promoter.listOfOne(ccEmails));
+}
 
-    public HostedNumberOrderCreator setSmsFallbackMethod(
-        final HttpMethod smsFallbackMethod
-    ) {
-        this.smsFallbackMethod = smsFallbackMethod;
-        return this;
-    }
+public HostedNumberOrderCreator setSmsUrl(final URI smsUrl){
+    this.smsUrl = smsUrl;
+    return this;
+}
 
-    public HostedNumberOrderCreator setStatusCallbackUrl(
-        final URI statusCallbackUrl
-    ) {
-        this.statusCallbackUrl = statusCallbackUrl;
-        return this;
-    }
+public HostedNumberOrderCreator setSmsUrl(final String smsUrl){
+    return setSmsUrl(Promoter.uriFromString(smsUrl));
+}
 
-    public HostedNumberOrderCreator setStatusCallbackUrl(
-        final String statusCallbackUrl
-    ) {
-        return setStatusCallbackUrl(Promoter.uriFromString(statusCallbackUrl));
-    }
+public HostedNumberOrderCreator setSmsMethod(final HttpMethod smsMethod){
+    this.smsMethod = smsMethod;
+    return this;
+}
 
-    public HostedNumberOrderCreator setStatusCallbackMethod(
-        final HttpMethod statusCallbackMethod
-    ) {
-        this.statusCallbackMethod = statusCallbackMethod;
-        return this;
-    }
 
-    public HostedNumberOrderCreator setSmsApplicationSid(
-        final String smsApplicationSid
-    ) {
-        this.smsApplicationSid = smsApplicationSid;
-        return this;
-    }
+public HostedNumberOrderCreator setSmsFallbackUrl(final URI smsFallbackUrl){
+    this.smsFallbackUrl = smsFallbackUrl;
+    return this;
+}
 
-    public HostedNumberOrderCreator setAddressSid(final String addressSid) {
-        this.addressSid = addressSid;
-        return this;
-    }
+public HostedNumberOrderCreator setSmsFallbackUrl(final String smsFallbackUrl){
+    return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
+}
 
-    public HostedNumberOrderCreator setEmail(final String email) {
-        this.email = email;
-        return this;
-    }
+public HostedNumberOrderCreator setSmsFallbackMethod(final HttpMethod smsFallbackMethod){
+    this.smsFallbackMethod = smsFallbackMethod;
+    return this;
+}
 
-    public HostedNumberOrderCreator setVerificationType(
-        final HostedNumberOrder.VerificationType verificationType
-    ) {
-        this.verificationType = verificationType;
-        return this;
-    }
 
-    public HostedNumberOrderCreator setVerificationDocumentSid(
-        final String verificationDocumentSid
-    ) {
-        this.verificationDocumentSid = verificationDocumentSid;
-        return this;
-    }
+public HostedNumberOrderCreator setStatusCallbackUrl(final URI statusCallbackUrl){
+    this.statusCallbackUrl = statusCallbackUrl;
+    return this;
+}
+
+public HostedNumberOrderCreator setStatusCallbackUrl(final String statusCallbackUrl){
+    return setStatusCallbackUrl(Promoter.uriFromString(statusCallbackUrl));
+}
+
+public HostedNumberOrderCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
+    this.statusCallbackMethod = statusCallbackMethod;
+    return this;
+}
+
+
+public HostedNumberOrderCreator setSmsApplicationSid(final String smsApplicationSid){
+    this.smsApplicationSid = smsApplicationSid;
+    return this;
+}
+
+
+public HostedNumberOrderCreator setAddressSid(final String addressSid){
+    this.addressSid = addressSid;
+    return this;
+}
+
+
+public HostedNumberOrderCreator setEmail(final String email){
+    this.email = email;
+    return this;
+}
+
+
+public HostedNumberOrderCreator setVerificationType(final HostedNumberOrder.VerificationType verificationType){
+    this.verificationType = verificationType;
+    return this;
+}
+
+
+public HostedNumberOrderCreator setVerificationDocumentSid(final String verificationDocumentSid){
+    this.verificationDocumentSid = verificationDocumentSid;
+    return this;
+}
+
 
     @Override
     public HostedNumberOrder create(final TwilioRestClient client) {
-        String path = "/v3/HostedNumbers/HostedNumberOrders";
+    
+    String path = "/v3/HostedNumbers/HostedNumberOrders";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
@@ -197,187 +232,128 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "HostedNumberOrder creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("HostedNumberOrder creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return HostedNumberOrder.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return HostedNumberOrder.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (phoneNumber != null) {
-            Serializer.toString(
-                request,
-                "phoneNumber",
-                phoneNumber,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (smsCapability != null) {
-            Serializer.toString(
-                request,
-                "smsCapability",
-                smsCapability,
-                ParameterType.URLENCODED
-            );
-        }
+    if (phoneNumber != null) {
+        Serializer.toString(request, "phoneNumber", phoneNumber, ParameterType.URLENCODED);
+    }
 
-        if (accountSid != null) {
-            Serializer.toString(
-                request,
-                "accountSid",
-                accountSid,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "friendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (uniqueName != null) {
-            Serializer.toString(
-                request,
-                "uniqueName",
-                uniqueName,
-                ParameterType.URLENCODED
-            );
-        }
+    if (smsCapability != null) {
+        Serializer.toString(request, "smsCapability", smsCapability, ParameterType.URLENCODED);
+    }
 
-        if (ccEmails != null) {
-            for (String param : ccEmails) {
-                Serializer.toString(
-                    request,
-                    "ccEmails",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (smsUrl != null) {
-            Serializer.toString(
-                request,
-                "smsUrl",
-                smsUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (smsMethod != null) {
-            Serializer.toString(
-                request,
-                "smsMethod",
-                smsMethod,
-                ParameterType.URLENCODED
-            );
-        }
+    if (accountSid != null) {
+        Serializer.toString(request, "accountSid", accountSid, ParameterType.URLENCODED);
+    }
 
-        if (smsFallbackUrl != null) {
-            Serializer.toString(
-                request,
-                "smsFallbackUrl",
-                smsFallbackUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (smsFallbackMethod != null) {
-            Serializer.toString(
-                request,
-                "smsFallbackMethod",
-                smsFallbackMethod,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (statusCallbackUrl != null) {
-            Serializer.toString(
-                request,
-                "statusCallbackUrl",
-                statusCallbackUrl,
-                ParameterType.URLENCODED
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "friendlyName", friendlyName, ParameterType.URLENCODED);
+    }
 
-        if (statusCallbackMethod != null) {
-            Serializer.toString(
-                request,
-                "statusCallbackMethod",
-                statusCallbackMethod,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (smsApplicationSid != null) {
-            Serializer.toString(
-                request,
-                "smsApplicationSid",
-                smsApplicationSid,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (addressSid != null) {
-            Serializer.toString(
-                request,
-                "addressSid",
-                addressSid,
-                ParameterType.URLENCODED
-            );
-        }
+    if (uniqueName != null) {
+        Serializer.toString(request, "uniqueName", uniqueName, ParameterType.URLENCODED);
+    }
 
-        if (email != null) {
-            Serializer.toString(
-                request,
-                "email",
-                email,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (verificationType != null) {
-            Serializer.toString(
-                request,
-                "verificationType",
-                verificationType,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (verificationDocumentSid != null) {
-            Serializer.toString(
-                request,
-                "verificationDocumentSid",
-                verificationDocumentSid,
-                ParameterType.URLENCODED
-            );
+
+    if (ccEmails != null) {
+        for (String param: ccEmails) {
+            Serializer.toString(request, "ccEmails", param, ParameterType.URLENCODED);
         }
     }
+
+
+    if (smsUrl != null) {
+        Serializer.toString(request, "smsUrl", smsUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (smsMethod != null) {
+        Serializer.toString(request, "smsMethod", smsMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (smsFallbackUrl != null) {
+        Serializer.toString(request, "smsFallbackUrl", smsFallbackUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (smsFallbackMethod != null) {
+        Serializer.toString(request, "smsFallbackMethod", smsFallbackMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (statusCallbackUrl != null) {
+        Serializer.toString(request, "statusCallbackUrl", statusCallbackUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (statusCallbackMethod != null) {
+        Serializer.toString(request, "statusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (smsApplicationSid != null) {
+        Serializer.toString(request, "smsApplicationSid", smsApplicationSid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (addressSid != null) {
+        Serializer.toString(request, "addressSid", addressSid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (email != null) {
+        Serializer.toString(request, "email", email, ParameterType.URLENCODED);
+    }
+
+
+
+    if (verificationType != null) {
+        Serializer.toString(request, "verificationType", verificationType, ParameterType.URLENCODED);
+    }
+
+
+
+    if (verificationDocumentSid != null) {
+        Serializer.toString(request, "verificationDocumentSid", verificationDocumentSid, ParameterType.URLENCODED);
+    }
+
+
+}
 }

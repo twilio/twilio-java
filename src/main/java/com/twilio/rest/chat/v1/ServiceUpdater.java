@@ -13,7 +13,18 @@
  */
 
 package com.twilio.rest.chat.v1;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
+import com.twilio.base.Reader;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,13 +38,44 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Currency;
 import java.util.List;
+import java.util.Map;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
-public class ServiceUpdater extends Updater<Service> {
-
-    private String pathSid;
+    public class ServiceUpdater extends Updater<Service> {
+            private String pathSid;
     private String friendlyName;
     private String defaultServiceRoleSid;
     private String defaultChannelRoleSid;
@@ -89,531 +131,400 @@ public class ServiceUpdater extends Updater<Service> {
     private Integer limitsChannelMembers;
     private Integer limitsUserChannels;
 
-    public ServiceUpdater(final String pathSid) {
+            public ServiceUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public ServiceUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
-
-    public ServiceUpdater setDefaultServiceRoleSid(
-        final String defaultServiceRoleSid
-    ) {
-        this.defaultServiceRoleSid = defaultServiceRoleSid;
-        return this;
-    }
-
-    public ServiceUpdater setDefaultChannelRoleSid(
-        final String defaultChannelRoleSid
-    ) {
-        this.defaultChannelRoleSid = defaultChannelRoleSid;
-        return this;
-    }
-
-    public ServiceUpdater setDefaultChannelCreatorRoleSid(
-        final String defaultChannelCreatorRoleSid
-    ) {
-        this.defaultChannelCreatorRoleSid = defaultChannelCreatorRoleSid;
-        return this;
-    }
-
-    public ServiceUpdater setReadStatusEnabled(
-        final Boolean readStatusEnabled
-    ) {
-        this.readStatusEnabled = readStatusEnabled;
-        return this;
-    }
-
-    public ServiceUpdater setReachabilityEnabled(
-        final Boolean reachabilityEnabled
-    ) {
-        this.reachabilityEnabled = reachabilityEnabled;
-        return this;
-    }
-
-    public ServiceUpdater setTypingIndicatorTimeout(
-        final Integer typingIndicatorTimeout
-    ) {
-        this.typingIndicatorTimeout = typingIndicatorTimeout;
-        return this;
-    }
-
-    public ServiceUpdater setConsumptionReportInterval(
-        final Integer consumptionReportInterval
-    ) {
-        this.consumptionReportInterval = consumptionReportInterval;
-        return this;
-    }
-
-    public ServiceUpdater setNotificationsNewMessageEnabled(
-        final Boolean notificationsNewMessageEnabled
-    ) {
-        this.notificationsNewMessageEnabled = notificationsNewMessageEnabled;
-        return this;
-    }
-
-    public ServiceUpdater setNotificationsNewMessageTemplate(
-        final String notificationsNewMessageTemplate
-    ) {
-        this.notificationsNewMessageTemplate = notificationsNewMessageTemplate;
-        return this;
-    }
-
-    public ServiceUpdater setNotificationsAddedToChannelEnabled(
-        final Boolean notificationsAddedToChannelEnabled
-    ) {
-        this.notificationsAddedToChannelEnabled =
-            notificationsAddedToChannelEnabled;
-        return this;
-    }
-
-    public ServiceUpdater setNotificationsAddedToChannelTemplate(
-        final String notificationsAddedToChannelTemplate
-    ) {
-        this.notificationsAddedToChannelTemplate =
-            notificationsAddedToChannelTemplate;
-        return this;
-    }
-
-    public ServiceUpdater setNotificationsRemovedFromChannelEnabled(
-        final Boolean notificationsRemovedFromChannelEnabled
-    ) {
-        this.notificationsRemovedFromChannelEnabled =
-            notificationsRemovedFromChannelEnabled;
-        return this;
-    }
-
-    public ServiceUpdater setNotificationsRemovedFromChannelTemplate(
-        final String notificationsRemovedFromChannelTemplate
-    ) {
-        this.notificationsRemovedFromChannelTemplate =
-            notificationsRemovedFromChannelTemplate;
-        return this;
-    }
-
-    public ServiceUpdater setNotificationsInvitedToChannelEnabled(
-        final Boolean notificationsInvitedToChannelEnabled
-    ) {
-        this.notificationsInvitedToChannelEnabled =
-            notificationsInvitedToChannelEnabled;
-        return this;
-    }
-
-    public ServiceUpdater setNotificationsInvitedToChannelTemplate(
-        final String notificationsInvitedToChannelTemplate
-    ) {
-        this.notificationsInvitedToChannelTemplate =
-            notificationsInvitedToChannelTemplate;
-        return this;
-    }
-
-    public ServiceUpdater setPreWebhookUrl(final URI preWebhookUrl) {
-        this.preWebhookUrl = preWebhookUrl;
-        return this;
-    }
-
-    public ServiceUpdater setPreWebhookUrl(final String preWebhookUrl) {
-        return setPreWebhookUrl(Promoter.uriFromString(preWebhookUrl));
-    }
-
-    public ServiceUpdater setPostWebhookUrl(final URI postWebhookUrl) {
-        this.postWebhookUrl = postWebhookUrl;
-        return this;
-    }
-
-    public ServiceUpdater setPostWebhookUrl(final String postWebhookUrl) {
-        return setPostWebhookUrl(Promoter.uriFromString(postWebhookUrl));
-    }
-
-    public ServiceUpdater setWebhookMethod(final HttpMethod webhookMethod) {
-        this.webhookMethod = webhookMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhookFilters(final List<String> webhookFilters) {
-        this.webhookFilters = webhookFilters;
-        return this;
-    }
-
-    public ServiceUpdater setWebhookFilters(final String webhookFilters) {
-        return setWebhookFilters(Promoter.listOfOne(webhookFilters));
-    }
-
-    public ServiceUpdater setWebhooksOnMessageSendUrl(
-        final URI webhooksOnMessageSendUrl
-    ) {
-        this.webhooksOnMessageSendUrl = webhooksOnMessageSendUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMessageSendUrl(
-        final String webhooksOnMessageSendUrl
-    ) {
-        return setWebhooksOnMessageSendUrl(
-            Promoter.uriFromString(webhooksOnMessageSendUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnMessageSendMethod(
-        final HttpMethod webhooksOnMessageSendMethod
-    ) {
-        this.webhooksOnMessageSendMethod = webhooksOnMessageSendMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMessageUpdateUrl(
-        final URI webhooksOnMessageUpdateUrl
-    ) {
-        this.webhooksOnMessageUpdateUrl = webhooksOnMessageUpdateUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMessageUpdateUrl(
-        final String webhooksOnMessageUpdateUrl
-    ) {
-        return setWebhooksOnMessageUpdateUrl(
-            Promoter.uriFromString(webhooksOnMessageUpdateUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnMessageUpdateMethod(
-        final HttpMethod webhooksOnMessageUpdateMethod
-    ) {
-        this.webhooksOnMessageUpdateMethod = webhooksOnMessageUpdateMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMessageRemoveUrl(
-        final URI webhooksOnMessageRemoveUrl
-    ) {
-        this.webhooksOnMessageRemoveUrl = webhooksOnMessageRemoveUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMessageRemoveUrl(
-        final String webhooksOnMessageRemoveUrl
-    ) {
-        return setWebhooksOnMessageRemoveUrl(
-            Promoter.uriFromString(webhooksOnMessageRemoveUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnMessageRemoveMethod(
-        final HttpMethod webhooksOnMessageRemoveMethod
-    ) {
-        this.webhooksOnMessageRemoveMethod = webhooksOnMessageRemoveMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnChannelAddUrl(
-        final URI webhooksOnChannelAddUrl
-    ) {
-        this.webhooksOnChannelAddUrl = webhooksOnChannelAddUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnChannelAddUrl(
-        final String webhooksOnChannelAddUrl
-    ) {
-        return setWebhooksOnChannelAddUrl(
-            Promoter.uriFromString(webhooksOnChannelAddUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnChannelAddMethod(
-        final HttpMethod webhooksOnChannelAddMethod
-    ) {
-        this.webhooksOnChannelAddMethod = webhooksOnChannelAddMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnChannelDestroyUrl(
-        final URI webhooksOnChannelDestroyUrl
-    ) {
-        this.webhooksOnChannelDestroyUrl = webhooksOnChannelDestroyUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnChannelDestroyUrl(
-        final String webhooksOnChannelDestroyUrl
-    ) {
-        return setWebhooksOnChannelDestroyUrl(
-            Promoter.uriFromString(webhooksOnChannelDestroyUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnChannelDestroyMethod(
-        final HttpMethod webhooksOnChannelDestroyMethod
-    ) {
-        this.webhooksOnChannelDestroyMethod = webhooksOnChannelDestroyMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnChannelUpdateUrl(
-        final URI webhooksOnChannelUpdateUrl
-    ) {
-        this.webhooksOnChannelUpdateUrl = webhooksOnChannelUpdateUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnChannelUpdateUrl(
-        final String webhooksOnChannelUpdateUrl
-    ) {
-        return setWebhooksOnChannelUpdateUrl(
-            Promoter.uriFromString(webhooksOnChannelUpdateUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnChannelUpdateMethod(
-        final HttpMethod webhooksOnChannelUpdateMethod
-    ) {
-        this.webhooksOnChannelUpdateMethod = webhooksOnChannelUpdateMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMemberAddUrl(
-        final URI webhooksOnMemberAddUrl
-    ) {
-        this.webhooksOnMemberAddUrl = webhooksOnMemberAddUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMemberAddUrl(
-        final String webhooksOnMemberAddUrl
-    ) {
-        return setWebhooksOnMemberAddUrl(
-            Promoter.uriFromString(webhooksOnMemberAddUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnMemberAddMethod(
-        final HttpMethod webhooksOnMemberAddMethod
-    ) {
-        this.webhooksOnMemberAddMethod = webhooksOnMemberAddMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMemberRemoveUrl(
-        final URI webhooksOnMemberRemoveUrl
-    ) {
-        this.webhooksOnMemberRemoveUrl = webhooksOnMemberRemoveUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMemberRemoveUrl(
-        final String webhooksOnMemberRemoveUrl
-    ) {
-        return setWebhooksOnMemberRemoveUrl(
-            Promoter.uriFromString(webhooksOnMemberRemoveUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnMemberRemoveMethod(
-        final HttpMethod webhooksOnMemberRemoveMethod
-    ) {
-        this.webhooksOnMemberRemoveMethod = webhooksOnMemberRemoveMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMessageSentUrl(
-        final URI webhooksOnMessageSentUrl
-    ) {
-        this.webhooksOnMessageSentUrl = webhooksOnMessageSentUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMessageSentUrl(
-        final String webhooksOnMessageSentUrl
-    ) {
-        return setWebhooksOnMessageSentUrl(
-            Promoter.uriFromString(webhooksOnMessageSentUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnMessageSentMethod(
-        final HttpMethod webhooksOnMessageSentMethod
-    ) {
-        this.webhooksOnMessageSentMethod = webhooksOnMessageSentMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMessageUpdatedUrl(
-        final URI webhooksOnMessageUpdatedUrl
-    ) {
-        this.webhooksOnMessageUpdatedUrl = webhooksOnMessageUpdatedUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMessageUpdatedUrl(
-        final String webhooksOnMessageUpdatedUrl
-    ) {
-        return setWebhooksOnMessageUpdatedUrl(
-            Promoter.uriFromString(webhooksOnMessageUpdatedUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnMessageUpdatedMethod(
-        final HttpMethod webhooksOnMessageUpdatedMethod
-    ) {
-        this.webhooksOnMessageUpdatedMethod = webhooksOnMessageUpdatedMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMessageRemovedUrl(
-        final URI webhooksOnMessageRemovedUrl
-    ) {
-        this.webhooksOnMessageRemovedUrl = webhooksOnMessageRemovedUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMessageRemovedUrl(
-        final String webhooksOnMessageRemovedUrl
-    ) {
-        return setWebhooksOnMessageRemovedUrl(
-            Promoter.uriFromString(webhooksOnMessageRemovedUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnMessageRemovedMethod(
-        final HttpMethod webhooksOnMessageRemovedMethod
-    ) {
-        this.webhooksOnMessageRemovedMethod = webhooksOnMessageRemovedMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnChannelAddedUrl(
-        final URI webhooksOnChannelAddedUrl
-    ) {
-        this.webhooksOnChannelAddedUrl = webhooksOnChannelAddedUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnChannelAddedUrl(
-        final String webhooksOnChannelAddedUrl
-    ) {
-        return setWebhooksOnChannelAddedUrl(
-            Promoter.uriFromString(webhooksOnChannelAddedUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnChannelAddedMethod(
-        final HttpMethod webhooksOnChannelAddedMethod
-    ) {
-        this.webhooksOnChannelAddedMethod = webhooksOnChannelAddedMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnChannelDestroyedUrl(
-        final URI webhooksOnChannelDestroyedUrl
-    ) {
-        this.webhooksOnChannelDestroyedUrl = webhooksOnChannelDestroyedUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnChannelDestroyedUrl(
-        final String webhooksOnChannelDestroyedUrl
-    ) {
-        return setWebhooksOnChannelDestroyedUrl(
-            Promoter.uriFromString(webhooksOnChannelDestroyedUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnChannelDestroyedMethod(
-        final HttpMethod webhooksOnChannelDestroyedMethod
-    ) {
-        this.webhooksOnChannelDestroyedMethod =
-            webhooksOnChannelDestroyedMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnChannelUpdatedUrl(
-        final URI webhooksOnChannelUpdatedUrl
-    ) {
-        this.webhooksOnChannelUpdatedUrl = webhooksOnChannelUpdatedUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnChannelUpdatedUrl(
-        final String webhooksOnChannelUpdatedUrl
-    ) {
-        return setWebhooksOnChannelUpdatedUrl(
-            Promoter.uriFromString(webhooksOnChannelUpdatedUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnChannelUpdatedMethod(
-        final HttpMethod webhooksOnChannelUpdatedMethod
-    ) {
-        this.webhooksOnChannelUpdatedMethod = webhooksOnChannelUpdatedMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMemberAddedUrl(
-        final URI webhooksOnMemberAddedUrl
-    ) {
-        this.webhooksOnMemberAddedUrl = webhooksOnMemberAddedUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMemberAddedUrl(
-        final String webhooksOnMemberAddedUrl
-    ) {
-        return setWebhooksOnMemberAddedUrl(
-            Promoter.uriFromString(webhooksOnMemberAddedUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnMemberAddedMethod(
-        final HttpMethod webhooksOnMemberAddedMethod
-    ) {
-        this.webhooksOnMemberAddedMethod = webhooksOnMemberAddedMethod;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMemberRemovedUrl(
-        final URI webhooksOnMemberRemovedUrl
-    ) {
-        this.webhooksOnMemberRemovedUrl = webhooksOnMemberRemovedUrl;
-        return this;
-    }
-
-    public ServiceUpdater setWebhooksOnMemberRemovedUrl(
-        final String webhooksOnMemberRemovedUrl
-    ) {
-        return setWebhooksOnMemberRemovedUrl(
-            Promoter.uriFromString(webhooksOnMemberRemovedUrl)
-        );
-    }
-
-    public ServiceUpdater setWebhooksOnMemberRemovedMethod(
-        final HttpMethod webhooksOnMemberRemovedMethod
-    ) {
-        this.webhooksOnMemberRemovedMethod = webhooksOnMemberRemovedMethod;
-        return this;
-    }
-
-    public ServiceUpdater setLimitsChannelMembers(
-        final Integer limitsChannelMembers
-    ) {
-        this.limitsChannelMembers = limitsChannelMembers;
-        return this;
-    }
-
-    public ServiceUpdater setLimitsUserChannels(
-        final Integer limitsUserChannels
-    ) {
-        this.limitsUserChannels = limitsUserChannels;
-        return this;
-    }
-
-    @Override
+        
+public ServiceUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
+
+
+public ServiceUpdater setDefaultServiceRoleSid(final String defaultServiceRoleSid){
+    this.defaultServiceRoleSid = defaultServiceRoleSid;
+    return this;
+}
+
+
+public ServiceUpdater setDefaultChannelRoleSid(final String defaultChannelRoleSid){
+    this.defaultChannelRoleSid = defaultChannelRoleSid;
+    return this;
+}
+
+
+public ServiceUpdater setDefaultChannelCreatorRoleSid(final String defaultChannelCreatorRoleSid){
+    this.defaultChannelCreatorRoleSid = defaultChannelCreatorRoleSid;
+    return this;
+}
+
+
+public ServiceUpdater setReadStatusEnabled(final Boolean readStatusEnabled){
+    this.readStatusEnabled = readStatusEnabled;
+    return this;
+}
+
+
+public ServiceUpdater setReachabilityEnabled(final Boolean reachabilityEnabled){
+    this.reachabilityEnabled = reachabilityEnabled;
+    return this;
+}
+
+
+public ServiceUpdater setTypingIndicatorTimeout(final Integer typingIndicatorTimeout){
+    this.typingIndicatorTimeout = typingIndicatorTimeout;
+    return this;
+}
+
+
+public ServiceUpdater setConsumptionReportInterval(final Integer consumptionReportInterval){
+    this.consumptionReportInterval = consumptionReportInterval;
+    return this;
+}
+
+
+public ServiceUpdater setNotificationsNewMessageEnabled(final Boolean notificationsNewMessageEnabled){
+    this.notificationsNewMessageEnabled = notificationsNewMessageEnabled;
+    return this;
+}
+
+
+public ServiceUpdater setNotificationsNewMessageTemplate(final String notificationsNewMessageTemplate){
+    this.notificationsNewMessageTemplate = notificationsNewMessageTemplate;
+    return this;
+}
+
+
+public ServiceUpdater setNotificationsAddedToChannelEnabled(final Boolean notificationsAddedToChannelEnabled){
+    this.notificationsAddedToChannelEnabled = notificationsAddedToChannelEnabled;
+    return this;
+}
+
+
+public ServiceUpdater setNotificationsAddedToChannelTemplate(final String notificationsAddedToChannelTemplate){
+    this.notificationsAddedToChannelTemplate = notificationsAddedToChannelTemplate;
+    return this;
+}
+
+
+public ServiceUpdater setNotificationsRemovedFromChannelEnabled(final Boolean notificationsRemovedFromChannelEnabled){
+    this.notificationsRemovedFromChannelEnabled = notificationsRemovedFromChannelEnabled;
+    return this;
+}
+
+
+public ServiceUpdater setNotificationsRemovedFromChannelTemplate(final String notificationsRemovedFromChannelTemplate){
+    this.notificationsRemovedFromChannelTemplate = notificationsRemovedFromChannelTemplate;
+    return this;
+}
+
+
+public ServiceUpdater setNotificationsInvitedToChannelEnabled(final Boolean notificationsInvitedToChannelEnabled){
+    this.notificationsInvitedToChannelEnabled = notificationsInvitedToChannelEnabled;
+    return this;
+}
+
+
+public ServiceUpdater setNotificationsInvitedToChannelTemplate(final String notificationsInvitedToChannelTemplate){
+    this.notificationsInvitedToChannelTemplate = notificationsInvitedToChannelTemplate;
+    return this;
+}
+
+
+public ServiceUpdater setPreWebhookUrl(final URI preWebhookUrl){
+    this.preWebhookUrl = preWebhookUrl;
+    return this;
+}
+
+public ServiceUpdater setPreWebhookUrl(final String preWebhookUrl){
+    return setPreWebhookUrl(Promoter.uriFromString(preWebhookUrl));
+}
+
+public ServiceUpdater setPostWebhookUrl(final URI postWebhookUrl){
+    this.postWebhookUrl = postWebhookUrl;
+    return this;
+}
+
+public ServiceUpdater setPostWebhookUrl(final String postWebhookUrl){
+    return setPostWebhookUrl(Promoter.uriFromString(postWebhookUrl));
+}
+
+public ServiceUpdater setWebhookMethod(final HttpMethod webhookMethod){
+    this.webhookMethod = webhookMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhookFilters(final List<String> webhookFilters){
+    this.webhookFilters = webhookFilters;
+    return this;
+}
+
+public ServiceUpdater setWebhookFilters(final String webhookFilters){
+    return setWebhookFilters(Promoter.listOfOne(webhookFilters));
+}
+
+public ServiceUpdater setWebhooksOnMessageSendUrl(final URI webhooksOnMessageSendUrl){
+    this.webhooksOnMessageSendUrl = webhooksOnMessageSendUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnMessageSendUrl(final String webhooksOnMessageSendUrl){
+    return setWebhooksOnMessageSendUrl(Promoter.uriFromString(webhooksOnMessageSendUrl));
+}
+
+public ServiceUpdater setWebhooksOnMessageSendMethod(final HttpMethod webhooksOnMessageSendMethod){
+    this.webhooksOnMessageSendMethod = webhooksOnMessageSendMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhooksOnMessageUpdateUrl(final URI webhooksOnMessageUpdateUrl){
+    this.webhooksOnMessageUpdateUrl = webhooksOnMessageUpdateUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnMessageUpdateUrl(final String webhooksOnMessageUpdateUrl){
+    return setWebhooksOnMessageUpdateUrl(Promoter.uriFromString(webhooksOnMessageUpdateUrl));
+}
+
+public ServiceUpdater setWebhooksOnMessageUpdateMethod(final HttpMethod webhooksOnMessageUpdateMethod){
+    this.webhooksOnMessageUpdateMethod = webhooksOnMessageUpdateMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhooksOnMessageRemoveUrl(final URI webhooksOnMessageRemoveUrl){
+    this.webhooksOnMessageRemoveUrl = webhooksOnMessageRemoveUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnMessageRemoveUrl(final String webhooksOnMessageRemoveUrl){
+    return setWebhooksOnMessageRemoveUrl(Promoter.uriFromString(webhooksOnMessageRemoveUrl));
+}
+
+public ServiceUpdater setWebhooksOnMessageRemoveMethod(final HttpMethod webhooksOnMessageRemoveMethod){
+    this.webhooksOnMessageRemoveMethod = webhooksOnMessageRemoveMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhooksOnChannelAddUrl(final URI webhooksOnChannelAddUrl){
+    this.webhooksOnChannelAddUrl = webhooksOnChannelAddUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnChannelAddUrl(final String webhooksOnChannelAddUrl){
+    return setWebhooksOnChannelAddUrl(Promoter.uriFromString(webhooksOnChannelAddUrl));
+}
+
+public ServiceUpdater setWebhooksOnChannelAddMethod(final HttpMethod webhooksOnChannelAddMethod){
+    this.webhooksOnChannelAddMethod = webhooksOnChannelAddMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhooksOnChannelDestroyUrl(final URI webhooksOnChannelDestroyUrl){
+    this.webhooksOnChannelDestroyUrl = webhooksOnChannelDestroyUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnChannelDestroyUrl(final String webhooksOnChannelDestroyUrl){
+    return setWebhooksOnChannelDestroyUrl(Promoter.uriFromString(webhooksOnChannelDestroyUrl));
+}
+
+public ServiceUpdater setWebhooksOnChannelDestroyMethod(final HttpMethod webhooksOnChannelDestroyMethod){
+    this.webhooksOnChannelDestroyMethod = webhooksOnChannelDestroyMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhooksOnChannelUpdateUrl(final URI webhooksOnChannelUpdateUrl){
+    this.webhooksOnChannelUpdateUrl = webhooksOnChannelUpdateUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnChannelUpdateUrl(final String webhooksOnChannelUpdateUrl){
+    return setWebhooksOnChannelUpdateUrl(Promoter.uriFromString(webhooksOnChannelUpdateUrl));
+}
+
+public ServiceUpdater setWebhooksOnChannelUpdateMethod(final HttpMethod webhooksOnChannelUpdateMethod){
+    this.webhooksOnChannelUpdateMethod = webhooksOnChannelUpdateMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhooksOnMemberAddUrl(final URI webhooksOnMemberAddUrl){
+    this.webhooksOnMemberAddUrl = webhooksOnMemberAddUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnMemberAddUrl(final String webhooksOnMemberAddUrl){
+    return setWebhooksOnMemberAddUrl(Promoter.uriFromString(webhooksOnMemberAddUrl));
+}
+
+public ServiceUpdater setWebhooksOnMemberAddMethod(final HttpMethod webhooksOnMemberAddMethod){
+    this.webhooksOnMemberAddMethod = webhooksOnMemberAddMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhooksOnMemberRemoveUrl(final URI webhooksOnMemberRemoveUrl){
+    this.webhooksOnMemberRemoveUrl = webhooksOnMemberRemoveUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnMemberRemoveUrl(final String webhooksOnMemberRemoveUrl){
+    return setWebhooksOnMemberRemoveUrl(Promoter.uriFromString(webhooksOnMemberRemoveUrl));
+}
+
+public ServiceUpdater setWebhooksOnMemberRemoveMethod(final HttpMethod webhooksOnMemberRemoveMethod){
+    this.webhooksOnMemberRemoveMethod = webhooksOnMemberRemoveMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhooksOnMessageSentUrl(final URI webhooksOnMessageSentUrl){
+    this.webhooksOnMessageSentUrl = webhooksOnMessageSentUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnMessageSentUrl(final String webhooksOnMessageSentUrl){
+    return setWebhooksOnMessageSentUrl(Promoter.uriFromString(webhooksOnMessageSentUrl));
+}
+
+public ServiceUpdater setWebhooksOnMessageSentMethod(final HttpMethod webhooksOnMessageSentMethod){
+    this.webhooksOnMessageSentMethod = webhooksOnMessageSentMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhooksOnMessageUpdatedUrl(final URI webhooksOnMessageUpdatedUrl){
+    this.webhooksOnMessageUpdatedUrl = webhooksOnMessageUpdatedUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnMessageUpdatedUrl(final String webhooksOnMessageUpdatedUrl){
+    return setWebhooksOnMessageUpdatedUrl(Promoter.uriFromString(webhooksOnMessageUpdatedUrl));
+}
+
+public ServiceUpdater setWebhooksOnMessageUpdatedMethod(final HttpMethod webhooksOnMessageUpdatedMethod){
+    this.webhooksOnMessageUpdatedMethod = webhooksOnMessageUpdatedMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhooksOnMessageRemovedUrl(final URI webhooksOnMessageRemovedUrl){
+    this.webhooksOnMessageRemovedUrl = webhooksOnMessageRemovedUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnMessageRemovedUrl(final String webhooksOnMessageRemovedUrl){
+    return setWebhooksOnMessageRemovedUrl(Promoter.uriFromString(webhooksOnMessageRemovedUrl));
+}
+
+public ServiceUpdater setWebhooksOnMessageRemovedMethod(final HttpMethod webhooksOnMessageRemovedMethod){
+    this.webhooksOnMessageRemovedMethod = webhooksOnMessageRemovedMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhooksOnChannelAddedUrl(final URI webhooksOnChannelAddedUrl){
+    this.webhooksOnChannelAddedUrl = webhooksOnChannelAddedUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnChannelAddedUrl(final String webhooksOnChannelAddedUrl){
+    return setWebhooksOnChannelAddedUrl(Promoter.uriFromString(webhooksOnChannelAddedUrl));
+}
+
+public ServiceUpdater setWebhooksOnChannelAddedMethod(final HttpMethod webhooksOnChannelAddedMethod){
+    this.webhooksOnChannelAddedMethod = webhooksOnChannelAddedMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhooksOnChannelDestroyedUrl(final URI webhooksOnChannelDestroyedUrl){
+    this.webhooksOnChannelDestroyedUrl = webhooksOnChannelDestroyedUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnChannelDestroyedUrl(final String webhooksOnChannelDestroyedUrl){
+    return setWebhooksOnChannelDestroyedUrl(Promoter.uriFromString(webhooksOnChannelDestroyedUrl));
+}
+
+public ServiceUpdater setWebhooksOnChannelDestroyedMethod(final HttpMethod webhooksOnChannelDestroyedMethod){
+    this.webhooksOnChannelDestroyedMethod = webhooksOnChannelDestroyedMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhooksOnChannelUpdatedUrl(final URI webhooksOnChannelUpdatedUrl){
+    this.webhooksOnChannelUpdatedUrl = webhooksOnChannelUpdatedUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnChannelUpdatedUrl(final String webhooksOnChannelUpdatedUrl){
+    return setWebhooksOnChannelUpdatedUrl(Promoter.uriFromString(webhooksOnChannelUpdatedUrl));
+}
+
+public ServiceUpdater setWebhooksOnChannelUpdatedMethod(final HttpMethod webhooksOnChannelUpdatedMethod){
+    this.webhooksOnChannelUpdatedMethod = webhooksOnChannelUpdatedMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhooksOnMemberAddedUrl(final URI webhooksOnMemberAddedUrl){
+    this.webhooksOnMemberAddedUrl = webhooksOnMemberAddedUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnMemberAddedUrl(final String webhooksOnMemberAddedUrl){
+    return setWebhooksOnMemberAddedUrl(Promoter.uriFromString(webhooksOnMemberAddedUrl));
+}
+
+public ServiceUpdater setWebhooksOnMemberAddedMethod(final HttpMethod webhooksOnMemberAddedMethod){
+    this.webhooksOnMemberAddedMethod = webhooksOnMemberAddedMethod;
+    return this;
+}
+
+
+public ServiceUpdater setWebhooksOnMemberRemovedUrl(final URI webhooksOnMemberRemovedUrl){
+    this.webhooksOnMemberRemovedUrl = webhooksOnMemberRemovedUrl;
+    return this;
+}
+
+public ServiceUpdater setWebhooksOnMemberRemovedUrl(final String webhooksOnMemberRemovedUrl){
+    return setWebhooksOnMemberRemovedUrl(Promoter.uriFromString(webhooksOnMemberRemovedUrl));
+}
+
+public ServiceUpdater setWebhooksOnMemberRemovedMethod(final HttpMethod webhooksOnMemberRemovedMethod){
+    this.webhooksOnMemberRemovedMethod = webhooksOnMemberRemovedMethod;
+    return this;
+}
+
+
+public ServiceUpdater setLimitsChannelMembers(final Integer limitsChannelMembers){
+    this.limitsChannelMembers = limitsChannelMembers;
+    return this;
+}
+
+
+public ServiceUpdater setLimitsUserChannels(final Integer limitsUserChannels){
+    this.limitsUserChannels = limitsUserChannels;
+    return this;
+}
+
+
+            @Override
     public Service update(final TwilioRestClient client) {
-        String path = "/v1/Services/{Sid}";
+    
+    String path = "/v1/Services/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
@@ -621,517 +532,350 @@ public class ServiceUpdater extends Updater<Service> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Service update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Service update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Service.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addPostParams(final Request request) {
 
-    private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+    }
 
-        if (defaultServiceRoleSid != null) {
-            Serializer.toString(
-                request,
-                "DefaultServiceRoleSid",
-                defaultServiceRoleSid,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (defaultChannelRoleSid != null) {
-            Serializer.toString(
-                request,
-                "DefaultChannelRoleSid",
-                defaultChannelRoleSid,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (defaultChannelCreatorRoleSid != null) {
-            Serializer.toString(
-                request,
-                "DefaultChannelCreatorRoleSid",
-                defaultChannelCreatorRoleSid,
-                ParameterType.URLENCODED
-            );
-        }
+    if (defaultServiceRoleSid != null) {
+        Serializer.toString(request, "DefaultServiceRoleSid", defaultServiceRoleSid, ParameterType.URLENCODED);
+    }
 
-        if (readStatusEnabled != null) {
-            Serializer.toString(
-                request,
-                "ReadStatusEnabled",
-                readStatusEnabled,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (reachabilityEnabled != null) {
-            Serializer.toString(
-                request,
-                "ReachabilityEnabled",
-                reachabilityEnabled,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (typingIndicatorTimeout != null) {
-            Serializer.toString(
-                request,
-                "TypingIndicatorTimeout",
-                typingIndicatorTimeout,
-                ParameterType.URLENCODED
-            );
-        }
+    if (defaultChannelRoleSid != null) {
+        Serializer.toString(request, "DefaultChannelRoleSid", defaultChannelRoleSid, ParameterType.URLENCODED);
+    }
 
-        if (consumptionReportInterval != null) {
-            Serializer.toString(
-                request,
-                "ConsumptionReportInterval",
-                consumptionReportInterval,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (notificationsNewMessageEnabled != null) {
-            Serializer.toString(
-                request,
-                "Notifications.NewMessage.Enabled",
-                notificationsNewMessageEnabled,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (notificationsNewMessageTemplate != null) {
-            Serializer.toString(
-                request,
-                "Notifications.NewMessage.Template",
-                notificationsNewMessageTemplate,
-                ParameterType.URLENCODED
-            );
-        }
+    if (defaultChannelCreatorRoleSid != null) {
+        Serializer.toString(request, "DefaultChannelCreatorRoleSid", defaultChannelCreatorRoleSid, ParameterType.URLENCODED);
+    }
 
-        if (notificationsAddedToChannelEnabled != null) {
-            Serializer.toString(
-                request,
-                "Notifications.AddedToChannel.Enabled",
-                notificationsAddedToChannelEnabled,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (notificationsAddedToChannelTemplate != null) {
-            Serializer.toString(
-                request,
-                "Notifications.AddedToChannel.Template",
-                notificationsAddedToChannelTemplate,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (notificationsRemovedFromChannelEnabled != null) {
-            Serializer.toString(
-                request,
-                "Notifications.RemovedFromChannel.Enabled",
-                notificationsRemovedFromChannelEnabled,
-                ParameterType.URLENCODED
-            );
-        }
+    if (readStatusEnabled != null) {
+        Serializer.toString(request, "ReadStatusEnabled", readStatusEnabled, ParameterType.URLENCODED);
+    }
 
-        if (notificationsRemovedFromChannelTemplate != null) {
-            Serializer.toString(
-                request,
-                "Notifications.RemovedFromChannel.Template",
-                notificationsRemovedFromChannelTemplate,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (notificationsInvitedToChannelEnabled != null) {
-            Serializer.toString(
-                request,
-                "Notifications.InvitedToChannel.Enabled",
-                notificationsInvitedToChannelEnabled,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (notificationsInvitedToChannelTemplate != null) {
-            Serializer.toString(
-                request,
-                "Notifications.InvitedToChannel.Template",
-                notificationsInvitedToChannelTemplate,
-                ParameterType.URLENCODED
-            );
-        }
+    if (reachabilityEnabled != null) {
+        Serializer.toString(request, "ReachabilityEnabled", reachabilityEnabled, ParameterType.URLENCODED);
+    }
 
-        if (preWebhookUrl != null) {
-            Serializer.toString(
-                request,
-                "PreWebhookUrl",
-                preWebhookUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (postWebhookUrl != null) {
-            Serializer.toString(
-                request,
-                "PostWebhookUrl",
-                postWebhookUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhookMethod != null) {
-            Serializer.toString(
-                request,
-                "WebhookMethod",
-                webhookMethod,
-                ParameterType.URLENCODED
-            );
-        }
+    if (typingIndicatorTimeout != null) {
+        Serializer.toString(request, "TypingIndicatorTimeout", typingIndicatorTimeout, ParameterType.URLENCODED);
+    }
 
-        if (webhookFilters != null) {
-            for (String param : webhookFilters) {
-                Serializer.toString(
-                    request,
-                    "WebhookFilters",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (webhooksOnMessageSendUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMessageSend.Url",
-                webhooksOnMessageSendUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnMessageSendMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMessageSend.Method",
-                webhooksOnMessageSendMethod,
-                ParameterType.URLENCODED
-            );
-        }
+    if (consumptionReportInterval != null) {
+        Serializer.toString(request, "ConsumptionReportInterval", consumptionReportInterval, ParameterType.URLENCODED);
+    }
 
-        if (webhooksOnMessageUpdateUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMessageUpdate.Url",
-                webhooksOnMessageUpdateUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnMessageUpdateMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMessageUpdate.Method",
-                webhooksOnMessageUpdateMethod,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnMessageRemoveUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMessageRemove.Url",
-                webhooksOnMessageRemoveUrl,
-                ParameterType.URLENCODED
-            );
-        }
+    if (notificationsNewMessageEnabled != null) {
+        Serializer.toString(request, "Notifications.NewMessage.Enabled", notificationsNewMessageEnabled, ParameterType.URLENCODED);
+    }
 
-        if (webhooksOnMessageRemoveMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMessageRemove.Method",
-                webhooksOnMessageRemoveMethod,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnChannelAddUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnChannelAdd.Url",
-                webhooksOnChannelAddUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnChannelAddMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnChannelAdd.Method",
-                webhooksOnChannelAddMethod,
-                ParameterType.URLENCODED
-            );
-        }
+    if (notificationsNewMessageTemplate != null) {
+        Serializer.toString(request, "Notifications.NewMessage.Template", notificationsNewMessageTemplate, ParameterType.URLENCODED);
+    }
 
-        if (webhooksOnChannelDestroyUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnChannelDestroy.Url",
-                webhooksOnChannelDestroyUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnChannelDestroyMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnChannelDestroy.Method",
-                webhooksOnChannelDestroyMethod,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnChannelUpdateUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnChannelUpdate.Url",
-                webhooksOnChannelUpdateUrl,
-                ParameterType.URLENCODED
-            );
-        }
+    if (notificationsAddedToChannelEnabled != null) {
+        Serializer.toString(request, "Notifications.AddedToChannel.Enabled", notificationsAddedToChannelEnabled, ParameterType.URLENCODED);
+    }
 
-        if (webhooksOnChannelUpdateMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnChannelUpdate.Method",
-                webhooksOnChannelUpdateMethod,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnMemberAddUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMemberAdd.Url",
-                webhooksOnMemberAddUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnMemberAddMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMemberAdd.Method",
-                webhooksOnMemberAddMethod,
-                ParameterType.URLENCODED
-            );
-        }
+    if (notificationsAddedToChannelTemplate != null) {
+        Serializer.toString(request, "Notifications.AddedToChannel.Template", notificationsAddedToChannelTemplate, ParameterType.URLENCODED);
+    }
 
-        if (webhooksOnMemberRemoveUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMemberRemove.Url",
-                webhooksOnMemberRemoveUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnMemberRemoveMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMemberRemove.Method",
-                webhooksOnMemberRemoveMethod,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnMessageSentUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMessageSent.Url",
-                webhooksOnMessageSentUrl,
-                ParameterType.URLENCODED
-            );
-        }
+    if (notificationsRemovedFromChannelEnabled != null) {
+        Serializer.toString(request, "Notifications.RemovedFromChannel.Enabled", notificationsRemovedFromChannelEnabled, ParameterType.URLENCODED);
+    }
 
-        if (webhooksOnMessageSentMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMessageSent.Method",
-                webhooksOnMessageSentMethod,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnMessageUpdatedUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMessageUpdated.Url",
-                webhooksOnMessageUpdatedUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnMessageUpdatedMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMessageUpdated.Method",
-                webhooksOnMessageUpdatedMethod,
-                ParameterType.URLENCODED
-            );
-        }
+    if (notificationsRemovedFromChannelTemplate != null) {
+        Serializer.toString(request, "Notifications.RemovedFromChannel.Template", notificationsRemovedFromChannelTemplate, ParameterType.URLENCODED);
+    }
 
-        if (webhooksOnMessageRemovedUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMessageRemoved.Url",
-                webhooksOnMessageRemovedUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnMessageRemovedMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMessageRemoved.Method",
-                webhooksOnMessageRemovedMethod,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnChannelAddedUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnChannelAdded.Url",
-                webhooksOnChannelAddedUrl,
-                ParameterType.URLENCODED
-            );
-        }
+    if (notificationsInvitedToChannelEnabled != null) {
+        Serializer.toString(request, "Notifications.InvitedToChannel.Enabled", notificationsInvitedToChannelEnabled, ParameterType.URLENCODED);
+    }
 
-        if (webhooksOnChannelAddedMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnChannelAdded.Method",
-                webhooksOnChannelAddedMethod,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnChannelDestroyedUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnChannelDestroyed.Url",
-                webhooksOnChannelDestroyedUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnChannelDestroyedMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnChannelDestroyed.Method",
-                webhooksOnChannelDestroyedMethod,
-                ParameterType.URLENCODED
-            );
-        }
+    if (notificationsInvitedToChannelTemplate != null) {
+        Serializer.toString(request, "Notifications.InvitedToChannel.Template", notificationsInvitedToChannelTemplate, ParameterType.URLENCODED);
+    }
 
-        if (webhooksOnChannelUpdatedUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnChannelUpdated.Url",
-                webhooksOnChannelUpdatedUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnChannelUpdatedMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnChannelUpdated.Method",
-                webhooksOnChannelUpdatedMethod,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnMemberAddedUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMemberAdded.Url",
-                webhooksOnMemberAddedUrl,
-                ParameterType.URLENCODED
-            );
-        }
+    if (preWebhookUrl != null) {
+        Serializer.toString(request, "PreWebhookUrl", preWebhookUrl, ParameterType.URLENCODED);
+    }
 
-        if (webhooksOnMemberAddedMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMemberAdded.Method",
-                webhooksOnMemberAddedMethod,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnMemberRemovedUrl != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMemberRemoved.Url",
-                webhooksOnMemberRemovedUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhooksOnMemberRemovedMethod != null) {
-            Serializer.toString(
-                request,
-                "Webhooks.OnMemberRemoved.Method",
-                webhooksOnMemberRemovedMethod,
-                ParameterType.URLENCODED
-            );
-        }
+    if (postWebhookUrl != null) {
+        Serializer.toString(request, "PostWebhookUrl", postWebhookUrl, ParameterType.URLENCODED);
+    }
 
-        if (limitsChannelMembers != null) {
-            Serializer.toString(
-                request,
-                "Limits.ChannelMembers",
-                limitsChannelMembers,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (limitsUserChannels != null) {
-            Serializer.toString(
-                request,
-                "Limits.UserChannels",
-                limitsUserChannels,
-                ParameterType.URLENCODED
-            );
+
+    if (webhookMethod != null) {
+        Serializer.toString(request, "WebhookMethod", webhookMethod, ParameterType.URLENCODED);
+    }
+
+
+
+
+    if (webhookFilters != null) {
+        for (String param: webhookFilters) {
+            Serializer.toString(request, "WebhookFilters", param, ParameterType.URLENCODED);
         }
     }
+
+
+    if (webhooksOnMessageSendUrl != null) {
+        Serializer.toString(request, "Webhooks.OnMessageSend.Url", webhooksOnMessageSendUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMessageSendMethod != null) {
+        Serializer.toString(request, "Webhooks.OnMessageSend.Method", webhooksOnMessageSendMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMessageUpdateUrl != null) {
+        Serializer.toString(request, "Webhooks.OnMessageUpdate.Url", webhooksOnMessageUpdateUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMessageUpdateMethod != null) {
+        Serializer.toString(request, "Webhooks.OnMessageUpdate.Method", webhooksOnMessageUpdateMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMessageRemoveUrl != null) {
+        Serializer.toString(request, "Webhooks.OnMessageRemove.Url", webhooksOnMessageRemoveUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMessageRemoveMethod != null) {
+        Serializer.toString(request, "Webhooks.OnMessageRemove.Method", webhooksOnMessageRemoveMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnChannelAddUrl != null) {
+        Serializer.toString(request, "Webhooks.OnChannelAdd.Url", webhooksOnChannelAddUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnChannelAddMethod != null) {
+        Serializer.toString(request, "Webhooks.OnChannelAdd.Method", webhooksOnChannelAddMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnChannelDestroyUrl != null) {
+        Serializer.toString(request, "Webhooks.OnChannelDestroy.Url", webhooksOnChannelDestroyUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnChannelDestroyMethod != null) {
+        Serializer.toString(request, "Webhooks.OnChannelDestroy.Method", webhooksOnChannelDestroyMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnChannelUpdateUrl != null) {
+        Serializer.toString(request, "Webhooks.OnChannelUpdate.Url", webhooksOnChannelUpdateUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnChannelUpdateMethod != null) {
+        Serializer.toString(request, "Webhooks.OnChannelUpdate.Method", webhooksOnChannelUpdateMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMemberAddUrl != null) {
+        Serializer.toString(request, "Webhooks.OnMemberAdd.Url", webhooksOnMemberAddUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMemberAddMethod != null) {
+        Serializer.toString(request, "Webhooks.OnMemberAdd.Method", webhooksOnMemberAddMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMemberRemoveUrl != null) {
+        Serializer.toString(request, "Webhooks.OnMemberRemove.Url", webhooksOnMemberRemoveUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMemberRemoveMethod != null) {
+        Serializer.toString(request, "Webhooks.OnMemberRemove.Method", webhooksOnMemberRemoveMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMessageSentUrl != null) {
+        Serializer.toString(request, "Webhooks.OnMessageSent.Url", webhooksOnMessageSentUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMessageSentMethod != null) {
+        Serializer.toString(request, "Webhooks.OnMessageSent.Method", webhooksOnMessageSentMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMessageUpdatedUrl != null) {
+        Serializer.toString(request, "Webhooks.OnMessageUpdated.Url", webhooksOnMessageUpdatedUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMessageUpdatedMethod != null) {
+        Serializer.toString(request, "Webhooks.OnMessageUpdated.Method", webhooksOnMessageUpdatedMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMessageRemovedUrl != null) {
+        Serializer.toString(request, "Webhooks.OnMessageRemoved.Url", webhooksOnMessageRemovedUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMessageRemovedMethod != null) {
+        Serializer.toString(request, "Webhooks.OnMessageRemoved.Method", webhooksOnMessageRemovedMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnChannelAddedUrl != null) {
+        Serializer.toString(request, "Webhooks.OnChannelAdded.Url", webhooksOnChannelAddedUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnChannelAddedMethod != null) {
+        Serializer.toString(request, "Webhooks.OnChannelAdded.Method", webhooksOnChannelAddedMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnChannelDestroyedUrl != null) {
+        Serializer.toString(request, "Webhooks.OnChannelDestroyed.Url", webhooksOnChannelDestroyedUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnChannelDestroyedMethod != null) {
+        Serializer.toString(request, "Webhooks.OnChannelDestroyed.Method", webhooksOnChannelDestroyedMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnChannelUpdatedUrl != null) {
+        Serializer.toString(request, "Webhooks.OnChannelUpdated.Url", webhooksOnChannelUpdatedUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnChannelUpdatedMethod != null) {
+        Serializer.toString(request, "Webhooks.OnChannelUpdated.Method", webhooksOnChannelUpdatedMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMemberAddedUrl != null) {
+        Serializer.toString(request, "Webhooks.OnMemberAdded.Url", webhooksOnMemberAddedUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMemberAddedMethod != null) {
+        Serializer.toString(request, "Webhooks.OnMemberAdded.Method", webhooksOnMemberAddedMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMemberRemovedUrl != null) {
+        Serializer.toString(request, "Webhooks.OnMemberRemoved.Url", webhooksOnMemberRemovedUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (webhooksOnMemberRemovedMethod != null) {
+        Serializer.toString(request, "Webhooks.OnMemberRemoved.Method", webhooksOnMemberRemovedMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (limitsChannelMembers != null) {
+        Serializer.toString(request, "Limits.ChannelMembers", limitsChannelMembers, ParameterType.URLENCODED);
+    }
+
+
+
+    if (limitsUserChannels != null) {
+        Serializer.toString(request, "Limits.UserChannels", limitsUserChannels, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

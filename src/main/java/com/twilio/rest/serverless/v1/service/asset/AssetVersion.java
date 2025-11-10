@@ -17,78 +17,92 @@ package com.twilio.rest.serverless.v1.service.asset;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssetVersion extends Resource {
 
-    public static AssetVersionFetcher fetcher(
-        final String pathServiceSid,
-        final String pathAssetSid,
-        final String pathSid
-    ) {
-        return new AssetVersionFetcher(pathServiceSid, pathAssetSid, pathSid);
+
+
+
+
+
+    public static AssetVersionFetcher fetcher(final String pathServiceSid, final String pathAssetSid, final String pathSid) {
+        return new AssetVersionFetcher(
+             pathServiceSid,  pathAssetSid,  pathSid
+        );
     }
 
-    public static AssetVersionReader reader(
-        final String pathServiceSid,
-        final String pathAssetSid
-    ) {
-        return new AssetVersionReader(pathServiceSid, pathAssetSid);
+
+
+    
+
+
+
+
+
+    public static AssetVersionReader reader(final String pathServiceSid, final String pathAssetSid) {
+        return new AssetVersionReader(
+             pathServiceSid,  pathAssetSid
+        );
     }
 
-    public enum Visibility {
-        PUBLIC("public"),
-        PRIVATE("private"),
-        PROTECTED("protected");
 
-        private final String value;
+    
 
-        private Visibility(final String value) {
-            this.value = value;
-        }
+public enum Visibility {
+    PUBLIC("public"),
+    PRIVATE("private"),
+    PROTECTED("protected");
 
-        public String toString() {
-            return value;
-        }
+    private final String value;
 
-        @JsonCreator
-        public static Visibility forValue(final String value) {
-            return Promoter.enumFromString(value, Visibility.values());
-        }
+    private Visibility(final String value) {
+        this.value = value;
     }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static Visibility forValue(final String value) {
+        return Promoter.enumFromString(value, Visibility.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a AssetVersion object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return AssetVersion object represented by the provided JSON
-     */
-    public static AssetVersion fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a AssetVersion object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return AssetVersion object represented by the provided JSON
+    */
+    public static AssetVersion fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AssetVersion.class);
@@ -100,17 +114,14 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a AssetVersion object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return AssetVersion object represented by the provided JSON
-     */
-    public static AssetVersion fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a AssetVersion object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return AssetVersion object represented by the provided JSON
+    */
+    public static AssetVersion fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AssetVersion.class);
@@ -132,88 +143,93 @@ public class AssetVersion extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String assetSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final String path;
-
     @Getter
     private final String serviceSid;
-
     @Getter
     private final String sid;
-
     @Getter
     private final URI url;
-
     @Getter
     private final AssetVersion.Visibility visibility;
 
-    @JsonCreator
-    private AssetVersion(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("asset_sid") final String assetSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("path") final String path,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("visibility") final AssetVersion.Visibility visibility
-    ) {
-        this.accountSid = accountSid;
-        this.assetSid = assetSid;
-        this.dateCreated = dateCreated;
-        this.path = path;
-        this.serviceSid = serviceSid;
-        this.sid = sid;
-        this.url = url;
-        this.visibility = visibility;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        AssetVersion other = (AssetVersion) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(assetSid, other.assetSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(path, other.path) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(visibility, other.visibility)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            assetSid,
-            dateCreated,
-            path,
-            serviceSid,
-            sid,
-            url,
-            visibility
-        );
-    }
+@JsonCreator
+private AssetVersion(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("asset_sid")
+    final String assetSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("path")
+    final String path, 
+    @JsonProperty("service_sid")
+    final String serviceSid, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("url")
+    final URI url, 
+    @JsonProperty("visibility")
+    final AssetVersion.Visibility visibility
+){
+    this.accountSid = accountSid;
+    this.assetSid = assetSid;
+    this.dateCreated = dateCreated;
+    this.path = path;
+    this.serviceSid = serviceSid;
+    this.sid = sid;
+    this.url = url;
+    this.visibility = visibility;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    AssetVersion other = (AssetVersion) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(assetSid, other.assetSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(path, other.path) && 
+            Objects.equals(serviceSid, other.serviceSid) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(url, other.url) && 
+            Objects.equals(visibility, other.visibility)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            assetSid, 
+            dateCreated, 
+            path, 
+            serviceSid, 
+            sid, 
+            url, 
+            visibility
+    );
+}
+
+
+
+}
+

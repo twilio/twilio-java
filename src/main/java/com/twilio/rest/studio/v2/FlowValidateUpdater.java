@@ -26,49 +26,54 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class FlowValidateUpdater extends Updater<FlowValidate> {
-
-    private String friendlyName;
+    public class FlowValidateUpdater extends Updater<FlowValidate> {
+            private String friendlyName;
     private FlowValidate.Status status;
     private Object definition;
     private String commitMessage;
 
-    public FlowValidateUpdater(
-        final String friendlyName,
-        final FlowValidate.Status status,
-        final Object definition
-    ) {
+            public FlowValidateUpdater(final String friendlyName, final FlowValidate.Status status, final Object definition) {
         this.friendlyName = friendlyName;
         this.status = status;
         this.definition = definition;
     }
 
-    public FlowValidateUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+        
+public FlowValidateUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public FlowValidateUpdater setStatus(final FlowValidate.Status status) {
-        this.status = status;
-        return this;
-    }
 
-    public FlowValidateUpdater setDefinition(final Object definition) {
-        this.definition = definition;
-        return this;
-    }
+public FlowValidateUpdater setStatus(final FlowValidate.Status status){
+    this.status = status;
+    return this;
+}
 
-    public FlowValidateUpdater setCommitMessage(final String commitMessage) {
-        this.commitMessage = commitMessage;
-        return this;
-    }
 
-    @Override
+public FlowValidateUpdater setDefinition(final Object definition){
+    this.definition = definition;
+    return this;
+}
+
+
+public FlowValidateUpdater setCommitMessage(final String commitMessage){
+    this.commitMessage = commitMessage;
+    return this;
+}
+
+
+            @Override
     public FlowValidate update(final TwilioRestClient client) {
-        String path = "/v2/Flows/Validate";
+    
+    String path = "/v2/Flows/Validate";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.STUDIO.toString(),
@@ -76,68 +81,48 @@ public class FlowValidateUpdater extends Updater<FlowValidate> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "FlowValidate update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("FlowValidate update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return FlowValidate.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return FlowValidate.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (status != null) {
-            Serializer.toString(
-                request,
-                "Status",
-                status,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (definition != null) {
-            Serializer.toString(
-                request,
-                "Definition",
-                definition,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (commitMessage != null) {
-            Serializer.toString(
-                request,
-                "CommitMessage",
-                commitMessage,
-                ParameterType.URLENCODED
-            );
-        }
+    if (status != null) {
+        Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
     }
+
+
+
+    if (definition != null) {
+        Serializer.toString(request, "Definition", definition, ParameterType.URLENCODED);
+    }
+
+
+
+    if (commitMessage != null) {
+        Serializer.toString(request, "CommitMessage", commitMessage, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

@@ -17,154 +17,173 @@ package com.twilio.rest.api.v2010.account.conference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Currency;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Recording extends Resource {
 
-    public static RecordingDeleter deleter(
-        final String pathConferenceSid,
-        final String pathSid
-    ) {
-        return new RecordingDeleter(pathConferenceSid, pathSid);
-    }
 
-    public static RecordingDeleter deleter(
-        final String pathAccountSid,
-        final String pathConferenceSid,
-        final String pathSid
-    ) {
-        return new RecordingDeleter(pathAccountSid, pathConferenceSid, pathSid);
-    }
 
-    public static RecordingFetcher fetcher(
-        final String pathConferenceSid,
-        final String pathSid
-    ) {
-        return new RecordingFetcher(pathConferenceSid, pathSid);
-    }
 
-    public static RecordingFetcher fetcher(
-        final String pathAccountSid,
-        final String pathConferenceSid,
-        final String pathSid
-    ) {
-        return new RecordingFetcher(pathAccountSid, pathConferenceSid, pathSid);
-    }
 
-    public static RecordingReader reader(final String pathConferenceSid) {
-        return new RecordingReader(pathConferenceSid);
-    }
-
-    public static RecordingReader reader(
-        final String pathAccountSid,
-        final String pathConferenceSid
-    ) {
-        return new RecordingReader(pathAccountSid, pathConferenceSid);
-    }
-
-    public static RecordingUpdater updater(
-        final String pathConferenceSid,
-        final String pathSid,
-        final Recording.Status status
-    ) {
-        return new RecordingUpdater(pathConferenceSid, pathSid, status);
-    }
-
-    public static RecordingUpdater updater(
-        final String pathAccountSid,
-        final String pathConferenceSid,
-        final String pathSid,
-        final Recording.Status status
-    ) {
-        return new RecordingUpdater(
-            pathAccountSid,
-            pathConferenceSid,
-            pathSid,
-            status
+    public static RecordingDeleter deleter(final String pathConferenceSid, final String pathSid) {
+        return new RecordingDeleter(
+             pathConferenceSid,  pathSid
         );
     }
 
-    public enum Status {
-        IN_PROGRESS("in-progress"),
-        PAUSED("paused"),
-        STOPPED("stopped"),
-        PROCESSING("processing"),
-        COMPLETED("completed"),
-        ABSENT("absent");
 
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
+    public static RecordingDeleter deleter(final String pathAccountSid, final String pathConferenceSid, final String pathSid) {
+        return new RecordingDeleter(
+             pathAccountSid,  pathConferenceSid,  pathSid
+        );
     }
 
-    public enum Source {
-        DIAL_VERB("DialVerb"),
-        CONFERENCE("Conference"),
-        OUTBOUND_API("OutboundAPI"),
-        TRUNKING("Trunking"),
-        RECORD_VERB("RecordVerb"),
-        START_CALL_RECORDING_API("StartCallRecordingAPI"),
-        START_CONFERENCE_RECORDING_API("StartConferenceRecordingAPI");
 
-        private final String value;
 
-        private Source(final String value) {
-            this.value = value;
-        }
 
-        public String toString() {
-            return value;
-        }
+    
 
-        @JsonCreator
-        public static Source forValue(final String value) {
-            return Promoter.enumFromString(value, Source.values());
-        }
+
+
+
+    public static RecordingFetcher fetcher(final String pathConferenceSid, final String pathSid) {
+        return new RecordingFetcher(
+             pathConferenceSid,  pathSid
+        );
     }
+
+
+    public static RecordingFetcher fetcher(final String pathAccountSid, final String pathConferenceSid, final String pathSid) {
+        return new RecordingFetcher(
+             pathAccountSid,  pathConferenceSid,  pathSid
+        );
+    }
+
+
+
+    
+
+
+
+
+
+    public static RecordingReader reader(final String pathConferenceSid) {
+        return new RecordingReader(
+             pathConferenceSid
+        );
+    }
+
+
+    public static RecordingReader reader(final String pathAccountSid, final String pathConferenceSid) {
+        return new RecordingReader(
+             pathAccountSid,  pathConferenceSid
+        );
+    }
+
+
+    
+
+
+
+
+
+
+    public static RecordingUpdater updater(final String pathConferenceSid, final String pathSid, final Recording.Status status) {
+        return new RecordingUpdater(
+             pathConferenceSid,  pathSid,  status
+        );
+    }
+
+
+    public static RecordingUpdater updater(final String pathAccountSid, final String pathConferenceSid, final String pathSid, final Recording.Status status) {
+        return new RecordingUpdater(
+             pathAccountSid,  pathConferenceSid,  pathSid,  status
+        );
+    }
+
+    
+
+public enum Status {
+    IN_PROGRESS("in-progress"),
+    PAUSED("paused"),
+    STOPPED("stopped"),
+    PROCESSING("processing"),
+    COMPLETED("completed"),
+    ABSENT("absent");
+
+    private final String value;
+
+    private Status(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static Status forValue(final String value) {
+        return Promoter.enumFromString(value, Status.values());
+    }
+}
+public enum Source {
+    DIAL_VERB("DialVerb"),
+    CONFERENCE("Conference"),
+    OUTBOUND_API("OutboundAPI"),
+    TRUNKING("Trunking"),
+    RECORD_VERB("RecordVerb"),
+    START_CALL_RECORDING_API("StartCallRecordingAPI"),
+    START_CONFERENCE_RECORDING_API("StartConferenceRecordingAPI");
+
+    private final String value;
+
+    private Source(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static Source forValue(final String value) {
+        return Promoter.enumFromString(value, Source.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a Recording object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Recording object represented by the provided JSON
-     */
-    public static Recording fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Recording object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Recording object represented by the provided JSON
+    */
+    public static Recording fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Recording.class);
@@ -176,17 +195,14 @@ public class Recording extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Recording object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Recording object represented by the provided JSON
-     */
-    public static Recording fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Recording object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Recording object represented by the provided JSON
+    */
+    public static Recording fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Recording.class);
@@ -208,157 +224,159 @@ public class Recording extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String apiVersion;
-
     @Getter
     private final String callSid;
-
     @Getter
     private final Integer channels;
-
     @Getter
     private final String conferenceSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String duration;
-
     @Getter
     private final Object encryptionDetails;
-
     @Getter
     private final Integer errorCode;
-
     @Getter
     private final String price;
-
     @Getter
     private final Currency priceUnit;
-
     @Getter
     private final String sid;
-
     @Getter
     private final Recording.Source source;
-
     @Getter
     private final ZonedDateTime startTime;
-
     @Getter
     private final Recording.Status status;
-
     @Getter
     private final String uri;
 
-    @JsonCreator
-    private Recording(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("api_version") final String apiVersion,
-        @JsonProperty("call_sid") final String callSid,
-        @JsonProperty("channels") final Integer channels,
-        @JsonProperty("conference_sid") final String conferenceSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("duration") final String duration,
-        @JsonProperty("encryption_details") final Object encryptionDetails,
-        @JsonProperty("error_code") final Integer errorCode,
-        @JsonProperty("price") final String price,
-        @JsonProperty("price_unit") @JsonDeserialize(
-            using = com.twilio.converter.CurrencyDeserializer.class
-        ) final Currency priceUnit,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("source") final Recording.Source source,
-        @JsonProperty("start_time") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime startTime,
-        @JsonProperty("status") final Recording.Status status,
-        @JsonProperty("uri") final String uri
-    ) {
-        this.accountSid = accountSid;
-        this.apiVersion = apiVersion;
-        this.callSid = callSid;
-        this.channels = channels;
-        this.conferenceSid = conferenceSid;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.duration = duration;
-        this.encryptionDetails = encryptionDetails;
-        this.errorCode = errorCode;
-        this.price = price;
-        this.priceUnit = priceUnit;
-        this.sid = sid;
-        this.source = source;
-        this.startTime = startTime;
-        this.status = status;
-        this.uri = uri;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Recording other = (Recording) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(apiVersion, other.apiVersion) &&
-            Objects.equals(callSid, other.callSid) &&
-            Objects.equals(channels, other.channels) &&
-            Objects.equals(conferenceSid, other.conferenceSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(duration, other.duration) &&
-            Objects.equals(encryptionDetails, other.encryptionDetails) &&
-            Objects.equals(errorCode, other.errorCode) &&
-            Objects.equals(price, other.price) &&
-            Objects.equals(priceUnit, other.priceUnit) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(source, other.source) &&
-            Objects.equals(startTime, other.startTime) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(uri, other.uri)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            apiVersion,
-            callSid,
-            channels,
-            conferenceSid,
-            dateCreated,
-            dateUpdated,
-            duration,
-            encryptionDetails,
-            errorCode,
-            price,
-            priceUnit,
-            sid,
-            source,
-            startTime,
-            status,
-            uri
-        );
-    }
+@JsonCreator
+private Recording(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("api_version")
+    final String apiVersion, 
+    @JsonProperty("call_sid")
+    final String callSid, 
+    @JsonProperty("channels")
+    final Integer channels, 
+    @JsonProperty("conference_sid")
+    final String conferenceSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("duration")
+    final String duration, 
+    @JsonProperty("encryption_details")
+    final Object encryptionDetails, 
+    @JsonProperty("error_code")
+    final Integer errorCode, 
+    @JsonProperty("price")
+    final String price, 
+    @JsonProperty("price_unit")
+    @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
+    final Currency priceUnit, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("source")
+    final Recording.Source source, 
+    @JsonProperty("start_time")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime startTime, 
+    @JsonProperty("status")
+    final Recording.Status status, 
+    @JsonProperty("uri")
+    final String uri
+){
+    this.accountSid = accountSid;
+    this.apiVersion = apiVersion;
+    this.callSid = callSid;
+    this.channels = channels;
+    this.conferenceSid = conferenceSid;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.duration = duration;
+    this.encryptionDetails = encryptionDetails;
+    this.errorCode = errorCode;
+    this.price = price;
+    this.priceUnit = priceUnit;
+    this.sid = sid;
+    this.source = source;
+    this.startTime = startTime;
+    this.status = status;
+    this.uri = uri;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Recording other = (Recording) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(apiVersion, other.apiVersion) && 
+            Objects.equals(callSid, other.callSid) && 
+            Objects.equals(channels, other.channels) && 
+            Objects.equals(conferenceSid, other.conferenceSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(duration, other.duration) && 
+            Objects.equals(encryptionDetails, other.encryptionDetails) && 
+            Objects.equals(errorCode, other.errorCode) && 
+            Objects.equals(price, other.price) && 
+            Objects.equals(priceUnit, other.priceUnit) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(source, other.source) && 
+            Objects.equals(startTime, other.startTime) && 
+            Objects.equals(status, other.status) && 
+            Objects.equals(uri, other.uri)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            apiVersion, 
+            callSid, 
+            channels, 
+            conferenceSid, 
+            dateCreated, 
+            dateUpdated, 
+            duration, 
+            encryptionDetails, 
+            errorCode, 
+            price, 
+            priceUnit, 
+            sid, 
+            source, 
+            startTime, 
+            status, 
+            uri
+    );
+}
+
+
+
+}
+

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.preview.wireless;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +28,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.net.URI;
+import com.twilio.type.*;
 
 public class CommandCreator extends Creator<Command> {
 
@@ -44,49 +47,59 @@ public class CommandCreator extends Creator<Command> {
         this.command = command;
     }
 
-    public CommandCreator setCommand(final String command) {
-        this.command = command;
-        return this;
-    }
 
-    public CommandCreator setDevice(final String device) {
-        this.device = device;
-        return this;
-    }
+public CommandCreator setCommand(final String command){
+    this.command = command;
+    return this;
+}
 
-    public CommandCreator setSim(final String sim) {
-        this.sim = sim;
-        return this;
-    }
 
-    public CommandCreator setCallbackMethod(final String callbackMethod) {
-        this.callbackMethod = callbackMethod;
-        return this;
-    }
+public CommandCreator setDevice(final String device){
+    this.device = device;
+    return this;
+}
 
-    public CommandCreator setCallbackUrl(final URI callbackUrl) {
-        this.callbackUrl = callbackUrl;
-        return this;
-    }
 
-    public CommandCreator setCallbackUrl(final String callbackUrl) {
-        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
-    }
+public CommandCreator setSim(final String sim){
+    this.sim = sim;
+    return this;
+}
 
-    public CommandCreator setCommandMode(final String commandMode) {
-        this.commandMode = commandMode;
-        return this;
-    }
 
-    public CommandCreator setIncludeSid(final String includeSid) {
-        this.includeSid = includeSid;
-        return this;
-    }
+public CommandCreator setCallbackMethod(final String callbackMethod){
+    this.callbackMethod = callbackMethod;
+    return this;
+}
+
+
+public CommandCreator setCallbackUrl(final URI callbackUrl){
+    this.callbackUrl = callbackUrl;
+    return this;
+}
+
+public CommandCreator setCallbackUrl(final String callbackUrl){
+    return setCallbackUrl(Promoter.uriFromString(callbackUrl));
+}
+
+public CommandCreator setCommandMode(final String commandMode){
+    this.commandMode = commandMode;
+    return this;
+}
+
+
+public CommandCreator setIncludeSid(final String includeSid){
+    this.includeSid = includeSid;
+    return this;
+}
+
 
     @Override
     public Command create(final TwilioRestClient client) {
-        String path = "/wireless/Commands";
+    
+    String path = "/wireless/Commands";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
@@ -94,87 +107,66 @@ public class CommandCreator extends Creator<Command> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Command creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Command creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Command.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (command != null) {
-            Serializer.toString(
-                request,
-                "Command",
-                command,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (device != null) {
-            Serializer.toString(
-                request,
-                "Device",
-                device,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (sim != null) {
-            Serializer.toString(request, "Sim", sim, ParameterType.URLENCODED);
-        }
-
-        if (callbackMethod != null) {
-            Serializer.toString(
-                request,
-                "CallbackMethod",
-                callbackMethod,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (callbackUrl != null) {
-            Serializer.toString(
-                request,
-                "CallbackUrl",
-                callbackUrl,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (commandMode != null) {
-            Serializer.toString(
-                request,
-                "CommandMode",
-                commandMode,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (includeSid != null) {
-            Serializer.toString(
-                request,
-                "IncludeSid",
-                includeSid,
-                ParameterType.URLENCODED
-            );
-        }
+    if (command != null) {
+        Serializer.toString(request, "Command", command, ParameterType.URLENCODED);
     }
+
+
+
+    if (device != null) {
+        Serializer.toString(request, "Device", device, ParameterType.URLENCODED);
+    }
+
+
+
+    if (sim != null) {
+        Serializer.toString(request, "Sim", sim, ParameterType.URLENCODED);
+    }
+
+
+
+    if (callbackMethod != null) {
+        Serializer.toString(request, "CallbackMethod", callbackMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (callbackUrl != null) {
+        Serializer.toString(request, "CallbackUrl", callbackUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (commandMode != null) {
+        Serializer.toString(request, "CommandMode", commandMode, ParameterType.URLENCODED);
+    }
+
+
+
+    if (includeSid != null) {
+        Serializer.toString(request, "IncludeSid", includeSid, ParameterType.URLENCODED);
+    }
+
+
+}
 }

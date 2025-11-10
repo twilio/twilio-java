@@ -14,9 +14,7 @@
 
 package com.twilio.rest.conversations.v1.service.conversation.message;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,54 +25,44 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
 
-    private String pathChatServiceSid;
+        private String pathChatServiceSid;
     private String pathConversationSid;
     private String pathMessageSid;
     private Long pageSize;
 
-    public DeliveryReceiptReader(
-        final String pathChatServiceSid,
-        final String pathConversationSid,
-        final String pathMessageSid
-    ) {
+        public DeliveryReceiptReader(final String pathChatServiceSid, final String pathConversationSid, final String pathMessageSid) {
         this.pathChatServiceSid = pathChatServiceSid;
         this.pathConversationSid = pathConversationSid;
         this.pathMessageSid = pathMessageSid;
     }
 
-    public DeliveryReceiptReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+    
+public DeliveryReceiptReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
 
-    @Override
+
+        @Override
     public ResourceSet<DeliveryReceipt> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<DeliveryReceipt> firstPage(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts";
+        
+    String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "MessageSid" + "}",
-                this.pathMessageSid.toString()
-            );
+    path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
+    path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
+    path = path.replace("{"+"MessageSid"+"}", this.pathMessageSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -86,79 +74,53 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
         return pageForRequest(client, request);
     }
 
-    private Page<DeliveryReceipt> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<DeliveryReceipt> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "DeliveryReceipt read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("DeliveryReceipt read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "delivery_receipts",
             response.getContent(),
             DeliveryReceipt.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<DeliveryReceipt> previousPage(
-        final Page<DeliveryReceipt> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<DeliveryReceipt> previousPage(final Page<DeliveryReceipt> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<DeliveryReceipt> nextPage(
-        final Page<DeliveryReceipt> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<DeliveryReceipt> nextPage(final Page<DeliveryReceipt> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<DeliveryReceipt> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<DeliveryReceipt> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
+    }
+    private void addQueryParams(final Request request) {
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
     }
 
-    private void addQueryParams(final Request request) {
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
-    }
+
+
+}
 }

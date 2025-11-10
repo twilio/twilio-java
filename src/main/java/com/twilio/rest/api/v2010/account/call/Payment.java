@@ -17,200 +17,187 @@ package com.twilio.rest.api.v2010.account.call;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Payment extends Resource {
 
-    public static PaymentCreator creator(
-        final String pathCallSid,
-        final String idempotencyKey,
-        final URI statusCallback
-    ) {
-        return new PaymentCreator(pathCallSid, idempotencyKey, statusCallback);
-    }
 
-    public static PaymentCreator creator(
-        final String pathAccountSid,
-        final String pathCallSid,
-        final String idempotencyKey,
-        final URI statusCallback
-    ) {
+
+    public static PaymentCreator creator(final String pathCallSid, final String idempotencyKey, final URI statusCallback) {
         return new PaymentCreator(
-            pathAccountSid,
-            pathCallSid,
-            idempotencyKey,
-            statusCallback
+             pathCallSid,  idempotencyKey,  statusCallback
         );
     }
 
-    public static PaymentUpdater updater(
-        final String pathCallSid,
-        final String pathSid,
-        final String idempotencyKey,
-        final URI statusCallback
-    ) {
+
+    public static PaymentCreator creator(final String pathAccountSid, final String pathCallSid, final String idempotencyKey, final URI statusCallback) {
+        return new PaymentCreator(
+             pathAccountSid,  pathCallSid,  idempotencyKey,  statusCallback
+        );
+    }
+
+
+
+
+
+
+    
+
+
+
+
+
+
+    public static PaymentUpdater updater(final String pathCallSid, final String pathSid, final String idempotencyKey, final URI statusCallback) {
         return new PaymentUpdater(
-            pathCallSid,
-            pathSid,
-            idempotencyKey,
-            statusCallback
+             pathCallSid,  pathSid,  idempotencyKey,  statusCallback
         );
     }
 
-    public static PaymentUpdater updater(
-        final String pathAccountSid,
-        final String pathCallSid,
-        final String pathSid,
-        final String idempotencyKey,
-        final URI statusCallback
-    ) {
+
+    public static PaymentUpdater updater(final String pathAccountSid, final String pathCallSid, final String pathSid, final String idempotencyKey, final URI statusCallback) {
         return new PaymentUpdater(
-            pathAccountSid,
-            pathCallSid,
-            pathSid,
-            idempotencyKey,
-            statusCallback
+             pathAccountSid,  pathCallSid,  pathSid,  idempotencyKey,  statusCallback
         );
     }
 
-    public enum Status {
-        COMPLETE("complete"),
-        CANCEL("cancel");
+    
 
-        private final String value;
+public enum Status {
+    COMPLETE("complete"),
+    CANCEL("cancel");
 
-        private Status(final String value) {
-            this.value = value;
-        }
+    private final String value;
 
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
+    private Status(final String value) {
+        this.value = value;
     }
 
-    public enum TokenType {
-        ONE_TIME("one-time"),
-        REUSABLE("reusable"),
-        PAYMENT_METHOD("payment-method");
-
-        private final String value;
-
-        private TokenType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TokenType forValue(final String value) {
-            return Promoter.enumFromString(value, TokenType.values());
-        }
+    public String toString() {
+        return value;
     }
 
-    public enum BankAccountType {
-        CONSUMER_CHECKING("consumer-checking"),
-        CONSUMER_SAVINGS("consumer-savings"),
-        COMMERCIAL_CHECKING("commercial-checking");
+    @JsonCreator
+    public static Status forValue(final String value) {
+        return Promoter.enumFromString(value, Status.values());
+    }
+}
+public enum TokenType {
+    ONE_TIME("one-time"),
+    REUSABLE("reusable"),
+    PAYMENT_METHOD("payment-method");
 
-        private final String value;
+    private final String value;
 
-        private BankAccountType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BankAccountType forValue(final String value) {
-            return Promoter.enumFromString(value, BankAccountType.values());
-        }
+    private TokenType(final String value) {
+        this.value = value;
     }
 
-    public enum PaymentMethod {
-        CREDIT_CARD("credit-card"),
-        ACH_DEBIT("ach-debit");
-
-        private final String value;
-
-        private PaymentMethod(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static PaymentMethod forValue(final String value) {
-            return Promoter.enumFromString(value, PaymentMethod.values());
-        }
+    public String toString() {
+        return value;
     }
 
-    public enum Capture {
-        PAYMENT_CARD_NUMBER("payment-card-number"),
-        EXPIRATION_DATE("expiration-date"),
-        SECURITY_CODE("security-code"),
-        POSTAL_CODE("postal-code"),
-        BANK_ROUTING_NUMBER("bank-routing-number"),
-        BANK_ACCOUNT_NUMBER("bank-account-number");
-
-        private final String value;
-
-        private Capture(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Capture forValue(final String value) {
-            return Promoter.enumFromString(value, Capture.values());
-        }
+    @JsonCreator
+    public static TokenType forValue(final String value) {
+        return Promoter.enumFromString(value, TokenType.values());
     }
+}
+public enum BankAccountType {
+    CONSUMER_CHECKING("consumer-checking"),
+    CONSUMER_SAVINGS("consumer-savings"),
+    COMMERCIAL_CHECKING("commercial-checking");
+
+    private final String value;
+
+    private BankAccountType(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static BankAccountType forValue(final String value) {
+        return Promoter.enumFromString(value, BankAccountType.values());
+    }
+}
+public enum PaymentMethod {
+    CREDIT_CARD("credit-card"),
+    ACH_DEBIT("ach-debit");
+
+    private final String value;
+
+    private PaymentMethod(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static PaymentMethod forValue(final String value) {
+        return Promoter.enumFromString(value, PaymentMethod.values());
+    }
+}
+public enum Capture {
+    PAYMENT_CARD_NUMBER("payment-card-number"),
+    EXPIRATION_DATE("expiration-date"),
+    SECURITY_CODE("security-code"),
+    POSTAL_CODE("postal-code"),
+    BANK_ROUTING_NUMBER("bank-routing-number"),
+    BANK_ACCOUNT_NUMBER("bank-account-number");
+
+    private final String value;
+
+    private Capture(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static Capture forValue(final String value) {
+        return Promoter.enumFromString(value, Capture.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a Payment object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Payment object represented by the provided JSON
-     */
-    public static Payment fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Payment object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Payment object represented by the provided JSON
+    */
+    public static Payment fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Payment.class);
@@ -222,17 +209,14 @@ public class Payment extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Payment object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Payment object represented by the provided JSON
-     */
-    public static Payment fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Payment object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Payment object represented by the provided JSON
+    */
+    public static Payment fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Payment.class);
@@ -254,76 +238,80 @@ public class Payment extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String callSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String sid;
-
     @Getter
     private final String uri;
 
-    @JsonCreator
-    private Payment(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("call_sid") final String callSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("uri") final String uri
-    ) {
-        this.accountSid = accountSid;
-        this.callSid = callSid;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.sid = sid;
-        this.uri = uri;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Payment other = (Payment) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(callSid, other.callSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(uri, other.uri)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            callSid,
-            dateCreated,
-            dateUpdated,
-            sid,
-            uri
-        );
-    }
+@JsonCreator
+private Payment(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("call_sid")
+    final String callSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("uri")
+    final String uri
+){
+    this.accountSid = accountSid;
+    this.callSid = callSid;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.sid = sid;
+    this.uri = uri;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Payment other = (Payment) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(callSid, other.callSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(uri, other.uri)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            callSid, 
+            dateCreated, 
+            dateUpdated, 
+            sid, 
+            uri
+    );
+}
+
+
+
+}
+

@@ -17,51 +17,70 @@ package com.twilio.rest.studio.v2.flow;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FlowTestUser extends Resource {
 
+
+
+
+
+
     public static FlowTestUserFetcher fetcher(final String pathSid) {
-        return new FlowTestUserFetcher(pathSid);
+        return new FlowTestUserFetcher(
+             pathSid
+        );
     }
 
-    public static FlowTestUserUpdater updater(
-        final String pathSid,
-        final List<String> testUsers
-    ) {
-        return new FlowTestUserUpdater(pathSid, testUsers);
+
+
+    
+
+
+
+
+
+
+    public static FlowTestUserUpdater updater(final String pathSid, final List<String> testUsers) {
+        return new FlowTestUserUpdater(
+             pathSid,  testUsers
+        );
     }
+
+    
+
+
 
     /**
-     * Converts a JSON String into a FlowTestUser object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return FlowTestUser object represented by the provided JSON
-     */
-    public static FlowTestUser fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a FlowTestUser object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return FlowTestUser object represented by the provided JSON
+    */
+    public static FlowTestUser fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FlowTestUser.class);
@@ -73,17 +92,14 @@ public class FlowTestUser extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a FlowTestUser object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return FlowTestUser object represented by the provided JSON
-     */
-    public static FlowTestUser fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a FlowTestUser object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return FlowTestUser object represented by the provided JSON
+    */
+    public static FlowTestUser fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FlowTestUser.class);
@@ -105,47 +121,57 @@ public class FlowTestUser extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String sid;
-
     @Getter
     private final List<String> testUsers;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private FlowTestUser(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("test_users") final List<String> testUsers,
-        @JsonProperty("url") final URI url
-    ) {
-        this.sid = sid;
-        this.testUsers = testUsers;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        FlowTestUser other = (FlowTestUser) o;
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(testUsers, other.testUsers) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(sid, testUsers, url);
-    }
+@JsonCreator
+private FlowTestUser(
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("test_users")
+    final List<String> testUsers, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.sid = sid;
+    this.testUsers = testUsers;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    FlowTestUser other = (FlowTestUser) o;
+    return (
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(testUsers, other.testUsers) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            sid, 
+            testUsers, 
+            url
+    );
+}
+
+
+
+}
+

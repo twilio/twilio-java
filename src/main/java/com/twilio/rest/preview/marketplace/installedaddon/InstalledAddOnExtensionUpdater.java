@@ -26,42 +26,37 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class InstalledAddOnExtensionUpdater
-    extends Updater<InstalledAddOnExtension> {
-
-    private String pathInstalledAddOnSid;
+    public class InstalledAddOnExtensionUpdater extends Updater<InstalledAddOnExtension> {
+            private String pathInstalledAddOnSid;
     private String pathSid;
     private Boolean enabled;
 
-    public InstalledAddOnExtensionUpdater(
-        final String pathInstalledAddOnSid,
-        final String pathSid,
-        final Boolean enabled
-    ) {
+            public InstalledAddOnExtensionUpdater(final String pathInstalledAddOnSid, final String pathSid, final Boolean enabled) {
         this.pathInstalledAddOnSid = pathInstalledAddOnSid;
         this.pathSid = pathSid;
         this.enabled = enabled;
     }
 
-    public InstalledAddOnExtensionUpdater setEnabled(final Boolean enabled) {
-        this.enabled = enabled;
-        return this;
-    }
+        
+public InstalledAddOnExtensionUpdater setEnabled(final Boolean enabled){
+    this.enabled = enabled;
+    return this;
+}
 
-    @Override
+
+            @Override
     public InstalledAddOnExtension update(final TwilioRestClient client) {
-        String path =
-            "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}";
+    
+    String path = "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "InstalledAddOnSid" + "}",
-                this.pathInstalledAddOnSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"InstalledAddOnSid"+"}", this.pathInstalledAddOnSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
@@ -69,41 +64,30 @@ public class InstalledAddOnExtensionUpdater
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "InstalledAddOnExtension update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InstalledAddOnExtension update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return InstalledAddOnExtension.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return InstalledAddOnExtension.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (enabled != null) {
+        Serializer.toString(request, "Enabled", enabled, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (enabled != null) {
-            Serializer.toString(
-                request,
-                "Enabled",
-                enabled,
-                ParameterType.URLENCODED
-            );
-        }
-    }
+
 }
+    }

@@ -23,51 +23,51 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.time.LocalDate;
+import com.twilio.type.*;
 
-public class ArchivedCallDeleter extends Deleter<ArchivedCall> {
+            public class ArchivedCallDeleter extends Deleter<ArchivedCall> {
 
-    private LocalDate pathDate;
+                private LocalDate pathDate;
     private String pathSid;
 
-    public ArchivedCallDeleter(final LocalDate pathDate, final String pathSid) {
+                public ArchivedCallDeleter(final LocalDate pathDate, final String pathSid) {
         this.pathDate = pathDate;
         this.pathSid = pathSid;
     }
 
-    @Override
+            
+                @Override
     public boolean delete(final TwilioRestClient client) {
-        String path = "/v1/Archives/{Date}/Calls/{Sid}";
+    
+    String path = "/v1/Archives/{Date}/Calls/{Sid}";
 
-        path = path.replace("{" + "Date" + "}", this.pathDate.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"Date"+"}", this.pathDate.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VOICE.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "ArchivedCall delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ArchivedCall delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
         return response.getStatusCode() == 204;
     }
-}
+            }

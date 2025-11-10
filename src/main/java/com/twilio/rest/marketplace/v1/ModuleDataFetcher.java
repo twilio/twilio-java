@@ -23,44 +23,44 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class ModuleDataFetcher extends Fetcher<ModuleData> {
+    public class ModuleDataFetcher extends Fetcher<ModuleData> {
 
-    public ModuleDataFetcher() {}
+        
+            public ModuleDataFetcher() {
+    }
 
-    @Override
+        
+            @Override
     public ModuleData fetch(final TwilioRestClient client) {
-        String path = "/v1/Listings";
+    
+    String path = "/v1/Listings";
 
+
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.MARKETPLACE.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "ModuleData fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ModuleData fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-        return ModuleData.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ModuleData.fromJson(response.getStream(), client.getObjectMapper());
     }
-}
+    }

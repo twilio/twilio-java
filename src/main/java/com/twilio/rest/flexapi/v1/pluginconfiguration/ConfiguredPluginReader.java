@@ -14,9 +14,7 @@
 
 package com.twilio.rest.flexapi.v1.pluginconfiguration;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,42 +25,45 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class ConfiguredPluginReader extends Reader<ConfiguredPlugin> {
 
-    private String pathConfigurationSid;
+        private String pathConfigurationSid;
     private Long pageSize;
     private String flexMetadata;
 
-    public ConfiguredPluginReader(final String pathConfigurationSid) {
+        public ConfiguredPluginReader(final String pathConfigurationSid) {
         this.pathConfigurationSid = pathConfigurationSid;
     }
 
-    public ConfiguredPluginReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+    
+public ConfiguredPluginReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
 
-    public ConfiguredPluginReader setFlexMetadata(final String flexMetadata) {
-        this.flexMetadata = flexMetadata;
-        return this;
-    }
 
-    @Override
+public ConfiguredPluginReader setFlexMetadata(final String flexMetadata){
+    this.flexMetadata = flexMetadata;
+    return this;
+}
+
+
+        @Override
     public ResourceSet<ConfiguredPlugin> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<ConfiguredPlugin> firstPage(final TwilioRestClient client) {
-        String path =
-            "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins";
+        
+    String path = "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins";
 
-        path =
-            path.replace(
-                "{" + "ConfigurationSid" + "}",
-                this.pathConfigurationSid.toString()
-            );
+    path = path.replace("{"+"ConfigurationSid"+"}", this.pathConfigurationSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -75,90 +76,60 @@ public class ConfiguredPluginReader extends Reader<ConfiguredPlugin> {
         return pageForRequest(client, request);
     }
 
-    private Page<ConfiguredPlugin> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<ConfiguredPlugin> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "ConfiguredPlugin read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ConfiguredPlugin read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "plugins",
             response.getContent(),
             ConfiguredPlugin.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<ConfiguredPlugin> previousPage(
-        final Page<ConfiguredPlugin> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<ConfiguredPlugin> previousPage(final Page<ConfiguredPlugin> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<ConfiguredPlugin> nextPage(
-        final Page<ConfiguredPlugin> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<ConfiguredPlugin> nextPage(final Page<ConfiguredPlugin> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<ConfiguredPlugin> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<ConfiguredPlugin> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
     }
 
+
+
+}
     private void addHeaderParams(final Request request) {
-        if (flexMetadata != null) {
-            Serializer.toString(
-                request,
-                "Flex-Metadata",
-                flexMetadata,
-                ParameterType.HEADER
-            );
-        }
+
+    if (flexMetadata != null) {
+        Serializer.toString(request, "Flex-Metadata", flexMetadata, ParameterType.HEADER);
     }
+
+}
 }

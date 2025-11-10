@@ -15,6 +15,7 @@
 package com.twilio.rest.taskrouter.v1.workspace.taskqueue;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -25,38 +26,34 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class TaskQueueBulkRealTimeStatisticsCreator
-    extends Creator<TaskQueueBulkRealTimeStatistics> {
+public class TaskQueueBulkRealTimeStatisticsCreator extends Creator<TaskQueueBulkRealTimeStatistics> {
 
     private String pathWorkspaceSid;
     private Object body;
 
-    public TaskQueueBulkRealTimeStatisticsCreator(
-        final String pathWorkspaceSid
-    ) {
+    public TaskQueueBulkRealTimeStatisticsCreator(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
-    public TaskQueueBulkRealTimeStatisticsCreator setBody(final Object body) {
-        this.body = body;
-        return this;
-    }
+
+public TaskQueueBulkRealTimeStatisticsCreator setBody(final Object body){
+    this.body = body;
+    return this;
+}
+
 
     @Override
-    public TaskQueueBulkRealTimeStatistics create(
-        final TwilioRestClient client
-    ) {
-        String path =
-            "/v1/Workspaces/{WorkspaceSid}/TaskQueues/RealTimeStatistics";
+    public TaskQueueBulkRealTimeStatistics create(final TwilioRestClient client) {
+    
+    String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/RealTimeStatistics";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
+    path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
@@ -64,39 +61,28 @@ public class TaskQueueBulkRealTimeStatisticsCreator
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "TaskQueueBulkRealTimeStatistics creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("TaskQueueBulkRealTimeStatistics creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return TaskQueueBulkRealTimeStatistics.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return TaskQueueBulkRealTimeStatistics.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request, TwilioRestClient client) {
-        ObjectMapper objectMapper = client.getObjectMapper();
+    ObjectMapper objectMapper = client.getObjectMapper();
         if (body != null) {
-            request.setBody(
-                TaskQueueBulkRealTimeStatistics.toJson(body, objectMapper)
-            );
+        request.setBody(TaskQueueBulkRealTimeStatistics.toJson(body, objectMapper));
         }
-    }
+}
 }

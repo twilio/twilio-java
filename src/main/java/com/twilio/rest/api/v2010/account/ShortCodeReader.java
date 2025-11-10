@@ -14,9 +14,7 @@
 
 package com.twilio.rest.api.v2010.account;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,53 +25,55 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class ShortCodeReader extends Reader<ShortCode> {
 
-    private String pathAccountSid;
+        private String pathAccountSid;
     private String friendlyName;
     private String shortCode;
     private Long pageSize;
 
-    public ShortCodeReader() {}
-
+        public ShortCodeReader() {
+    }
     public ShortCodeReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public ShortCodeReader setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+    
+public ShortCodeReader setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public ShortCodeReader setShortCode(final String shortCode) {
-        this.shortCode = shortCode;
-        return this;
-    }
 
-    public ShortCodeReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+public ShortCodeReader setShortCode(final String shortCode){
+    this.shortCode = shortCode;
+    return this;
+}
 
-    @Override
+
+public ShortCodeReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+        @Override
     public ResourceSet<ShortCode> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<ShortCode> firstPage(final TwilioRestClient client) {
-        String path = "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json";
+        
+    String path = "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -85,97 +85,69 @@ public class ShortCodeReader extends Reader<ShortCode> {
         return pageForRequest(client, request);
     }
 
-    private Page<ShortCode> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<ShortCode> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "ShortCode read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ShortCode read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "short_codes",
             response.getContent(),
             ShortCode.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<ShortCode> previousPage(
-        final Page<ShortCode> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<ShortCode> previousPage(final Page<ShortCode> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<ShortCode> nextPage(
-        final Page<ShortCode> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<ShortCode> nextPage(final Page<ShortCode> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<ShortCode> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<ShortCode> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.QUERY
-            );
-        }
 
-        if (shortCode != null) {
-            Serializer.toString(
-                request,
-                "ShortCode",
-                shortCode,
-                ParameterType.QUERY
-            );
-        }
 
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (shortCode != null) {
+        Serializer.toString(request, "ShortCode", shortCode, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

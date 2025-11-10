@@ -14,9 +14,7 @@
 
 package com.twilio.rest.trusthub.v1;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,44 +25,56 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class TrustProductsReader extends Reader<TrustProducts> {
 
-    private TrustProducts.Status status;
+        private TrustProducts.Status status;
     private String friendlyName;
     private String policySid;
     private Long pageSize;
 
-    public TrustProductsReader() {}
-
-    public TrustProductsReader setStatus(final TrustProducts.Status status) {
-        this.status = status;
-        return this;
+        public TrustProductsReader() {
     }
 
-    public TrustProductsReader setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+    
+public TrustProductsReader setStatus(final TrustProducts.Status status){
+    this.status = status;
+    return this;
+}
 
-    public TrustProductsReader setPolicySid(final String policySid) {
-        this.policySid = policySid;
-        return this;
-    }
 
-    public TrustProductsReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+public TrustProductsReader setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    @Override
+
+public TrustProductsReader setPolicySid(final String policySid){
+    this.policySid = policySid;
+    return this;
+}
+
+
+public TrustProductsReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+        @Override
     public ResourceSet<TrustProducts> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<TrustProducts> firstPage(final TwilioRestClient client) {
-        String path = "/v1/TrustProducts";
+        
+    String path = "/v1/TrustProducts";
+
 
         Request request = new Request(
             HttpMethod.GET,
@@ -76,101 +86,77 @@ public class TrustProductsReader extends Reader<TrustProducts> {
         return pageForRequest(client, request);
     }
 
-    private Page<TrustProducts> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<TrustProducts> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "TrustProducts read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("TrustProducts read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "results",
             response.getContent(),
             TrustProducts.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<TrustProducts> previousPage(
-        final Page<TrustProducts> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<TrustProducts> previousPage(final Page<TrustProducts> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<TrustProducts> nextPage(
-        final Page<TrustProducts> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<TrustProducts> nextPage(final Page<TrustProducts> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<TrustProducts> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<TrustProducts> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.QUERY);
-        }
 
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.QUERY
-            );
-        }
 
-        if (policySid != null) {
-            Serializer.toString(
-                request,
-                "PolicySid",
-                policySid,
-                ParameterType.QUERY
-            );
-        }
-
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+    if (status != null) {
+        Serializer.toString(request, "Status", status, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (policySid != null) {
+        Serializer.toString(request, "PolicySid", policySid, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

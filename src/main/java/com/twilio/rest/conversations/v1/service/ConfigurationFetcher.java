@@ -23,54 +23,47 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class ConfigurationFetcher extends Fetcher<Configuration> {
+    public class ConfigurationFetcher extends Fetcher<Configuration> {
 
-    private String pathChatServiceSid;
+            private String pathChatServiceSid;
 
-    public ConfigurationFetcher(final String pathChatServiceSid) {
+            public ConfigurationFetcher(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;
     }
 
-    @Override
+        
+            @Override
     public Configuration fetch(final TwilioRestClient client) {
-        String path = "/v1/Services/{ChatServiceSid}/Configuration";
+    
+    String path = "/v1/Services/{ChatServiceSid}/Configuration";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
+    path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.CONVERSATIONS.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Configuration fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Configuration fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-        return Configuration.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Configuration.fromJson(response.getStream(), client.getObjectMapper());
     }
-}
+    }

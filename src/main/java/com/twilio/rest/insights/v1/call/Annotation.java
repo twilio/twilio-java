@@ -17,94 +17,152 @@ package com.twilio.rest.insights.v1.call;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
+import com.twilio.base.Reader;
+import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.List;
-import java.util.Objects;
+import com.twilio.exception.RestException;
+import com.twilio.http.HttpMethod;
+import com.twilio.http.Request;
+import com.twilio.http.Response;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Currency;
+import java.util.List;
+import java.util.Map;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Annotation extends Resource {
 
+
+
+
+
+
     public static AnnotationFetcher fetcher(final String pathCallSid) {
-        return new AnnotationFetcher(pathCallSid);
+        return new AnnotationFetcher(
+             pathCallSid
+        );
     }
+
+
+
+    
+
+
+
+
+
 
     public static AnnotationUpdater updater(final String pathCallSid) {
-        return new AnnotationUpdater(pathCallSid);
+        return new AnnotationUpdater(
+             pathCallSid
+        );
     }
 
-    public enum AnsweredBy {
-        UNKNOWN_ANSWERED_BY("unknown_answered_by"),
-        HUMAN("human"),
-        MACHINE("machine");
+    
 
-        private final String value;
+public enum AnsweredBy {
+    UNKNOWN_ANSWERED_BY("unknown_answered_by"),
+    HUMAN("human"),
+    MACHINE("machine");
 
-        private AnsweredBy(final String value) {
-            this.value = value;
-        }
+    private final String value;
 
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static AnsweredBy forValue(final String value) {
-            return Promoter.enumFromString(value, AnsweredBy.values());
-        }
+    private AnsweredBy(final String value) {
+        this.value = value;
     }
 
-    public enum ConnectivityIssue {
-        UNKNOWN_CONNECTIVITY_ISSUE("unknown_connectivity_issue"),
-        NO_CONNECTIVITY_ISSUE("no_connectivity_issue"),
-        INVALID_NUMBER("invalid_number"),
-        CALLER_ID("caller_id"),
-        DROPPED_CALL("dropped_call"),
-        NUMBER_REACHABILITY("number_reachability");
-
-        private final String value;
-
-        private ConnectivityIssue(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConnectivityIssue forValue(final String value) {
-            return Promoter.enumFromString(value, ConnectivityIssue.values());
-        }
+    public String toString() {
+        return value;
     }
+
+    @JsonCreator
+    public static AnsweredBy forValue(final String value) {
+        return Promoter.enumFromString(value, AnsweredBy.values());
+    }
+}
+public enum ConnectivityIssue {
+    UNKNOWN_CONNECTIVITY_ISSUE("unknown_connectivity_issue"),
+    NO_CONNECTIVITY_ISSUE("no_connectivity_issue"),
+    INVALID_NUMBER("invalid_number"),
+    CALLER_ID("caller_id"),
+    DROPPED_CALL("dropped_call"),
+    NUMBER_REACHABILITY("number_reachability");
+
+    private final String value;
+
+    private ConnectivityIssue(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static ConnectivityIssue forValue(final String value) {
+        return Promoter.enumFromString(value, ConnectivityIssue.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a Annotation object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Annotation object represented by the provided JSON
-     */
-    public static Annotation fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Annotation object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Annotation object represented by the provided JSON
+    */
+    public static Annotation fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Annotation.class);
@@ -116,17 +174,14 @@ public class Annotation extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Annotation object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Annotation object represented by the provided JSON
-     */
-    public static Annotation fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Annotation object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Annotation object represented by the provided JSON
+    */
+    public static Annotation fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Annotation.class);
@@ -148,102 +203,106 @@ public class Annotation extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final Annotation.AnsweredBy answeredBy;
-
     @Getter
     private final Integer callScore;
-
     @Getter
     private final String callSid;
-
     @Getter
     private final String comment;
-
     @Getter
     private final Annotation.ConnectivityIssue connectivityIssue;
-
     @Getter
     private final String incident;
-
     @Getter
     private final List<String> qualityIssues;
-
     @Getter
     private final Boolean spam;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private Annotation(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("answered_by") final Annotation.AnsweredBy answeredBy,
-        @JsonProperty("call_score") final Integer callScore,
-        @JsonProperty("call_sid") final String callSid,
-        @JsonProperty("comment") final String comment,
-        @JsonProperty(
-            "connectivity_issue"
-        ) final Annotation.ConnectivityIssue connectivityIssue,
-        @JsonProperty("incident") final String incident,
-        @JsonProperty("quality_issues") final List<String> qualityIssues,
-        @JsonProperty("spam") final Boolean spam,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.answeredBy = answeredBy;
-        this.callScore = callScore;
-        this.callSid = callSid;
-        this.comment = comment;
-        this.connectivityIssue = connectivityIssue;
-        this.incident = incident;
-        this.qualityIssues = qualityIssues;
-        this.spam = spam;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Annotation other = (Annotation) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(answeredBy, other.answeredBy) &&
-            Objects.equals(callScore, other.callScore) &&
-            Objects.equals(callSid, other.callSid) &&
-            Objects.equals(comment, other.comment) &&
-            Objects.equals(connectivityIssue, other.connectivityIssue) &&
-            Objects.equals(incident, other.incident) &&
-            Objects.equals(qualityIssues, other.qualityIssues) &&
-            Objects.equals(spam, other.spam) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            answeredBy,
-            callScore,
-            callSid,
-            comment,
-            connectivityIssue,
-            incident,
-            qualityIssues,
-            spam,
-            url
-        );
-    }
+@JsonCreator
+private Annotation(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("answered_by")
+    final Annotation.AnsweredBy answeredBy, 
+    @JsonProperty("call_score")
+    final Integer callScore, 
+    @JsonProperty("call_sid")
+    final String callSid, 
+    @JsonProperty("comment")
+    final String comment, 
+    @JsonProperty("connectivity_issue")
+    final Annotation.ConnectivityIssue connectivityIssue, 
+    @JsonProperty("incident")
+    final String incident, 
+    @JsonProperty("quality_issues")
+    final List<String> qualityIssues, 
+    @JsonProperty("spam")
+    final Boolean spam, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.answeredBy = answeredBy;
+    this.callScore = callScore;
+    this.callSid = callSid;
+    this.comment = comment;
+    this.connectivityIssue = connectivityIssue;
+    this.incident = incident;
+    this.qualityIssues = qualityIssues;
+    this.spam = spam;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Annotation other = (Annotation) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(answeredBy, other.answeredBy) && 
+            Objects.equals(callScore, other.callScore) && 
+            Objects.equals(callSid, other.callSid) && 
+            Objects.equals(comment, other.comment) && 
+            Objects.equals(connectivityIssue, other.connectivityIssue) && 
+            Objects.equals(incident, other.incident) && 
+            Objects.equals(qualityIssues, other.qualityIssues) && 
+            Objects.equals(spam, other.spam) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            answeredBy, 
+            callScore, 
+            callSid, 
+            comment, 
+            connectivityIssue, 
+            incident, 
+            qualityIssues, 
+            spam, 
+            url
+    );
+}
+
+
+
+}
+

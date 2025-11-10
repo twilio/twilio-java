@@ -14,6 +14,7 @@
 
 package com.twilio.rest.numbers.v2.regulatorycompliance;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class EndUserCreator extends Creator<EndUser> {
@@ -39,25 +42,32 @@ public class EndUserCreator extends Creator<EndUser> {
         this.type = type;
     }
 
-    public EndUserCreator setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
 
-    public EndUserCreator setType(final EndUser.Type type) {
-        this.type = type;
-        return this;
-    }
+public EndUserCreator setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public EndUserCreator setAttributes(final Object attributes) {
-        this.attributes = attributes;
-        return this;
-    }
+
+public EndUserCreator setType(final EndUser.Type type){
+    this.type = type;
+    return this;
+}
+
+
+public EndUserCreator setAttributes(final Object attributes){
+    this.attributes = attributes;
+    return this;
+}
+
 
     @Override
     public EndUser create(final TwilioRestClient client) {
-        String path = "/v2/RegulatoryCompliance/EndUsers";
+    
+    String path = "/v2/RegulatoryCompliance/EndUsers";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
@@ -65,56 +75,42 @@ public class EndUserCreator extends Creator<EndUser> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "EndUser creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("EndUser creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return EndUser.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (type != null) {
-            Serializer.toString(
-                request,
-                "Type",
-                type,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (attributes != null) {
-            Serializer.toString(
-                request,
-                "Attributes",
-                attributes,
-                ParameterType.URLENCODED
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
+
+
+
+    if (type != null) {
+        Serializer.toString(request, "Type", type, ParameterType.URLENCODED);
+    }
+
+
+
+    if (attributes != null) {
+        Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
+    }
+
+
+}
 }

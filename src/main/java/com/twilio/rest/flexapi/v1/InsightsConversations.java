@@ -17,43 +17,56 @@ package com.twilio.rest.flexapi.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.util.List;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsConversations extends Resource {
 
+
+
+
+
+
+
     public static InsightsConversationsReader reader() {
-        return new InsightsConversationsReader();
+        return new InsightsConversationsReader(
+            
+        );
     }
 
+
+    
+
+
+
     /**
-     * Converts a JSON String into a InsightsConversations object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return InsightsConversations object represented by the provided JSON
-     */
-    public static InsightsConversations fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a InsightsConversations object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return InsightsConversations object represented by the provided JSON
+    */
+    public static InsightsConversations fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InsightsConversations.class);
@@ -65,17 +78,14 @@ public class InsightsConversations extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a InsightsConversations object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return InsightsConversations object represented by the provided JSON
-     */
-    public static InsightsConversations fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a InsightsConversations object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return InsightsConversations object represented by the provided JSON
+    */
+    public static InsightsConversations fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InsightsConversations.class);
@@ -97,53 +107,64 @@ public class InsightsConversations extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountId;
-
     @Getter
     private final String conversationId;
-
     @Getter
     private final Integer segmentCount;
-
     @Getter
     private final List<Object> segments;
 
-    @JsonCreator
-    private InsightsConversations(
-        @JsonProperty("account_id") final String accountId,
-        @JsonProperty("conversation_id") final String conversationId,
-        @JsonProperty("segment_count") final Integer segmentCount,
-        @JsonProperty("segments") final List<Object> segments
-    ) {
-        this.accountId = accountId;
-        this.conversationId = conversationId;
-        this.segmentCount = segmentCount;
-        this.segments = segments;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        InsightsConversations other = (InsightsConversations) o;
-        return (
-            Objects.equals(accountId, other.accountId) &&
-            Objects.equals(conversationId, other.conversationId) &&
-            Objects.equals(segmentCount, other.segmentCount) &&
-            Objects.equals(segments, other.segments)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(accountId, conversationId, segmentCount, segments);
-    }
+@JsonCreator
+private InsightsConversations(
+    @JsonProperty("account_id")
+    final String accountId, 
+    @JsonProperty("conversation_id")
+    final String conversationId, 
+    @JsonProperty("segment_count")
+    final Integer segmentCount, 
+    @JsonProperty("segments")
+    final List<Object> segments
+){
+    this.accountId = accountId;
+    this.conversationId = conversationId;
+    this.segmentCount = segmentCount;
+    this.segments = segments;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    InsightsConversations other = (InsightsConversations) o;
+    return (
+            Objects.equals(accountId, other.accountId) && 
+            Objects.equals(conversationId, other.conversationId) && 
+            Objects.equals(segmentCount, other.segmentCount) && 
+            Objects.equals(segments, other.segments)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountId, 
+            conversationId, 
+            segmentCount, 
+            segments
+    );
+}
+
+
+
+}
+

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.flexapi.v1.plugin;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +28,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.net.URI;
+import com.twilio.type.*;
 
 public class PluginVersionsCreator extends Creator<PluginVersions> {
 
@@ -41,67 +44,66 @@ public class PluginVersionsCreator extends Creator<PluginVersions> {
     private String cliVersion;
     private String validateStatus;
 
-    public PluginVersionsCreator(
-        final String pathPluginSid,
-        final String version,
-        final URI pluginUrl
-    ) {
+    public PluginVersionsCreator(final String pathPluginSid, final String version, final URI pluginUrl) {
         this.pathPluginSid = pathPluginSid;
         this.version = version;
         this.pluginUrl = pluginUrl;
     }
 
-    public PluginVersionsCreator setVersion(final String version) {
-        this.version = version;
-        return this;
-    }
 
-    public PluginVersionsCreator setPluginUrl(final URI pluginUrl) {
-        this.pluginUrl = pluginUrl;
-        return this;
-    }
+public PluginVersionsCreator setVersion(final String version){
+    this.version = version;
+    return this;
+}
 
-    public PluginVersionsCreator setPluginUrl(final String pluginUrl) {
-        return setPluginUrl(Promoter.uriFromString(pluginUrl));
-    }
 
-    public PluginVersionsCreator setChangelog(final String changelog) {
-        this.changelog = changelog;
-        return this;
-    }
+public PluginVersionsCreator setPluginUrl(final URI pluginUrl){
+    this.pluginUrl = pluginUrl;
+    return this;
+}
 
-    public PluginVersionsCreator set_private(final Boolean _private) {
-        this._private = _private;
-        return this;
-    }
+public PluginVersionsCreator setPluginUrl(final String pluginUrl){
+    return setPluginUrl(Promoter.uriFromString(pluginUrl));
+}
 
-    public PluginVersionsCreator setCliVersion(final String cliVersion) {
-        this.cliVersion = cliVersion;
-        return this;
-    }
+public PluginVersionsCreator setChangelog(final String changelog){
+    this.changelog = changelog;
+    return this;
+}
 
-    public PluginVersionsCreator setValidateStatus(
-        final String validateStatus
-    ) {
-        this.validateStatus = validateStatus;
-        return this;
-    }
 
-    public PluginVersionsCreator setFlexMetadata(final String flexMetadata) {
-        this.flexMetadata = flexMetadata;
-        return this;
-    }
+public PluginVersionsCreator set_private(final Boolean _private){
+    this._private = _private;
+    return this;
+}
+
+
+public PluginVersionsCreator setCliVersion(final String cliVersion){
+    this.cliVersion = cliVersion;
+    return this;
+}
+
+
+public PluginVersionsCreator setValidateStatus(final String validateStatus){
+    this.validateStatus = validateStatus;
+    return this;
+}
+
+
+public PluginVersionsCreator setFlexMetadata(final String flexMetadata){
+    this.flexMetadata = flexMetadata;
+    return this;
+}
+
 
     @Override
     public PluginVersions create(final TwilioRestClient client) {
-        String path = "/v1/PluginService/Plugins/{PluginSid}/Versions";
+    
+    String path = "/v1/PluginService/Plugins/{PluginSid}/Versions";
 
-        path =
-            path.replace(
-                "{" + "PluginSid" + "}",
-                this.pathPluginSid.toString()
-            );
+    path = path.replace("{"+"PluginSid"+"}", this.pathPluginSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
@@ -110,97 +112,67 @@ public class PluginVersionsCreator extends Creator<PluginVersions> {
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "PluginVersions creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("PluginVersions creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return PluginVersions.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return PluginVersions.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (version != null) {
-            Serializer.toString(
-                request,
-                "Version",
-                version,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (pluginUrl != null) {
-            Serializer.toString(
-                request,
-                "PluginUrl",
-                pluginUrl,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (changelog != null) {
-            Serializer.toString(
-                request,
-                "Changelog",
-                changelog,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (_private != null) {
-            Serializer.toString(
-                request,
-                "Private",
-                _private,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (cliVersion != null) {
-            Serializer.toString(
-                request,
-                "CliVersion",
-                cliVersion,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (validateStatus != null) {
-            Serializer.toString(
-                request,
-                "ValidateStatus",
-                validateStatus,
-                ParameterType.URLENCODED
-            );
-        }
+    if (version != null) {
+        Serializer.toString(request, "Version", version, ParameterType.URLENCODED);
     }
 
+
+
+    if (pluginUrl != null) {
+        Serializer.toString(request, "PluginUrl", pluginUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (changelog != null) {
+        Serializer.toString(request, "Changelog", changelog, ParameterType.URLENCODED);
+    }
+
+
+
+    if (_private != null) {
+        Serializer.toString(request, "Private", _private, ParameterType.URLENCODED);
+    }
+
+
+
+    if (cliVersion != null) {
+        Serializer.toString(request, "CliVersion", cliVersion, ParameterType.URLENCODED);
+    }
+
+
+
+    if (validateStatus != null) {
+        Serializer.toString(request, "ValidateStatus", validateStatus, ParameterType.URLENCODED);
+    }
+
+
+}
     private void addHeaderParams(final Request request) {
-        if (flexMetadata != null) {
-            Serializer.toString(
-                request,
-                "Flex-Metadata",
-                flexMetadata,
-                ParameterType.HEADER
-            );
-        }
+
+    if (flexMetadata != null) {
+        Serializer.toString(request, "Flex-Metadata", flexMetadata, ParameterType.HEADER);
     }
+
+}
 }

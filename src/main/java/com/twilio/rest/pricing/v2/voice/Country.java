@@ -17,52 +17,74 @@ package com.twilio.rest.pricing.v2.voice;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
 import com.twilio.type.InboundCallPrice;
 import com.twilio.type.OutboundPrefixPriceWithOrigin;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Currency;
 import java.util.List;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Country extends Resource {
 
+
+
+
+
+
     public static CountryFetcher fetcher(final String pathIsoCountry) {
-        return new CountryFetcher(pathIsoCountry);
+        return new CountryFetcher(
+             pathIsoCountry
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static CountryReader reader() {
-        return new CountryReader();
+        return new CountryReader(
+            
+        );
     }
 
+
+    
+
+
+
     /**
-     * Converts a JSON String into a Country object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Country object represented by the provided JSON
-     */
-    public static Country fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Country object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Country object represented by the provided JSON
+    */
+    public static Country fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Country.class);
@@ -74,17 +96,14 @@ public class Country extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Country object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Country object represented by the provided JSON
-     */
-    public static Country fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Country object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Country object represented by the provided JSON
+    */
+    public static Country fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Country.class);
@@ -106,78 +125,79 @@ public class Country extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String country;
-
     @Getter
     private final List<InboundCallPrice> inboundCallPrices;
-
     @Getter
     private final String isoCountry;
-
     @Getter
     private final List<OutboundPrefixPriceWithOrigin> outboundPrefixPrices;
-
     @Getter
     private final Currency priceUnit;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private Country(
-        @JsonProperty("country") final String country,
-        @JsonProperty("inbound_call_prices") final List<
-            InboundCallPrice
-        > inboundCallPrices,
-        @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty("outbound_prefix_prices") final List<
-            OutboundPrefixPriceWithOrigin
-        > outboundPrefixPrices,
-        @JsonProperty("price_unit") @JsonDeserialize(
-            using = com.twilio.converter.CurrencyDeserializer.class
-        ) final Currency priceUnit,
-        @JsonProperty("url") final URI url
-    ) {
-        this.country = country;
-        this.inboundCallPrices = inboundCallPrices;
-        this.isoCountry = isoCountry;
-        this.outboundPrefixPrices = outboundPrefixPrices;
-        this.priceUnit = priceUnit;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Country other = (Country) o;
-        return (
-            Objects.equals(country, other.country) &&
-            Objects.equals(inboundCallPrices, other.inboundCallPrices) &&
-            Objects.equals(isoCountry, other.isoCountry) &&
-            Objects.equals(outboundPrefixPrices, other.outboundPrefixPrices) &&
-            Objects.equals(priceUnit, other.priceUnit) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            country,
-            inboundCallPrices,
-            isoCountry,
-            outboundPrefixPrices,
-            priceUnit,
-            url
-        );
-    }
+@JsonCreator
+private Country(
+    @JsonProperty("country")
+    final String country, 
+    @JsonProperty("inbound_call_prices")
+    final List<InboundCallPrice> inboundCallPrices, 
+    @JsonProperty("iso_country")
+    final String isoCountry, 
+    @JsonProperty("outbound_prefix_prices")
+    final List<OutboundPrefixPriceWithOrigin> outboundPrefixPrices, 
+    @JsonProperty("price_unit")
+    @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
+    final Currency priceUnit, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.country = country;
+    this.inboundCallPrices = inboundCallPrices;
+    this.isoCountry = isoCountry;
+    this.outboundPrefixPrices = outboundPrefixPrices;
+    this.priceUnit = priceUnit;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Country other = (Country) o;
+    return (
+            Objects.equals(country, other.country) && 
+            Objects.equals(inboundCallPrices, other.inboundCallPrices) && 
+            Objects.equals(isoCountry, other.isoCountry) && 
+            Objects.equals(outboundPrefixPrices, other.outboundPrefixPrices) && 
+            Objects.equals(priceUnit, other.priceUnit) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            country, 
+            inboundCallPrices, 
+            isoCountry, 
+            outboundPrefixPrices, 
+            priceUnit, 
+            url
+    );
+}
+
+
+
+}
+

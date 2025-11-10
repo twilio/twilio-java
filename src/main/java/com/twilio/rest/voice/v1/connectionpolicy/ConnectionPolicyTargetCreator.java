@@ -14,6 +14,7 @@
 
 package com.twilio.rest.voice.v1.connectionpolicy;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,11 +28,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
-import java.net.URI;
 
-public class ConnectionPolicyTargetCreator
-    extends Creator<ConnectionPolicyTarget> {
+
+import java.net.URI;
+import com.twilio.type.*;
+
+public class ConnectionPolicyTargetCreator extends Creator<ConnectionPolicyTarget> {
 
     private String pathConnectionPolicySid;
     private URI target;
@@ -40,55 +42,53 @@ public class ConnectionPolicyTargetCreator
     private Integer weight;
     private Boolean enabled;
 
-    public ConnectionPolicyTargetCreator(
-        final String pathConnectionPolicySid,
-        final URI target
-    ) {
+    public ConnectionPolicyTargetCreator(final String pathConnectionPolicySid, final URI target) {
         this.pathConnectionPolicySid = pathConnectionPolicySid;
         this.target = target;
     }
 
-    public ConnectionPolicyTargetCreator setTarget(final URI target) {
-        this.target = target;
-        return this;
-    }
 
-    public ConnectionPolicyTargetCreator setTarget(final String target) {
-        return setTarget(Promoter.uriFromString(target));
-    }
+public ConnectionPolicyTargetCreator setTarget(final URI target){
+    this.target = target;
+    return this;
+}
 
-    public ConnectionPolicyTargetCreator setFriendlyName(
-        final String friendlyName
-    ) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+public ConnectionPolicyTargetCreator setTarget(final String target){
+    return setTarget(Promoter.uriFromString(target));
+}
 
-    public ConnectionPolicyTargetCreator setPriority(final Integer priority) {
-        this.priority = priority;
-        return this;
-    }
+public ConnectionPolicyTargetCreator setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public ConnectionPolicyTargetCreator setWeight(final Integer weight) {
-        this.weight = weight;
-        return this;
-    }
 
-    public ConnectionPolicyTargetCreator setEnabled(final Boolean enabled) {
-        this.enabled = enabled;
-        return this;
-    }
+public ConnectionPolicyTargetCreator setPriority(final Integer priority){
+    this.priority = priority;
+    return this;
+}
+
+
+public ConnectionPolicyTargetCreator setWeight(final Integer weight){
+    this.weight = weight;
+    return this;
+}
+
+
+public ConnectionPolicyTargetCreator setEnabled(final Boolean enabled){
+    this.enabled = enabled;
+    return this;
+}
+
 
     @Override
     public ConnectionPolicyTarget create(final TwilioRestClient client) {
-        String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets";
+    
+    String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets";
 
-        path =
-            path.replace(
-                "{" + "ConnectionPolicySid" + "}",
-                this.pathConnectionPolicySid.toString()
-            );
+    path = path.replace("{"+"ConnectionPolicySid"+"}", this.pathConnectionPolicySid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.VOICE.toString(),
@@ -96,77 +96,54 @@ public class ConnectionPolicyTargetCreator
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "ConnectionPolicyTarget creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ConnectionPolicyTarget creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return ConnectionPolicyTarget.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return ConnectionPolicyTarget.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (target != null) {
-            Serializer.toString(
-                request,
-                "Target",
-                target,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (priority != null) {
-            Serializer.toString(
-                request,
-                "Priority",
-                priority,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (weight != null) {
-            Serializer.toString(
-                request,
-                "Weight",
-                weight,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (enabled != null) {
-            Serializer.toString(
-                request,
-                "Enabled",
-                enabled,
-                ParameterType.URLENCODED
-            );
-        }
+    if (target != null) {
+        Serializer.toString(request, "Target", target, ParameterType.URLENCODED);
     }
+
+
+
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+    }
+
+
+
+    if (priority != null) {
+        Serializer.toString(request, "Priority", priority, ParameterType.URLENCODED);
+    }
+
+
+
+    if (weight != null) {
+        Serializer.toString(request, "Weight", weight, ParameterType.URLENCODED);
+    }
+
+
+
+    if (enabled != null) {
+        Serializer.toString(request, "Enabled", enabled, ParameterType.URLENCODED);
+    }
+
+
+}
 }

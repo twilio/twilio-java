@@ -27,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.util.List;
+import com.twilio.type.*;
 
-public class WebhookUpdater extends Updater<Webhook> {
-
-    private String pathChatServiceSid;
+    public class WebhookUpdater extends Updater<Webhook> {
+            private String pathChatServiceSid;
     private String pathConversationSid;
     private String pathSid;
     private String configurationUrl;
@@ -41,82 +42,59 @@ public class WebhookUpdater extends Updater<Webhook> {
     private List<String> configurationTriggers;
     private String configurationFlowSid;
 
-    public WebhookUpdater(
-        final String pathChatServiceSid,
-        final String pathConversationSid,
-        final String pathSid
-    ) {
+            public WebhookUpdater(final String pathChatServiceSid, final String pathConversationSid, final String pathSid) {
         this.pathChatServiceSid = pathChatServiceSid;
         this.pathConversationSid = pathConversationSid;
         this.pathSid = pathSid;
     }
 
-    public WebhookUpdater setConfigurationUrl(final String configurationUrl) {
-        this.configurationUrl = configurationUrl;
-        return this;
-    }
+        
+public WebhookUpdater setConfigurationUrl(final String configurationUrl){
+    this.configurationUrl = configurationUrl;
+    return this;
+}
 
-    public WebhookUpdater setConfigurationMethod(
-        final Webhook.Method configurationMethod
-    ) {
-        this.configurationMethod = configurationMethod;
-        return this;
-    }
 
-    public WebhookUpdater setConfigurationFilters(
-        final List<String> configurationFilters
-    ) {
-        this.configurationFilters = configurationFilters;
-        return this;
-    }
+public WebhookUpdater setConfigurationMethod(final Webhook.Method configurationMethod){
+    this.configurationMethod = configurationMethod;
+    return this;
+}
 
-    public WebhookUpdater setConfigurationFilters(
-        final String configurationFilters
-    ) {
-        return setConfigurationFilters(
-            Promoter.listOfOne(configurationFilters)
-        );
-    }
 
-    public WebhookUpdater setConfigurationTriggers(
-        final List<String> configurationTriggers
-    ) {
-        this.configurationTriggers = configurationTriggers;
-        return this;
-    }
+public WebhookUpdater setConfigurationFilters(final List<String> configurationFilters){
+    this.configurationFilters = configurationFilters;
+    return this;
+}
 
-    public WebhookUpdater setConfigurationTriggers(
-        final String configurationTriggers
-    ) {
-        return setConfigurationTriggers(
-            Promoter.listOfOne(configurationTriggers)
-        );
-    }
+public WebhookUpdater setConfigurationFilters(final String configurationFilters){
+    return setConfigurationFilters(Promoter.listOfOne(configurationFilters));
+}
 
-    public WebhookUpdater setConfigurationFlowSid(
-        final String configurationFlowSid
-    ) {
-        this.configurationFlowSid = configurationFlowSid;
-        return this;
-    }
+public WebhookUpdater setConfigurationTriggers(final List<String> configurationTriggers){
+    this.configurationTriggers = configurationTriggers;
+    return this;
+}
 
-    @Override
+public WebhookUpdater setConfigurationTriggers(final String configurationTriggers){
+    return setConfigurationTriggers(Promoter.listOfOne(configurationTriggers));
+}
+
+public WebhookUpdater setConfigurationFlowSid(final String configurationFlowSid){
+    this.configurationFlowSid = configurationFlowSid;
+    return this;
+}
+
+
+            @Override
     public Webhook update(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}";
+    
+    String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
+    path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
@@ -124,78 +102,58 @@ public class WebhookUpdater extends Updater<Webhook> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Webhook update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Webhook update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addPostParams(final Request request) {
 
-    private void addPostParams(final Request request) {
-        if (configurationUrl != null) {
-            Serializer.toString(
-                request,
-                "Configuration.Url",
-                configurationUrl,
-                ParameterType.URLENCODED
-            );
-        }
+    if (configurationUrl != null) {
+        Serializer.toString(request, "Configuration.Url", configurationUrl, ParameterType.URLENCODED);
+    }
 
-        if (configurationMethod != null) {
-            Serializer.toString(
-                request,
-                "Configuration.Method",
-                configurationMethod,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (configurationFilters != null) {
-            for (String param : configurationFilters) {
-                Serializer.toString(
-                    request,
-                    "Configuration.Filters",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (configurationTriggers != null) {
-            for (String param : configurationTriggers) {
-                Serializer.toString(
-                    request,
-                    "Configuration.Triggers",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
+    if (configurationMethod != null) {
+        Serializer.toString(request, "Configuration.Method", configurationMethod, ParameterType.URLENCODED);
+    }
 
-        if (configurationFlowSid != null) {
-            Serializer.toString(
-                request,
-                "Configuration.FlowSid",
-                configurationFlowSid,
-                ParameterType.URLENCODED
-            );
+
+
+
+    if (configurationFilters != null) {
+        for (String param: configurationFilters) {
+            Serializer.toString(request, "Configuration.Filters", param, ParameterType.URLENCODED);
         }
     }
+
+
+
+    if (configurationTriggers != null) {
+        for (String param: configurationTriggers) {
+            Serializer.toString(request, "Configuration.Triggers", param, ParameterType.URLENCODED);
+        }
+    }
+
+
+    if (configurationFlowSid != null) {
+        Serializer.toString(request, "Configuration.FlowSid", configurationFlowSid, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

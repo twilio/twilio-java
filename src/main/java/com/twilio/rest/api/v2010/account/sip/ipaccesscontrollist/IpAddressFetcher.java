@@ -23,81 +23,58 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class IpAddressFetcher extends Fetcher<IpAddress> {
+    public class IpAddressFetcher extends Fetcher<IpAddress> {
 
-    private String pathAccountSid;
+            private String pathAccountSid;
     private String pathIpAccessControlListSid;
     private String pathSid;
 
-    public IpAddressFetcher(
-        final String pathIpAccessControlListSid,
-        final String pathSid
-    ) {
+            public IpAddressFetcher(final String pathIpAccessControlListSid, final String pathSid) {
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.pathSid = pathSid;
     }
-
-    public IpAddressFetcher(
-        final String pathAccountSid,
-        final String pathIpAccessControlListSid,
-        final String pathSid
-    ) {
+    public IpAddressFetcher(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.pathSid = pathSid;
     }
 
-    @Override
+        
+            @Override
     public IpAddress fetch(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json";
+    
+    String path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "IpAccessControlListSid" + "}",
-                this.pathIpAccessControlListSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+    path = path.replace("{"+"IpAccessControlListSid"+"}", this.pathIpAccessControlListSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "IpAddress fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("IpAddress fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-        return IpAddress.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return IpAddress.fromJson(response.getStream(), client.getObjectMapper());
     }
-}
+    }

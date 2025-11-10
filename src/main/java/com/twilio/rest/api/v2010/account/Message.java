@@ -17,334 +17,353 @@ package com.twilio.rest.api.v2010.account;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Currency;
 import java.util.List;
 import java.util.Map;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Message extends Resource {
 
-    public static MessageCreator creator(
-        final com.twilio.type.PhoneNumber to,
-        final com.twilio.type.PhoneNumber from,
-        final String body
-    ) {
-        return new MessageCreator(to, from, body);
-    }
 
-    public static MessageCreator creator(
-        final String pathAccountSid,
-        final com.twilio.type.PhoneNumber to,
-        final com.twilio.type.PhoneNumber from,
-        final String body
-    ) {
-        return new MessageCreator(pathAccountSid, to, from, body);
-    }
 
-    public static MessageCreator creator(
-        final com.twilio.type.PhoneNumber to,
-        final com.twilio.type.PhoneNumber from,
-        final List<URI> mediaUrl
-    ) {
-        return new MessageCreator(to, from, mediaUrl);
-    }
-
-    public static MessageCreator creator(
-        final String pathAccountSid,
-        final com.twilio.type.PhoneNumber to,
-        final com.twilio.type.PhoneNumber from,
-        final List<URI> mediaUrl
-    ) {
-        return new MessageCreator(pathAccountSid, to, from, mediaUrl);
-    }
-
-    public static MessageCreator creator(
-        final com.twilio.type.PhoneNumber to,
-        final String messagingServiceSid,
-        final String body
-    ) {
-        return new MessageCreator(to, messagingServiceSid, body);
-    }
-
-    public static MessageCreator creator(
-        final String pathAccountSid,
-        final com.twilio.type.PhoneNumber to,
-        final String messagingServiceSid,
-        final String body
-    ) {
+    public static MessageCreator creator(final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body) {
         return new MessageCreator(
-            pathAccountSid,
-            to,
-            messagingServiceSid,
-            body
+             to,  from,  body
         );
     }
 
-    public static MessageCreator creator(
-        final com.twilio.type.PhoneNumber to,
-        final String messagingServiceSid,
-        final List<URI> mediaUrl
-    ) {
-        return new MessageCreator(to, messagingServiceSid, mediaUrl);
-    }
 
-    public static MessageCreator creator(
-        final String pathAccountSid,
-        final com.twilio.type.PhoneNumber to,
-        final String messagingServiceSid,
-        final List<URI> mediaUrl
-    ) {
+    public static MessageCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body) {
         return new MessageCreator(
-            pathAccountSid,
-            to,
-            messagingServiceSid,
-            mediaUrl
+             pathAccountSid,  to,  from,  body
         );
     }
+
+
+    public static MessageCreator creator(final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final List<URI> mediaUrl) {
+        return new MessageCreator(
+             to,  from,  mediaUrl
+        );
+    }
+
+
+    public static MessageCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final List<URI> mediaUrl) {
+        return new MessageCreator(
+             pathAccountSid,  to,  from,  mediaUrl
+        );
+    }
+
+
+    public static MessageCreator creator(final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final String body) {
+        return new MessageCreator(
+             to,  messagingServiceSid,  body
+        );
+    }
+
+
+    public static MessageCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final String body) {
+        return new MessageCreator(
+             pathAccountSid,  to,  messagingServiceSid,  body
+        );
+    }
+
+
+    public static MessageCreator creator(final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final List<URI> mediaUrl) {
+        return new MessageCreator(
+             to,  messagingServiceSid,  mediaUrl
+        );
+    }
+
+
+    public static MessageCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final List<URI> mediaUrl) {
+        return new MessageCreator(
+             pathAccountSid,  to,  messagingServiceSid,  mediaUrl
+        );
+    }
+
+
+
+
+
+
+    
+
+
 
     public static MessageDeleter deleter(final String pathSid) {
-        return new MessageDeleter(pathSid);
+        return new MessageDeleter(
+             pathSid
+        );
     }
 
-    public static MessageDeleter deleter(
-        final String pathAccountSid,
-        final String pathSid
-    ) {
-        return new MessageDeleter(pathAccountSid, pathSid);
+
+    public static MessageDeleter deleter(final String pathAccountSid, final String pathSid) {
+        return new MessageDeleter(
+             pathAccountSid,  pathSid
+        );
     }
+
+
+
+
+    
+
+
+
 
     public static MessageFetcher fetcher(final String pathSid) {
-        return new MessageFetcher(pathSid);
+        return new MessageFetcher(
+             pathSid
+        );
     }
 
-    public static MessageFetcher fetcher(
-        final String pathAccountSid,
-        final String pathSid
-    ) {
-        return new MessageFetcher(pathAccountSid, pathSid);
+
+    public static MessageFetcher fetcher(final String pathAccountSid, final String pathSid) {
+        return new MessageFetcher(
+             pathAccountSid,  pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static MessageReader reader() {
-        return new MessageReader();
+        return new MessageReader(
+            
+        );
     }
+
 
     public static MessageReader reader(final String pathAccountSid) {
-        return new MessageReader(pathAccountSid);
+        return new MessageReader(
+             pathAccountSid
+        );
     }
+
+
+    
+
+
+
+
+
 
     public static MessageUpdater updater(final String pathSid) {
-        return new MessageUpdater(pathSid);
+        return new MessageUpdater(
+             pathSid
+        );
     }
 
-    public static MessageUpdater updater(
-        final String pathAccountSid,
-        final String pathSid
-    ) {
-        return new MessageUpdater(pathAccountSid, pathSid);
+
+    public static MessageUpdater updater(final String pathAccountSid, final String pathSid) {
+        return new MessageUpdater(
+             pathAccountSid,  pathSid
+        );
     }
 
-    public enum Status {
-        QUEUED("queued"),
-        SENDING("sending"),
-        SENT("sent"),
-        FAILED("failed"),
-        DELIVERED("delivered"),
-        UNDELIVERED("undelivered"),
-        RECEIVING("receiving"),
-        RECEIVED("received"),
-        ACCEPTED("accepted"),
-        SCHEDULED("scheduled"),
-        READ("read"),
-        PARTIALLY_DELIVERED("partially_delivered"),
-        CANCELED("canceled");
+    
 
-        private final String value;
+public enum Status {
+    QUEUED("queued"),
+    SENDING("sending"),
+    SENT("sent"),
+    FAILED("failed"),
+    DELIVERED("delivered"),
+    UNDELIVERED("undelivered"),
+    RECEIVING("receiving"),
+    RECEIVED("received"),
+    ACCEPTED("accepted"),
+    SCHEDULED("scheduled"),
+    READ("read"),
+    PARTIALLY_DELIVERED("partially_delivered"),
+    CANCELED("canceled");
 
-        private Status(final String value) {
-            this.value = value;
-        }
+    private final String value;
 
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
+    private Status(final String value) {
+        this.value = value;
     }
 
-    public enum ScheduleType {
-        FIXED("fixed");
-
-        private final String value;
-
-        private ScheduleType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ScheduleType forValue(final String value) {
-            return Promoter.enumFromString(value, ScheduleType.values());
-        }
+    public String toString() {
+        return value;
     }
 
-    public enum RiskCheck {
-        ENABLE("enable"),
-        DISABLE("disable");
+    @JsonCreator
+    public static Status forValue(final String value) {
+        return Promoter.enumFromString(value, Status.values());
+    }
+}
+public enum ScheduleType {
+    FIXED("fixed");
 
-        private final String value;
+    private final String value;
 
-        private RiskCheck(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RiskCheck forValue(final String value) {
-            return Promoter.enumFromString(value, RiskCheck.values());
-        }
+    private ScheduleType(final String value) {
+        this.value = value;
     }
 
-    public enum UpdateStatus {
-        CANCELED("canceled");
-
-        private final String value;
-
-        private UpdateStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static UpdateStatus forValue(final String value) {
-            return Promoter.enumFromString(value, UpdateStatus.values());
-        }
+    public String toString() {
+        return value;
     }
 
-    public enum ContentRetention {
-        RETAIN("retain"),
-        DISCARD("discard");
+    @JsonCreator
+    public static ScheduleType forValue(final String value) {
+        return Promoter.enumFromString(value, ScheduleType.values());
+    }
+}
+public enum RiskCheck {
+    ENABLE("enable"),
+    DISABLE("disable");
 
-        private final String value;
+    private final String value;
 
-        private ContentRetention(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ContentRetention forValue(final String value) {
-            return Promoter.enumFromString(value, ContentRetention.values());
-        }
+    private RiskCheck(final String value) {
+        this.value = value;
     }
 
-    public enum AddressRetention {
-        RETAIN("retain"),
-        OBFUSCATE("obfuscate");
-
-        private final String value;
-
-        private AddressRetention(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static AddressRetention forValue(final String value) {
-            return Promoter.enumFromString(value, AddressRetention.values());
-        }
+    public String toString() {
+        return value;
     }
 
-    public enum Direction {
-        INBOUND("inbound"),
-        OUTBOUND_API("outbound-api"),
-        OUTBOUND_CALL("outbound-call"),
-        OUTBOUND_REPLY("outbound-reply");
+    @JsonCreator
+    public static RiskCheck forValue(final String value) {
+        return Promoter.enumFromString(value, RiskCheck.values());
+    }
+}
+public enum UpdateStatus {
+    CANCELED("canceled");
 
-        private final String value;
+    private final String value;
 
-        private Direction(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Direction forValue(final String value) {
-            return Promoter.enumFromString(value, Direction.values());
-        }
+    private UpdateStatus(final String value) {
+        this.value = value;
     }
 
-    public enum TrafficType {
-        FREE("free");
-
-        private final String value;
-
-        private TrafficType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TrafficType forValue(final String value) {
-            return Promoter.enumFromString(value, TrafficType.values());
-        }
+    public String toString() {
+        return value;
     }
+
+    @JsonCreator
+    public static UpdateStatus forValue(final String value) {
+        return Promoter.enumFromString(value, UpdateStatus.values());
+    }
+}
+public enum ContentRetention {
+    RETAIN("retain"),
+    DISCARD("discard");
+
+    private final String value;
+
+    private ContentRetention(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static ContentRetention forValue(final String value) {
+        return Promoter.enumFromString(value, ContentRetention.values());
+    }
+}
+public enum AddressRetention {
+    RETAIN("retain"),
+    OBFUSCATE("obfuscate");
+
+    private final String value;
+
+    private AddressRetention(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static AddressRetention forValue(final String value) {
+        return Promoter.enumFromString(value, AddressRetention.values());
+    }
+}
+public enum Direction {
+    INBOUND("inbound"),
+    OUTBOUND_API("outbound-api"),
+    OUTBOUND_CALL("outbound-call"),
+    OUTBOUND_REPLY("outbound-reply");
+
+    private final String value;
+
+    private Direction(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static Direction forValue(final String value) {
+        return Promoter.enumFromString(value, Direction.values());
+    }
+}
+public enum TrafficType {
+    FREE("free");
+
+    private final String value;
+
+    private TrafficType(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static TrafficType forValue(final String value) {
+        return Promoter.enumFromString(value, TrafficType.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a Message object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Message object represented by the provided JSON
-     */
-    public static Message fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Message object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Message object represented by the provided JSON
+    */
+    public static Message fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Message.class);
@@ -356,17 +375,14 @@ public class Message extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Message object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Message object represented by the provided JSON
-     */
-    public static Message fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Message object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Message object represented by the provided JSON
+    */
+    public static Message fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Message.class);
@@ -388,181 +404,180 @@ public class Message extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String apiVersion;
-
     @Getter
     private final String body;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateSent;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final Message.Direction direction;
-
     @Getter
     private final Integer errorCode;
-
     @Getter
     private final String errorMessage;
-
     @Getter
     private final com.twilio.type.PhoneNumber from;
-
     @Getter
     private final String messagingServiceSid;
-
     @Getter
     private final String numMedia;
-
     @Getter
     private final String numSegments;
-
     @Getter
     private final String price;
-
     @Getter
     private final Currency priceUnit;
-
     @Getter
     private final String sid;
-
     @Getter
     private final Message.Status status;
-
     @Getter
     private final Map<String, String> subresourceUris;
-
     @Getter
     private final String to;
-
     @Getter
     private final String uri;
 
-    @JsonCreator
-    private Message(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("api_version") final String apiVersion,
-        @JsonProperty("body") final String body,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_sent") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateSent,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("direction") final Message.Direction direction,
-        @JsonProperty("error_code") final Integer errorCode,
-        @JsonProperty("error_message") final String errorMessage,
-        @JsonProperty("from") final com.twilio.type.PhoneNumber from,
-        @JsonProperty("messaging_service_sid") final String messagingServiceSid,
-        @JsonProperty("num_media") final String numMedia,
-        @JsonProperty("num_segments") final String numSegments,
-        @JsonProperty("price") final String price,
-        @JsonProperty("price_unit") @JsonDeserialize(
-            using = com.twilio.converter.CurrencyDeserializer.class
-        ) final Currency priceUnit,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("status") final Message.Status status,
-        @JsonProperty("subresource_uris") final Map<
-            String,
-            String
-        > subresourceUris,
-        @JsonProperty("to") final String to,
-        @JsonProperty("uri") final String uri
-    ) {
-        this.accountSid = accountSid;
-        this.apiVersion = apiVersion;
-        this.body = body;
-        this.dateCreated = dateCreated;
-        this.dateSent = dateSent;
-        this.dateUpdated = dateUpdated;
-        this.direction = direction;
-        this.errorCode = errorCode;
-        this.errorMessage = errorMessage;
-        this.from = from;
-        this.messagingServiceSid = messagingServiceSid;
-        this.numMedia = numMedia;
-        this.numSegments = numSegments;
-        this.price = price;
-        this.priceUnit = priceUnit;
-        this.sid = sid;
-        this.status = status;
-        this.subresourceUris = subresourceUris;
-        this.to = to;
-        this.uri = uri;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Message other = (Message) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(apiVersion, other.apiVersion) &&
-            Objects.equals(body, other.body) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateSent, other.dateSent) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(direction, other.direction) &&
-            Objects.equals(errorCode, other.errorCode) &&
-            Objects.equals(errorMessage, other.errorMessage) &&
-            Objects.equals(from, other.from) &&
-            Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
-            Objects.equals(numMedia, other.numMedia) &&
-            Objects.equals(numSegments, other.numSegments) &&
-            Objects.equals(price, other.price) &&
-            Objects.equals(priceUnit, other.priceUnit) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(subresourceUris, other.subresourceUris) &&
-            Objects.equals(to, other.to) &&
-            Objects.equals(uri, other.uri)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            apiVersion,
-            body,
-            dateCreated,
-            dateSent,
-            dateUpdated,
-            direction,
-            errorCode,
-            errorMessage,
-            from,
-            messagingServiceSid,
-            numMedia,
-            numSegments,
-            price,
-            priceUnit,
-            sid,
-            status,
-            subresourceUris,
-            to,
-            uri
-        );
-    }
+@JsonCreator
+private Message(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("api_version")
+    final String apiVersion, 
+    @JsonProperty("body")
+    final String body, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_sent")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateSent, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("direction")
+    final Message.Direction direction, 
+    @JsonProperty("error_code")
+    final Integer errorCode, 
+    @JsonProperty("error_message")
+    final String errorMessage, 
+    @JsonProperty("from")
+    final com.twilio.type.PhoneNumber from, 
+    @JsonProperty("messaging_service_sid")
+    final String messagingServiceSid, 
+    @JsonProperty("num_media")
+    final String numMedia, 
+    @JsonProperty("num_segments")
+    final String numSegments, 
+    @JsonProperty("price")
+    final String price, 
+    @JsonProperty("price_unit")
+    @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
+    final Currency priceUnit, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("status")
+    final Message.Status status, 
+    @JsonProperty("subresource_uris")
+    final Map<String, String> subresourceUris, 
+    @JsonProperty("to")
+    final String to, 
+    @JsonProperty("uri")
+    final String uri
+){
+    this.accountSid = accountSid;
+    this.apiVersion = apiVersion;
+    this.body = body;
+    this.dateCreated = dateCreated;
+    this.dateSent = dateSent;
+    this.dateUpdated = dateUpdated;
+    this.direction = direction;
+    this.errorCode = errorCode;
+    this.errorMessage = errorMessage;
+    this.from = from;
+    this.messagingServiceSid = messagingServiceSid;
+    this.numMedia = numMedia;
+    this.numSegments = numSegments;
+    this.price = price;
+    this.priceUnit = priceUnit;
+    this.sid = sid;
+    this.status = status;
+    this.subresourceUris = subresourceUris;
+    this.to = to;
+    this.uri = uri;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Message other = (Message) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(apiVersion, other.apiVersion) && 
+            Objects.equals(body, other.body) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateSent, other.dateSent) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(direction, other.direction) && 
+            Objects.equals(errorCode, other.errorCode) && 
+            Objects.equals(errorMessage, other.errorMessage) && 
+            Objects.equals(from, other.from) && 
+            Objects.equals(messagingServiceSid, other.messagingServiceSid) && 
+            Objects.equals(numMedia, other.numMedia) && 
+            Objects.equals(numSegments, other.numSegments) && 
+            Objects.equals(price, other.price) && 
+            Objects.equals(priceUnit, other.priceUnit) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(status, other.status) && 
+            Objects.equals(subresourceUris, other.subresourceUris) && 
+            Objects.equals(to, other.to) && 
+            Objects.equals(uri, other.uri)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            apiVersion, 
+            body, 
+            dateCreated, 
+            dateSent, 
+            dateUpdated, 
+            direction, 
+            errorCode, 
+            errorMessage, 
+            from, 
+            messagingServiceSid, 
+            numMedia, 
+            numSegments, 
+            price, 
+            priceUnit, 
+            sid, 
+            status, 
+            subresourceUris, 
+            to, 
+            uri
+    );
+}
+
+
+
+}
+

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.serverless.v1.service.environment;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class VariableCreator extends Creator<Variable> {
@@ -35,44 +38,35 @@ public class VariableCreator extends Creator<Variable> {
     private String key;
     private String value;
 
-    public VariableCreator(
-        final String pathServiceSid,
-        final String pathEnvironmentSid,
-        final String key,
-        final String value
-    ) {
+    public VariableCreator(final String pathServiceSid, final String pathEnvironmentSid, final String key, final String value) {
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
         this.key = key;
         this.value = value;
     }
 
-    public VariableCreator setKey(final String key) {
-        this.key = key;
-        return this;
-    }
 
-    public VariableCreator setValue(final String value) {
-        this.value = value;
-        return this;
-    }
+public VariableCreator setKey(final String key){
+    this.key = key;
+    return this;
+}
+
+
+public VariableCreator setValue(final String value){
+    this.value = value;
+    return this;
+}
+
 
     @Override
     public Variable create(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables";
+    
+    String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "EnvironmentSid" + "}",
-                this.pathEnvironmentSid.toString()
-            );
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"EnvironmentSid"+"}", this.pathEnvironmentSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
@@ -80,45 +74,36 @@ public class VariableCreator extends Creator<Variable> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Variable creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Variable creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Variable.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return Variable.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (key != null) {
-            Serializer.toString(request, "Key", key, ParameterType.URLENCODED);
-        }
 
-        if (value != null) {
-            Serializer.toString(
-                request,
-                "Value",
-                value,
-                ParameterType.URLENCODED
-            );
-        }
+    if (key != null) {
+        Serializer.toString(request, "Key", key, ParameterType.URLENCODED);
     }
+
+
+
+    if (value != null) {
+        Serializer.toString(request, "Value", value, ParameterType.URLENCODED);
+    }
+
+
+}
 }

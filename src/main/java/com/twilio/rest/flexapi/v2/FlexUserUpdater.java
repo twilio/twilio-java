@@ -13,10 +13,22 @@
  */
 
 package com.twilio.rest.flexapi.v2;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
+import com.twilio.base.Reader;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -26,54 +38,82 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Currency;
+import java.util.List;
+import java.util.Map;
 import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
-public class FlexUserUpdater extends Updater<FlexUser> {
-
-    private String pathInstanceSid;
+    public class FlexUserUpdater extends Updater<FlexUser> {
+            private String pathInstanceSid;
     private String pathFlexUserSid;
     private String email;
     private String userSid;
     private String locale;
 
-    public FlexUserUpdater(
-        final String pathInstanceSid,
-        final String pathFlexUserSid
-    ) {
+            public FlexUserUpdater(final String pathInstanceSid, final String pathFlexUserSid) {
         this.pathInstanceSid = pathInstanceSid;
         this.pathFlexUserSid = pathFlexUserSid;
     }
 
-    public FlexUserUpdater setEmail(final String email) {
-        this.email = email;
-        return this;
-    }
+        
+public FlexUserUpdater setEmail(final String email){
+    this.email = email;
+    return this;
+}
 
-    public FlexUserUpdater setUserSid(final String userSid) {
-        this.userSid = userSid;
-        return this;
-    }
 
-    public FlexUserUpdater setLocale(final String locale) {
-        this.locale = locale;
-        return this;
-    }
+public FlexUserUpdater setUserSid(final String userSid){
+    this.userSid = userSid;
+    return this;
+}
 
-    @Override
+
+public FlexUserUpdater setLocale(final String locale){
+    this.locale = locale;
+    return this;
+}
+
+
+            @Override
     public FlexUser update(final TwilioRestClient client) {
-        String path = "/v2/Instances/{InstanceSid}/Users/{FlexUserSid}";
+    
+    String path = "/v2/Instances/{InstanceSid}/Users/{FlexUserSid}";
 
-        path =
-            path.replace(
-                "{" + "InstanceSid" + "}",
-                this.pathInstanceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "FlexUserSid" + "}",
-                this.pathFlexUserSid.toString()
-            );
+    path = path.replace("{"+"InstanceSid"+"}", this.pathInstanceSid.toString());
+    path = path.replace("{"+"FlexUserSid"+"}", this.pathFlexUserSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
@@ -81,59 +121,42 @@ public class FlexUserUpdater extends Updater<FlexUser> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "FlexUser update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("FlexUser update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return FlexUser.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return FlexUser.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (email != null) {
+        Serializer.toString(request, "Email", email, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (email != null) {
-            Serializer.toString(
-                request,
-                "Email",
-                email,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (userSid != null) {
-            Serializer.toString(
-                request,
-                "UserSid",
-                userSid,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (locale != null) {
-            Serializer.toString(
-                request,
-                "Locale",
-                locale,
-                ParameterType.URLENCODED
-            );
-        }
+    if (userSid != null) {
+        Serializer.toString(request, "UserSid", userSid, ParameterType.URLENCODED);
     }
+
+
+
+    if (locale != null) {
+        Serializer.toString(request, "Locale", locale, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

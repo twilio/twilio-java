@@ -17,68 +17,98 @@ package com.twilio.rest.flexapi.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.net.URI;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsQuestionnairesCategory extends Resource {
 
-    public static InsightsQuestionnairesCategoryCreator creator(
-        final String name
-    ) {
-        return new InsightsQuestionnairesCategoryCreator(name);
+
+
+    public static InsightsQuestionnairesCategoryCreator creator(final String name) {
+        return new InsightsQuestionnairesCategoryCreator(
+             name
+        );
     }
 
-    public static InsightsQuestionnairesCategoryDeleter deleter(
-        final String pathCategorySid
-    ) {
-        return new InsightsQuestionnairesCategoryDeleter(pathCategorySid);
+
+
+
+
+
+    
+
+
+
+    public static InsightsQuestionnairesCategoryDeleter deleter(final String pathCategorySid) {
+        return new InsightsQuestionnairesCategoryDeleter(
+             pathCategorySid
+        );
     }
+
+
+
+
+    
+
+
+
+
 
     public static InsightsQuestionnairesCategoryReader reader() {
-        return new InsightsQuestionnairesCategoryReader();
+        return new InsightsQuestionnairesCategoryReader(
+            
+        );
     }
 
-    public static InsightsQuestionnairesCategoryUpdater updater(
-        final String pathCategorySid,
-        final String name
-    ) {
-        return new InsightsQuestionnairesCategoryUpdater(pathCategorySid, name);
+
+    
+
+
+
+
+
+
+    public static InsightsQuestionnairesCategoryUpdater updater(final String pathCategorySid, final String name) {
+        return new InsightsQuestionnairesCategoryUpdater(
+             pathCategorySid,  name
+        );
     }
+
+    
+
+
 
     /**
-     * Converts a JSON String into a InsightsQuestionnairesCategory object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return InsightsQuestionnairesCategory object represented by the provided JSON
-     */
-    public static InsightsQuestionnairesCategory fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a InsightsQuestionnairesCategory object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return InsightsQuestionnairesCategory object represented by the provided JSON
+    */
+    public static InsightsQuestionnairesCategory fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                InsightsQuestionnairesCategory.class
-            );
+            return objectMapper.readValue(json, InsightsQuestionnairesCategory.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -87,23 +117,17 @@ public class InsightsQuestionnairesCategory extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a InsightsQuestionnairesCategory object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return InsightsQuestionnairesCategory object represented by the provided JSON
-     */
-    public static InsightsQuestionnairesCategory fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a InsightsQuestionnairesCategory object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return InsightsQuestionnairesCategory object represented by the provided JSON
+    */
+    public static InsightsQuestionnairesCategory fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                InsightsQuestionnairesCategory.class
-            );
+            return objectMapper.readValue(json, InsightsQuestionnairesCategory.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -122,54 +146,64 @@ public class InsightsQuestionnairesCategory extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String categorySid;
-
     @Getter
     private final String name;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private InsightsQuestionnairesCategory(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("category_sid") final String categorySid,
-        @JsonProperty("name") final String name,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.categorySid = categorySid;
-        this.name = name;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        InsightsQuestionnairesCategory other =
-            (InsightsQuestionnairesCategory) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(categorySid, other.categorySid) &&
-            Objects.equals(name, other.name) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(accountSid, categorySid, name, url);
-    }
+@JsonCreator
+private InsightsQuestionnairesCategory(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("category_sid")
+    final String categorySid, 
+    @JsonProperty("name")
+    final String name, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.categorySid = categorySid;
+    this.name = name;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    InsightsQuestionnairesCategory other = (InsightsQuestionnairesCategory) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(categorySid, other.categorySid) && 
+            Objects.equals(name, other.name) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            categorySid, 
+            name, 
+            url
+    );
+}
+
+
+
+}
+

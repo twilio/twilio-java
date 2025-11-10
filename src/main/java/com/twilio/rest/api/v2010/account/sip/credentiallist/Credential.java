@@ -17,130 +17,144 @@ package com.twilio.rest.api.v2010.account.sip.credentiallist;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.time.ZonedDateTime;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.time.ZonedDateTime;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Credential extends Resource {
 
-    public static CredentialCreator creator(
-        final String pathCredentialListSid,
-        final String username,
-        final String password
-    ) {
-        return new CredentialCreator(pathCredentialListSid, username, password);
-    }
 
-    public static CredentialCreator creator(
-        final String pathAccountSid,
-        final String pathCredentialListSid,
-        final String username,
-        final String password
-    ) {
+
+    public static CredentialCreator creator(final String pathCredentialListSid, final String username, final String password) {
         return new CredentialCreator(
-            pathAccountSid,
-            pathCredentialListSid,
-            username,
-            password
+             pathCredentialListSid,  username,  password
         );
     }
 
-    public static CredentialDeleter deleter(
-        final String pathCredentialListSid,
-        final String pathSid
-    ) {
-        return new CredentialDeleter(pathCredentialListSid, pathSid);
+
+    public static CredentialCreator creator(final String pathAccountSid, final String pathCredentialListSid, final String username, final String password) {
+        return new CredentialCreator(
+             pathAccountSid,  pathCredentialListSid,  username,  password
+        );
     }
 
-    public static CredentialDeleter deleter(
-        final String pathAccountSid,
-        final String pathCredentialListSid,
-        final String pathSid
-    ) {
+
+
+
+
+
+    
+
+
+
+    public static CredentialDeleter deleter(final String pathCredentialListSid, final String pathSid) {
         return new CredentialDeleter(
-            pathAccountSid,
-            pathCredentialListSid,
-            pathSid
+             pathCredentialListSid,  pathSid
         );
     }
 
-    public static CredentialFetcher fetcher(
-        final String pathCredentialListSid,
-        final String pathSid
-    ) {
-        return new CredentialFetcher(pathCredentialListSid, pathSid);
+
+    public static CredentialDeleter deleter(final String pathAccountSid, final String pathCredentialListSid, final String pathSid) {
+        return new CredentialDeleter(
+             pathAccountSid,  pathCredentialListSid,  pathSid
+        );
     }
 
-    public static CredentialFetcher fetcher(
-        final String pathAccountSid,
-        final String pathCredentialListSid,
-        final String pathSid
-    ) {
+
+
+
+    
+
+
+
+
+    public static CredentialFetcher fetcher(final String pathCredentialListSid, final String pathSid) {
         return new CredentialFetcher(
-            pathAccountSid,
-            pathCredentialListSid,
-            pathSid
+             pathCredentialListSid,  pathSid
         );
     }
+
+
+    public static CredentialFetcher fetcher(final String pathAccountSid, final String pathCredentialListSid, final String pathSid) {
+        return new CredentialFetcher(
+             pathAccountSid,  pathCredentialListSid,  pathSid
+        );
+    }
+
+
+
+    
+
+
+
+
 
     public static CredentialReader reader(final String pathCredentialListSid) {
-        return new CredentialReader(pathCredentialListSid);
-    }
-
-    public static CredentialReader reader(
-        final String pathAccountSid,
-        final String pathCredentialListSid
-    ) {
-        return new CredentialReader(pathAccountSid, pathCredentialListSid);
-    }
-
-    public static CredentialUpdater updater(
-        final String pathCredentialListSid,
-        final String pathSid
-    ) {
-        return new CredentialUpdater(pathCredentialListSid, pathSid);
-    }
-
-    public static CredentialUpdater updater(
-        final String pathAccountSid,
-        final String pathCredentialListSid,
-        final String pathSid
-    ) {
-        return new CredentialUpdater(
-            pathAccountSid,
-            pathCredentialListSid,
-            pathSid
+        return new CredentialReader(
+             pathCredentialListSid
         );
     }
 
+
+    public static CredentialReader reader(final String pathAccountSid, final String pathCredentialListSid) {
+        return new CredentialReader(
+             pathAccountSid,  pathCredentialListSid
+        );
+    }
+
+
+    
+
+
+
+
+
+
+    public static CredentialUpdater updater(final String pathCredentialListSid, final String pathSid) {
+        return new CredentialUpdater(
+             pathCredentialListSid,  pathSid
+        );
+    }
+
+
+    public static CredentialUpdater updater(final String pathAccountSid, final String pathCredentialListSid, final String pathSid) {
+        return new CredentialUpdater(
+             pathAccountSid,  pathCredentialListSid,  pathSid
+        );
+    }
+
+    
+
+
+
     /**
-     * Converts a JSON String into a Credential object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Credential object represented by the provided JSON
-     */
-    public static Credential fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Credential object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Credential object represented by the provided JSON
+    */
+    public static Credential fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Credential.class);
@@ -152,17 +166,14 @@ public class Credential extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Credential object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Credential object represented by the provided JSON
-     */
-    public static Credential fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Credential object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Credential object represented by the provided JSON
+    */
+    public static Credential fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Credential.class);
@@ -184,83 +195,87 @@ public class Credential extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String credentialListSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String sid;
-
     @Getter
     private final String uri;
-
     @Getter
     private final String username;
 
-    @JsonCreator
-    private Credential(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("credential_list_sid") final String credentialListSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("uri") final String uri,
-        @JsonProperty("username") final String username
-    ) {
-        this.accountSid = accountSid;
-        this.credentialListSid = credentialListSid;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.sid = sid;
-        this.uri = uri;
-        this.username = username;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Credential other = (Credential) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(credentialListSid, other.credentialListSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(uri, other.uri) &&
-            Objects.equals(username, other.username)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            credentialListSid,
-            dateCreated,
-            dateUpdated,
-            sid,
-            uri,
-            username
-        );
-    }
+@JsonCreator
+private Credential(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("credential_list_sid")
+    final String credentialListSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("uri")
+    final String uri, 
+    @JsonProperty("username")
+    final String username
+){
+    this.accountSid = accountSid;
+    this.credentialListSid = credentialListSid;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.sid = sid;
+    this.uri = uri;
+    this.username = username;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Credential other = (Credential) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(credentialListSid, other.credentialListSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(uri, other.uri) && 
+            Objects.equals(username, other.username)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            credentialListSid, 
+            dateCreated, 
+            dateUpdated, 
+            sid, 
+            uri, 
+            username
+    );
+}
+
+
+
+}
+

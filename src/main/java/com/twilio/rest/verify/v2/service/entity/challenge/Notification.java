@@ -17,52 +17,57 @@ package com.twilio.rest.verify.v2.service.entity.challenge;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.time.ZonedDateTime;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.time.ZonedDateTime;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Notification extends Resource {
 
-    public static NotificationCreator creator(
-        final String pathServiceSid,
-        final String pathIdentity,
-        final String pathChallengeSid
-    ) {
+
+
+    public static NotificationCreator creator(final String pathServiceSid, final String pathIdentity, final String pathChallengeSid) {
         return new NotificationCreator(
-            pathServiceSid,
-            pathIdentity,
-            pathChallengeSid
+             pathServiceSid,  pathIdentity,  pathChallengeSid
         );
     }
 
+
+
+
+
+
+    
+
+
+
     /**
-     * Converts a JSON String into a Notification object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Notification object represented by the provided JSON
-     */
-    public static Notification fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Notification object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Notification object represented by the provided JSON
+    */
+    public static Notification fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Notification.class);
@@ -74,17 +79,14 @@ public class Notification extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Notification object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Notification object represented by the provided JSON
-     */
-    public static Notification fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Notification object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Notification object represented by the provided JSON
+    */
+    public static Notification fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Notification.class);
@@ -106,95 +108,100 @@ public class Notification extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String challengeSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final String entitySid;
-
     @Getter
     private final String identity;
-
     @Getter
     private final String priority;
-
     @Getter
     private final String serviceSid;
-
     @Getter
     private final String sid;
-
     @Getter
     private final Integer ttl;
 
-    @JsonCreator
-    private Notification(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("challenge_sid") final String challengeSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("entity_sid") final String entitySid,
-        @JsonProperty("identity") final String identity,
-        @JsonProperty("priority") final String priority,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("ttl") final Integer ttl
-    ) {
-        this.accountSid = accountSid;
-        this.challengeSid = challengeSid;
-        this.dateCreated = dateCreated;
-        this.entitySid = entitySid;
-        this.identity = identity;
-        this.priority = priority;
-        this.serviceSid = serviceSid;
-        this.sid = sid;
-        this.ttl = ttl;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Notification other = (Notification) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(challengeSid, other.challengeSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(entitySid, other.entitySid) &&
-            Objects.equals(identity, other.identity) &&
-            Objects.equals(priority, other.priority) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(ttl, other.ttl)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            challengeSid,
-            dateCreated,
-            entitySid,
-            identity,
-            priority,
-            serviceSid,
-            sid,
-            ttl
-        );
-    }
+@JsonCreator
+private Notification(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("challenge_sid")
+    final String challengeSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("entity_sid")
+    final String entitySid, 
+    @JsonProperty("identity")
+    final String identity, 
+    @JsonProperty("priority")
+    final String priority, 
+    @JsonProperty("service_sid")
+    final String serviceSid, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("ttl")
+    final Integer ttl
+){
+    this.accountSid = accountSid;
+    this.challengeSid = challengeSid;
+    this.dateCreated = dateCreated;
+    this.entitySid = entitySid;
+    this.identity = identity;
+    this.priority = priority;
+    this.serviceSid = serviceSid;
+    this.sid = sid;
+    this.ttl = ttl;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Notification other = (Notification) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(challengeSid, other.challengeSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(entitySid, other.entitySid) && 
+            Objects.equals(identity, other.identity) && 
+            Objects.equals(priority, other.priority) && 
+            Objects.equals(serviceSid, other.serviceSid) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(ttl, other.ttl)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            challengeSid, 
+            dateCreated, 
+            entitySid, 
+            identity, 
+            priority, 
+            serviceSid, 
+            sid, 
+            ttl
+    );
+}
+
+
+
+}
+

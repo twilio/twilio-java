@@ -26,41 +26,43 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class SyncListUpdater extends Updater<SyncList> {
-
-    private String pathServiceSid;
+    public class SyncListUpdater extends Updater<SyncList> {
+            private String pathServiceSid;
     private String pathSid;
     private Integer ttl;
     private Integer collectionTtl;
 
-    public SyncListUpdater(final String pathServiceSid, final String pathSid) {
+            public SyncListUpdater(final String pathServiceSid, final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
-    public SyncListUpdater setTtl(final Integer ttl) {
-        this.ttl = ttl;
-        return this;
-    }
+        
+public SyncListUpdater setTtl(final Integer ttl){
+    this.ttl = ttl;
+    return this;
+}
 
-    public SyncListUpdater setCollectionTtl(final Integer collectionTtl) {
-        this.collectionTtl = collectionTtl;
-        return this;
-    }
 
-    @Override
+public SyncListUpdater setCollectionTtl(final Integer collectionTtl){
+    this.collectionTtl = collectionTtl;
+    return this;
+}
+
+
+            @Override
     public SyncList update(final TwilioRestClient client) {
-        String path = "/v1/Services/{ServiceSid}/Lists/{Sid}";
+    
+    String path = "/v1/Services/{ServiceSid}/Lists/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
@@ -68,45 +70,36 @@ public class SyncListUpdater extends Updater<SyncList> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "SyncList update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SyncList update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return SyncList.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return SyncList.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (ttl != null) {
+        Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (ttl != null) {
-            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
-        }
 
-        if (collectionTtl != null) {
-            Serializer.toString(
-                request,
-                "CollectionTtl",
-                collectionTtl,
-                ParameterType.URLENCODED
-            );
-        }
+
+    if (collectionTtl != null) {
+        Serializer.toString(request, "CollectionTtl", collectionTtl, ParameterType.URLENCODED);
     }
+
+
 }
+    }

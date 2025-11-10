@@ -27,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.net.URI;
+import com.twilio.type.*;
 
-public class ShortCodeUpdater extends Updater<ShortCode> {
-
-    private String pathAccountSid;
+    public class ShortCodeUpdater extends Updater<ShortCode> {
+            private String pathAccountSid;
     private String pathSid;
     private String friendlyName;
     private String apiVersion;
@@ -41,71 +42,67 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     private URI smsFallbackUrl;
     private HttpMethod smsFallbackMethod;
 
-    public ShortCodeUpdater(final String pathSid) {
+            public ShortCodeUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
-
     public ShortCodeUpdater(final String pathAccountSid, final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
-    public ShortCodeUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+        
+public ShortCodeUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public ShortCodeUpdater setApiVersion(final String apiVersion) {
-        this.apiVersion = apiVersion;
-        return this;
-    }
 
-    public ShortCodeUpdater setSmsUrl(final URI smsUrl) {
-        this.smsUrl = smsUrl;
-        return this;
-    }
+public ShortCodeUpdater setApiVersion(final String apiVersion){
+    this.apiVersion = apiVersion;
+    return this;
+}
 
-    public ShortCodeUpdater setSmsUrl(final String smsUrl) {
-        return setSmsUrl(Promoter.uriFromString(smsUrl));
-    }
 
-    public ShortCodeUpdater setSmsMethod(final HttpMethod smsMethod) {
-        this.smsMethod = smsMethod;
-        return this;
-    }
+public ShortCodeUpdater setSmsUrl(final URI smsUrl){
+    this.smsUrl = smsUrl;
+    return this;
+}
 
-    public ShortCodeUpdater setSmsFallbackUrl(final URI smsFallbackUrl) {
-        this.smsFallbackUrl = smsFallbackUrl;
-        return this;
-    }
+public ShortCodeUpdater setSmsUrl(final String smsUrl){
+    return setSmsUrl(Promoter.uriFromString(smsUrl));
+}
 
-    public ShortCodeUpdater setSmsFallbackUrl(final String smsFallbackUrl) {
-        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
-    }
+public ShortCodeUpdater setSmsMethod(final HttpMethod smsMethod){
+    this.smsMethod = smsMethod;
+    return this;
+}
 
-    public ShortCodeUpdater setSmsFallbackMethod(
-        final HttpMethod smsFallbackMethod
-    ) {
-        this.smsFallbackMethod = smsFallbackMethod;
-        return this;
-    }
 
-    @Override
+public ShortCodeUpdater setSmsFallbackUrl(final URI smsFallbackUrl){
+    this.smsFallbackUrl = smsFallbackUrl;
+    return this;
+}
+
+public ShortCodeUpdater setSmsFallbackUrl(final String smsFallbackUrl){
+    return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
+}
+
+public ShortCodeUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod){
+    this.smsFallbackMethod = smsFallbackMethod;
+    return this;
+}
+
+
+            @Override
     public ShortCode update(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json";
+    
+    String path = "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
@@ -113,86 +110,60 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "ShortCode update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ShortCode update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return ShortCode.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return ShortCode.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (apiVersion != null) {
-            Serializer.toString(
-                request,
-                "ApiVersion",
-                apiVersion,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (smsUrl != null) {
-            Serializer.toString(
-                request,
-                "SmsUrl",
-                smsUrl,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (smsMethod != null) {
-            Serializer.toString(
-                request,
-                "SmsMethod",
-                smsMethod,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (smsFallbackUrl != null) {
-            Serializer.toString(
-                request,
-                "SmsFallbackUrl",
-                smsFallbackUrl,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (smsFallbackMethod != null) {
-            Serializer.toString(
-                request,
-                "SmsFallbackMethod",
-                smsFallbackMethod,
-                ParameterType.URLENCODED
-            );
-        }
+    if (apiVersion != null) {
+        Serializer.toString(request, "ApiVersion", apiVersion, ParameterType.URLENCODED);
     }
+
+
+
+    if (smsUrl != null) {
+        Serializer.toString(request, "SmsUrl", smsUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (smsMethod != null) {
+        Serializer.toString(request, "SmsMethod", smsMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (smsFallbackUrl != null) {
+        Serializer.toString(request, "SmsFallbackUrl", smsFallbackUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (smsFallbackMethod != null) {
+        Serializer.toString(request, "SmsFallbackMethod", smsFallbackMethod, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

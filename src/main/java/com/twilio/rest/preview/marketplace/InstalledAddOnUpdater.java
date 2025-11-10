@@ -26,34 +26,40 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
-
-    private String pathSid;
+    public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
+            private String pathSid;
     private Object configuration;
     private String uniqueName;
 
-    public InstalledAddOnUpdater(final String pathSid) {
+            public InstalledAddOnUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public InstalledAddOnUpdater setConfiguration(final Object configuration) {
-        this.configuration = configuration;
-        return this;
-    }
+        
+public InstalledAddOnUpdater setConfiguration(final Object configuration){
+    this.configuration = configuration;
+    return this;
+}
 
-    public InstalledAddOnUpdater setUniqueName(final String uniqueName) {
-        this.uniqueName = uniqueName;
-        return this;
-    }
 
-    @Override
+public InstalledAddOnUpdater setUniqueName(final String uniqueName){
+    this.uniqueName = uniqueName;
+    return this;
+}
+
+
+            @Override
     public InstalledAddOn update(final TwilioRestClient client) {
-        String path = "/marketplace/InstalledAddOns/{Sid}";
+    
+    String path = "/marketplace/InstalledAddOns/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
@@ -61,50 +67,36 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "InstalledAddOn update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InstalledAddOn update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return InstalledAddOn.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return InstalledAddOn.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (configuration != null) {
+        Serializer.toString(request, "Configuration", configuration, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (configuration != null) {
-            Serializer.toString(
-                request,
-                "Configuration",
-                configuration,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (uniqueName != null) {
-            Serializer.toString(
-                request,
-                "UniqueName",
-                uniqueName,
-                ParameterType.URLENCODED
-            );
-        }
+
+    if (uniqueName != null) {
+        Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
     }
+
+
 }
+    }

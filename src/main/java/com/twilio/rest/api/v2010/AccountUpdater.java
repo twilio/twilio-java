@@ -26,38 +26,43 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class AccountUpdater extends Updater<Account> {
-
-    private String pathSid;
+    public class AccountUpdater extends Updater<Account> {
+            private String pathSid;
     private String friendlyName;
     private Account.Status status;
 
-    public AccountUpdater() {}
-
+            public AccountUpdater() {
+    }
     public AccountUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public AccountUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+        
+public AccountUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public AccountUpdater setStatus(final Account.Status status) {
-        this.status = status;
-        return this;
-    }
 
-    @Override
+public AccountUpdater setStatus(final Account.Status status){
+    this.status = status;
+    return this;
+}
+
+
+            @Override
     public Account update(final TwilioRestClient client) {
-        String path = "/2010-04-01/Accounts/{Sid}.json";
+    
+    String path = "/2010-04-01/Accounts/{Sid}.json";
 
-        this.pathSid =
-            this.pathSid == null ? client.getAccountSid() : this.pathSid;
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        this.pathSid = this.pathSid == null ? client.getAccountSid() : this.pathSid;
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
@@ -65,47 +70,36 @@ public class AccountUpdater extends Updater<Account> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Account update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Account update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Account.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addPostParams(final Request request) {
 
-    private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (status != null) {
-            Serializer.toString(
-                request,
-                "Status",
-                status,
-                ParameterType.URLENCODED
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
+
+
+
+    if (status != null) {
+        Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

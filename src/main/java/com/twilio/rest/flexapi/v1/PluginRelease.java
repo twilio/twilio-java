@@ -17,53 +17,84 @@ package com.twilio.rest.flexapi.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PluginRelease extends Resource {
 
+
+
     public static PluginReleaseCreator creator(final String configurationId) {
-        return new PluginReleaseCreator(configurationId);
+        return new PluginReleaseCreator(
+             configurationId
+        );
     }
+
+
+
+
+
+
+    
+
+
+
 
     public static PluginReleaseFetcher fetcher(final String pathSid) {
-        return new PluginReleaseFetcher(pathSid);
+        return new PluginReleaseFetcher(
+             pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static PluginReleaseReader reader() {
-        return new PluginReleaseReader();
+        return new PluginReleaseReader(
+            
+        );
     }
 
+
+    
+
+
+
     /**
-     * Converts a JSON String into a PluginRelease object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return PluginRelease object represented by the provided JSON
-     */
-    public static PluginRelease fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a PluginRelease object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return PluginRelease object represented by the provided JSON
+    */
+    public static PluginRelease fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PluginRelease.class);
@@ -75,17 +106,14 @@ public class PluginRelease extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a PluginRelease object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return PluginRelease object represented by the provided JSON
-     */
-    public static PluginRelease fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a PluginRelease object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return PluginRelease object represented by the provided JSON
+    */
+    public static PluginRelease fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PluginRelease.class);
@@ -107,67 +135,72 @@ public class PluginRelease extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String configurationSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final String sid;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private PluginRelease(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("configuration_sid") final String configurationSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.configurationSid = configurationSid;
-        this.dateCreated = dateCreated;
-        this.sid = sid;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        PluginRelease other = (PluginRelease) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(configurationSid, other.configurationSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            configurationSid,
-            dateCreated,
-            sid,
-            url
-        );
-    }
+@JsonCreator
+private PluginRelease(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("configuration_sid")
+    final String configurationSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.configurationSid = configurationSid;
+    this.dateCreated = dateCreated;
+    this.sid = sid;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    PluginRelease other = (PluginRelease) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(configurationSid, other.configurationSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            configurationSid, 
+            dateCreated, 
+            sid, 
+            url
+    );
+}
+
+
+
+}
+

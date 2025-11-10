@@ -27,61 +27,58 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.net.URI;
+import com.twilio.type.*;
 
-public class TriggerUpdater extends Updater<Trigger> {
-
-    private String pathAccountSid;
+    public class TriggerUpdater extends Updater<Trigger> {
+            private String pathAccountSid;
     private String pathSid;
     private HttpMethod callbackMethod;
     private URI callbackUrl;
     private String friendlyName;
 
-    public TriggerUpdater(final String pathSid) {
+            public TriggerUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
-
     public TriggerUpdater(final String pathAccountSid, final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
-    public TriggerUpdater setCallbackMethod(final HttpMethod callbackMethod) {
-        this.callbackMethod = callbackMethod;
-        return this;
-    }
+        
+public TriggerUpdater setCallbackMethod(final HttpMethod callbackMethod){
+    this.callbackMethod = callbackMethod;
+    return this;
+}
 
-    public TriggerUpdater setCallbackUrl(final URI callbackUrl) {
-        this.callbackUrl = callbackUrl;
-        return this;
-    }
 
-    public TriggerUpdater setCallbackUrl(final String callbackUrl) {
-        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
-    }
+public TriggerUpdater setCallbackUrl(final URI callbackUrl){
+    this.callbackUrl = callbackUrl;
+    return this;
+}
 
-    public TriggerUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+public TriggerUpdater setCallbackUrl(final String callbackUrl){
+    return setCallbackUrl(Promoter.uriFromString(callbackUrl));
+}
 
-    @Override
+public TriggerUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
+
+
+            @Override
     public Trigger update(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json";
+    
+    String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
@@ -89,56 +86,42 @@ public class TriggerUpdater extends Updater<Trigger> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Trigger update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Trigger update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Trigger.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addPostParams(final Request request) {
 
-    private void addPostParams(final Request request) {
-        if (callbackMethod != null) {
-            Serializer.toString(
-                request,
-                "CallbackMethod",
-                callbackMethod,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (callbackUrl != null) {
-            Serializer.toString(
-                request,
-                "CallbackUrl",
-                callbackUrl,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
+    if (callbackMethod != null) {
+        Serializer.toString(request, "CallbackMethod", callbackMethod, ParameterType.URLENCODED);
     }
+
+
+
+    if (callbackUrl != null) {
+        Serializer.toString(request, "CallbackUrl", callbackUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

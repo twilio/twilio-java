@@ -14,6 +14,7 @@
 
 package com.twilio.rest.messaging.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class BrandRegistrationCreator extends Creator<BrandRegistration> {
@@ -36,49 +39,49 @@ public class BrandRegistrationCreator extends Creator<BrandRegistration> {
     private Boolean mock;
     private Boolean skipAutomaticSecVet;
 
-    public BrandRegistrationCreator(
-        final String customerProfileBundleSid,
-        final String a2PProfileBundleSid
-    ) {
+    public BrandRegistrationCreator(final String customerProfileBundleSid, final String a2PProfileBundleSid) {
         this.customerProfileBundleSid = customerProfileBundleSid;
         this.a2PProfileBundleSid = a2PProfileBundleSid;
     }
 
-    public BrandRegistrationCreator setCustomerProfileBundleSid(
-        final String customerProfileBundleSid
-    ) {
-        this.customerProfileBundleSid = customerProfileBundleSid;
-        return this;
-    }
 
-    public BrandRegistrationCreator setA2PProfileBundleSid(
-        final String a2PProfileBundleSid
-    ) {
-        this.a2PProfileBundleSid = a2PProfileBundleSid;
-        return this;
-    }
+public BrandRegistrationCreator setCustomerProfileBundleSid(final String customerProfileBundleSid){
+    this.customerProfileBundleSid = customerProfileBundleSid;
+    return this;
+}
 
-    public BrandRegistrationCreator setBrandType(final String brandType) {
-        this.brandType = brandType;
-        return this;
-    }
 
-    public BrandRegistrationCreator setMock(final Boolean mock) {
-        this.mock = mock;
-        return this;
-    }
+public BrandRegistrationCreator setA2PProfileBundleSid(final String a2PProfileBundleSid){
+    this.a2PProfileBundleSid = a2PProfileBundleSid;
+    return this;
+}
 
-    public BrandRegistrationCreator setSkipAutomaticSecVet(
-        final Boolean skipAutomaticSecVet
-    ) {
-        this.skipAutomaticSecVet = skipAutomaticSecVet;
-        return this;
-    }
+
+public BrandRegistrationCreator setBrandType(final String brandType){
+    this.brandType = brandType;
+    return this;
+}
+
+
+public BrandRegistrationCreator setMock(final Boolean mock){
+    this.mock = mock;
+    return this;
+}
+
+
+public BrandRegistrationCreator setSkipAutomaticSecVet(final Boolean skipAutomaticSecVet){
+    this.skipAutomaticSecVet = skipAutomaticSecVet;
+    return this;
+}
+
 
     @Override
     public BrandRegistration create(final TwilioRestClient client) {
-        String path = "/v1/a2p/BrandRegistrations";
+    
+    String path = "/v1/a2p/BrandRegistrations";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.MESSAGING.toString(),
@@ -86,77 +89,54 @@ public class BrandRegistrationCreator extends Creator<BrandRegistration> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "BrandRegistration creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("BrandRegistration creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return BrandRegistration.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return BrandRegistration.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (customerProfileBundleSid != null) {
-            Serializer.toString(
-                request,
-                "CustomerProfileBundleSid",
-                customerProfileBundleSid,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (a2PProfileBundleSid != null) {
-            Serializer.toString(
-                request,
-                "A2PProfileBundleSid",
-                a2PProfileBundleSid,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (brandType != null) {
-            Serializer.toString(
-                request,
-                "BrandType",
-                brandType,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (mock != null) {
-            Serializer.toString(
-                request,
-                "Mock",
-                mock,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (skipAutomaticSecVet != null) {
-            Serializer.toString(
-                request,
-                "SkipAutomaticSecVet",
-                skipAutomaticSecVet,
-                ParameterType.URLENCODED
-            );
-        }
+    if (customerProfileBundleSid != null) {
+        Serializer.toString(request, "CustomerProfileBundleSid", customerProfileBundleSid, ParameterType.URLENCODED);
     }
+
+
+
+    if (a2PProfileBundleSid != null) {
+        Serializer.toString(request, "A2PProfileBundleSid", a2PProfileBundleSid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (brandType != null) {
+        Serializer.toString(request, "BrandType", brandType, ParameterType.URLENCODED);
+    }
+
+
+
+    if (mock != null) {
+        Serializer.toString(request, "Mock", mock, ParameterType.URLENCODED);
+    }
+
+
+
+    if (skipAutomaticSecVet != null) {
+        Serializer.toString(request, "SkipAutomaticSecVet", skipAutomaticSecVet, ParameterType.URLENCODED);
+    }
+
+
+}
 }

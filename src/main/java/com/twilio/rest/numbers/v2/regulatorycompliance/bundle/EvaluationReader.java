@@ -14,9 +14,7 @@
 
 package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,36 +25,38 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class EvaluationReader extends Reader<Evaluation> {
 
-    private String pathBundleSid;
+        private String pathBundleSid;
     private Long pageSize;
 
-    public EvaluationReader(final String pathBundleSid) {
+        public EvaluationReader(final String pathBundleSid) {
         this.pathBundleSid = pathBundleSid;
     }
 
-    public EvaluationReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+    
+public EvaluationReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
 
-    @Override
+
+        @Override
     public ResourceSet<Evaluation> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<Evaluation> firstPage(final TwilioRestClient client) {
-        String path =
-            "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations";
+        
+    String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations";
 
-        path =
-            path.replace(
-                "{" + "BundleSid" + "}",
-                this.pathBundleSid.toString()
-            );
+    path = path.replace("{"+"BundleSid"+"}", this.pathBundleSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -68,79 +68,53 @@ public class EvaluationReader extends Reader<Evaluation> {
         return pageForRequest(client, request);
     }
 
-    private Page<Evaluation> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Evaluation> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Evaluation read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Evaluation read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "results",
             response.getContent(),
             Evaluation.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<Evaluation> previousPage(
-        final Page<Evaluation> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Evaluation> previousPage(final Page<Evaluation> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Evaluation> nextPage(
-        final Page<Evaluation> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<Evaluation> nextPage(final Page<Evaluation> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<Evaluation> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Evaluation> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
+    }
+    private void addQueryParams(final Request request) {
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
     }
 
-    private void addQueryParams(final Request request) {
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
-    }
+
+
+}
 }

@@ -17,65 +17,72 @@ package com.twilio.rest.messaging.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.net.URI;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class LinkshorteningMessagingService extends Resource {
 
-    public static LinkshorteningMessagingServiceCreator creator(
-        final String pathDomainSid,
-        final String pathMessagingServiceSid
-    ) {
+
+
+    public static LinkshorteningMessagingServiceCreator creator(final String pathDomainSid, final String pathMessagingServiceSid) {
         return new LinkshorteningMessagingServiceCreator(
-            pathDomainSid,
-            pathMessagingServiceSid
+             pathDomainSid,  pathMessagingServiceSid
         );
     }
 
-    public static LinkshorteningMessagingServiceDeleter deleter(
-        final String pathDomainSid,
-        final String pathMessagingServiceSid
-    ) {
+
+
+
+
+
+    
+
+
+
+    public static LinkshorteningMessagingServiceDeleter deleter(final String pathDomainSid, final String pathMessagingServiceSid) {
         return new LinkshorteningMessagingServiceDeleter(
-            pathDomainSid,
-            pathMessagingServiceSid
+             pathDomainSid,  pathMessagingServiceSid
         );
     }
+
+
+
+
+    
+
+
 
     /**
-     * Converts a JSON String into a LinkshorteningMessagingService object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return LinkshorteningMessagingService object represented by the provided JSON
-     */
-    public static LinkshorteningMessagingService fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a LinkshorteningMessagingService object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return LinkshorteningMessagingService object represented by the provided JSON
+    */
+    public static LinkshorteningMessagingService fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                LinkshorteningMessagingService.class
-            );
+            return objectMapper.readValue(json, LinkshorteningMessagingService.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -84,23 +91,17 @@ public class LinkshorteningMessagingService extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a LinkshorteningMessagingService object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return LinkshorteningMessagingService object represented by the provided JSON
-     */
-    public static LinkshorteningMessagingService fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a LinkshorteningMessagingService object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return LinkshorteningMessagingService object represented by the provided JSON
+    */
+    public static LinkshorteningMessagingService fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                LinkshorteningMessagingService.class
-            );
+            return objectMapper.readValue(json, LinkshorteningMessagingService.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -119,48 +120,57 @@ public class LinkshorteningMessagingService extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String domainSid;
-
     @Getter
     private final String messagingServiceSid;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private LinkshorteningMessagingService(
-        @JsonProperty("domain_sid") final String domainSid,
-        @JsonProperty("messaging_service_sid") final String messagingServiceSid,
-        @JsonProperty("url") final URI url
-    ) {
-        this.domainSid = domainSid;
-        this.messagingServiceSid = messagingServiceSid;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        LinkshorteningMessagingService other =
-            (LinkshorteningMessagingService) o;
-        return (
-            Objects.equals(domainSid, other.domainSid) &&
-            Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(domainSid, messagingServiceSid, url);
-    }
+@JsonCreator
+private LinkshorteningMessagingService(
+    @JsonProperty("domain_sid")
+    final String domainSid, 
+    @JsonProperty("messaging_service_sid")
+    final String messagingServiceSid, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.domainSid = domainSid;
+    this.messagingServiceSid = messagingServiceSid;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    LinkshorteningMessagingService other = (LinkshorteningMessagingService) o;
+    return (
+            Objects.equals(domainSid, other.domainSid) && 
+            Objects.equals(messagingServiceSid, other.messagingServiceSid) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            domainSid, 
+            messagingServiceSid, 
+            url
+    );
+}
+
+
+
+}
+

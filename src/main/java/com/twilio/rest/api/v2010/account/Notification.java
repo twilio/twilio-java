@@ -17,61 +17,86 @@ package com.twilio.rest.api.v2010.account;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Notification extends Resource {
 
+
+
+
+
+
     public static NotificationFetcher fetcher(final String pathSid) {
-        return new NotificationFetcher(pathSid);
+        return new NotificationFetcher(
+             pathSid
+        );
     }
 
-    public static NotificationFetcher fetcher(
-        final String pathAccountSid,
-        final String pathSid
-    ) {
-        return new NotificationFetcher(pathAccountSid, pathSid);
+
+    public static NotificationFetcher fetcher(final String pathAccountSid, final String pathSid) {
+        return new NotificationFetcher(
+             pathAccountSid,  pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static NotificationReader reader() {
-        return new NotificationReader();
+        return new NotificationReader(
+            
+        );
     }
+
 
     public static NotificationReader reader(final String pathAccountSid) {
-        return new NotificationReader(pathAccountSid);
+        return new NotificationReader(
+             pathAccountSid
+        );
     }
 
+
+    
+
+
+
     /**
-     * Converts a JSON String into a Notification object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Notification object represented by the provided JSON
-     */
-    public static Notification fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Notification object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Notification object represented by the provided JSON
+    */
+    public static Notification fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Notification.class);
@@ -83,17 +108,14 @@ public class Notification extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Notification object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Notification object represented by the provided JSON
-     */
-    public static Notification fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Notification object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Notification object represented by the provided JSON
+    */
+    public static Notification fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Notification.class);
@@ -115,155 +137,158 @@ public class Notification extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String apiVersion;
-
     @Getter
     private final String callSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String errorCode;
-
     @Getter
     private final String log;
-
     @Getter
     private final ZonedDateTime messageDate;
-
     @Getter
     private final String messageText;
-
     @Getter
     private final URI moreInfo;
-
     @Getter
     private final HttpMethod requestMethod;
-
     @Getter
     private final URI requestUrl;
-
     @Getter
     private final String requestVariables;
-
     @Getter
     private final String responseBody;
-
     @Getter
     private final String responseHeaders;
-
     @Getter
     private final String sid;
-
     @Getter
     private final String uri;
 
-    @JsonCreator
-    private Notification(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("api_version") final String apiVersion,
-        @JsonProperty("call_sid") final String callSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("error_code") final String errorCode,
-        @JsonProperty("log") final String log,
-        @JsonProperty("message_date") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime messageDate,
-        @JsonProperty("message_text") final String messageText,
-        @JsonProperty("more_info") final URI moreInfo,
-        @JsonProperty("request_method") final HttpMethod requestMethod,
-        @JsonProperty("request_url") final URI requestUrl,
-        @JsonProperty("request_variables") final String requestVariables,
-        @JsonProperty("response_body") final String responseBody,
-        @JsonProperty("response_headers") final String responseHeaders,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("uri") final String uri
-    ) {
-        this.accountSid = accountSid;
-        this.apiVersion = apiVersion;
-        this.callSid = callSid;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.errorCode = errorCode;
-        this.log = log;
-        this.messageDate = messageDate;
-        this.messageText = messageText;
-        this.moreInfo = moreInfo;
-        this.requestMethod = requestMethod;
-        this.requestUrl = requestUrl;
-        this.requestVariables = requestVariables;
-        this.responseBody = responseBody;
-        this.responseHeaders = responseHeaders;
-        this.sid = sid;
-        this.uri = uri;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Notification other = (Notification) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(apiVersion, other.apiVersion) &&
-            Objects.equals(callSid, other.callSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(errorCode, other.errorCode) &&
-            Objects.equals(log, other.log) &&
-            Objects.equals(messageDate, other.messageDate) &&
-            Objects.equals(messageText, other.messageText) &&
-            Objects.equals(moreInfo, other.moreInfo) &&
-            Objects.equals(requestMethod, other.requestMethod) &&
-            Objects.equals(requestUrl, other.requestUrl) &&
-            Objects.equals(requestVariables, other.requestVariables) &&
-            Objects.equals(responseBody, other.responseBody) &&
-            Objects.equals(responseHeaders, other.responseHeaders) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(uri, other.uri)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            apiVersion,
-            callSid,
-            dateCreated,
-            dateUpdated,
-            errorCode,
-            log,
-            messageDate,
-            messageText,
-            moreInfo,
-            requestMethod,
-            requestUrl,
-            requestVariables,
-            responseBody,
-            responseHeaders,
-            sid,
-            uri
-        );
-    }
+@JsonCreator
+private Notification(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("api_version")
+    final String apiVersion, 
+    @JsonProperty("call_sid")
+    final String callSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("error_code")
+    final String errorCode, 
+    @JsonProperty("log")
+    final String log, 
+    @JsonProperty("message_date")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime messageDate, 
+    @JsonProperty("message_text")
+    final String messageText, 
+    @JsonProperty("more_info")
+    final URI moreInfo, 
+    @JsonProperty("request_method")
+    final HttpMethod requestMethod, 
+    @JsonProperty("request_url")
+    final URI requestUrl, 
+    @JsonProperty("request_variables")
+    final String requestVariables, 
+    @JsonProperty("response_body")
+    final String responseBody, 
+    @JsonProperty("response_headers")
+    final String responseHeaders, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("uri")
+    final String uri
+){
+    this.accountSid = accountSid;
+    this.apiVersion = apiVersion;
+    this.callSid = callSid;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.errorCode = errorCode;
+    this.log = log;
+    this.messageDate = messageDate;
+    this.messageText = messageText;
+    this.moreInfo = moreInfo;
+    this.requestMethod = requestMethod;
+    this.requestUrl = requestUrl;
+    this.requestVariables = requestVariables;
+    this.responseBody = responseBody;
+    this.responseHeaders = responseHeaders;
+    this.sid = sid;
+    this.uri = uri;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Notification other = (Notification) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(apiVersion, other.apiVersion) && 
+            Objects.equals(callSid, other.callSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(errorCode, other.errorCode) && 
+            Objects.equals(log, other.log) && 
+            Objects.equals(messageDate, other.messageDate) && 
+            Objects.equals(messageText, other.messageText) && 
+            Objects.equals(moreInfo, other.moreInfo) && 
+            Objects.equals(requestMethod, other.requestMethod) && 
+            Objects.equals(requestUrl, other.requestUrl) && 
+            Objects.equals(requestVariables, other.requestVariables) && 
+            Objects.equals(responseBody, other.responseBody) && 
+            Objects.equals(responseHeaders, other.responseHeaders) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(uri, other.uri)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            apiVersion, 
+            callSid, 
+            dateCreated, 
+            dateUpdated, 
+            errorCode, 
+            log, 
+            messageDate, 
+            messageText, 
+            moreInfo, 
+            requestMethod, 
+            requestUrl, 
+            requestVariables, 
+            responseBody, 
+            responseHeaders, 
+            sid, 
+            uri
+    );
+}
+
+
+
+}
+

@@ -17,50 +17,66 @@ package com.twilio.rest.api.v2010.account;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
 import com.twilio.type.IceServer;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Token extends Resource {
 
+
+
     public static TokenCreator creator() {
-        return new TokenCreator();
+        return new TokenCreator(
+            
+        );
     }
+
 
     public static TokenCreator creator(final String pathAccountSid) {
-        return new TokenCreator(pathAccountSid);
+        return new TokenCreator(
+             pathAccountSid
+        );
     }
 
+
+
+
+
+
+    
+
+
+
     /**
-     * Converts a JSON String into a Token object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Token object represented by the provided JSON
-     */
-    public static Token fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Token object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Token object represented by the provided JSON
+    */
+    public static Token fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Token.class);
@@ -72,17 +88,14 @@ public class Token extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Token object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Token object represented by the provided JSON
-     */
-    public static Token fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Token object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Token object represented by the provided JSON
+    */
+    public static Token fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Token.class);
@@ -104,83 +117,87 @@ public class Token extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final List<IceServer> iceServers;
-
     @Getter
     private final String password;
-
     @Getter
     private final String ttl;
-
     @Getter
     private final String username;
 
-    @JsonCreator
-    private Token(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("ice_servers") final List<IceServer> iceServers,
-        @JsonProperty("password") final String password,
-        @JsonProperty("ttl") final String ttl,
-        @JsonProperty("username") final String username
-    ) {
-        this.accountSid = accountSid;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.iceServers = iceServers;
-        this.password = password;
-        this.ttl = ttl;
-        this.username = username;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Token other = (Token) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(iceServers, other.iceServers) &&
-            Objects.equals(password, other.password) &&
-            Objects.equals(ttl, other.ttl) &&
-            Objects.equals(username, other.username)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            dateCreated,
-            dateUpdated,
-            iceServers,
-            password,
-            ttl,
-            username
-        );
-    }
+@JsonCreator
+private Token(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("ice_servers")
+    final List<IceServer> iceServers, 
+    @JsonProperty("password")
+    final String password, 
+    @JsonProperty("ttl")
+    final String ttl, 
+    @JsonProperty("username")
+    final String username
+){
+    this.accountSid = accountSid;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.iceServers = iceServers;
+    this.password = password;
+    this.ttl = ttl;
+    this.username = username;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Token other = (Token) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(iceServers, other.iceServers) && 
+            Objects.equals(password, other.password) && 
+            Objects.equals(ttl, other.ttl) && 
+            Objects.equals(username, other.username)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            dateCreated, 
+            dateUpdated, 
+            iceServers, 
+            password, 
+            ttl, 
+            username
+    );
+}
+
+
+
+}
+

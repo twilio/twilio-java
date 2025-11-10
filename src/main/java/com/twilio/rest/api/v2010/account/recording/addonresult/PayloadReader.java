@@ -14,9 +14,7 @@
 
 package com.twilio.rest.api.v2010.account.recording.addonresult;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,66 +25,49 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class PayloadReader extends Reader<Payload> {
 
-    private String pathAccountSid;
+        private String pathAccountSid;
     private String pathReferenceSid;
     private String pathAddOnResultSid;
     private Long pageSize;
 
-    public PayloadReader(
-        final String pathReferenceSid,
-        final String pathAddOnResultSid
-    ) {
+        public PayloadReader(final String pathReferenceSid, final String pathAddOnResultSid) {
         this.pathReferenceSid = pathReferenceSid;
         this.pathAddOnResultSid = pathAddOnResultSid;
     }
-
-    public PayloadReader(
-        final String pathAccountSid,
-        final String pathReferenceSid,
-        final String pathAddOnResultSid
-    ) {
+    public PayloadReader(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathReferenceSid = pathReferenceSid;
         this.pathAddOnResultSid = pathAddOnResultSid;
     }
 
-    public PayloadReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+    
+public PayloadReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
 
-    @Override
+
+        @Override
     public ResourceSet<Payload> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<Payload> firstPage(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json";
+        
+    String path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ReferenceSid" + "}",
-                this.pathReferenceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "AddOnResultSid" + "}",
-                this.pathAddOnResultSid.toString()
-            );
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+    path = path.replace("{"+"ReferenceSid"+"}", this.pathReferenceSid.toString());
+    path = path.replace("{"+"AddOnResultSid"+"}", this.pathAddOnResultSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -98,79 +79,53 @@ public class PayloadReader extends Reader<Payload> {
         return pageForRequest(client, request);
     }
 
-    private Page<Payload> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Payload> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Payload read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Payload read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "payloads",
             response.getContent(),
             Payload.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<Payload> previousPage(
-        final Page<Payload> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Payload> previousPage(final Page<Payload> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Payload> nextPage(
-        final Page<Payload> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<Payload> nextPage(final Page<Payload> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<Payload> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Payload> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
+    }
+    private void addQueryParams(final Request request) {
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
     }
 
-    private void addQueryParams(final Request request) {
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
-    }
+
+
+}
 }

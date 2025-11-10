@@ -14,9 +14,7 @@
 
 package com.twilio.rest.supersim.v1;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,44 +25,56 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class NetworkReader extends Reader<Network> {
 
-    private String isoCountry;
+        private String isoCountry;
     private String mcc;
     private String mnc;
     private Long pageSize;
 
-    public NetworkReader() {}
-
-    public NetworkReader setIsoCountry(final String isoCountry) {
-        this.isoCountry = isoCountry;
-        return this;
+        public NetworkReader() {
     }
 
-    public NetworkReader setMcc(final String mcc) {
-        this.mcc = mcc;
-        return this;
-    }
+    
+public NetworkReader setIsoCountry(final String isoCountry){
+    this.isoCountry = isoCountry;
+    return this;
+}
 
-    public NetworkReader setMnc(final String mnc) {
-        this.mnc = mnc;
-        return this;
-    }
 
-    public NetworkReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+public NetworkReader setMcc(final String mcc){
+    this.mcc = mcc;
+    return this;
+}
 
-    @Override
+
+public NetworkReader setMnc(final String mnc){
+    this.mnc = mnc;
+    return this;
+}
+
+
+public NetworkReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+        @Override
     public ResourceSet<Network> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<Network> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Networks";
+        
+    String path = "/v1/Networks";
+
 
         Request request = new Request(
             HttpMethod.GET,
@@ -76,96 +86,77 @@ public class NetworkReader extends Reader<Network> {
         return pageForRequest(client, request);
     }
 
-    private Page<Network> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Network> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Network read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Network read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "networks",
             response.getContent(),
             Network.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<Network> previousPage(
-        final Page<Network> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Network> previousPage(final Page<Network> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Network> nextPage(
-        final Page<Network> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<Network> nextPage(final Page<Network> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<Network> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Network> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (isoCountry != null) {
-            Serializer.toString(
-                request,
-                "IsoCountry",
-                isoCountry,
-                ParameterType.QUERY
-            );
-        }
 
-        if (mcc != null) {
-            Serializer.toString(request, "Mcc", mcc, ParameterType.QUERY);
-        }
 
-        if (mnc != null) {
-            Serializer.toString(request, "Mnc", mnc, ParameterType.QUERY);
-        }
-
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+    if (isoCountry != null) {
+        Serializer.toString(request, "IsoCountry", isoCountry, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (mcc != null) {
+        Serializer.toString(request, "Mcc", mcc, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (mnc != null) {
+        Serializer.toString(request, "Mnc", mnc, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

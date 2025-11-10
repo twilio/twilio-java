@@ -13,8 +13,20 @@
  */
 
 package com.twilio.rest.lookups.v1;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
 import com.twilio.base.Fetcher;
+import com.twilio.base.Reader;
+import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -26,133 +38,152 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Currency;
 import java.util.List;
 import java.util.Map;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
-public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
+    public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
-    private String pathPhoneNumber;
+            private String pathPhoneNumber;
     private String countryCode;
     private List<String> type;
     private List<String> addOns;
     private Map<String, Object> addOnsData;
 
-    public PhoneNumberFetcher(final String pathPhoneNumber) {
+            public PhoneNumberFetcher(final String pathPhoneNumber) {
         this.pathPhoneNumber = pathPhoneNumber;
     }
 
-    public PhoneNumberFetcher setCountryCode(final String countryCode) {
-        this.countryCode = countryCode;
-        return this;
-    }
+        
+public PhoneNumberFetcher setCountryCode(final String countryCode){
+    this.countryCode = countryCode;
+    return this;
+}
 
-    public PhoneNumberFetcher setType(final List<String> type) {
-        this.type = type;
-        return this;
-    }
 
-    public PhoneNumberFetcher setType(final String type) {
-        return setType(Promoter.listOfOne(type));
-    }
+public PhoneNumberFetcher setType(final List<String> type){
+    this.type = type;
+    return this;
+}
 
-    public PhoneNumberFetcher setAddOns(final List<String> addOns) {
-        this.addOns = addOns;
-        return this;
-    }
+public PhoneNumberFetcher setType(final String type){
+    return setType(Promoter.listOfOne(type));
+}
 
-    public PhoneNumberFetcher setAddOns(final String addOns) {
-        return setAddOns(Promoter.listOfOne(addOns));
-    }
+public PhoneNumberFetcher setAddOns(final List<String> addOns){
+    this.addOns = addOns;
+    return this;
+}
 
-    public PhoneNumberFetcher setAddOnsData(
-        final Map<String, Object> addOnsData
-    ) {
-        this.addOnsData = addOnsData;
-        return this;
-    }
+public PhoneNumberFetcher setAddOns(final String addOns){
+    return setAddOns(Promoter.listOfOne(addOns));
+}
 
-    @Override
+public PhoneNumberFetcher setAddOnsData(final Map<String, Object> addOnsData){
+    this.addOnsData = addOnsData;
+    return this;
+}
+
+
+            @Override
     public PhoneNumber fetch(final TwilioRestClient client) {
-        String path = "/v1/PhoneNumbers/{PhoneNumber}";
+    
+    String path = "/v1/PhoneNumbers/{PhoneNumber}";
 
-        path =
-            path.replace(
-                "{" + "PhoneNumber" + "}",
-                this.pathPhoneNumber.toString()
-            );
+    path = path.replace("{"+"PhoneNumber"+"}", this.pathPhoneNumber.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.LOOKUPS.toString(),
             path
         );
         addQueryParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "PhoneNumber fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("PhoneNumber fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-        return PhoneNumber.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addQueryParams(final Request request) {
+
+
+    if (countryCode != null) {
+        Serializer.toString(request, "CountryCode", countryCode, ParameterType.QUERY);
     }
 
-    private void addQueryParams(final Request request) {
-        if (countryCode != null) {
-            Serializer.toString(
-                request,
-                "CountryCode",
-                countryCode,
-                ParameterType.QUERY
-            );
-        }
 
-        if (type != null) {
-            for (String param : type) {
-                Serializer.toString(
-                    request,
-                    "Type",
-                    param,
-                    ParameterType.QUERY
-                );
-            }
-        }
 
-        if (addOns != null) {
-            for (String param : addOns) {
-                Serializer.toString(
-                    request,
-                    "AddOns",
-                    param,
-                    ParameterType.QUERY
-                );
-            }
-        }
 
-        if (addOnsData != null) {
-            Serializer.toString(
-                request,
-                "AddOnsData",
-                addOnsData,
-                ParameterType.QUERY
-            );
+
+
+
+    if (type != null) {
+        for (String param: type) {
+            Serializer.toString(request, "Type", param, ParameterType.QUERY);
         }
     }
+
+
+
+
+
+    if (addOns != null) {
+        for (String param: addOns) {
+            Serializer.toString(request, "AddOns", param, ParameterType.QUERY);
+        }
+    }
+
+
+
+    if (addOnsData != null) {
+        Serializer.toString(request, "AddOnsData", addOnsData, ParameterType.QUERY);
+    }
+
+
+
 }
+    }

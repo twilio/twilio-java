@@ -14,6 +14,7 @@
 
 package com.twilio.rest.verify.v2;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class ServiceCreator extends Creator<Service> {
@@ -61,170 +64,170 @@ public class ServiceCreator extends Creator<Service> {
         this.friendlyName = friendlyName;
     }
 
-    public ServiceCreator setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
 
-    public ServiceCreator setCodeLength(final Integer codeLength) {
-        this.codeLength = codeLength;
-        return this;
-    }
+public ServiceCreator setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public ServiceCreator setLookupEnabled(final Boolean lookupEnabled) {
-        this.lookupEnabled = lookupEnabled;
-        return this;
-    }
 
-    public ServiceCreator setSkipSmsToLandlines(
-        final Boolean skipSmsToLandlines
-    ) {
-        this.skipSmsToLandlines = skipSmsToLandlines;
-        return this;
-    }
+public ServiceCreator setCodeLength(final Integer codeLength){
+    this.codeLength = codeLength;
+    return this;
+}
 
-    public ServiceCreator setDtmfInputRequired(
-        final Boolean dtmfInputRequired
-    ) {
-        this.dtmfInputRequired = dtmfInputRequired;
-        return this;
-    }
 
-    public ServiceCreator setTtsName(final String ttsName) {
-        this.ttsName = ttsName;
-        return this;
-    }
+public ServiceCreator setLookupEnabled(final Boolean lookupEnabled){
+    this.lookupEnabled = lookupEnabled;
+    return this;
+}
 
-    public ServiceCreator setPsd2Enabled(final Boolean psd2Enabled) {
-        this.psd2Enabled = psd2Enabled;
-        return this;
-    }
 
-    public ServiceCreator setDoNotShareWarningEnabled(
-        final Boolean doNotShareWarningEnabled
-    ) {
-        this.doNotShareWarningEnabled = doNotShareWarningEnabled;
-        return this;
-    }
+public ServiceCreator setSkipSmsToLandlines(final Boolean skipSmsToLandlines){
+    this.skipSmsToLandlines = skipSmsToLandlines;
+    return this;
+}
 
-    public ServiceCreator setCustomCodeEnabled(
-        final Boolean customCodeEnabled
-    ) {
-        this.customCodeEnabled = customCodeEnabled;
-        return this;
-    }
 
-    public ServiceCreator setPushIncludeDate(final Boolean pushIncludeDate) {
-        this.pushIncludeDate = pushIncludeDate;
-        return this;
-    }
+public ServiceCreator setDtmfInputRequired(final Boolean dtmfInputRequired){
+    this.dtmfInputRequired = dtmfInputRequired;
+    return this;
+}
 
-    public ServiceCreator setPushApnCredentialSid(
-        final String pushApnCredentialSid
-    ) {
-        this.pushApnCredentialSid = pushApnCredentialSid;
-        return this;
-    }
 
-    public ServiceCreator setPushFcmCredentialSid(
-        final String pushFcmCredentialSid
-    ) {
-        this.pushFcmCredentialSid = pushFcmCredentialSid;
-        return this;
-    }
+public ServiceCreator setTtsName(final String ttsName){
+    this.ttsName = ttsName;
+    return this;
+}
 
-    public ServiceCreator setTotpIssuer(final String totpIssuer) {
-        this.totpIssuer = totpIssuer;
-        return this;
-    }
 
-    public ServiceCreator setTotpTimeStep(final Integer totpTimeStep) {
-        this.totpTimeStep = totpTimeStep;
-        return this;
-    }
+public ServiceCreator setPsd2Enabled(final Boolean psd2Enabled){
+    this.psd2Enabled = psd2Enabled;
+    return this;
+}
 
-    public ServiceCreator setTotpCodeLength(final Integer totpCodeLength) {
-        this.totpCodeLength = totpCodeLength;
-        return this;
-    }
 
-    public ServiceCreator setTotpSkew(final Integer totpSkew) {
-        this.totpSkew = totpSkew;
-        return this;
-    }
+public ServiceCreator setDoNotShareWarningEnabled(final Boolean doNotShareWarningEnabled){
+    this.doNotShareWarningEnabled = doNotShareWarningEnabled;
+    return this;
+}
 
-    public ServiceCreator setDefaultTemplateSid(
-        final String defaultTemplateSid
-    ) {
-        this.defaultTemplateSid = defaultTemplateSid;
-        return this;
-    }
 
-    public ServiceCreator setWhatsappMsgServiceSid(
-        final String whatsappMsgServiceSid
-    ) {
-        this.whatsappMsgServiceSid = whatsappMsgServiceSid;
-        return this;
-    }
+public ServiceCreator setCustomCodeEnabled(final Boolean customCodeEnabled){
+    this.customCodeEnabled = customCodeEnabled;
+    return this;
+}
 
-    public ServiceCreator setWhatsappFrom(final String whatsappFrom) {
-        this.whatsappFrom = whatsappFrom;
-        return this;
-    }
 
-    public ServiceCreator setPasskeysRelyingPartyId(
-        final String passkeysRelyingPartyId
-    ) {
-        this.passkeysRelyingPartyId = passkeysRelyingPartyId;
-        return this;
-    }
+public ServiceCreator setPushIncludeDate(final Boolean pushIncludeDate){
+    this.pushIncludeDate = pushIncludeDate;
+    return this;
+}
 
-    public ServiceCreator setPasskeysRelyingPartyName(
-        final String passkeysRelyingPartyName
-    ) {
-        this.passkeysRelyingPartyName = passkeysRelyingPartyName;
-        return this;
-    }
 
-    public ServiceCreator setPasskeysRelyingPartyOrigins(
-        final String passkeysRelyingPartyOrigins
-    ) {
-        this.passkeysRelyingPartyOrigins = passkeysRelyingPartyOrigins;
-        return this;
-    }
+public ServiceCreator setPushApnCredentialSid(final String pushApnCredentialSid){
+    this.pushApnCredentialSid = pushApnCredentialSid;
+    return this;
+}
 
-    public ServiceCreator setPasskeysAuthenticatorAttachment(
-        final String passkeysAuthenticatorAttachment
-    ) {
-        this.passkeysAuthenticatorAttachment = passkeysAuthenticatorAttachment;
-        return this;
-    }
 
-    public ServiceCreator setPasskeysDiscoverableCredentials(
-        final String passkeysDiscoverableCredentials
-    ) {
-        this.passkeysDiscoverableCredentials = passkeysDiscoverableCredentials;
-        return this;
-    }
+public ServiceCreator setPushFcmCredentialSid(final String pushFcmCredentialSid){
+    this.pushFcmCredentialSid = pushFcmCredentialSid;
+    return this;
+}
 
-    public ServiceCreator setPasskeysUserVerification(
-        final String passkeysUserVerification
-    ) {
-        this.passkeysUserVerification = passkeysUserVerification;
-        return this;
-    }
 
-    public ServiceCreator setVerifyEventSubscriptionEnabled(
-        final Boolean verifyEventSubscriptionEnabled
-    ) {
-        this.verifyEventSubscriptionEnabled = verifyEventSubscriptionEnabled;
-        return this;
-    }
+public ServiceCreator setTotpIssuer(final String totpIssuer){
+    this.totpIssuer = totpIssuer;
+    return this;
+}
+
+
+public ServiceCreator setTotpTimeStep(final Integer totpTimeStep){
+    this.totpTimeStep = totpTimeStep;
+    return this;
+}
+
+
+public ServiceCreator setTotpCodeLength(final Integer totpCodeLength){
+    this.totpCodeLength = totpCodeLength;
+    return this;
+}
+
+
+public ServiceCreator setTotpSkew(final Integer totpSkew){
+    this.totpSkew = totpSkew;
+    return this;
+}
+
+
+public ServiceCreator setDefaultTemplateSid(final String defaultTemplateSid){
+    this.defaultTemplateSid = defaultTemplateSid;
+    return this;
+}
+
+
+public ServiceCreator setWhatsappMsgServiceSid(final String whatsappMsgServiceSid){
+    this.whatsappMsgServiceSid = whatsappMsgServiceSid;
+    return this;
+}
+
+
+public ServiceCreator setWhatsappFrom(final String whatsappFrom){
+    this.whatsappFrom = whatsappFrom;
+    return this;
+}
+
+
+public ServiceCreator setPasskeysRelyingPartyId(final String passkeysRelyingPartyId){
+    this.passkeysRelyingPartyId = passkeysRelyingPartyId;
+    return this;
+}
+
+
+public ServiceCreator setPasskeysRelyingPartyName(final String passkeysRelyingPartyName){
+    this.passkeysRelyingPartyName = passkeysRelyingPartyName;
+    return this;
+}
+
+
+public ServiceCreator setPasskeysRelyingPartyOrigins(final String passkeysRelyingPartyOrigins){
+    this.passkeysRelyingPartyOrigins = passkeysRelyingPartyOrigins;
+    return this;
+}
+
+
+public ServiceCreator setPasskeysAuthenticatorAttachment(final String passkeysAuthenticatorAttachment){
+    this.passkeysAuthenticatorAttachment = passkeysAuthenticatorAttachment;
+    return this;
+}
+
+
+public ServiceCreator setPasskeysDiscoverableCredentials(final String passkeysDiscoverableCredentials){
+    this.passkeysDiscoverableCredentials = passkeysDiscoverableCredentials;
+    return this;
+}
+
+
+public ServiceCreator setPasskeysUserVerification(final String passkeysUserVerification){
+    this.passkeysUserVerification = passkeysUserVerification;
+    return this;
+}
+
+
+public ServiceCreator setVerifyEventSubscriptionEnabled(final Boolean verifyEventSubscriptionEnabled){
+    this.verifyEventSubscriptionEnabled = verifyEventSubscriptionEnabled;
+    return this;
+}
+
 
     @Override
     public Service create(final TwilioRestClient client) {
-        String path = "/v2/Services";
+    
+    String path = "/v2/Services";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
@@ -232,263 +235,180 @@ public class ServiceCreator extends Creator<Service> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Service creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Service creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Service.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (codeLength != null) {
-            Serializer.toString(
-                request,
-                "CodeLength",
-                codeLength,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (lookupEnabled != null) {
-            Serializer.toString(
-                request,
-                "LookupEnabled",
-                lookupEnabled,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (skipSmsToLandlines != null) {
-            Serializer.toString(
-                request,
-                "SkipSmsToLandlines",
-                skipSmsToLandlines,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (dtmfInputRequired != null) {
-            Serializer.toString(
-                request,
-                "DtmfInputRequired",
-                dtmfInputRequired,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (ttsName != null) {
-            Serializer.toString(
-                request,
-                "TtsName",
-                ttsName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (psd2Enabled != null) {
-            Serializer.toString(
-                request,
-                "Psd2Enabled",
-                psd2Enabled,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (doNotShareWarningEnabled != null) {
-            Serializer.toString(
-                request,
-                "DoNotShareWarningEnabled",
-                doNotShareWarningEnabled,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (customCodeEnabled != null) {
-            Serializer.toString(
-                request,
-                "CustomCodeEnabled",
-                customCodeEnabled,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (pushIncludeDate != null) {
-            Serializer.toString(
-                request,
-                "Push.IncludeDate",
-                pushIncludeDate,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (pushApnCredentialSid != null) {
-            Serializer.toString(
-                request,
-                "Push.ApnCredentialSid",
-                pushApnCredentialSid,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (pushFcmCredentialSid != null) {
-            Serializer.toString(
-                request,
-                "Push.FcmCredentialSid",
-                pushFcmCredentialSid,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (totpIssuer != null) {
-            Serializer.toString(
-                request,
-                "Totp.Issuer",
-                totpIssuer,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (totpTimeStep != null) {
-            Serializer.toString(
-                request,
-                "Totp.TimeStep",
-                totpTimeStep,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (totpCodeLength != null) {
-            Serializer.toString(
-                request,
-                "Totp.CodeLength",
-                totpCodeLength,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (totpSkew != null) {
-            Serializer.toString(
-                request,
-                "Totp.Skew",
-                totpSkew,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (defaultTemplateSid != null) {
-            Serializer.toString(
-                request,
-                "DefaultTemplateSid",
-                defaultTemplateSid,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (whatsappMsgServiceSid != null) {
-            Serializer.toString(
-                request,
-                "Whatsapp.MsgServiceSid",
-                whatsappMsgServiceSid,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (whatsappFrom != null) {
-            Serializer.toString(
-                request,
-                "Whatsapp.From",
-                whatsappFrom,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (passkeysRelyingPartyId != null) {
-            Serializer.toString(
-                request,
-                "Passkeys.RelyingParty.Id",
-                passkeysRelyingPartyId,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (passkeysRelyingPartyName != null) {
-            Serializer.toString(
-                request,
-                "Passkeys.RelyingParty.Name",
-                passkeysRelyingPartyName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (passkeysRelyingPartyOrigins != null) {
-            Serializer.toString(
-                request,
-                "Passkeys.RelyingParty.Origins",
-                passkeysRelyingPartyOrigins,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (passkeysAuthenticatorAttachment != null) {
-            Serializer.toString(
-                request,
-                "Passkeys.AuthenticatorAttachment",
-                passkeysAuthenticatorAttachment,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (passkeysDiscoverableCredentials != null) {
-            Serializer.toString(
-                request,
-                "Passkeys.DiscoverableCredentials",
-                passkeysDiscoverableCredentials,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (passkeysUserVerification != null) {
-            Serializer.toString(
-                request,
-                "Passkeys.UserVerification",
-                passkeysUserVerification,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (verifyEventSubscriptionEnabled != null) {
-            Serializer.toString(
-                request,
-                "VerifyEventSubscriptionEnabled",
-                verifyEventSubscriptionEnabled,
-                ParameterType.URLENCODED
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
+
+
+
+    if (codeLength != null) {
+        Serializer.toString(request, "CodeLength", codeLength, ParameterType.URLENCODED);
+    }
+
+
+
+    if (lookupEnabled != null) {
+        Serializer.toString(request, "LookupEnabled", lookupEnabled, ParameterType.URLENCODED);
+    }
+
+
+
+    if (skipSmsToLandlines != null) {
+        Serializer.toString(request, "SkipSmsToLandlines", skipSmsToLandlines, ParameterType.URLENCODED);
+    }
+
+
+
+    if (dtmfInputRequired != null) {
+        Serializer.toString(request, "DtmfInputRequired", dtmfInputRequired, ParameterType.URLENCODED);
+    }
+
+
+
+    if (ttsName != null) {
+        Serializer.toString(request, "TtsName", ttsName, ParameterType.URLENCODED);
+    }
+
+
+
+    if (psd2Enabled != null) {
+        Serializer.toString(request, "Psd2Enabled", psd2Enabled, ParameterType.URLENCODED);
+    }
+
+
+
+    if (doNotShareWarningEnabled != null) {
+        Serializer.toString(request, "DoNotShareWarningEnabled", doNotShareWarningEnabled, ParameterType.URLENCODED);
+    }
+
+
+
+    if (customCodeEnabled != null) {
+        Serializer.toString(request, "CustomCodeEnabled", customCodeEnabled, ParameterType.URLENCODED);
+    }
+
+
+
+    if (pushIncludeDate != null) {
+        Serializer.toString(request, "Push.IncludeDate", pushIncludeDate, ParameterType.URLENCODED);
+    }
+
+
+
+    if (pushApnCredentialSid != null) {
+        Serializer.toString(request, "Push.ApnCredentialSid", pushApnCredentialSid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (pushFcmCredentialSid != null) {
+        Serializer.toString(request, "Push.FcmCredentialSid", pushFcmCredentialSid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (totpIssuer != null) {
+        Serializer.toString(request, "Totp.Issuer", totpIssuer, ParameterType.URLENCODED);
+    }
+
+
+
+    if (totpTimeStep != null) {
+        Serializer.toString(request, "Totp.TimeStep", totpTimeStep, ParameterType.URLENCODED);
+    }
+
+
+
+    if (totpCodeLength != null) {
+        Serializer.toString(request, "Totp.CodeLength", totpCodeLength, ParameterType.URLENCODED);
+    }
+
+
+
+    if (totpSkew != null) {
+        Serializer.toString(request, "Totp.Skew", totpSkew, ParameterType.URLENCODED);
+    }
+
+
+
+    if (defaultTemplateSid != null) {
+        Serializer.toString(request, "DefaultTemplateSid", defaultTemplateSid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (whatsappMsgServiceSid != null) {
+        Serializer.toString(request, "Whatsapp.MsgServiceSid", whatsappMsgServiceSid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (whatsappFrom != null) {
+        Serializer.toString(request, "Whatsapp.From", whatsappFrom, ParameterType.URLENCODED);
+    }
+
+
+
+    if (passkeysRelyingPartyId != null) {
+        Serializer.toString(request, "Passkeys.RelyingParty.Id", passkeysRelyingPartyId, ParameterType.URLENCODED);
+    }
+
+
+
+    if (passkeysRelyingPartyName != null) {
+        Serializer.toString(request, "Passkeys.RelyingParty.Name", passkeysRelyingPartyName, ParameterType.URLENCODED);
+    }
+
+
+
+    if (passkeysRelyingPartyOrigins != null) {
+        Serializer.toString(request, "Passkeys.RelyingParty.Origins", passkeysRelyingPartyOrigins, ParameterType.URLENCODED);
+    }
+
+
+
+    if (passkeysAuthenticatorAttachment != null) {
+        Serializer.toString(request, "Passkeys.AuthenticatorAttachment", passkeysAuthenticatorAttachment, ParameterType.URLENCODED);
+    }
+
+
+
+    if (passkeysDiscoverableCredentials != null) {
+        Serializer.toString(request, "Passkeys.DiscoverableCredentials", passkeysDiscoverableCredentials, ParameterType.URLENCODED);
+    }
+
+
+
+    if (passkeysUserVerification != null) {
+        Serializer.toString(request, "Passkeys.UserVerification", passkeysUserVerification, ParameterType.URLENCODED);
+    }
+
+
+
+    if (verifyEventSubscriptionEnabled != null) {
+        Serializer.toString(request, "VerifyEventSubscriptionEnabled", verifyEventSubscriptionEnabled, ParameterType.URLENCODED);
+    }
+
+
+}
 }

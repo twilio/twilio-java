@@ -14,6 +14,7 @@
 
 package com.twilio.rest.numbers.v2;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class BundleCloneCreator extends Creator<BundleClone> {
@@ -35,41 +38,38 @@ public class BundleCloneCreator extends Creator<BundleClone> {
     private Boolean moveToDraft;
     private String friendlyName;
 
-    public BundleCloneCreator(
-        final String pathBundleSid,
-        final String targetAccountSid
-    ) {
+    public BundleCloneCreator(final String pathBundleSid, final String targetAccountSid) {
         this.pathBundleSid = pathBundleSid;
         this.targetAccountSid = targetAccountSid;
     }
 
-    public BundleCloneCreator setTargetAccountSid(
-        final String targetAccountSid
-    ) {
-        this.targetAccountSid = targetAccountSid;
-        return this;
-    }
 
-    public BundleCloneCreator setMoveToDraft(final Boolean moveToDraft) {
-        this.moveToDraft = moveToDraft;
-        return this;
-    }
+public BundleCloneCreator setTargetAccountSid(final String targetAccountSid){
+    this.targetAccountSid = targetAccountSid;
+    return this;
+}
 
-    public BundleCloneCreator setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+
+public BundleCloneCreator setMoveToDraft(final Boolean moveToDraft){
+    this.moveToDraft = moveToDraft;
+    return this;
+}
+
+
+public BundleCloneCreator setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
+
 
     @Override
     public BundleClone create(final TwilioRestClient client) {
-        String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Clones";
+    
+    String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Clones";
 
-        path =
-            path.replace(
-                "{" + "BundleSid" + "}",
-                this.pathBundleSid.toString()
-            );
+    path = path.replace("{"+"BundleSid"+"}", this.pathBundleSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
@@ -77,59 +77,42 @@ public class BundleCloneCreator extends Creator<BundleClone> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "BundleClone creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("BundleClone creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return BundleClone.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return BundleClone.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (targetAccountSid != null) {
-            Serializer.toString(
-                request,
-                "TargetAccountSid",
-                targetAccountSid,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (moveToDraft != null) {
-            Serializer.toString(
-                request,
-                "MoveToDraft",
-                moveToDraft,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
+    if (targetAccountSid != null) {
+        Serializer.toString(request, "TargetAccountSid", targetAccountSid, ParameterType.URLENCODED);
     }
+
+
+
+    if (moveToDraft != null) {
+        Serializer.toString(request, "MoveToDraft", moveToDraft, ParameterType.URLENCODED);
+    }
+
+
+
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+    }
+
+
+}
 }

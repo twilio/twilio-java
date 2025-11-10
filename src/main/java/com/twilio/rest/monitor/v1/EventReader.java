@@ -13,11 +13,22 @@
  */
 
 package com.twilio.rest.monitor.v1;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import com.twilio.base.Page;
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
+import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -27,12 +38,47 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.util.Currency;
+import java.util.List;
+import java.util.Map;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class EventReader extends Reader<Event> {
 
-    private String actorSid;
+        private String actorSid;
     private String eventType;
     private String resourceSid;
     private String sourceIpAddress;
@@ -40,50 +86,61 @@ public class EventReader extends Reader<Event> {
     private ZonedDateTime endDate;
     private Long pageSize;
 
-    public EventReader() {}
-
-    public EventReader setActorSid(final String actorSid) {
-        this.actorSid = actorSid;
-        return this;
+        public EventReader() {
     }
 
-    public EventReader setEventType(final String eventType) {
-        this.eventType = eventType;
-        return this;
-    }
+    
+public EventReader setActorSid(final String actorSid){
+    this.actorSid = actorSid;
+    return this;
+}
 
-    public EventReader setResourceSid(final String resourceSid) {
-        this.resourceSid = resourceSid;
-        return this;
-    }
 
-    public EventReader setSourceIpAddress(final String sourceIpAddress) {
-        this.sourceIpAddress = sourceIpAddress;
-        return this;
-    }
+public EventReader setEventType(final String eventType){
+    this.eventType = eventType;
+    return this;
+}
 
-    public EventReader setStartDate(final ZonedDateTime startDate) {
-        this.startDate = startDate;
-        return this;
-    }
 
-    public EventReader setEndDate(final ZonedDateTime endDate) {
-        this.endDate = endDate;
-        return this;
-    }
+public EventReader setResourceSid(final String resourceSid){
+    this.resourceSid = resourceSid;
+    return this;
+}
 
-    public EventReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
 
-    @Override
+public EventReader setSourceIpAddress(final String sourceIpAddress){
+    this.sourceIpAddress = sourceIpAddress;
+    return this;
+}
+
+
+public EventReader setStartDate(final ZonedDateTime startDate){
+    this.startDate = startDate;
+    return this;
+}
+
+
+public EventReader setEndDate(final ZonedDateTime endDate){
+    this.endDate = endDate;
+    return this;
+}
+
+
+public EventReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+        @Override
     public ResourceSet<Event> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<Event> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Events";
+        
+    String path = "/v1/Events";
+
 
         Request request = new Request(
             HttpMethod.GET,
@@ -95,133 +152,101 @@ public class EventReader extends Reader<Event> {
         return pageForRequest(client, request);
     }
 
-    private Page<Event> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Event> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Event read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Event read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "events",
             response.getContent(),
             Event.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<Event> previousPage(
-        final Page<Event> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Event> previousPage(final Page<Event> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Event> nextPage(
-        final Page<Event> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<Event> nextPage(final Page<Event> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<Event> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Event> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (actorSid != null) {
-            Serializer.toString(
-                request,
-                "ActorSid",
-                actorSid,
-                ParameterType.QUERY
-            );
-        }
 
-        if (eventType != null) {
-            Serializer.toString(
-                request,
-                "EventType",
-                eventType,
-                ParameterType.QUERY
-            );
-        }
 
-        if (resourceSid != null) {
-            Serializer.toString(
-                request,
-                "ResourceSid",
-                resourceSid,
-                ParameterType.QUERY
-            );
-        }
-
-        if (sourceIpAddress != null) {
-            Serializer.toString(
-                request,
-                "SourceIpAddress",
-                sourceIpAddress,
-                ParameterType.QUERY
-            );
-        }
-
-        if (startDate != null) {
-            Serializer.toString(
-                request,
-                "StartDate",
-                startDate,
-                ParameterType.QUERY
-            );
-        }
-
-        if (endDate != null) {
-            Serializer.toString(
-                request,
-                "EndDate",
-                endDate,
-                ParameterType.QUERY
-            );
-        }
-
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+    if (actorSid != null) {
+        Serializer.toString(request, "ActorSid", actorSid, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (eventType != null) {
+        Serializer.toString(request, "EventType", eventType, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (resourceSid != null) {
+        Serializer.toString(request, "ResourceSid", resourceSid, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (sourceIpAddress != null) {
+        Serializer.toString(request, "SourceIpAddress", sourceIpAddress, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (startDate != null) {
+        Serializer.toString(request, "StartDate", startDate, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (endDate != null) {
+        Serializer.toString(request, "EndDate", endDate, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

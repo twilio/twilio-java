@@ -26,12 +26,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 
-public class ParticipantUpdater extends Updater<Participant> {
-
-    private String pathConversationSid;
+    public class ParticipantUpdater extends Updater<Participant> {
+            private String pathConversationSid;
     private String pathSid;
     private Participant.WebhookEnabledType xTwilioWebhookEnabled;
     private ZonedDateTime dateCreated;
@@ -44,86 +45,81 @@ public class ParticipantUpdater extends Updater<Participant> {
     private Integer lastReadMessageIndex;
     private String lastReadTimestamp;
 
-    public ParticipantUpdater(
-        final String pathConversationSid,
-        final String pathSid
-    ) {
+            public ParticipantUpdater(final String pathConversationSid, final String pathSid) {
         this.pathConversationSid = pathConversationSid;
         this.pathSid = pathSid;
     }
 
-    public ParticipantUpdater setDateCreated(final ZonedDateTime dateCreated) {
-        this.dateCreated = dateCreated;
-        return this;
-    }
+        
+public ParticipantUpdater setDateCreated(final ZonedDateTime dateCreated){
+    this.dateCreated = dateCreated;
+    return this;
+}
 
-    public ParticipantUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
-        this.dateUpdated = dateUpdated;
-        return this;
-    }
 
-    public ParticipantUpdater setAttributes(final String attributes) {
-        this.attributes = attributes;
-        return this;
-    }
+public ParticipantUpdater setDateUpdated(final ZonedDateTime dateUpdated){
+    this.dateUpdated = dateUpdated;
+    return this;
+}
 
-    public ParticipantUpdater setRoleSid(final String roleSid) {
-        this.roleSid = roleSid;
-        return this;
-    }
 
-    public ParticipantUpdater setMessagingBindingProxyAddress(
-        final String messagingBindingProxyAddress
-    ) {
-        this.messagingBindingProxyAddress = messagingBindingProxyAddress;
-        return this;
-    }
+public ParticipantUpdater setAttributes(final String attributes){
+    this.attributes = attributes;
+    return this;
+}
 
-    public ParticipantUpdater setMessagingBindingProjectedAddress(
-        final String messagingBindingProjectedAddress
-    ) {
-        this.messagingBindingProjectedAddress =
-            messagingBindingProjectedAddress;
-        return this;
-    }
 
-    public ParticipantUpdater setIdentity(final String identity) {
-        this.identity = identity;
-        return this;
-    }
+public ParticipantUpdater setRoleSid(final String roleSid){
+    this.roleSid = roleSid;
+    return this;
+}
 
-    public ParticipantUpdater setLastReadMessageIndex(
-        final Integer lastReadMessageIndex
-    ) {
-        this.lastReadMessageIndex = lastReadMessageIndex;
-        return this;
-    }
 
-    public ParticipantUpdater setLastReadTimestamp(
-        final String lastReadTimestamp
-    ) {
-        this.lastReadTimestamp = lastReadTimestamp;
-        return this;
-    }
+public ParticipantUpdater setMessagingBindingProxyAddress(final String messagingBindingProxyAddress){
+    this.messagingBindingProxyAddress = messagingBindingProxyAddress;
+    return this;
+}
 
-    public ParticipantUpdater setXTwilioWebhookEnabled(
-        final Participant.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
-        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-        return this;
-    }
 
-    @Override
+public ParticipantUpdater setMessagingBindingProjectedAddress(final String messagingBindingProjectedAddress){
+    this.messagingBindingProjectedAddress = messagingBindingProjectedAddress;
+    return this;
+}
+
+
+public ParticipantUpdater setIdentity(final String identity){
+    this.identity = identity;
+    return this;
+}
+
+
+public ParticipantUpdater setLastReadMessageIndex(final Integer lastReadMessageIndex){
+    this.lastReadMessageIndex = lastReadMessageIndex;
+    return this;
+}
+
+
+public ParticipantUpdater setLastReadTimestamp(final String lastReadTimestamp){
+    this.lastReadTimestamp = lastReadTimestamp;
+    return this;
+}
+
+
+public ParticipantUpdater setXTwilioWebhookEnabled(final Participant.WebhookEnabledType xTwilioWebhookEnabled){
+    this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+    return this;
+}
+
+
+            @Override
     public Participant update(final TwilioRestClient client) {
-        String path = "/v1/Conversations/{ConversationSid}/Participants/{Sid}";
+    
+    String path = "/v1/Conversations/{ConversationSid}/Participants/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
@@ -132,124 +128,85 @@ public class ParticipantUpdater extends Updater<Participant> {
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Participant update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Participant update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return Participant.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return Participant.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (dateCreated != null) {
+        Serializer.toString(request, "DateCreated", dateCreated, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (dateCreated != null) {
-            Serializer.toString(
-                request,
-                "DateCreated",
-                dateCreated,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (dateUpdated != null) {
-            Serializer.toString(
-                request,
-                "DateUpdated",
-                dateUpdated,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (attributes != null) {
-            Serializer.toString(
-                request,
-                "Attributes",
-                attributes,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (roleSid != null) {
-            Serializer.toString(
-                request,
-                "RoleSid",
-                roleSid,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (messagingBindingProxyAddress != null) {
-            Serializer.toString(
-                request,
-                "MessagingBinding.ProxyAddress",
-                messagingBindingProxyAddress,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (messagingBindingProjectedAddress != null) {
-            Serializer.toString(
-                request,
-                "MessagingBinding.ProjectedAddress",
-                messagingBindingProjectedAddress,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (identity != null) {
-            Serializer.toString(
-                request,
-                "Identity",
-                identity,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (lastReadMessageIndex != null) {
-            Serializer.toString(
-                request,
-                "LastReadMessageIndex",
-                lastReadMessageIndex,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (lastReadTimestamp != null) {
-            Serializer.toString(
-                request,
-                "LastReadTimestamp",
-                lastReadTimestamp,
-                ParameterType.URLENCODED
-            );
-        }
+    if (dateUpdated != null) {
+        Serializer.toString(request, "DateUpdated", dateUpdated, ParameterType.URLENCODED);
     }
 
-    private void addHeaderParams(final Request request) {
-        if (xTwilioWebhookEnabled != null) {
-            Serializer.toString(
-                request,
-                "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled,
-                ParameterType.HEADER
-            );
-        }
+
+
+    if (attributes != null) {
+        Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
     }
+
+
+
+    if (roleSid != null) {
+        Serializer.toString(request, "RoleSid", roleSid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (messagingBindingProxyAddress != null) {
+        Serializer.toString(request, "MessagingBinding.ProxyAddress", messagingBindingProxyAddress, ParameterType.URLENCODED);
+    }
+
+
+
+    if (messagingBindingProjectedAddress != null) {
+        Serializer.toString(request, "MessagingBinding.ProjectedAddress", messagingBindingProjectedAddress, ParameterType.URLENCODED);
+    }
+
+
+
+    if (identity != null) {
+        Serializer.toString(request, "Identity", identity, ParameterType.URLENCODED);
+    }
+
+
+
+    if (lastReadMessageIndex != null) {
+        Serializer.toString(request, "LastReadMessageIndex", lastReadMessageIndex, ParameterType.URLENCODED);
+    }
+
+
+
+    if (lastReadTimestamp != null) {
+        Serializer.toString(request, "LastReadTimestamp", lastReadTimestamp, ParameterType.URLENCODED);
+    }
+
+
 }
+        private void addHeaderParams(final Request request) {
+
+    if (xTwilioWebhookEnabled != null) {
+        Serializer.toString(request, "X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled, ParameterType.HEADER);
+    }
+
+}
+    }

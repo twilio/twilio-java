@@ -17,86 +17,82 @@ package com.twilio.rest.api.v2010.account.incomingphonenumber.assignedaddon;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssignedAddOnExtension extends Resource {
 
-    public static AssignedAddOnExtensionFetcher fetcher(
-        final String pathResourceSid,
-        final String pathAssignedAddOnSid,
-        final String pathSid
-    ) {
+
+
+
+
+
+    public static AssignedAddOnExtensionFetcher fetcher(final String pathResourceSid, final String pathAssignedAddOnSid, final String pathSid) {
         return new AssignedAddOnExtensionFetcher(
-            pathResourceSid,
-            pathAssignedAddOnSid,
-            pathSid
+             pathResourceSid,  pathAssignedAddOnSid,  pathSid
         );
     }
 
-    public static AssignedAddOnExtensionFetcher fetcher(
-        final String pathAccountSid,
-        final String pathResourceSid,
-        final String pathAssignedAddOnSid,
-        final String pathSid
-    ) {
+
+    public static AssignedAddOnExtensionFetcher fetcher(final String pathAccountSid, final String pathResourceSid, final String pathAssignedAddOnSid, final String pathSid) {
         return new AssignedAddOnExtensionFetcher(
-            pathAccountSid,
-            pathResourceSid,
-            pathAssignedAddOnSid,
-            pathSid
+             pathAccountSid,  pathResourceSid,  pathAssignedAddOnSid,  pathSid
         );
     }
 
-    public static AssignedAddOnExtensionReader reader(
-        final String pathResourceSid,
-        final String pathAssignedAddOnSid
-    ) {
+
+
+    
+
+
+
+
+
+    public static AssignedAddOnExtensionReader reader(final String pathResourceSid, final String pathAssignedAddOnSid) {
         return new AssignedAddOnExtensionReader(
-            pathResourceSid,
-            pathAssignedAddOnSid
+             pathResourceSid,  pathAssignedAddOnSid
         );
     }
 
-    public static AssignedAddOnExtensionReader reader(
-        final String pathAccountSid,
-        final String pathResourceSid,
-        final String pathAssignedAddOnSid
-    ) {
+
+    public static AssignedAddOnExtensionReader reader(final String pathAccountSid, final String pathResourceSid, final String pathAssignedAddOnSid) {
         return new AssignedAddOnExtensionReader(
-            pathAccountSid,
-            pathResourceSid,
-            pathAssignedAddOnSid
+             pathAccountSid,  pathResourceSid,  pathAssignedAddOnSid
         );
     }
+
+
+    
+
+
 
     /**
-     * Converts a JSON String into a AssignedAddOnExtension object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return AssignedAddOnExtension object represented by the provided JSON
-     */
-    public static AssignedAddOnExtension fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a AssignedAddOnExtension object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return AssignedAddOnExtension object represented by the provided JSON
+    */
+    public static AssignedAddOnExtension fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AssignedAddOnExtension.class);
@@ -108,17 +104,14 @@ public class AssignedAddOnExtension extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a AssignedAddOnExtension object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return AssignedAddOnExtension object represented by the provided JSON
-     */
-    public static AssignedAddOnExtension fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a AssignedAddOnExtension object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return AssignedAddOnExtension object represented by the provided JSON
+    */
+    public static AssignedAddOnExtension fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AssignedAddOnExtension.class);
@@ -140,93 +133,99 @@ public class AssignedAddOnExtension extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String assignedAddOnSid;
-
     @Getter
     private final Boolean enabled;
-
     @Getter
     private final String friendlyName;
-
     @Getter
     private final String productName;
-
     @Getter
     private final String resourceSid;
-
     @Getter
     private final String sid;
-
     @Getter
     private final String uniqueName;
-
     @Getter
     private final String uri;
 
-    @JsonCreator
-    private AssignedAddOnExtension(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("assigned_add_on_sid") final String assignedAddOnSid,
-        @JsonProperty("enabled") final Boolean enabled,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("product_name") final String productName,
-        @JsonProperty("resource_sid") final String resourceSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("uri") final String uri
-    ) {
-        this.accountSid = accountSid;
-        this.assignedAddOnSid = assignedAddOnSid;
-        this.enabled = enabled;
-        this.friendlyName = friendlyName;
-        this.productName = productName;
-        this.resourceSid = resourceSid;
-        this.sid = sid;
-        this.uniqueName = uniqueName;
-        this.uri = uri;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        AssignedAddOnExtension other = (AssignedAddOnExtension) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(assignedAddOnSid, other.assignedAddOnSid) &&
-            Objects.equals(enabled, other.enabled) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(productName, other.productName) &&
-            Objects.equals(resourceSid, other.resourceSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(uri, other.uri)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            assignedAddOnSid,
-            enabled,
-            friendlyName,
-            productName,
-            resourceSid,
-            sid,
-            uniqueName,
-            uri
-        );
-    }
+@JsonCreator
+private AssignedAddOnExtension(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("assigned_add_on_sid")
+    final String assignedAddOnSid, 
+    @JsonProperty("enabled")
+    final Boolean enabled, 
+    @JsonProperty("friendly_name")
+    final String friendlyName, 
+    @JsonProperty("product_name")
+    final String productName, 
+    @JsonProperty("resource_sid")
+    final String resourceSid, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("unique_name")
+    final String uniqueName, 
+    @JsonProperty("uri")
+    final String uri
+){
+    this.accountSid = accountSid;
+    this.assignedAddOnSid = assignedAddOnSid;
+    this.enabled = enabled;
+    this.friendlyName = friendlyName;
+    this.productName = productName;
+    this.resourceSid = resourceSid;
+    this.sid = sid;
+    this.uniqueName = uniqueName;
+    this.uri = uri;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    AssignedAddOnExtension other = (AssignedAddOnExtension) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(assignedAddOnSid, other.assignedAddOnSid) && 
+            Objects.equals(enabled, other.enabled) && 
+            Objects.equals(friendlyName, other.friendlyName) && 
+            Objects.equals(productName, other.productName) && 
+            Objects.equals(resourceSid, other.resourceSid) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(uniqueName, other.uniqueName) && 
+            Objects.equals(uri, other.uri)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            assignedAddOnSid, 
+            enabled, 
+            friendlyName, 
+            productName, 
+            resourceSid, 
+            sid, 
+            uniqueName, 
+            uri
+    );
+}
+
+
+
+}
+

@@ -17,78 +17,108 @@ package com.twilio.rest.supersim.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class EsimProfile extends Resource {
 
+
+
     public static EsimProfileCreator creator() {
-        return new EsimProfileCreator();
+        return new EsimProfileCreator(
+            
+        );
     }
+
+
+
+
+
+
+    
+
+
+
 
     public static EsimProfileFetcher fetcher(final String pathSid) {
-        return new EsimProfileFetcher(pathSid);
+        return new EsimProfileFetcher(
+             pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static EsimProfileReader reader() {
-        return new EsimProfileReader();
+        return new EsimProfileReader(
+            
+        );
     }
 
-    public enum Status {
-        NEW("new"),
-        RESERVING("reserving"),
-        AVAILABLE("available"),
-        DOWNLOADED("downloaded"),
-        INSTALLED("installed"),
-        FAILED("failed");
 
-        private final String value;
+    
 
-        private Status(final String value) {
-            this.value = value;
-        }
+public enum Status {
+    NEW("new"),
+    RESERVING("reserving"),
+    AVAILABLE("available"),
+    DOWNLOADED("downloaded"),
+    INSTALLED("installed"),
+    FAILED("failed");
 
-        public String toString() {
-            return value;
-        }
+    private final String value;
 
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
+    private Status(final String value) {
+        this.value = value;
     }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static Status forValue(final String value) {
+        return Promoter.enumFromString(value, Status.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a EsimProfile object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return EsimProfile object represented by the provided JSON
-     */
-    public static EsimProfile fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a EsimProfile object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return EsimProfile object represented by the provided JSON
+    */
+    public static EsimProfile fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, EsimProfile.class);
@@ -100,17 +130,14 @@ public class EsimProfile extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a EsimProfile object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return EsimProfile object represented by the provided JSON
-     */
-    public static EsimProfile fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a EsimProfile object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return EsimProfile object represented by the provided JSON
+    */
+    public static EsimProfile fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, EsimProfile.class);
@@ -132,132 +159,136 @@ public class EsimProfile extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String activationCode;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String eid;
-
     @Getter
     private final String errorCode;
-
     @Getter
     private final String errorMessage;
-
     @Getter
     private final String iccid;
-
     @Getter
     private final String matchingId;
-
     @Getter
     private final String sid;
-
     @Getter
     private final String simSid;
-
     @Getter
     private final URI smdpPlusAddress;
-
     @Getter
     private final EsimProfile.Status status;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private EsimProfile(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("activation_code") final String activationCode,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("eid") final String eid,
-        @JsonProperty("error_code") final String errorCode,
-        @JsonProperty("error_message") final String errorMessage,
-        @JsonProperty("iccid") final String iccid,
-        @JsonProperty("matching_id") final String matchingId,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("sim_sid") final String simSid,
-        @JsonProperty("smdp_plus_address") final URI smdpPlusAddress,
-        @JsonProperty("status") final EsimProfile.Status status,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.activationCode = activationCode;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.eid = eid;
-        this.errorCode = errorCode;
-        this.errorMessage = errorMessage;
-        this.iccid = iccid;
-        this.matchingId = matchingId;
-        this.sid = sid;
-        this.simSid = simSid;
-        this.smdpPlusAddress = smdpPlusAddress;
-        this.status = status;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        EsimProfile other = (EsimProfile) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(activationCode, other.activationCode) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(eid, other.eid) &&
-            Objects.equals(errorCode, other.errorCode) &&
-            Objects.equals(errorMessage, other.errorMessage) &&
-            Objects.equals(iccid, other.iccid) &&
-            Objects.equals(matchingId, other.matchingId) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(simSid, other.simSid) &&
-            Objects.equals(smdpPlusAddress, other.smdpPlusAddress) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            activationCode,
-            dateCreated,
-            dateUpdated,
-            eid,
-            errorCode,
-            errorMessage,
-            iccid,
-            matchingId,
-            sid,
-            simSid,
-            smdpPlusAddress,
-            status,
-            url
-        );
-    }
+@JsonCreator
+private EsimProfile(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("activation_code")
+    final String activationCode, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("eid")
+    final String eid, 
+    @JsonProperty("error_code")
+    final String errorCode, 
+    @JsonProperty("error_message")
+    final String errorMessage, 
+    @JsonProperty("iccid")
+    final String iccid, 
+    @JsonProperty("matching_id")
+    final String matchingId, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("sim_sid")
+    final String simSid, 
+    @JsonProperty("smdp_plus_address")
+    final URI smdpPlusAddress, 
+    @JsonProperty("status")
+    final EsimProfile.Status status, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.activationCode = activationCode;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.eid = eid;
+    this.errorCode = errorCode;
+    this.errorMessage = errorMessage;
+    this.iccid = iccid;
+    this.matchingId = matchingId;
+    this.sid = sid;
+    this.simSid = simSid;
+    this.smdpPlusAddress = smdpPlusAddress;
+    this.status = status;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    EsimProfile other = (EsimProfile) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(activationCode, other.activationCode) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(eid, other.eid) && 
+            Objects.equals(errorCode, other.errorCode) && 
+            Objects.equals(errorMessage, other.errorMessage) && 
+            Objects.equals(iccid, other.iccid) && 
+            Objects.equals(matchingId, other.matchingId) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(simSid, other.simSid) && 
+            Objects.equals(smdpPlusAddress, other.smdpPlusAddress) && 
+            Objects.equals(status, other.status) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            activationCode, 
+            dateCreated, 
+            dateUpdated, 
+            eid, 
+            errorCode, 
+            errorMessage, 
+            iccid, 
+            matchingId, 
+            sid, 
+            simSid, 
+            smdpPlusAddress, 
+            status, 
+            url
+    );
+}
+
+
+
+}
+

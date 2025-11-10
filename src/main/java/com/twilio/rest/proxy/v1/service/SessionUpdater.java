@@ -26,48 +26,51 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 
-public class SessionUpdater extends Updater<Session> {
-
-    private String pathServiceSid;
+    public class SessionUpdater extends Updater<Session> {
+            private String pathServiceSid;
     private String pathSid;
     private ZonedDateTime dateExpiry;
     private Integer ttl;
     private Session.Status status;
 
-    public SessionUpdater(final String pathServiceSid, final String pathSid) {
+            public SessionUpdater(final String pathServiceSid, final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
-    public SessionUpdater setDateExpiry(final ZonedDateTime dateExpiry) {
-        this.dateExpiry = dateExpiry;
-        return this;
-    }
+        
+public SessionUpdater setDateExpiry(final ZonedDateTime dateExpiry){
+    this.dateExpiry = dateExpiry;
+    return this;
+}
 
-    public SessionUpdater setTtl(final Integer ttl) {
-        this.ttl = ttl;
-        return this;
-    }
 
-    public SessionUpdater setStatus(final Session.Status status) {
-        this.status = status;
-        return this;
-    }
+public SessionUpdater setTtl(final Integer ttl){
+    this.ttl = ttl;
+    return this;
+}
 
-    @Override
+
+public SessionUpdater setStatus(final Session.Status status){
+    this.status = status;
+    return this;
+}
+
+
+            @Override
     public Session update(final TwilioRestClient client) {
-        String path = "/v1/Services/{ServiceSid}/Sessions/{Sid}";
+    
+    String path = "/v1/Services/{ServiceSid}/Sessions/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.PROXY.toString(),
@@ -75,51 +78,42 @@ public class SessionUpdater extends Updater<Session> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Session update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Session update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Session.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addPostParams(final Request request) {
 
-    private void addPostParams(final Request request) {
-        if (dateExpiry != null) {
-            Serializer.toString(
-                request,
-                "DateExpiry",
-                dateExpiry,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (ttl != null) {
-            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
-        }
-
-        if (status != null) {
-            Serializer.toString(
-                request,
-                "Status",
-                status,
-                ParameterType.URLENCODED
-            );
-        }
+    if (dateExpiry != null) {
+        Serializer.toString(request, "DateExpiry", dateExpiry, ParameterType.URLENCODED);
     }
+
+
+
+    if (ttl != null) {
+        Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (status != null) {
+        Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

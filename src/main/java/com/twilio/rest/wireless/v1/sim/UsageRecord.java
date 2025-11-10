@@ -17,64 +17,76 @@ package com.twilio.rest.wireless.v1.sim;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UsageRecord extends Resource {
 
+
+
+
+
+
+
     public static UsageRecordReader reader(final String pathSimSid) {
-        return new UsageRecordReader(pathSimSid);
+        return new UsageRecordReader(
+             pathSimSid
+        );
     }
 
-    public enum Granularity {
-        HOURLY("hourly"),
-        DAILY("daily"),
-        ALL("all");
 
-        private final String value;
+    
 
-        private Granularity(final String value) {
-            this.value = value;
-        }
+public enum Granularity {
+    HOURLY("hourly"),
+    DAILY("daily"),
+    ALL("all");
 
-        public String toString() {
-            return value;
-        }
+    private final String value;
 
-        @JsonCreator
-        public static Granularity forValue(final String value) {
-            return Promoter.enumFromString(value, Granularity.values());
-        }
+    private Granularity(final String value) {
+        this.value = value;
     }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static Granularity forValue(final String value) {
+        return Promoter.enumFromString(value, Granularity.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a UsageRecord object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return UsageRecord object represented by the provided JSON
-     */
-    public static UsageRecord fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a UsageRecord object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return UsageRecord object represented by the provided JSON
+    */
+    public static UsageRecord fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UsageRecord.class);
@@ -86,17 +98,14 @@ public class UsageRecord extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a UsageRecord object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return UsageRecord object represented by the provided JSON
-     */
-    public static UsageRecord fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a UsageRecord object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return UsageRecord object represented by the provided JSON
+    */
+    public static UsageRecord fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UsageRecord.class);
@@ -118,59 +127,71 @@ public class UsageRecord extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final Object commands;
-
     @Getter
     private final Object data;
-
     @Getter
     private final Object period;
-
     @Getter
     private final String simSid;
 
-    @JsonCreator
-    private UsageRecord(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("commands") final Object commands,
-        @JsonProperty("data") final Object data,
-        @JsonProperty("period") final Object period,
-        @JsonProperty("sim_sid") final String simSid
-    ) {
-        this.accountSid = accountSid;
-        this.commands = commands;
-        this.data = data;
-        this.period = period;
-        this.simSid = simSid;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        UsageRecord other = (UsageRecord) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(commands, other.commands) &&
-            Objects.equals(data, other.data) &&
-            Objects.equals(period, other.period) &&
-            Objects.equals(simSid, other.simSid)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(accountSid, commands, data, period, simSid);
-    }
+@JsonCreator
+private UsageRecord(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("commands")
+    final Object commands, 
+    @JsonProperty("data")
+    final Object data, 
+    @JsonProperty("period")
+    final Object period, 
+    @JsonProperty("sim_sid")
+    final String simSid
+){
+    this.accountSid = accountSid;
+    this.commands = commands;
+    this.data = data;
+    this.period = period;
+    this.simSid = simSid;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    UsageRecord other = (UsageRecord) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(commands, other.commands) && 
+            Objects.equals(data, other.data) && 
+            Objects.equals(period, other.period) && 
+            Objects.equals(simSid, other.simSid)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            commands, 
+            data, 
+            period, 
+            simSid
+    );
+}
+
+
+
+}
+

@@ -23,61 +23,50 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class TrustProductsEvaluationsFetcher
-    extends Fetcher<TrustProductsEvaluations> {
+    public class TrustProductsEvaluationsFetcher extends Fetcher<TrustProductsEvaluations> {
 
-    private String pathTrustProductSid;
+            private String pathTrustProductSid;
     private String pathSid;
 
-    public TrustProductsEvaluationsFetcher(
-        final String pathTrustProductSid,
-        final String pathSid
-    ) {
+            public TrustProductsEvaluationsFetcher(final String pathTrustProductSid, final String pathSid) {
         this.pathTrustProductSid = pathTrustProductSid;
         this.pathSid = pathSid;
     }
 
-    @Override
+        
+            @Override
     public TrustProductsEvaluations fetch(final TwilioRestClient client) {
-        String path = "/v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid}";
+    
+    String path = "/v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "TrustProductSid" + "}",
-                this.pathTrustProductSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"TrustProductSid"+"}", this.pathTrustProductSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUSTHUB.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "TrustProductsEvaluations fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("TrustProductsEvaluations fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-        return TrustProductsEvaluations.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return TrustProductsEvaluations.fromJson(response.getStream(), client.getObjectMapper());
     }
-}
+    }

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.supersim.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class EsimProfileCreator extends Creator<EsimProfile> {
@@ -35,36 +38,41 @@ public class EsimProfileCreator extends Creator<EsimProfile> {
     private Boolean generateMatchingId;
     private String eid;
 
-    public EsimProfileCreator() {}
-
-    public EsimProfileCreator setCallbackUrl(final String callbackUrl) {
-        this.callbackUrl = callbackUrl;
-        return this;
+    public EsimProfileCreator() {
     }
 
-    public EsimProfileCreator setCallbackMethod(
-        final HttpMethod callbackMethod
-    ) {
-        this.callbackMethod = callbackMethod;
-        return this;
-    }
 
-    public EsimProfileCreator setGenerateMatchingId(
-        final Boolean generateMatchingId
-    ) {
-        this.generateMatchingId = generateMatchingId;
-        return this;
-    }
+public EsimProfileCreator setCallbackUrl(final String callbackUrl){
+    this.callbackUrl = callbackUrl;
+    return this;
+}
 
-    public EsimProfileCreator setEid(final String eid) {
-        this.eid = eid;
-        return this;
-    }
+
+public EsimProfileCreator setCallbackMethod(final HttpMethod callbackMethod){
+    this.callbackMethod = callbackMethod;
+    return this;
+}
+
+
+public EsimProfileCreator setGenerateMatchingId(final Boolean generateMatchingId){
+    this.generateMatchingId = generateMatchingId;
+    return this;
+}
+
+
+public EsimProfileCreator setEid(final String eid){
+    this.eid = eid;
+    return this;
+}
+
 
     @Override
     public EsimProfile create(final TwilioRestClient client) {
-        String path = "/v1/ESimProfiles";
+    
+    String path = "/v1/ESimProfiles";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.SUPERSIM.toString(),
@@ -72,63 +80,48 @@ public class EsimProfileCreator extends Creator<EsimProfile> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "EsimProfile creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("EsimProfile creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return EsimProfile.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return EsimProfile.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (callbackUrl != null) {
-            Serializer.toString(
-                request,
-                "CallbackUrl",
-                callbackUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (callbackMethod != null) {
-            Serializer.toString(
-                request,
-                "CallbackMethod",
-                callbackMethod,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (generateMatchingId != null) {
-            Serializer.toString(
-                request,
-                "GenerateMatchingId",
-                generateMatchingId,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (eid != null) {
-            Serializer.toString(request, "Eid", eid, ParameterType.URLENCODED);
-        }
+    if (callbackUrl != null) {
+        Serializer.toString(request, "CallbackUrl", callbackUrl, ParameterType.URLENCODED);
     }
+
+
+
+    if (callbackMethod != null) {
+        Serializer.toString(request, "CallbackMethod", callbackMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (generateMatchingId != null) {
+        Serializer.toString(request, "GenerateMatchingId", generateMatchingId, ParameterType.URLENCODED);
+    }
+
+
+
+    if (eid != null) {
+        Serializer.toString(request, "Eid", eid, ParameterType.URLENCODED);
+    }
+
+
+}
 }

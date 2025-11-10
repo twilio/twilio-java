@@ -17,95 +17,108 @@ package com.twilio.rest.trusthub.v1.customerprofiles;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CustomerProfilesEvaluations extends Resource {
 
-    public static CustomerProfilesEvaluationsCreator creator(
-        final String pathCustomerProfileSid,
-        final String policySid
-    ) {
+
+
+    public static CustomerProfilesEvaluationsCreator creator(final String pathCustomerProfileSid, final String policySid) {
         return new CustomerProfilesEvaluationsCreator(
-            pathCustomerProfileSid,
-            policySid
+             pathCustomerProfileSid,  policySid
         );
     }
 
-    public static CustomerProfilesEvaluationsFetcher fetcher(
-        final String pathCustomerProfileSid,
-        final String pathSid
-    ) {
+
+
+
+
+
+    
+
+
+
+
+    public static CustomerProfilesEvaluationsFetcher fetcher(final String pathCustomerProfileSid, final String pathSid) {
         return new CustomerProfilesEvaluationsFetcher(
-            pathCustomerProfileSid,
-            pathSid
+             pathCustomerProfileSid,  pathSid
         );
     }
 
-    public static CustomerProfilesEvaluationsReader reader(
-        final String pathCustomerProfileSid
-    ) {
-        return new CustomerProfilesEvaluationsReader(pathCustomerProfileSid);
+
+
+    
+
+
+
+
+
+    public static CustomerProfilesEvaluationsReader reader(final String pathCustomerProfileSid) {
+        return new CustomerProfilesEvaluationsReader(
+             pathCustomerProfileSid
+        );
     }
 
-    public enum Status {
-        COMPLIANT("compliant"),
-        NONCOMPLIANT("noncompliant");
 
-        private final String value;
+    
 
-        private Status(final String value) {
-            this.value = value;
-        }
+public enum Status {
+    COMPLIANT("compliant"),
+    NONCOMPLIANT("noncompliant");
 
-        public String toString() {
-            return value;
-        }
+    private final String value;
 
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
+    private Status(final String value) {
+        this.value = value;
     }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static Status forValue(final String value) {
+        return Promoter.enumFromString(value, Status.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a CustomerProfilesEvaluations object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return CustomerProfilesEvaluations object represented by the provided JSON
-     */
-    public static CustomerProfilesEvaluations fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a CustomerProfilesEvaluations object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return CustomerProfilesEvaluations object represented by the provided JSON
+    */
+    public static CustomerProfilesEvaluations fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                CustomerProfilesEvaluations.class
-            );
+            return objectMapper.readValue(json, CustomerProfilesEvaluations.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -114,23 +127,17 @@ public class CustomerProfilesEvaluations extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a CustomerProfilesEvaluations object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return CustomerProfilesEvaluations object represented by the provided JSON
-     */
-    public static CustomerProfilesEvaluations fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a CustomerProfilesEvaluations object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return CustomerProfilesEvaluations object represented by the provided JSON
+    */
+    public static CustomerProfilesEvaluations fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                CustomerProfilesEvaluations.class
-            );
+            return objectMapper.readValue(json, CustomerProfilesEvaluations.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -149,88 +156,93 @@ public class CustomerProfilesEvaluations extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String customerProfileSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final String policySid;
-
     @Getter
     private final List<Object> results;
-
     @Getter
     private final String sid;
-
     @Getter
     private final CustomerProfilesEvaluations.Status status;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private CustomerProfilesEvaluations(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("customer_profile_sid") final String customerProfileSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("policy_sid") final String policySid,
-        @JsonProperty("results") final List<Object> results,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("status") final CustomerProfilesEvaluations.Status status,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.customerProfileSid = customerProfileSid;
-        this.dateCreated = dateCreated;
-        this.policySid = policySid;
-        this.results = results;
-        this.sid = sid;
-        this.status = status;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        CustomerProfilesEvaluations other = (CustomerProfilesEvaluations) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(customerProfileSid, other.customerProfileSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(policySid, other.policySid) &&
-            Objects.equals(results, other.results) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            customerProfileSid,
-            dateCreated,
-            policySid,
-            results,
-            sid,
-            status,
-            url
-        );
-    }
+@JsonCreator
+private CustomerProfilesEvaluations(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("customer_profile_sid")
+    final String customerProfileSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("policy_sid")
+    final String policySid, 
+    @JsonProperty("results")
+    final List<Object> results, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("status")
+    final CustomerProfilesEvaluations.Status status, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.customerProfileSid = customerProfileSid;
+    this.dateCreated = dateCreated;
+    this.policySid = policySid;
+    this.results = results;
+    this.sid = sid;
+    this.status = status;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    CustomerProfilesEvaluations other = (CustomerProfilesEvaluations) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(customerProfileSid, other.customerProfileSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(policySid, other.policySid) && 
+            Objects.equals(results, other.results) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(status, other.status) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            customerProfileSid, 
+            dateCreated, 
+            policySid, 
+            results, 
+            sid, 
+            status, 
+            url
+    );
+}
+
+
+
+}
+

@@ -14,9 +14,7 @@
 
 package com.twilio.rest.messaging.v1.service;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,35 +25,38 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class PhoneNumberReader extends Reader<PhoneNumber> {
 
-    private String pathServiceSid;
+        private String pathServiceSid;
     private Long pageSize;
 
-    public PhoneNumberReader(final String pathServiceSid) {
+        public PhoneNumberReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public PhoneNumberReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+    
+public PhoneNumberReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
 
-    @Override
+
+        @Override
     public ResourceSet<PhoneNumber> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<PhoneNumber> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Services/{ServiceSid}/PhoneNumbers";
+        
+    String path = "/v1/Services/{ServiceSid}/PhoneNumbers";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -67,79 +68,53 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
         return pageForRequest(client, request);
     }
 
-    private Page<PhoneNumber> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<PhoneNumber> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "PhoneNumber read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("PhoneNumber read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "phone_numbers",
             response.getContent(),
             PhoneNumber.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<PhoneNumber> previousPage(
-        final Page<PhoneNumber> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<PhoneNumber> previousPage(final Page<PhoneNumber> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<PhoneNumber> nextPage(
-        final Page<PhoneNumber> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<PhoneNumber> nextPage(final Page<PhoneNumber> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<PhoneNumber> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<PhoneNumber> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
+    }
+    private void addQueryParams(final Request request) {
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
     }
 
-    private void addQueryParams(final Request request) {
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
-    }
+
+
+}
 }

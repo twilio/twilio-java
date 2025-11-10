@@ -23,41 +23,44 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class WebhookFetcher extends Fetcher<Webhook> {
+    public class WebhookFetcher extends Fetcher<Webhook> {
 
-    public WebhookFetcher() {}
+        
+            public WebhookFetcher() {
+    }
 
-    @Override
+        
+            @Override
     public Webhook fetch(final TwilioRestClient client) {
-        String path = "/v1/Configuration/Webhooks";
+    
+    String path = "/v1/Configuration/Webhooks";
 
+
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.CONVERSATIONS.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Webhook fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Webhook fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());
     }
-}
+    }

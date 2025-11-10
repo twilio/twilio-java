@@ -17,137 +17,152 @@ package com.twilio.rest.flexapi.v1.interaction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InteractionChannel extends Resource {
 
-    public static InteractionChannelFetcher fetcher(
-        final String pathInteractionSid,
-        final String pathSid
-    ) {
-        return new InteractionChannelFetcher(pathInteractionSid, pathSid);
-    }
 
-    public static InteractionChannelReader reader(
-        final String pathInteractionSid
-    ) {
-        return new InteractionChannelReader(pathInteractionSid);
-    }
 
-    public static InteractionChannelUpdater updater(
-        final String pathInteractionSid,
-        final String pathSid,
-        final InteractionChannel.UpdateChannelStatus status
-    ) {
-        return new InteractionChannelUpdater(
-            pathInteractionSid,
-            pathSid,
-            status
+
+
+
+    public static InteractionChannelFetcher fetcher(final String pathInteractionSid, final String pathSid) {
+        return new InteractionChannelFetcher(
+             pathInteractionSid,  pathSid
         );
     }
 
-    public enum Type {
-        VOICE("voice"),
-        SMS("sms"),
-        EMAIL("email"),
-        WEB("web"),
-        WHATSAPP("whatsapp"),
-        CHAT("chat"),
-        MESSENGER("messenger"),
-        GBM("gbm");
 
-        private final String value;
 
-        private Type(final String value) {
-            this.value = value;
-        }
+    
 
-        public String toString() {
-            return value;
-        }
 
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
+
+
+
+    public static InteractionChannelReader reader(final String pathInteractionSid) {
+        return new InteractionChannelReader(
+             pathInteractionSid
+        );
     }
 
-    public enum ChannelStatus {
-        SETUP("setup"),
-        ACTIVE("active"),
-        FAILED("failed"),
-        CLOSED("closed"),
-        INACTIVE("inactive"),
-        PAUSE("pause"),
-        TRANSFER("transfer");
 
-        private final String value;
+    
 
-        private ChannelStatus(final String value) {
-            this.value = value;
-        }
 
-        public String toString() {
-            return value;
-        }
 
-        @JsonCreator
-        public static ChannelStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ChannelStatus.values());
-        }
+
+
+
+    public static InteractionChannelUpdater updater(final String pathInteractionSid, final String pathSid, final InteractionChannel.UpdateChannelStatus status) {
+        return new InteractionChannelUpdater(
+             pathInteractionSid,  pathSid,  status
+        );
     }
 
-    public enum UpdateChannelStatus {
-        CLOSED("closed"),
-        INACTIVE("inactive");
+    
 
-        private final String value;
+public enum Type {
+    VOICE("voice"),
+    SMS("sms"),
+    EMAIL("email"),
+    WEB("web"),
+    WHATSAPP("whatsapp"),
+    CHAT("chat"),
+    MESSENGER("messenger"),
+    GBM("gbm");
 
-        private UpdateChannelStatus(final String value) {
-            this.value = value;
-        }
+    private final String value;
 
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static UpdateChannelStatus forValue(final String value) {
-            return Promoter.enumFromString(value, UpdateChannelStatus.values());
-        }
+    private Type(final String value) {
+        this.value = value;
     }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static Type forValue(final String value) {
+        return Promoter.enumFromString(value, Type.values());
+    }
+}
+public enum ChannelStatus {
+    SETUP("setup"),
+    ACTIVE("active"),
+    FAILED("failed"),
+    CLOSED("closed"),
+    INACTIVE("inactive"),
+    PAUSE("pause"),
+    TRANSFER("transfer");
+
+    private final String value;
+
+    private ChannelStatus(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static ChannelStatus forValue(final String value) {
+        return Promoter.enumFromString(value, ChannelStatus.values());
+    }
+}
+public enum UpdateChannelStatus {
+    CLOSED("closed"),
+    INACTIVE("inactive");
+
+    private final String value;
+
+    private UpdateChannelStatus(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static UpdateChannelStatus forValue(final String value) {
+        return Promoter.enumFromString(value, UpdateChannelStatus.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a InteractionChannel object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return InteractionChannel object represented by the provided JSON
-     */
-    public static InteractionChannel fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a InteractionChannel object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return InteractionChannel object represented by the provided JSON
+    */
+    public static InteractionChannel fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InteractionChannel.class);
@@ -159,17 +174,14 @@ public class InteractionChannel extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a InteractionChannel object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return InteractionChannel object represented by the provided JSON
-     */
-    public static InteractionChannel fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a InteractionChannel object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return InteractionChannel object represented by the provided JSON
+    */
+    public static InteractionChannel fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InteractionChannel.class);
@@ -191,86 +203,92 @@ public class InteractionChannel extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final Integer errorCode;
-
     @Getter
     private final String errorMessage;
-
     @Getter
     private final String interactionSid;
-
     @Getter
     private final Map<String, String> links;
-
     @Getter
     private final String sid;
-
     @Getter
     private final InteractionChannel.ChannelStatus status;
-
     @Getter
     private final InteractionChannel.Type type;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private InteractionChannel(
-        @JsonProperty("error_code") final Integer errorCode,
-        @JsonProperty("error_message") final String errorMessage,
-        @JsonProperty("interaction_sid") final String interactionSid,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("status") final InteractionChannel.ChannelStatus status,
-        @JsonProperty("type") final InteractionChannel.Type type,
-        @JsonProperty("url") final URI url
-    ) {
-        this.errorCode = errorCode;
-        this.errorMessage = errorMessage;
-        this.interactionSid = interactionSid;
-        this.links = links;
-        this.sid = sid;
-        this.status = status;
-        this.type = type;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        InteractionChannel other = (InteractionChannel) o;
-        return (
-            Objects.equals(errorCode, other.errorCode) &&
-            Objects.equals(errorMessage, other.errorMessage) &&
-            Objects.equals(interactionSid, other.interactionSid) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            errorCode,
-            errorMessage,
-            interactionSid,
-            links,
-            sid,
-            status,
-            type,
-            url
-        );
-    }
+@JsonCreator
+private InteractionChannel(
+    @JsonProperty("error_code")
+    final Integer errorCode, 
+    @JsonProperty("error_message")
+    final String errorMessage, 
+    @JsonProperty("interaction_sid")
+    final String interactionSid, 
+    @JsonProperty("links")
+    final Map<String, String> links, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("status")
+    final InteractionChannel.ChannelStatus status, 
+    @JsonProperty("type")
+    final InteractionChannel.Type type, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.errorCode = errorCode;
+    this.errorMessage = errorMessage;
+    this.interactionSid = interactionSid;
+    this.links = links;
+    this.sid = sid;
+    this.status = status;
+    this.type = type;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    InteractionChannel other = (InteractionChannel) o;
+    return (
+            Objects.equals(errorCode, other.errorCode) && 
+            Objects.equals(errorMessage, other.errorMessage) && 
+            Objects.equals(interactionSid, other.interactionSid) && 
+            Objects.equals(links, other.links) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(status, other.status) && 
+            Objects.equals(type, other.type) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            errorCode, 
+            errorMessage, 
+            interactionSid, 
+            links, 
+            sid, 
+            status, 
+            type, 
+            url
+    );
+}
+
+
+
+}
+

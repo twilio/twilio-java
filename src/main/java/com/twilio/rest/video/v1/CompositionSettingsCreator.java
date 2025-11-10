@@ -14,6 +14,7 @@
 
 package com.twilio.rest.video.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +28,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.net.URI;
+import com.twilio.type.*;
 
 public class CompositionSettingsCreator extends Creator<CompositionSettings> {
 
@@ -43,54 +46,53 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
         this.friendlyName = friendlyName;
     }
 
-    public CompositionSettingsCreator setFriendlyName(
-        final String friendlyName
-    ) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
 
-    public CompositionSettingsCreator setAwsCredentialsSid(
-        final String awsCredentialsSid
-    ) {
-        this.awsCredentialsSid = awsCredentialsSid;
-        return this;
-    }
+public CompositionSettingsCreator setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public CompositionSettingsCreator setEncryptionKeySid(
-        final String encryptionKeySid
-    ) {
-        this.encryptionKeySid = encryptionKeySid;
-        return this;
-    }
 
-    public CompositionSettingsCreator setAwsS3Url(final URI awsS3Url) {
-        this.awsS3Url = awsS3Url;
-        return this;
-    }
+public CompositionSettingsCreator setAwsCredentialsSid(final String awsCredentialsSid){
+    this.awsCredentialsSid = awsCredentialsSid;
+    return this;
+}
 
-    public CompositionSettingsCreator setAwsS3Url(final String awsS3Url) {
-        return setAwsS3Url(Promoter.uriFromString(awsS3Url));
-    }
 
-    public CompositionSettingsCreator setAwsStorageEnabled(
-        final Boolean awsStorageEnabled
-    ) {
-        this.awsStorageEnabled = awsStorageEnabled;
-        return this;
-    }
+public CompositionSettingsCreator setEncryptionKeySid(final String encryptionKeySid){
+    this.encryptionKeySid = encryptionKeySid;
+    return this;
+}
 
-    public CompositionSettingsCreator setEncryptionEnabled(
-        final Boolean encryptionEnabled
-    ) {
-        this.encryptionEnabled = encryptionEnabled;
-        return this;
-    }
+
+public CompositionSettingsCreator setAwsS3Url(final URI awsS3Url){
+    this.awsS3Url = awsS3Url;
+    return this;
+}
+
+public CompositionSettingsCreator setAwsS3Url(final String awsS3Url){
+    return setAwsS3Url(Promoter.uriFromString(awsS3Url));
+}
+
+public CompositionSettingsCreator setAwsStorageEnabled(final Boolean awsStorageEnabled){
+    this.awsStorageEnabled = awsStorageEnabled;
+    return this;
+}
+
+
+public CompositionSettingsCreator setEncryptionEnabled(final Boolean encryptionEnabled){
+    this.encryptionEnabled = encryptionEnabled;
+    return this;
+}
+
 
     @Override
     public CompositionSettings create(final TwilioRestClient client) {
-        String path = "/v1/CompositionSettings/Default";
+    
+    String path = "/v1/CompositionSettings/Default";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
@@ -98,86 +100,60 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "CompositionSettings creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("CompositionSettings creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return CompositionSettings.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return CompositionSettings.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (awsCredentialsSid != null) {
-            Serializer.toString(
-                request,
-                "AwsCredentialsSid",
-                awsCredentialsSid,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (encryptionKeySid != null) {
-            Serializer.toString(
-                request,
-                "EncryptionKeySid",
-                encryptionKeySid,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (awsS3Url != null) {
-            Serializer.toString(
-                request,
-                "AwsS3Url",
-                awsS3Url,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (awsStorageEnabled != null) {
-            Serializer.toString(
-                request,
-                "AwsStorageEnabled",
-                awsStorageEnabled,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (encryptionEnabled != null) {
-            Serializer.toString(
-                request,
-                "EncryptionEnabled",
-                encryptionEnabled,
-                ParameterType.URLENCODED
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
+
+
+
+    if (awsCredentialsSid != null) {
+        Serializer.toString(request, "AwsCredentialsSid", awsCredentialsSid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (encryptionKeySid != null) {
+        Serializer.toString(request, "EncryptionKeySid", encryptionKeySid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (awsS3Url != null) {
+        Serializer.toString(request, "AwsS3Url", awsS3Url, ParameterType.URLENCODED);
+    }
+
+
+
+    if (awsStorageEnabled != null) {
+        Serializer.toString(request, "AwsStorageEnabled", awsStorageEnabled, ParameterType.URLENCODED);
+    }
+
+
+
+    if (encryptionEnabled != null) {
+        Serializer.toString(request, "EncryptionEnabled", encryptionEnabled, ParameterType.URLENCODED);
+    }
+
+
+}
 }

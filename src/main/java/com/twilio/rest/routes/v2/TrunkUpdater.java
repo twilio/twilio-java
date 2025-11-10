@@ -26,38 +26,40 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class TrunkUpdater extends Updater<Trunk> {
-
-    private String pathSipTrunkDomain;
+    public class TrunkUpdater extends Updater<Trunk> {
+            private String pathSipTrunkDomain;
     private String voiceRegion;
     private String friendlyName;
 
-    public TrunkUpdater(final String pathSipTrunkDomain) {
+            public TrunkUpdater(final String pathSipTrunkDomain) {
         this.pathSipTrunkDomain = pathSipTrunkDomain;
     }
 
-    public TrunkUpdater setVoiceRegion(final String voiceRegion) {
-        this.voiceRegion = voiceRegion;
-        return this;
-    }
+        
+public TrunkUpdater setVoiceRegion(final String voiceRegion){
+    this.voiceRegion = voiceRegion;
+    return this;
+}
 
-    public TrunkUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
 
-    @Override
+public TrunkUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
+
+
+            @Override
     public Trunk update(final TwilioRestClient client) {
-        String path = "/v2/Trunks/{SipTrunkDomain}";
+    
+    String path = "/v2/Trunks/{SipTrunkDomain}";
 
-        path =
-            path.replace(
-                "{" + "SipTrunkDomain" + "}",
-                this.pathSipTrunkDomain.toString()
-            );
+    path = path.replace("{"+"SipTrunkDomain"+"}", this.pathSipTrunkDomain.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.ROUTES.toString(),
@@ -65,47 +67,36 @@ public class TrunkUpdater extends Updater<Trunk> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Trunk update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Trunk update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Trunk.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addPostParams(final Request request) {
 
-    private void addPostParams(final Request request) {
-        if (voiceRegion != null) {
-            Serializer.toString(
-                request,
-                "VoiceRegion",
-                voiceRegion,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
+    if (voiceRegion != null) {
+        Serializer.toString(request, "VoiceRegion", voiceRegion, ParameterType.URLENCODED);
     }
+
+
+
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

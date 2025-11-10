@@ -17,43 +17,96 @@ package com.twilio.rest.content.v1.content;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
+import com.twilio.base.Reader;
+import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.Objects;
+import com.twilio.exception.RestException;
+import com.twilio.http.HttpMethod;
+import com.twilio.http.Request;
+import com.twilio.http.Response;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Currency;
+import java.util.List;
+import java.util.Map;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ApprovalFetch extends Resource {
 
+
+
+
+
+
     public static ApprovalFetchFetcher fetcher(final String pathSid) {
-        return new ApprovalFetchFetcher(pathSid);
+        return new ApprovalFetchFetcher(
+             pathSid
+        );
     }
 
+
+
+    
+
+
+
     /**
-     * Converts a JSON String into a ApprovalFetch object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return ApprovalFetch object represented by the provided JSON
-     */
-    public static ApprovalFetch fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a ApprovalFetch object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return ApprovalFetch object represented by the provided JSON
+    */
+    public static ApprovalFetch fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ApprovalFetch.class);
@@ -65,17 +118,14 @@ public class ApprovalFetch extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a ApprovalFetch object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return ApprovalFetch object represented by the provided JSON
-     */
-    public static ApprovalFetch fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a ApprovalFetch object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return ApprovalFetch object represented by the provided JSON
+    */
+    public static ApprovalFetch fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ApprovalFetch.class);
@@ -97,53 +147,64 @@ public class ApprovalFetch extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String sid;
-
     @Getter
     private final URI url;
-
     @Getter
     private final Object whatsapp;
 
-    @JsonCreator
-    private ApprovalFetch(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("whatsapp") final Object whatsapp
-    ) {
-        this.accountSid = accountSid;
-        this.sid = sid;
-        this.url = url;
-        this.whatsapp = whatsapp;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        ApprovalFetch other = (ApprovalFetch) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(whatsapp, other.whatsapp)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(accountSid, sid, url, whatsapp);
-    }
+@JsonCreator
+private ApprovalFetch(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("url")
+    final URI url, 
+    @JsonProperty("whatsapp")
+    final Object whatsapp
+){
+    this.accountSid = accountSid;
+    this.sid = sid;
+    this.url = url;
+    this.whatsapp = whatsapp;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    ApprovalFetch other = (ApprovalFetch) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(url, other.url) && 
+            Objects.equals(whatsapp, other.whatsapp)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            sid, 
+            url, 
+            whatsapp
+    );
+}
+
+
+
+}
+

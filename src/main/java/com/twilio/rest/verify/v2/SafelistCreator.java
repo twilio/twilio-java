@@ -14,6 +14,7 @@
 
 package com.twilio.rest.verify.v2;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class SafelistCreator extends Creator<Safelist> {
@@ -36,15 +39,20 @@ public class SafelistCreator extends Creator<Safelist> {
         this.phoneNumber = phoneNumber;
     }
 
-    public SafelistCreator setPhoneNumber(final String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-        return this;
-    }
+
+public SafelistCreator setPhoneNumber(final String phoneNumber){
+    this.phoneNumber = phoneNumber;
+    return this;
+}
+
 
     @Override
     public Safelist create(final TwilioRestClient client) {
-        String path = "/v2/SafeList/Numbers";
+    
+    String path = "/v2/SafeList/Numbers";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
@@ -52,41 +60,30 @@ public class SafelistCreator extends Creator<Safelist> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Safelist creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Safelist creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Safelist.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return Safelist.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (phoneNumber != null) {
-            Serializer.toString(
-                request,
-                "PhoneNumber",
-                phoneNumber,
-                ParameterType.URLENCODED
-            );
-        }
+
+    if (phoneNumber != null) {
+        Serializer.toString(request, "PhoneNumber", phoneNumber, ParameterType.URLENCODED);
     }
+
+
+}
 }

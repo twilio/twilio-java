@@ -26,40 +26,47 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class PluginUpdater extends Updater<Plugin> {
-
-    private String pathSid;
+    public class PluginUpdater extends Updater<Plugin> {
+            private String pathSid;
     private String flexMetadata;
     private String friendlyName;
     private String description;
 
-    public PluginUpdater(final String pathSid) {
+            public PluginUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public PluginUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+        
+public PluginUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public PluginUpdater setDescription(final String description) {
-        this.description = description;
-        return this;
-    }
 
-    public PluginUpdater setFlexMetadata(final String flexMetadata) {
-        this.flexMetadata = flexMetadata;
-        return this;
-    }
+public PluginUpdater setDescription(final String description){
+    this.description = description;
+    return this;
+}
 
-    @Override
+
+public PluginUpdater setFlexMetadata(final String flexMetadata){
+    this.flexMetadata = flexMetadata;
+    return this;
+}
+
+
+            @Override
     public Plugin update(final TwilioRestClient client) {
-        String path = "/v1/PluginService/Plugins/{Sid}";
+    
+    String path = "/v1/PluginService/Plugins/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
@@ -68,58 +75,43 @@ public class PluginUpdater extends Updater<Plugin> {
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Plugin update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Plugin update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Plugin.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addPostParams(final Request request) {
 
-    private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (description != null) {
-            Serializer.toString(
-                request,
-                "Description",
-                description,
-                ParameterType.URLENCODED
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
 
-    private void addHeaderParams(final Request request) {
-        if (flexMetadata != null) {
-            Serializer.toString(
-                request,
-                "Flex-Metadata",
-                flexMetadata,
-                ParameterType.HEADER
-            );
-        }
+
+
+    if (description != null) {
+        Serializer.toString(request, "Description", description, ParameterType.URLENCODED);
     }
+
+
 }
+        private void addHeaderParams(final Request request) {
+
+    if (flexMetadata != null) {
+        Serializer.toString(request, "Flex-Metadata", flexMetadata, ParameterType.HEADER);
+    }
+
+}
+    }

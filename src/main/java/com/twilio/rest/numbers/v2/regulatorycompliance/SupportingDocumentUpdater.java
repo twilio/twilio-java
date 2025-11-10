@@ -26,36 +26,40 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class SupportingDocumentUpdater extends Updater<SupportingDocument> {
-
-    private String pathSid;
+    public class SupportingDocumentUpdater extends Updater<SupportingDocument> {
+            private String pathSid;
     private String friendlyName;
     private Object attributes;
 
-    public SupportingDocumentUpdater(final String pathSid) {
+            public SupportingDocumentUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public SupportingDocumentUpdater setFriendlyName(
-        final String friendlyName
-    ) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+        
+public SupportingDocumentUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public SupportingDocumentUpdater setAttributes(final Object attributes) {
-        this.attributes = attributes;
-        return this;
-    }
 
-    @Override
+public SupportingDocumentUpdater setAttributes(final Object attributes){
+    this.attributes = attributes;
+    return this;
+}
+
+
+            @Override
     public SupportingDocument update(final TwilioRestClient client) {
-        String path = "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}";
+    
+    String path = "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
@@ -63,50 +67,36 @@ public class SupportingDocumentUpdater extends Updater<SupportingDocument> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "SupportingDocument update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SupportingDocument update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return SupportingDocument.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return SupportingDocument.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (attributes != null) {
-            Serializer.toString(
-                request,
-                "Attributes",
-                attributes,
-                ParameterType.URLENCODED
-            );
-        }
+
+    if (attributes != null) {
+        Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
     }
+
+
 }
+    }

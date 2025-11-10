@@ -17,105 +17,152 @@ package com.twilio.rest.conversations.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Conversation extends Resource {
 
+
+
     public static ConversationCreator creator() {
-        return new ConversationCreator();
+        return new ConversationCreator(
+            
+        );
     }
+
+
+
+
+
+
+    
+
+
 
     public static ConversationDeleter deleter(final String pathSid) {
-        return new ConversationDeleter(pathSid);
+        return new ConversationDeleter(
+             pathSid
+        );
     }
+
+
+
+
+    
+
+
+
 
     public static ConversationFetcher fetcher(final String pathSid) {
-        return new ConversationFetcher(pathSid);
+        return new ConversationFetcher(
+             pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static ConversationReader reader() {
-        return new ConversationReader();
+        return new ConversationReader(
+            
+        );
     }
+
+
+    
+
+
+
+
+
 
     public static ConversationUpdater updater(final String pathSid) {
-        return new ConversationUpdater(pathSid);
+        return new ConversationUpdater(
+             pathSid
+        );
     }
 
-    public enum WebhookEnabledType {
-        TRUE("true"),
-        FALSE("false");
+    
 
-        private final String value;
+public enum WebhookEnabledType {
+    TRUE("true"),
+    FALSE("false");
 
-        private WebhookEnabledType(final String value) {
-            this.value = value;
-        }
+    private final String value;
 
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static WebhookEnabledType forValue(final String value) {
-            return Promoter.enumFromString(value, WebhookEnabledType.values());
-        }
+    private WebhookEnabledType(final String value) {
+        this.value = value;
     }
 
-    public enum State {
-        INITIALIZING("initializing"),
-        INACTIVE("inactive"),
-        ACTIVE("active"),
-        CLOSED("closed");
-
-        private final String value;
-
-        private State(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static State forValue(final String value) {
-            return Promoter.enumFromString(value, State.values());
-        }
+    public String toString() {
+        return value;
     }
+
+    @JsonCreator
+    public static WebhookEnabledType forValue(final String value) {
+        return Promoter.enumFromString(value, WebhookEnabledType.values());
+    }
+}
+public enum State {
+    INITIALIZING("initializing"),
+    INACTIVE("inactive"),
+    ACTIVE("active"),
+    CLOSED("closed");
+
+    private final String value;
+
+    private State(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static State forValue(final String value) {
+        return Promoter.enumFromString(value, State.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a Conversation object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Conversation object represented by the provided JSON
-     */
-    public static Conversation fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Conversation object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Conversation object represented by the provided JSON
+    */
+    public static Conversation fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Conversation.class);
@@ -127,17 +174,14 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Conversation object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Conversation object represented by the provided JSON
-     */
-    public static Conversation fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Conversation object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Conversation object represented by the provided JSON
+    */
+    public static Conversation fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Conversation.class);
@@ -159,132 +203,136 @@ public class Conversation extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String attributes;
-
     @Getter
     private final Object bindings;
-
     @Getter
     private final String chatServiceSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String friendlyName;
-
     @Getter
     private final Map<String, String> links;
-
     @Getter
     private final String messagingServiceSid;
-
     @Getter
     private final String sid;
-
     @Getter
     private final Conversation.State state;
-
     @Getter
     private final Object timers;
-
     @Getter
     private final String uniqueName;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private Conversation(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("attributes") final String attributes,
-        @JsonProperty("bindings") final Object bindings,
-        @JsonProperty("chat_service_sid") final String chatServiceSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("messaging_service_sid") final String messagingServiceSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("state") final Conversation.State state,
-        @JsonProperty("timers") final Object timers,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.attributes = attributes;
-        this.bindings = bindings;
-        this.chatServiceSid = chatServiceSid;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.friendlyName = friendlyName;
-        this.links = links;
-        this.messagingServiceSid = messagingServiceSid;
-        this.sid = sid;
-        this.state = state;
-        this.timers = timers;
-        this.uniqueName = uniqueName;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Conversation other = (Conversation) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(attributes, other.attributes) &&
-            Objects.equals(bindings, other.bindings) &&
-            Objects.equals(chatServiceSid, other.chatServiceSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(state, other.state) &&
-            Objects.equals(timers, other.timers) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            attributes,
-            bindings,
-            chatServiceSid,
-            dateCreated,
-            dateUpdated,
-            friendlyName,
-            links,
-            messagingServiceSid,
-            sid,
-            state,
-            timers,
-            uniqueName,
-            url
-        );
-    }
+@JsonCreator
+private Conversation(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("attributes")
+    final String attributes, 
+    @JsonProperty("bindings")
+    final Object bindings, 
+    @JsonProperty("chat_service_sid")
+    final String chatServiceSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("friendly_name")
+    final String friendlyName, 
+    @JsonProperty("links")
+    final Map<String, String> links, 
+    @JsonProperty("messaging_service_sid")
+    final String messagingServiceSid, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("state")
+    final Conversation.State state, 
+    @JsonProperty("timers")
+    final Object timers, 
+    @JsonProperty("unique_name")
+    final String uniqueName, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.attributes = attributes;
+    this.bindings = bindings;
+    this.chatServiceSid = chatServiceSid;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.friendlyName = friendlyName;
+    this.links = links;
+    this.messagingServiceSid = messagingServiceSid;
+    this.sid = sid;
+    this.state = state;
+    this.timers = timers;
+    this.uniqueName = uniqueName;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Conversation other = (Conversation) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(attributes, other.attributes) && 
+            Objects.equals(bindings, other.bindings) && 
+            Objects.equals(chatServiceSid, other.chatServiceSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(friendlyName, other.friendlyName) && 
+            Objects.equals(links, other.links) && 
+            Objects.equals(messagingServiceSid, other.messagingServiceSid) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(state, other.state) && 
+            Objects.equals(timers, other.timers) && 
+            Objects.equals(uniqueName, other.uniqueName) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            attributes, 
+            bindings, 
+            chatServiceSid, 
+            dateCreated, 
+            dateUpdated, 
+            friendlyName, 
+            links, 
+            messagingServiceSid, 
+            sid, 
+            state, 
+            timers, 
+            uniqueName, 
+            url
+    );
+}
+
+
+
+}
+

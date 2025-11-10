@@ -25,128 +25,111 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 
-public class WorkersCumulativeStatisticsFetcher
-    extends Fetcher<WorkersCumulativeStatistics> {
+    public class WorkersCumulativeStatisticsFetcher extends Fetcher<WorkersCumulativeStatistics> {
 
-    private String pathWorkspaceSid;
+            private String pathWorkspaceSid;
     private ZonedDateTime endDate;
     private Integer minutes;
     private ZonedDateTime startDate;
     private String taskChannel;
 
-    public WorkersCumulativeStatisticsFetcher(final String pathWorkspaceSid) {
+            public WorkersCumulativeStatisticsFetcher(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
-    public WorkersCumulativeStatisticsFetcher setEndDate(
-        final ZonedDateTime endDate
-    ) {
-        this.endDate = endDate;
-        return this;
-    }
+        
+public WorkersCumulativeStatisticsFetcher setEndDate(final ZonedDateTime endDate){
+    this.endDate = endDate;
+    return this;
+}
 
-    public WorkersCumulativeStatisticsFetcher setMinutes(
-        final Integer minutes
-    ) {
-        this.minutes = minutes;
-        return this;
-    }
 
-    public WorkersCumulativeStatisticsFetcher setStartDate(
-        final ZonedDateTime startDate
-    ) {
-        this.startDate = startDate;
-        return this;
-    }
+public WorkersCumulativeStatisticsFetcher setMinutes(final Integer minutes){
+    this.minutes = minutes;
+    return this;
+}
 
-    public WorkersCumulativeStatisticsFetcher setTaskChannel(
-        final String taskChannel
-    ) {
-        this.taskChannel = taskChannel;
-        return this;
-    }
 
-    @Override
+public WorkersCumulativeStatisticsFetcher setStartDate(final ZonedDateTime startDate){
+    this.startDate = startDate;
+    return this;
+}
+
+
+public WorkersCumulativeStatisticsFetcher setTaskChannel(final String taskChannel){
+    this.taskChannel = taskChannel;
+    return this;
+}
+
+
+            @Override
     public WorkersCumulativeStatistics fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Workspaces/{WorkspaceSid}/Workers/CumulativeStatistics";
+    
+    String path = "/v1/Workspaces/{WorkspaceSid}/Workers/CumulativeStatistics";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
+    path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
             path
         );
         addQueryParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "WorkersCumulativeStatistics fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("WorkersCumulativeStatistics fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-        return WorkersCumulativeStatistics.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return WorkersCumulativeStatistics.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addQueryParams(final Request request) {
+
+
+    if (endDate != null) {
+        Serializer.toString(request, "EndDate", endDate, ParameterType.QUERY);
     }
 
-    private void addQueryParams(final Request request) {
-        if (endDate != null) {
-            Serializer.toString(
-                request,
-                "EndDate",
-                endDate,
-                ParameterType.QUERY
-            );
-        }
 
-        if (minutes != null) {
-            Serializer.toString(
-                request,
-                "Minutes",
-                minutes,
-                ParameterType.QUERY
-            );
-        }
 
-        if (startDate != null) {
-            Serializer.toString(
-                request,
-                "StartDate",
-                startDate,
-                ParameterType.QUERY
-            );
-        }
 
-        if (taskChannel != null) {
-            Serializer.toString(
-                request,
-                "TaskChannel",
-                taskChannel,
-                ParameterType.QUERY
-            );
-        }
+
+    if (minutes != null) {
+        Serializer.toString(request, "Minutes", minutes, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (startDate != null) {
+        Serializer.toString(request, "StartDate", startDate, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (taskChannel != null) {
+        Serializer.toString(request, "TaskChannel", taskChannel, ParameterType.QUERY);
+    }
+
+
+
 }
+    }

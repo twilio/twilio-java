@@ -14,6 +14,7 @@
 
 package com.twilio.rest.sync.v1.service.synclist;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class SyncListItemCreator extends Creator<SyncListItem> {
@@ -37,47 +40,46 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
     private Integer itemTtl;
     private Integer collectionTtl;
 
-    public SyncListItemCreator(
-        final String pathServiceSid,
-        final String pathListSid,
-        final Object data
-    ) {
+    public SyncListItemCreator(final String pathServiceSid, final String pathListSid, final Object data) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
         this.data = data;
     }
 
-    public SyncListItemCreator setData(final Object data) {
-        this.data = data;
-        return this;
-    }
 
-    public SyncListItemCreator setTtl(final Integer ttl) {
-        this.ttl = ttl;
-        return this;
-    }
+public SyncListItemCreator setData(final Object data){
+    this.data = data;
+    return this;
+}
 
-    public SyncListItemCreator setItemTtl(final Integer itemTtl) {
-        this.itemTtl = itemTtl;
-        return this;
-    }
 
-    public SyncListItemCreator setCollectionTtl(final Integer collectionTtl) {
-        this.collectionTtl = collectionTtl;
-        return this;
-    }
+public SyncListItemCreator setTtl(final Integer ttl){
+    this.ttl = ttl;
+    return this;
+}
+
+
+public SyncListItemCreator setItemTtl(final Integer itemTtl){
+    this.itemTtl = itemTtl;
+    return this;
+}
+
+
+public SyncListItemCreator setCollectionTtl(final Integer collectionTtl){
+    this.collectionTtl = collectionTtl;
+    return this;
+}
+
 
     @Override
     public SyncListItem create(final TwilioRestClient client) {
-        String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items";
+    
+    String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"ListSid"+"}", this.pathListSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
@@ -85,63 +87,48 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "SyncListItem creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SyncListItem creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return SyncListItem.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return SyncListItem.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (data != null) {
-            Serializer.toString(
-                request,
-                "Data",
-                data,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (ttl != null) {
-            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
-        }
-
-        if (itemTtl != null) {
-            Serializer.toString(
-                request,
-                "ItemTtl",
-                itemTtl,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (collectionTtl != null) {
-            Serializer.toString(
-                request,
-                "CollectionTtl",
-                collectionTtl,
-                ParameterType.URLENCODED
-            );
-        }
+    if (data != null) {
+        Serializer.toString(request, "Data", data, ParameterType.URLENCODED);
     }
+
+
+
+    if (ttl != null) {
+        Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (itemTtl != null) {
+        Serializer.toString(request, "ItemTtl", itemTtl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (collectionTtl != null) {
+        Serializer.toString(request, "CollectionTtl", collectionTtl, ParameterType.URLENCODED);
+    }
+
+
+}
 }

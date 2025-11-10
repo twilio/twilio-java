@@ -27,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.util.List;
+import com.twilio.type.*;
 
-public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
-
-    private String pathSid;
+    public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
+            private String pathSid;
     private String businessName;
     private String businessWebsite;
     private String notificationEmail;
@@ -67,271 +68,229 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
     private Boolean ageGatedContent;
     private List<String> optInKeywords;
 
-    public TollfreeVerificationUpdater(final String pathSid) {
+            public TollfreeVerificationUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public TollfreeVerificationUpdater setBusinessName(
-        final String businessName
-    ) {
-        this.businessName = businessName;
-        return this;
-    }
+        
+public TollfreeVerificationUpdater setBusinessName(final String businessName){
+    this.businessName = businessName;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setBusinessWebsite(
-        final String businessWebsite
-    ) {
-        this.businessWebsite = businessWebsite;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setNotificationEmail(
-        final String notificationEmail
-    ) {
-        this.notificationEmail = notificationEmail;
-        return this;
-    }
+public TollfreeVerificationUpdater setBusinessWebsite(final String businessWebsite){
+    this.businessWebsite = businessWebsite;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setUseCaseCategories(
-        final List<String> useCaseCategories
-    ) {
-        this.useCaseCategories = useCaseCategories;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setUseCaseCategories(
-        final String useCaseCategories
-    ) {
-        return setUseCaseCategories(Promoter.listOfOne(useCaseCategories));
-    }
+public TollfreeVerificationUpdater setNotificationEmail(final String notificationEmail){
+    this.notificationEmail = notificationEmail;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setUseCaseSummary(
-        final String useCaseSummary
-    ) {
-        this.useCaseSummary = useCaseSummary;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setProductionMessageSample(
-        final String productionMessageSample
-    ) {
-        this.productionMessageSample = productionMessageSample;
-        return this;
-    }
+public TollfreeVerificationUpdater setUseCaseCategories(final List<String> useCaseCategories){
+    this.useCaseCategories = useCaseCategories;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setOptInImageUrls(
-        final List<String> optInImageUrls
-    ) {
-        this.optInImageUrls = optInImageUrls;
-        return this;
-    }
+public TollfreeVerificationUpdater setUseCaseCategories(final String useCaseCategories){
+    return setUseCaseCategories(Promoter.listOfOne(useCaseCategories));
+}
 
-    public TollfreeVerificationUpdater setOptInImageUrls(
-        final String optInImageUrls
-    ) {
-        return setOptInImageUrls(Promoter.listOfOne(optInImageUrls));
-    }
+public TollfreeVerificationUpdater setUseCaseSummary(final String useCaseSummary){
+    this.useCaseSummary = useCaseSummary;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setOptInType(
-        final TollfreeVerification.OptInType optInType
-    ) {
-        this.optInType = optInType;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setMessageVolume(
-        final String messageVolume
-    ) {
-        this.messageVolume = messageVolume;
-        return this;
-    }
+public TollfreeVerificationUpdater setProductionMessageSample(final String productionMessageSample){
+    this.productionMessageSample = productionMessageSample;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setBusinessStreetAddress(
-        final String businessStreetAddress
-    ) {
-        this.businessStreetAddress = businessStreetAddress;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setBusinessStreetAddress2(
-        final String businessStreetAddress2
-    ) {
-        this.businessStreetAddress2 = businessStreetAddress2;
-        return this;
-    }
+public TollfreeVerificationUpdater setOptInImageUrls(final List<String> optInImageUrls){
+    this.optInImageUrls = optInImageUrls;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setBusinessCity(
-        final String businessCity
-    ) {
-        this.businessCity = businessCity;
-        return this;
-    }
+public TollfreeVerificationUpdater setOptInImageUrls(final String optInImageUrls){
+    return setOptInImageUrls(Promoter.listOfOne(optInImageUrls));
+}
 
-    public TollfreeVerificationUpdater setBusinessStateProvinceRegion(
-        final String businessStateProvinceRegion
-    ) {
-        this.businessStateProvinceRegion = businessStateProvinceRegion;
-        return this;
-    }
+public TollfreeVerificationUpdater setOptInType(final TollfreeVerification.OptInType optInType){
+    this.optInType = optInType;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setBusinessPostalCode(
-        final String businessPostalCode
-    ) {
-        this.businessPostalCode = businessPostalCode;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setBusinessCountry(
-        final String businessCountry
-    ) {
-        this.businessCountry = businessCountry;
-        return this;
-    }
+public TollfreeVerificationUpdater setMessageVolume(final String messageVolume){
+    this.messageVolume = messageVolume;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setAdditionalInformation(
-        final String additionalInformation
-    ) {
-        this.additionalInformation = additionalInformation;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setBusinessContactFirstName(
-        final String businessContactFirstName
-    ) {
-        this.businessContactFirstName = businessContactFirstName;
-        return this;
-    }
+public TollfreeVerificationUpdater setBusinessStreetAddress(final String businessStreetAddress){
+    this.businessStreetAddress = businessStreetAddress;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setBusinessContactLastName(
-        final String businessContactLastName
-    ) {
-        this.businessContactLastName = businessContactLastName;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setBusinessContactEmail(
-        final String businessContactEmail
-    ) {
-        this.businessContactEmail = businessContactEmail;
-        return this;
-    }
+public TollfreeVerificationUpdater setBusinessStreetAddress2(final String businessStreetAddress2){
+    this.businessStreetAddress2 = businessStreetAddress2;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setBusinessContactPhone(
-        final com.twilio.type.PhoneNumber businessContactPhone
-    ) {
-        this.businessContactPhone = businessContactPhone;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setBusinessContactPhone(
-        final String businessContactPhone
-    ) {
-        return setBusinessContactPhone(
-            Promoter.phoneNumberFromString(businessContactPhone)
-        );
-    }
+public TollfreeVerificationUpdater setBusinessCity(final String businessCity){
+    this.businessCity = businessCity;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setEditReason(final String editReason) {
-        this.editReason = editReason;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setBusinessRegistrationNumber(
-        final String businessRegistrationNumber
-    ) {
-        this.businessRegistrationNumber = businessRegistrationNumber;
-        return this;
-    }
+public TollfreeVerificationUpdater setBusinessStateProvinceRegion(final String businessStateProvinceRegion){
+    this.businessStateProvinceRegion = businessStateProvinceRegion;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setBusinessRegistrationAuthority(
-        final String businessRegistrationAuthority
-    ) {
-        this.businessRegistrationAuthority = businessRegistrationAuthority;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setBusinessRegistrationCountry(
-        final String businessRegistrationCountry
-    ) {
-        this.businessRegistrationCountry = businessRegistrationCountry;
-        return this;
-    }
+public TollfreeVerificationUpdater setBusinessPostalCode(final String businessPostalCode){
+    this.businessPostalCode = businessPostalCode;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setBusinessType(
-        final String businessType
-    ) {
-        this.businessType = businessType;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setBusinessRegistrationPhoneNumber(
-        final String businessRegistrationPhoneNumber
-    ) {
-        this.businessRegistrationPhoneNumber = businessRegistrationPhoneNumber;
-        return this;
-    }
+public TollfreeVerificationUpdater setBusinessCountry(final String businessCountry){
+    this.businessCountry = businessCountry;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setDoingBusinessAs(
-        final String doingBusinessAs
-    ) {
-        this.doingBusinessAs = doingBusinessAs;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setOptInConfirmationMessage(
-        final String optInConfirmationMessage
-    ) {
-        this.optInConfirmationMessage = optInConfirmationMessage;
-        return this;
-    }
+public TollfreeVerificationUpdater setAdditionalInformation(final String additionalInformation){
+    this.additionalInformation = additionalInformation;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setHelpMessageSample(
-        final String helpMessageSample
-    ) {
-        this.helpMessageSample = helpMessageSample;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setPrivacyPolicyUrl(
-        final String privacyPolicyUrl
-    ) {
-        this.privacyPolicyUrl = privacyPolicyUrl;
-        return this;
-    }
+public TollfreeVerificationUpdater setBusinessContactFirstName(final String businessContactFirstName){
+    this.businessContactFirstName = businessContactFirstName;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setTermsAndConditionsUrl(
-        final String termsAndConditionsUrl
-    ) {
-        this.termsAndConditionsUrl = termsAndConditionsUrl;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setAgeGatedContent(
-        final Boolean ageGatedContent
-    ) {
-        this.ageGatedContent = ageGatedContent;
-        return this;
-    }
+public TollfreeVerificationUpdater setBusinessContactLastName(final String businessContactLastName){
+    this.businessContactLastName = businessContactLastName;
+    return this;
+}
 
-    public TollfreeVerificationUpdater setOptInKeywords(
-        final List<String> optInKeywords
-    ) {
-        this.optInKeywords = optInKeywords;
-        return this;
-    }
 
-    public TollfreeVerificationUpdater setOptInKeywords(
-        final String optInKeywords
-    ) {
-        return setOptInKeywords(Promoter.listOfOne(optInKeywords));
-    }
+public TollfreeVerificationUpdater setBusinessContactEmail(final String businessContactEmail){
+    this.businessContactEmail = businessContactEmail;
+    return this;
+}
 
-    @Override
+
+public TollfreeVerificationUpdater setBusinessContactPhone(final com.twilio.type.PhoneNumber businessContactPhone){
+    this.businessContactPhone = businessContactPhone;
+    return this;
+}
+
+public TollfreeVerificationUpdater setBusinessContactPhone(final String businessContactPhone){
+    return setBusinessContactPhone(Promoter.phoneNumberFromString(businessContactPhone));
+}
+
+public TollfreeVerificationUpdater setEditReason(final String editReason){
+    this.editReason = editReason;
+    return this;
+}
+
+
+public TollfreeVerificationUpdater setBusinessRegistrationNumber(final String businessRegistrationNumber){
+    this.businessRegistrationNumber = businessRegistrationNumber;
+    return this;
+}
+
+
+public TollfreeVerificationUpdater setBusinessRegistrationAuthority(final String businessRegistrationAuthority){
+    this.businessRegistrationAuthority = businessRegistrationAuthority;
+    return this;
+}
+
+
+public TollfreeVerificationUpdater setBusinessRegistrationCountry(final String businessRegistrationCountry){
+    this.businessRegistrationCountry = businessRegistrationCountry;
+    return this;
+}
+
+
+public TollfreeVerificationUpdater setBusinessType(final String businessType){
+    this.businessType = businessType;
+    return this;
+}
+
+
+public TollfreeVerificationUpdater setBusinessRegistrationPhoneNumber(final String businessRegistrationPhoneNumber){
+    this.businessRegistrationPhoneNumber = businessRegistrationPhoneNumber;
+    return this;
+}
+
+
+public TollfreeVerificationUpdater setDoingBusinessAs(final String doingBusinessAs){
+    this.doingBusinessAs = doingBusinessAs;
+    return this;
+}
+
+
+public TollfreeVerificationUpdater setOptInConfirmationMessage(final String optInConfirmationMessage){
+    this.optInConfirmationMessage = optInConfirmationMessage;
+    return this;
+}
+
+
+public TollfreeVerificationUpdater setHelpMessageSample(final String helpMessageSample){
+    this.helpMessageSample = helpMessageSample;
+    return this;
+}
+
+
+public TollfreeVerificationUpdater setPrivacyPolicyUrl(final String privacyPolicyUrl){
+    this.privacyPolicyUrl = privacyPolicyUrl;
+    return this;
+}
+
+
+public TollfreeVerificationUpdater setTermsAndConditionsUrl(final String termsAndConditionsUrl){
+    this.termsAndConditionsUrl = termsAndConditionsUrl;
+    return this;
+}
+
+
+public TollfreeVerificationUpdater setAgeGatedContent(final Boolean ageGatedContent){
+    this.ageGatedContent = ageGatedContent;
+    return this;
+}
+
+
+public TollfreeVerificationUpdater setOptInKeywords(final List<String> optInKeywords){
+    this.optInKeywords = optInKeywords;
+    return this;
+}
+
+public TollfreeVerificationUpdater setOptInKeywords(final String optInKeywords){
+    return setOptInKeywords(Promoter.listOfOne(optInKeywords));
+}
+
+            @Override
     public TollfreeVerification update(final TwilioRestClient client) {
-        String path = "/v1/Tollfree/Verifications/{Sid}";
+    
+    String path = "/v1/Tollfree/Verifications/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.MESSAGING.toString(),
@@ -339,335 +298,228 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "TollfreeVerification update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("TollfreeVerification update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return TollfreeVerification.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return TollfreeVerification.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (businessName != null) {
+        Serializer.toString(request, "BusinessName", businessName, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (businessName != null) {
-            Serializer.toString(
-                request,
-                "BusinessName",
-                businessName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (businessWebsite != null) {
-            Serializer.toString(
-                request,
-                "BusinessWebsite",
-                businessWebsite,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (notificationEmail != null) {
-            Serializer.toString(
-                request,
-                "NotificationEmail",
-                notificationEmail,
-                ParameterType.URLENCODED
-            );
-        }
+    if (businessWebsite != null) {
+        Serializer.toString(request, "BusinessWebsite", businessWebsite, ParameterType.URLENCODED);
+    }
 
-        if (useCaseCategories != null) {
-            for (String param : useCaseCategories) {
-                Serializer.toString(
-                    request,
-                    "UseCaseCategories",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (useCaseSummary != null) {
-            Serializer.toString(
-                request,
-                "UseCaseSummary",
-                useCaseSummary,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (productionMessageSample != null) {
-            Serializer.toString(
-                request,
-                "ProductionMessageSample",
-                productionMessageSample,
-                ParameterType.URLENCODED
-            );
-        }
+    if (notificationEmail != null) {
+        Serializer.toString(request, "NotificationEmail", notificationEmail, ParameterType.URLENCODED);
+    }
 
-        if (optInImageUrls != null) {
-            for (String param : optInImageUrls) {
-                Serializer.toString(
-                    request,
-                    "OptInImageUrls",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (optInType != null) {
-            Serializer.toString(
-                request,
-                "OptInType",
-                optInType,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (messageVolume != null) {
-            Serializer.toString(
-                request,
-                "MessageVolume",
-                messageVolume,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (businessStreetAddress != null) {
-            Serializer.toString(
-                request,
-                "BusinessStreetAddress",
-                businessStreetAddress,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (businessStreetAddress2 != null) {
-            Serializer.toString(
-                request,
-                "BusinessStreetAddress2",
-                businessStreetAddress2,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (businessCity != null) {
-            Serializer.toString(
-                request,
-                "BusinessCity",
-                businessCity,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (businessStateProvinceRegion != null) {
-            Serializer.toString(
-                request,
-                "BusinessStateProvinceRegion",
-                businessStateProvinceRegion,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (businessPostalCode != null) {
-            Serializer.toString(
-                request,
-                "BusinessPostalCode",
-                businessPostalCode,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (businessCountry != null) {
-            Serializer.toString(
-                request,
-                "BusinessCountry",
-                businessCountry,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (additionalInformation != null) {
-            Serializer.toString(
-                request,
-                "AdditionalInformation",
-                additionalInformation,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (businessContactFirstName != null) {
-            Serializer.toString(
-                request,
-                "BusinessContactFirstName",
-                businessContactFirstName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (businessContactLastName != null) {
-            Serializer.toString(
-                request,
-                "BusinessContactLastName",
-                businessContactLastName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (businessContactEmail != null) {
-            Serializer.toString(
-                request,
-                "BusinessContactEmail",
-                businessContactEmail,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (businessContactPhone != null) {
-            Serializer.toString(
-                request,
-                "BusinessContactPhone",
-                businessContactPhone,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (editReason != null) {
-            Serializer.toString(
-                request,
-                "EditReason",
-                editReason,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (businessRegistrationNumber != null) {
-            Serializer.toString(
-                request,
-                "BusinessRegistrationNumber",
-                businessRegistrationNumber,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (businessRegistrationAuthority != null) {
-            Serializer.toString(
-                request,
-                "BusinessRegistrationAuthority",
-                businessRegistrationAuthority,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (businessRegistrationCountry != null) {
-            Serializer.toString(
-                request,
-                "BusinessRegistrationCountry",
-                businessRegistrationCountry,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (businessType != null) {
-            Serializer.toString(
-                request,
-                "BusinessType",
-                businessType,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (businessRegistrationPhoneNumber != null) {
-            Serializer.toString(
-                request,
-                "BusinessRegistrationPhoneNumber",
-                businessRegistrationPhoneNumber,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (doingBusinessAs != null) {
-            Serializer.toString(
-                request,
-                "DoingBusinessAs",
-                doingBusinessAs,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (optInConfirmationMessage != null) {
-            Serializer.toString(
-                request,
-                "OptInConfirmationMessage",
-                optInConfirmationMessage,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (helpMessageSample != null) {
-            Serializer.toString(
-                request,
-                "HelpMessageSample",
-                helpMessageSample,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (privacyPolicyUrl != null) {
-            Serializer.toString(
-                request,
-                "PrivacyPolicyUrl",
-                privacyPolicyUrl,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (termsAndConditionsUrl != null) {
-            Serializer.toString(
-                request,
-                "TermsAndConditionsUrl",
-                termsAndConditionsUrl,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (ageGatedContent != null) {
-            Serializer.toString(
-                request,
-                "AgeGatedContent",
-                ageGatedContent,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (optInKeywords != null) {
-            for (String param : optInKeywords) {
-                Serializer.toString(
-                    request,
-                    "OptInKeywords",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
+    if (useCaseCategories != null) {
+        for (String param: useCaseCategories) {
+            Serializer.toString(request, "UseCaseCategories", param, ParameterType.URLENCODED);
         }
     }
+
+
+    if (useCaseSummary != null) {
+        Serializer.toString(request, "UseCaseSummary", useCaseSummary, ParameterType.URLENCODED);
+    }
+
+
+
+    if (productionMessageSample != null) {
+        Serializer.toString(request, "ProductionMessageSample", productionMessageSample, ParameterType.URLENCODED);
+    }
+
+
+
+
+    if (optInImageUrls != null) {
+        for (String param: optInImageUrls) {
+            Serializer.toString(request, "OptInImageUrls", param, ParameterType.URLENCODED);
+        }
+    }
+
+
+    if (optInType != null) {
+        Serializer.toString(request, "OptInType", optInType, ParameterType.URLENCODED);
+    }
+
+
+
+    if (messageVolume != null) {
+        Serializer.toString(request, "MessageVolume", messageVolume, ParameterType.URLENCODED);
+    }
+
+
+
+    if (businessStreetAddress != null) {
+        Serializer.toString(request, "BusinessStreetAddress", businessStreetAddress, ParameterType.URLENCODED);
+    }
+
+
+
+    if (businessStreetAddress2 != null) {
+        Serializer.toString(request, "BusinessStreetAddress2", businessStreetAddress2, ParameterType.URLENCODED);
+    }
+
+
+
+    if (businessCity != null) {
+        Serializer.toString(request, "BusinessCity", businessCity, ParameterType.URLENCODED);
+    }
+
+
+
+    if (businessStateProvinceRegion != null) {
+        Serializer.toString(request, "BusinessStateProvinceRegion", businessStateProvinceRegion, ParameterType.URLENCODED);
+    }
+
+
+
+    if (businessPostalCode != null) {
+        Serializer.toString(request, "BusinessPostalCode", businessPostalCode, ParameterType.URLENCODED);
+    }
+
+
+
+    if (businessCountry != null) {
+        Serializer.toString(request, "BusinessCountry", businessCountry, ParameterType.URLENCODED);
+    }
+
+
+
+    if (additionalInformation != null) {
+        Serializer.toString(request, "AdditionalInformation", additionalInformation, ParameterType.URLENCODED);
+    }
+
+
+
+    if (businessContactFirstName != null) {
+        Serializer.toString(request, "BusinessContactFirstName", businessContactFirstName, ParameterType.URLENCODED);
+    }
+
+
+
+    if (businessContactLastName != null) {
+        Serializer.toString(request, "BusinessContactLastName", businessContactLastName, ParameterType.URLENCODED);
+    }
+
+
+
+    if (businessContactEmail != null) {
+        Serializer.toString(request, "BusinessContactEmail", businessContactEmail, ParameterType.URLENCODED);
+    }
+
+
+
+    if (businessContactPhone != null) {
+        Serializer.toString(request, "BusinessContactPhone", businessContactPhone, ParameterType.URLENCODED);
+    }
+
+
+
+    if (editReason != null) {
+        Serializer.toString(request, "EditReason", editReason, ParameterType.URLENCODED);
+    }
+
+
+
+    if (businessRegistrationNumber != null) {
+        Serializer.toString(request, "BusinessRegistrationNumber", businessRegistrationNumber, ParameterType.URLENCODED);
+    }
+
+
+
+    if (businessRegistrationAuthority != null) {
+        Serializer.toString(request, "BusinessRegistrationAuthority", businessRegistrationAuthority, ParameterType.URLENCODED);
+    }
+
+
+
+    if (businessRegistrationCountry != null) {
+        Serializer.toString(request, "BusinessRegistrationCountry", businessRegistrationCountry, ParameterType.URLENCODED);
+    }
+
+
+
+    if (businessType != null) {
+        Serializer.toString(request, "BusinessType", businessType, ParameterType.URLENCODED);
+    }
+
+
+
+    if (businessRegistrationPhoneNumber != null) {
+        Serializer.toString(request, "BusinessRegistrationPhoneNumber", businessRegistrationPhoneNumber, ParameterType.URLENCODED);
+    }
+
+
+
+    if (doingBusinessAs != null) {
+        Serializer.toString(request, "DoingBusinessAs", doingBusinessAs, ParameterType.URLENCODED);
+    }
+
+
+
+    if (optInConfirmationMessage != null) {
+        Serializer.toString(request, "OptInConfirmationMessage", optInConfirmationMessage, ParameterType.URLENCODED);
+    }
+
+
+
+    if (helpMessageSample != null) {
+        Serializer.toString(request, "HelpMessageSample", helpMessageSample, ParameterType.URLENCODED);
+    }
+
+
+
+    if (privacyPolicyUrl != null) {
+        Serializer.toString(request, "PrivacyPolicyUrl", privacyPolicyUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (termsAndConditionsUrl != null) {
+        Serializer.toString(request, "TermsAndConditionsUrl", termsAndConditionsUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (ageGatedContent != null) {
+        Serializer.toString(request, "AgeGatedContent", ageGatedContent, ParameterType.URLENCODED);
+    }
+
+
+
+
+    if (optInKeywords != null) {
+        for (String param: optInKeywords) {
+            Serializer.toString(request, "OptInKeywords", param, ParameterType.URLENCODED);
+        }
+    }
+
 }
+    }

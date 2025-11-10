@@ -17,49 +17,109 @@ package com.twilio.rest.accounts.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
+import com.twilio.base.Reader;
+import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Objects;
+import com.twilio.exception.RestException;
+import com.twilio.http.HttpMethod;
+import com.twilio.http.Request;
+import com.twilio.http.Response;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Currency;
+import java.util.List;
+import java.util.Map;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class MessagingGeopermissions extends Resource {
 
+
+
+
+
+
     public static MessagingGeopermissionsFetcher fetcher() {
-        return new MessagingGeopermissionsFetcher();
+        return new MessagingGeopermissionsFetcher(
+            
+        );
     }
 
-    public static MessagingGeopermissionsUpdater updater(
-        final List<Object> permissions
-    ) {
-        return new MessagingGeopermissionsUpdater(permissions);
+
+
+    
+
+
+
+
+
+
+    public static MessagingGeopermissionsUpdater updater(final List<Object> permissions) {
+        return new MessagingGeopermissionsUpdater(
+             permissions
+        );
     }
+
+    
+
+
 
     /**
-     * Converts a JSON String into a MessagingGeopermissions object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return MessagingGeopermissions object represented by the provided JSON
-     */
-    public static MessagingGeopermissions fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a MessagingGeopermissions object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return MessagingGeopermissions object represented by the provided JSON
+    */
+    public static MessagingGeopermissions fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, MessagingGeopermissions.class);
@@ -71,17 +131,14 @@ public class MessagingGeopermissions extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a MessagingGeopermissions object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return MessagingGeopermissions object represented by the provided JSON
-     */
-    public static MessagingGeopermissions fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a MessagingGeopermissions object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return MessagingGeopermissions object represented by the provided JSON
+    */
+    public static MessagingGeopermissions fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, MessagingGeopermissions.class);
@@ -103,33 +160,43 @@ public class MessagingGeopermissions extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final Object permissions;
 
-    @JsonCreator
-    private MessagingGeopermissions(
-        @JsonProperty("permissions") final Object permissions
-    ) {
-        this.permissions = permissions;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        MessagingGeopermissions other = (MessagingGeopermissions) o;
-        return (Objects.equals(permissions, other.permissions));
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(permissions);
-    }
+@JsonCreator
+private MessagingGeopermissions(
+    @JsonProperty("permissions")
+    final Object permissions
+){
+    this.permissions = permissions;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    MessagingGeopermissions other = (MessagingGeopermissions) o;
+    return (
+            Objects.equals(permissions, other.permissions)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            permissions
+    );
+}
+
+
+
+}
+

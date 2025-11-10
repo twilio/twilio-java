@@ -14,9 +14,7 @@
 
 package com.twilio.rest.preview.wireless;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,50 +25,63 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class CommandReader extends Reader<Command> {
 
-    private String device;
+        private String device;
     private String sim;
     private String status;
     private String direction;
     private Long pageSize;
 
-    public CommandReader() {}
-
-    public CommandReader setDevice(final String device) {
-        this.device = device;
-        return this;
+        public CommandReader() {
     }
 
-    public CommandReader setSim(final String sim) {
-        this.sim = sim;
-        return this;
-    }
+    
+public CommandReader setDevice(final String device){
+    this.device = device;
+    return this;
+}
 
-    public CommandReader setStatus(final String status) {
-        this.status = status;
-        return this;
-    }
 
-    public CommandReader setDirection(final String direction) {
-        this.direction = direction;
-        return this;
-    }
+public CommandReader setSim(final String sim){
+    this.sim = sim;
+    return this;
+}
 
-    public CommandReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
 
-    @Override
+public CommandReader setStatus(final String status){
+    this.status = status;
+    return this;
+}
+
+
+public CommandReader setDirection(final String direction){
+    this.direction = direction;
+    return this;
+}
+
+
+public CommandReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+        @Override
     public ResourceSet<Command> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<Command> firstPage(final TwilioRestClient client) {
-        String path = "/wireless/Commands";
+        
+    String path = "/wireless/Commands";
+
 
         Request request = new Request(
             HttpMethod.GET,
@@ -82,100 +93,85 @@ public class CommandReader extends Reader<Command> {
         return pageForRequest(client, request);
     }
 
-    private Page<Command> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Command> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Command read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Command read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "commands",
             response.getContent(),
             Command.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<Command> previousPage(
-        final Page<Command> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Command> previousPage(final Page<Command> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Command> nextPage(
-        final Page<Command> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<Command> nextPage(final Page<Command> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<Command> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Command> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (device != null) {
-            Serializer.toString(request, "Device", device, ParameterType.QUERY);
-        }
 
-        if (sim != null) {
-            Serializer.toString(request, "Sim", sim, ParameterType.QUERY);
-        }
 
-        if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.QUERY);
-        }
-
-        if (direction != null) {
-            Serializer.toString(
-                request,
-                "Direction",
-                direction,
-                ParameterType.QUERY
-            );
-        }
-
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+    if (device != null) {
+        Serializer.toString(request, "Device", device, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (sim != null) {
+        Serializer.toString(request, "Sim", sim, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (status != null) {
+        Serializer.toString(request, "Status", status, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (direction != null) {
+        Serializer.toString(request, "Direction", direction, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

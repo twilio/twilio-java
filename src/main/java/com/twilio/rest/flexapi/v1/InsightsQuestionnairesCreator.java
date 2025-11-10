@@ -14,6 +14,7 @@
 
 package com.twilio.rest.flexapi.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,11 +28,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
-import java.util.List;
 
-public class InsightsQuestionnairesCreator
-    extends Creator<InsightsQuestionnaires> {
+
+import java.util.List;
+import com.twilio.type.*;
+
+public class InsightsQuestionnairesCreator extends Creator<InsightsQuestionnaires> {
 
     private String authorization;
     private String name;
@@ -43,47 +45,47 @@ public class InsightsQuestionnairesCreator
         this.name = name;
     }
 
-    public InsightsQuestionnairesCreator setName(final String name) {
-        this.name = name;
-        return this;
-    }
 
-    public InsightsQuestionnairesCreator setDescription(
-        final String description
-    ) {
-        this.description = description;
-        return this;
-    }
+public InsightsQuestionnairesCreator setName(final String name){
+    this.name = name;
+    return this;
+}
 
-    public InsightsQuestionnairesCreator setActive(final Boolean active) {
-        this.active = active;
-        return this;
-    }
 
-    public InsightsQuestionnairesCreator setQuestionSids(
-        final List<String> questionSids
-    ) {
-        this.questionSids = questionSids;
-        return this;
-    }
+public InsightsQuestionnairesCreator setDescription(final String description){
+    this.description = description;
+    return this;
+}
 
-    public InsightsQuestionnairesCreator setQuestionSids(
-        final String questionSids
-    ) {
-        return setQuestionSids(Promoter.listOfOne(questionSids));
-    }
 
-    public InsightsQuestionnairesCreator setAuthorization(
-        final String authorization
-    ) {
-        this.authorization = authorization;
-        return this;
-    }
+public InsightsQuestionnairesCreator setActive(final Boolean active){
+    this.active = active;
+    return this;
+}
+
+
+public InsightsQuestionnairesCreator setQuestionSids(final List<String> questionSids){
+    this.questionSids = questionSids;
+    return this;
+}
+
+public InsightsQuestionnairesCreator setQuestionSids(final String questionSids){
+    return setQuestionSids(Promoter.listOfOne(questionSids));
+}
+
+public InsightsQuestionnairesCreator setAuthorization(final String authorization){
+    this.authorization = authorization;
+    return this;
+}
+
 
     @Override
     public InsightsQuestionnaires create(final TwilioRestClient client) {
-        String path = "/v1/Insights/QualityManagement/Questionnaires";
+    
+    String path = "/v1/Insights/QualityManagement/Questionnaires";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
@@ -92,81 +94,57 @@ public class InsightsQuestionnairesCreator
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "InsightsQuestionnaires creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InsightsQuestionnaires creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return InsightsQuestionnaires.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return InsightsQuestionnaires.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (name != null) {
-            Serializer.toString(
-                request,
-                "Name",
-                name,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (description != null) {
-            Serializer.toString(
-                request,
-                "Description",
-                description,
-                ParameterType.URLENCODED
-            );
-        }
+    if (name != null) {
+        Serializer.toString(request, "Name", name, ParameterType.URLENCODED);
+    }
 
-        if (active != null) {
-            Serializer.toString(
-                request,
-                "Active",
-                active,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (questionSids != null) {
-            for (String param : questionSids) {
-                Serializer.toString(
-                    request,
-                    "QuestionSids",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
+
+    if (description != null) {
+        Serializer.toString(request, "Description", description, ParameterType.URLENCODED);
+    }
+
+
+
+    if (active != null) {
+        Serializer.toString(request, "Active", active, ParameterType.URLENCODED);
+    }
+
+
+
+
+    if (questionSids != null) {
+        for (String param: questionSids) {
+            Serializer.toString(request, "QuestionSids", param, ParameterType.URLENCODED);
         }
     }
 
+}
     private void addHeaderParams(final Request request) {
-        if (authorization != null) {
-            Serializer.toString(
-                request,
-                "Authorization",
-                authorization,
-                ParameterType.HEADER
-            );
-        }
+
+    if (authorization != null) {
+        Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
     }
+
+}
 }

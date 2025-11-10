@@ -17,44 +17,57 @@ package com.twilio.rest.assistants.v1.knowledge;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.time.ZonedDateTime;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.time.ZonedDateTime;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class KnowledgeStatus extends Resource {
 
+
+
+
+
+
     public static KnowledgeStatusFetcher fetcher(final String pathId) {
-        return new KnowledgeStatusFetcher(pathId);
+        return new KnowledgeStatusFetcher(
+             pathId
+        );
     }
 
+
+
+    
+
+
+
     /**
-     * Converts a JSON String into a KnowledgeStatus object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return KnowledgeStatus object represented by the provided JSON
-     */
-    public static KnowledgeStatus fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a KnowledgeStatus object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return KnowledgeStatus object represented by the provided JSON
+    */
+    public static KnowledgeStatus fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, KnowledgeStatus.class);
@@ -66,17 +79,14 @@ public class KnowledgeStatus extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a KnowledgeStatus object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return KnowledgeStatus object represented by the provided JSON
-     */
-    public static KnowledgeStatus fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a KnowledgeStatus object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return KnowledgeStatus object represented by the provided JSON
+    */
+    public static KnowledgeStatus fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, KnowledgeStatus.class);
@@ -98,55 +108,65 @@ public class KnowledgeStatus extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String lastStatus;
-
     @Getter
     private final String status;
 
-    @JsonCreator
-    private KnowledgeStatus(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("last_status") final String lastStatus,
-        @JsonProperty("status") final String status
-    ) {
-        this.accountSid = accountSid;
-        this.dateUpdated = dateUpdated;
-        this.lastStatus = lastStatus;
-        this.status = status;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        KnowledgeStatus other = (KnowledgeStatus) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(lastStatus, other.lastStatus) &&
-            Objects.equals(status, other.status)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(accountSid, dateUpdated, lastStatus, status);
-    }
+@JsonCreator
+private KnowledgeStatus(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("last_status")
+    final String lastStatus, 
+    @JsonProperty("status")
+    final String status
+){
+    this.accountSid = accountSid;
+    this.dateUpdated = dateUpdated;
+    this.lastStatus = lastStatus;
+    this.status = status;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    KnowledgeStatus other = (KnowledgeStatus) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(lastStatus, other.lastStatus) && 
+            Objects.equals(status, other.status)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            dateUpdated, 
+            lastStatus, 
+            status
+    );
+}
+
+
+
+}
+

@@ -27,37 +27,38 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.util.List;
+import com.twilio.type.*;
 
-public class FlowTestUserUpdater extends Updater<FlowTestUser> {
-
-    private String pathSid;
+    public class FlowTestUserUpdater extends Updater<FlowTestUser> {
+            private String pathSid;
     private List<String> testUsers;
 
-    public FlowTestUserUpdater(
-        final String pathSid,
-        final List<String> testUsers
-    ) {
+            public FlowTestUserUpdater(final String pathSid, final List<String> testUsers) {
         this.pathSid = pathSid;
         this.testUsers = testUsers;
     }
 
-    public FlowTestUserUpdater setTestUsers(final List<String> testUsers) {
-        this.testUsers = testUsers;
-        return this;
-    }
+        
+public FlowTestUserUpdater setTestUsers(final List<String> testUsers){
+    this.testUsers = testUsers;
+    return this;
+}
 
-    public FlowTestUserUpdater setTestUsers(final String testUsers) {
-        return setTestUsers(Promoter.listOfOne(testUsers));
-    }
+public FlowTestUserUpdater setTestUsers(final String testUsers){
+    return setTestUsers(Promoter.listOfOne(testUsers));
+}
 
-    @Override
+            @Override
     public FlowTestUser update(final TwilioRestClient client) {
-        String path = "/v2/Flows/{Sid}/TestUsers";
+    
+    String path = "/v2/Flows/{Sid}/TestUsers";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.STUDIO.toString(),
@@ -65,43 +66,32 @@ public class FlowTestUserUpdater extends Updater<FlowTestUser> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "FlowTestUser update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("FlowTestUser update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return FlowTestUser.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return FlowTestUser.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addPostParams(final Request request) {
 
-    private void addPostParams(final Request request) {
-        if (testUsers != null) {
-            for (String param : testUsers) {
-                Serializer.toString(
-                    request,
-                    "TestUsers",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
+
+    if (testUsers != null) {
+        for (String param: testUsers) {
+            Serializer.toString(request, "TestUsers", param, ParameterType.URLENCODED);
         }
     }
+
 }
+    }

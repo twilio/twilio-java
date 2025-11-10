@@ -17,149 +17,188 @@ package com.twilio.rest.api.v2010.account.usage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Trigger extends Resource {
 
-    public static TriggerCreator creator(
-        final URI callbackUrl,
-        final String triggerValue,
-        final String usageCategory
-    ) {
-        return new TriggerCreator(callbackUrl, triggerValue, usageCategory);
-    }
 
-    public static TriggerCreator creator(
-        final String pathAccountSid,
-        final URI callbackUrl,
-        final String triggerValue,
-        final String usageCategory
-    ) {
+
+    public static TriggerCreator creator(final URI callbackUrl, final String triggerValue, final String usageCategory) {
         return new TriggerCreator(
-            pathAccountSid,
-            callbackUrl,
-            triggerValue,
-            usageCategory
+             callbackUrl,  triggerValue,  usageCategory
         );
     }
 
-    public static TriggerDeleter deleter(final String pathSid) {
-        return new TriggerDeleter(pathSid);
+
+    public static TriggerCreator creator(final String pathAccountSid, final URI callbackUrl, final String triggerValue, final String usageCategory) {
+        return new TriggerCreator(
+             pathAccountSid,  callbackUrl,  triggerValue,  usageCategory
+        );
     }
 
-    public static TriggerDeleter deleter(
-        final String pathAccountSid,
-        final String pathSid
-    ) {
-        return new TriggerDeleter(pathAccountSid, pathSid);
+
+
+
+
+
+    
+
+
+
+    public static TriggerDeleter deleter(final String pathSid) {
+        return new TriggerDeleter(
+             pathSid
+        );
     }
+
+
+    public static TriggerDeleter deleter(final String pathAccountSid, final String pathSid) {
+        return new TriggerDeleter(
+             pathAccountSid,  pathSid
+        );
+    }
+
+
+
+
+    
+
+
+
 
     public static TriggerFetcher fetcher(final String pathSid) {
-        return new TriggerFetcher(pathSid);
+        return new TriggerFetcher(
+             pathSid
+        );
     }
 
-    public static TriggerFetcher fetcher(
-        final String pathAccountSid,
-        final String pathSid
-    ) {
-        return new TriggerFetcher(pathAccountSid, pathSid);
+
+    public static TriggerFetcher fetcher(final String pathAccountSid, final String pathSid) {
+        return new TriggerFetcher(
+             pathAccountSid,  pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static TriggerReader reader() {
-        return new TriggerReader();
+        return new TriggerReader(
+            
+        );
     }
+
 
     public static TriggerReader reader(final String pathAccountSid) {
-        return new TriggerReader(pathAccountSid);
+        return new TriggerReader(
+             pathAccountSid
+        );
     }
+
+
+    
+
+
+
+
+
 
     public static TriggerUpdater updater(final String pathSid) {
-        return new TriggerUpdater(pathSid);
+        return new TriggerUpdater(
+             pathSid
+        );
     }
 
-    public static TriggerUpdater updater(
-        final String pathAccountSid,
-        final String pathSid
-    ) {
-        return new TriggerUpdater(pathAccountSid, pathSid);
+
+    public static TriggerUpdater updater(final String pathAccountSid, final String pathSid) {
+        return new TriggerUpdater(
+             pathAccountSid,  pathSid
+        );
     }
 
-    public enum Recurring {
-        DAILY("daily"),
-        MONTHLY("monthly"),
-        YEARLY("yearly"),
-        ALLTIME("alltime");
+    
 
-        private final String value;
+public enum Recurring {
+    DAILY("daily"),
+    MONTHLY("monthly"),
+    YEARLY("yearly"),
+    ALLTIME("alltime");
 
-        private Recurring(final String value) {
-            this.value = value;
-        }
+    private final String value;
 
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Recurring forValue(final String value) {
-            return Promoter.enumFromString(value, Recurring.values());
-        }
+    private Recurring(final String value) {
+        this.value = value;
     }
 
-    public enum TriggerField {
-        COUNT("count"),
-        USAGE("usage"),
-        PRICE("price");
-
-        private final String value;
-
-        private TriggerField(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TriggerField forValue(final String value) {
-            return Promoter.enumFromString(value, TriggerField.values());
-        }
+    public String toString() {
+        return value;
     }
+
+    @JsonCreator
+    public static Recurring forValue(final String value) {
+        return Promoter.enumFromString(value, Recurring.values());
+    }
+}
+public enum TriggerField {
+    COUNT("count"),
+    USAGE("usage"),
+    PRICE("price");
+
+    private final String value;
+
+    private TriggerField(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static TriggerField forValue(final String value) {
+        return Promoter.enumFromString(value, TriggerField.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a Trigger object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Trigger object represented by the provided JSON
-     */
-    public static Trigger fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Trigger object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Trigger object represented by the provided JSON
+    */
+    public static Trigger fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Trigger.class);
@@ -171,17 +210,14 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Trigger object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Trigger object represented by the provided JSON
-     */
-    public static Trigger fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Trigger object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Trigger object represented by the provided JSON
+    */
+    public static Trigger fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Trigger.class);
@@ -203,148 +239,151 @@ public class Trigger extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String apiVersion;
-
     @Getter
     private final HttpMethod callbackMethod;
-
     @Getter
     private final URI callbackUrl;
-
     @Getter
     private final String currentValue;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateFired;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String friendlyName;
-
     @Getter
     private final Trigger.Recurring recurring;
-
     @Getter
     private final String sid;
-
     @Getter
     private final Trigger.TriggerField triggerBy;
-
     @Getter
     private final String triggerValue;
-
     @Getter
     private final String uri;
-
     @Getter
     private final String usageCategory;
-
     @Getter
     private final String usageRecordUri;
 
-    @JsonCreator
-    private Trigger(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("api_version") final String apiVersion,
-        @JsonProperty("callback_method") final HttpMethod callbackMethod,
-        @JsonProperty("callback_url") final URI callbackUrl,
-        @JsonProperty("current_value") final String currentValue,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_fired") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateFired,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("recurring") final Trigger.Recurring recurring,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("trigger_by") final Trigger.TriggerField triggerBy,
-        @JsonProperty("trigger_value") final String triggerValue,
-        @JsonProperty("uri") final String uri,
-        @JsonProperty("usage_category") final String usageCategory,
-        @JsonProperty("usage_record_uri") final String usageRecordUri
-    ) {
-        this.accountSid = accountSid;
-        this.apiVersion = apiVersion;
-        this.callbackMethod = callbackMethod;
-        this.callbackUrl = callbackUrl;
-        this.currentValue = currentValue;
-        this.dateCreated = dateCreated;
-        this.dateFired = dateFired;
-        this.dateUpdated = dateUpdated;
-        this.friendlyName = friendlyName;
-        this.recurring = recurring;
-        this.sid = sid;
-        this.triggerBy = triggerBy;
-        this.triggerValue = triggerValue;
-        this.uri = uri;
-        this.usageCategory = usageCategory;
-        this.usageRecordUri = usageRecordUri;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Trigger other = (Trigger) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(apiVersion, other.apiVersion) &&
-            Objects.equals(callbackMethod, other.callbackMethod) &&
-            Objects.equals(callbackUrl, other.callbackUrl) &&
-            Objects.equals(currentValue, other.currentValue) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateFired, other.dateFired) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(recurring, other.recurring) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(triggerBy, other.triggerBy) &&
-            Objects.equals(triggerValue, other.triggerValue) &&
-            Objects.equals(uri, other.uri) &&
-            Objects.equals(usageCategory, other.usageCategory) &&
-            Objects.equals(usageRecordUri, other.usageRecordUri)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            apiVersion,
-            callbackMethod,
-            callbackUrl,
-            currentValue,
-            dateCreated,
-            dateFired,
-            dateUpdated,
-            friendlyName,
-            recurring,
-            sid,
-            triggerBy,
-            triggerValue,
-            uri,
-            usageCategory,
-            usageRecordUri
-        );
-    }
+@JsonCreator
+private Trigger(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("api_version")
+    final String apiVersion, 
+    @JsonProperty("callback_method")
+    final HttpMethod callbackMethod, 
+    @JsonProperty("callback_url")
+    final URI callbackUrl, 
+    @JsonProperty("current_value")
+    final String currentValue, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_fired")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateFired, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("friendly_name")
+    final String friendlyName, 
+    @JsonProperty("recurring")
+    final Trigger.Recurring recurring, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("trigger_by")
+    final Trigger.TriggerField triggerBy, 
+    @JsonProperty("trigger_value")
+    final String triggerValue, 
+    @JsonProperty("uri")
+    final String uri, 
+    @JsonProperty("usage_category")
+    final String usageCategory, 
+    @JsonProperty("usage_record_uri")
+    final String usageRecordUri
+){
+    this.accountSid = accountSid;
+    this.apiVersion = apiVersion;
+    this.callbackMethod = callbackMethod;
+    this.callbackUrl = callbackUrl;
+    this.currentValue = currentValue;
+    this.dateCreated = dateCreated;
+    this.dateFired = dateFired;
+    this.dateUpdated = dateUpdated;
+    this.friendlyName = friendlyName;
+    this.recurring = recurring;
+    this.sid = sid;
+    this.triggerBy = triggerBy;
+    this.triggerValue = triggerValue;
+    this.uri = uri;
+    this.usageCategory = usageCategory;
+    this.usageRecordUri = usageRecordUri;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Trigger other = (Trigger) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(apiVersion, other.apiVersion) && 
+            Objects.equals(callbackMethod, other.callbackMethod) && 
+            Objects.equals(callbackUrl, other.callbackUrl) && 
+            Objects.equals(currentValue, other.currentValue) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateFired, other.dateFired) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(friendlyName, other.friendlyName) && 
+            Objects.equals(recurring, other.recurring) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(triggerBy, other.triggerBy) && 
+            Objects.equals(triggerValue, other.triggerValue) && 
+            Objects.equals(uri, other.uri) && 
+            Objects.equals(usageCategory, other.usageCategory) && 
+            Objects.equals(usageRecordUri, other.usageRecordUri)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            apiVersion, 
+            callbackMethod, 
+            callbackUrl, 
+            currentValue, 
+            dateCreated, 
+            dateFired, 
+            dateUpdated, 
+            friendlyName, 
+            recurring, 
+            sid, 
+            triggerBy, 
+            triggerValue, 
+            uri, 
+            usageCategory, 
+            usageRecordUri
+    );
+}
+
+
+
+}
+

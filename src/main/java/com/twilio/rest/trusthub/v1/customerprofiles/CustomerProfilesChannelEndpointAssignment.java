@@ -17,87 +17,100 @@ package com.twilio.rest.trusthub.v1.customerprofiles;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CustomerProfilesChannelEndpointAssignment extends Resource {
 
-    public static CustomerProfilesChannelEndpointAssignmentCreator creator(
-        final String pathCustomerProfileSid,
-        final String channelEndpointType,
-        final String channelEndpointSid
-    ) {
+
+
+    public static CustomerProfilesChannelEndpointAssignmentCreator creator(final String pathCustomerProfileSid, final String channelEndpointType, final String channelEndpointSid) {
         return new CustomerProfilesChannelEndpointAssignmentCreator(
-            pathCustomerProfileSid,
-            channelEndpointType,
-            channelEndpointSid
+             pathCustomerProfileSid,  channelEndpointType,  channelEndpointSid
         );
     }
 
-    public static CustomerProfilesChannelEndpointAssignmentDeleter deleter(
-        final String pathCustomerProfileSid,
-        final String pathSid
-    ) {
+
+
+
+
+
+    
+
+
+
+    public static CustomerProfilesChannelEndpointAssignmentDeleter deleter(final String pathCustomerProfileSid, final String pathSid) {
         return new CustomerProfilesChannelEndpointAssignmentDeleter(
-            pathCustomerProfileSid,
-            pathSid
+             pathCustomerProfileSid,  pathSid
         );
     }
 
-    public static CustomerProfilesChannelEndpointAssignmentFetcher fetcher(
-        final String pathCustomerProfileSid,
-        final String pathSid
-    ) {
+
+
+
+    
+
+
+
+
+    public static CustomerProfilesChannelEndpointAssignmentFetcher fetcher(final String pathCustomerProfileSid, final String pathSid) {
         return new CustomerProfilesChannelEndpointAssignmentFetcher(
-            pathCustomerProfileSid,
-            pathSid
+             pathCustomerProfileSid,  pathSid
         );
     }
 
-    public static CustomerProfilesChannelEndpointAssignmentReader reader(
-        final String pathCustomerProfileSid
-    ) {
+
+
+    
+
+
+
+
+
+    public static CustomerProfilesChannelEndpointAssignmentReader reader(final String pathCustomerProfileSid) {
         return new CustomerProfilesChannelEndpointAssignmentReader(
-            pathCustomerProfileSid
+             pathCustomerProfileSid
         );
     }
+
+
+    
+
+
 
     /**
-     * Converts a JSON String into a CustomerProfilesChannelEndpointAssignment object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return CustomerProfilesChannelEndpointAssignment object represented by the provided JSON
-     */
-    public static CustomerProfilesChannelEndpointAssignment fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a CustomerProfilesChannelEndpointAssignment object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return CustomerProfilesChannelEndpointAssignment object represented by the provided JSON
+    */
+    public static CustomerProfilesChannelEndpointAssignment fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                CustomerProfilesChannelEndpointAssignment.class
-            );
+            return objectMapper.readValue(json, CustomerProfilesChannelEndpointAssignment.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -106,23 +119,17 @@ public class CustomerProfilesChannelEndpointAssignment extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a CustomerProfilesChannelEndpointAssignment object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return CustomerProfilesChannelEndpointAssignment object represented by the provided JSON
-     */
-    public static CustomerProfilesChannelEndpointAssignment fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a CustomerProfilesChannelEndpointAssignment object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return CustomerProfilesChannelEndpointAssignment object represented by the provided JSON
+    */
+    public static CustomerProfilesChannelEndpointAssignment fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                CustomerProfilesChannelEndpointAssignment.class
-            );
+            return objectMapper.readValue(json, CustomerProfilesChannelEndpointAssignment.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -141,82 +148,86 @@ public class CustomerProfilesChannelEndpointAssignment extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String channelEndpointSid;
-
     @Getter
     private final String channelEndpointType;
-
     @Getter
     private final String customerProfileSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final String sid;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private CustomerProfilesChannelEndpointAssignment(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("channel_endpoint_sid") final String channelEndpointSid,
-        @JsonProperty("channel_endpoint_type") final String channelEndpointType,
-        @JsonProperty("customer_profile_sid") final String customerProfileSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.channelEndpointSid = channelEndpointSid;
-        this.channelEndpointType = channelEndpointType;
-        this.customerProfileSid = customerProfileSid;
-        this.dateCreated = dateCreated;
-        this.sid = sid;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        CustomerProfilesChannelEndpointAssignment other =
-            (CustomerProfilesChannelEndpointAssignment) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(channelEndpointSid, other.channelEndpointSid) &&
-            Objects.equals(channelEndpointType, other.channelEndpointType) &&
-            Objects.equals(customerProfileSid, other.customerProfileSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            channelEndpointSid,
-            channelEndpointType,
-            customerProfileSid,
-            dateCreated,
-            sid,
-            url
-        );
-    }
+@JsonCreator
+private CustomerProfilesChannelEndpointAssignment(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("channel_endpoint_sid")
+    final String channelEndpointSid, 
+    @JsonProperty("channel_endpoint_type")
+    final String channelEndpointType, 
+    @JsonProperty("customer_profile_sid")
+    final String customerProfileSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.channelEndpointSid = channelEndpointSid;
+    this.channelEndpointType = channelEndpointType;
+    this.customerProfileSid = customerProfileSid;
+    this.dateCreated = dateCreated;
+    this.sid = sid;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    CustomerProfilesChannelEndpointAssignment other = (CustomerProfilesChannelEndpointAssignment) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(channelEndpointSid, other.channelEndpointSid) && 
+            Objects.equals(channelEndpointType, other.channelEndpointType) && 
+            Objects.equals(customerProfileSid, other.customerProfileSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            channelEndpointSid, 
+            channelEndpointType, 
+            customerProfileSid, 
+            dateCreated, 
+            sid, 
+            url
+    );
+}
+
+
+
+}
+

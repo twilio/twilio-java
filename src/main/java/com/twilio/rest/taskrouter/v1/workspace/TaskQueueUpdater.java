@@ -26,11 +26,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class TaskQueueUpdater extends Updater<TaskQueue> {
-
-    private String pathWorkspaceSid;
+    public class TaskQueueUpdater extends Updater<TaskQueue> {
+            private String pathWorkspaceSid;
     private String pathSid;
     private String friendlyName;
     private String targetWorkers;
@@ -39,61 +40,57 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     private Integer maxReservedWorkers;
     private TaskQueue.TaskOrder taskOrder;
 
-    public TaskQueueUpdater(
-        final String pathWorkspaceSid,
-        final String pathSid
-    ) {
+            public TaskQueueUpdater(final String pathWorkspaceSid, final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
     }
 
-    public TaskQueueUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+        
+public TaskQueueUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public TaskQueueUpdater setTargetWorkers(final String targetWorkers) {
-        this.targetWorkers = targetWorkers;
-        return this;
-    }
 
-    public TaskQueueUpdater setReservationActivitySid(
-        final String reservationActivitySid
-    ) {
-        this.reservationActivitySid = reservationActivitySid;
-        return this;
-    }
+public TaskQueueUpdater setTargetWorkers(final String targetWorkers){
+    this.targetWorkers = targetWorkers;
+    return this;
+}
 
-    public TaskQueueUpdater setAssignmentActivitySid(
-        final String assignmentActivitySid
-    ) {
-        this.assignmentActivitySid = assignmentActivitySid;
-        return this;
-    }
 
-    public TaskQueueUpdater setMaxReservedWorkers(
-        final Integer maxReservedWorkers
-    ) {
-        this.maxReservedWorkers = maxReservedWorkers;
-        return this;
-    }
+public TaskQueueUpdater setReservationActivitySid(final String reservationActivitySid){
+    this.reservationActivitySid = reservationActivitySid;
+    return this;
+}
 
-    public TaskQueueUpdater setTaskOrder(final TaskQueue.TaskOrder taskOrder) {
-        this.taskOrder = taskOrder;
-        return this;
-    }
 
-    @Override
+public TaskQueueUpdater setAssignmentActivitySid(final String assignmentActivitySid){
+    this.assignmentActivitySid = assignmentActivitySid;
+    return this;
+}
+
+
+public TaskQueueUpdater setMaxReservedWorkers(final Integer maxReservedWorkers){
+    this.maxReservedWorkers = maxReservedWorkers;
+    return this;
+}
+
+
+public TaskQueueUpdater setTaskOrder(final TaskQueue.TaskOrder taskOrder){
+    this.taskOrder = taskOrder;
+    return this;
+}
+
+
+            @Override
     public TaskQueue update(final TwilioRestClient client) {
-        String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}";
+    
+    String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
@@ -101,86 +98,60 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "TaskQueue update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("TaskQueue update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return TaskQueue.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return TaskQueue.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (targetWorkers != null) {
-            Serializer.toString(
-                request,
-                "TargetWorkers",
-                targetWorkers,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (reservationActivitySid != null) {
-            Serializer.toString(
-                request,
-                "ReservationActivitySid",
-                reservationActivitySid,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (assignmentActivitySid != null) {
-            Serializer.toString(
-                request,
-                "AssignmentActivitySid",
-                assignmentActivitySid,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (maxReservedWorkers != null) {
-            Serializer.toString(
-                request,
-                "MaxReservedWorkers",
-                maxReservedWorkers,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (taskOrder != null) {
-            Serializer.toString(
-                request,
-                "TaskOrder",
-                taskOrder,
-                ParameterType.URLENCODED
-            );
-        }
+    if (targetWorkers != null) {
+        Serializer.toString(request, "TargetWorkers", targetWorkers, ParameterType.URLENCODED);
     }
+
+
+
+    if (reservationActivitySid != null) {
+        Serializer.toString(request, "ReservationActivitySid", reservationActivitySid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (assignmentActivitySid != null) {
+        Serializer.toString(request, "AssignmentActivitySid", assignmentActivitySid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (maxReservedWorkers != null) {
+        Serializer.toString(request, "MaxReservedWorkers", maxReservedWorkers, ParameterType.URLENCODED);
+    }
+
+
+
+    if (taskOrder != null) {
+        Serializer.toString(request, "TaskOrder", taskOrder, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

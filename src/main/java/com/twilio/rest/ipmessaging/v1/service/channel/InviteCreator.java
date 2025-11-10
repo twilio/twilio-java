@@ -14,6 +14,7 @@
 
 package com.twilio.rest.ipmessaging.v1.service.channel;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class InviteCreator extends Creator<Invite> {
@@ -35,41 +38,34 @@ public class InviteCreator extends Creator<Invite> {
     private String identity;
     private String roleSid;
 
-    public InviteCreator(
-        final String pathServiceSid,
-        final String pathChannelSid,
-        final String identity
-    ) {
+    public InviteCreator(final String pathServiceSid, final String pathChannelSid, final String identity) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
         this.identity = identity;
     }
 
-    public InviteCreator setIdentity(final String identity) {
-        this.identity = identity;
-        return this;
-    }
 
-    public InviteCreator setRoleSid(final String roleSid) {
-        this.roleSid = roleSid;
-        return this;
-    }
+public InviteCreator setIdentity(final String identity){
+    this.identity = identity;
+    return this;
+}
+
+
+public InviteCreator setRoleSid(final String roleSid){
+    this.roleSid = roleSid;
+    return this;
+}
+
 
     @Override
     public Invite create(final TwilioRestClient client) {
-        String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites";
+    
+    String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChannelSid" + "}",
-                this.pathChannelSid.toString()
-            );
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
@@ -77,47 +73,36 @@ public class InviteCreator extends Creator<Invite> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Invite creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Invite creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Invite.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (identity != null) {
-            Serializer.toString(
-                request,
-                "Identity",
-                identity,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (roleSid != null) {
-            Serializer.toString(
-                request,
-                "RoleSid",
-                roleSid,
-                ParameterType.URLENCODED
-            );
-        }
+    if (identity != null) {
+        Serializer.toString(request, "Identity", identity, ParameterType.URLENCODED);
     }
+
+
+
+    if (roleSid != null) {
+        Serializer.toString(request, "RoleSid", roleSid, ParameterType.URLENCODED);
+    }
+
+
+}
 }

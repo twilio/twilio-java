@@ -25,65 +25,62 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class PluginFetcher extends Fetcher<Plugin> {
+    public class PluginFetcher extends Fetcher<Plugin> {
 
-    private String pathSid;
+            private String pathSid;
     private String flexMetadata;
 
-    public PluginFetcher(final String pathSid) {
+            public PluginFetcher(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public PluginFetcher setFlexMetadata(final String flexMetadata) {
-        this.flexMetadata = flexMetadata;
-        return this;
-    }
+        
+public PluginFetcher setFlexMetadata(final String flexMetadata){
+    this.flexMetadata = flexMetadata;
+    return this;
+}
 
-    @Override
+
+            @Override
     public Plugin fetch(final TwilioRestClient client) {
-        String path = "/v1/PluginService/Plugins/{Sid}";
+    
+    String path = "/v1/PluginService/Plugins/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.FLEXAPI.toString(),
             path
         );
         addHeaderParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Plugin fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Plugin fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
         return Plugin.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addHeaderParams(final Request request) {
 
-    private void addHeaderParams(final Request request) {
-        if (flexMetadata != null) {
-            Serializer.toString(
-                request,
-                "Flex-Metadata",
-                flexMetadata,
-                ParameterType.HEADER
-            );
-        }
+    if (flexMetadata != null) {
+        Serializer.toString(request, "Flex-Metadata", flexMetadata, ParameterType.HEADER);
     }
+
 }
+    }

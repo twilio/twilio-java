@@ -14,6 +14,7 @@
 
 package com.twilio.rest.taskrouter.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +28,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.net.URI;
+import com.twilio.type.*;
 
 public class WorkspaceCreator extends Creator<Workspace> {
 
@@ -43,48 +46,53 @@ public class WorkspaceCreator extends Creator<Workspace> {
         this.friendlyName = friendlyName;
     }
 
-    public WorkspaceCreator setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
 
-    public WorkspaceCreator setEventCallbackUrl(final URI eventCallbackUrl) {
-        this.eventCallbackUrl = eventCallbackUrl;
-        return this;
-    }
+public WorkspaceCreator setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public WorkspaceCreator setEventCallbackUrl(final String eventCallbackUrl) {
-        return setEventCallbackUrl(Promoter.uriFromString(eventCallbackUrl));
-    }
 
-    public WorkspaceCreator setEventsFilter(final String eventsFilter) {
-        this.eventsFilter = eventsFilter;
-        return this;
-    }
+public WorkspaceCreator setEventCallbackUrl(final URI eventCallbackUrl){
+    this.eventCallbackUrl = eventCallbackUrl;
+    return this;
+}
 
-    public WorkspaceCreator setMultiTaskEnabled(
-        final Boolean multiTaskEnabled
-    ) {
-        this.multiTaskEnabled = multiTaskEnabled;
-        return this;
-    }
+public WorkspaceCreator setEventCallbackUrl(final String eventCallbackUrl){
+    return setEventCallbackUrl(Promoter.uriFromString(eventCallbackUrl));
+}
 
-    public WorkspaceCreator setTemplate(final String template) {
-        this.template = template;
-        return this;
-    }
+public WorkspaceCreator setEventsFilter(final String eventsFilter){
+    this.eventsFilter = eventsFilter;
+    return this;
+}
 
-    public WorkspaceCreator setPrioritizeQueueOrder(
-        final Workspace.QueueOrder prioritizeQueueOrder
-    ) {
-        this.prioritizeQueueOrder = prioritizeQueueOrder;
-        return this;
-    }
+
+public WorkspaceCreator setMultiTaskEnabled(final Boolean multiTaskEnabled){
+    this.multiTaskEnabled = multiTaskEnabled;
+    return this;
+}
+
+
+public WorkspaceCreator setTemplate(final String template){
+    this.template = template;
+    return this;
+}
+
+
+public WorkspaceCreator setPrioritizeQueueOrder(final Workspace.QueueOrder prioritizeQueueOrder){
+    this.prioritizeQueueOrder = prioritizeQueueOrder;
+    return this;
+}
+
 
     @Override
     public Workspace create(final TwilioRestClient client) {
-        String path = "/v1/Workspaces";
+    
+    String path = "/v1/Workspaces";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
@@ -92,86 +100,60 @@ public class WorkspaceCreator extends Creator<Workspace> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Workspace creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Workspace creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Workspace.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return Workspace.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (eventCallbackUrl != null) {
-            Serializer.toString(
-                request,
-                "EventCallbackUrl",
-                eventCallbackUrl,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (eventsFilter != null) {
-            Serializer.toString(
-                request,
-                "EventsFilter",
-                eventsFilter,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (multiTaskEnabled != null) {
-            Serializer.toString(
-                request,
-                "MultiTaskEnabled",
-                multiTaskEnabled,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (template != null) {
-            Serializer.toString(
-                request,
-                "Template",
-                template,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (prioritizeQueueOrder != null) {
-            Serializer.toString(
-                request,
-                "PrioritizeQueueOrder",
-                prioritizeQueueOrder,
-                ParameterType.URLENCODED
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
+
+
+
+    if (eventCallbackUrl != null) {
+        Serializer.toString(request, "EventCallbackUrl", eventCallbackUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (eventsFilter != null) {
+        Serializer.toString(request, "EventsFilter", eventsFilter, ParameterType.URLENCODED);
+    }
+
+
+
+    if (multiTaskEnabled != null) {
+        Serializer.toString(request, "MultiTaskEnabled", multiTaskEnabled, ParameterType.URLENCODED);
+    }
+
+
+
+    if (template != null) {
+        Serializer.toString(request, "Template", template, ParameterType.URLENCODED);
+    }
+
+
+
+    if (prioritizeQueueOrder != null) {
+        Serializer.toString(request, "PrioritizeQueueOrder", prioritizeQueueOrder, ParameterType.URLENCODED);
+    }
+
+
+}
 }

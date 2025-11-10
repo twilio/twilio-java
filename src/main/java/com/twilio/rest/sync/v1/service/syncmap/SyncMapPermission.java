@@ -17,88 +17,95 @@ package com.twilio.rest.sync.v1.service.syncmap;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.net.URI;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncMapPermission extends Resource {
 
-    public static SyncMapPermissionDeleter deleter(
-        final String pathServiceSid,
-        final String pathMapSid,
-        final String pathIdentity
-    ) {
+
+
+
+
+    public static SyncMapPermissionDeleter deleter(final String pathServiceSid, final String pathMapSid, final String pathIdentity) {
         return new SyncMapPermissionDeleter(
-            pathServiceSid,
-            pathMapSid,
-            pathIdentity
+             pathServiceSid,  pathMapSid,  pathIdentity
         );
     }
 
-    public static SyncMapPermissionFetcher fetcher(
-        final String pathServiceSid,
-        final String pathMapSid,
-        final String pathIdentity
-    ) {
+
+
+
+    
+
+
+
+
+    public static SyncMapPermissionFetcher fetcher(final String pathServiceSid, final String pathMapSid, final String pathIdentity) {
         return new SyncMapPermissionFetcher(
-            pathServiceSid,
-            pathMapSid,
-            pathIdentity
+             pathServiceSid,  pathMapSid,  pathIdentity
         );
     }
 
-    public static SyncMapPermissionReader reader(
-        final String pathServiceSid,
-        final String pathMapSid
-    ) {
-        return new SyncMapPermissionReader(pathServiceSid, pathMapSid);
+
+
+    
+
+
+
+
+
+    public static SyncMapPermissionReader reader(final String pathServiceSid, final String pathMapSid) {
+        return new SyncMapPermissionReader(
+             pathServiceSid,  pathMapSid
+        );
     }
 
-    public static SyncMapPermissionUpdater updater(
-        final String pathServiceSid,
-        final String pathMapSid,
-        final String pathIdentity,
-        final Boolean read,
-        final Boolean write,
-        final Boolean manage
-    ) {
+
+    
+
+
+
+
+
+
+    public static SyncMapPermissionUpdater updater(final String pathServiceSid, final String pathMapSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage) {
         return new SyncMapPermissionUpdater(
-            pathServiceSid,
-            pathMapSid,
-            pathIdentity,
-            read,
-            write,
-            manage
+             pathServiceSid,  pathMapSid,  pathIdentity,  read,  write,  manage
         );
     }
+
+    
+
+
 
     /**
-     * Converts a JSON String into a SyncMapPermission object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return SyncMapPermission object represented by the provided JSON
-     */
-    public static SyncMapPermission fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a SyncMapPermission object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return SyncMapPermission object represented by the provided JSON
+    */
+    public static SyncMapPermission fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncMapPermission.class);
@@ -110,17 +117,14 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a SyncMapPermission object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return SyncMapPermission object represented by the provided JSON
-     */
-    public static SyncMapPermission fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a SyncMapPermission object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return SyncMapPermission object represented by the provided JSON
+    */
+    public static SyncMapPermission fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncMapPermission.class);
@@ -142,86 +146,92 @@ public class SyncMapPermission extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String identity;
-
     @Getter
     private final Boolean manage;
-
     @Getter
     private final String mapSid;
-
     @Getter
     private final Boolean read;
-
     @Getter
     private final String serviceSid;
-
     @Getter
     private final URI url;
-
     @Getter
     private final Boolean write;
 
-    @JsonCreator
-    private SyncMapPermission(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("identity") final String identity,
-        @JsonProperty("manage") final Boolean manage,
-        @JsonProperty("map_sid") final String mapSid,
-        @JsonProperty("read") final Boolean read,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("write") final Boolean write
-    ) {
-        this.accountSid = accountSid;
-        this.identity = identity;
-        this.manage = manage;
-        this.mapSid = mapSid;
-        this.read = read;
-        this.serviceSid = serviceSid;
-        this.url = url;
-        this.write = write;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        SyncMapPermission other = (SyncMapPermission) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(identity, other.identity) &&
-            Objects.equals(manage, other.manage) &&
-            Objects.equals(mapSid, other.mapSid) &&
-            Objects.equals(read, other.read) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(write, other.write)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            identity,
-            manage,
-            mapSid,
-            read,
-            serviceSid,
-            url,
-            write
-        );
-    }
+@JsonCreator
+private SyncMapPermission(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("identity")
+    final String identity, 
+    @JsonProperty("manage")
+    final Boolean manage, 
+    @JsonProperty("map_sid")
+    final String mapSid, 
+    @JsonProperty("read")
+    final Boolean read, 
+    @JsonProperty("service_sid")
+    final String serviceSid, 
+    @JsonProperty("url")
+    final URI url, 
+    @JsonProperty("write")
+    final Boolean write
+){
+    this.accountSid = accountSid;
+    this.identity = identity;
+    this.manage = manage;
+    this.mapSid = mapSid;
+    this.read = read;
+    this.serviceSid = serviceSid;
+    this.url = url;
+    this.write = write;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    SyncMapPermission other = (SyncMapPermission) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(identity, other.identity) && 
+            Objects.equals(manage, other.manage) && 
+            Objects.equals(mapSid, other.mapSid) && 
+            Objects.equals(read, other.read) && 
+            Objects.equals(serviceSid, other.serviceSid) && 
+            Objects.equals(url, other.url) && 
+            Objects.equals(write, other.write)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            identity, 
+            manage, 
+            mapSid, 
+            read, 
+            serviceSid, 
+            url, 
+            write
+    );
+}
+
+
+
+}
+

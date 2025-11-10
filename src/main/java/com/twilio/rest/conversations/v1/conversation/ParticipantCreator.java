@@ -14,6 +14,7 @@
 
 package com.twilio.rest.conversations.v1.conversation;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,8 +27,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 
 public class ParticipantCreator extends Creator<Participant> {
 
@@ -46,70 +49,69 @@ public class ParticipantCreator extends Creator<Participant> {
         this.pathConversationSid = pathConversationSid;
     }
 
-    public ParticipantCreator setIdentity(final String identity) {
-        this.identity = identity;
-        return this;
-    }
 
-    public ParticipantCreator setMessagingBindingAddress(
-        final String messagingBindingAddress
-    ) {
-        this.messagingBindingAddress = messagingBindingAddress;
-        return this;
-    }
+public ParticipantCreator setIdentity(final String identity){
+    this.identity = identity;
+    return this;
+}
 
-    public ParticipantCreator setMessagingBindingProxyAddress(
-        final String messagingBindingProxyAddress
-    ) {
-        this.messagingBindingProxyAddress = messagingBindingProxyAddress;
-        return this;
-    }
 
-    public ParticipantCreator setDateCreated(final ZonedDateTime dateCreated) {
-        this.dateCreated = dateCreated;
-        return this;
-    }
+public ParticipantCreator setMessagingBindingAddress(final String messagingBindingAddress){
+    this.messagingBindingAddress = messagingBindingAddress;
+    return this;
+}
 
-    public ParticipantCreator setDateUpdated(final ZonedDateTime dateUpdated) {
-        this.dateUpdated = dateUpdated;
-        return this;
-    }
 
-    public ParticipantCreator setAttributes(final String attributes) {
-        this.attributes = attributes;
-        return this;
-    }
+public ParticipantCreator setMessagingBindingProxyAddress(final String messagingBindingProxyAddress){
+    this.messagingBindingProxyAddress = messagingBindingProxyAddress;
+    return this;
+}
 
-    public ParticipantCreator setMessagingBindingProjectedAddress(
-        final String messagingBindingProjectedAddress
-    ) {
-        this.messagingBindingProjectedAddress =
-            messagingBindingProjectedAddress;
-        return this;
-    }
 
-    public ParticipantCreator setRoleSid(final String roleSid) {
-        this.roleSid = roleSid;
-        return this;
-    }
+public ParticipantCreator setDateCreated(final ZonedDateTime dateCreated){
+    this.dateCreated = dateCreated;
+    return this;
+}
 
-    public ParticipantCreator setXTwilioWebhookEnabled(
-        final Participant.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
-        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-        return this;
-    }
+
+public ParticipantCreator setDateUpdated(final ZonedDateTime dateUpdated){
+    this.dateUpdated = dateUpdated;
+    return this;
+}
+
+
+public ParticipantCreator setAttributes(final String attributes){
+    this.attributes = attributes;
+    return this;
+}
+
+
+public ParticipantCreator setMessagingBindingProjectedAddress(final String messagingBindingProjectedAddress){
+    this.messagingBindingProjectedAddress = messagingBindingProjectedAddress;
+    return this;
+}
+
+
+public ParticipantCreator setRoleSid(final String roleSid){
+    this.roleSid = roleSid;
+    return this;
+}
+
+
+public ParticipantCreator setXTwilioWebhookEnabled(final Participant.WebhookEnabledType xTwilioWebhookEnabled){
+    this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+    return this;
+}
+
 
     @Override
     public Participant create(final TwilioRestClient client) {
-        String path = "/v1/Conversations/{ConversationSid}/Participants";
+    
+    String path = "/v1/Conversations/{ConversationSid}/Participants";
 
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
+    path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
@@ -118,115 +120,79 @@ public class ParticipantCreator extends Creator<Participant> {
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Participant creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Participant creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Participant.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return Participant.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (identity != null) {
-            Serializer.toString(
-                request,
-                "Identity",
-                identity,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (messagingBindingAddress != null) {
-            Serializer.toString(
-                request,
-                "MessagingBinding.Address",
-                messagingBindingAddress,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (messagingBindingProxyAddress != null) {
-            Serializer.toString(
-                request,
-                "MessagingBinding.ProxyAddress",
-                messagingBindingProxyAddress,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (dateCreated != null) {
-            Serializer.toString(
-                request,
-                "DateCreated",
-                dateCreated,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (dateUpdated != null) {
-            Serializer.toString(
-                request,
-                "DateUpdated",
-                dateUpdated,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (attributes != null) {
-            Serializer.toString(
-                request,
-                "Attributes",
-                attributes,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (messagingBindingProjectedAddress != null) {
-            Serializer.toString(
-                request,
-                "MessagingBinding.ProjectedAddress",
-                messagingBindingProjectedAddress,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (roleSid != null) {
-            Serializer.toString(
-                request,
-                "RoleSid",
-                roleSid,
-                ParameterType.URLENCODED
-            );
-        }
+    if (identity != null) {
+        Serializer.toString(request, "Identity", identity, ParameterType.URLENCODED);
     }
 
+
+
+    if (messagingBindingAddress != null) {
+        Serializer.toString(request, "MessagingBinding.Address", messagingBindingAddress, ParameterType.URLENCODED);
+    }
+
+
+
+    if (messagingBindingProxyAddress != null) {
+        Serializer.toString(request, "MessagingBinding.ProxyAddress", messagingBindingProxyAddress, ParameterType.URLENCODED);
+    }
+
+
+
+    if (dateCreated != null) {
+        Serializer.toString(request, "DateCreated", dateCreated, ParameterType.URLENCODED);
+    }
+
+
+
+    if (dateUpdated != null) {
+        Serializer.toString(request, "DateUpdated", dateUpdated, ParameterType.URLENCODED);
+    }
+
+
+
+    if (attributes != null) {
+        Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
+    }
+
+
+
+    if (messagingBindingProjectedAddress != null) {
+        Serializer.toString(request, "MessagingBinding.ProjectedAddress", messagingBindingProjectedAddress, ParameterType.URLENCODED);
+    }
+
+
+
+    if (roleSid != null) {
+        Serializer.toString(request, "RoleSid", roleSid, ParameterType.URLENCODED);
+    }
+
+
+}
     private void addHeaderParams(final Request request) {
-        if (xTwilioWebhookEnabled != null) {
-            Serializer.toString(
-                request,
-                "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled,
-                ParameterType.HEADER
-            );
-        }
+
+    if (xTwilioWebhookEnabled != null) {
+        Serializer.toString(request, "X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled, ParameterType.HEADER);
     }
+
+}
 }

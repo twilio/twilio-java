@@ -26,48 +26,40 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class ComplianceRegistrationInquiriesUpdater
-    extends Updater<ComplianceRegistrationInquiries> {
-
-    private String pathRegistrationId;
+    public class ComplianceRegistrationInquiriesUpdater extends Updater<ComplianceRegistrationInquiries> {
+            private String pathRegistrationId;
     private Boolean isIsvEmbed;
     private String themeSetId;
 
-    public ComplianceRegistrationInquiriesUpdater(
-        final String pathRegistrationId
-    ) {
+            public ComplianceRegistrationInquiriesUpdater(final String pathRegistrationId) {
         this.pathRegistrationId = pathRegistrationId;
     }
 
-    public ComplianceRegistrationInquiriesUpdater setIsIsvEmbed(
-        final Boolean isIsvEmbed
-    ) {
-        this.isIsvEmbed = isIsvEmbed;
-        return this;
-    }
+        
+public ComplianceRegistrationInquiriesUpdater setIsIsvEmbed(final Boolean isIsvEmbed){
+    this.isIsvEmbed = isIsvEmbed;
+    return this;
+}
 
-    public ComplianceRegistrationInquiriesUpdater setThemeSetId(
-        final String themeSetId
-    ) {
-        this.themeSetId = themeSetId;
-        return this;
-    }
 
-    @Override
-    public ComplianceRegistrationInquiries update(
-        final TwilioRestClient client
-    ) {
-        String path =
-            "/v1/ComplianceInquiries/Registration/{RegistrationId}/RegulatoryCompliance/GB/Initialize";
+public ComplianceRegistrationInquiriesUpdater setThemeSetId(final String themeSetId){
+    this.themeSetId = themeSetId;
+    return this;
+}
 
-        path =
-            path.replace(
-                "{" + "RegistrationId" + "}",
-                this.pathRegistrationId.toString()
-            );
 
+            @Override
+    public ComplianceRegistrationInquiries update(final TwilioRestClient client) {
+    
+    String path = "/v1/ComplianceInquiries/Registration/{RegistrationId}/RegulatoryCompliance/GB/Initialize";
+
+    path = path.replace("{"+"RegistrationId"+"}", this.pathRegistrationId.toString());
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUSTHUB.toString(),
@@ -75,50 +67,36 @@ public class ComplianceRegistrationInquiriesUpdater
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "ComplianceRegistrationInquiries update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ComplianceRegistrationInquiries update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return ComplianceRegistrationInquiries.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return ComplianceRegistrationInquiries.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (isIsvEmbed != null) {
+        Serializer.toString(request, "IsIsvEmbed", isIsvEmbed, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (isIsvEmbed != null) {
-            Serializer.toString(
-                request,
-                "IsIsvEmbed",
-                isIsvEmbed,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (themeSetId != null) {
-            Serializer.toString(
-                request,
-                "ThemeSetId",
-                themeSetId,
-                ParameterType.URLENCODED
-            );
-        }
+
+    if (themeSetId != null) {
+        Serializer.toString(request, "ThemeSetId", themeSetId, ParameterType.URLENCODED);
     }
+
+
 }
+    }

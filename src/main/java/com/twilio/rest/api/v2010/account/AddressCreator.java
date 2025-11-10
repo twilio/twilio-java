@@ -14,6 +14,7 @@
 
 package com.twilio.rest.api.v2010.account;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class AddressCreator extends Creator<Address> {
@@ -42,14 +45,7 @@ public class AddressCreator extends Creator<Address> {
     private Boolean autoCorrectAddress;
     private String streetSecondary;
 
-    public AddressCreator(
-        final String customerName,
-        final String street,
-        final String city,
-        final String region,
-        final String postalCode,
-        final String isoCountry
-    ) {
+    public AddressCreator(final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
         this.customerName = customerName;
         this.street = street;
         this.city = city;
@@ -57,16 +53,7 @@ public class AddressCreator extends Creator<Address> {
         this.postalCode = postalCode;
         this.isoCountry = isoCountry;
     }
-
-    public AddressCreator(
-        final String pathAccountSid,
-        final String customerName,
-        final String street,
-        final String city,
-        final String region,
-        final String postalCode,
-        final String isoCountry
-    ) {
+    public AddressCreator(final String pathAccountSid, final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
         this.pathAccountSid = pathAccountSid;
         this.customerName = customerName;
         this.street = street;
@@ -76,72 +63,76 @@ public class AddressCreator extends Creator<Address> {
         this.isoCountry = isoCountry;
     }
 
-    public AddressCreator setCustomerName(final String customerName) {
-        this.customerName = customerName;
-        return this;
-    }
 
-    public AddressCreator setStreet(final String street) {
-        this.street = street;
-        return this;
-    }
+public AddressCreator setCustomerName(final String customerName){
+    this.customerName = customerName;
+    return this;
+}
 
-    public AddressCreator setCity(final String city) {
-        this.city = city;
-        return this;
-    }
 
-    public AddressCreator setRegion(final String region) {
-        this.region = region;
-        return this;
-    }
+public AddressCreator setStreet(final String street){
+    this.street = street;
+    return this;
+}
 
-    public AddressCreator setPostalCode(final String postalCode) {
-        this.postalCode = postalCode;
-        return this;
-    }
 
-    public AddressCreator setIsoCountry(final String isoCountry) {
-        this.isoCountry = isoCountry;
-        return this;
-    }
+public AddressCreator setCity(final String city){
+    this.city = city;
+    return this;
+}
 
-    public AddressCreator setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
 
-    public AddressCreator setEmergencyEnabled(final Boolean emergencyEnabled) {
-        this.emergencyEnabled = emergencyEnabled;
-        return this;
-    }
+public AddressCreator setRegion(final String region){
+    this.region = region;
+    return this;
+}
 
-    public AddressCreator setAutoCorrectAddress(
-        final Boolean autoCorrectAddress
-    ) {
-        this.autoCorrectAddress = autoCorrectAddress;
-        return this;
-    }
 
-    public AddressCreator setStreetSecondary(final String streetSecondary) {
-        this.streetSecondary = streetSecondary;
-        return this;
-    }
+public AddressCreator setPostalCode(final String postalCode){
+    this.postalCode = postalCode;
+    return this;
+}
+
+
+public AddressCreator setIsoCountry(final String isoCountry){
+    this.isoCountry = isoCountry;
+    return this;
+}
+
+
+public AddressCreator setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
+
+
+public AddressCreator setEmergencyEnabled(final Boolean emergencyEnabled){
+    this.emergencyEnabled = emergencyEnabled;
+    return this;
+}
+
+
+public AddressCreator setAutoCorrectAddress(final Boolean autoCorrectAddress){
+    this.autoCorrectAddress = autoCorrectAddress;
+    return this;
+}
+
+
+public AddressCreator setStreetSecondary(final String streetSecondary){
+    this.streetSecondary = streetSecondary;
+    return this;
+}
+
 
     @Override
     public Address create(final TwilioRestClient client) {
-        String path = "/2010-04-01/Accounts/{AccountSid}/Addresses.json";
+    
+    String path = "/2010-04-01/Accounts/{AccountSid}/Addresses.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
@@ -149,119 +140,84 @@ public class AddressCreator extends Creator<Address> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Address creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Address creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Address.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (customerName != null) {
-            Serializer.toString(
-                request,
-                "CustomerName",
-                customerName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (street != null) {
-            Serializer.toString(
-                request,
-                "Street",
-                street,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (city != null) {
-            Serializer.toString(
-                request,
-                "City",
-                city,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (region != null) {
-            Serializer.toString(
-                request,
-                "Region",
-                region,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (postalCode != null) {
-            Serializer.toString(
-                request,
-                "PostalCode",
-                postalCode,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (isoCountry != null) {
-            Serializer.toString(
-                request,
-                "IsoCountry",
-                isoCountry,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (emergencyEnabled != null) {
-            Serializer.toString(
-                request,
-                "EmergencyEnabled",
-                emergencyEnabled,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (autoCorrectAddress != null) {
-            Serializer.toString(
-                request,
-                "AutoCorrectAddress",
-                autoCorrectAddress,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (streetSecondary != null) {
-            Serializer.toString(
-                request,
-                "StreetSecondary",
-                streetSecondary,
-                ParameterType.URLENCODED
-            );
-        }
+    if (customerName != null) {
+        Serializer.toString(request, "CustomerName", customerName, ParameterType.URLENCODED);
     }
+
+
+
+    if (street != null) {
+        Serializer.toString(request, "Street", street, ParameterType.URLENCODED);
+    }
+
+
+
+    if (city != null) {
+        Serializer.toString(request, "City", city, ParameterType.URLENCODED);
+    }
+
+
+
+    if (region != null) {
+        Serializer.toString(request, "Region", region, ParameterType.URLENCODED);
+    }
+
+
+
+    if (postalCode != null) {
+        Serializer.toString(request, "PostalCode", postalCode, ParameterType.URLENCODED);
+    }
+
+
+
+    if (isoCountry != null) {
+        Serializer.toString(request, "IsoCountry", isoCountry, ParameterType.URLENCODED);
+    }
+
+
+
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+    }
+
+
+
+    if (emergencyEnabled != null) {
+        Serializer.toString(request, "EmergencyEnabled", emergencyEnabled, ParameterType.URLENCODED);
+    }
+
+
+
+    if (autoCorrectAddress != null) {
+        Serializer.toString(request, "AutoCorrectAddress", autoCorrectAddress, ParameterType.URLENCODED);
+    }
+
+
+
+    if (streetSecondary != null) {
+        Serializer.toString(request, "StreetSecondary", streetSecondary, ParameterType.URLENCODED);
+    }
+
+
+}
 }

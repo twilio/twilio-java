@@ -17,67 +17,98 @@ package com.twilio.rest.serverless.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Environment extends Resource {
 
-    public static EnvironmentCreator creator(
-        final String pathServiceSid,
-        final String uniqueName
-    ) {
-        return new EnvironmentCreator(pathServiceSid, uniqueName);
+
+
+    public static EnvironmentCreator creator(final String pathServiceSid, final String uniqueName) {
+        return new EnvironmentCreator(
+             pathServiceSid,  uniqueName
+        );
     }
 
-    public static EnvironmentDeleter deleter(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
-        return new EnvironmentDeleter(pathServiceSid, pathSid);
+
+
+
+
+
+    
+
+
+
+    public static EnvironmentDeleter deleter(final String pathServiceSid, final String pathSid) {
+        return new EnvironmentDeleter(
+             pathServiceSid,  pathSid
+        );
     }
 
-    public static EnvironmentFetcher fetcher(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
-        return new EnvironmentFetcher(pathServiceSid, pathSid);
+
+
+
+    
+
+
+
+
+    public static EnvironmentFetcher fetcher(final String pathServiceSid, final String pathSid) {
+        return new EnvironmentFetcher(
+             pathServiceSid,  pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static EnvironmentReader reader(final String pathServiceSid) {
-        return new EnvironmentReader(pathServiceSid);
+        return new EnvironmentReader(
+             pathServiceSid
+        );
     }
 
+
+    
+
+
+
     /**
-     * Converts a JSON String into a Environment object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Environment object represented by the provided JSON
-     */
-    public static Environment fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Environment object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Environment object represented by the provided JSON
+    */
+    public static Environment fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Environment.class);
@@ -89,17 +120,14 @@ public class Environment extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Environment object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Environment object represented by the provided JSON
-     */
-    public static Environment fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Environment object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Environment object represented by the provided JSON
+    */
+    public static Environment fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Environment.class);
@@ -121,111 +149,115 @@ public class Environment extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String buildSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String domainName;
-
     @Getter
     private final String domainSuffix;
-
     @Getter
     private final Map<String, String> links;
-
     @Getter
     private final String serviceSid;
-
     @Getter
     private final String sid;
-
     @Getter
     private final String uniqueName;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private Environment(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("build_sid") final String buildSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("domain_name") final String domainName,
-        @JsonProperty("domain_suffix") final String domainSuffix,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.buildSid = buildSid;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.domainName = domainName;
-        this.domainSuffix = domainSuffix;
-        this.links = links;
-        this.serviceSid = serviceSid;
-        this.sid = sid;
-        this.uniqueName = uniqueName;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Environment other = (Environment) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(buildSid, other.buildSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(domainName, other.domainName) &&
-            Objects.equals(domainSuffix, other.domainSuffix) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            buildSid,
-            dateCreated,
-            dateUpdated,
-            domainName,
-            domainSuffix,
-            links,
-            serviceSid,
-            sid,
-            uniqueName,
-            url
-        );
-    }
+@JsonCreator
+private Environment(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("build_sid")
+    final String buildSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("domain_name")
+    final String domainName, 
+    @JsonProperty("domain_suffix")
+    final String domainSuffix, 
+    @JsonProperty("links")
+    final Map<String, String> links, 
+    @JsonProperty("service_sid")
+    final String serviceSid, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("unique_name")
+    final String uniqueName, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.buildSid = buildSid;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.domainName = domainName;
+    this.domainSuffix = domainSuffix;
+    this.links = links;
+    this.serviceSid = serviceSid;
+    this.sid = sid;
+    this.uniqueName = uniqueName;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Environment other = (Environment) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(buildSid, other.buildSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(domainName, other.domainName) && 
+            Objects.equals(domainSuffix, other.domainSuffix) && 
+            Objects.equals(links, other.links) && 
+            Objects.equals(serviceSid, other.serviceSid) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(uniqueName, other.uniqueName) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            buildSid, 
+            dateCreated, 
+            dateUpdated, 
+            domainName, 
+            domainSuffix, 
+            links, 
+            serviceSid, 
+            sid, 
+            uniqueName, 
+            url
+    );
+}
+
+
+
+}
+

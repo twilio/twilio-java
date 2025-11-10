@@ -13,7 +13,18 @@
  */
 
 package com.twilio.rest.bulkexports.v1;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
+import com.twilio.base.Reader;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,51 +38,82 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Currency;
+import java.util.List;
+import java.util.Map;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
-public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
-
-    private String pathResourceType;
+    public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
+            private String pathResourceType;
     private Boolean enabled;
     private URI webhookUrl;
     private String webhookMethod;
 
-    public ExportConfigurationUpdater(final String pathResourceType) {
+            public ExportConfigurationUpdater(final String pathResourceType) {
         this.pathResourceType = pathResourceType;
     }
 
-    public ExportConfigurationUpdater setEnabled(final Boolean enabled) {
-        this.enabled = enabled;
-        return this;
-    }
+        
+public ExportConfigurationUpdater setEnabled(final Boolean enabled){
+    this.enabled = enabled;
+    return this;
+}
 
-    public ExportConfigurationUpdater setWebhookUrl(final URI webhookUrl) {
-        this.webhookUrl = webhookUrl;
-        return this;
-    }
 
-    public ExportConfigurationUpdater setWebhookUrl(final String webhookUrl) {
-        return setWebhookUrl(Promoter.uriFromString(webhookUrl));
-    }
+public ExportConfigurationUpdater setWebhookUrl(final URI webhookUrl){
+    this.webhookUrl = webhookUrl;
+    return this;
+}
 
-    public ExportConfigurationUpdater setWebhookMethod(
-        final String webhookMethod
-    ) {
-        this.webhookMethod = webhookMethod;
-        return this;
-    }
+public ExportConfigurationUpdater setWebhookUrl(final String webhookUrl){
+    return setWebhookUrl(Promoter.uriFromString(webhookUrl));
+}
 
-    @Override
+public ExportConfigurationUpdater setWebhookMethod(final String webhookMethod){
+    this.webhookMethod = webhookMethod;
+    return this;
+}
+
+
+            @Override
     public ExportConfiguration update(final TwilioRestClient client) {
-        String path = "/v1/Exports/{ResourceType}/Configuration";
+    
+    String path = "/v1/Exports/{ResourceType}/Configuration";
 
-        path =
-            path.replace(
-                "{" + "ResourceType" + "}",
-                this.pathResourceType.toString()
-            );
+    path = path.replace("{"+"ResourceType"+"}", this.pathResourceType.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.BULKEXPORTS.toString(),
@@ -79,59 +121,42 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "ExportConfiguration update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ExportConfiguration update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return ExportConfiguration.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return ExportConfiguration.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (enabled != null) {
+        Serializer.toString(request, "Enabled", enabled, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (enabled != null) {
-            Serializer.toString(
-                request,
-                "Enabled",
-                enabled,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhookUrl != null) {
-            Serializer.toString(
-                request,
-                "WebhookUrl",
-                webhookUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (webhookMethod != null) {
-            Serializer.toString(
-                request,
-                "WebhookMethod",
-                webhookMethod,
-                ParameterType.URLENCODED
-            );
-        }
+    if (webhookUrl != null) {
+        Serializer.toString(request, "WebhookUrl", webhookUrl, ParameterType.URLENCODED);
     }
+
+
+
+    if (webhookMethod != null) {
+        Serializer.toString(request, "WebhookMethod", webhookMethod, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

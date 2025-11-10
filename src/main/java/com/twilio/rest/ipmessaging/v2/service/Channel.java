@@ -17,112 +17,150 @@ package com.twilio.rest.ipmessaging.v2.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Channel extends Resource {
 
+
+
     public static ChannelCreator creator(final String pathServiceSid) {
-        return new ChannelCreator(pathServiceSid);
+        return new ChannelCreator(
+             pathServiceSid
+        );
     }
 
-    public static ChannelDeleter deleter(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
-        return new ChannelDeleter(pathServiceSid, pathSid);
+
+
+
+
+
+    
+
+
+
+    public static ChannelDeleter deleter(final String pathServiceSid, final String pathSid) {
+        return new ChannelDeleter(
+             pathServiceSid,  pathSid
+        );
     }
 
-    public static ChannelFetcher fetcher(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
-        return new ChannelFetcher(pathServiceSid, pathSid);
+
+
+
+    
+
+
+
+
+    public static ChannelFetcher fetcher(final String pathServiceSid, final String pathSid) {
+        return new ChannelFetcher(
+             pathServiceSid,  pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static ChannelReader reader(final String pathServiceSid) {
-        return new ChannelReader(pathServiceSid);
+        return new ChannelReader(
+             pathServiceSid
+        );
     }
 
-    public static ChannelUpdater updater(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
-        return new ChannelUpdater(pathServiceSid, pathSid);
+
+    
+
+
+
+
+
+
+    public static ChannelUpdater updater(final String pathServiceSid, final String pathSid) {
+        return new ChannelUpdater(
+             pathServiceSid,  pathSid
+        );
     }
 
-    public enum WebhookEnabledType {
-        TRUE("true"),
-        FALSE("false");
+    
 
-        private final String value;
+public enum WebhookEnabledType {
+    TRUE("true"),
+    FALSE("false");
 
-        private WebhookEnabledType(final String value) {
-            this.value = value;
-        }
+    private final String value;
 
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static WebhookEnabledType forValue(final String value) {
-            return Promoter.enumFromString(value, WebhookEnabledType.values());
-        }
+    private WebhookEnabledType(final String value) {
+        this.value = value;
     }
 
-    public enum ChannelType {
-        PUBLIC("public"),
-        PRIVATE("private");
-
-        private final String value;
-
-        private ChannelType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChannelType forValue(final String value) {
-            return Promoter.enumFromString(value, ChannelType.values());
-        }
+    public String toString() {
+        return value;
     }
+
+    @JsonCreator
+    public static WebhookEnabledType forValue(final String value) {
+        return Promoter.enumFromString(value, WebhookEnabledType.values());
+    }
+}
+public enum ChannelType {
+    PUBLIC("public"),
+    PRIVATE("private");
+
+    private final String value;
+
+    private ChannelType(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static ChannelType forValue(final String value) {
+        return Promoter.enumFromString(value, ChannelType.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a Channel object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Channel object represented by the provided JSON
-     */
-    public static Channel fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Channel object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Channel object represented by the provided JSON
+    */
+    public static Channel fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Channel.class);
@@ -134,17 +172,14 @@ public class Channel extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Channel object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Channel object represented by the provided JSON
-     */
-    public static Channel fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Channel object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Channel object represented by the provided JSON
+    */
+    public static Channel fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Channel.class);
@@ -166,132 +201,136 @@ public class Channel extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String attributes;
-
     @Getter
     private final String createdBy;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String friendlyName;
-
     @Getter
     private final Map<String, String> links;
-
     @Getter
     private final Integer membersCount;
-
     @Getter
     private final Integer messagesCount;
-
     @Getter
     private final String serviceSid;
-
     @Getter
     private final String sid;
-
     @Getter
     private final Channel.ChannelType type;
-
     @Getter
     private final String uniqueName;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private Channel(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("attributes") final String attributes,
-        @JsonProperty("created_by") final String createdBy,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("members_count") final Integer membersCount,
-        @JsonProperty("messages_count") final Integer messagesCount,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("type") final Channel.ChannelType type,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.attributes = attributes;
-        this.createdBy = createdBy;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.friendlyName = friendlyName;
-        this.links = links;
-        this.membersCount = membersCount;
-        this.messagesCount = messagesCount;
-        this.serviceSid = serviceSid;
-        this.sid = sid;
-        this.type = type;
-        this.uniqueName = uniqueName;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Channel other = (Channel) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(attributes, other.attributes) &&
-            Objects.equals(createdBy, other.createdBy) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(membersCount, other.membersCount) &&
-            Objects.equals(messagesCount, other.messagesCount) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            attributes,
-            createdBy,
-            dateCreated,
-            dateUpdated,
-            friendlyName,
-            links,
-            membersCount,
-            messagesCount,
-            serviceSid,
-            sid,
-            type,
-            uniqueName,
-            url
-        );
-    }
+@JsonCreator
+private Channel(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("attributes")
+    final String attributes, 
+    @JsonProperty("created_by")
+    final String createdBy, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("friendly_name")
+    final String friendlyName, 
+    @JsonProperty("links")
+    final Map<String, String> links, 
+    @JsonProperty("members_count")
+    final Integer membersCount, 
+    @JsonProperty("messages_count")
+    final Integer messagesCount, 
+    @JsonProperty("service_sid")
+    final String serviceSid, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("type")
+    final Channel.ChannelType type, 
+    @JsonProperty("unique_name")
+    final String uniqueName, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.attributes = attributes;
+    this.createdBy = createdBy;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.friendlyName = friendlyName;
+    this.links = links;
+    this.membersCount = membersCount;
+    this.messagesCount = messagesCount;
+    this.serviceSid = serviceSid;
+    this.sid = sid;
+    this.type = type;
+    this.uniqueName = uniqueName;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Channel other = (Channel) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(attributes, other.attributes) && 
+            Objects.equals(createdBy, other.createdBy) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(friendlyName, other.friendlyName) && 
+            Objects.equals(links, other.links) && 
+            Objects.equals(membersCount, other.membersCount) && 
+            Objects.equals(messagesCount, other.messagesCount) && 
+            Objects.equals(serviceSid, other.serviceSid) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(type, other.type) && 
+            Objects.equals(uniqueName, other.uniqueName) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            attributes, 
+            createdBy, 
+            dateCreated, 
+            dateUpdated, 
+            friendlyName, 
+            links, 
+            membersCount, 
+            messagesCount, 
+            serviceSid, 
+            sid, 
+            type, 
+            uniqueName, 
+            url
+    );
+}
+
+
+
+}
+

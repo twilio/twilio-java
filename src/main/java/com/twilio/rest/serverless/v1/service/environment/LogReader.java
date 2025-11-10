@@ -14,9 +14,7 @@
 
 package com.twilio.rest.serverless.v1.service.environment;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,65 +25,63 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class LogReader extends Reader<Log> {
 
-    private String pathServiceSid;
+        private String pathServiceSid;
     private String pathEnvironmentSid;
     private String functionSid;
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
     private Long pageSize;
 
-    public LogReader(
-        final String pathServiceSid,
-        final String pathEnvironmentSid
-    ) {
+        public LogReader(final String pathServiceSid, final String pathEnvironmentSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
     }
 
-    public LogReader setFunctionSid(final String functionSid) {
-        this.functionSid = functionSid;
-        return this;
-    }
+    
+public LogReader setFunctionSid(final String functionSid){
+    this.functionSid = functionSid;
+    return this;
+}
 
-    public LogReader setStartDate(final ZonedDateTime startDate) {
-        this.startDate = startDate;
-        return this;
-    }
 
-    public LogReader setEndDate(final ZonedDateTime endDate) {
-        this.endDate = endDate;
-        return this;
-    }
+public LogReader setStartDate(final ZonedDateTime startDate){
+    this.startDate = startDate;
+    return this;
+}
 
-    public LogReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
 
-    @Override
+public LogReader setEndDate(final ZonedDateTime endDate){
+    this.endDate = endDate;
+    return this;
+}
+
+
+public LogReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+        @Override
     public ResourceSet<Log> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<Log> firstPage(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs";
+        
+    String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "EnvironmentSid" + "}",
-                this.pathEnvironmentSid.toString()
-            );
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"EnvironmentSid"+"}", this.pathEnvironmentSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -97,106 +93,77 @@ public class LogReader extends Reader<Log> {
         return pageForRequest(client, request);
     }
 
-    private Page<Log> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Log> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Log read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Log read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "logs",
             response.getContent(),
             Log.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<Log> previousPage(
-        final Page<Log> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Log> previousPage(final Page<Log> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Log> nextPage(
-        final Page<Log> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<Log> nextPage(final Page<Log> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<Log> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Log> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (functionSid != null) {
-            Serializer.toString(
-                request,
-                "FunctionSid",
-                functionSid,
-                ParameterType.QUERY
-            );
-        }
 
-        if (startDate != null) {
-            Serializer.toString(
-                request,
-                "StartDate",
-                startDate,
-                ParameterType.QUERY
-            );
-        }
 
-        if (endDate != null) {
-            Serializer.toString(
-                request,
-                "EndDate",
-                endDate,
-                ParameterType.QUERY
-            );
-        }
-
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+    if (functionSid != null) {
+        Serializer.toString(request, "FunctionSid", functionSid, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (startDate != null) {
+        Serializer.toString(request, "StartDate", startDate, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (endDate != null) {
+        Serializer.toString(request, "EndDate", endDate, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.verify.v2.service;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class VerificationCreator extends Creator<Verification> {
@@ -50,126 +53,129 @@ public class VerificationCreator extends Creator<Verification> {
     private Verification.RiskCheck riskCheck;
     private String tags;
 
-    public VerificationCreator(
-        final String pathServiceSid,
-        final String to,
-        final String channel
-    ) {
+    public VerificationCreator(final String pathServiceSid, final String to, final String channel) {
         this.pathServiceSid = pathServiceSid;
         this.to = to;
         this.channel = channel;
     }
 
-    public VerificationCreator setTo(final String to) {
-        this.to = to;
-        return this;
-    }
 
-    public VerificationCreator setChannel(final String channel) {
-        this.channel = channel;
-        return this;
-    }
+public VerificationCreator setTo(final String to){
+    this.to = to;
+    return this;
+}
 
-    public VerificationCreator setCustomFriendlyName(
-        final String customFriendlyName
-    ) {
-        this.customFriendlyName = customFriendlyName;
-        return this;
-    }
 
-    public VerificationCreator setCustomMessage(final String customMessage) {
-        this.customMessage = customMessage;
-        return this;
-    }
+public VerificationCreator setChannel(final String channel){
+    this.channel = channel;
+    return this;
+}
 
-    public VerificationCreator setSendDigits(final String sendDigits) {
-        this.sendDigits = sendDigits;
-        return this;
-    }
 
-    public VerificationCreator setLocale(final String locale) {
-        this.locale = locale;
-        return this;
-    }
+public VerificationCreator setCustomFriendlyName(final String customFriendlyName){
+    this.customFriendlyName = customFriendlyName;
+    return this;
+}
 
-    public VerificationCreator setCustomCode(final String customCode) {
-        this.customCode = customCode;
-        return this;
-    }
 
-    public VerificationCreator setAmount(final String amount) {
-        this.amount = amount;
-        return this;
-    }
+public VerificationCreator setCustomMessage(final String customMessage){
+    this.customMessage = customMessage;
+    return this;
+}
 
-    public VerificationCreator setPayee(final String payee) {
-        this.payee = payee;
-        return this;
-    }
 
-    public VerificationCreator setRateLimits(final Object rateLimits) {
-        this.rateLimits = rateLimits;
-        return this;
-    }
+public VerificationCreator setSendDigits(final String sendDigits){
+    this.sendDigits = sendDigits;
+    return this;
+}
 
-    public VerificationCreator setChannelConfiguration(
-        final Object channelConfiguration
-    ) {
-        this.channelConfiguration = channelConfiguration;
-        return this;
-    }
 
-    public VerificationCreator setAppHash(final String appHash) {
-        this.appHash = appHash;
-        return this;
-    }
+public VerificationCreator setLocale(final String locale){
+    this.locale = locale;
+    return this;
+}
 
-    public VerificationCreator setTemplateSid(final String templateSid) {
-        this.templateSid = templateSid;
-        return this;
-    }
 
-    public VerificationCreator setTemplateCustomSubstitutions(
-        final String templateCustomSubstitutions
-    ) {
-        this.templateCustomSubstitutions = templateCustomSubstitutions;
-        return this;
-    }
+public VerificationCreator setCustomCode(final String customCode){
+    this.customCode = customCode;
+    return this;
+}
 
-    public VerificationCreator setDeviceIp(final String deviceIp) {
-        this.deviceIp = deviceIp;
-        return this;
-    }
 
-    public VerificationCreator setEnableSnaClientToken(
-        final Boolean enableSnaClientToken
-    ) {
-        this.enableSnaClientToken = enableSnaClientToken;
-        return this;
-    }
+public VerificationCreator setAmount(final String amount){
+    this.amount = amount;
+    return this;
+}
 
-    public VerificationCreator setRiskCheck(
-        final Verification.RiskCheck riskCheck
-    ) {
-        this.riskCheck = riskCheck;
-        return this;
-    }
 
-    public VerificationCreator setTags(final String tags) {
-        this.tags = tags;
-        return this;
-    }
+public VerificationCreator setPayee(final String payee){
+    this.payee = payee;
+    return this;
+}
+
+
+public VerificationCreator setRateLimits(final Object rateLimits){
+    this.rateLimits = rateLimits;
+    return this;
+}
+
+
+public VerificationCreator setChannelConfiguration(final Object channelConfiguration){
+    this.channelConfiguration = channelConfiguration;
+    return this;
+}
+
+
+public VerificationCreator setAppHash(final String appHash){
+    this.appHash = appHash;
+    return this;
+}
+
+
+public VerificationCreator setTemplateSid(final String templateSid){
+    this.templateSid = templateSid;
+    return this;
+}
+
+
+public VerificationCreator setTemplateCustomSubstitutions(final String templateCustomSubstitutions){
+    this.templateCustomSubstitutions = templateCustomSubstitutions;
+    return this;
+}
+
+
+public VerificationCreator setDeviceIp(final String deviceIp){
+    this.deviceIp = deviceIp;
+    return this;
+}
+
+
+public VerificationCreator setEnableSnaClientToken(final Boolean enableSnaClientToken){
+    this.enableSnaClientToken = enableSnaClientToken;
+    return this;
+}
+
+
+public VerificationCreator setRiskCheck(final Verification.RiskCheck riskCheck){
+    this.riskCheck = riskCheck;
+    return this;
+}
+
+
+public VerificationCreator setTags(final String tags){
+    this.tags = tags;
+    return this;
+}
+
 
     @Override
     public Verification create(final TwilioRestClient client) {
-        String path = "/v2/Services/{ServiceSid}/Verifications";
+    
+    String path = "/v2/Services/{ServiceSid}/Verifications";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
@@ -177,189 +183,132 @@ public class VerificationCreator extends Creator<Verification> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Verification creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Verification creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Verification.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return Verification.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (to != null) {
-            Serializer.toString(request, "To", to, ParameterType.URLENCODED);
-        }
 
-        if (channel != null) {
-            Serializer.toString(
-                request,
-                "Channel",
-                channel,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (customFriendlyName != null) {
-            Serializer.toString(
-                request,
-                "CustomFriendlyName",
-                customFriendlyName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (customMessage != null) {
-            Serializer.toString(
-                request,
-                "CustomMessage",
-                customMessage,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (sendDigits != null) {
-            Serializer.toString(
-                request,
-                "SendDigits",
-                sendDigits,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (locale != null) {
-            Serializer.toString(
-                request,
-                "Locale",
-                locale,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (customCode != null) {
-            Serializer.toString(
-                request,
-                "CustomCode",
-                customCode,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (amount != null) {
-            Serializer.toString(
-                request,
-                "Amount",
-                amount,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (payee != null) {
-            Serializer.toString(
-                request,
-                "Payee",
-                payee,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (rateLimits != null) {
-            Serializer.toString(
-                request,
-                "RateLimits",
-                rateLimits,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (channelConfiguration != null) {
-            Serializer.toString(
-                request,
-                "ChannelConfiguration",
-                channelConfiguration,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (appHash != null) {
-            Serializer.toString(
-                request,
-                "AppHash",
-                appHash,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (templateSid != null) {
-            Serializer.toString(
-                request,
-                "TemplateSid",
-                templateSid,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (templateCustomSubstitutions != null) {
-            Serializer.toString(
-                request,
-                "TemplateCustomSubstitutions",
-                templateCustomSubstitutions,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (deviceIp != null) {
-            Serializer.toString(
-                request,
-                "DeviceIp",
-                deviceIp,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (enableSnaClientToken != null) {
-            Serializer.toString(
-                request,
-                "EnableSnaClientToken",
-                enableSnaClientToken,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (riskCheck != null) {
-            Serializer.toString(
-                request,
-                "RiskCheck",
-                riskCheck,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (tags != null) {
-            Serializer.toString(
-                request,
-                "Tags",
-                tags,
-                ParameterType.URLENCODED
-            );
-        }
+    if (to != null) {
+        Serializer.toString(request, "To", to, ParameterType.URLENCODED);
     }
+
+
+
+    if (channel != null) {
+        Serializer.toString(request, "Channel", channel, ParameterType.URLENCODED);
+    }
+
+
+
+    if (customFriendlyName != null) {
+        Serializer.toString(request, "CustomFriendlyName", customFriendlyName, ParameterType.URLENCODED);
+    }
+
+
+
+    if (customMessage != null) {
+        Serializer.toString(request, "CustomMessage", customMessage, ParameterType.URLENCODED);
+    }
+
+
+
+    if (sendDigits != null) {
+        Serializer.toString(request, "SendDigits", sendDigits, ParameterType.URLENCODED);
+    }
+
+
+
+    if (locale != null) {
+        Serializer.toString(request, "Locale", locale, ParameterType.URLENCODED);
+    }
+
+
+
+    if (customCode != null) {
+        Serializer.toString(request, "CustomCode", customCode, ParameterType.URLENCODED);
+    }
+
+
+
+    if (amount != null) {
+        Serializer.toString(request, "Amount", amount, ParameterType.URLENCODED);
+    }
+
+
+
+    if (payee != null) {
+        Serializer.toString(request, "Payee", payee, ParameterType.URLENCODED);
+    }
+
+
+
+    if (rateLimits != null) {
+        Serializer.toString(request, "RateLimits", rateLimits, ParameterType.URLENCODED);
+    }
+
+
+
+    if (channelConfiguration != null) {
+        Serializer.toString(request, "ChannelConfiguration", channelConfiguration, ParameterType.URLENCODED);
+    }
+
+
+
+    if (appHash != null) {
+        Serializer.toString(request, "AppHash", appHash, ParameterType.URLENCODED);
+    }
+
+
+
+    if (templateSid != null) {
+        Serializer.toString(request, "TemplateSid", templateSid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (templateCustomSubstitutions != null) {
+        Serializer.toString(request, "TemplateCustomSubstitutions", templateCustomSubstitutions, ParameterType.URLENCODED);
+    }
+
+
+
+    if (deviceIp != null) {
+        Serializer.toString(request, "DeviceIp", deviceIp, ParameterType.URLENCODED);
+    }
+
+
+
+    if (enableSnaClientToken != null) {
+        Serializer.toString(request, "EnableSnaClientToken", enableSnaClientToken, ParameterType.URLENCODED);
+    }
+
+
+
+    if (riskCheck != null) {
+        Serializer.toString(request, "RiskCheck", riskCheck, ParameterType.URLENCODED);
+    }
+
+
+
+    if (tags != null) {
+        Serializer.toString(request, "Tags", tags, ParameterType.URLENCODED);
+    }
+
+
+}
 }

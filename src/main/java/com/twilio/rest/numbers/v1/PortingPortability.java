@@ -17,68 +17,78 @@ package com.twilio.rest.numbers.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.net.URI;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PortingPortability extends Resource {
 
-    public static PortingPortabilityFetcher fetcher(
-        final com.twilio.type.PhoneNumber pathPhoneNumber
-    ) {
-        return new PortingPortabilityFetcher(pathPhoneNumber);
+
+
+
+
+
+    public static PortingPortabilityFetcher fetcher(final com.twilio.type.PhoneNumber pathPhoneNumber) {
+        return new PortingPortabilityFetcher(
+             pathPhoneNumber
+        );
     }
 
-    public enum NumberType {
-        LOCAL("LOCAL"),
-        UNKNOWN("UNKNOWN"),
-        MOBILE("MOBILE"),
-        TOLL_FREE("TOLL-FREE");
 
-        private final String value;
 
-        private NumberType(final String value) {
-            this.value = value;
-        }
+    
 
-        public String toString() {
-            return value;
-        }
+public enum NumberType {
+    LOCAL("LOCAL"),
+    UNKNOWN("UNKNOWN"),
+    MOBILE("MOBILE"),
+    TOLL_FREE("TOLL-FREE");
 
-        @JsonCreator
-        public static NumberType forValue(final String value) {
-            return Promoter.enumFromString(value, NumberType.values());
-        }
+    private final String value;
+
+    private NumberType(final String value) {
+        this.value = value;
     }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static NumberType forValue(final String value) {
+        return Promoter.enumFromString(value, NumberType.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a PortingPortability object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return PortingPortability object represented by the provided JSON
-     */
-    public static PortingPortability fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a PortingPortability object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return PortingPortability object represented by the provided JSON
+    */
+    public static PortingPortability fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PortingPortability.class);
@@ -90,17 +100,14 @@ public class PortingPortability extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a PortingPortability object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return PortingPortability object represented by the provided JSON
-     */
-    public static PortingPortability fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a PortingPortability object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return PortingPortability object represented by the provided JSON
+    */
+    public static PortingPortability fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PortingPortability.class);
@@ -122,107 +129,99 @@ public class PortingPortability extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String country;
-
     @Getter
     private final String notPortableReason;
-
     @Getter
     private final Integer notPortableReasonCode;
-
     @Getter
     private final PortingPortability.NumberType numberType;
-
     @Getter
     private final com.twilio.type.PhoneNumber phoneNumber;
-
     @Getter
     private final Boolean pinAndAccountNumberRequired;
-
     @Getter
     private final Boolean portable;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private PortingPortability(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("country") final String country,
-        @JsonProperty("not_portable_reason") final String notPortableReason,
-        @JsonProperty(
-            "not_portable_reason_code"
-        ) final Integer notPortableReasonCode,
-        @JsonProperty(
-            "number_type"
-        ) final PortingPortability.NumberType numberType,
-        @JsonProperty(
-            "phone_number"
-        ) final com.twilio.type.PhoneNumber phoneNumber,
-        @JsonProperty(
-            "pin_and_account_number_required"
-        ) final Boolean pinAndAccountNumberRequired,
-        @JsonProperty("portable") final Boolean portable,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.country = country;
-        this.notPortableReason = notPortableReason;
-        this.notPortableReasonCode = notPortableReasonCode;
-        this.numberType = numberType;
-        this.phoneNumber = phoneNumber;
-        this.pinAndAccountNumberRequired = pinAndAccountNumberRequired;
-        this.portable = portable;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        PortingPortability other = (PortingPortability) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(country, other.country) &&
-            Objects.equals(notPortableReason, other.notPortableReason) &&
-            Objects.equals(
-                notPortableReasonCode,
-                other.notPortableReasonCode
-            ) &&
-            Objects.equals(numberType, other.numberType) &&
-            Objects.equals(phoneNumber, other.phoneNumber) &&
-            Objects.equals(
-                pinAndAccountNumberRequired,
-                other.pinAndAccountNumberRequired
-            ) &&
-            Objects.equals(portable, other.portable) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            country,
-            notPortableReason,
-            notPortableReasonCode,
-            numberType,
-            phoneNumber,
-            pinAndAccountNumberRequired,
-            portable,
-            url
-        );
-    }
+@JsonCreator
+private PortingPortability(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("country")
+    final String country, 
+    @JsonProperty("not_portable_reason")
+    final String notPortableReason, 
+    @JsonProperty("not_portable_reason_code")
+    final Integer notPortableReasonCode, 
+    @JsonProperty("number_type")
+    final PortingPortability.NumberType numberType, 
+    @JsonProperty("phone_number")
+    final com.twilio.type.PhoneNumber phoneNumber, 
+    @JsonProperty("pin_and_account_number_required")
+    final Boolean pinAndAccountNumberRequired, 
+    @JsonProperty("portable")
+    final Boolean portable, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.country = country;
+    this.notPortableReason = notPortableReason;
+    this.notPortableReasonCode = notPortableReasonCode;
+    this.numberType = numberType;
+    this.phoneNumber = phoneNumber;
+    this.pinAndAccountNumberRequired = pinAndAccountNumberRequired;
+    this.portable = portable;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    PortingPortability other = (PortingPortability) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(country, other.country) && 
+            Objects.equals(notPortableReason, other.notPortableReason) && 
+            Objects.equals(notPortableReasonCode, other.notPortableReasonCode) && 
+            Objects.equals(numberType, other.numberType) && 
+            Objects.equals(phoneNumber, other.phoneNumber) && 
+            Objects.equals(pinAndAccountNumberRequired, other.pinAndAccountNumberRequired) && 
+            Objects.equals(portable, other.portable) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            country, 
+            notPortableReason, 
+            notPortableReasonCode, 
+            numberType, 
+            phoneNumber, 
+            pinAndAccountNumberRequired, 
+            portable, 
+            url
+    );
+}
+
+
+
+}
+

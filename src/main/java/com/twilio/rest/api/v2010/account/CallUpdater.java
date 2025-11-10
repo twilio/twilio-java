@@ -27,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.net.URI;
+import com.twilio.type.*;
 
-public class CallUpdater extends Updater<Call> {
-
-    private String pathAccountSid;
+    public class CallUpdater extends Updater<Call> {
+            private String pathAccountSid;
     private String pathSid;
     private URI url;
     private HttpMethod method;
@@ -44,93 +45,91 @@ public class CallUpdater extends Updater<Call> {
     private com.twilio.type.Twiml twiml;
     private Integer timeLimit;
 
-    public CallUpdater(final String pathSid) {
+            public CallUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
-
     public CallUpdater(final String pathAccountSid, final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
-    public CallUpdater setUrl(final URI url) {
-        this.url = url;
-        return this;
-    }
+        
+public CallUpdater setUrl(final URI url){
+    this.url = url;
+    return this;
+}
 
-    public CallUpdater setUrl(final String url) {
-        return setUrl(Promoter.uriFromString(url));
-    }
+public CallUpdater setUrl(final String url){
+    return setUrl(Promoter.uriFromString(url));
+}
 
-    public CallUpdater setMethod(final HttpMethod method) {
-        this.method = method;
-        return this;
-    }
+public CallUpdater setMethod(final HttpMethod method){
+    this.method = method;
+    return this;
+}
 
-    public CallUpdater setStatus(final Call.UpdateStatus status) {
-        this.status = status;
-        return this;
-    }
 
-    public CallUpdater setFallbackUrl(final URI fallbackUrl) {
-        this.fallbackUrl = fallbackUrl;
-        return this;
-    }
+public CallUpdater setStatus(final Call.UpdateStatus status){
+    this.status = status;
+    return this;
+}
 
-    public CallUpdater setFallbackUrl(final String fallbackUrl) {
-        return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
-    }
 
-    public CallUpdater setFallbackMethod(final HttpMethod fallbackMethod) {
-        this.fallbackMethod = fallbackMethod;
-        return this;
-    }
+public CallUpdater setFallbackUrl(final URI fallbackUrl){
+    this.fallbackUrl = fallbackUrl;
+    return this;
+}
 
-    public CallUpdater setStatusCallback(final URI statusCallback) {
-        this.statusCallback = statusCallback;
-        return this;
-    }
+public CallUpdater setFallbackUrl(final String fallbackUrl){
+    return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
+}
 
-    public CallUpdater setStatusCallback(final String statusCallback) {
-        return setStatusCallback(Promoter.uriFromString(statusCallback));
-    }
+public CallUpdater setFallbackMethod(final HttpMethod fallbackMethod){
+    this.fallbackMethod = fallbackMethod;
+    return this;
+}
 
-    public CallUpdater setStatusCallbackMethod(
-        final HttpMethod statusCallbackMethod
-    ) {
-        this.statusCallbackMethod = statusCallbackMethod;
-        return this;
-    }
 
-    public CallUpdater setTwiml(final com.twilio.type.Twiml twiml) {
-        this.twiml = twiml;
-        return this;
-    }
+public CallUpdater setStatusCallback(final URI statusCallback){
+    this.statusCallback = statusCallback;
+    return this;
+}
 
-    public CallUpdater setTwiml(final String twiml) {
-        return setTwiml(Promoter.twimlFromString(twiml));
-    }
+public CallUpdater setStatusCallback(final String statusCallback){
+    return setStatusCallback(Promoter.uriFromString(statusCallback));
+}
 
-    public CallUpdater setTimeLimit(final Integer timeLimit) {
-        this.timeLimit = timeLimit;
-        return this;
-    }
+public CallUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
+    this.statusCallbackMethod = statusCallbackMethod;
+    return this;
+}
 
-    @Override
+
+public CallUpdater setTwiml(final com.twilio.type.Twiml twiml){
+    this.twiml = twiml;
+    return this;
+}
+
+public CallUpdater setTwiml(final String twiml){
+    return setTwiml(Promoter.twimlFromString(twiml));
+}
+
+public CallUpdater setTimeLimit(final Integer timeLimit){
+    this.timeLimit = timeLimit;
+    return this;
+}
+
+
+            @Override
     public Call update(final TwilioRestClient client) {
-        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json";
+    
+    String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
@@ -138,105 +137,78 @@ public class CallUpdater extends Updater<Call> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Call update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Call update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Call.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addPostParams(final Request request) {
 
-    private void addPostParams(final Request request) {
-        if (url != null) {
-            Serializer.toString(request, "Url", url, ParameterType.URLENCODED);
-        }
-
-        if (method != null) {
-            Serializer.toString(
-                request,
-                "Method",
-                method,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (status != null) {
-            Serializer.toString(
-                request,
-                "Status",
-                status,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (fallbackUrl != null) {
-            Serializer.toString(
-                request,
-                "FallbackUrl",
-                fallbackUrl,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (fallbackMethod != null) {
-            Serializer.toString(
-                request,
-                "FallbackMethod",
-                fallbackMethod,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (statusCallback != null) {
-            Serializer.toString(
-                request,
-                "StatusCallback",
-                statusCallback,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (statusCallbackMethod != null) {
-            Serializer.toString(
-                request,
-                "StatusCallbackMethod",
-                statusCallbackMethod,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (twiml != null) {
-            Serializer.toString(
-                request,
-                "Twiml",
-                twiml,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (timeLimit != null) {
-            Serializer.toString(
-                request,
-                "TimeLimit",
-                timeLimit,
-                ParameterType.URLENCODED
-            );
-        }
+    if (url != null) {
+        Serializer.toString(request, "Url", url, ParameterType.URLENCODED);
     }
+
+
+
+    if (method != null) {
+        Serializer.toString(request, "Method", method, ParameterType.URLENCODED);
+    }
+
+
+
+    if (status != null) {
+        Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+    }
+
+
+
+    if (fallbackUrl != null) {
+        Serializer.toString(request, "FallbackUrl", fallbackUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (fallbackMethod != null) {
+        Serializer.toString(request, "FallbackMethod", fallbackMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (statusCallback != null) {
+        Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
+    }
+
+
+
+    if (statusCallbackMethod != null) {
+        Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (twiml != null) {
+        Serializer.toString(request, "Twiml", twiml, ParameterType.URLENCODED);
+    }
+
+
+
+    if (timeLimit != null) {
+        Serializer.toString(request, "TimeLimit", timeLimit, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

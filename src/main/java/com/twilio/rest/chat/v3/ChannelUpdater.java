@@ -13,10 +13,22 @@
  */
 
 package com.twilio.rest.chat.v3;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
+import com.twilio.base.Reader;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -26,51 +38,82 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Currency;
+import java.util.List;
+import java.util.Map;
 import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
-public class ChannelUpdater extends Updater<Channel> {
-
-    private String pathServiceSid;
+    public class ChannelUpdater extends Updater<Channel> {
+            private String pathServiceSid;
     private String pathSid;
     private Channel.WebhookEnabledType xTwilioWebhookEnabled;
     private Channel.ChannelType type;
     private String messagingServiceSid;
 
-    public ChannelUpdater(final String pathServiceSid, final String pathSid) {
+            public ChannelUpdater(final String pathServiceSid, final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
-    public ChannelUpdater setType(final Channel.ChannelType type) {
-        this.type = type;
-        return this;
-    }
+        
+public ChannelUpdater setType(final Channel.ChannelType type){
+    this.type = type;
+    return this;
+}
 
-    public ChannelUpdater setMessagingServiceSid(
-        final String messagingServiceSid
-    ) {
-        this.messagingServiceSid = messagingServiceSid;
-        return this;
-    }
 
-    public ChannelUpdater setXTwilioWebhookEnabled(
-        final Channel.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
-        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-        return this;
-    }
+public ChannelUpdater setMessagingServiceSid(final String messagingServiceSid){
+    this.messagingServiceSid = messagingServiceSid;
+    return this;
+}
 
-    @Override
+
+public ChannelUpdater setXTwilioWebhookEnabled(final Channel.WebhookEnabledType xTwilioWebhookEnabled){
+    this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+    return this;
+}
+
+
+            @Override
     public Channel update(final TwilioRestClient client) {
-        String path = "/v3/Services/{ServiceSid}/Channels/{Sid}";
+    
+    String path = "/v3/Services/{ServiceSid}/Channels/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
@@ -79,58 +122,43 @@ public class ChannelUpdater extends Updater<Channel> {
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Channel update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Channel update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Channel.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addPostParams(final Request request) {
 
-    private void addPostParams(final Request request) {
-        if (type != null) {
-            Serializer.toString(
-                request,
-                "Type",
-                type,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (messagingServiceSid != null) {
-            Serializer.toString(
-                request,
-                "MessagingServiceSid",
-                messagingServiceSid,
-                ParameterType.URLENCODED
-            );
-        }
+    if (type != null) {
+        Serializer.toString(request, "Type", type, ParameterType.URLENCODED);
     }
 
-    private void addHeaderParams(final Request request) {
-        if (xTwilioWebhookEnabled != null) {
-            Serializer.toString(
-                request,
-                "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled,
-                ParameterType.HEADER
-            );
-        }
+
+
+    if (messagingServiceSid != null) {
+        Serializer.toString(request, "MessagingServiceSid", messagingServiceSid, ParameterType.URLENCODED);
     }
+
+
 }
+        private void addHeaderParams(final Request request) {
+
+    if (xTwilioWebhookEnabled != null) {
+        Serializer.toString(request, "X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled, ParameterType.HEADER);
+    }
+
+}
+    }

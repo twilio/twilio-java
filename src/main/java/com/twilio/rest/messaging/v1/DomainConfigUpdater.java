@@ -27,61 +27,61 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.net.URI;
+import com.twilio.type.*;
 
-public class DomainConfigUpdater extends Updater<DomainConfig> {
-
-    private String pathDomainSid;
+    public class DomainConfigUpdater extends Updater<DomainConfig> {
+            private String pathDomainSid;
     private URI fallbackUrl;
     private URI callbackUrl;
     private Boolean continueOnFailure;
     private Boolean disableHttps;
 
-    public DomainConfigUpdater(final String pathDomainSid) {
+            public DomainConfigUpdater(final String pathDomainSid) {
         this.pathDomainSid = pathDomainSid;
     }
 
-    public DomainConfigUpdater setFallbackUrl(final URI fallbackUrl) {
-        this.fallbackUrl = fallbackUrl;
-        return this;
-    }
+        
+public DomainConfigUpdater setFallbackUrl(final URI fallbackUrl){
+    this.fallbackUrl = fallbackUrl;
+    return this;
+}
 
-    public DomainConfigUpdater setFallbackUrl(final String fallbackUrl) {
-        return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
-    }
+public DomainConfigUpdater setFallbackUrl(final String fallbackUrl){
+    return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
+}
 
-    public DomainConfigUpdater setCallbackUrl(final URI callbackUrl) {
-        this.callbackUrl = callbackUrl;
-        return this;
-    }
+public DomainConfigUpdater setCallbackUrl(final URI callbackUrl){
+    this.callbackUrl = callbackUrl;
+    return this;
+}
 
-    public DomainConfigUpdater setCallbackUrl(final String callbackUrl) {
-        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
-    }
+public DomainConfigUpdater setCallbackUrl(final String callbackUrl){
+    return setCallbackUrl(Promoter.uriFromString(callbackUrl));
+}
 
-    public DomainConfigUpdater setContinueOnFailure(
-        final Boolean continueOnFailure
-    ) {
-        this.continueOnFailure = continueOnFailure;
-        return this;
-    }
+public DomainConfigUpdater setContinueOnFailure(final Boolean continueOnFailure){
+    this.continueOnFailure = continueOnFailure;
+    return this;
+}
 
-    public DomainConfigUpdater setDisableHttps(final Boolean disableHttps) {
-        this.disableHttps = disableHttps;
-        return this;
-    }
 
-    @Override
+public DomainConfigUpdater setDisableHttps(final Boolean disableHttps){
+    this.disableHttps = disableHttps;
+    return this;
+}
+
+
+            @Override
     public DomainConfig update(final TwilioRestClient client) {
-        String path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
+    
+    String path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
 
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
+    path = path.replace("{"+"DomainSid"+"}", this.pathDomainSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.MESSAGING.toString(),
@@ -89,68 +89,48 @@ public class DomainConfigUpdater extends Updater<DomainConfig> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "DomainConfig update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("DomainConfig update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return DomainConfig.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return DomainConfig.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (fallbackUrl != null) {
+        Serializer.toString(request, "FallbackUrl", fallbackUrl, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (fallbackUrl != null) {
-            Serializer.toString(
-                request,
-                "FallbackUrl",
-                fallbackUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (callbackUrl != null) {
-            Serializer.toString(
-                request,
-                "CallbackUrl",
-                callbackUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (continueOnFailure != null) {
-            Serializer.toString(
-                request,
-                "ContinueOnFailure",
-                continueOnFailure,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (disableHttps != null) {
-            Serializer.toString(
-                request,
-                "DisableHttps",
-                disableHttps,
-                ParameterType.URLENCODED
-            );
-        }
+    if (callbackUrl != null) {
+        Serializer.toString(request, "CallbackUrl", callbackUrl, ParameterType.URLENCODED);
     }
+
+
+
+    if (continueOnFailure != null) {
+        Serializer.toString(request, "ContinueOnFailure", continueOnFailure, ParameterType.URLENCODED);
+    }
+
+
+
+    if (disableHttps != null) {
+        Serializer.toString(request, "DisableHttps", disableHttps, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

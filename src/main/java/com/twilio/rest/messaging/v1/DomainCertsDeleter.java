@@ -23,51 +23,47 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class DomainCertsDeleter extends Deleter<DomainCerts> {
+            public class DomainCertsDeleter extends Deleter<DomainCerts> {
 
-    private String pathDomainSid;
+                private String pathDomainSid;
 
-    public DomainCertsDeleter(final String pathDomainSid) {
+                public DomainCertsDeleter(final String pathDomainSid) {
         this.pathDomainSid = pathDomainSid;
     }
 
-    @Override
+            
+                @Override
     public boolean delete(final TwilioRestClient client) {
-        String path = "/v1/LinkShortening/Domains/{DomainSid}/Certificate";
+    
+    String path = "/v1/LinkShortening/Domains/{DomainSid}/Certificate";
 
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
+    path = path.replace("{"+"DomainSid"+"}", this.pathDomainSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.MESSAGING.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "DomainCerts delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("DomainCerts delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
         return response.getStatusCode() == 204;
     }
-}
+            }

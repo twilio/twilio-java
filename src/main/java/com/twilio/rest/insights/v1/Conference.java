@@ -17,209 +17,221 @@ package com.twilio.rest.insights.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Conference extends Resource {
 
+
+
+
+
+
     public static ConferenceFetcher fetcher(final String pathConferenceSid) {
-        return new ConferenceFetcher(pathConferenceSid);
+        return new ConferenceFetcher(
+             pathConferenceSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static ConferenceReader reader() {
-        return new ConferenceReader();
-    }
-
-    public enum ConferenceStatus {
-        IN_PROGRESS("in_progress"),
-        NOT_STARTED("not_started"),
-        COMPLETED("completed"),
-        SUMMARY_TIMEOUT("summary_timeout");
-
-        private final String value;
-
-        private ConferenceStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConferenceStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ConferenceStatus.values());
-        }
-    }
-
-    public enum ConferenceEndReason {
-        LAST_PARTICIPANT_LEFT("last_participant_left"),
-        CONFERENCE_ENDED_VIA_API("conference_ended_via_api"),
-        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT(
-            "participant_with_end_conference_on_exit_left"
-        ),
-        LAST_PARTICIPANT_KICKED("last_participant_kicked"),
-        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED(
-            "participant_with_end_conference_on_exit_kicked"
+        return new ConferenceReader(
+            
         );
-
-        private final String value;
-
-        private ConferenceEndReason(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConferenceEndReason forValue(final String value) {
-            return Promoter.enumFromString(value, ConferenceEndReason.values());
-        }
     }
 
-    public enum ConferenceTag {
-        INVALID_REQUESTED_REGION("invalid_requested_region"),
-        DUPLICATE_IDENTITY("duplicate_identity"),
-        START_FAILURE("start_failure"),
-        REGION_CONFIGURATION_ISSUES("region_configuration_issues"),
-        QUALITY_WARNINGS("quality_warnings"),
-        PARTICIPANT_BEHAVIOR_ISSUES("participant_behavior_issues"),
-        HIGH_PACKET_LOSS("high_packet_loss"),
-        HIGH_JITTER("high_jitter"),
-        HIGH_LATENCY("high_latency"),
-        LOW_MOS("low_mos"),
-        DETECTED_SILENCE("detected_silence"),
-        NO_CONCURRENT_PARTICIPANTS("no_concurrent_participants");
 
-        private final String value;
+    
 
-        private ConferenceTag(final String value) {
-            this.value = value;
-        }
+public enum ConferenceStatus {
+    IN_PROGRESS("in_progress"),
+    NOT_STARTED("not_started"),
+    COMPLETED("completed"),
+    SUMMARY_TIMEOUT("summary_timeout");
 
-        public String toString() {
-            return value;
-        }
+    private final String value;
 
-        @JsonCreator
-        public static ConferenceTag forValue(final String value) {
-            return Promoter.enumFromString(value, ConferenceTag.values());
-        }
+    private ConferenceStatus(final String value) {
+        this.value = value;
     }
 
-    public enum Region {
-        US1("us1"),
-        US2("us2"),
-        AU1("au1"),
-        BR1("br1"),
-        IE1("ie1"),
-        JP1("jp1"),
-        SG1("sg1"),
-        DE1("de1"),
-        IN1("in1");
-
-        private final String value;
-
-        private Region(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Region forValue(final String value) {
-            return Promoter.enumFromString(value, Region.values());
-        }
+    public String toString() {
+        return value;
     }
 
-    public enum Tag {
-        INVALID_REQUESTED_REGION("invalid_requested_region"),
-        DUPLICATE_IDENTITY("duplicate_identity"),
-        START_FAILURE("start_failure"),
-        REGION_CONFIGURATION_ISSUES("region_configuration_issues"),
-        QUALITY_WARNINGS("quality_warnings"),
-        PARTICIPANT_BEHAVIOR_ISSUES("participant_behavior_issues"),
-        HIGH_PACKET_LOSS("high_packet_loss"),
-        HIGH_JITTER("high_jitter"),
-        HIGH_LATENCY("high_latency"),
-        LOW_MOS("low_mos"),
-        DETECTED_SILENCE("detected_silence"),
-        NO_CONCURRENT_PARTICIPANTS("no_concurrent_participants");
+    @JsonCreator
+    public static ConferenceStatus forValue(final String value) {
+        return Promoter.enumFromString(value, ConferenceStatus.values());
+    }
+}
+public enum ConferenceEndReason {
+    LAST_PARTICIPANT_LEFT("last_participant_left"),
+    CONFERENCE_ENDED_VIA_API("conference_ended_via_api"),
+    PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT("participant_with_end_conference_on_exit_left"),
+    LAST_PARTICIPANT_KICKED("last_participant_kicked"),
+    PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED("participant_with_end_conference_on_exit_kicked");
 
-        private final String value;
+    private final String value;
 
-        private Tag(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Tag forValue(final String value) {
-            return Promoter.enumFromString(value, Tag.values());
-        }
+    private ConferenceEndReason(final String value) {
+        this.value = value;
     }
 
-    public enum ProcessingState {
-        COMPLETE("complete"),
-        IN_PROGRESS("in_progress"),
-        TIMEOUT("timeout");
-
-        private final String value;
-
-        private ProcessingState(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ProcessingState forValue(final String value) {
-            return Promoter.enumFromString(value, ProcessingState.values());
-        }
+    public String toString() {
+        return value;
     }
+
+    @JsonCreator
+    public static ConferenceEndReason forValue(final String value) {
+        return Promoter.enumFromString(value, ConferenceEndReason.values());
+    }
+}
+public enum ConferenceTag {
+    INVALID_REQUESTED_REGION("invalid_requested_region"),
+    DUPLICATE_IDENTITY("duplicate_identity"),
+    START_FAILURE("start_failure"),
+    REGION_CONFIGURATION_ISSUES("region_configuration_issues"),
+    QUALITY_WARNINGS("quality_warnings"),
+    PARTICIPANT_BEHAVIOR_ISSUES("participant_behavior_issues"),
+    HIGH_PACKET_LOSS("high_packet_loss"),
+    HIGH_JITTER("high_jitter"),
+    HIGH_LATENCY("high_latency"),
+    LOW_MOS("low_mos"),
+    DETECTED_SILENCE("detected_silence"),
+    NO_CONCURRENT_PARTICIPANTS("no_concurrent_participants");
+
+    private final String value;
+
+    private ConferenceTag(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static ConferenceTag forValue(final String value) {
+        return Promoter.enumFromString(value, ConferenceTag.values());
+    }
+}
+public enum Region {
+    US1("us1"),
+    US2("us2"),
+    AU1("au1"),
+    BR1("br1"),
+    IE1("ie1"),
+    JP1("jp1"),
+    SG1("sg1"),
+    DE1("de1"),
+    IN1("in1");
+
+    private final String value;
+
+    private Region(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static Region forValue(final String value) {
+        return Promoter.enumFromString(value, Region.values());
+    }
+}
+public enum Tag {
+    INVALID_REQUESTED_REGION("invalid_requested_region"),
+    DUPLICATE_IDENTITY("duplicate_identity"),
+    START_FAILURE("start_failure"),
+    REGION_CONFIGURATION_ISSUES("region_configuration_issues"),
+    QUALITY_WARNINGS("quality_warnings"),
+    PARTICIPANT_BEHAVIOR_ISSUES("participant_behavior_issues"),
+    HIGH_PACKET_LOSS("high_packet_loss"),
+    HIGH_JITTER("high_jitter"),
+    HIGH_LATENCY("high_latency"),
+    LOW_MOS("low_mos"),
+    DETECTED_SILENCE("detected_silence"),
+    NO_CONCURRENT_PARTICIPANTS("no_concurrent_participants");
+
+    private final String value;
+
+    private Tag(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static Tag forValue(final String value) {
+        return Promoter.enumFromString(value, Tag.values());
+    }
+}
+public enum ProcessingState {
+    COMPLETE("complete"),
+    IN_PROGRESS("in_progress"),
+    TIMEOUT("timeout");
+
+    private final String value;
+
+    private ProcessingState(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static ProcessingState forValue(final String value) {
+        return Promoter.enumFromString(value, ProcessingState.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a Conference object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Conference object represented by the provided JSON
-     */
-    public static Conference fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Conference object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Conference object represented by the provided JSON
+    */
+    public static Conference fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Conference.class);
@@ -231,17 +243,14 @@ public class Conference extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Conference object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Conference object represented by the provided JSON
-     */
-    public static Conference fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Conference object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Conference object represented by the provided JSON
+    */
+    public static Conference fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Conference.class);
@@ -263,213 +272,200 @@ public class Conference extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String conferenceSid;
-
     @Getter
     private final Integer connectDurationSeconds;
-
     @Getter
     private final ZonedDateTime createTime;
-
     @Getter
     private final Object detectedIssues;
-
     @Getter
     private final Integer durationSeconds;
-
     @Getter
     private final Conference.ConferenceEndReason endReason;
-
     @Getter
     private final ZonedDateTime endTime;
-
     @Getter
     private final String endedBy;
-
     @Getter
     private final String friendlyName;
-
     @Getter
     private final Map<String, String> links;
-
     @Getter
     private final Integer maxConcurrentParticipants;
-
     @Getter
     private final Integer maxParticipants;
-
     @Getter
     private final Conference.Region mixerRegion;
-
     @Getter
     private final Conference.Region mixerRegionRequested;
-
     @Getter
     private final Conference.ProcessingState processingState;
-
     @Getter
     private final Boolean recordingEnabled;
-
     @Getter
     private final ZonedDateTime startTime;
-
     @Getter
     private final Conference.ConferenceStatus status;
-
     @Getter
     private final Object tagInfo;
-
     @Getter
     private final List<Conference.Tag> tags;
-
     @Getter
     private final Integer uniqueParticipants;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private Conference(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("conference_sid") final String conferenceSid,
-        @JsonProperty(
-            "connect_duration_seconds"
-        ) final Integer connectDurationSeconds,
-        @JsonProperty("create_time") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime createTime,
-        @JsonProperty("detected_issues") final Object detectedIssues,
-        @JsonProperty("duration_seconds") final Integer durationSeconds,
-        @JsonProperty(
-            "end_reason"
-        ) final Conference.ConferenceEndReason endReason,
-        @JsonProperty("end_time") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime endTime,
-        @JsonProperty("ended_by") final String endedBy,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty(
-            "max_concurrent_participants"
-        ) final Integer maxConcurrentParticipants,
-        @JsonProperty("max_participants") final Integer maxParticipants,
-        @JsonProperty("mixer_region") final Conference.Region mixerRegion,
-        @JsonProperty(
-            "mixer_region_requested"
-        ) final Conference.Region mixerRegionRequested,
-        @JsonProperty(
-            "processing_state"
-        ) final Conference.ProcessingState processingState,
-        @JsonProperty("recording_enabled") final Boolean recordingEnabled,
-        @JsonProperty("start_time") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime startTime,
-        @JsonProperty("status") final Conference.ConferenceStatus status,
-        @JsonProperty("tag_info") final Object tagInfo,
-        @JsonProperty("tags") final List<Conference.Tag> tags,
-        @JsonProperty("unique_participants") final Integer uniqueParticipants,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.conferenceSid = conferenceSid;
-        this.connectDurationSeconds = connectDurationSeconds;
-        this.createTime = createTime;
-        this.detectedIssues = detectedIssues;
-        this.durationSeconds = durationSeconds;
-        this.endReason = endReason;
-        this.endTime = endTime;
-        this.endedBy = endedBy;
-        this.friendlyName = friendlyName;
-        this.links = links;
-        this.maxConcurrentParticipants = maxConcurrentParticipants;
-        this.maxParticipants = maxParticipants;
-        this.mixerRegion = mixerRegion;
-        this.mixerRegionRequested = mixerRegionRequested;
-        this.processingState = processingState;
-        this.recordingEnabled = recordingEnabled;
-        this.startTime = startTime;
-        this.status = status;
-        this.tagInfo = tagInfo;
-        this.tags = tags;
-        this.uniqueParticipants = uniqueParticipants;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Conference other = (Conference) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(conferenceSid, other.conferenceSid) &&
-            Objects.equals(
-                connectDurationSeconds,
-                other.connectDurationSeconds
-            ) &&
-            Objects.equals(createTime, other.createTime) &&
-            Objects.equals(detectedIssues, other.detectedIssues) &&
-            Objects.equals(durationSeconds, other.durationSeconds) &&
-            Objects.equals(endReason, other.endReason) &&
-            Objects.equals(endTime, other.endTime) &&
-            Objects.equals(endedBy, other.endedBy) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(
-                maxConcurrentParticipants,
-                other.maxConcurrentParticipants
-            ) &&
-            Objects.equals(maxParticipants, other.maxParticipants) &&
-            Objects.equals(mixerRegion, other.mixerRegion) &&
-            Objects.equals(mixerRegionRequested, other.mixerRegionRequested) &&
-            Objects.equals(processingState, other.processingState) &&
-            Objects.equals(recordingEnabled, other.recordingEnabled) &&
-            Objects.equals(startTime, other.startTime) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(tagInfo, other.tagInfo) &&
-            Objects.equals(tags, other.tags) &&
-            Objects.equals(uniqueParticipants, other.uniqueParticipants) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            conferenceSid,
-            connectDurationSeconds,
-            createTime,
-            detectedIssues,
-            durationSeconds,
-            endReason,
-            endTime,
-            endedBy,
-            friendlyName,
-            links,
-            maxConcurrentParticipants,
-            maxParticipants,
-            mixerRegion,
-            mixerRegionRequested,
-            processingState,
-            recordingEnabled,
-            startTime,
-            status,
-            tagInfo,
-            tags,
-            uniqueParticipants,
-            url
-        );
-    }
+@JsonCreator
+private Conference(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("conference_sid")
+    final String conferenceSid, 
+    @JsonProperty("connect_duration_seconds")
+    final Integer connectDurationSeconds, 
+    @JsonProperty("create_time")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime createTime, 
+    @JsonProperty("detected_issues")
+    final Object detectedIssues, 
+    @JsonProperty("duration_seconds")
+    final Integer durationSeconds, 
+    @JsonProperty("end_reason")
+    final Conference.ConferenceEndReason endReason, 
+    @JsonProperty("end_time")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime endTime, 
+    @JsonProperty("ended_by")
+    final String endedBy, 
+    @JsonProperty("friendly_name")
+    final String friendlyName, 
+    @JsonProperty("links")
+    final Map<String, String> links, 
+    @JsonProperty("max_concurrent_participants")
+    final Integer maxConcurrentParticipants, 
+    @JsonProperty("max_participants")
+    final Integer maxParticipants, 
+    @JsonProperty("mixer_region")
+    final Conference.Region mixerRegion, 
+    @JsonProperty("mixer_region_requested")
+    final Conference.Region mixerRegionRequested, 
+    @JsonProperty("processing_state")
+    final Conference.ProcessingState processingState, 
+    @JsonProperty("recording_enabled")
+    final Boolean recordingEnabled, 
+    @JsonProperty("start_time")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime startTime, 
+    @JsonProperty("status")
+    final Conference.ConferenceStatus status, 
+    @JsonProperty("tag_info")
+    final Object tagInfo, 
+    @JsonProperty("tags")
+    final List<Conference.Tag> tags, 
+    @JsonProperty("unique_participants")
+    final Integer uniqueParticipants, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.conferenceSid = conferenceSid;
+    this.connectDurationSeconds = connectDurationSeconds;
+    this.createTime = createTime;
+    this.detectedIssues = detectedIssues;
+    this.durationSeconds = durationSeconds;
+    this.endReason = endReason;
+    this.endTime = endTime;
+    this.endedBy = endedBy;
+    this.friendlyName = friendlyName;
+    this.links = links;
+    this.maxConcurrentParticipants = maxConcurrentParticipants;
+    this.maxParticipants = maxParticipants;
+    this.mixerRegion = mixerRegion;
+    this.mixerRegionRequested = mixerRegionRequested;
+    this.processingState = processingState;
+    this.recordingEnabled = recordingEnabled;
+    this.startTime = startTime;
+    this.status = status;
+    this.tagInfo = tagInfo;
+    this.tags = tags;
+    this.uniqueParticipants = uniqueParticipants;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Conference other = (Conference) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(conferenceSid, other.conferenceSid) && 
+            Objects.equals(connectDurationSeconds, other.connectDurationSeconds) && 
+            Objects.equals(createTime, other.createTime) && 
+            Objects.equals(detectedIssues, other.detectedIssues) && 
+            Objects.equals(durationSeconds, other.durationSeconds) && 
+            Objects.equals(endReason, other.endReason) && 
+            Objects.equals(endTime, other.endTime) && 
+            Objects.equals(endedBy, other.endedBy) && 
+            Objects.equals(friendlyName, other.friendlyName) && 
+            Objects.equals(links, other.links) && 
+            Objects.equals(maxConcurrentParticipants, other.maxConcurrentParticipants) && 
+            Objects.equals(maxParticipants, other.maxParticipants) && 
+            Objects.equals(mixerRegion, other.mixerRegion) && 
+            Objects.equals(mixerRegionRequested, other.mixerRegionRequested) && 
+            Objects.equals(processingState, other.processingState) && 
+            Objects.equals(recordingEnabled, other.recordingEnabled) && 
+            Objects.equals(startTime, other.startTime) && 
+            Objects.equals(status, other.status) && 
+            Objects.equals(tagInfo, other.tagInfo) && 
+            Objects.equals(tags, other.tags) && 
+            Objects.equals(uniqueParticipants, other.uniqueParticipants) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            conferenceSid, 
+            connectDurationSeconds, 
+            createTime, 
+            detectedIssues, 
+            durationSeconds, 
+            endReason, 
+            endTime, 
+            endedBy, 
+            friendlyName, 
+            links, 
+            maxConcurrentParticipants, 
+            maxParticipants, 
+            mixerRegion, 
+            mixerRegionRequested, 
+            processingState, 
+            recordingEnabled, 
+            startTime, 
+            status, 
+            tagInfo, 
+            tags, 
+            uniqueParticipants, 
+            url
+    );
+}
+
+
+
+}
+

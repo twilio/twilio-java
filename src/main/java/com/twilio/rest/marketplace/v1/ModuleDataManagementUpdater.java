@@ -26,11 +26,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
-
-    private String pathSid;
+    public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
+            private String pathSid;
     private String moduleInfo;
     private String description;
     private String documentation;
@@ -39,57 +40,61 @@ public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
     private String configuration;
     private String pricing;
 
-    public ModuleDataManagementUpdater(final String pathSid) {
+            public ModuleDataManagementUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public ModuleDataManagementUpdater setModuleInfo(final String moduleInfo) {
-        this.moduleInfo = moduleInfo;
-        return this;
-    }
+        
+public ModuleDataManagementUpdater setModuleInfo(final String moduleInfo){
+    this.moduleInfo = moduleInfo;
+    return this;
+}
 
-    public ModuleDataManagementUpdater setDescription(
-        final String description
-    ) {
-        this.description = description;
-        return this;
-    }
 
-    public ModuleDataManagementUpdater setDocumentation(
-        final String documentation
-    ) {
-        this.documentation = documentation;
-        return this;
-    }
+public ModuleDataManagementUpdater setDescription(final String description){
+    this.description = description;
+    return this;
+}
 
-    public ModuleDataManagementUpdater setPolicies(final String policies) {
-        this.policies = policies;
-        return this;
-    }
 
-    public ModuleDataManagementUpdater setSupport(final String support) {
-        this.support = support;
-        return this;
-    }
+public ModuleDataManagementUpdater setDocumentation(final String documentation){
+    this.documentation = documentation;
+    return this;
+}
 
-    public ModuleDataManagementUpdater setConfiguration(
-        final String configuration
-    ) {
-        this.configuration = configuration;
-        return this;
-    }
 
-    public ModuleDataManagementUpdater setPricing(final String pricing) {
-        this.pricing = pricing;
-        return this;
-    }
+public ModuleDataManagementUpdater setPolicies(final String policies){
+    this.policies = policies;
+    return this;
+}
 
-    @Override
+
+public ModuleDataManagementUpdater setSupport(final String support){
+    this.support = support;
+    return this;
+}
+
+
+public ModuleDataManagementUpdater setConfiguration(final String configuration){
+    this.configuration = configuration;
+    return this;
+}
+
+
+public ModuleDataManagementUpdater setPricing(final String pricing){
+    this.pricing = pricing;
+    return this;
+}
+
+
+            @Override
     public ModuleDataManagement update(final TwilioRestClient client) {
-        String path = "/v1/Listing/{Sid}";
+    
+    String path = "/v1/Listing/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.MARKETPLACE.toString(),
@@ -97,95 +102,66 @@ public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "ModuleDataManagement update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ModuleDataManagement update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return ModuleDataManagement.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return ModuleDataManagement.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (moduleInfo != null) {
+        Serializer.toString(request, "ModuleInfo", moduleInfo, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (moduleInfo != null) {
-            Serializer.toString(
-                request,
-                "ModuleInfo",
-                moduleInfo,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (description != null) {
-            Serializer.toString(
-                request,
-                "Description",
-                description,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (documentation != null) {
-            Serializer.toString(
-                request,
-                "Documentation",
-                documentation,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (policies != null) {
-            Serializer.toString(
-                request,
-                "Policies",
-                policies,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (support != null) {
-            Serializer.toString(
-                request,
-                "Support",
-                support,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (configuration != null) {
-            Serializer.toString(
-                request,
-                "Configuration",
-                configuration,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (pricing != null) {
-            Serializer.toString(
-                request,
-                "Pricing",
-                pricing,
-                ParameterType.URLENCODED
-            );
-        }
+    if (description != null) {
+        Serializer.toString(request, "Description", description, ParameterType.URLENCODED);
     }
+
+
+
+    if (documentation != null) {
+        Serializer.toString(request, "Documentation", documentation, ParameterType.URLENCODED);
+    }
+
+
+
+    if (policies != null) {
+        Serializer.toString(request, "Policies", policies, ParameterType.URLENCODED);
+    }
+
+
+
+    if (support != null) {
+        Serializer.toString(request, "Support", support, ParameterType.URLENCODED);
+    }
+
+
+
+    if (configuration != null) {
+        Serializer.toString(request, "Configuration", configuration, ParameterType.URLENCODED);
+    }
+
+
+
+    if (pricing != null) {
+        Serializer.toString(request, "Pricing", pricing, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

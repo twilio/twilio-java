@@ -17,114 +17,190 @@ package com.twilio.rest.events.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
+import com.twilio.base.Reader;
+import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Objects;
+import com.twilio.exception.RestException;
+import com.twilio.http.HttpMethod;
+import com.twilio.http.Request;
+import com.twilio.http.Response;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Currency;
+import java.util.List;
+import java.util.Map;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Sink extends Resource {
 
-    public static SinkCreator creator(
-        final String description,
-        final Object sinkConfiguration,
-        final Sink.SinkType sinkType
-    ) {
-        return new SinkCreator(description, sinkConfiguration, sinkType);
+
+
+    public static SinkCreator creator(final String description, final Object sinkConfiguration, final Sink.SinkType sinkType) {
+        return new SinkCreator(
+             description,  sinkConfiguration,  sinkType
+        );
     }
+
+
+
+
+
+
+    
+
+
 
     public static SinkDeleter deleter(final String pathSid) {
-        return new SinkDeleter(pathSid);
+        return new SinkDeleter(
+             pathSid
+        );
     }
+
+
+
+
+    
+
+
+
 
     public static SinkFetcher fetcher(final String pathSid) {
-        return new SinkFetcher(pathSid);
+        return new SinkFetcher(
+             pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static SinkReader reader() {
-        return new SinkReader();
+        return new SinkReader(
+            
+        );
     }
 
-    public static SinkUpdater updater(
-        final String pathSid,
-        final String description
-    ) {
-        return new SinkUpdater(pathSid, description);
+
+    
+
+
+
+
+
+
+    public static SinkUpdater updater(final String pathSid, final String description) {
+        return new SinkUpdater(
+             pathSid,  description
+        );
     }
 
-    public enum Status {
-        INITIALIZED("initialized"),
-        VALIDATING("validating"),
-        ACTIVE("active"),
-        FAILED("failed");
+    
 
-        private final String value;
+public enum Status {
+    INITIALIZED("initialized"),
+    VALIDATING("validating"),
+    ACTIVE("active"),
+    FAILED("failed");
 
-        private Status(final String value) {
-            this.value = value;
-        }
+    private final String value;
 
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
+    private Status(final String value) {
+        this.value = value;
     }
 
-    public enum SinkType {
-        KINESIS("kinesis"),
-        WEBHOOK("webhook"),
-        SEGMENT("segment"),
-        EMAIL("email");
-
-        private final String value;
-
-        private SinkType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static SinkType forValue(final String value) {
-            return Promoter.enumFromString(value, SinkType.values());
-        }
+    public String toString() {
+        return value;
     }
+
+    @JsonCreator
+    public static Status forValue(final String value) {
+        return Promoter.enumFromString(value, Status.values());
+    }
+}
+public enum SinkType {
+    KINESIS("kinesis"),
+    WEBHOOK("webhook"),
+    SEGMENT("segment"),
+    EMAIL("email");
+
+    private final String value;
+
+    private SinkType(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static SinkType forValue(final String value) {
+        return Promoter.enumFromString(value, SinkType.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a Sink object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Sink object represented by the provided JSON
-     */
-    public static Sink fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Sink object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Sink object represented by the provided JSON
+    */
+    public static Sink fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Sink.class);
@@ -136,17 +212,14 @@ public class Sink extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Sink object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Sink object represented by the provided JSON
-     */
-    public static Sink fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Sink object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Sink object represented by the provided JSON
+    */
+    public static Sink fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Sink.class);
@@ -168,97 +241,101 @@ public class Sink extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String description;
-
     @Getter
     private final Map<String, String> links;
-
     @Getter
     private final String sid;
-
     @Getter
     private final Object sinkConfiguration;
-
     @Getter
     private final Sink.SinkType sinkType;
-
     @Getter
     private final Sink.Status status;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private Sink(
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("description") final String description,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("sink_configuration") final Object sinkConfiguration,
-        @JsonProperty("sink_type") final Sink.SinkType sinkType,
-        @JsonProperty("status") final Sink.Status status,
-        @JsonProperty("url") final URI url
-    ) {
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.description = description;
-        this.links = links;
-        this.sid = sid;
-        this.sinkConfiguration = sinkConfiguration;
-        this.sinkType = sinkType;
-        this.status = status;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Sink other = (Sink) o;
-        return (
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(sinkConfiguration, other.sinkConfiguration) &&
-            Objects.equals(sinkType, other.sinkType) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            dateCreated,
-            dateUpdated,
-            description,
-            links,
-            sid,
-            sinkConfiguration,
-            sinkType,
-            status,
-            url
-        );
-    }
+@JsonCreator
+private Sink(
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("description")
+    final String description, 
+    @JsonProperty("links")
+    final Map<String, String> links, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("sink_configuration")
+    final Object sinkConfiguration, 
+    @JsonProperty("sink_type")
+    final Sink.SinkType sinkType, 
+    @JsonProperty("status")
+    final Sink.Status status, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.description = description;
+    this.links = links;
+    this.sid = sid;
+    this.sinkConfiguration = sinkConfiguration;
+    this.sinkType = sinkType;
+    this.status = status;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Sink other = (Sink) o;
+    return (
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(description, other.description) && 
+            Objects.equals(links, other.links) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(sinkConfiguration, other.sinkConfiguration) && 
+            Objects.equals(sinkType, other.sinkType) && 
+            Objects.equals(status, other.status) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            dateCreated, 
+            dateUpdated, 
+            description, 
+            links, 
+            sid, 
+            sinkConfiguration, 
+            sinkType, 
+            status, 
+            url
+    );
+}
+
+
+
+}
+

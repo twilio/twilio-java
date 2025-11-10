@@ -14,6 +14,7 @@
 
 package com.twilio.rest.flexapi.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -25,64 +26,60 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class InsightsSessionCreator extends Creator<InsightsSession> {
 
     private String authorization;
 
-    public InsightsSessionCreator() {}
-
-    public InsightsSessionCreator setAuthorization(final String authorization) {
-        this.authorization = authorization;
-        return this;
+    public InsightsSessionCreator() {
     }
+
+
+public InsightsSessionCreator setAuthorization(final String authorization){
+    this.authorization = authorization;
+    return this;
+}
+
 
     @Override
     public InsightsSession create(final TwilioRestClient client) {
-        String path = "/v1/Insights/Session";
+    
+    String path = "/v1/Insights/Session";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
             path
         );
         addHeaderParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "InsightsSession creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InsightsSession creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return InsightsSession.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return InsightsSession.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addHeaderParams(final Request request) {
-        if (authorization != null) {
-            Serializer.toString(
-                request,
-                "Authorization",
-                authorization,
-                ParameterType.HEADER
-            );
-        }
+
+    if (authorization != null) {
+        Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
     }
+
+}
 }

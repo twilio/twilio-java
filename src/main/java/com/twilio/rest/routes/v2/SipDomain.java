@@ -17,49 +17,71 @@ package com.twilio.rest.routes.v2;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SipDomain extends Resource {
 
+
+
+
+
+
     public static SipDomainFetcher fetcher(final String pathSipDomain) {
-        return new SipDomainFetcher(pathSipDomain);
+        return new SipDomainFetcher(
+             pathSipDomain
+        );
     }
+
+
+
+    
+
+
+
+
+
 
     public static SipDomainUpdater updater(final String pathSipDomain) {
-        return new SipDomainUpdater(pathSipDomain);
+        return new SipDomainUpdater(
+             pathSipDomain
+        );
     }
 
+    
+
+
+
     /**
-     * Converts a JSON String into a SipDomain object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return SipDomain object represented by the provided JSON
-     */
-    public static SipDomain fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a SipDomain object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return SipDomain object represented by the provided JSON
+    */
+    public static SipDomain fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SipDomain.class);
@@ -71,17 +93,14 @@ public class SipDomain extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a SipDomain object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return SipDomain object represented by the provided JSON
-     */
-    public static SipDomain fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a SipDomain object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return SipDomain object represented by the provided JSON
+    */
+    public static SipDomain fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SipDomain.class);
@@ -103,90 +122,94 @@ public class SipDomain extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String friendlyName;
-
     @Getter
     private final String sid;
-
     @Getter
     private final String sipDomain;
-
     @Getter
     private final URI url;
-
     @Getter
     private final String voiceRegion;
 
-    @JsonCreator
-    private SipDomain(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("sip_domain") final String sipDomain,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("voice_region") final String voiceRegion
-    ) {
-        this.accountSid = accountSid;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.friendlyName = friendlyName;
-        this.sid = sid;
-        this.sipDomain = sipDomain;
-        this.url = url;
-        this.voiceRegion = voiceRegion;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        SipDomain other = (SipDomain) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(sipDomain, other.sipDomain) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(voiceRegion, other.voiceRegion)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            dateCreated,
-            dateUpdated,
-            friendlyName,
-            sid,
-            sipDomain,
-            url,
-            voiceRegion
-        );
-    }
+@JsonCreator
+private SipDomain(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("friendly_name")
+    final String friendlyName, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("sip_domain")
+    final String sipDomain, 
+    @JsonProperty("url")
+    final URI url, 
+    @JsonProperty("voice_region")
+    final String voiceRegion
+){
+    this.accountSid = accountSid;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.friendlyName = friendlyName;
+    this.sid = sid;
+    this.sipDomain = sipDomain;
+    this.url = url;
+    this.voiceRegion = voiceRegion;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    SipDomain other = (SipDomain) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(friendlyName, other.friendlyName) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(sipDomain, other.sipDomain) && 
+            Objects.equals(url, other.url) && 
+            Objects.equals(voiceRegion, other.voiceRegion)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            dateCreated, 
+            dateUpdated, 
+            friendlyName, 
+            sid, 
+            sipDomain, 
+            url, 
+            voiceRegion
+    );
+}
+
+
+
+}
+

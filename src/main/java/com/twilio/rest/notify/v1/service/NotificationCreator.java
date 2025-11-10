@@ -14,6 +14,7 @@
 
 package com.twilio.rest.notify.v1.service;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +28,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.util.List;
+import com.twilio.type.*;
 
 public class NotificationCreator extends Creator<Notification> {
 
@@ -56,128 +59,135 @@ public class NotificationCreator extends Creator<Notification> {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public NotificationCreator setBody(final String body) {
-        this.body = body;
-        return this;
-    }
 
-    public NotificationCreator setPriority(
-        final Notification.Priority priority
-    ) {
-        this.priority = priority;
-        return this;
-    }
+public NotificationCreator setBody(final String body){
+    this.body = body;
+    return this;
+}
 
-    public NotificationCreator setTtl(final Integer ttl) {
-        this.ttl = ttl;
-        return this;
-    }
 
-    public NotificationCreator setTitle(final String title) {
-        this.title = title;
-        return this;
-    }
+public NotificationCreator setPriority(final Notification.Priority priority){
+    this.priority = priority;
+    return this;
+}
 
-    public NotificationCreator setSound(final String sound) {
-        this.sound = sound;
-        return this;
-    }
 
-    public NotificationCreator setAction(final String action) {
-        this.action = action;
-        return this;
-    }
+public NotificationCreator setTtl(final Integer ttl){
+    this.ttl = ttl;
+    return this;
+}
 
-    public NotificationCreator setData(final Object data) {
-        this.data = data;
-        return this;
-    }
 
-    public NotificationCreator setApn(final Object apn) {
-        this.apn = apn;
-        return this;
-    }
+public NotificationCreator setTitle(final String title){
+    this.title = title;
+    return this;
+}
 
-    public NotificationCreator setGcm(final Object gcm) {
-        this.gcm = gcm;
-        return this;
-    }
 
-    public NotificationCreator setSms(final Object sms) {
-        this.sms = sms;
-        return this;
-    }
+public NotificationCreator setSound(final String sound){
+    this.sound = sound;
+    return this;
+}
 
-    public NotificationCreator setFacebookMessenger(
-        final Object facebookMessenger
-    ) {
-        this.facebookMessenger = facebookMessenger;
-        return this;
-    }
 
-    public NotificationCreator setFcm(final Object fcm) {
-        this.fcm = fcm;
-        return this;
-    }
+public NotificationCreator setAction(final String action){
+    this.action = action;
+    return this;
+}
 
-    public NotificationCreator setSegment(final List<String> segment) {
-        this.segment = segment;
-        return this;
-    }
 
-    public NotificationCreator setSegment(final String segment) {
-        return setSegment(Promoter.listOfOne(segment));
-    }
+public NotificationCreator setData(final Object data){
+    this.data = data;
+    return this;
+}
 
-    public NotificationCreator setAlexa(final Object alexa) {
-        this.alexa = alexa;
-        return this;
-    }
 
-    public NotificationCreator setToBinding(final List<String> toBinding) {
-        this.toBinding = toBinding;
-        return this;
-    }
+public NotificationCreator setApn(final Object apn){
+    this.apn = apn;
+    return this;
+}
 
-    public NotificationCreator setToBinding(final String toBinding) {
-        return setToBinding(Promoter.listOfOne(toBinding));
-    }
 
-    public NotificationCreator setDeliveryCallbackUrl(
-        final String deliveryCallbackUrl
-    ) {
-        this.deliveryCallbackUrl = deliveryCallbackUrl;
-        return this;
-    }
+public NotificationCreator setGcm(final Object gcm){
+    this.gcm = gcm;
+    return this;
+}
 
-    public NotificationCreator setIdentity(final List<String> identity) {
-        this.identity = identity;
-        return this;
-    }
 
-    public NotificationCreator setIdentity(final String identity) {
-        return setIdentity(Promoter.listOfOne(identity));
-    }
+public NotificationCreator setSms(final Object sms){
+    this.sms = sms;
+    return this;
+}
 
-    public NotificationCreator setTag(final List<String> tag) {
-        this.tag = tag;
-        return this;
-    }
 
-    public NotificationCreator setTag(final String tag) {
-        return setTag(Promoter.listOfOne(tag));
-    }
+public NotificationCreator setFacebookMessenger(final Object facebookMessenger){
+    this.facebookMessenger = facebookMessenger;
+    return this;
+}
+
+
+public NotificationCreator setFcm(final Object fcm){
+    this.fcm = fcm;
+    return this;
+}
+
+
+public NotificationCreator setSegment(final List<String> segment){
+    this.segment = segment;
+    return this;
+}
+
+public NotificationCreator setSegment(final String segment){
+    return setSegment(Promoter.listOfOne(segment));
+}
+
+public NotificationCreator setAlexa(final Object alexa){
+    this.alexa = alexa;
+    return this;
+}
+
+
+public NotificationCreator setToBinding(final List<String> toBinding){
+    this.toBinding = toBinding;
+    return this;
+}
+
+public NotificationCreator setToBinding(final String toBinding){
+    return setToBinding(Promoter.listOfOne(toBinding));
+}
+
+public NotificationCreator setDeliveryCallbackUrl(final String deliveryCallbackUrl){
+    this.deliveryCallbackUrl = deliveryCallbackUrl;
+    return this;
+}
+
+
+public NotificationCreator setIdentity(final List<String> identity){
+    this.identity = identity;
+    return this;
+}
+
+public NotificationCreator setIdentity(final String identity){
+    return setIdentity(Promoter.listOfOne(identity));
+}
+
+public NotificationCreator setTag(final List<String> tag){
+    this.tag = tag;
+    return this;
+}
+
+public NotificationCreator setTag(final String tag){
+    return setTag(Promoter.listOfOne(tag));
+}
 
     @Override
     public Notification create(final TwilioRestClient client) {
-        String path = "/v1/Services/{ServiceSid}/Notifications";
+    
+    String path = "/v1/Services/{ServiceSid}/Notifications";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.NOTIFY.toString(),
@@ -185,177 +195,140 @@ public class NotificationCreator extends Creator<Notification> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Notification creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Notification creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Notification.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return Notification.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (body != null) {
-            Serializer.toString(
-                request,
-                "Body",
-                body,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (priority != null) {
-            Serializer.toString(
-                request,
-                "Priority",
-                priority,
-                ParameterType.URLENCODED
-            );
-        }
+    if (body != null) {
+        Serializer.toString(request, "Body", body, ParameterType.URLENCODED);
+    }
 
-        if (ttl != null) {
-            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
-        }
 
-        if (title != null) {
-            Serializer.toString(
-                request,
-                "Title",
-                title,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (sound != null) {
-            Serializer.toString(
-                request,
-                "Sound",
-                sound,
-                ParameterType.URLENCODED
-            );
-        }
+    if (priority != null) {
+        Serializer.toString(request, "Priority", priority, ParameterType.URLENCODED);
+    }
 
-        if (action != null) {
-            Serializer.toString(
-                request,
-                "Action",
-                action,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (data != null) {
-            Serializer.toString(
-                request,
-                "Data",
-                data,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (apn != null) {
-            Serializer.toString(request, "Apn", apn, ParameterType.URLENCODED);
-        }
+    if (ttl != null) {
+        Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
+    }
 
-        if (gcm != null) {
-            Serializer.toString(request, "Gcm", gcm, ParameterType.URLENCODED);
-        }
 
-        if (sms != null) {
-            Serializer.toString(request, "Sms", sms, ParameterType.URLENCODED);
-        }
 
-        if (facebookMessenger != null) {
-            Serializer.toString(
-                request,
-                "FacebookMessenger",
-                facebookMessenger,
-                ParameterType.URLENCODED
-            );
-        }
+    if (title != null) {
+        Serializer.toString(request, "Title", title, ParameterType.URLENCODED);
+    }
 
-        if (fcm != null) {
-            Serializer.toString(request, "Fcm", fcm, ParameterType.URLENCODED);
-        }
 
-        if (segment != null) {
-            for (String param : segment) {
-                Serializer.toString(
-                    request,
-                    "Segment",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (alexa != null) {
-            Serializer.toString(
-                request,
-                "Alexa",
-                alexa,
-                ParameterType.URLENCODED
-            );
-        }
+    if (sound != null) {
+        Serializer.toString(request, "Sound", sound, ParameterType.URLENCODED);
+    }
 
-        if (toBinding != null) {
-            for (String param : toBinding) {
-                Serializer.toString(
-                    request,
-                    "ToBinding",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (deliveryCallbackUrl != null) {
-            Serializer.toString(
-                request,
-                "DeliveryCallbackUrl",
-                deliveryCallbackUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (identity != null) {
-            for (String param : identity) {
-                Serializer.toString(
-                    request,
-                    "Identity",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
+    if (action != null) {
+        Serializer.toString(request, "Action", action, ParameterType.URLENCODED);
+    }
 
-        if (tag != null) {
-            for (String param : tag) {
-                Serializer.toString(
-                    request,
-                    "Tag",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
+
+
+    if (data != null) {
+        Serializer.toString(request, "Data", data, ParameterType.URLENCODED);
+    }
+
+
+
+    if (apn != null) {
+        Serializer.toString(request, "Apn", apn, ParameterType.URLENCODED);
+    }
+
+
+
+    if (gcm != null) {
+        Serializer.toString(request, "Gcm", gcm, ParameterType.URLENCODED);
+    }
+
+
+
+    if (sms != null) {
+        Serializer.toString(request, "Sms", sms, ParameterType.URLENCODED);
+    }
+
+
+
+    if (facebookMessenger != null) {
+        Serializer.toString(request, "FacebookMessenger", facebookMessenger, ParameterType.URLENCODED);
+    }
+
+
+
+    if (fcm != null) {
+        Serializer.toString(request, "Fcm", fcm, ParameterType.URLENCODED);
+    }
+
+
+
+
+    if (segment != null) {
+        for (String param: segment) {
+            Serializer.toString(request, "Segment", param, ParameterType.URLENCODED);
         }
     }
+
+
+    if (alexa != null) {
+        Serializer.toString(request, "Alexa", alexa, ParameterType.URLENCODED);
+    }
+
+
+
+
+    if (toBinding != null) {
+        for (String param: toBinding) {
+            Serializer.toString(request, "ToBinding", param, ParameterType.URLENCODED);
+        }
+    }
+
+
+    if (deliveryCallbackUrl != null) {
+        Serializer.toString(request, "DeliveryCallbackUrl", deliveryCallbackUrl, ParameterType.URLENCODED);
+    }
+
+
+
+
+    if (identity != null) {
+        for (String param: identity) {
+            Serializer.toString(request, "Identity", param, ParameterType.URLENCODED);
+        }
+    }
+
+
+
+    if (tag != null) {
+        for (String param: tag) {
+            Serializer.toString(request, "Tag", param, ParameterType.URLENCODED);
+        }
+    }
+
+}
 }

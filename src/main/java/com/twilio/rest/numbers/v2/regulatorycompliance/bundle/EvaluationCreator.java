@@ -14,6 +14,7 @@
 
 package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
 
+
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -23,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class EvaluationCreator extends Creator<Evaluation> {
@@ -33,46 +36,36 @@ public class EvaluationCreator extends Creator<Evaluation> {
         this.pathBundleSid = pathBundleSid;
     }
 
+
     @Override
     public Evaluation create(final TwilioRestClient client) {
-        String path =
-            "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations";
+    
+    String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations";
 
-        path =
-            path.replace(
-                "{" + "BundleSid" + "}",
-                this.pathBundleSid.toString()
-            );
+    path = path.replace("{"+"BundleSid"+"}", this.pathBundleSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Evaluation creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Evaluation creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Evaluation.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return Evaluation.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.wireless.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +28,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.util.List;
+import com.twilio.type.*;
 
 public class RatePlanCreator extends Creator<RatePlan> {
 
@@ -45,90 +48,92 @@ public class RatePlanCreator extends Creator<RatePlan> {
     private Integer internationalRoamingDataLimit;
     private RatePlan.DataLimitStrategy dataLimitStrategy;
 
-    public RatePlanCreator() {}
-
-    public RatePlanCreator setUniqueName(final String uniqueName) {
-        this.uniqueName = uniqueName;
-        return this;
+    public RatePlanCreator() {
     }
 
-    public RatePlanCreator setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
 
-    public RatePlanCreator setDataEnabled(final Boolean dataEnabled) {
-        this.dataEnabled = dataEnabled;
-        return this;
-    }
+public RatePlanCreator setUniqueName(final String uniqueName){
+    this.uniqueName = uniqueName;
+    return this;
+}
 
-    public RatePlanCreator setDataLimit(final Integer dataLimit) {
-        this.dataLimit = dataLimit;
-        return this;
-    }
 
-    public RatePlanCreator setDataMetering(final String dataMetering) {
-        this.dataMetering = dataMetering;
-        return this;
-    }
+public RatePlanCreator setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public RatePlanCreator setMessagingEnabled(final Boolean messagingEnabled) {
-        this.messagingEnabled = messagingEnabled;
-        return this;
-    }
 
-    public RatePlanCreator setVoiceEnabled(final Boolean voiceEnabled) {
-        this.voiceEnabled = voiceEnabled;
-        return this;
-    }
+public RatePlanCreator setDataEnabled(final Boolean dataEnabled){
+    this.dataEnabled = dataEnabled;
+    return this;
+}
 
-    public RatePlanCreator setNationalRoamingEnabled(
-        final Boolean nationalRoamingEnabled
-    ) {
-        this.nationalRoamingEnabled = nationalRoamingEnabled;
-        return this;
-    }
 
-    public RatePlanCreator setInternationalRoaming(
-        final List<String> internationalRoaming
-    ) {
-        this.internationalRoaming = internationalRoaming;
-        return this;
-    }
+public RatePlanCreator setDataLimit(final Integer dataLimit){
+    this.dataLimit = dataLimit;
+    return this;
+}
 
-    public RatePlanCreator setInternationalRoaming(
-        final String internationalRoaming
-    ) {
-        return setInternationalRoaming(
-            Promoter.listOfOne(internationalRoaming)
-        );
-    }
 
-    public RatePlanCreator setNationalRoamingDataLimit(
-        final Integer nationalRoamingDataLimit
-    ) {
-        this.nationalRoamingDataLimit = nationalRoamingDataLimit;
-        return this;
-    }
+public RatePlanCreator setDataMetering(final String dataMetering){
+    this.dataMetering = dataMetering;
+    return this;
+}
 
-    public RatePlanCreator setInternationalRoamingDataLimit(
-        final Integer internationalRoamingDataLimit
-    ) {
-        this.internationalRoamingDataLimit = internationalRoamingDataLimit;
-        return this;
-    }
 
-    public RatePlanCreator setDataLimitStrategy(
-        final RatePlan.DataLimitStrategy dataLimitStrategy
-    ) {
-        this.dataLimitStrategy = dataLimitStrategy;
-        return this;
-    }
+public RatePlanCreator setMessagingEnabled(final Boolean messagingEnabled){
+    this.messagingEnabled = messagingEnabled;
+    return this;
+}
+
+
+public RatePlanCreator setVoiceEnabled(final Boolean voiceEnabled){
+    this.voiceEnabled = voiceEnabled;
+    return this;
+}
+
+
+public RatePlanCreator setNationalRoamingEnabled(final Boolean nationalRoamingEnabled){
+    this.nationalRoamingEnabled = nationalRoamingEnabled;
+    return this;
+}
+
+
+public RatePlanCreator setInternationalRoaming(final List<String> internationalRoaming){
+    this.internationalRoaming = internationalRoaming;
+    return this;
+}
+
+public RatePlanCreator setInternationalRoaming(final String internationalRoaming){
+    return setInternationalRoaming(Promoter.listOfOne(internationalRoaming));
+}
+
+public RatePlanCreator setNationalRoamingDataLimit(final Integer nationalRoamingDataLimit){
+    this.nationalRoamingDataLimit = nationalRoamingDataLimit;
+    return this;
+}
+
+
+public RatePlanCreator setInternationalRoamingDataLimit(final Integer internationalRoamingDataLimit){
+    this.internationalRoamingDataLimit = internationalRoamingDataLimit;
+    return this;
+}
+
+
+public RatePlanCreator setDataLimitStrategy(final RatePlan.DataLimitStrategy dataLimitStrategy){
+    this.dataLimitStrategy = dataLimitStrategy;
+    return this;
+}
+
 
     @Override
     public RatePlan create(final TwilioRestClient client) {
-        String path = "/v1/RatePlans";
+    
+    String path = "/v1/RatePlans";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.WIRELESS.toString(),
@@ -136,142 +141,98 @@ public class RatePlanCreator extends Creator<RatePlan> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "RatePlan creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("RatePlan creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return RatePlan.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return RatePlan.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (uniqueName != null) {
-            Serializer.toString(
-                request,
-                "UniqueName",
-                uniqueName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
+    if (uniqueName != null) {
+        Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
+    }
 
-        if (dataEnabled != null) {
-            Serializer.toString(
-                request,
-                "DataEnabled",
-                dataEnabled,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (dataLimit != null) {
-            Serializer.toString(
-                request,
-                "DataLimit",
-                dataLimit,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (dataMetering != null) {
-            Serializer.toString(
-                request,
-                "DataMetering",
-                dataMetering,
-                ParameterType.URLENCODED
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+    }
 
-        if (messagingEnabled != null) {
-            Serializer.toString(
-                request,
-                "MessagingEnabled",
-                messagingEnabled,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (voiceEnabled != null) {
-            Serializer.toString(
-                request,
-                "VoiceEnabled",
-                voiceEnabled,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (nationalRoamingEnabled != null) {
-            Serializer.toString(
-                request,
-                "NationalRoamingEnabled",
-                nationalRoamingEnabled,
-                ParameterType.URLENCODED
-            );
-        }
+    if (dataEnabled != null) {
+        Serializer.toString(request, "DataEnabled", dataEnabled, ParameterType.URLENCODED);
+    }
 
-        if (internationalRoaming != null) {
-            for (String param : internationalRoaming) {
-                Serializer.toString(
-                    request,
-                    "InternationalRoaming",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (nationalRoamingDataLimit != null) {
-            Serializer.toString(
-                request,
-                "NationalRoamingDataLimit",
-                nationalRoamingDataLimit,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (internationalRoamingDataLimit != null) {
-            Serializer.toString(
-                request,
-                "InternationalRoamingDataLimit",
-                internationalRoamingDataLimit,
-                ParameterType.URLENCODED
-            );
-        }
+    if (dataLimit != null) {
+        Serializer.toString(request, "DataLimit", dataLimit, ParameterType.URLENCODED);
+    }
 
-        if (dataLimitStrategy != null) {
-            Serializer.toString(
-                request,
-                "DataLimitStrategy",
-                dataLimitStrategy,
-                ParameterType.URLENCODED
-            );
+
+
+    if (dataMetering != null) {
+        Serializer.toString(request, "DataMetering", dataMetering, ParameterType.URLENCODED);
+    }
+
+
+
+    if (messagingEnabled != null) {
+        Serializer.toString(request, "MessagingEnabled", messagingEnabled, ParameterType.URLENCODED);
+    }
+
+
+
+    if (voiceEnabled != null) {
+        Serializer.toString(request, "VoiceEnabled", voiceEnabled, ParameterType.URLENCODED);
+    }
+
+
+
+    if (nationalRoamingEnabled != null) {
+        Serializer.toString(request, "NationalRoamingEnabled", nationalRoamingEnabled, ParameterType.URLENCODED);
+    }
+
+
+
+
+    if (internationalRoaming != null) {
+        for (String param: internationalRoaming) {
+            Serializer.toString(request, "InternationalRoaming", param, ParameterType.URLENCODED);
         }
     }
+
+
+    if (nationalRoamingDataLimit != null) {
+        Serializer.toString(request, "NationalRoamingDataLimit", nationalRoamingDataLimit, ParameterType.URLENCODED);
+    }
+
+
+
+    if (internationalRoamingDataLimit != null) {
+        Serializer.toString(request, "InternationalRoamingDataLimit", internationalRoamingDataLimit, ParameterType.URLENCODED);
+    }
+
+
+
+    if (dataLimitStrategy != null) {
+        Serializer.toString(request, "DataLimitStrategy", dataLimitStrategy, ParameterType.URLENCODED);
+    }
+
+
+}
 }

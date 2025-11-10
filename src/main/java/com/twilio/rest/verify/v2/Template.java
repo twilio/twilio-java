@@ -17,43 +17,56 @@ package com.twilio.rest.verify.v2;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.util.List;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Template extends Resource {
 
+
+
+
+
+
+
     public static TemplateReader reader() {
-        return new TemplateReader();
+        return new TemplateReader(
+            
+        );
     }
 
+
+    
+
+
+
     /**
-     * Converts a JSON String into a Template object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Template object represented by the provided JSON
-     */
-    public static Template fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Template object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Template object represented by the provided JSON
+    */
+    public static Template fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Template.class);
@@ -65,17 +78,14 @@ public class Template extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Template object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Template object represented by the provided JSON
-     */
-    public static Template fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Template object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Template object represented by the provided JSON
+    */
+    public static Template fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Template.class);
@@ -97,65 +107,71 @@ public class Template extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final List<String> channels;
-
     @Getter
     private final String friendlyName;
-
     @Getter
     private final String sid;
-
     @Getter
     private final Object translations;
 
-    @JsonCreator
-    private Template(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("channels") final List<String> channels,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("translations") final Object translations
-    ) {
-        this.accountSid = accountSid;
-        this.channels = channels;
-        this.friendlyName = friendlyName;
-        this.sid = sid;
-        this.translations = translations;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Template other = (Template) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(channels, other.channels) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(translations, other.translations)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            channels,
-            friendlyName,
-            sid,
-            translations
-        );
-    }
+@JsonCreator
+private Template(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("channels")
+    final List<String> channels, 
+    @JsonProperty("friendly_name")
+    final String friendlyName, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("translations")
+    final Object translations
+){
+    this.accountSid = accountSid;
+    this.channels = channels;
+    this.friendlyName = friendlyName;
+    this.sid = sid;
+    this.translations = translations;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Template other = (Template) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(channels, other.channels) && 
+            Objects.equals(friendlyName, other.friendlyName) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(translations, other.translations)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            channels, 
+            friendlyName, 
+            sid, 
+            translations
+    );
+}
+
+
+
+}
+

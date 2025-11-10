@@ -14,9 +14,7 @@
 
 package com.twilio.rest.intelligence.v2.transcript;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,41 +25,45 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class OperatorResultReader extends Reader<OperatorResult> {
 
-    private String pathTranscriptSid;
+        private String pathTranscriptSid;
     private Boolean redacted;
     private Long pageSize;
 
-    public OperatorResultReader(final String pathTranscriptSid) {
+        public OperatorResultReader(final String pathTranscriptSid) {
         this.pathTranscriptSid = pathTranscriptSid;
     }
 
-    public OperatorResultReader setRedacted(final Boolean redacted) {
-        this.redacted = redacted;
-        return this;
-    }
+    
+public OperatorResultReader setRedacted(final Boolean redacted){
+    this.redacted = redacted;
+    return this;
+}
 
-    public OperatorResultReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
 
-    @Override
+public OperatorResultReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+        @Override
     public ResourceSet<OperatorResult> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<OperatorResult> firstPage(final TwilioRestClient client) {
-        String path = "/v2/Transcripts/{TranscriptSid}/OperatorResults";
+        
+    String path = "/v2/Transcripts/{TranscriptSid}/OperatorResults";
 
-        path =
-            path.replace(
-                "{" + "TranscriptSid" + "}",
-                this.pathTranscriptSid.toString()
-            );
+    path = path.replace("{"+"TranscriptSid"+"}", this.pathTranscriptSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -73,88 +75,61 @@ public class OperatorResultReader extends Reader<OperatorResult> {
         return pageForRequest(client, request);
     }
 
-    private Page<OperatorResult> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<OperatorResult> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "OperatorResult read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("OperatorResult read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "operator_results",
             response.getContent(),
             OperatorResult.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<OperatorResult> previousPage(
-        final Page<OperatorResult> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<OperatorResult> previousPage(final Page<OperatorResult> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<OperatorResult> nextPage(
-        final Page<OperatorResult> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<OperatorResult> nextPage(final Page<OperatorResult> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<OperatorResult> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<OperatorResult> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (redacted != null) {
-            Serializer.toString(
-                request,
-                "Redacted",
-                redacted,
-                ParameterType.QUERY
-            );
-        }
 
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+
+    if (redacted != null) {
+        Serializer.toString(request, "Redacted", redacted, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

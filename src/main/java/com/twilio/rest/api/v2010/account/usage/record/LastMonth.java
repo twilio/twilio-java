@@ -17,51 +17,67 @@ package com.twilio.rest.api.v2010.account.usage.record;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Currency;
 import java.util.Map;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class LastMonth extends Resource {
 
+
+
+
+
+
+
     public static LastMonthReader reader() {
-        return new LastMonthReader();
+        return new LastMonthReader(
+            
+        );
     }
+
 
     public static LastMonthReader reader(final String pathAccountSid) {
-        return new LastMonthReader(pathAccountSid);
+        return new LastMonthReader(
+             pathAccountSid
+        );
     }
 
+
+    
+
+
+
     /**
-     * Converts a JSON String into a LastMonth object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return LastMonth object represented by the provided JSON
-     */
-    public static LastMonth fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a LastMonth object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return LastMonth object represented by the provided JSON
+    */
+    public static LastMonth fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, LastMonth.class);
@@ -73,17 +89,14 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a LastMonth object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return LastMonth object represented by the provided JSON
-     */
-    public static LastMonth fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a LastMonth object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return LastMonth object represented by the provided JSON
+    */
+    public static LastMonth fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, LastMonth.class);
@@ -105,144 +118,144 @@ public class LastMonth extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String apiVersion;
-
     @Getter
     private final String asOf;
-
     @Getter
     private final String category;
-
     @Getter
     private final String count;
-
     @Getter
     private final String countUnit;
-
     @Getter
     private final String description;
-
     @Getter
     private final LocalDate endDate;
-
     @Getter
     private final BigDecimal price;
-
     @Getter
     private final Currency priceUnit;
-
     @Getter
     private final LocalDate startDate;
-
     @Getter
     private final Map<String, String> subresourceUris;
-
     @Getter
     private final String uri;
-
     @Getter
     private final String usage;
-
     @Getter
     private final String usageUnit;
 
-    @JsonCreator
-    private LastMonth(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("api_version") final String apiVersion,
-        @JsonProperty("as_of") final String asOf,
-        @JsonProperty("category") final String category,
-        @JsonProperty("count") final String count,
-        @JsonProperty("count_unit") final String countUnit,
-        @JsonProperty("description") final String description,
-        @JsonProperty("end_date") @JsonDeserialize(
-            using = com.twilio.converter.LocalDateDeserializer.class
-        ) final LocalDate endDate,
-        @JsonProperty("price") final BigDecimal price,
-        @JsonProperty("price_unit") @JsonDeserialize(
-            using = com.twilio.converter.CurrencyDeserializer.class
-        ) final Currency priceUnit,
-        @JsonProperty("start_date") @JsonDeserialize(
-            using = com.twilio.converter.LocalDateDeserializer.class
-        ) final LocalDate startDate,
-        @JsonProperty("subresource_uris") final Map<
-            String,
-            String
-        > subresourceUris,
-        @JsonProperty("uri") final String uri,
-        @JsonProperty("usage") final String usage,
-        @JsonProperty("usage_unit") final String usageUnit
-    ) {
-        this.accountSid = accountSid;
-        this.apiVersion = apiVersion;
-        this.asOf = asOf;
-        this.category = category;
-        this.count = count;
-        this.countUnit = countUnit;
-        this.description = description;
-        this.endDate = endDate;
-        this.price = price;
-        this.priceUnit = priceUnit;
-        this.startDate = startDate;
-        this.subresourceUris = subresourceUris;
-        this.uri = uri;
-        this.usage = usage;
-        this.usageUnit = usageUnit;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        LastMonth other = (LastMonth) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(apiVersion, other.apiVersion) &&
-            Objects.equals(asOf, other.asOf) &&
-            Objects.equals(category, other.category) &&
-            Objects.equals(count, other.count) &&
-            Objects.equals(countUnit, other.countUnit) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(endDate, other.endDate) &&
-            Objects.equals(price, other.price) &&
-            Objects.equals(priceUnit, other.priceUnit) &&
-            Objects.equals(startDate, other.startDate) &&
-            Objects.equals(subresourceUris, other.subresourceUris) &&
-            Objects.equals(uri, other.uri) &&
-            Objects.equals(usage, other.usage) &&
-            Objects.equals(usageUnit, other.usageUnit)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            apiVersion,
-            asOf,
-            category,
-            count,
-            countUnit,
-            description,
-            endDate,
-            price,
-            priceUnit,
-            startDate,
-            subresourceUris,
-            uri,
-            usage,
-            usageUnit
-        );
-    }
+@JsonCreator
+private LastMonth(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("api_version")
+    final String apiVersion, 
+    @JsonProperty("as_of")
+    final String asOf, 
+    @JsonProperty("category")
+    final String category, 
+    @JsonProperty("count")
+    final String count, 
+    @JsonProperty("count_unit")
+    final String countUnit, 
+    @JsonProperty("description")
+    final String description, 
+    @JsonProperty("end_date")
+    @JsonDeserialize(using = com.twilio.converter.LocalDateDeserializer.class)
+    final LocalDate endDate, 
+    @JsonProperty("price")
+    final BigDecimal price, 
+    @JsonProperty("price_unit")
+    @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
+    final Currency priceUnit, 
+    @JsonProperty("start_date")
+    @JsonDeserialize(using = com.twilio.converter.LocalDateDeserializer.class)
+    final LocalDate startDate, 
+    @JsonProperty("subresource_uris")
+    final Map<String, String> subresourceUris, 
+    @JsonProperty("uri")
+    final String uri, 
+    @JsonProperty("usage")
+    final String usage, 
+    @JsonProperty("usage_unit")
+    final String usageUnit
+){
+    this.accountSid = accountSid;
+    this.apiVersion = apiVersion;
+    this.asOf = asOf;
+    this.category = category;
+    this.count = count;
+    this.countUnit = countUnit;
+    this.description = description;
+    this.endDate = endDate;
+    this.price = price;
+    this.priceUnit = priceUnit;
+    this.startDate = startDate;
+    this.subresourceUris = subresourceUris;
+    this.uri = uri;
+    this.usage = usage;
+    this.usageUnit = usageUnit;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    LastMonth other = (LastMonth) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(apiVersion, other.apiVersion) && 
+            Objects.equals(asOf, other.asOf) && 
+            Objects.equals(category, other.category) && 
+            Objects.equals(count, other.count) && 
+            Objects.equals(countUnit, other.countUnit) && 
+            Objects.equals(description, other.description) && 
+            Objects.equals(endDate, other.endDate) && 
+            Objects.equals(price, other.price) && 
+            Objects.equals(priceUnit, other.priceUnit) && 
+            Objects.equals(startDate, other.startDate) && 
+            Objects.equals(subresourceUris, other.subresourceUris) && 
+            Objects.equals(uri, other.uri) && 
+            Objects.equals(usage, other.usage) && 
+            Objects.equals(usageUnit, other.usageUnit)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            apiVersion, 
+            asOf, 
+            category, 
+            count, 
+            countUnit, 
+            description, 
+            endDate, 
+            price, 
+            priceUnit, 
+            startDate, 
+            subresourceUris, 
+            uri, 
+            usage, 
+            usageUnit
+    );
+}
+
+
+
+}
+

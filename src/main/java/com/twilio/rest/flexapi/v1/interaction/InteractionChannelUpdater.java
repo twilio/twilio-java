@@ -26,48 +26,44 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class InteractionChannelUpdater extends Updater<InteractionChannel> {
-
-    private String pathInteractionSid;
+    public class InteractionChannelUpdater extends Updater<InteractionChannel> {
+            private String pathInteractionSid;
     private String pathSid;
     private InteractionChannel.UpdateChannelStatus status;
     private Object routing;
 
-    public InteractionChannelUpdater(
-        final String pathInteractionSid,
-        final String pathSid,
-        final InteractionChannel.UpdateChannelStatus status
-    ) {
+            public InteractionChannelUpdater(final String pathInteractionSid, final String pathSid, final InteractionChannel.UpdateChannelStatus status) {
         this.pathInteractionSid = pathInteractionSid;
         this.pathSid = pathSid;
         this.status = status;
     }
 
-    public InteractionChannelUpdater setStatus(
-        final InteractionChannel.UpdateChannelStatus status
-    ) {
-        this.status = status;
-        return this;
-    }
+        
+public InteractionChannelUpdater setStatus(final InteractionChannel.UpdateChannelStatus status){
+    this.status = status;
+    return this;
+}
 
-    public InteractionChannelUpdater setRouting(final Object routing) {
-        this.routing = routing;
-        return this;
-    }
 
-    @Override
+public InteractionChannelUpdater setRouting(final Object routing){
+    this.routing = routing;
+    return this;
+}
+
+
+            @Override
     public InteractionChannel update(final TwilioRestClient client) {
-        String path = "/v1/Interactions/{InteractionSid}/Channels/{Sid}";
+    
+    String path = "/v1/Interactions/{InteractionSid}/Channels/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "InteractionSid" + "}",
-                this.pathInteractionSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"InteractionSid"+"}", this.pathInteractionSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
@@ -75,50 +71,36 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "InteractionChannel update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InteractionChannel update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return InteractionChannel.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return InteractionChannel.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (status != null) {
+        Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (status != null) {
-            Serializer.toString(
-                request,
-                "Status",
-                status,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (routing != null) {
-            Serializer.toString(
-                request,
-                "Routing",
-                routing,
-                ParameterType.URLENCODED
-            );
-        }
+
+    if (routing != null) {
+        Serializer.toString(request, "Routing", routing, ParameterType.URLENCODED);
     }
+
+
 }
+    }

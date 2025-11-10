@@ -17,114 +17,158 @@ package com.twilio.rest.preview.hostedNumbers;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
 import com.twilio.type.PhoneNumberCapabilities;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class HostedNumberOrder extends Resource {
 
-    public static HostedNumberOrderCreator creator(
-        final com.twilio.type.PhoneNumber phoneNumber,
-        final Boolean smsCapability
-    ) {
-        return new HostedNumberOrderCreator(phoneNumber, smsCapability);
+
+
+    public static HostedNumberOrderCreator creator(final com.twilio.type.PhoneNumber phoneNumber, final Boolean smsCapability) {
+        return new HostedNumberOrderCreator(
+             phoneNumber,  smsCapability
+        );
     }
+
+
+
+
+
+
+    
+
+
 
     public static HostedNumberOrderDeleter deleter(final String pathSid) {
-        return new HostedNumberOrderDeleter(pathSid);
+        return new HostedNumberOrderDeleter(
+             pathSid
+        );
     }
+
+
+
+
+    
+
+
+
 
     public static HostedNumberOrderFetcher fetcher(final String pathSid) {
-        return new HostedNumberOrderFetcher(pathSid);
+        return new HostedNumberOrderFetcher(
+             pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static HostedNumberOrderReader reader() {
-        return new HostedNumberOrderReader();
+        return new HostedNumberOrderReader(
+            
+        );
     }
+
+
+    
+
+
+
+
+
 
     public static HostedNumberOrderUpdater updater(final String pathSid) {
-        return new HostedNumberOrderUpdater(pathSid);
+        return new HostedNumberOrderUpdater(
+             pathSid
+        );
     }
 
-    public enum Status {
-        RECEIVED("received"),
-        PENDING_VERIFICATION("pending-verification"),
-        VERIFIED("verified"),
-        PENDING_LOA("pending-loa"),
-        CARRIER_PROCESSING("carrier-processing"),
-        TESTING("testing"),
-        COMPLETED("completed"),
-        FAILED("failed"),
-        ACTION_REQUIRED("action-required");
+    
 
-        private final String value;
+public enum Status {
+    RECEIVED("received"),
+    PENDING_VERIFICATION("pending-verification"),
+    VERIFIED("verified"),
+    PENDING_LOA("pending-loa"),
+    CARRIER_PROCESSING("carrier-processing"),
+    TESTING("testing"),
+    COMPLETED("completed"),
+    FAILED("failed"),
+    ACTION_REQUIRED("action-required");
 
-        private Status(final String value) {
-            this.value = value;
-        }
+    private final String value;
 
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
+    private Status(final String value) {
+        this.value = value;
     }
 
-    public enum VerificationType {
-        PHONE_CALL("phone-call"),
-        PHONE_BILL("phone-bill");
-
-        private final String value;
-
-        private VerificationType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static VerificationType forValue(final String value) {
-            return Promoter.enumFromString(value, VerificationType.values());
-        }
+    public String toString() {
+        return value;
     }
+
+    @JsonCreator
+    public static Status forValue(final String value) {
+        return Promoter.enumFromString(value, Status.values());
+    }
+}
+public enum VerificationType {
+    PHONE_CALL("phone-call"),
+    PHONE_BILL("phone-bill");
+
+    private final String value;
+
+    private VerificationType(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static VerificationType forValue(final String value) {
+        return Promoter.enumFromString(value, VerificationType.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a HostedNumberOrder object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return HostedNumberOrder object represented by the provided JSON
-     */
-    public static HostedNumberOrder fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a HostedNumberOrder object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return HostedNumberOrder object represented by the provided JSON
+    */
+    public static HostedNumberOrder fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, HostedNumberOrder.class);
@@ -136,17 +180,14 @@ public class HostedNumberOrder extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a HostedNumberOrder object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return HostedNumberOrder object represented by the provided JSON
-     */
-    public static HostedNumberOrder fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a HostedNumberOrder object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return HostedNumberOrder object represented by the provided JSON
+    */
+    public static HostedNumberOrder fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, HostedNumberOrder.class);
@@ -168,215 +209,199 @@ public class HostedNumberOrder extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String addressSid;
-
     @Getter
     private final Integer callDelay;
-
     @Getter
     private final PhoneNumberCapabilities capabilities;
-
     @Getter
     private final List<String> ccEmails;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String email;
-
     @Getter
     private final String extension;
-
     @Getter
     private final String failureReason;
-
     @Getter
     private final String friendlyName;
-
     @Getter
     private final String incomingPhoneNumberSid;
-
     @Getter
     private final com.twilio.type.PhoneNumber phoneNumber;
-
     @Getter
     private final String sid;
-
     @Getter
     private final String signingDocumentSid;
-
     @Getter
     private final HostedNumberOrder.Status status;
-
     @Getter
     private final String uniqueName;
-
     @Getter
     private final URI url;
-
     @Getter
     private final Integer verificationAttempts;
-
     @Getter
     private final List<String> verificationCallSids;
-
     @Getter
     private final String verificationCode;
-
     @Getter
     private final String verificationDocumentSid;
-
     @Getter
     private final HostedNumberOrder.VerificationType verificationType;
 
-    @JsonCreator
-    private HostedNumberOrder(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("address_sid") final String addressSid,
-        @JsonProperty("call_delay") final Integer callDelay,
-        @JsonProperty(
-            "capabilities"
-        ) final PhoneNumberCapabilities capabilities,
-        @JsonProperty("cc_emails") final List<String> ccEmails,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("email") final String email,
-        @JsonProperty("extension") final String extension,
-        @JsonProperty("failure_reason") final String failureReason,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty(
-            "incoming_phone_number_sid"
-        ) final String incomingPhoneNumberSid,
-        @JsonProperty(
-            "phone_number"
-        ) final com.twilio.type.PhoneNumber phoneNumber,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("signing_document_sid") final String signingDocumentSid,
-        @JsonProperty("status") final HostedNumberOrder.Status status,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("url") final URI url,
-        @JsonProperty(
-            "verification_attempts"
-        ) final Integer verificationAttempts,
-        @JsonProperty("verification_call_sids") final List<
-            String
-        > verificationCallSids,
-        @JsonProperty("verification_code") final String verificationCode,
-        @JsonProperty(
-            "verification_document_sid"
-        ) final String verificationDocumentSid,
-        @JsonProperty(
-            "verification_type"
-        ) final HostedNumberOrder.VerificationType verificationType
-    ) {
-        this.accountSid = accountSid;
-        this.addressSid = addressSid;
-        this.callDelay = callDelay;
-        this.capabilities = capabilities;
-        this.ccEmails = ccEmails;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.email = email;
-        this.extension = extension;
-        this.failureReason = failureReason;
-        this.friendlyName = friendlyName;
-        this.incomingPhoneNumberSid = incomingPhoneNumberSid;
-        this.phoneNumber = phoneNumber;
-        this.sid = sid;
-        this.signingDocumentSid = signingDocumentSid;
-        this.status = status;
-        this.uniqueName = uniqueName;
-        this.url = url;
-        this.verificationAttempts = verificationAttempts;
-        this.verificationCallSids = verificationCallSids;
-        this.verificationCode = verificationCode;
-        this.verificationDocumentSid = verificationDocumentSid;
-        this.verificationType = verificationType;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        HostedNumberOrder other = (HostedNumberOrder) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(addressSid, other.addressSid) &&
-            Objects.equals(callDelay, other.callDelay) &&
-            Objects.equals(capabilities, other.capabilities) &&
-            Objects.equals(ccEmails, other.ccEmails) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(email, other.email) &&
-            Objects.equals(extension, other.extension) &&
-            Objects.equals(failureReason, other.failureReason) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(
-                incomingPhoneNumberSid,
-                other.incomingPhoneNumberSid
-            ) &&
-            Objects.equals(phoneNumber, other.phoneNumber) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(signingDocumentSid, other.signingDocumentSid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(verificationAttempts, other.verificationAttempts) &&
-            Objects.equals(verificationCallSids, other.verificationCallSids) &&
-            Objects.equals(verificationCode, other.verificationCode) &&
-            Objects.equals(
-                verificationDocumentSid,
-                other.verificationDocumentSid
-            ) &&
-            Objects.equals(verificationType, other.verificationType)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            addressSid,
-            callDelay,
-            capabilities,
-            ccEmails,
-            dateCreated,
-            dateUpdated,
-            email,
-            extension,
-            failureReason,
-            friendlyName,
-            incomingPhoneNumberSid,
-            phoneNumber,
-            sid,
-            signingDocumentSid,
-            status,
-            uniqueName,
-            url,
-            verificationAttempts,
-            verificationCallSids,
-            verificationCode,
-            verificationDocumentSid,
-            verificationType
-        );
-    }
+@JsonCreator
+private HostedNumberOrder(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("address_sid")
+    final String addressSid, 
+    @JsonProperty("call_delay")
+    final Integer callDelay, 
+    @JsonProperty("capabilities")
+    final PhoneNumberCapabilities capabilities, 
+    @JsonProperty("cc_emails")
+    final List<String> ccEmails, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("email")
+    final String email, 
+    @JsonProperty("extension")
+    final String extension, 
+    @JsonProperty("failure_reason")
+    final String failureReason, 
+    @JsonProperty("friendly_name")
+    final String friendlyName, 
+    @JsonProperty("incoming_phone_number_sid")
+    final String incomingPhoneNumberSid, 
+    @JsonProperty("phone_number")
+    final com.twilio.type.PhoneNumber phoneNumber, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("signing_document_sid")
+    final String signingDocumentSid, 
+    @JsonProperty("status")
+    final HostedNumberOrder.Status status, 
+    @JsonProperty("unique_name")
+    final String uniqueName, 
+    @JsonProperty("url")
+    final URI url, 
+    @JsonProperty("verification_attempts")
+    final Integer verificationAttempts, 
+    @JsonProperty("verification_call_sids")
+    final List<String> verificationCallSids, 
+    @JsonProperty("verification_code")
+    final String verificationCode, 
+    @JsonProperty("verification_document_sid")
+    final String verificationDocumentSid, 
+    @JsonProperty("verification_type")
+    final HostedNumberOrder.VerificationType verificationType
+){
+    this.accountSid = accountSid;
+    this.addressSid = addressSid;
+    this.callDelay = callDelay;
+    this.capabilities = capabilities;
+    this.ccEmails = ccEmails;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.email = email;
+    this.extension = extension;
+    this.failureReason = failureReason;
+    this.friendlyName = friendlyName;
+    this.incomingPhoneNumberSid = incomingPhoneNumberSid;
+    this.phoneNumber = phoneNumber;
+    this.sid = sid;
+    this.signingDocumentSid = signingDocumentSid;
+    this.status = status;
+    this.uniqueName = uniqueName;
+    this.url = url;
+    this.verificationAttempts = verificationAttempts;
+    this.verificationCallSids = verificationCallSids;
+    this.verificationCode = verificationCode;
+    this.verificationDocumentSid = verificationDocumentSid;
+    this.verificationType = verificationType;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    HostedNumberOrder other = (HostedNumberOrder) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(addressSid, other.addressSid) && 
+            Objects.equals(callDelay, other.callDelay) && 
+            Objects.equals(capabilities, other.capabilities) && 
+            Objects.equals(ccEmails, other.ccEmails) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(email, other.email) && 
+            Objects.equals(extension, other.extension) && 
+            Objects.equals(failureReason, other.failureReason) && 
+            Objects.equals(friendlyName, other.friendlyName) && 
+            Objects.equals(incomingPhoneNumberSid, other.incomingPhoneNumberSid) && 
+            Objects.equals(phoneNumber, other.phoneNumber) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(signingDocumentSid, other.signingDocumentSid) && 
+            Objects.equals(status, other.status) && 
+            Objects.equals(uniqueName, other.uniqueName) && 
+            Objects.equals(url, other.url) && 
+            Objects.equals(verificationAttempts, other.verificationAttempts) && 
+            Objects.equals(verificationCallSids, other.verificationCallSids) && 
+            Objects.equals(verificationCode, other.verificationCode) && 
+            Objects.equals(verificationDocumentSid, other.verificationDocumentSid) && 
+            Objects.equals(verificationType, other.verificationType)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            addressSid, 
+            callDelay, 
+            capabilities, 
+            ccEmails, 
+            dateCreated, 
+            dateUpdated, 
+            email, 
+            extension, 
+            failureReason, 
+            friendlyName, 
+            incomingPhoneNumberSid, 
+            phoneNumber, 
+            sid, 
+            signingDocumentSid, 
+            status, 
+            uniqueName, 
+            url, 
+            verificationAttempts, 
+            verificationCallSids, 
+            verificationCode, 
+            verificationDocumentSid, 
+            verificationType
+    );
+}
+
+
+
+}
+

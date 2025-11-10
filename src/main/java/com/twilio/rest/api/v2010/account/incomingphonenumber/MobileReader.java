@@ -14,9 +14,7 @@
 
 package com.twilio.rest.api.v2010.account.incomingphonenumber;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -28,72 +26,72 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class MobileReader extends Reader<Mobile> {
 
-    private String pathAccountSid;
+        private String pathAccountSid;
     private Boolean beta;
     private String friendlyName;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String origin;
     private Long pageSize;
 
-    public MobileReader() {}
-
+        public MobileReader() {
+    }
     public MobileReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public MobileReader setBeta(final Boolean beta) {
-        this.beta = beta;
-        return this;
-    }
+    
+public MobileReader setBeta(final Boolean beta){
+    this.beta = beta;
+    return this;
+}
 
-    public MobileReader setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
 
-    public MobileReader setPhoneNumber(
-        final com.twilio.type.PhoneNumber phoneNumber
-    ) {
-        this.phoneNumber = phoneNumber;
-        return this;
-    }
+public MobileReader setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public MobileReader setPhoneNumber(final String phoneNumber) {
-        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
-    }
 
-    public MobileReader setOrigin(final String origin) {
-        this.origin = origin;
-        return this;
-    }
+public MobileReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber){
+    this.phoneNumber = phoneNumber;
+    return this;
+}
 
-    public MobileReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+public MobileReader setPhoneNumber(final String phoneNumber){
+    return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
+}
 
-    @Override
+public MobileReader setOrigin(final String origin){
+    this.origin = origin;
+    return this;
+}
+
+
+public MobileReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+        @Override
     public ResourceSet<Mobile> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<Mobile> firstPage(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json";
+        
+    String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -105,105 +103,85 @@ public class MobileReader extends Reader<Mobile> {
         return pageForRequest(client, request);
     }
 
-    private Page<Mobile> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Mobile> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Mobile read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Mobile read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "incoming_phone_numbers",
             response.getContent(),
             Mobile.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<Mobile> previousPage(
-        final Page<Mobile> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Mobile> previousPage(final Page<Mobile> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Mobile> nextPage(
-        final Page<Mobile> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<Mobile> nextPage(final Page<Mobile> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<Mobile> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Mobile> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (beta != null) {
-            Serializer.toString(request, "Beta", beta, ParameterType.QUERY);
-        }
 
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.QUERY
-            );
-        }
 
-        if (phoneNumber != null) {
-            Serializer.toString(
-                request,
-                "PhoneNumber",
-                phoneNumber,
-                ParameterType.QUERY
-            );
-        }
-
-        if (origin != null) {
-            Serializer.toString(request, "Origin", origin, ParameterType.QUERY);
-        }
-
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+    if (beta != null) {
+        Serializer.toString(request, "Beta", beta, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (phoneNumber != null) {
+        Serializer.toString(request, "PhoneNumber", phoneNumber, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (origin != null) {
+        Serializer.toString(request, "Origin", origin, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

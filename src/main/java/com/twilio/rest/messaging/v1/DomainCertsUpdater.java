@@ -26,36 +26,34 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class DomainCertsUpdater extends Updater<DomainCerts> {
-
-    private String pathDomainSid;
+    public class DomainCertsUpdater extends Updater<DomainCerts> {
+            private String pathDomainSid;
     private String tlsCert;
 
-    public DomainCertsUpdater(
-        final String pathDomainSid,
-        final String tlsCert
-    ) {
+            public DomainCertsUpdater(final String pathDomainSid, final String tlsCert) {
         this.pathDomainSid = pathDomainSid;
         this.tlsCert = tlsCert;
     }
 
-    public DomainCertsUpdater setTlsCert(final String tlsCert) {
-        this.tlsCert = tlsCert;
-        return this;
-    }
+        
+public DomainCertsUpdater setTlsCert(final String tlsCert){
+    this.tlsCert = tlsCert;
+    return this;
+}
 
-    @Override
+
+            @Override
     public DomainCerts update(final TwilioRestClient client) {
-        String path = "/v1/LinkShortening/Domains/{DomainSid}/Certificate";
+    
+    String path = "/v1/LinkShortening/Domains/{DomainSid}/Certificate";
 
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
+    path = path.replace("{"+"DomainSid"+"}", this.pathDomainSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.MESSAGING.toString(),
@@ -63,41 +61,30 @@ public class DomainCertsUpdater extends Updater<DomainCerts> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "DomainCerts update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("DomainCerts update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return DomainCerts.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return DomainCerts.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (tlsCert != null) {
+        Serializer.toString(request, "TlsCert", tlsCert, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (tlsCert != null) {
-            Serializer.toString(
-                request,
-                "TlsCert",
-                tlsCert,
-                ParameterType.URLENCODED
-            );
-        }
-    }
+
 }
+    }

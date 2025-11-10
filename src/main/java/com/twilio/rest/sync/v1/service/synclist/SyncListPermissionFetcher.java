@@ -23,66 +23,53 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class SyncListPermissionFetcher extends Fetcher<SyncListPermission> {
+    public class SyncListPermissionFetcher extends Fetcher<SyncListPermission> {
 
-    private String pathServiceSid;
+            private String pathServiceSid;
     private String pathListSid;
     private String pathIdentity;
 
-    public SyncListPermissionFetcher(
-        final String pathServiceSid,
-        final String pathListSid,
-        final String pathIdentity
-    ) {
+            public SyncListPermissionFetcher(final String pathServiceSid, final String pathListSid, final String pathIdentity) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
         this.pathIdentity = pathIdentity;
     }
 
-    @Override
+        
+            @Override
     public SyncListPermission fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
+    
+    String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
-        path =
-            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"ListSid"+"}", this.pathListSid.toString());
+    path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.SYNC.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "SyncListPermission fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SyncListPermission fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-        return SyncListPermission.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return SyncListPermission.fromJson(response.getStream(), client.getObjectMapper());
     }
-}
+    }

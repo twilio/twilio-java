@@ -17,52 +17,60 @@ package com.twilio.rest.taskrouter.v1.workspace.taskqueue;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TaskQueueBulkRealTimeStatistics extends Resource {
 
-    public static TaskQueueBulkRealTimeStatisticsCreator creator(
-        final String pathWorkspaceSid
-    ) {
-        return new TaskQueueBulkRealTimeStatisticsCreator(pathWorkspaceSid);
+
+
+    public static TaskQueueBulkRealTimeStatisticsCreator creator(final String pathWorkspaceSid) {
+        return new TaskQueueBulkRealTimeStatisticsCreator(
+             pathWorkspaceSid
+        );
     }
 
+
+
+
+
+
+    
+
+
+
     /**
-     * Converts a JSON String into a TaskQueueBulkRealTimeStatistics object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return TaskQueueBulkRealTimeStatistics object represented by the provided JSON
-     */
-    public static TaskQueueBulkRealTimeStatistics fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a TaskQueueBulkRealTimeStatistics object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return TaskQueueBulkRealTimeStatistics object represented by the provided JSON
+    */
+    public static TaskQueueBulkRealTimeStatistics fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                TaskQueueBulkRealTimeStatistics.class
-            );
+            return objectMapper.readValue(json, TaskQueueBulkRealTimeStatistics.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -71,23 +79,17 @@ public class TaskQueueBulkRealTimeStatistics extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a TaskQueueBulkRealTimeStatistics object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return TaskQueueBulkRealTimeStatistics object represented by the provided JSON
-     */
-    public static TaskQueueBulkRealTimeStatistics fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a TaskQueueBulkRealTimeStatistics object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return TaskQueueBulkRealTimeStatistics object represented by the provided JSON
+    */
+    public static TaskQueueBulkRealTimeStatistics fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                TaskQueueBulkRealTimeStatistics.class
-            );
+            return objectMapper.readValue(json, TaskQueueBulkRealTimeStatistics.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -106,71 +108,71 @@ public class TaskQueueBulkRealTimeStatistics extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final List<Object> taskQueueData;
-
     @Getter
     private final Integer taskQueueResponseCount;
-
     @Getter
     private final URI url;
-
     @Getter
     private final String workspaceSid;
 
-    @JsonCreator
-    private TaskQueueBulkRealTimeStatistics(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("task_queue_data") final List<Object> taskQueueData,
-        @JsonProperty(
-            "task_queue_response_count"
-        ) final Integer taskQueueResponseCount,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("workspace_sid") final String workspaceSid
-    ) {
-        this.accountSid = accountSid;
-        this.taskQueueData = taskQueueData;
-        this.taskQueueResponseCount = taskQueueResponseCount;
-        this.url = url;
-        this.workspaceSid = workspaceSid;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        TaskQueueBulkRealTimeStatistics other =
-            (TaskQueueBulkRealTimeStatistics) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(taskQueueData, other.taskQueueData) &&
-            Objects.equals(
-                taskQueueResponseCount,
-                other.taskQueueResponseCount
-            ) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(workspaceSid, other.workspaceSid)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            taskQueueData,
-            taskQueueResponseCount,
-            url,
-            workspaceSid
-        );
-    }
+@JsonCreator
+private TaskQueueBulkRealTimeStatistics(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("task_queue_data")
+    final List<Object> taskQueueData, 
+    @JsonProperty("task_queue_response_count")
+    final Integer taskQueueResponseCount, 
+    @JsonProperty("url")
+    final URI url, 
+    @JsonProperty("workspace_sid")
+    final String workspaceSid
+){
+    this.accountSid = accountSid;
+    this.taskQueueData = taskQueueData;
+    this.taskQueueResponseCount = taskQueueResponseCount;
+    this.url = url;
+    this.workspaceSid = workspaceSid;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    TaskQueueBulkRealTimeStatistics other = (TaskQueueBulkRealTimeStatistics) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(taskQueueData, other.taskQueueData) && 
+            Objects.equals(taskQueueResponseCount, other.taskQueueResponseCount) && 
+            Objects.equals(url, other.url) && 
+            Objects.equals(workspaceSid, other.workspaceSid)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            taskQueueData, 
+            taskQueueResponseCount, 
+            url, 
+            workspaceSid
+    );
+}
+
+
+
+}
+

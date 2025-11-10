@@ -23,67 +23,53 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class DocumentPermissionDeleter extends Deleter<DocumentPermission> {
+            public class DocumentPermissionDeleter extends Deleter<DocumentPermission> {
 
-    private String pathServiceSid;
+                private String pathServiceSid;
     private String pathDocumentSid;
     private String pathIdentity;
 
-    public DocumentPermissionDeleter(
-        final String pathServiceSid,
-        final String pathDocumentSid,
-        final String pathIdentity
-    ) {
+                public DocumentPermissionDeleter(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity) {
         this.pathServiceSid = pathServiceSid;
         this.pathDocumentSid = pathDocumentSid;
         this.pathIdentity = pathIdentity;
     }
 
-    @Override
+            
+                @Override
     public boolean delete(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
+    
+    String path = "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "DocumentSid" + "}",
-                this.pathDocumentSid.toString()
-            );
-        path =
-            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"DocumentSid"+"}", this.pathDocumentSid.toString());
+    path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
 
+    
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SYNC.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "DocumentPermission delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("DocumentPermission delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
         return response.getStatusCode() == 204;
     }
-}
+            }

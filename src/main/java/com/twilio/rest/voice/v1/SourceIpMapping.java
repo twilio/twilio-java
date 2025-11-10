@@ -17,67 +17,110 @@ package com.twilio.rest.voice.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SourceIpMapping extends Resource {
 
-    public static SourceIpMappingCreator creator(
-        final String ipRecordSid,
-        final String sipDomainSid
-    ) {
-        return new SourceIpMappingCreator(ipRecordSid, sipDomainSid);
+
+
+    public static SourceIpMappingCreator creator(final String ipRecordSid, final String sipDomainSid) {
+        return new SourceIpMappingCreator(
+             ipRecordSid,  sipDomainSid
+        );
     }
+
+
+
+
+
+
+    
+
+
 
     public static SourceIpMappingDeleter deleter(final String pathSid) {
-        return new SourceIpMappingDeleter(pathSid);
+        return new SourceIpMappingDeleter(
+             pathSid
+        );
     }
+
+
+
+
+    
+
+
+
 
     public static SourceIpMappingFetcher fetcher(final String pathSid) {
-        return new SourceIpMappingFetcher(pathSid);
+        return new SourceIpMappingFetcher(
+             pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static SourceIpMappingReader reader() {
-        return new SourceIpMappingReader();
+        return new SourceIpMappingReader(
+            
+        );
     }
 
-    public static SourceIpMappingUpdater updater(
-        final String pathSid,
-        final String sipDomainSid
-    ) {
-        return new SourceIpMappingUpdater(pathSid, sipDomainSid);
+
+    
+
+
+
+
+
+
+    public static SourceIpMappingUpdater updater(final String pathSid, final String sipDomainSid) {
+        return new SourceIpMappingUpdater(
+             pathSid,  sipDomainSid
+        );
     }
+
+    
+
+
 
     /**
-     * Converts a JSON String into a SourceIpMapping object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return SourceIpMapping object represented by the provided JSON
-     */
-    public static SourceIpMapping fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a SourceIpMapping object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return SourceIpMapping object represented by the provided JSON
+    */
+    public static SourceIpMapping fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SourceIpMapping.class);
@@ -89,17 +132,14 @@ public class SourceIpMapping extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a SourceIpMapping object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return SourceIpMapping object represented by the provided JSON
-     */
-    public static SourceIpMapping fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a SourceIpMapping object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return SourceIpMapping object represented by the provided JSON
+    */
+    public static SourceIpMapping fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SourceIpMapping.class);
@@ -121,76 +161,80 @@ public class SourceIpMapping extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String ipRecordSid;
-
     @Getter
     private final String sid;
-
     @Getter
     private final String sipDomainSid;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private SourceIpMapping(
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("ip_record_sid") final String ipRecordSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("sip_domain_sid") final String sipDomainSid,
-        @JsonProperty("url") final URI url
-    ) {
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.ipRecordSid = ipRecordSid;
-        this.sid = sid;
-        this.sipDomainSid = sipDomainSid;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        SourceIpMapping other = (SourceIpMapping) o;
-        return (
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(ipRecordSid, other.ipRecordSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(sipDomainSid, other.sipDomainSid) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            dateCreated,
-            dateUpdated,
-            ipRecordSid,
-            sid,
-            sipDomainSid,
-            url
-        );
-    }
+@JsonCreator
+private SourceIpMapping(
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("ip_record_sid")
+    final String ipRecordSid, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("sip_domain_sid")
+    final String sipDomainSid, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.ipRecordSid = ipRecordSid;
+    this.sid = sid;
+    this.sipDomainSid = sipDomainSid;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    SourceIpMapping other = (SourceIpMapping) o;
+    return (
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(ipRecordSid, other.ipRecordSid) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(sipDomainSid, other.sipDomainSid) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            dateCreated, 
+            dateUpdated, 
+            ipRecordSid, 
+            sid, 
+            sipDomainSid, 
+            url
+    );
+}
+
+
+
+}
+

@@ -14,9 +14,7 @@
 
 package com.twilio.rest.api.v2010.account.sip.ipaccesscontrollist;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,54 +25,45 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class IpAddressReader extends Reader<IpAddress> {
 
-    private String pathAccountSid;
+        private String pathAccountSid;
     private String pathIpAccessControlListSid;
     private Long pageSize;
 
-    public IpAddressReader(final String pathIpAccessControlListSid) {
+        public IpAddressReader(final String pathIpAccessControlListSid) {
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
     }
-
-    public IpAddressReader(
-        final String pathAccountSid,
-        final String pathIpAccessControlListSid
-    ) {
+    public IpAddressReader(final String pathAccountSid, final String pathIpAccessControlListSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
     }
 
-    public IpAddressReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+    
+public IpAddressReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
 
-    @Override
+
+        @Override
     public ResourceSet<IpAddress> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<IpAddress> firstPage(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json";
+        
+    String path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "IpAccessControlListSid" + "}",
-                this.pathIpAccessControlListSid.toString()
-            );
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+    path = path.replace("{"+"IpAccessControlListSid"+"}", this.pathIpAccessControlListSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -86,79 +75,53 @@ public class IpAddressReader extends Reader<IpAddress> {
         return pageForRequest(client, request);
     }
 
-    private Page<IpAddress> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<IpAddress> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "IpAddress read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("IpAddress read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "ip_addresses",
             response.getContent(),
             IpAddress.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<IpAddress> previousPage(
-        final Page<IpAddress> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<IpAddress> previousPage(final Page<IpAddress> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<IpAddress> nextPage(
-        final Page<IpAddress> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<IpAddress> nextPage(final Page<IpAddress> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<IpAddress> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<IpAddress> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
+    }
+    private void addQueryParams(final Request request) {
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
     }
 
-    private void addQueryParams(final Request request) {
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
-    }
+
+
+}
 }

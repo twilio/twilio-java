@@ -26,11 +26,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class CredentialUpdater extends Updater<Credential> {
-
-    private String pathSid;
+    public class CredentialUpdater extends Updater<Credential> {
+            private String pathSid;
     private Credential.PushType type;
     private String friendlyName;
     private String certificate;
@@ -39,51 +40,61 @@ public class CredentialUpdater extends Updater<Credential> {
     private String apiKey;
     private String secret;
 
-    public CredentialUpdater(final String pathSid) {
+            public CredentialUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public CredentialUpdater setType(final Credential.PushType type) {
-        this.type = type;
-        return this;
-    }
+        
+public CredentialUpdater setType(final Credential.PushType type){
+    this.type = type;
+    return this;
+}
 
-    public CredentialUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
 
-    public CredentialUpdater setCertificate(final String certificate) {
-        this.certificate = certificate;
-        return this;
-    }
+public CredentialUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public CredentialUpdater setPrivateKey(final String privateKey) {
-        this.privateKey = privateKey;
-        return this;
-    }
 
-    public CredentialUpdater setSandbox(final Boolean sandbox) {
-        this.sandbox = sandbox;
-        return this;
-    }
+public CredentialUpdater setCertificate(final String certificate){
+    this.certificate = certificate;
+    return this;
+}
 
-    public CredentialUpdater setApiKey(final String apiKey) {
-        this.apiKey = apiKey;
-        return this;
-    }
 
-    public CredentialUpdater setSecret(final String secret) {
-        this.secret = secret;
-        return this;
-    }
+public CredentialUpdater setPrivateKey(final String privateKey){
+    this.privateKey = privateKey;
+    return this;
+}
 
-    @Override
+
+public CredentialUpdater setSandbox(final Boolean sandbox){
+    this.sandbox = sandbox;
+    return this;
+}
+
+
+public CredentialUpdater setApiKey(final String apiKey){
+    this.apiKey = apiKey;
+    return this;
+}
+
+
+public CredentialUpdater setSecret(final String secret){
+    this.secret = secret;
+    return this;
+}
+
+
+            @Override
     public Credential update(final TwilioRestClient client) {
-        String path = "/v1/Credentials/{Sid}";
+    
+    String path = "/v1/Credentials/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
@@ -91,95 +102,66 @@ public class CredentialUpdater extends Updater<Credential> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Credential update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Credential update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return Credential.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return Credential.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (type != null) {
+        Serializer.toString(request, "Type", type, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (type != null) {
-            Serializer.toString(
-                request,
-                "Type",
-                type,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (certificate != null) {
-            Serializer.toString(
-                request,
-                "Certificate",
-                certificate,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (privateKey != null) {
-            Serializer.toString(
-                request,
-                "PrivateKey",
-                privateKey,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (sandbox != null) {
-            Serializer.toString(
-                request,
-                "Sandbox",
-                sandbox,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (apiKey != null) {
-            Serializer.toString(
-                request,
-                "ApiKey",
-                apiKey,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (secret != null) {
-            Serializer.toString(
-                request,
-                "Secret",
-                secret,
-                ParameterType.URLENCODED
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
+
+
+
+    if (certificate != null) {
+        Serializer.toString(request, "Certificate", certificate, ParameterType.URLENCODED);
+    }
+
+
+
+    if (privateKey != null) {
+        Serializer.toString(request, "PrivateKey", privateKey, ParameterType.URLENCODED);
+    }
+
+
+
+    if (sandbox != null) {
+        Serializer.toString(request, "Sandbox", sandbox, ParameterType.URLENCODED);
+    }
+
+
+
+    if (apiKey != null) {
+        Serializer.toString(request, "ApiKey", apiKey, ParameterType.URLENCODED);
+    }
+
+
+
+    if (secret != null) {
+        Serializer.toString(request, "Secret", secret, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

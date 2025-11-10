@@ -14,6 +14,7 @@
 
 package com.twilio.rest.serverless.v1.service;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +28,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.util.List;
+import com.twilio.type.*;
 
 public class BuildCreator extends Creator<Build> {
 
@@ -42,46 +45,45 @@ public class BuildCreator extends Creator<Build> {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public BuildCreator setAssetVersions(final List<String> assetVersions) {
-        this.assetVersions = assetVersions;
-        return this;
-    }
 
-    public BuildCreator setAssetVersions(final String assetVersions) {
-        return setAssetVersions(Promoter.listOfOne(assetVersions));
-    }
+public BuildCreator setAssetVersions(final List<String> assetVersions){
+    this.assetVersions = assetVersions;
+    return this;
+}
 
-    public BuildCreator setFunctionVersions(
-        final List<String> functionVersions
-    ) {
-        this.functionVersions = functionVersions;
-        return this;
-    }
+public BuildCreator setAssetVersions(final String assetVersions){
+    return setAssetVersions(Promoter.listOfOne(assetVersions));
+}
 
-    public BuildCreator setFunctionVersions(final String functionVersions) {
-        return setFunctionVersions(Promoter.listOfOne(functionVersions));
-    }
+public BuildCreator setFunctionVersions(final List<String> functionVersions){
+    this.functionVersions = functionVersions;
+    return this;
+}
 
-    public BuildCreator setDependencies(final String dependencies) {
-        this.dependencies = dependencies;
-        return this;
-    }
+public BuildCreator setFunctionVersions(final String functionVersions){
+    return setFunctionVersions(Promoter.listOfOne(functionVersions));
+}
 
-    public BuildCreator setRuntime(final String runtime) {
-        this.runtime = runtime;
-        return this;
-    }
+public BuildCreator setDependencies(final String dependencies){
+    this.dependencies = dependencies;
+    return this;
+}
+
+
+public BuildCreator setRuntime(final String runtime){
+    this.runtime = runtime;
+    return this;
+}
+
 
     @Override
     public Build create(final TwilioRestClient client) {
-        String path = "/v1/Services/{ServiceSid}/Builds";
+    
+    String path = "/v1/Services/{ServiceSid}/Builds";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
@@ -89,69 +91,52 @@ public class BuildCreator extends Creator<Build> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Build creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Build creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Build.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (assetVersions != null) {
-            for (String param : assetVersions) {
-                Serializer.toString(
-                    request,
-                    "AssetVersions",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (functionVersions != null) {
-            for (String param : functionVersions) {
-                Serializer.toString(
-                    request,
-                    "FunctionVersions",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (dependencies != null) {
-            Serializer.toString(
-                request,
-                "Dependencies",
-                dependencies,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (runtime != null) {
-            Serializer.toString(
-                request,
-                "Runtime",
-                runtime,
-                ParameterType.URLENCODED
-            );
+    if (assetVersions != null) {
+        for (String param: assetVersions) {
+            Serializer.toString(request, "AssetVersions", param, ParameterType.URLENCODED);
         }
     }
+
+
+
+    if (functionVersions != null) {
+        for (String param: functionVersions) {
+            Serializer.toString(request, "FunctionVersions", param, ParameterType.URLENCODED);
+        }
+    }
+
+
+    if (dependencies != null) {
+        Serializer.toString(request, "Dependencies", dependencies, ParameterType.URLENCODED);
+    }
+
+
+
+    if (runtime != null) {
+        Serializer.toString(request, "Runtime", runtime, ParameterType.URLENCODED);
+    }
+
+
+}
 }

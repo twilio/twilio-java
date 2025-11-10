@@ -17,47 +17,69 @@ package com.twilio.rest.conversations.v1.service.configuration;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.net.URI;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Notification extends Resource {
 
+
+
+
+
+
     public static NotificationFetcher fetcher(final String pathChatServiceSid) {
-        return new NotificationFetcher(pathChatServiceSid);
+        return new NotificationFetcher(
+             pathChatServiceSid
+        );
     }
+
+
+
+    
+
+
+
+
+
 
     public static NotificationUpdater updater(final String pathChatServiceSid) {
-        return new NotificationUpdater(pathChatServiceSid);
+        return new NotificationUpdater(
+             pathChatServiceSid
+        );
     }
 
+    
+
+
+
     /**
-     * Converts a JSON String into a Notification object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Notification object represented by the provided JSON
-     */
-    public static Notification fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Notification object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Notification object represented by the provided JSON
+    */
+    public static Notification fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Notification.class);
@@ -69,17 +91,14 @@ public class Notification extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Notification object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Notification object represented by the provided JSON
-     */
-    public static Notification fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Notification object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Notification object represented by the provided JSON
+    */
+    public static Notification fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Notification.class);
@@ -101,84 +120,85 @@ public class Notification extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final Object addedToConversation;
-
     @Getter
     private final String chatServiceSid;
-
     @Getter
     private final Boolean logEnabled;
-
     @Getter
     private final Object newMessage;
-
     @Getter
     private final Object removedFromConversation;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private Notification(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("added_to_conversation") final Object addedToConversation,
-        @JsonProperty("chat_service_sid") final String chatServiceSid,
-        @JsonProperty("log_enabled") final Boolean logEnabled,
-        @JsonProperty("new_message") final Object newMessage,
-        @JsonProperty(
-            "removed_from_conversation"
-        ) final Object removedFromConversation,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.addedToConversation = addedToConversation;
-        this.chatServiceSid = chatServiceSid;
-        this.logEnabled = logEnabled;
-        this.newMessage = newMessage;
-        this.removedFromConversation = removedFromConversation;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Notification other = (Notification) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(addedToConversation, other.addedToConversation) &&
-            Objects.equals(chatServiceSid, other.chatServiceSid) &&
-            Objects.equals(logEnabled, other.logEnabled) &&
-            Objects.equals(newMessage, other.newMessage) &&
-            Objects.equals(
-                removedFromConversation,
-                other.removedFromConversation
-            ) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            addedToConversation,
-            chatServiceSid,
-            logEnabled,
-            newMessage,
-            removedFromConversation,
-            url
-        );
-    }
+@JsonCreator
+private Notification(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("added_to_conversation")
+    final Object addedToConversation, 
+    @JsonProperty("chat_service_sid")
+    final String chatServiceSid, 
+    @JsonProperty("log_enabled")
+    final Boolean logEnabled, 
+    @JsonProperty("new_message")
+    final Object newMessage, 
+    @JsonProperty("removed_from_conversation")
+    final Object removedFromConversation, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.addedToConversation = addedToConversation;
+    this.chatServiceSid = chatServiceSid;
+    this.logEnabled = logEnabled;
+    this.newMessage = newMessage;
+    this.removedFromConversation = removedFromConversation;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Notification other = (Notification) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(addedToConversation, other.addedToConversation) && 
+            Objects.equals(chatServiceSid, other.chatServiceSid) && 
+            Objects.equals(logEnabled, other.logEnabled) && 
+            Objects.equals(newMessage, other.newMessage) && 
+            Objects.equals(removedFromConversation, other.removedFromConversation) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            addedToConversation, 
+            chatServiceSid, 
+            logEnabled, 
+            newMessage, 
+            removedFromConversation, 
+            url
+    );
+}
+
+
+
+}
+

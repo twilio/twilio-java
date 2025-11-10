@@ -14,9 +14,7 @@
 
 package com.twilio.rest.insights.v1.conference;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,59 +25,59 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
 
-    private String pathConferenceSid;
+        private String pathConferenceSid;
     private String participantSid;
     private String label;
     private String events;
     private Long pageSize;
 
-    public ConferenceParticipantReader(final String pathConferenceSid) {
+        public ConferenceParticipantReader(final String pathConferenceSid) {
         this.pathConferenceSid = pathConferenceSid;
     }
 
-    public ConferenceParticipantReader setParticipantSid(
-        final String participantSid
-    ) {
-        this.participantSid = participantSid;
-        return this;
-    }
+    
+public ConferenceParticipantReader setParticipantSid(final String participantSid){
+    this.participantSid = participantSid;
+    return this;
+}
 
-    public ConferenceParticipantReader setLabel(final String label) {
-        this.label = label;
-        return this;
-    }
 
-    public ConferenceParticipantReader setEvents(final String events) {
-        this.events = events;
-        return this;
-    }
+public ConferenceParticipantReader setLabel(final String label){
+    this.label = label;
+    return this;
+}
 
-    public ConferenceParticipantReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
 
-    @Override
-    public ResourceSet<ConferenceParticipant> read(
-        final TwilioRestClient client
-    ) {
+public ConferenceParticipantReader setEvents(final String events){
+    this.events = events;
+    return this;
+}
+
+
+public ConferenceParticipantReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+        @Override
+    public ResourceSet<ConferenceParticipant> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
+    
+    public Page<ConferenceParticipant> firstPage(final TwilioRestClient client) {
+        
+    String path = "/v1/Conferences/{ConferenceSid}/Participants";
 
-    public Page<ConferenceParticipant> firstPage(
-        final TwilioRestClient client
-    ) {
-        String path = "/v1/Conferences/{ConferenceSid}/Participants";
-
-        path =
-            path.replace(
-                "{" + "ConferenceSid" + "}",
-                this.pathConferenceSid.toString()
-            );
+    path = path.replace("{"+"ConferenceSid"+"}", this.pathConferenceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -91,96 +89,77 @@ public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
         return pageForRequest(client, request);
     }
 
-    private Page<ConferenceParticipant> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<ConferenceParticipant> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "ConferenceParticipant read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ConferenceParticipant read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "participants",
             response.getContent(),
             ConferenceParticipant.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<ConferenceParticipant> previousPage(
-        final Page<ConferenceParticipant> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<ConferenceParticipant> previousPage(final Page<ConferenceParticipant> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<ConferenceParticipant> nextPage(
-        final Page<ConferenceParticipant> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<ConferenceParticipant> nextPage(final Page<ConferenceParticipant> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<ConferenceParticipant> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<ConferenceParticipant> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (participantSid != null) {
-            Serializer.toString(
-                request,
-                "ParticipantSid",
-                participantSid,
-                ParameterType.QUERY
-            );
-        }
 
-        if (label != null) {
-            Serializer.toString(request, "Label", label, ParameterType.QUERY);
-        }
 
-        if (events != null) {
-            Serializer.toString(request, "Events", events, ParameterType.QUERY);
-        }
-
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+    if (participantSid != null) {
+        Serializer.toString(request, "ParticipantSid", participantSid, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (label != null) {
+        Serializer.toString(request, "Label", label, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (events != null) {
+        Serializer.toString(request, "Events", events, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

@@ -23,47 +23,47 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class ToolFetcher extends Fetcher<Tool> {
+    public class ToolFetcher extends Fetcher<Tool> {
 
-    private String pathId;
+            private String pathId;
 
-    public ToolFetcher(final String pathId) {
+            public ToolFetcher(final String pathId) {
         this.pathId = pathId;
     }
 
-    @Override
+        
+            @Override
     public Tool fetch(final TwilioRestClient client) {
-        String path = "/v1/Tools/{id}";
+    
+    String path = "/v1/Tools/{id}";
 
-        path = path.replace("{" + "id" + "}", this.pathId.toString());
+    path = path.replace("{"+"id"+"}", this.pathId.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.ASSISTANTS.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Tool fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Tool fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
         return Tool.fromJson(response.getStream(), client.getObjectMapper());
     }
-}
+    }

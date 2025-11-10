@@ -14,9 +14,23 @@
 
 package com.twilio.rest.previewiam.organizations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import com.twilio.auth_strategy.NoAuthStrategy;
 import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
+import com.twilio.base.Reader;
+import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,40 +39,67 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Currency;
+import java.util.List;
+import java.util.Map;
 import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class RoleAssignmentCreator extends Creator<RoleAssignment> {
 
     private String pathOrganizationSid;
     private RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest;
 
-    public RoleAssignmentCreator(
-        final String pathOrganizationSid,
-        final RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest
-    ) {
+    public RoleAssignmentCreator(final String pathOrganizationSid, final RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest) {
         this.pathOrganizationSid = pathOrganizationSid;
-        this.publicApiCreateRoleAssignmentRequest =
-            publicApiCreateRoleAssignmentRequest;
+        this.publicApiCreateRoleAssignmentRequest = publicApiCreateRoleAssignmentRequest;
     }
 
-    public RoleAssignmentCreator setPublicApiCreateRoleAssignmentRequest(
-        final RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest
-    ) {
-        this.publicApiCreateRoleAssignmentRequest =
-            publicApiCreateRoleAssignmentRequest;
-        return this;
-    }
+
+public RoleAssignmentCreator setPublicApiCreateRoleAssignmentRequest(final RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest){
+    this.publicApiCreateRoleAssignmentRequest = publicApiCreateRoleAssignmentRequest;
+    return this;
+}
+
 
     @Override
     public RoleAssignment create(final TwilioRestClient client) {
-        String path = "/Organizations/{OrganizationSid}/RoleAssignments";
+    
+    String path = "/Organizations/{OrganizationSid}/RoleAssignments";
 
-        path =
-            path.replace(
-                "{" + "OrganizationSid" + "}",
-                this.pathOrganizationSid.toString()
-            );
+    path = path.replace("{"+"OrganizationSid"+"}", this.pathOrganizationSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEWIAM.toString(),
@@ -66,42 +107,28 @@ public class RoleAssignmentCreator extends Creator<RoleAssignment> {
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "RoleAssignment creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("RoleAssignment creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return RoleAssignment.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return RoleAssignment.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request, TwilioRestClient client) {
-        ObjectMapper objectMapper = client.getObjectMapper();
+    ObjectMapper objectMapper = client.getObjectMapper();
         if (publicApiCreateRoleAssignmentRequest != null) {
-            request.setBody(
-                RoleAssignment.toJson(
-                    publicApiCreateRoleAssignmentRequest,
-                    objectMapper
-                )
-            );
+        request.setBody(RoleAssignment.toJson(publicApiCreateRoleAssignmentRequest, objectMapper));
         }
-    }
+}
 }

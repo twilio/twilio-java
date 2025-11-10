@@ -27,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.net.URI;
+import com.twilio.type.*;
 
-public class FleetUpdater extends Updater<Fleet> {
-
-    private String pathSid;
+    public class FleetUpdater extends Updater<Fleet> {
+            private String pathSid;
     private String uniqueName;
     private String networkAccessProfile;
     private URI ipCommandsUrl;
@@ -41,63 +42,67 @@ public class FleetUpdater extends Updater<Fleet> {
     private HttpMethod smsCommandsMethod;
     private Integer dataLimit;
 
-    public FleetUpdater(final String pathSid) {
+            public FleetUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public FleetUpdater setUniqueName(final String uniqueName) {
-        this.uniqueName = uniqueName;
-        return this;
-    }
+        
+public FleetUpdater setUniqueName(final String uniqueName){
+    this.uniqueName = uniqueName;
+    return this;
+}
 
-    public FleetUpdater setNetworkAccessProfile(
-        final String networkAccessProfile
-    ) {
-        this.networkAccessProfile = networkAccessProfile;
-        return this;
-    }
 
-    public FleetUpdater setIpCommandsUrl(final URI ipCommandsUrl) {
-        this.ipCommandsUrl = ipCommandsUrl;
-        return this;
-    }
+public FleetUpdater setNetworkAccessProfile(final String networkAccessProfile){
+    this.networkAccessProfile = networkAccessProfile;
+    return this;
+}
 
-    public FleetUpdater setIpCommandsUrl(final String ipCommandsUrl) {
-        return setIpCommandsUrl(Promoter.uriFromString(ipCommandsUrl));
-    }
 
-    public FleetUpdater setIpCommandsMethod(final HttpMethod ipCommandsMethod) {
-        this.ipCommandsMethod = ipCommandsMethod;
-        return this;
-    }
+public FleetUpdater setIpCommandsUrl(final URI ipCommandsUrl){
+    this.ipCommandsUrl = ipCommandsUrl;
+    return this;
+}
 
-    public FleetUpdater setSmsCommandsUrl(final URI smsCommandsUrl) {
-        this.smsCommandsUrl = smsCommandsUrl;
-        return this;
-    }
+public FleetUpdater setIpCommandsUrl(final String ipCommandsUrl){
+    return setIpCommandsUrl(Promoter.uriFromString(ipCommandsUrl));
+}
 
-    public FleetUpdater setSmsCommandsUrl(final String smsCommandsUrl) {
-        return setSmsCommandsUrl(Promoter.uriFromString(smsCommandsUrl));
-    }
+public FleetUpdater setIpCommandsMethod(final HttpMethod ipCommandsMethod){
+    this.ipCommandsMethod = ipCommandsMethod;
+    return this;
+}
 
-    public FleetUpdater setSmsCommandsMethod(
-        final HttpMethod smsCommandsMethod
-    ) {
-        this.smsCommandsMethod = smsCommandsMethod;
-        return this;
-    }
 
-    public FleetUpdater setDataLimit(final Integer dataLimit) {
-        this.dataLimit = dataLimit;
-        return this;
-    }
+public FleetUpdater setSmsCommandsUrl(final URI smsCommandsUrl){
+    this.smsCommandsUrl = smsCommandsUrl;
+    return this;
+}
 
-    @Override
+public FleetUpdater setSmsCommandsUrl(final String smsCommandsUrl){
+    return setSmsCommandsUrl(Promoter.uriFromString(smsCommandsUrl));
+}
+
+public FleetUpdater setSmsCommandsMethod(final HttpMethod smsCommandsMethod){
+    this.smsCommandsMethod = smsCommandsMethod;
+    return this;
+}
+
+
+public FleetUpdater setDataLimit(final Integer dataLimit){
+    this.dataLimit = dataLimit;
+    return this;
+}
+
+
+            @Override
     public Fleet update(final TwilioRestClient client) {
-        String path = "/v1/Fleets/{Sid}";
+    
+    String path = "/v1/Fleets/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.SUPERSIM.toString(),
@@ -105,92 +110,66 @@ public class FleetUpdater extends Updater<Fleet> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Fleet update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Fleet update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Fleet.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addPostParams(final Request request) {
 
-    private void addPostParams(final Request request) {
-        if (uniqueName != null) {
-            Serializer.toString(
-                request,
-                "UniqueName",
-                uniqueName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (networkAccessProfile != null) {
-            Serializer.toString(
-                request,
-                "NetworkAccessProfile",
-                networkAccessProfile,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (ipCommandsUrl != null) {
-            Serializer.toString(
-                request,
-                "IpCommandsUrl",
-                ipCommandsUrl,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (ipCommandsMethod != null) {
-            Serializer.toString(
-                request,
-                "IpCommandsMethod",
-                ipCommandsMethod,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (smsCommandsUrl != null) {
-            Serializer.toString(
-                request,
-                "SmsCommandsUrl",
-                smsCommandsUrl,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (smsCommandsMethod != null) {
-            Serializer.toString(
-                request,
-                "SmsCommandsMethod",
-                smsCommandsMethod,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (dataLimit != null) {
-            Serializer.toString(
-                request,
-                "DataLimit",
-                dataLimit,
-                ParameterType.URLENCODED
-            );
-        }
+    if (uniqueName != null) {
+        Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
     }
+
+
+
+    if (networkAccessProfile != null) {
+        Serializer.toString(request, "NetworkAccessProfile", networkAccessProfile, ParameterType.URLENCODED);
+    }
+
+
+
+    if (ipCommandsUrl != null) {
+        Serializer.toString(request, "IpCommandsUrl", ipCommandsUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (ipCommandsMethod != null) {
+        Serializer.toString(request, "IpCommandsMethod", ipCommandsMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (smsCommandsUrl != null) {
+        Serializer.toString(request, "SmsCommandsUrl", smsCommandsUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (smsCommandsMethod != null) {
+        Serializer.toString(request, "SmsCommandsMethod", smsCommandsMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (dataLimit != null) {
+        Serializer.toString(request, "DataLimit", dataLimit, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

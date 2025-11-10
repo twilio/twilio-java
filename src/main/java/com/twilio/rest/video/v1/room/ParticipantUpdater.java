@@ -26,31 +26,36 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class ParticipantUpdater extends Updater<Participant> {
-
-    private String pathRoomSid;
+    public class ParticipantUpdater extends Updater<Participant> {
+            private String pathRoomSid;
     private String pathSid;
     private Participant.Status status;
 
-    public ParticipantUpdater(final String pathRoomSid, final String pathSid) {
+            public ParticipantUpdater(final String pathRoomSid, final String pathSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathSid = pathSid;
     }
 
-    public ParticipantUpdater setStatus(final Participant.Status status) {
-        this.status = status;
-        return this;
-    }
+        
+public ParticipantUpdater setStatus(final Participant.Status status){
+    this.status = status;
+    return this;
+}
 
-    @Override
+
+            @Override
     public Participant update(final TwilioRestClient client) {
-        String path = "/v1/Rooms/{RoomSid}/Participants/{Sid}";
+    
+    String path = "/v1/Rooms/{RoomSid}/Participants/{Sid}";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"RoomSid"+"}", this.pathRoomSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
@@ -58,41 +63,30 @@ public class ParticipantUpdater extends Updater<Participant> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Participant update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Participant update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return Participant.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return Participant.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (status != null) {
+        Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (status != null) {
-            Serializer.toString(
-                request,
-                "Status",
-                status,
-                ParameterType.URLENCODED
-            );
-        }
-    }
+
 }
+    }

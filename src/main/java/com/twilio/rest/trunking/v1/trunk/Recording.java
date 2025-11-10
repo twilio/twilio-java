@@ -17,90 +17,110 @@ package com.twilio.rest.trunking.v1.trunk;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Recording extends Resource {
 
+
+
+
+
+
     public static RecordingFetcher fetcher(final String pathTrunkSid) {
-        return new RecordingFetcher(pathTrunkSid);
+        return new RecordingFetcher(
+             pathTrunkSid
+        );
     }
+
+
+
+    
+
+
+
+
+
 
     public static RecordingUpdater updater(final String pathTrunkSid) {
-        return new RecordingUpdater(pathTrunkSid);
+        return new RecordingUpdater(
+             pathTrunkSid
+        );
     }
 
-    public enum RecordingMode {
-        DO_NOT_RECORD("do-not-record"),
-        RECORD_FROM_RINGING("record-from-ringing"),
-        RECORD_FROM_ANSWER("record-from-answer"),
-        RECORD_FROM_RINGING_DUAL("record-from-ringing-dual"),
-        RECORD_FROM_ANSWER_DUAL("record-from-answer-dual");
+    
 
-        private final String value;
+public enum RecordingMode {
+    DO_NOT_RECORD("do-not-record"),
+    RECORD_FROM_RINGING("record-from-ringing"),
+    RECORD_FROM_ANSWER("record-from-answer"),
+    RECORD_FROM_RINGING_DUAL("record-from-ringing-dual"),
+    RECORD_FROM_ANSWER_DUAL("record-from-answer-dual");
 
-        private RecordingMode(final String value) {
-            this.value = value;
-        }
+    private final String value;
 
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RecordingMode forValue(final String value) {
-            return Promoter.enumFromString(value, RecordingMode.values());
-        }
+    private RecordingMode(final String value) {
+        this.value = value;
     }
 
-    public enum RecordingTrim {
-        TRIM_SILENCE("trim-silence"),
-        DO_NOT_TRIM("do-not-trim");
-
-        private final String value;
-
-        private RecordingTrim(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RecordingTrim forValue(final String value) {
-            return Promoter.enumFromString(value, RecordingTrim.values());
-        }
+    public String toString() {
+        return value;
     }
+
+    @JsonCreator
+    public static RecordingMode forValue(final String value) {
+        return Promoter.enumFromString(value, RecordingMode.values());
+    }
+}
+public enum RecordingTrim {
+    TRIM_SILENCE("trim-silence"),
+    DO_NOT_TRIM("do-not-trim");
+
+    private final String value;
+
+    private RecordingTrim(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static RecordingTrim forValue(final String value) {
+        return Promoter.enumFromString(value, RecordingTrim.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a Recording object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Recording object represented by the provided JSON
-     */
-    public static Recording fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Recording object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Recording object represented by the provided JSON
+    */
+    public static Recording fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Recording.class);
@@ -112,17 +132,14 @@ public class Recording extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Recording object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Recording object represented by the provided JSON
-     */
-    public static Recording fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Recording object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Recording object represented by the provided JSON
+    */
+    public static Recording fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Recording.class);
@@ -144,40 +161,50 @@ public class Recording extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final Recording.RecordingMode mode;
-
     @Getter
     private final Recording.RecordingTrim trim;
 
-    @JsonCreator
-    private Recording(
-        @JsonProperty("mode") final Recording.RecordingMode mode,
-        @JsonProperty("trim") final Recording.RecordingTrim trim
-    ) {
-        this.mode = mode;
-        this.trim = trim;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Recording other = (Recording) o;
-        return (
-            Objects.equals(mode, other.mode) && Objects.equals(trim, other.trim)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(mode, trim);
-    }
+@JsonCreator
+private Recording(
+    @JsonProperty("mode")
+    final Recording.RecordingMode mode, 
+    @JsonProperty("trim")
+    final Recording.RecordingTrim trim
+){
+    this.mode = mode;
+    this.trim = trim;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Recording other = (Recording) o;
+    return (
+            Objects.equals(mode, other.mode) && 
+            Objects.equals(trim, other.trim)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            mode, 
+            trim
+    );
+}
+
+
+
+}
+

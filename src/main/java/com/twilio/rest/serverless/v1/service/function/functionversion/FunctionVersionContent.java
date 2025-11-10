@@ -17,51 +17,56 @@ package com.twilio.rest.serverless.v1.service.function.functionversion;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.net.URI;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FunctionVersionContent extends Resource {
 
-    public static FunctionVersionContentFetcher fetcher(
-        final String pathServiceSid,
-        final String pathFunctionSid,
-        final String pathSid
-    ) {
+
+
+
+
+
+    public static FunctionVersionContentFetcher fetcher(final String pathServiceSid, final String pathFunctionSid, final String pathSid) {
         return new FunctionVersionContentFetcher(
-            pathServiceSid,
-            pathFunctionSid,
-            pathSid
+             pathServiceSid,  pathFunctionSid,  pathSid
         );
     }
 
+
+
+    
+
+
+
     /**
-     * Converts a JSON String into a FunctionVersionContent object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return FunctionVersionContent object represented by the provided JSON
-     */
-    public static FunctionVersionContent fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a FunctionVersionContent object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return FunctionVersionContent object represented by the provided JSON
+    */
+    public static FunctionVersionContent fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FunctionVersionContent.class);
@@ -73,17 +78,14 @@ public class FunctionVersionContent extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a FunctionVersionContent object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return FunctionVersionContent object represented by the provided JSON
-     */
-    public static FunctionVersionContent fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a FunctionVersionContent object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return FunctionVersionContent object represented by the provided JSON
+    */
+    public static FunctionVersionContent fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FunctionVersionContent.class);
@@ -105,72 +107,78 @@ public class FunctionVersionContent extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String content;
-
     @Getter
     private final String functionSid;
-
     @Getter
     private final String serviceSid;
-
     @Getter
     private final String sid;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private FunctionVersionContent(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("content") final String content,
-        @JsonProperty("function_sid") final String functionSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.content = content;
-        this.functionSid = functionSid;
-        this.serviceSid = serviceSid;
-        this.sid = sid;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        FunctionVersionContent other = (FunctionVersionContent) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(content, other.content) &&
-            Objects.equals(functionSid, other.functionSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            content,
-            functionSid,
-            serviceSid,
-            sid,
-            url
-        );
-    }
+@JsonCreator
+private FunctionVersionContent(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("content")
+    final String content, 
+    @JsonProperty("function_sid")
+    final String functionSid, 
+    @JsonProperty("service_sid")
+    final String serviceSid, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.content = content;
+    this.functionSid = functionSid;
+    this.serviceSid = serviceSid;
+    this.sid = sid;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    FunctionVersionContent other = (FunctionVersionContent) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(content, other.content) && 
+            Objects.equals(functionSid, other.functionSid) && 
+            Objects.equals(serviceSid, other.serviceSid) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            content, 
+            functionSid, 
+            serviceSid, 
+            sid, 
+            url
+    );
+}
+
+
+
+}
+

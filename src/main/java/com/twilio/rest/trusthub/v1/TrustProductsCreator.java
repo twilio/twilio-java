@@ -14,6 +14,7 @@
 
 package com.twilio.rest.trusthub.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +28,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.net.URI;
+import com.twilio.type.*;
 
 public class TrustProductsCreator extends Creator<TrustProducts> {
 
@@ -37,44 +40,47 @@ public class TrustProductsCreator extends Creator<TrustProducts> {
     private String policySid;
     private URI statusCallback;
 
-    public TrustProductsCreator(
-        final String friendlyName,
-        final String email,
-        final String policySid
-    ) {
+    public TrustProductsCreator(final String friendlyName, final String email, final String policySid) {
         this.friendlyName = friendlyName;
         this.email = email;
         this.policySid = policySid;
     }
 
-    public TrustProductsCreator setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
 
-    public TrustProductsCreator setEmail(final String email) {
-        this.email = email;
-        return this;
-    }
+public TrustProductsCreator setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public TrustProductsCreator setPolicySid(final String policySid) {
-        this.policySid = policySid;
-        return this;
-    }
 
-    public TrustProductsCreator setStatusCallback(final URI statusCallback) {
-        this.statusCallback = statusCallback;
-        return this;
-    }
+public TrustProductsCreator setEmail(final String email){
+    this.email = email;
+    return this;
+}
 
-    public TrustProductsCreator setStatusCallback(final String statusCallback) {
-        return setStatusCallback(Promoter.uriFromString(statusCallback));
-    }
+
+public TrustProductsCreator setPolicySid(final String policySid){
+    this.policySid = policySid;
+    return this;
+}
+
+
+public TrustProductsCreator setStatusCallback(final URI statusCallback){
+    this.statusCallback = statusCallback;
+    return this;
+}
+
+public TrustProductsCreator setStatusCallback(final String statusCallback){
+    return setStatusCallback(Promoter.uriFromString(statusCallback));
+}
 
     @Override
     public TrustProducts create(final TwilioRestClient client) {
-        String path = "/v1/TrustProducts";
+    
+    String path = "/v1/TrustProducts";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUSTHUB.toString(),
@@ -82,68 +88,48 @@ public class TrustProductsCreator extends Creator<TrustProducts> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "TrustProducts creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("TrustProducts creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return TrustProducts.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return TrustProducts.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (email != null) {
-            Serializer.toString(
-                request,
-                "Email",
-                email,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (policySid != null) {
-            Serializer.toString(
-                request,
-                "PolicySid",
-                policySid,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (statusCallback != null) {
-            Serializer.toString(
-                request,
-                "StatusCallback",
-                statusCallback,
-                ParameterType.URLENCODED
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
+
+
+
+    if (email != null) {
+        Serializer.toString(request, "Email", email, ParameterType.URLENCODED);
+    }
+
+
+
+    if (policySid != null) {
+        Serializer.toString(request, "PolicySid", policySid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (statusCallback != null) {
+        Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
+    }
+
+
+}
 }

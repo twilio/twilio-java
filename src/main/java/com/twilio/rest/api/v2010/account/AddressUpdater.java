@@ -26,11 +26,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class AddressUpdater extends Updater<Address> {
-
-    private String pathAccountSid;
+    public class AddressUpdater extends Updater<Address> {
+            private String pathAccountSid;
     private String pathSid;
     private String friendlyName;
     private String customerName;
@@ -42,77 +43,79 @@ public class AddressUpdater extends Updater<Address> {
     private Boolean autoCorrectAddress;
     private String streetSecondary;
 
-    public AddressUpdater(final String pathSid) {
+            public AddressUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
-
     public AddressUpdater(final String pathAccountSid, final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
-    public AddressUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+        
+public AddressUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public AddressUpdater setCustomerName(final String customerName) {
-        this.customerName = customerName;
-        return this;
-    }
 
-    public AddressUpdater setStreet(final String street) {
-        this.street = street;
-        return this;
-    }
+public AddressUpdater setCustomerName(final String customerName){
+    this.customerName = customerName;
+    return this;
+}
 
-    public AddressUpdater setCity(final String city) {
-        this.city = city;
-        return this;
-    }
 
-    public AddressUpdater setRegion(final String region) {
-        this.region = region;
-        return this;
-    }
+public AddressUpdater setStreet(final String street){
+    this.street = street;
+    return this;
+}
 
-    public AddressUpdater setPostalCode(final String postalCode) {
-        this.postalCode = postalCode;
-        return this;
-    }
 
-    public AddressUpdater setEmergencyEnabled(final Boolean emergencyEnabled) {
-        this.emergencyEnabled = emergencyEnabled;
-        return this;
-    }
+public AddressUpdater setCity(final String city){
+    this.city = city;
+    return this;
+}
 
-    public AddressUpdater setAutoCorrectAddress(
-        final Boolean autoCorrectAddress
-    ) {
-        this.autoCorrectAddress = autoCorrectAddress;
-        return this;
-    }
 
-    public AddressUpdater setStreetSecondary(final String streetSecondary) {
-        this.streetSecondary = streetSecondary;
-        return this;
-    }
+public AddressUpdater setRegion(final String region){
+    this.region = region;
+    return this;
+}
 
-    @Override
+
+public AddressUpdater setPostalCode(final String postalCode){
+    this.postalCode = postalCode;
+    return this;
+}
+
+
+public AddressUpdater setEmergencyEnabled(final Boolean emergencyEnabled){
+    this.emergencyEnabled = emergencyEnabled;
+    return this;
+}
+
+
+public AddressUpdater setAutoCorrectAddress(final Boolean autoCorrectAddress){
+    this.autoCorrectAddress = autoCorrectAddress;
+    return this;
+}
+
+
+public AddressUpdater setStreetSecondary(final String streetSecondary){
+    this.streetSecondary = streetSecondary;
+    return this;
+}
+
+
+            @Override
     public Address update(final TwilioRestClient client) {
-        String path = "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json";
+    
+    String path = "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
@@ -120,110 +123,78 @@ public class AddressUpdater extends Updater<Address> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Address update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Address update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Address.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addPostParams(final Request request) {
 
-    private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (customerName != null) {
-            Serializer.toString(
-                request,
-                "CustomerName",
-                customerName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (street != null) {
-            Serializer.toString(
-                request,
-                "Street",
-                street,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (city != null) {
-            Serializer.toString(
-                request,
-                "City",
-                city,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (region != null) {
-            Serializer.toString(
-                request,
-                "Region",
-                region,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (postalCode != null) {
-            Serializer.toString(
-                request,
-                "PostalCode",
-                postalCode,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (emergencyEnabled != null) {
-            Serializer.toString(
-                request,
-                "EmergencyEnabled",
-                emergencyEnabled,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (autoCorrectAddress != null) {
-            Serializer.toString(
-                request,
-                "AutoCorrectAddress",
-                autoCorrectAddress,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (streetSecondary != null) {
-            Serializer.toString(
-                request,
-                "StreetSecondary",
-                streetSecondary,
-                ParameterType.URLENCODED
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
+
+
+
+    if (customerName != null) {
+        Serializer.toString(request, "CustomerName", customerName, ParameterType.URLENCODED);
+    }
+
+
+
+    if (street != null) {
+        Serializer.toString(request, "Street", street, ParameterType.URLENCODED);
+    }
+
+
+
+    if (city != null) {
+        Serializer.toString(request, "City", city, ParameterType.URLENCODED);
+    }
+
+
+
+    if (region != null) {
+        Serializer.toString(request, "Region", region, ParameterType.URLENCODED);
+    }
+
+
+
+    if (postalCode != null) {
+        Serializer.toString(request, "PostalCode", postalCode, ParameterType.URLENCODED);
+    }
+
+
+
+    if (emergencyEnabled != null) {
+        Serializer.toString(request, "EmergencyEnabled", emergencyEnabled, ParameterType.URLENCODED);
+    }
+
+
+
+    if (autoCorrectAddress != null) {
+        Serializer.toString(request, "AutoCorrectAddress", autoCorrectAddress, ParameterType.URLENCODED);
+    }
+
+
+
+    if (streetSecondary != null) {
+        Serializer.toString(request, "StreetSecondary", streetSecondary, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

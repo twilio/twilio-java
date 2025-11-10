@@ -25,74 +25,65 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class EncryptedOperatorResultsFetcher
-    extends Fetcher<EncryptedOperatorResults> {
+    public class EncryptedOperatorResultsFetcher extends Fetcher<EncryptedOperatorResults> {
 
-    private String pathTranscriptSid;
+            private String pathTranscriptSid;
     private Boolean redacted;
 
-    public EncryptedOperatorResultsFetcher(final String pathTranscriptSid) {
+            public EncryptedOperatorResultsFetcher(final String pathTranscriptSid) {
         this.pathTranscriptSid = pathTranscriptSid;
     }
 
-    public EncryptedOperatorResultsFetcher setRedacted(final Boolean redacted) {
-        this.redacted = redacted;
-        return this;
-    }
+        
+public EncryptedOperatorResultsFetcher setRedacted(final Boolean redacted){
+    this.redacted = redacted;
+    return this;
+}
 
-    @Override
+
+            @Override
     public EncryptedOperatorResults fetch(final TwilioRestClient client) {
-        String path =
-            "/v2/Transcripts/{TranscriptSid}/OperatorResults/Encrypted";
+    
+    String path = "/v2/Transcripts/{TranscriptSid}/OperatorResults/Encrypted";
 
-        path =
-            path.replace(
-                "{" + "TranscriptSid" + "}",
-                this.pathTranscriptSid.toString()
-            );
+    path = path.replace("{"+"TranscriptSid"+"}", this.pathTranscriptSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.INTELLIGENCE.toString(),
             path
         );
         addQueryParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "EncryptedOperatorResults fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("EncryptedOperatorResults fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-        return EncryptedOperatorResults.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return EncryptedOperatorResults.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addQueryParams(final Request request) {
+
+
+    if (redacted != null) {
+        Serializer.toString(request, "Redacted", redacted, ParameterType.QUERY);
     }
 
-    private void addQueryParams(final Request request) {
-        if (redacted != null) {
-            Serializer.toString(
-                request,
-                "Redacted",
-                redacted,
-                ParameterType.QUERY
-            );
-        }
-    }
+
+
 }
+    }

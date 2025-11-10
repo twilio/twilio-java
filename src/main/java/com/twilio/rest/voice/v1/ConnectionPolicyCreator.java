@@ -14,6 +14,7 @@
 
 package com.twilio.rest.voice.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,23 +27,31 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class ConnectionPolicyCreator extends Creator<ConnectionPolicy> {
 
     private String friendlyName;
 
-    public ConnectionPolicyCreator() {}
-
-    public ConnectionPolicyCreator setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
+    public ConnectionPolicyCreator() {
     }
+
+
+public ConnectionPolicyCreator setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
+
 
     @Override
     public ConnectionPolicy create(final TwilioRestClient client) {
-        String path = "/v1/ConnectionPolicies";
+    
+    String path = "/v1/ConnectionPolicies";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.VOICE.toString(),
@@ -50,41 +59,30 @@ public class ConnectionPolicyCreator extends Creator<ConnectionPolicy> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "ConnectionPolicy creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ConnectionPolicy creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return ConnectionPolicy.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return ConnectionPolicy.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
+
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
+
+
+}
 }

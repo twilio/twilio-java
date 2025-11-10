@@ -26,12 +26,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 
-public class TaskUpdater extends Updater<Task> {
-
-    private String pathWorkspaceSid;
+    public class TaskUpdater extends Updater<Task> {
+            private String pathWorkspaceSid;
     private String pathSid;
     private String ifMatch;
     private String attributes;
@@ -41,59 +42,63 @@ public class TaskUpdater extends Updater<Task> {
     private String taskChannel;
     private ZonedDateTime virtualStartTime;
 
-    public TaskUpdater(final String pathWorkspaceSid, final String pathSid) {
+            public TaskUpdater(final String pathWorkspaceSid, final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
     }
 
-    public TaskUpdater setAttributes(final String attributes) {
-        this.attributes = attributes;
-        return this;
-    }
+        
+public TaskUpdater setAttributes(final String attributes){
+    this.attributes = attributes;
+    return this;
+}
 
-    public TaskUpdater setAssignmentStatus(final Task.Status assignmentStatus) {
-        this.assignmentStatus = assignmentStatus;
-        return this;
-    }
 
-    public TaskUpdater setReason(final String reason) {
-        this.reason = reason;
-        return this;
-    }
+public TaskUpdater setAssignmentStatus(final Task.Status assignmentStatus){
+    this.assignmentStatus = assignmentStatus;
+    return this;
+}
 
-    public TaskUpdater setPriority(final Integer priority) {
-        this.priority = priority;
-        return this;
-    }
 
-    public TaskUpdater setTaskChannel(final String taskChannel) {
-        this.taskChannel = taskChannel;
-        return this;
-    }
+public TaskUpdater setReason(final String reason){
+    this.reason = reason;
+    return this;
+}
 
-    public TaskUpdater setVirtualStartTime(
-        final ZonedDateTime virtualStartTime
-    ) {
-        this.virtualStartTime = virtualStartTime;
-        return this;
-    }
 
-    public TaskUpdater setIfMatch(final String ifMatch) {
-        this.ifMatch = ifMatch;
-        return this;
-    }
+public TaskUpdater setPriority(final Integer priority){
+    this.priority = priority;
+    return this;
+}
 
-    @Override
+
+public TaskUpdater setTaskChannel(final String taskChannel){
+    this.taskChannel = taskChannel;
+    return this;
+}
+
+
+public TaskUpdater setVirtualStartTime(final ZonedDateTime virtualStartTime){
+    this.virtualStartTime = virtualStartTime;
+    return this;
+}
+
+
+public TaskUpdater setIfMatch(final String ifMatch){
+    this.ifMatch = ifMatch;
+    return this;
+}
+
+
+            @Override
     public Task update(final TwilioRestClient client) {
-        String path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}";
+    
+    String path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
@@ -102,94 +107,67 @@ public class TaskUpdater extends Updater<Task> {
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Task update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Task update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Task.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addPostParams(final Request request) {
 
-    private void addPostParams(final Request request) {
-        if (attributes != null) {
-            Serializer.toString(
-                request,
-                "Attributes",
-                attributes,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (assignmentStatus != null) {
-            Serializer.toString(
-                request,
-                "AssignmentStatus",
-                assignmentStatus,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (reason != null) {
-            Serializer.toString(
-                request,
-                "Reason",
-                reason,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (priority != null) {
-            Serializer.toString(
-                request,
-                "Priority",
-                priority,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (taskChannel != null) {
-            Serializer.toString(
-                request,
-                "TaskChannel",
-                taskChannel,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (virtualStartTime != null) {
-            Serializer.toString(
-                request,
-                "VirtualStartTime",
-                virtualStartTime,
-                ParameterType.URLENCODED
-            );
-        }
+    if (attributes != null) {
+        Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
     }
 
-    private void addHeaderParams(final Request request) {
-        if (ifMatch != null) {
-            Serializer.toString(
-                request,
-                "If-Match",
-                ifMatch,
-                ParameterType.HEADER
-            );
-        }
+
+
+    if (assignmentStatus != null) {
+        Serializer.toString(request, "AssignmentStatus", assignmentStatus, ParameterType.URLENCODED);
     }
+
+
+
+    if (reason != null) {
+        Serializer.toString(request, "Reason", reason, ParameterType.URLENCODED);
+    }
+
+
+
+    if (priority != null) {
+        Serializer.toString(request, "Priority", priority, ParameterType.URLENCODED);
+    }
+
+
+
+    if (taskChannel != null) {
+        Serializer.toString(request, "TaskChannel", taskChannel, ParameterType.URLENCODED);
+    }
+
+
+
+    if (virtualStartTime != null) {
+        Serializer.toString(request, "VirtualStartTime", virtualStartTime, ParameterType.URLENCODED);
+    }
+
+
 }
+        private void addHeaderParams(final Request request) {
+
+    if (ifMatch != null) {
+        Serializer.toString(request, "If-Match", ifMatch, ParameterType.HEADER);
+    }
+
+}
+    }

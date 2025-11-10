@@ -25,66 +25,59 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class InsightsSettingsAnswerSetsFetcher
-    extends Fetcher<InsightsSettingsAnswerSets> {
+    public class InsightsSettingsAnswerSetsFetcher extends Fetcher<InsightsSettingsAnswerSets> {
 
-    private String authorization;
+            private String authorization;
 
-    public InsightsSettingsAnswerSetsFetcher() {}
-
-    public InsightsSettingsAnswerSetsFetcher setAuthorization(
-        final String authorization
-    ) {
-        this.authorization = authorization;
-        return this;
+            public InsightsSettingsAnswerSetsFetcher() {
     }
 
-    @Override
-    public InsightsSettingsAnswerSets fetch(final TwilioRestClient client) {
-        String path = "/v1/Insights/QualityManagement/Settings/AnswerSets";
+        
+public InsightsSettingsAnswerSetsFetcher setAuthorization(final String authorization){
+    this.authorization = authorization;
+    return this;
+}
 
+
+            @Override
+    public InsightsSettingsAnswerSets fetch(final TwilioRestClient client) {
+    
+    String path = "/v1/Insights/QualityManagement/Settings/AnswerSets";
+
+
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.FLEXAPI.toString(),
             path
         );
         addHeaderParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "InsightsSettingsAnswerSets fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InsightsSettingsAnswerSets fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-        return InsightsSettingsAnswerSets.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return InsightsSettingsAnswerSets.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addHeaderParams(final Request request) {
+
+    if (authorization != null) {
+        Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
     }
 
-    private void addHeaderParams(final Request request) {
-        if (authorization != null) {
-            Serializer.toString(
-                request,
-                "Authorization",
-                authorization,
-                ParameterType.HEADER
-            );
-        }
-    }
 }
+    }

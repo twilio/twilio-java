@@ -17,155 +17,168 @@ package com.twilio.rest.api.v2010.account.conference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.time.ZonedDateTime;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.time.ZonedDateTime;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
 
-    public static ParticipantCreator creator(
-        final String pathConferenceSid,
-        final com.twilio.type.Endpoint from,
-        final com.twilio.type.Endpoint to
-    ) {
-        return new ParticipantCreator(pathConferenceSid, from, to);
-    }
 
-    public static ParticipantCreator creator(
-        final String pathAccountSid,
-        final String pathConferenceSid,
-        final com.twilio.type.Endpoint from,
-        final com.twilio.type.Endpoint to
-    ) {
+
+    public static ParticipantCreator creator(final String pathConferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to) {
         return new ParticipantCreator(
-            pathAccountSid,
-            pathConferenceSid,
-            from,
-            to
+             pathConferenceSid,  from,  to
         );
     }
 
-    public static ParticipantDeleter deleter(
-        final String pathConferenceSid,
-        final String pathCallSid
-    ) {
-        return new ParticipantDeleter(pathConferenceSid, pathCallSid);
+
+    public static ParticipantCreator creator(final String pathAccountSid, final String pathConferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to) {
+        return new ParticipantCreator(
+             pathAccountSid,  pathConferenceSid,  from,  to
+        );
     }
 
-    public static ParticipantDeleter deleter(
-        final String pathAccountSid,
-        final String pathConferenceSid,
-        final String pathCallSid
-    ) {
+
+
+
+
+
+    
+
+
+
+    public static ParticipantDeleter deleter(final String pathConferenceSid, final String pathCallSid) {
         return new ParticipantDeleter(
-            pathAccountSid,
-            pathConferenceSid,
-            pathCallSid
+             pathConferenceSid,  pathCallSid
         );
     }
 
-    public static ParticipantFetcher fetcher(
-        final String pathConferenceSid,
-        final String pathCallSid
-    ) {
-        return new ParticipantFetcher(pathConferenceSid, pathCallSid);
+
+    public static ParticipantDeleter deleter(final String pathAccountSid, final String pathConferenceSid, final String pathCallSid) {
+        return new ParticipantDeleter(
+             pathAccountSid,  pathConferenceSid,  pathCallSid
+        );
     }
 
-    public static ParticipantFetcher fetcher(
-        final String pathAccountSid,
-        final String pathConferenceSid,
-        final String pathCallSid
-    ) {
+
+
+
+    
+
+
+
+
+    public static ParticipantFetcher fetcher(final String pathConferenceSid, final String pathCallSid) {
         return new ParticipantFetcher(
-            pathAccountSid,
-            pathConferenceSid,
-            pathCallSid
+             pathConferenceSid,  pathCallSid
         );
     }
+
+
+    public static ParticipantFetcher fetcher(final String pathAccountSid, final String pathConferenceSid, final String pathCallSid) {
+        return new ParticipantFetcher(
+             pathAccountSid,  pathConferenceSid,  pathCallSid
+        );
+    }
+
+
+
+    
+
+
+
+
 
     public static ParticipantReader reader(final String pathConferenceSid) {
-        return new ParticipantReader(pathConferenceSid);
-    }
-
-    public static ParticipantReader reader(
-        final String pathAccountSid,
-        final String pathConferenceSid
-    ) {
-        return new ParticipantReader(pathAccountSid, pathConferenceSid);
-    }
-
-    public static ParticipantUpdater updater(
-        final String pathConferenceSid,
-        final String pathCallSid
-    ) {
-        return new ParticipantUpdater(pathConferenceSid, pathCallSid);
-    }
-
-    public static ParticipantUpdater updater(
-        final String pathAccountSid,
-        final String pathConferenceSid,
-        final String pathCallSid
-    ) {
-        return new ParticipantUpdater(
-            pathAccountSid,
-            pathConferenceSid,
-            pathCallSid
+        return new ParticipantReader(
+             pathConferenceSid
         );
     }
 
-    public enum Status {
-        QUEUED("queued"),
-        CONNECTING("connecting"),
-        RINGING("ringing"),
-        CONNECTED("connected"),
-        COMPLETE("complete"),
-        FAILED("failed");
 
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
+    public static ParticipantReader reader(final String pathAccountSid, final String pathConferenceSid) {
+        return new ParticipantReader(
+             pathAccountSid,  pathConferenceSid
+        );
     }
 
+
+    
+
+
+
+
+
+
+    public static ParticipantUpdater updater(final String pathConferenceSid, final String pathCallSid) {
+        return new ParticipantUpdater(
+             pathConferenceSid,  pathCallSid
+        );
+    }
+
+
+    public static ParticipantUpdater updater(final String pathAccountSid, final String pathConferenceSid, final String pathCallSid) {
+        return new ParticipantUpdater(
+             pathAccountSid,  pathConferenceSid,  pathCallSid
+        );
+    }
+
+    
+
+public enum Status {
+    QUEUED("queued"),
+    CONNECTING("connecting"),
+    RINGING("ringing"),
+    CONNECTED("connected"),
+    COMPLETE("complete"),
+    FAILED("failed");
+
+    private final String value;
+
+    private Status(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static Status forValue(final String value) {
+        return Promoter.enumFromString(value, Status.values());
+    }
+}
+
+
     /**
-     * Converts a JSON String into a Participant object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Participant object represented by the provided JSON
-     */
-    public static Participant fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Participant object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Participant object represented by the provided JSON
+    */
+    public static Participant fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Participant.class);
@@ -177,17 +190,14 @@ public class Participant extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Participant object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Participant object represented by the provided JSON
-     */
-    public static Participant fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Participant object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Participant object represented by the provided JSON
+    */
+    public static Participant fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Participant.class);
@@ -209,146 +219,143 @@ public class Participant extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String callSid;
-
     @Getter
     private final String callSidToCoach;
-
     @Getter
     private final Boolean coaching;
-
     @Getter
     private final String conferenceSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final Boolean endConferenceOnExit;
-
     @Getter
     private final Boolean hold;
-
     @Getter
     private final String label;
-
     @Getter
     private final Boolean muted;
-
     @Getter
     private final String queueTime;
-
     @Getter
     private final Boolean startConferenceOnEnter;
-
     @Getter
     private final Participant.Status status;
-
     @Getter
     private final String uri;
 
-    @JsonCreator
-    private Participant(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("call_sid") final String callSid,
-        @JsonProperty("call_sid_to_coach") final String callSidToCoach,
-        @JsonProperty("coaching") final Boolean coaching,
-        @JsonProperty("conference_sid") final String conferenceSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty(
-            "end_conference_on_exit"
-        ) final Boolean endConferenceOnExit,
-        @JsonProperty("hold") final Boolean hold,
-        @JsonProperty("label") final String label,
-        @JsonProperty("muted") final Boolean muted,
-        @JsonProperty("queue_time") final String queueTime,
-        @JsonProperty(
-            "start_conference_on_enter"
-        ) final Boolean startConferenceOnEnter,
-        @JsonProperty("status") final Participant.Status status,
-        @JsonProperty("uri") final String uri
-    ) {
-        this.accountSid = accountSid;
-        this.callSid = callSid;
-        this.callSidToCoach = callSidToCoach;
-        this.coaching = coaching;
-        this.conferenceSid = conferenceSid;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.endConferenceOnExit = endConferenceOnExit;
-        this.hold = hold;
-        this.label = label;
-        this.muted = muted;
-        this.queueTime = queueTime;
-        this.startConferenceOnEnter = startConferenceOnEnter;
-        this.status = status;
-        this.uri = uri;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Participant other = (Participant) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(callSid, other.callSid) &&
-            Objects.equals(callSidToCoach, other.callSidToCoach) &&
-            Objects.equals(coaching, other.coaching) &&
-            Objects.equals(conferenceSid, other.conferenceSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(endConferenceOnExit, other.endConferenceOnExit) &&
-            Objects.equals(hold, other.hold) &&
-            Objects.equals(label, other.label) &&
-            Objects.equals(muted, other.muted) &&
-            Objects.equals(queueTime, other.queueTime) &&
-            Objects.equals(
-                startConferenceOnEnter,
-                other.startConferenceOnEnter
-            ) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(uri, other.uri)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            callSid,
-            callSidToCoach,
-            coaching,
-            conferenceSid,
-            dateCreated,
-            dateUpdated,
-            endConferenceOnExit,
-            hold,
-            label,
-            muted,
-            queueTime,
-            startConferenceOnEnter,
-            status,
-            uri
-        );
-    }
+@JsonCreator
+private Participant(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("call_sid")
+    final String callSid, 
+    @JsonProperty("call_sid_to_coach")
+    final String callSidToCoach, 
+    @JsonProperty("coaching")
+    final Boolean coaching, 
+    @JsonProperty("conference_sid")
+    final String conferenceSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("end_conference_on_exit")
+    final Boolean endConferenceOnExit, 
+    @JsonProperty("hold")
+    final Boolean hold, 
+    @JsonProperty("label")
+    final String label, 
+    @JsonProperty("muted")
+    final Boolean muted, 
+    @JsonProperty("queue_time")
+    final String queueTime, 
+    @JsonProperty("start_conference_on_enter")
+    final Boolean startConferenceOnEnter, 
+    @JsonProperty("status")
+    final Participant.Status status, 
+    @JsonProperty("uri")
+    final String uri
+){
+    this.accountSid = accountSid;
+    this.callSid = callSid;
+    this.callSidToCoach = callSidToCoach;
+    this.coaching = coaching;
+    this.conferenceSid = conferenceSid;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.endConferenceOnExit = endConferenceOnExit;
+    this.hold = hold;
+    this.label = label;
+    this.muted = muted;
+    this.queueTime = queueTime;
+    this.startConferenceOnEnter = startConferenceOnEnter;
+    this.status = status;
+    this.uri = uri;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Participant other = (Participant) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(callSid, other.callSid) && 
+            Objects.equals(callSidToCoach, other.callSidToCoach) && 
+            Objects.equals(coaching, other.coaching) && 
+            Objects.equals(conferenceSid, other.conferenceSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(endConferenceOnExit, other.endConferenceOnExit) && 
+            Objects.equals(hold, other.hold) && 
+            Objects.equals(label, other.label) && 
+            Objects.equals(muted, other.muted) && 
+            Objects.equals(queueTime, other.queueTime) && 
+            Objects.equals(startConferenceOnEnter, other.startConferenceOnEnter) && 
+            Objects.equals(status, other.status) && 
+            Objects.equals(uri, other.uri)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            callSid, 
+            callSidToCoach, 
+            coaching, 
+            conferenceSid, 
+            dateCreated, 
+            dateUpdated, 
+            endConferenceOnExit, 
+            hold, 
+            label, 
+            muted, 
+            queueTime, 
+            startConferenceOnEnter, 
+            status, 
+            uri
+    );
+}
+
+
+
+}
+

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.sync.v1.service.syncmap;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class SyncMapItemCreator extends Creator<SyncMapItem> {
@@ -38,54 +41,53 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
     private Integer itemTtl;
     private Integer collectionTtl;
 
-    public SyncMapItemCreator(
-        final String pathServiceSid,
-        final String pathMapSid,
-        final String key,
-        final Object data
-    ) {
+    public SyncMapItemCreator(final String pathServiceSid, final String pathMapSid, final String key, final Object data) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
         this.key = key;
         this.data = data;
     }
 
-    public SyncMapItemCreator setKey(final String key) {
-        this.key = key;
-        return this;
-    }
 
-    public SyncMapItemCreator setData(final Object data) {
-        this.data = data;
-        return this;
-    }
+public SyncMapItemCreator setKey(final String key){
+    this.key = key;
+    return this;
+}
 
-    public SyncMapItemCreator setTtl(final Integer ttl) {
-        this.ttl = ttl;
-        return this;
-    }
 
-    public SyncMapItemCreator setItemTtl(final Integer itemTtl) {
-        this.itemTtl = itemTtl;
-        return this;
-    }
+public SyncMapItemCreator setData(final Object data){
+    this.data = data;
+    return this;
+}
 
-    public SyncMapItemCreator setCollectionTtl(final Integer collectionTtl) {
-        this.collectionTtl = collectionTtl;
-        return this;
-    }
+
+public SyncMapItemCreator setTtl(final Integer ttl){
+    this.ttl = ttl;
+    return this;
+}
+
+
+public SyncMapItemCreator setItemTtl(final Integer itemTtl){
+    this.itemTtl = itemTtl;
+    return this;
+}
+
+
+public SyncMapItemCreator setCollectionTtl(final Integer collectionTtl){
+    this.collectionTtl = collectionTtl;
+    return this;
+}
+
 
     @Override
     public SyncMapItem create(final TwilioRestClient client) {
-        String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items";
+    
+    String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"MapSid"+"}", this.pathMapSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
@@ -93,67 +95,54 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "SyncMapItem creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SyncMapItem creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return SyncMapItem.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return SyncMapItem.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (key != null) {
-            Serializer.toString(request, "Key", key, ParameterType.URLENCODED);
-        }
 
-        if (data != null) {
-            Serializer.toString(
-                request,
-                "Data",
-                data,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (ttl != null) {
-            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
-        }
-
-        if (itemTtl != null) {
-            Serializer.toString(
-                request,
-                "ItemTtl",
-                itemTtl,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (collectionTtl != null) {
-            Serializer.toString(
-                request,
-                "CollectionTtl",
-                collectionTtl,
-                ParameterType.URLENCODED
-            );
-        }
+    if (key != null) {
+        Serializer.toString(request, "Key", key, ParameterType.URLENCODED);
     }
+
+
+
+    if (data != null) {
+        Serializer.toString(request, "Data", data, ParameterType.URLENCODED);
+    }
+
+
+
+    if (ttl != null) {
+        Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (itemTtl != null) {
+        Serializer.toString(request, "ItemTtl", itemTtl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (collectionTtl != null) {
+        Serializer.toString(request, "CollectionTtl", collectionTtl, ParameterType.URLENCODED);
+    }
+
+
+}
 }

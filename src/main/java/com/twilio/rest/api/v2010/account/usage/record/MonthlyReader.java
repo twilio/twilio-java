@@ -14,9 +14,7 @@
 
 package com.twilio.rest.api.v2010.account.usage.record;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,69 +25,70 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.time.LocalDate;
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class MonthlyReader extends Reader<Monthly> {
 
-    private String pathAccountSid;
+        private String pathAccountSid;
     private String category;
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
     private Long pageSize;
 
-    public MonthlyReader() {}
-
+        public MonthlyReader() {
+    }
     public MonthlyReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public MonthlyReader setCategory(final String category) {
-        this.category = category;
-        return this;
-    }
+    
+public MonthlyReader setCategory(final String category){
+    this.category = category;
+    return this;
+}
 
-    public MonthlyReader setStartDate(final LocalDate startDate) {
-        this.startDate = startDate;
-        return this;
-    }
 
-    public MonthlyReader setEndDate(final LocalDate endDate) {
-        this.endDate = endDate;
-        return this;
-    }
+public MonthlyReader setStartDate(final LocalDate startDate){
+    this.startDate = startDate;
+    return this;
+}
 
-    public MonthlyReader setIncludeSubaccounts(
-        final Boolean includeSubaccounts
-    ) {
-        this.includeSubaccounts = includeSubaccounts;
-        return this;
-    }
 
-    public MonthlyReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+public MonthlyReader setEndDate(final LocalDate endDate){
+    this.endDate = endDate;
+    return this;
+}
 
-    @Override
+
+public MonthlyReader setIncludeSubaccounts(final Boolean includeSubaccounts){
+    this.includeSubaccounts = includeSubaccounts;
+    return this;
+}
+
+
+public MonthlyReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+        @Override
     public ResourceSet<Monthly> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<Monthly> firstPage(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json";
+        
+    String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -101,115 +100,85 @@ public class MonthlyReader extends Reader<Monthly> {
         return pageForRequest(client, request);
     }
 
-    private Page<Monthly> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Monthly> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Monthly read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Monthly read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "usage_records",
             response.getContent(),
             Monthly.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<Monthly> previousPage(
-        final Page<Monthly> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Monthly> previousPage(final Page<Monthly> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Monthly> nextPage(
-        final Page<Monthly> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<Monthly> nextPage(final Page<Monthly> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<Monthly> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Monthly> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (category != null) {
-            Serializer.toString(
-                request,
-                "Category",
-                category,
-                ParameterType.QUERY
-            );
-        }
 
-        if (startDate != null) {
-            Serializer.toString(
-                request,
-                "StartDate",
-                startDate,
-                ParameterType.QUERY
-            );
-        }
 
-        if (endDate != null) {
-            Serializer.toString(
-                request,
-                "EndDate",
-                endDate,
-                ParameterType.QUERY
-            );
-        }
-
-        if (includeSubaccounts != null) {
-            Serializer.toString(
-                request,
-                "IncludeSubaccounts",
-                includeSubaccounts,
-                ParameterType.QUERY
-            );
-        }
-
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+    if (category != null) {
+        Serializer.toString(request, "Category", category, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (startDate != null) {
+        Serializer.toString(request, "StartDate", startDate, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (endDate != null) {
+        Serializer.toString(request, "EndDate", endDate, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (includeSubaccounts != null) {
+        Serializer.toString(request, "IncludeSubaccounts", includeSubaccounts, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

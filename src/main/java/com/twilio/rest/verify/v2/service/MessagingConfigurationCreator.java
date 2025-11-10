@@ -14,6 +14,7 @@
 
 package com.twilio.rest.verify.v2.service;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,47 +27,43 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class MessagingConfigurationCreator
-    extends Creator<MessagingConfiguration> {
+public class MessagingConfigurationCreator extends Creator<MessagingConfiguration> {
 
     private String pathServiceSid;
     private String country;
     private String messagingServiceSid;
 
-    public MessagingConfigurationCreator(
-        final String pathServiceSid,
-        final String country,
-        final String messagingServiceSid
-    ) {
+    public MessagingConfigurationCreator(final String pathServiceSid, final String country, final String messagingServiceSid) {
         this.pathServiceSid = pathServiceSid;
         this.country = country;
         this.messagingServiceSid = messagingServiceSid;
     }
 
-    public MessagingConfigurationCreator setCountry(final String country) {
-        this.country = country;
-        return this;
-    }
 
-    public MessagingConfigurationCreator setMessagingServiceSid(
-        final String messagingServiceSid
-    ) {
-        this.messagingServiceSid = messagingServiceSid;
-        return this;
-    }
+public MessagingConfigurationCreator setCountry(final String country){
+    this.country = country;
+    return this;
+}
+
+
+public MessagingConfigurationCreator setMessagingServiceSid(final String messagingServiceSid){
+    this.messagingServiceSid = messagingServiceSid;
+    return this;
+}
+
 
     @Override
     public MessagingConfiguration create(final TwilioRestClient client) {
-        String path = "/v2/Services/{ServiceSid}/MessagingConfigurations";
+    
+    String path = "/v2/Services/{ServiceSid}/MessagingConfigurations";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
@@ -74,50 +71,36 @@ public class MessagingConfigurationCreator
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "MessagingConfiguration creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("MessagingConfiguration creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return MessagingConfiguration.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return MessagingConfiguration.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (country != null) {
-            Serializer.toString(
-                request,
-                "Country",
-                country,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (messagingServiceSid != null) {
-            Serializer.toString(
-                request,
-                "MessagingServiceSid",
-                messagingServiceSid,
-                ParameterType.URLENCODED
-            );
-        }
+    if (country != null) {
+        Serializer.toString(request, "Country", country, ParameterType.URLENCODED);
     }
+
+
+
+    if (messagingServiceSid != null) {
+        Serializer.toString(request, "MessagingServiceSid", messagingServiceSid, ParameterType.URLENCODED);
+    }
+
+
+}
 }

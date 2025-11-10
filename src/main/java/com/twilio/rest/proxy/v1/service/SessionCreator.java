@@ -14,6 +14,7 @@
 
 package com.twilio.rest.proxy.v1.service;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,9 +28,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.time.ZonedDateTime;
 import java.util.List;
+import com.twilio.type.*;
 
 public class SessionCreator extends Creator<Session> {
 
@@ -45,50 +48,54 @@ public class SessionCreator extends Creator<Session> {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public SessionCreator setUniqueName(final String uniqueName) {
-        this.uniqueName = uniqueName;
-        return this;
-    }
 
-    public SessionCreator setDateExpiry(final ZonedDateTime dateExpiry) {
-        this.dateExpiry = dateExpiry;
-        return this;
-    }
+public SessionCreator setUniqueName(final String uniqueName){
+    this.uniqueName = uniqueName;
+    return this;
+}
 
-    public SessionCreator setTtl(final Integer ttl) {
-        this.ttl = ttl;
-        return this;
-    }
 
-    public SessionCreator setMode(final Session.Mode mode) {
-        this.mode = mode;
-        return this;
-    }
+public SessionCreator setDateExpiry(final ZonedDateTime dateExpiry){
+    this.dateExpiry = dateExpiry;
+    return this;
+}
 
-    public SessionCreator setStatus(final Session.Status status) {
-        this.status = status;
-        return this;
-    }
 
-    public SessionCreator setParticipants(final List<Object> participants) {
-        this.participants = participants;
-        return this;
-    }
+public SessionCreator setTtl(final Integer ttl){
+    this.ttl = ttl;
+    return this;
+}
 
-    public SessionCreator setParticipants(final Object participants) {
-        return setParticipants(Promoter.listOfOne(participants));
-    }
+
+public SessionCreator setMode(final Session.Mode mode){
+    this.mode = mode;
+    return this;
+}
+
+
+public SessionCreator setStatus(final Session.Status status){
+    this.status = status;
+    return this;
+}
+
+
+public SessionCreator setParticipants(final List<Object> participants){
+    this.participants = participants;
+    return this;
+}
+
+public SessionCreator setParticipants(final Object participants){
+    return setParticipants(Promoter.listOfOne(participants));
+}
 
     @Override
     public Session create(final TwilioRestClient client) {
-        String path = "/v1/Services/{ServiceSid}/Sessions";
+    
+    String path = "/v1/Services/{ServiceSid}/Sessions";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.PROXY.toString(),
@@ -96,80 +103,62 @@ public class SessionCreator extends Creator<Session> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Session creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Session creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Session.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (uniqueName != null) {
-            Serializer.toString(
-                request,
-                "UniqueName",
-                uniqueName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (dateExpiry != null) {
-            Serializer.toString(
-                request,
-                "DateExpiry",
-                dateExpiry,
-                ParameterType.URLENCODED
-            );
-        }
+    if (uniqueName != null) {
+        Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
+    }
 
-        if (ttl != null) {
-            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
-        }
 
-        if (mode != null) {
-            Serializer.toString(
-                request,
-                "Mode",
-                mode,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (status != null) {
-            Serializer.toString(
-                request,
-                "Status",
-                status,
-                ParameterType.URLENCODED
-            );
-        }
+    if (dateExpiry != null) {
+        Serializer.toString(request, "DateExpiry", dateExpiry, ParameterType.URLENCODED);
+    }
 
-        if (participants != null) {
-            for (Object param : participants) {
-                Serializer.toString(
-                    request,
-                    "Participants",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
+
+
+    if (ttl != null) {
+        Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (mode != null) {
+        Serializer.toString(request, "Mode", mode, ParameterType.URLENCODED);
+    }
+
+
+
+    if (status != null) {
+        Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+    }
+
+
+
+
+    if (participants != null) {
+        for (Object param: participants) {
+            Serializer.toString(request, "Participants", param, ParameterType.URLENCODED);
         }
     }
+
+}
 }

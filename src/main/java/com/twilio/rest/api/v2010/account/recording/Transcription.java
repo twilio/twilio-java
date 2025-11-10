@@ -17,113 +17,127 @@ package com.twilio.rest.api.v2010.account.recording;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Currency;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Transcription extends Resource {
 
-    public static TranscriptionDeleter deleter(
-        final String pathRecordingSid,
-        final String pathSid
-    ) {
-        return new TranscriptionDeleter(pathRecordingSid, pathSid);
-    }
 
-    public static TranscriptionDeleter deleter(
-        final String pathAccountSid,
-        final String pathRecordingSid,
-        final String pathSid
-    ) {
+
+
+
+    public static TranscriptionDeleter deleter(final String pathRecordingSid, final String pathSid) {
         return new TranscriptionDeleter(
-            pathAccountSid,
-            pathRecordingSid,
-            pathSid
+             pathRecordingSid,  pathSid
         );
     }
 
-    public static TranscriptionFetcher fetcher(
-        final String pathRecordingSid,
-        final String pathSid
-    ) {
-        return new TranscriptionFetcher(pathRecordingSid, pathSid);
+
+    public static TranscriptionDeleter deleter(final String pathAccountSid, final String pathRecordingSid, final String pathSid) {
+        return new TranscriptionDeleter(
+             pathAccountSid,  pathRecordingSid,  pathSid
+        );
     }
 
-    public static TranscriptionFetcher fetcher(
-        final String pathAccountSid,
-        final String pathRecordingSid,
-        final String pathSid
-    ) {
+
+
+
+    
+
+
+
+
+    public static TranscriptionFetcher fetcher(final String pathRecordingSid, final String pathSid) {
         return new TranscriptionFetcher(
-            pathAccountSid,
-            pathRecordingSid,
-            pathSid
+             pathRecordingSid,  pathSid
         );
     }
+
+
+    public static TranscriptionFetcher fetcher(final String pathAccountSid, final String pathRecordingSid, final String pathSid) {
+        return new TranscriptionFetcher(
+             pathAccountSid,  pathRecordingSid,  pathSid
+        );
+    }
+
+
+
+    
+
+
+
+
 
     public static TranscriptionReader reader(final String pathRecordingSid) {
-        return new TranscriptionReader(pathRecordingSid);
+        return new TranscriptionReader(
+             pathRecordingSid
+        );
     }
 
-    public static TranscriptionReader reader(
-        final String pathAccountSid,
-        final String pathRecordingSid
-    ) {
-        return new TranscriptionReader(pathAccountSid, pathRecordingSid);
+
+    public static TranscriptionReader reader(final String pathAccountSid, final String pathRecordingSid) {
+        return new TranscriptionReader(
+             pathAccountSid,  pathRecordingSid
+        );
     }
 
-    public enum Status {
-        IN_PROGRESS("in-progress"),
-        COMPLETED("completed"),
-        FAILED("failed");
 
-        private final String value;
+    
 
-        private Status(final String value) {
-            this.value = value;
-        }
+public enum Status {
+    IN_PROGRESS("in-progress"),
+    COMPLETED("completed"),
+    FAILED("failed");
 
-        public String toString() {
-            return value;
-        }
+    private final String value;
 
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
+    private Status(final String value) {
+        this.value = value;
     }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static Status forValue(final String value) {
+        return Promoter.enumFromString(value, Status.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a Transcription object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Transcription object represented by the provided JSON
-     */
-    public static Transcription fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Transcription object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Transcription object represented by the provided JSON
+    */
+    public static Transcription fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Transcription.class);
@@ -135,17 +149,14 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Transcription object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Transcription object represented by the provided JSON
-     */
-    public static Transcription fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Transcription object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Transcription object represented by the provided JSON
+    */
+    public static Transcription fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Transcription.class);
@@ -167,127 +178,130 @@ public class Transcription extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String apiVersion;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String duration;
-
     @Getter
     private final BigDecimal price;
-
     @Getter
     private final Currency priceUnit;
-
     @Getter
     private final String recordingSid;
-
     @Getter
     private final String sid;
-
     @Getter
     private final Transcription.Status status;
-
     @Getter
     private final String transcriptionText;
-
     @Getter
     private final String type;
-
     @Getter
     private final String uri;
 
-    @JsonCreator
-    private Transcription(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("api_version") final String apiVersion,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("duration") final String duration,
-        @JsonProperty("price") final BigDecimal price,
-        @JsonProperty("price_unit") @JsonDeserialize(
-            using = com.twilio.converter.CurrencyDeserializer.class
-        ) final Currency priceUnit,
-        @JsonProperty("recording_sid") final String recordingSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("status") final Transcription.Status status,
-        @JsonProperty("transcription_text") final String transcriptionText,
-        @JsonProperty("type") final String type,
-        @JsonProperty("uri") final String uri
-    ) {
-        this.accountSid = accountSid;
-        this.apiVersion = apiVersion;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.duration = duration;
-        this.price = price;
-        this.priceUnit = priceUnit;
-        this.recordingSid = recordingSid;
-        this.sid = sid;
-        this.status = status;
-        this.transcriptionText = transcriptionText;
-        this.type = type;
-        this.uri = uri;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Transcription other = (Transcription) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(apiVersion, other.apiVersion) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(duration, other.duration) &&
-            Objects.equals(price, other.price) &&
-            Objects.equals(priceUnit, other.priceUnit) &&
-            Objects.equals(recordingSid, other.recordingSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(transcriptionText, other.transcriptionText) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(uri, other.uri)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            apiVersion,
-            dateCreated,
-            dateUpdated,
-            duration,
-            price,
-            priceUnit,
-            recordingSid,
-            sid,
-            status,
-            transcriptionText,
-            type,
-            uri
-        );
-    }
+@JsonCreator
+private Transcription(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("api_version")
+    final String apiVersion, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("duration")
+    final String duration, 
+    @JsonProperty("price")
+    final BigDecimal price, 
+    @JsonProperty("price_unit")
+    @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
+    final Currency priceUnit, 
+    @JsonProperty("recording_sid")
+    final String recordingSid, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("status")
+    final Transcription.Status status, 
+    @JsonProperty("transcription_text")
+    final String transcriptionText, 
+    @JsonProperty("type")
+    final String type, 
+    @JsonProperty("uri")
+    final String uri
+){
+    this.accountSid = accountSid;
+    this.apiVersion = apiVersion;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.duration = duration;
+    this.price = price;
+    this.priceUnit = priceUnit;
+    this.recordingSid = recordingSid;
+    this.sid = sid;
+    this.status = status;
+    this.transcriptionText = transcriptionText;
+    this.type = type;
+    this.uri = uri;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Transcription other = (Transcription) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(apiVersion, other.apiVersion) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(duration, other.duration) && 
+            Objects.equals(price, other.price) && 
+            Objects.equals(priceUnit, other.priceUnit) && 
+            Objects.equals(recordingSid, other.recordingSid) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(status, other.status) && 
+            Objects.equals(transcriptionText, other.transcriptionText) && 
+            Objects.equals(type, other.type) && 
+            Objects.equals(uri, other.uri)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            apiVersion, 
+            dateCreated, 
+            dateUpdated, 
+            duration, 
+            price, 
+            priceUnit, 
+            recordingSid, 
+            sid, 
+            status, 
+            transcriptionText, 
+            type, 
+            uri
+    );
+}
+
+
+
+}
+

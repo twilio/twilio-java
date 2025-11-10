@@ -26,46 +26,43 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class TaskChannelUpdater extends Updater<TaskChannel> {
-
-    private String pathWorkspaceSid;
+    public class TaskChannelUpdater extends Updater<TaskChannel> {
+            private String pathWorkspaceSid;
     private String pathSid;
     private String friendlyName;
     private Boolean channelOptimizedRouting;
 
-    public TaskChannelUpdater(
-        final String pathWorkspaceSid,
-        final String pathSid
-    ) {
+            public TaskChannelUpdater(final String pathWorkspaceSid, final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
     }
 
-    public TaskChannelUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+        
+public TaskChannelUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public TaskChannelUpdater setChannelOptimizedRouting(
-        final Boolean channelOptimizedRouting
-    ) {
-        this.channelOptimizedRouting = channelOptimizedRouting;
-        return this;
-    }
 
-    @Override
+public TaskChannelUpdater setChannelOptimizedRouting(final Boolean channelOptimizedRouting){
+    this.channelOptimizedRouting = channelOptimizedRouting;
+    return this;
+}
+
+
+            @Override
     public TaskChannel update(final TwilioRestClient client) {
-        String path = "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}";
+    
+    String path = "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
@@ -73,50 +70,36 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "TaskChannel update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("TaskChannel update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return TaskChannel.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return TaskChannel.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (channelOptimizedRouting != null) {
-            Serializer.toString(
-                request,
-                "ChannelOptimizedRouting",
-                channelOptimizedRouting,
-                ParameterType.URLENCODED
-            );
-        }
+
+    if (channelOptimizedRouting != null) {
+        Serializer.toString(request, "ChannelOptimizedRouting", channelOptimizedRouting, ParameterType.URLENCODED);
     }
+
+
 }
+    }

@@ -26,25 +26,19 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
-
-    private String pathServiceSid;
+    public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
+            private String pathServiceSid;
     private String pathListSid;
     private String pathIdentity;
     private Boolean read;
     private Boolean write;
     private Boolean manage;
 
-    public SyncListPermissionUpdater(
-        final String pathServiceSid,
-        final String pathListSid,
-        final String pathIdentity,
-        final Boolean read,
-        final Boolean write,
-        final Boolean manage
-    ) {
+            public SyncListPermissionUpdater(final String pathServiceSid, final String pathListSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
         this.pathIdentity = pathIdentity;
@@ -53,35 +47,35 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
         this.manage = manage;
     }
 
-    public SyncListPermissionUpdater setRead(final Boolean read) {
-        this.read = read;
-        return this;
-    }
+        
+public SyncListPermissionUpdater setRead(final Boolean read){
+    this.read = read;
+    return this;
+}
 
-    public SyncListPermissionUpdater setWrite(final Boolean write) {
-        this.write = write;
-        return this;
-    }
 
-    public SyncListPermissionUpdater setManage(final Boolean manage) {
-        this.manage = manage;
-        return this;
-    }
+public SyncListPermissionUpdater setWrite(final Boolean write){
+    this.write = write;
+    return this;
+}
 
-    @Override
+
+public SyncListPermissionUpdater setManage(final Boolean manage){
+    this.manage = manage;
+    return this;
+}
+
+
+            @Override
     public SyncListPermission update(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
+    
+    String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
-        path =
-            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"ListSid"+"}", this.pathListSid.toString());
+    path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
@@ -89,59 +83,42 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "SyncListPermission update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SyncListPermission update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return SyncListPermission.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return SyncListPermission.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (read != null) {
+        Serializer.toString(request, "Read", read, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (read != null) {
-            Serializer.toString(
-                request,
-                "Read",
-                read,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (write != null) {
-            Serializer.toString(
-                request,
-                "Write",
-                write,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (manage != null) {
-            Serializer.toString(
-                request,
-                "Manage",
-                manage,
-                ParameterType.URLENCODED
-            );
-        }
+    if (write != null) {
+        Serializer.toString(request, "Write", write, ParameterType.URLENCODED);
     }
+
+
+
+    if (manage != null) {
+        Serializer.toString(request, "Manage", manage, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

@@ -17,83 +17,100 @@ package com.twilio.rest.trusthub.v1.trustproducts;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TrustProductsEntityAssignments extends Resource {
 
-    public static TrustProductsEntityAssignmentsCreator creator(
-        final String pathTrustProductSid,
-        final String objectSid
-    ) {
+
+
+    public static TrustProductsEntityAssignmentsCreator creator(final String pathTrustProductSid, final String objectSid) {
         return new TrustProductsEntityAssignmentsCreator(
-            pathTrustProductSid,
-            objectSid
+             pathTrustProductSid,  objectSid
         );
     }
 
-    public static TrustProductsEntityAssignmentsDeleter deleter(
-        final String pathTrustProductSid,
-        final String pathSid
-    ) {
+
+
+
+
+
+    
+
+
+
+    public static TrustProductsEntityAssignmentsDeleter deleter(final String pathTrustProductSid, final String pathSid) {
         return new TrustProductsEntityAssignmentsDeleter(
-            pathTrustProductSid,
-            pathSid
+             pathTrustProductSid,  pathSid
         );
     }
 
-    public static TrustProductsEntityAssignmentsFetcher fetcher(
-        final String pathTrustProductSid,
-        final String pathSid
-    ) {
+
+
+
+    
+
+
+
+
+    public static TrustProductsEntityAssignmentsFetcher fetcher(final String pathTrustProductSid, final String pathSid) {
         return new TrustProductsEntityAssignmentsFetcher(
-            pathTrustProductSid,
-            pathSid
+             pathTrustProductSid,  pathSid
         );
     }
 
-    public static TrustProductsEntityAssignmentsReader reader(
-        final String pathTrustProductSid
-    ) {
-        return new TrustProductsEntityAssignmentsReader(pathTrustProductSid);
+
+
+    
+
+
+
+
+
+    public static TrustProductsEntityAssignmentsReader reader(final String pathTrustProductSid) {
+        return new TrustProductsEntityAssignmentsReader(
+             pathTrustProductSid
+        );
     }
+
+
+    
+
+
 
     /**
-     * Converts a JSON String into a TrustProductsEntityAssignments object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return TrustProductsEntityAssignments object represented by the provided JSON
-     */
-    public static TrustProductsEntityAssignments fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a TrustProductsEntityAssignments object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return TrustProductsEntityAssignments object represented by the provided JSON
+    */
+    public static TrustProductsEntityAssignments fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                TrustProductsEntityAssignments.class
-            );
+            return objectMapper.readValue(json, TrustProductsEntityAssignments.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -102,23 +119,17 @@ public class TrustProductsEntityAssignments extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a TrustProductsEntityAssignments object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return TrustProductsEntityAssignments object represented by the provided JSON
-     */
-    public static TrustProductsEntityAssignments fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a TrustProductsEntityAssignments object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return TrustProductsEntityAssignments object represented by the provided JSON
+    */
+    public static TrustProductsEntityAssignments fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                TrustProductsEntityAssignments.class
-            );
+            return objectMapper.readValue(json, TrustProductsEntityAssignments.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -137,75 +148,79 @@ public class TrustProductsEntityAssignments extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final String objectSid;
-
     @Getter
     private final String sid;
-
     @Getter
     private final String trustProductSid;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private TrustProductsEntityAssignments(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("object_sid") final String objectSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("trust_product_sid") final String trustProductSid,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.dateCreated = dateCreated;
-        this.objectSid = objectSid;
-        this.sid = sid;
-        this.trustProductSid = trustProductSid;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        TrustProductsEntityAssignments other =
-            (TrustProductsEntityAssignments) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(objectSid, other.objectSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(trustProductSid, other.trustProductSid) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            dateCreated,
-            objectSid,
-            sid,
-            trustProductSid,
-            url
-        );
-    }
+@JsonCreator
+private TrustProductsEntityAssignments(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("object_sid")
+    final String objectSid, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("trust_product_sid")
+    final String trustProductSid, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.dateCreated = dateCreated;
+    this.objectSid = objectSid;
+    this.sid = sid;
+    this.trustProductSid = trustProductSid;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    TrustProductsEntityAssignments other = (TrustProductsEntityAssignments) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(objectSid, other.objectSid) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(trustProductSid, other.trustProductSid) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            dateCreated, 
+            objectSid, 
+            sid, 
+            trustProductSid, 
+            url
+    );
+}
+
+
+
+}
+

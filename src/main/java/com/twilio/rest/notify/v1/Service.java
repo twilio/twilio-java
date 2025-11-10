@@ -17,62 +17,148 @@ package com.twilio.rest.notify.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
+import com.twilio.base.Reader;
+import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Objects;
+import com.twilio.exception.RestException;
+import com.twilio.http.HttpMethod;
+import com.twilio.http.Request;
+import com.twilio.http.Response;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Currency;
+import java.util.List;
+import java.util.Map;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
 
+
+
     public static ServiceCreator creator() {
-        return new ServiceCreator();
+        return new ServiceCreator(
+            
+        );
     }
+
+
+
+
+
+
+    
+
+
 
     public static ServiceDeleter deleter(final String pathSid) {
-        return new ServiceDeleter(pathSid);
+        return new ServiceDeleter(
+             pathSid
+        );
     }
+
+
+
+
+    
+
+
+
 
     public static ServiceFetcher fetcher(final String pathSid) {
-        return new ServiceFetcher(pathSid);
+        return new ServiceFetcher(
+             pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static ServiceReader reader() {
-        return new ServiceReader();
+        return new ServiceReader(
+            
+        );
     }
+
+
+    
+
+
+
+
+
 
     public static ServiceUpdater updater(final String pathSid) {
-        return new ServiceUpdater(pathSid);
+        return new ServiceUpdater(
+             pathSid
+        );
     }
 
+    
+
+
+
     /**
-     * Converts a JSON String into a Service object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Service object represented by the provided JSON
-     */
-    public static Service fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Service object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Service object represented by the provided JSON
+    */
+    public static Service fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -84,17 +170,14 @@ public class Service extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Service object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Service object represented by the provided JSON
-     */
-    public static Service fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Service object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Service object represented by the provided JSON
+    */
+    public static Service fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -116,208 +199,178 @@ public class Service extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String alexaSkillId;
-
     @Getter
     private final String apnCredentialSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String defaultAlexaNotificationProtocolVersion;
-
     @Getter
     private final String defaultApnNotificationProtocolVersion;
-
     @Getter
     private final String defaultFcmNotificationProtocolVersion;
-
     @Getter
     private final String defaultGcmNotificationProtocolVersion;
-
     @Getter
     private final Boolean deliveryCallbackEnabled;
-
     @Getter
     private final String deliveryCallbackUrl;
-
     @Getter
     private final String facebookMessengerPageId;
-
     @Getter
     private final String fcmCredentialSid;
-
     @Getter
     private final String friendlyName;
-
     @Getter
     private final String gcmCredentialSid;
-
     @Getter
     private final Map<String, String> links;
-
     @Getter
     private final Boolean logEnabled;
-
     @Getter
     private final String messagingServiceSid;
-
     @Getter
     private final String sid;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private Service(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("alexa_skill_id") final String alexaSkillId,
-        @JsonProperty("apn_credential_sid") final String apnCredentialSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty(
-            "default_alexa_notification_protocol_version"
-        ) final String defaultAlexaNotificationProtocolVersion,
-        @JsonProperty(
-            "default_apn_notification_protocol_version"
-        ) final String defaultApnNotificationProtocolVersion,
-        @JsonProperty(
-            "default_fcm_notification_protocol_version"
-        ) final String defaultFcmNotificationProtocolVersion,
-        @JsonProperty(
-            "default_gcm_notification_protocol_version"
-        ) final String defaultGcmNotificationProtocolVersion,
-        @JsonProperty(
-            "delivery_callback_enabled"
-        ) final Boolean deliveryCallbackEnabled,
-        @JsonProperty("delivery_callback_url") final String deliveryCallbackUrl,
-        @JsonProperty(
-            "facebook_messenger_page_id"
-        ) final String facebookMessengerPageId,
-        @JsonProperty("fcm_credential_sid") final String fcmCredentialSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("gcm_credential_sid") final String gcmCredentialSid,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("log_enabled") final Boolean logEnabled,
-        @JsonProperty("messaging_service_sid") final String messagingServiceSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.alexaSkillId = alexaSkillId;
-        this.apnCredentialSid = apnCredentialSid;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.defaultAlexaNotificationProtocolVersion =
-            defaultAlexaNotificationProtocolVersion;
-        this.defaultApnNotificationProtocolVersion =
-            defaultApnNotificationProtocolVersion;
-        this.defaultFcmNotificationProtocolVersion =
-            defaultFcmNotificationProtocolVersion;
-        this.defaultGcmNotificationProtocolVersion =
-            defaultGcmNotificationProtocolVersion;
-        this.deliveryCallbackEnabled = deliveryCallbackEnabled;
-        this.deliveryCallbackUrl = deliveryCallbackUrl;
-        this.facebookMessengerPageId = facebookMessengerPageId;
-        this.fcmCredentialSid = fcmCredentialSid;
-        this.friendlyName = friendlyName;
-        this.gcmCredentialSid = gcmCredentialSid;
-        this.links = links;
-        this.logEnabled = logEnabled;
-        this.messagingServiceSid = messagingServiceSid;
-        this.sid = sid;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Service other = (Service) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(alexaSkillId, other.alexaSkillId) &&
-            Objects.equals(apnCredentialSid, other.apnCredentialSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(
-                defaultAlexaNotificationProtocolVersion,
-                other.defaultAlexaNotificationProtocolVersion
-            ) &&
-            Objects.equals(
-                defaultApnNotificationProtocolVersion,
-                other.defaultApnNotificationProtocolVersion
-            ) &&
-            Objects.equals(
-                defaultFcmNotificationProtocolVersion,
-                other.defaultFcmNotificationProtocolVersion
-            ) &&
-            Objects.equals(
-                defaultGcmNotificationProtocolVersion,
-                other.defaultGcmNotificationProtocolVersion
-            ) &&
-            Objects.equals(
-                deliveryCallbackEnabled,
-                other.deliveryCallbackEnabled
-            ) &&
-            Objects.equals(deliveryCallbackUrl, other.deliveryCallbackUrl) &&
-            Objects.equals(
-                facebookMessengerPageId,
-                other.facebookMessengerPageId
-            ) &&
-            Objects.equals(fcmCredentialSid, other.fcmCredentialSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(gcmCredentialSid, other.gcmCredentialSid) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(logEnabled, other.logEnabled) &&
-            Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            alexaSkillId,
-            apnCredentialSid,
-            dateCreated,
-            dateUpdated,
-            defaultAlexaNotificationProtocolVersion,
-            defaultApnNotificationProtocolVersion,
-            defaultFcmNotificationProtocolVersion,
-            defaultGcmNotificationProtocolVersion,
-            deliveryCallbackEnabled,
-            deliveryCallbackUrl,
-            facebookMessengerPageId,
-            fcmCredentialSid,
-            friendlyName,
-            gcmCredentialSid,
-            links,
-            logEnabled,
-            messagingServiceSid,
-            sid,
-            url
-        );
-    }
+@JsonCreator
+private Service(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("alexa_skill_id")
+    final String alexaSkillId, 
+    @JsonProperty("apn_credential_sid")
+    final String apnCredentialSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("default_alexa_notification_protocol_version")
+    final String defaultAlexaNotificationProtocolVersion, 
+    @JsonProperty("default_apn_notification_protocol_version")
+    final String defaultApnNotificationProtocolVersion, 
+    @JsonProperty("default_fcm_notification_protocol_version")
+    final String defaultFcmNotificationProtocolVersion, 
+    @JsonProperty("default_gcm_notification_protocol_version")
+    final String defaultGcmNotificationProtocolVersion, 
+    @JsonProperty("delivery_callback_enabled")
+    final Boolean deliveryCallbackEnabled, 
+    @JsonProperty("delivery_callback_url")
+    final String deliveryCallbackUrl, 
+    @JsonProperty("facebook_messenger_page_id")
+    final String facebookMessengerPageId, 
+    @JsonProperty("fcm_credential_sid")
+    final String fcmCredentialSid, 
+    @JsonProperty("friendly_name")
+    final String friendlyName, 
+    @JsonProperty("gcm_credential_sid")
+    final String gcmCredentialSid, 
+    @JsonProperty("links")
+    final Map<String, String> links, 
+    @JsonProperty("log_enabled")
+    final Boolean logEnabled, 
+    @JsonProperty("messaging_service_sid")
+    final String messagingServiceSid, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.alexaSkillId = alexaSkillId;
+    this.apnCredentialSid = apnCredentialSid;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.defaultAlexaNotificationProtocolVersion = defaultAlexaNotificationProtocolVersion;
+    this.defaultApnNotificationProtocolVersion = defaultApnNotificationProtocolVersion;
+    this.defaultFcmNotificationProtocolVersion = defaultFcmNotificationProtocolVersion;
+    this.defaultGcmNotificationProtocolVersion = defaultGcmNotificationProtocolVersion;
+    this.deliveryCallbackEnabled = deliveryCallbackEnabled;
+    this.deliveryCallbackUrl = deliveryCallbackUrl;
+    this.facebookMessengerPageId = facebookMessengerPageId;
+    this.fcmCredentialSid = fcmCredentialSid;
+    this.friendlyName = friendlyName;
+    this.gcmCredentialSid = gcmCredentialSid;
+    this.links = links;
+    this.logEnabled = logEnabled;
+    this.messagingServiceSid = messagingServiceSid;
+    this.sid = sid;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Service other = (Service) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(alexaSkillId, other.alexaSkillId) && 
+            Objects.equals(apnCredentialSid, other.apnCredentialSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(defaultAlexaNotificationProtocolVersion, other.defaultAlexaNotificationProtocolVersion) && 
+            Objects.equals(defaultApnNotificationProtocolVersion, other.defaultApnNotificationProtocolVersion) && 
+            Objects.equals(defaultFcmNotificationProtocolVersion, other.defaultFcmNotificationProtocolVersion) && 
+            Objects.equals(defaultGcmNotificationProtocolVersion, other.defaultGcmNotificationProtocolVersion) && 
+            Objects.equals(deliveryCallbackEnabled, other.deliveryCallbackEnabled) && 
+            Objects.equals(deliveryCallbackUrl, other.deliveryCallbackUrl) && 
+            Objects.equals(facebookMessengerPageId, other.facebookMessengerPageId) && 
+            Objects.equals(fcmCredentialSid, other.fcmCredentialSid) && 
+            Objects.equals(friendlyName, other.friendlyName) && 
+            Objects.equals(gcmCredentialSid, other.gcmCredentialSid) && 
+            Objects.equals(links, other.links) && 
+            Objects.equals(logEnabled, other.logEnabled) && 
+            Objects.equals(messagingServiceSid, other.messagingServiceSid) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            alexaSkillId, 
+            apnCredentialSid, 
+            dateCreated, 
+            dateUpdated, 
+            defaultAlexaNotificationProtocolVersion, 
+            defaultApnNotificationProtocolVersion, 
+            defaultFcmNotificationProtocolVersion, 
+            defaultGcmNotificationProtocolVersion, 
+            deliveryCallbackEnabled, 
+            deliveryCallbackUrl, 
+            facebookMessengerPageId, 
+            fcmCredentialSid, 
+            friendlyName, 
+            gcmCredentialSid, 
+            links, 
+            logEnabled, 
+            messagingServiceSid, 
+            sid, 
+            url
+    );
+}
+
+
+
+}
+

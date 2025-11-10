@@ -17,68 +17,89 @@ package com.twilio.rest.numbers.v2.regulatorycompliance;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.net.URI;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Regulation extends Resource {
 
+
+
+
+
+
     public static RegulationFetcher fetcher(final String pathSid) {
-        return new RegulationFetcher(pathSid);
+        return new RegulationFetcher(
+             pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static RegulationReader reader() {
-        return new RegulationReader();
+        return new RegulationReader(
+            
+        );
     }
 
-    public enum EndUserType {
-        INDIVIDUAL("individual"),
-        BUSINESS("business");
 
-        private final String value;
+    
 
-        private EndUserType(final String value) {
-            this.value = value;
-        }
+public enum EndUserType {
+    INDIVIDUAL("individual"),
+    BUSINESS("business");
 
-        public String toString() {
-            return value;
-        }
+    private final String value;
 
-        @JsonCreator
-        public static EndUserType forValue(final String value) {
-            return Promoter.enumFromString(value, EndUserType.values());
-        }
+    private EndUserType(final String value) {
+        this.value = value;
     }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static EndUserType forValue(final String value) {
+        return Promoter.enumFromString(value, EndUserType.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a Regulation object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Regulation object represented by the provided JSON
-     */
-    public static Regulation fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Regulation object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Regulation object represented by the provided JSON
+    */
+    public static Regulation fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Regulation.class);
@@ -90,17 +111,14 @@ public class Regulation extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Regulation object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Regulation object represented by the provided JSON
-     */
-    public static Regulation fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Regulation object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Regulation object represented by the provided JSON
+    */
+    public static Regulation fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Regulation.class);
@@ -122,79 +140,85 @@ public class Regulation extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final Regulation.EndUserType endUserType;
-
     @Getter
     private final String friendlyName;
-
     @Getter
     private final String isoCountry;
-
     @Getter
     private final String numberType;
-
     @Getter
     private final Object requirements;
-
     @Getter
     private final String sid;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private Regulation(
-        @JsonProperty("end_user_type") final Regulation.EndUserType endUserType,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty("number_type") final String numberType,
-        @JsonProperty("requirements") final Object requirements,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("url") final URI url
-    ) {
-        this.endUserType = endUserType;
-        this.friendlyName = friendlyName;
-        this.isoCountry = isoCountry;
-        this.numberType = numberType;
-        this.requirements = requirements;
-        this.sid = sid;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Regulation other = (Regulation) o;
-        return (
-            Objects.equals(endUserType, other.endUserType) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(isoCountry, other.isoCountry) &&
-            Objects.equals(numberType, other.numberType) &&
-            Objects.equals(requirements, other.requirements) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            endUserType,
-            friendlyName,
-            isoCountry,
-            numberType,
-            requirements,
-            sid,
-            url
-        );
-    }
+@JsonCreator
+private Regulation(
+    @JsonProperty("end_user_type")
+    final Regulation.EndUserType endUserType, 
+    @JsonProperty("friendly_name")
+    final String friendlyName, 
+    @JsonProperty("iso_country")
+    final String isoCountry, 
+    @JsonProperty("number_type")
+    final String numberType, 
+    @JsonProperty("requirements")
+    final Object requirements, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.endUserType = endUserType;
+    this.friendlyName = friendlyName;
+    this.isoCountry = isoCountry;
+    this.numberType = numberType;
+    this.requirements = requirements;
+    this.sid = sid;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Regulation other = (Regulation) o;
+    return (
+            Objects.equals(endUserType, other.endUserType) && 
+            Objects.equals(friendlyName, other.friendlyName) && 
+            Objects.equals(isoCountry, other.isoCountry) && 
+            Objects.equals(numberType, other.numberType) && 
+            Objects.equals(requirements, other.requirements) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            endUserType, 
+            friendlyName, 
+            isoCountry, 
+            numberType, 
+            requirements, 
+            sid, 
+            url
+    );
+}
+
+
+
+}
+

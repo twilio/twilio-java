@@ -14,9 +14,7 @@
 
 package com.twilio.rest.flexapi.v1;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,53 +25,56 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
-public class InsightsAssessmentsCommentReader
-    extends Reader<InsightsAssessmentsComment> {
+public class InsightsAssessmentsCommentReader extends Reader<InsightsAssessmentsComment> {
 
-    private String segmentId;
+        private String segmentId;
     private String agentId;
     private Long pageSize;
     private String authorization;
 
-    public InsightsAssessmentsCommentReader() {}
-
-    public InsightsAssessmentsCommentReader setSegmentId(
-        final String segmentId
-    ) {
-        this.segmentId = segmentId;
-        return this;
+        public InsightsAssessmentsCommentReader() {
     }
 
-    public InsightsAssessmentsCommentReader setAgentId(final String agentId) {
-        this.agentId = agentId;
-        return this;
-    }
+    
+public InsightsAssessmentsCommentReader setSegmentId(final String segmentId){
+    this.segmentId = segmentId;
+    return this;
+}
 
-    public InsightsAssessmentsCommentReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
 
-    public InsightsAssessmentsCommentReader setAuthorization(
-        final String authorization
-    ) {
-        this.authorization = authorization;
-        return this;
-    }
+public InsightsAssessmentsCommentReader setAgentId(final String agentId){
+    this.agentId = agentId;
+    return this;
+}
 
-    @Override
-    public ResourceSet<InsightsAssessmentsComment> read(
-        final TwilioRestClient client
-    ) {
+
+public InsightsAssessmentsCommentReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+public InsightsAssessmentsCommentReader setAuthorization(final String authorization){
+    this.authorization = authorization;
+    return this;
+}
+
+
+        @Override
+    public ResourceSet<InsightsAssessmentsComment> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
+    
+    public Page<InsightsAssessmentsComment> firstPage(final TwilioRestClient client) {
+        
+    String path = "/v1/Insights/QualityManagement/Assessments/Comments";
 
-    public Page<InsightsAssessmentsComment> firstPage(
-        final TwilioRestClient client
-    ) {
-        String path = "/v1/Insights/QualityManagement/Assessments/Comments";
 
         Request request = new Request(
             HttpMethod.GET,
@@ -86,108 +87,76 @@ public class InsightsAssessmentsCommentReader
         return pageForRequest(client, request);
     }
 
-    private Page<InsightsAssessmentsComment> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<InsightsAssessmentsComment> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "InsightsAssessmentsComment read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InsightsAssessmentsComment read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "comments",
             response.getContent(),
             InsightsAssessmentsComment.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<InsightsAssessmentsComment> previousPage(
-        final Page<InsightsAssessmentsComment> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<InsightsAssessmentsComment> previousPage(final Page<InsightsAssessmentsComment> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<InsightsAssessmentsComment> nextPage(
-        final Page<InsightsAssessmentsComment> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<InsightsAssessmentsComment> nextPage(final Page<InsightsAssessmentsComment> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<InsightsAssessmentsComment> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<InsightsAssessmentsComment> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (segmentId != null) {
-            Serializer.toString(
-                request,
-                "SegmentId",
-                segmentId,
-                ParameterType.QUERY
-            );
-        }
 
-        if (agentId != null) {
-            Serializer.toString(
-                request,
-                "AgentId",
-                agentId,
-                ParameterType.QUERY
-            );
-        }
 
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+    if (segmentId != null) {
+        Serializer.toString(request, "SegmentId", segmentId, ParameterType.QUERY);
     }
 
+
+
+
+
+    if (agentId != null) {
+        Serializer.toString(request, "AgentId", agentId, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
     private void addHeaderParams(final Request request) {
-        if (authorization != null) {
-            Serializer.toString(
-                request,
-                "Authorization",
-                authorization,
-                ParameterType.HEADER
-            );
-        }
+
+    if (authorization != null) {
+        Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
     }
+
+}
 }

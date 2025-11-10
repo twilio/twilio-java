@@ -25,72 +25,62 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class InsightsQuestionnairesQuestionDeleter
-    extends Deleter<InsightsQuestionnairesQuestion> {
+            public class InsightsQuestionnairesQuestionDeleter extends Deleter<InsightsQuestionnairesQuestion> {
 
-    private String pathQuestionSid;
+                private String pathQuestionSid;
     private String authorization;
 
-    public InsightsQuestionnairesQuestionDeleter(final String pathQuestionSid) {
+                public InsightsQuestionnairesQuestionDeleter(final String pathQuestionSid) {
         this.pathQuestionSid = pathQuestionSid;
     }
 
-    public InsightsQuestionnairesQuestionDeleter setAuthorization(
-        final String authorization
-    ) {
-        this.authorization = authorization;
-        return this;
-    }
+            
+public InsightsQuestionnairesQuestionDeleter setAuthorization(final String authorization){
+    this.authorization = authorization;
+    return this;
+}
 
-    @Override
+
+                @Override
     public boolean delete(final TwilioRestClient client) {
-        String path = "/v1/Insights/QualityManagement/Questions/{QuestionSid}";
+    
+    String path = "/v1/Insights/QualityManagement/Questions/{QuestionSid}";
 
-        path =
-            path.replace(
-                "{" + "QuestionSid" + "}",
-                this.pathQuestionSid.toString()
-            );
+    path = path.replace("{"+"QuestionSid"+"}", this.pathQuestionSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.FLEXAPI.toString(),
             path
         );
         addHeaderParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "InsightsQuestionnairesQuestion delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InsightsQuestionnairesQuestion delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
         return response.getStatusCode() == 204;
     }
+                private void addHeaderParams(final Request request) {
 
-    private void addHeaderParams(final Request request) {
-        if (authorization != null) {
-            Serializer.toString(
-                request,
-                "Authorization",
-                authorization,
-                ParameterType.HEADER
-            );
-        }
+    if (authorization != null) {
+        Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
     }
+
 }
+            }

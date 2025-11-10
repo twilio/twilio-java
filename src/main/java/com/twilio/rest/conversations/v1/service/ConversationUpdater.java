@@ -26,12 +26,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 
-public class ConversationUpdater extends Updater<Conversation> {
-
-    private String pathChatServiceSid;
+    public class ConversationUpdater extends Updater<Conversation> {
+            private String pathChatServiceSid;
     private String pathSid;
     private Conversation.WebhookEnabledType xTwilioWebhookEnabled;
     private String friendlyName;
@@ -46,93 +47,93 @@ public class ConversationUpdater extends Updater<Conversation> {
     private String bindingsEmailAddress;
     private String bindingsEmailName;
 
-    public ConversationUpdater(
-        final String pathChatServiceSid,
-        final String pathSid
-    ) {
+            public ConversationUpdater(final String pathChatServiceSid, final String pathSid) {
         this.pathChatServiceSid = pathChatServiceSid;
         this.pathSid = pathSid;
     }
 
-    public ConversationUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+        
+public ConversationUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public ConversationUpdater setDateCreated(final ZonedDateTime dateCreated) {
-        this.dateCreated = dateCreated;
-        return this;
-    }
 
-    public ConversationUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
-        this.dateUpdated = dateUpdated;
-        return this;
-    }
+public ConversationUpdater setDateCreated(final ZonedDateTime dateCreated){
+    this.dateCreated = dateCreated;
+    return this;
+}
 
-    public ConversationUpdater setAttributes(final String attributes) {
-        this.attributes = attributes;
-        return this;
-    }
 
-    public ConversationUpdater setMessagingServiceSid(
-        final String messagingServiceSid
-    ) {
-        this.messagingServiceSid = messagingServiceSid;
-        return this;
-    }
+public ConversationUpdater setDateUpdated(final ZonedDateTime dateUpdated){
+    this.dateUpdated = dateUpdated;
+    return this;
+}
 
-    public ConversationUpdater setState(final Conversation.State state) {
-        this.state = state;
-        return this;
-    }
 
-    public ConversationUpdater setTimersInactive(final String timersInactive) {
-        this.timersInactive = timersInactive;
-        return this;
-    }
+public ConversationUpdater setAttributes(final String attributes){
+    this.attributes = attributes;
+    return this;
+}
 
-    public ConversationUpdater setTimersClosed(final String timersClosed) {
-        this.timersClosed = timersClosed;
-        return this;
-    }
 
-    public ConversationUpdater setUniqueName(final String uniqueName) {
-        this.uniqueName = uniqueName;
-        return this;
-    }
+public ConversationUpdater setMessagingServiceSid(final String messagingServiceSid){
+    this.messagingServiceSid = messagingServiceSid;
+    return this;
+}
 
-    public ConversationUpdater setBindingsEmailAddress(
-        final String bindingsEmailAddress
-    ) {
-        this.bindingsEmailAddress = bindingsEmailAddress;
-        return this;
-    }
 
-    public ConversationUpdater setBindingsEmailName(
-        final String bindingsEmailName
-    ) {
-        this.bindingsEmailName = bindingsEmailName;
-        return this;
-    }
+public ConversationUpdater setState(final Conversation.State state){
+    this.state = state;
+    return this;
+}
 
-    public ConversationUpdater setXTwilioWebhookEnabled(
-        final Conversation.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
-        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-        return this;
-    }
 
-    @Override
+public ConversationUpdater setTimersInactive(final String timersInactive){
+    this.timersInactive = timersInactive;
+    return this;
+}
+
+
+public ConversationUpdater setTimersClosed(final String timersClosed){
+    this.timersClosed = timersClosed;
+    return this;
+}
+
+
+public ConversationUpdater setUniqueName(final String uniqueName){
+    this.uniqueName = uniqueName;
+    return this;
+}
+
+
+public ConversationUpdater setBindingsEmailAddress(final String bindingsEmailAddress){
+    this.bindingsEmailAddress = bindingsEmailAddress;
+    return this;
+}
+
+
+public ConversationUpdater setBindingsEmailName(final String bindingsEmailName){
+    this.bindingsEmailName = bindingsEmailName;
+    return this;
+}
+
+
+public ConversationUpdater setXTwilioWebhookEnabled(final Conversation.WebhookEnabledType xTwilioWebhookEnabled){
+    this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+    return this;
+}
+
+
+            @Override
     public Conversation update(final TwilioRestClient client) {
-        String path = "/v1/Services/{ChatServiceSid}/Conversations/{Sid}";
+    
+    String path = "/v1/Services/{ChatServiceSid}/Conversations/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
@@ -141,142 +142,97 @@ public class ConversationUpdater extends Updater<Conversation> {
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Conversation update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Conversation update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return Conversation.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return Conversation.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (dateCreated != null) {
-            Serializer.toString(
-                request,
-                "DateCreated",
-                dateCreated,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (dateUpdated != null) {
-            Serializer.toString(
-                request,
-                "DateUpdated",
-                dateUpdated,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (attributes != null) {
-            Serializer.toString(
-                request,
-                "Attributes",
-                attributes,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (messagingServiceSid != null) {
-            Serializer.toString(
-                request,
-                "MessagingServiceSid",
-                messagingServiceSid,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (state != null) {
-            Serializer.toString(
-                request,
-                "State",
-                state,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (timersInactive != null) {
-            Serializer.toString(
-                request,
-                "Timers.Inactive",
-                timersInactive,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (timersClosed != null) {
-            Serializer.toString(
-                request,
-                "Timers.Closed",
-                timersClosed,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (uniqueName != null) {
-            Serializer.toString(
-                request,
-                "UniqueName",
-                uniqueName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (bindingsEmailAddress != null) {
-            Serializer.toString(
-                request,
-                "Bindings.Email.Address",
-                bindingsEmailAddress,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (bindingsEmailName != null) {
-            Serializer.toString(
-                request,
-                "Bindings.Email.Name",
-                bindingsEmailName,
-                ParameterType.URLENCODED
-            );
-        }
+    if (dateCreated != null) {
+        Serializer.toString(request, "DateCreated", dateCreated, ParameterType.URLENCODED);
     }
 
-    private void addHeaderParams(final Request request) {
-        if (xTwilioWebhookEnabled != null) {
-            Serializer.toString(
-                request,
-                "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled,
-                ParameterType.HEADER
-            );
-        }
+
+
+    if (dateUpdated != null) {
+        Serializer.toString(request, "DateUpdated", dateUpdated, ParameterType.URLENCODED);
     }
+
+
+
+    if (attributes != null) {
+        Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
+    }
+
+
+
+    if (messagingServiceSid != null) {
+        Serializer.toString(request, "MessagingServiceSid", messagingServiceSid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (state != null) {
+        Serializer.toString(request, "State", state, ParameterType.URLENCODED);
+    }
+
+
+
+    if (timersInactive != null) {
+        Serializer.toString(request, "Timers.Inactive", timersInactive, ParameterType.URLENCODED);
+    }
+
+
+
+    if (timersClosed != null) {
+        Serializer.toString(request, "Timers.Closed", timersClosed, ParameterType.URLENCODED);
+    }
+
+
+
+    if (uniqueName != null) {
+        Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
+    }
+
+
+
+    if (bindingsEmailAddress != null) {
+        Serializer.toString(request, "Bindings.Email.Address", bindingsEmailAddress, ParameterType.URLENCODED);
+    }
+
+
+
+    if (bindingsEmailName != null) {
+        Serializer.toString(request, "Bindings.Email.Name", bindingsEmailName, ParameterType.URLENCODED);
+    }
+
+
 }
+        private void addHeaderParams(final Request request) {
+
+    if (xTwilioWebhookEnabled != null) {
+        Serializer.toString(request, "X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled, ParameterType.HEADER);
+    }
+
+}
+    }

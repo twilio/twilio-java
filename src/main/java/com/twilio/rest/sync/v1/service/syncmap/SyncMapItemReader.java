@@ -14,9 +14,7 @@
 
 package com.twilio.rest.sync.v1.service.syncmap;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,63 +25,62 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class SyncMapItemReader extends Reader<SyncMapItem> {
 
-    private String pathServiceSid;
+        private String pathServiceSid;
     private String pathMapSid;
     private SyncMapItem.QueryResultOrder order;
     private String from;
     private SyncMapItem.QueryFromBoundType bounds;
     private Long pageSize;
 
-    public SyncMapItemReader(
-        final String pathServiceSid,
-        final String pathMapSid
-    ) {
+        public SyncMapItemReader(final String pathServiceSid, final String pathMapSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
     }
 
-    public SyncMapItemReader setOrder(
-        final SyncMapItem.QueryResultOrder order
-    ) {
-        this.order = order;
-        return this;
-    }
+    
+public SyncMapItemReader setOrder(final SyncMapItem.QueryResultOrder order){
+    this.order = order;
+    return this;
+}
 
-    public SyncMapItemReader setFrom(final String from) {
-        this.from = from;
-        return this;
-    }
 
-    public SyncMapItemReader setBounds(
-        final SyncMapItem.QueryFromBoundType bounds
-    ) {
-        this.bounds = bounds;
-        return this;
-    }
+public SyncMapItemReader setFrom(final String from){
+    this.from = from;
+    return this;
+}
 
-    public SyncMapItemReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
 
-    @Override
+public SyncMapItemReader setBounds(final SyncMapItem.QueryFromBoundType bounds){
+    this.bounds = bounds;
+    return this;
+}
+
+
+public SyncMapItemReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+        @Override
     public ResourceSet<SyncMapItem> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<SyncMapItem> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items";
+        
+    String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"MapSid"+"}", this.pathMapSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -95,91 +92,77 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
         return pageForRequest(client, request);
     }
 
-    private Page<SyncMapItem> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<SyncMapItem> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "SyncMapItem read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SyncMapItem read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "items",
             response.getContent(),
             SyncMapItem.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<SyncMapItem> previousPage(
-        final Page<SyncMapItem> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<SyncMapItem> previousPage(final Page<SyncMapItem> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<SyncMapItem> nextPage(
-        final Page<SyncMapItem> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<SyncMapItem> nextPage(final Page<SyncMapItem> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<SyncMapItem> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<SyncMapItem> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (order != null) {
-            Serializer.toString(request, "Order", order, ParameterType.QUERY);
-        }
 
-        if (from != null) {
-            Serializer.toString(request, "From", from, ParameterType.QUERY);
-        }
 
-        if (bounds != null) {
-            Serializer.toString(request, "Bounds", bounds, ParameterType.QUERY);
-        }
-
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+    if (order != null) {
+        Serializer.toString(request, "Order", order, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (from != null) {
+        Serializer.toString(request, "From", from, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (bounds != null) {
+        Serializer.toString(request, "Bounds", bounds, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

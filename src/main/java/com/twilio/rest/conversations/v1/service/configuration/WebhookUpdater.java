@@ -27,64 +27,65 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.net.URI;
 import java.util.List;
+import com.twilio.type.*;
 
-public class WebhookUpdater extends Updater<Webhook> {
-
-    private String pathChatServiceSid;
+    public class WebhookUpdater extends Updater<Webhook> {
+            private String pathChatServiceSid;
     private URI preWebhookUrl;
     private URI postWebhookUrl;
     private List<String> filters;
     private String method;
 
-    public WebhookUpdater(final String pathChatServiceSid) {
+            public WebhookUpdater(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;
     }
 
-    public WebhookUpdater setPreWebhookUrl(final URI preWebhookUrl) {
-        this.preWebhookUrl = preWebhookUrl;
-        return this;
-    }
+        
+public WebhookUpdater setPreWebhookUrl(final URI preWebhookUrl){
+    this.preWebhookUrl = preWebhookUrl;
+    return this;
+}
 
-    public WebhookUpdater setPreWebhookUrl(final String preWebhookUrl) {
-        return setPreWebhookUrl(Promoter.uriFromString(preWebhookUrl));
-    }
+public WebhookUpdater setPreWebhookUrl(final String preWebhookUrl){
+    return setPreWebhookUrl(Promoter.uriFromString(preWebhookUrl));
+}
 
-    public WebhookUpdater setPostWebhookUrl(final URI postWebhookUrl) {
-        this.postWebhookUrl = postWebhookUrl;
-        return this;
-    }
+public WebhookUpdater setPostWebhookUrl(final URI postWebhookUrl){
+    this.postWebhookUrl = postWebhookUrl;
+    return this;
+}
 
-    public WebhookUpdater setPostWebhookUrl(final String postWebhookUrl) {
-        return setPostWebhookUrl(Promoter.uriFromString(postWebhookUrl));
-    }
+public WebhookUpdater setPostWebhookUrl(final String postWebhookUrl){
+    return setPostWebhookUrl(Promoter.uriFromString(postWebhookUrl));
+}
 
-    public WebhookUpdater setFilters(final List<String> filters) {
-        this.filters = filters;
-        return this;
-    }
+public WebhookUpdater setFilters(final List<String> filters){
+    this.filters = filters;
+    return this;
+}
 
-    public WebhookUpdater setFilters(final String filters) {
-        return setFilters(Promoter.listOfOne(filters));
-    }
+public WebhookUpdater setFilters(final String filters){
+    return setFilters(Promoter.listOfOne(filters));
+}
 
-    public WebhookUpdater setMethod(final String method) {
-        this.method = method;
-        return this;
-    }
+public WebhookUpdater setMethod(final String method){
+    this.method = method;
+    return this;
+}
 
-    @Override
+
+            @Override
     public Webhook update(final TwilioRestClient client) {
-        String path = "/v1/Services/{ChatServiceSid}/Configuration/Webhooks";
+    
+    String path = "/v1/Services/{ChatServiceSid}/Configuration/Webhooks";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
+    path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
@@ -92,67 +93,50 @@ public class WebhookUpdater extends Updater<Webhook> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Webhook update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Webhook update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addPostParams(final Request request) {
 
-    private void addPostParams(final Request request) {
-        if (preWebhookUrl != null) {
-            Serializer.toString(
-                request,
-                "PreWebhookUrl",
-                preWebhookUrl,
-                ParameterType.URLENCODED
-            );
-        }
+    if (preWebhookUrl != null) {
+        Serializer.toString(request, "PreWebhookUrl", preWebhookUrl, ParameterType.URLENCODED);
+    }
 
-        if (postWebhookUrl != null) {
-            Serializer.toString(
-                request,
-                "PostWebhookUrl",
-                postWebhookUrl,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (filters != null) {
-            for (String param : filters) {
-                Serializer.toString(
-                    request,
-                    "Filters",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (method != null) {
-            Serializer.toString(
-                request,
-                "Method",
-                method,
-                ParameterType.URLENCODED
-            );
+    if (postWebhookUrl != null) {
+        Serializer.toString(request, "PostWebhookUrl", postWebhookUrl, ParameterType.URLENCODED);
+    }
+
+
+
+
+    if (filters != null) {
+        for (String param: filters) {
+            Serializer.toString(request, "Filters", param, ParameterType.URLENCODED);
         }
     }
+
+
+    if (method != null) {
+        Serializer.toString(request, "Method", method, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

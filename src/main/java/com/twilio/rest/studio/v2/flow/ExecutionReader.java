@@ -14,9 +14,7 @@
 
 package com.twilio.rest.studio.v2.flow;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,46 +25,53 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class ExecutionReader extends Reader<Execution> {
 
-    private String pathFlowSid;
+        private String pathFlowSid;
     private ZonedDateTime dateCreatedFrom;
     private ZonedDateTime dateCreatedTo;
     private Long pageSize;
 
-    public ExecutionReader(final String pathFlowSid) {
+        public ExecutionReader(final String pathFlowSid) {
         this.pathFlowSid = pathFlowSid;
     }
 
-    public ExecutionReader setDateCreatedFrom(
-        final ZonedDateTime dateCreatedFrom
-    ) {
-        this.dateCreatedFrom = dateCreatedFrom;
-        return this;
-    }
+    
+public ExecutionReader setDateCreatedFrom(final ZonedDateTime dateCreatedFrom){
+    this.dateCreatedFrom = dateCreatedFrom;
+    return this;
+}
 
-    public ExecutionReader setDateCreatedTo(final ZonedDateTime dateCreatedTo) {
-        this.dateCreatedTo = dateCreatedTo;
-        return this;
-    }
 
-    public ExecutionReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+public ExecutionReader setDateCreatedTo(final ZonedDateTime dateCreatedTo){
+    this.dateCreatedTo = dateCreatedTo;
+    return this;
+}
 
-    @Override
+
+public ExecutionReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+        @Override
     public ResourceSet<Execution> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<Execution> firstPage(final TwilioRestClient client) {
-        String path = "/v2/Flows/{FlowSid}/Executions";
+        
+    String path = "/v2/Flows/{FlowSid}/Executions";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
+    path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -78,97 +83,69 @@ public class ExecutionReader extends Reader<Execution> {
         return pageForRequest(client, request);
     }
 
-    private Page<Execution> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Execution> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Execution read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Execution read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "executions",
             response.getContent(),
             Execution.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<Execution> previousPage(
-        final Page<Execution> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Execution> previousPage(final Page<Execution> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Execution> nextPage(
-        final Page<Execution> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<Execution> nextPage(final Page<Execution> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<Execution> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Execution> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (dateCreatedFrom != null) {
-            Serializer.toString(
-                request,
-                "DateCreatedFrom",
-                dateCreatedFrom,
-                ParameterType.QUERY
-            );
-        }
 
-        if (dateCreatedTo != null) {
-            Serializer.toString(
-                request,
-                "DateCreatedTo",
-                dateCreatedTo,
-                ParameterType.QUERY
-            );
-        }
 
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+    if (dateCreatedFrom != null) {
+        Serializer.toString(request, "DateCreatedFrom", dateCreatedFrom, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (dateCreatedTo != null) {
+        Serializer.toString(request, "DateCreatedTo", dateCreatedTo, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

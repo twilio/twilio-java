@@ -14,9 +14,7 @@
 
 package com.twilio.rest.serverless.v1.service.environment;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,46 +25,41 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class VariableReader extends Reader<Variable> {
 
-    private String pathServiceSid;
+        private String pathServiceSid;
     private String pathEnvironmentSid;
     private Long pageSize;
 
-    public VariableReader(
-        final String pathServiceSid,
-        final String pathEnvironmentSid
-    ) {
+        public VariableReader(final String pathServiceSid, final String pathEnvironmentSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
     }
 
-    public VariableReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+    
+public VariableReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
 
-    @Override
+
+        @Override
     public ResourceSet<Variable> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<Variable> firstPage(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables";
+        
+    String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "EnvironmentSid" + "}",
-                this.pathEnvironmentSid.toString()
-            );
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"EnvironmentSid"+"}", this.pathEnvironmentSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -78,79 +71,53 @@ public class VariableReader extends Reader<Variable> {
         return pageForRequest(client, request);
     }
 
-    private Page<Variable> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Variable> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Variable read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Variable read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "variables",
             response.getContent(),
             Variable.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<Variable> previousPage(
-        final Page<Variable> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Variable> previousPage(final Page<Variable> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Variable> nextPage(
-        final Page<Variable> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<Variable> nextPage(final Page<Variable> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<Variable> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Variable> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
+    }
+    private void addQueryParams(final Request request) {
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
     }
 
-    private void addQueryParams(final Request request) {
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
-    }
+
+
+}
 }

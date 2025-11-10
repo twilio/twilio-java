@@ -14,9 +14,7 @@
 
 package com.twilio.rest.api.v2010;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,38 +25,49 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class AccountReader extends Reader<Account> {
 
-    private String friendlyName;
+        private String friendlyName;
     private Account.Status status;
     private Long pageSize;
 
-    public AccountReader() {}
-
-    public AccountReader setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
+        public AccountReader() {
     }
 
-    public AccountReader setStatus(final Account.Status status) {
-        this.status = status;
-        return this;
-    }
+    
+public AccountReader setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public AccountReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
 
-    @Override
+public AccountReader setStatus(final Account.Status status){
+    this.status = status;
+    return this;
+}
+
+
+public AccountReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+        @Override
     public ResourceSet<Account> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<Account> firstPage(final TwilioRestClient client) {
-        String path = "/2010-04-01/Accounts.json";
+        
+    String path = "/2010-04-01/Accounts.json";
+
 
         Request request = new Request(
             HttpMethod.GET,
@@ -70,92 +79,69 @@ public class AccountReader extends Reader<Account> {
         return pageForRequest(client, request);
     }
 
-    private Page<Account> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Account> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Account read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Account read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "accounts",
             response.getContent(),
             Account.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<Account> previousPage(
-        final Page<Account> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Account> previousPage(final Page<Account> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Account> nextPage(
-        final Page<Account> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<Account> nextPage(final Page<Account> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<Account> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Account> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.QUERY
-            );
-        }
 
-        if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.QUERY);
-        }
 
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (status != null) {
+        Serializer.toString(request, "Status", status, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

@@ -26,12 +26,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 
-public class ChannelUpdater extends Updater<Channel> {
-
-    private String pathServiceSid;
+    public class ChannelUpdater extends Updater<Channel> {
+            private String pathServiceSid;
     private String pathSid;
     private Channel.WebhookEnabledType xTwilioWebhookEnabled;
     private String friendlyName;
@@ -41,59 +42,63 @@ public class ChannelUpdater extends Updater<Channel> {
     private ZonedDateTime dateUpdated;
     private String createdBy;
 
-    public ChannelUpdater(final String pathServiceSid, final String pathSid) {
+            public ChannelUpdater(final String pathServiceSid, final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
-    public ChannelUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+        
+public ChannelUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public ChannelUpdater setUniqueName(final String uniqueName) {
-        this.uniqueName = uniqueName;
-        return this;
-    }
 
-    public ChannelUpdater setAttributes(final String attributes) {
-        this.attributes = attributes;
-        return this;
-    }
+public ChannelUpdater setUniqueName(final String uniqueName){
+    this.uniqueName = uniqueName;
+    return this;
+}
 
-    public ChannelUpdater setDateCreated(final ZonedDateTime dateCreated) {
-        this.dateCreated = dateCreated;
-        return this;
-    }
 
-    public ChannelUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
-        this.dateUpdated = dateUpdated;
-        return this;
-    }
+public ChannelUpdater setAttributes(final String attributes){
+    this.attributes = attributes;
+    return this;
+}
 
-    public ChannelUpdater setCreatedBy(final String createdBy) {
-        this.createdBy = createdBy;
-        return this;
-    }
 
-    public ChannelUpdater setXTwilioWebhookEnabled(
-        final Channel.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
-        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-        return this;
-    }
+public ChannelUpdater setDateCreated(final ZonedDateTime dateCreated){
+    this.dateCreated = dateCreated;
+    return this;
+}
 
-    @Override
+
+public ChannelUpdater setDateUpdated(final ZonedDateTime dateUpdated){
+    this.dateUpdated = dateUpdated;
+    return this;
+}
+
+
+public ChannelUpdater setCreatedBy(final String createdBy){
+    this.createdBy = createdBy;
+    return this;
+}
+
+
+public ChannelUpdater setXTwilioWebhookEnabled(final Channel.WebhookEnabledType xTwilioWebhookEnabled){
+    this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+    return this;
+}
+
+
+            @Override
     public Channel update(final TwilioRestClient client) {
-        String path = "/v2/Services/{ServiceSid}/Channels/{Sid}";
+    
+    String path = "/v2/Services/{ServiceSid}/Channels/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
@@ -102,94 +107,67 @@ public class ChannelUpdater extends Updater<Channel> {
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Channel update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Channel update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Channel.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addPostParams(final Request request) {
 
-    private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (uniqueName != null) {
-            Serializer.toString(
-                request,
-                "UniqueName",
-                uniqueName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (attributes != null) {
-            Serializer.toString(
-                request,
-                "Attributes",
-                attributes,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (dateCreated != null) {
-            Serializer.toString(
-                request,
-                "DateCreated",
-                dateCreated,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (dateUpdated != null) {
-            Serializer.toString(
-                request,
-                "DateUpdated",
-                dateUpdated,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (createdBy != null) {
-            Serializer.toString(
-                request,
-                "CreatedBy",
-                createdBy,
-                ParameterType.URLENCODED
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
 
-    private void addHeaderParams(final Request request) {
-        if (xTwilioWebhookEnabled != null) {
-            Serializer.toString(
-                request,
-                "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled,
-                ParameterType.HEADER
-            );
-        }
+
+
+    if (uniqueName != null) {
+        Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
     }
+
+
+
+    if (attributes != null) {
+        Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
+    }
+
+
+
+    if (dateCreated != null) {
+        Serializer.toString(request, "DateCreated", dateCreated, ParameterType.URLENCODED);
+    }
+
+
+
+    if (dateUpdated != null) {
+        Serializer.toString(request, "DateUpdated", dateUpdated, ParameterType.URLENCODED);
+    }
+
+
+
+    if (createdBy != null) {
+        Serializer.toString(request, "CreatedBy", createdBy, ParameterType.URLENCODED);
+    }
+
+
 }
+        private void addHeaderParams(final Request request) {
+
+    if (xTwilioWebhookEnabled != null) {
+        Serializer.toString(request, "X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled, ParameterType.HEADER);
+    }
+
+}
+    }

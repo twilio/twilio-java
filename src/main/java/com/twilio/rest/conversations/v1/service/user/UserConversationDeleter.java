@@ -23,66 +23,53 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class UserConversationDeleter extends Deleter<UserConversation> {
+            public class UserConversationDeleter extends Deleter<UserConversation> {
 
-    private String pathChatServiceSid;
+                private String pathChatServiceSid;
     private String pathUserSid;
     private String pathConversationSid;
 
-    public UserConversationDeleter(
-        final String pathChatServiceSid,
-        final String pathUserSid,
-        final String pathConversationSid
-    ) {
+                public UserConversationDeleter(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid) {
         this.pathChatServiceSid = pathChatServiceSid;
         this.pathUserSid = pathUserSid;
         this.pathConversationSid = pathConversationSid;
     }
 
-    @Override
+            
+                @Override
     public boolean delete(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}";
+    
+    String path = "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
-        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
+    path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
+    path = path.replace("{"+"UserSid"+"}", this.pathUserSid.toString());
+    path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.CONVERSATIONS.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "UserConversation delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("UserConversation delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
         return response.getStatusCode() == 204;
     }
-}
+            }

@@ -17,68 +17,97 @@ package com.twilio.rest.messaging.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ChannelSender extends Resource {
 
-    public static ChannelSenderCreator creator(
-        final String pathMessagingServiceSid,
-        final String sid
-    ) {
-        return new ChannelSenderCreator(pathMessagingServiceSid, sid);
+
+
+    public static ChannelSenderCreator creator(final String pathMessagingServiceSid, final String sid) {
+        return new ChannelSenderCreator(
+             pathMessagingServiceSid,  sid
+        );
     }
 
-    public static ChannelSenderDeleter deleter(
-        final String pathMessagingServiceSid,
-        final String pathSid
-    ) {
-        return new ChannelSenderDeleter(pathMessagingServiceSid, pathSid);
+
+
+
+
+
+    
+
+
+
+    public static ChannelSenderDeleter deleter(final String pathMessagingServiceSid, final String pathSid) {
+        return new ChannelSenderDeleter(
+             pathMessagingServiceSid,  pathSid
+        );
     }
 
-    public static ChannelSenderFetcher fetcher(
-        final String pathMessagingServiceSid,
-        final String pathSid
-    ) {
-        return new ChannelSenderFetcher(pathMessagingServiceSid, pathSid);
+
+
+
+    
+
+
+
+
+    public static ChannelSenderFetcher fetcher(final String pathMessagingServiceSid, final String pathSid) {
+        return new ChannelSenderFetcher(
+             pathMessagingServiceSid,  pathSid
+        );
     }
 
-    public static ChannelSenderReader reader(
-        final String pathMessagingServiceSid
-    ) {
-        return new ChannelSenderReader(pathMessagingServiceSid);
+
+
+    
+
+
+
+
+
+    public static ChannelSenderReader reader(final String pathMessagingServiceSid) {
+        return new ChannelSenderReader(
+             pathMessagingServiceSid
+        );
     }
+
+
+    
+
+
 
     /**
-     * Converts a JSON String into a ChannelSender object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return ChannelSender object represented by the provided JSON
-     */
-    public static ChannelSender fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a ChannelSender object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return ChannelSender object represented by the provided JSON
+    */
+    public static ChannelSender fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ChannelSender.class);
@@ -90,17 +119,14 @@ public class ChannelSender extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a ChannelSender object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return ChannelSender object represented by the provided JSON
-     */
-    public static ChannelSender fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a ChannelSender object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return ChannelSender object represented by the provided JSON
+    */
+    public static ChannelSender fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ChannelSender.class);
@@ -122,97 +148,101 @@ public class ChannelSender extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String countryCode;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String messagingServiceSid;
-
     @Getter
     private final String sender;
-
     @Getter
     private final String senderType;
-
     @Getter
     private final String sid;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private ChannelSender(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("country_code") final String countryCode,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("messaging_service_sid") final String messagingServiceSid,
-        @JsonProperty("sender") final String sender,
-        @JsonProperty("sender_type") final String senderType,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.countryCode = countryCode;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.messagingServiceSid = messagingServiceSid;
-        this.sender = sender;
-        this.senderType = senderType;
-        this.sid = sid;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        ChannelSender other = (ChannelSender) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(countryCode, other.countryCode) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
-            Objects.equals(sender, other.sender) &&
-            Objects.equals(senderType, other.senderType) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            countryCode,
-            dateCreated,
-            dateUpdated,
-            messagingServiceSid,
-            sender,
-            senderType,
-            sid,
-            url
-        );
-    }
+@JsonCreator
+private ChannelSender(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("country_code")
+    final String countryCode, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("messaging_service_sid")
+    final String messagingServiceSid, 
+    @JsonProperty("sender")
+    final String sender, 
+    @JsonProperty("sender_type")
+    final String senderType, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.countryCode = countryCode;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.messagingServiceSid = messagingServiceSid;
+    this.sender = sender;
+    this.senderType = senderType;
+    this.sid = sid;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    ChannelSender other = (ChannelSender) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(countryCode, other.countryCode) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(messagingServiceSid, other.messagingServiceSid) && 
+            Objects.equals(sender, other.sender) && 
+            Objects.equals(senderType, other.senderType) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            countryCode, 
+            dateCreated, 
+            dateUpdated, 
+            messagingServiceSid, 
+            sender, 
+            senderType, 
+            sid, 
+            url
+    );
+}
+
+
+
+}
+

@@ -15,6 +15,7 @@
 package com.twilio.rest.numbers.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -25,29 +26,32 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class PortingPortInCreator extends Creator<PortingPortIn> {
 
     private PortingPortIn.NumbersV1PortingPortInCreate numbersV1PortingPortInCreate;
 
-    public PortingPortInCreator(
-        final PortingPortIn.NumbersV1PortingPortInCreate numbersV1PortingPortInCreate
-    ) {
+    public PortingPortInCreator(final PortingPortIn.NumbersV1PortingPortInCreate numbersV1PortingPortInCreate) {
         this.numbersV1PortingPortInCreate = numbersV1PortingPortInCreate;
     }
 
-    public PortingPortInCreator setNumbersV1PortingPortInCreate(
-        final PortingPortIn.NumbersV1PortingPortInCreate numbersV1PortingPortInCreate
-    ) {
-        this.numbersV1PortingPortInCreate = numbersV1PortingPortInCreate;
-        return this;
-    }
+
+public PortingPortInCreator setNumbersV1PortingPortInCreate(final PortingPortIn.NumbersV1PortingPortInCreate numbersV1PortingPortInCreate){
+    this.numbersV1PortingPortInCreate = numbersV1PortingPortInCreate;
+    return this;
+}
+
 
     @Override
     public PortingPortIn create(final TwilioRestClient client) {
-        String path = "/v1/Porting/PortIn";
+    
+    String path = "/v1/Porting/PortIn";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
@@ -55,39 +59,28 @@ public class PortingPortInCreator extends Creator<PortingPortIn> {
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "PortingPortIn creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("PortingPortIn creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return PortingPortIn.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return PortingPortIn.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request, TwilioRestClient client) {
-        ObjectMapper objectMapper = client.getObjectMapper();
+    ObjectMapper objectMapper = client.getObjectMapper();
         if (numbersV1PortingPortInCreate != null) {
-            request.setBody(
-                PortingPortIn.toJson(numbersV1PortingPortInCreate, objectMapper)
-            );
+        request.setBody(PortingPortIn.toJson(numbersV1PortingPortInCreate, objectMapper));
         }
-    }
+}
 }

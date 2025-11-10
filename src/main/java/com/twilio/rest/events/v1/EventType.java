@@ -17,50 +17,109 @@ package com.twilio.rest.events.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
+import com.twilio.base.Reader;
+import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Objects;
+import com.twilio.exception.RestException;
+import com.twilio.http.HttpMethod;
+import com.twilio.http.Request;
+import com.twilio.http.Response;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Currency;
+import java.util.List;
+import java.util.Map;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class EventType extends Resource {
 
+
+
+
+
+
     public static EventTypeFetcher fetcher(final String pathType) {
-        return new EventTypeFetcher(pathType);
+        return new EventTypeFetcher(
+             pathType
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static EventTypeReader reader() {
-        return new EventTypeReader();
+        return new EventTypeReader(
+            
+        );
     }
 
+
+    
+
+
+
     /**
-     * Converts a JSON String into a EventType object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return EventType object represented by the provided JSON
-     */
-    public static EventType fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a EventType object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return EventType object represented by the provided JSON
+    */
+    public static EventType fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, EventType.class);
@@ -72,17 +131,14 @@ public class EventType extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a EventType object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return EventType object represented by the provided JSON
-     */
-    public static EventType fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a EventType object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return EventType object represented by the provided JSON
+    */
+    public static EventType fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, EventType.class);
@@ -104,97 +160,101 @@ public class EventType extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String description;
-
     @Getter
     private final String documentationUrl;
-
     @Getter
     private final Map<String, String> links;
-
     @Getter
     private final String schemaId;
-
     @Getter
     private final String status;
-
     @Getter
     private final String type;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private EventType(
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("description") final String description,
-        @JsonProperty("documentation_url") final String documentationUrl,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("schema_id") final String schemaId,
-        @JsonProperty("status") final String status,
-        @JsonProperty("type") final String type,
-        @JsonProperty("url") final URI url
-    ) {
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.description = description;
-        this.documentationUrl = documentationUrl;
-        this.links = links;
-        this.schemaId = schemaId;
-        this.status = status;
-        this.type = type;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        EventType other = (EventType) o;
-        return (
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(documentationUrl, other.documentationUrl) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(schemaId, other.schemaId) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            dateCreated,
-            dateUpdated,
-            description,
-            documentationUrl,
-            links,
-            schemaId,
-            status,
-            type,
-            url
-        );
-    }
+@JsonCreator
+private EventType(
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("description")
+    final String description, 
+    @JsonProperty("documentation_url")
+    final String documentationUrl, 
+    @JsonProperty("links")
+    final Map<String, String> links, 
+    @JsonProperty("schema_id")
+    final String schemaId, 
+    @JsonProperty("status")
+    final String status, 
+    @JsonProperty("type")
+    final String type, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.description = description;
+    this.documentationUrl = documentationUrl;
+    this.links = links;
+    this.schemaId = schemaId;
+    this.status = status;
+    this.type = type;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    EventType other = (EventType) o;
+    return (
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(description, other.description) && 
+            Objects.equals(documentationUrl, other.documentationUrl) && 
+            Objects.equals(links, other.links) && 
+            Objects.equals(schemaId, other.schemaId) && 
+            Objects.equals(status, other.status) && 
+            Objects.equals(type, other.type) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            dateCreated, 
+            dateUpdated, 
+            description, 
+            documentationUrl, 
+            links, 
+            schemaId, 
+            status, 
+            type, 
+            url
+    );
+}
+
+
+
+}
+

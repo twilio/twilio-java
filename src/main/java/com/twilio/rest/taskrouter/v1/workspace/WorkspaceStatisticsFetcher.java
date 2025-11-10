@@ -25,137 +25,126 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 
-public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
+    public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
 
-    private String pathWorkspaceSid;
+            private String pathWorkspaceSid;
     private Integer minutes;
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
     private String taskChannel;
     private String splitByWaitTime;
 
-    public WorkspaceStatisticsFetcher(final String pathWorkspaceSid) {
+            public WorkspaceStatisticsFetcher(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
-    public WorkspaceStatisticsFetcher setMinutes(final Integer minutes) {
-        this.minutes = minutes;
-        return this;
-    }
+        
+public WorkspaceStatisticsFetcher setMinutes(final Integer minutes){
+    this.minutes = minutes;
+    return this;
+}
 
-    public WorkspaceStatisticsFetcher setStartDate(
-        final ZonedDateTime startDate
-    ) {
-        this.startDate = startDate;
-        return this;
-    }
 
-    public WorkspaceStatisticsFetcher setEndDate(final ZonedDateTime endDate) {
-        this.endDate = endDate;
-        return this;
-    }
+public WorkspaceStatisticsFetcher setStartDate(final ZonedDateTime startDate){
+    this.startDate = startDate;
+    return this;
+}
 
-    public WorkspaceStatisticsFetcher setTaskChannel(final String taskChannel) {
-        this.taskChannel = taskChannel;
-        return this;
-    }
 
-    public WorkspaceStatisticsFetcher setSplitByWaitTime(
-        final String splitByWaitTime
-    ) {
-        this.splitByWaitTime = splitByWaitTime;
-        return this;
-    }
+public WorkspaceStatisticsFetcher setEndDate(final ZonedDateTime endDate){
+    this.endDate = endDate;
+    return this;
+}
 
-    @Override
+
+public WorkspaceStatisticsFetcher setTaskChannel(final String taskChannel){
+    this.taskChannel = taskChannel;
+    return this;
+}
+
+
+public WorkspaceStatisticsFetcher setSplitByWaitTime(final String splitByWaitTime){
+    this.splitByWaitTime = splitByWaitTime;
+    return this;
+}
+
+
+            @Override
     public WorkspaceStatistics fetch(final TwilioRestClient client) {
-        String path = "/v1/Workspaces/{WorkspaceSid}/Statistics";
+    
+    String path = "/v1/Workspaces/{WorkspaceSid}/Statistics";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
+    path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
             path
         );
         addQueryParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "WorkspaceStatistics fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("WorkspaceStatistics fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-        return WorkspaceStatistics.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return WorkspaceStatistics.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addQueryParams(final Request request) {
+
+
+    if (minutes != null) {
+        Serializer.toString(request, "Minutes", minutes, ParameterType.QUERY);
     }
 
-    private void addQueryParams(final Request request) {
-        if (minutes != null) {
-            Serializer.toString(
-                request,
-                "Minutes",
-                minutes,
-                ParameterType.QUERY
-            );
-        }
 
-        if (startDate != null) {
-            Serializer.toString(
-                request,
-                "StartDate",
-                startDate,
-                ParameterType.QUERY
-            );
-        }
 
-        if (endDate != null) {
-            Serializer.toString(
-                request,
-                "EndDate",
-                endDate,
-                ParameterType.QUERY
-            );
-        }
 
-        if (taskChannel != null) {
-            Serializer.toString(
-                request,
-                "TaskChannel",
-                taskChannel,
-                ParameterType.QUERY
-            );
-        }
 
-        if (splitByWaitTime != null) {
-            Serializer.toString(
-                request,
-                "SplitByWaitTime",
-                splitByWaitTime,
-                ParameterType.QUERY
-            );
-        }
+    if (startDate != null) {
+        Serializer.toString(request, "StartDate", startDate, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (endDate != null) {
+        Serializer.toString(request, "EndDate", endDate, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (taskChannel != null) {
+        Serializer.toString(request, "TaskChannel", taskChannel, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (splitByWaitTime != null) {
+        Serializer.toString(request, "SplitByWaitTime", splitByWaitTime, ParameterType.QUERY);
+    }
+
+
+
 }
+    }

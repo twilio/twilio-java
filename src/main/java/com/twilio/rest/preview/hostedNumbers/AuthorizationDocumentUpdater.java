@@ -27,13 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.util.List;
+import com.twilio.type.*;
 
-public class AuthorizationDocumentUpdater
-    extends Updater<AuthorizationDocument> {
-
-    private String pathSid;
+    public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument> {
+            private String pathSid;
     private List<String> hostedNumberOrderSids;
     private String addressSid;
     private String email;
@@ -42,73 +42,67 @@ public class AuthorizationDocumentUpdater
     private String contactTitle;
     private String contactPhoneNumber;
 
-    public AuthorizationDocumentUpdater(final String pathSid) {
+            public AuthorizationDocumentUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public AuthorizationDocumentUpdater setHostedNumberOrderSids(
-        final List<String> hostedNumberOrderSids
-    ) {
-        this.hostedNumberOrderSids = hostedNumberOrderSids;
-        return this;
-    }
+        
+public AuthorizationDocumentUpdater setHostedNumberOrderSids(final List<String> hostedNumberOrderSids){
+    this.hostedNumberOrderSids = hostedNumberOrderSids;
+    return this;
+}
 
-    public AuthorizationDocumentUpdater setHostedNumberOrderSids(
-        final String hostedNumberOrderSids
-    ) {
-        return setHostedNumberOrderSids(
-            Promoter.listOfOne(hostedNumberOrderSids)
-        );
-    }
+public AuthorizationDocumentUpdater setHostedNumberOrderSids(final String hostedNumberOrderSids){
+    return setHostedNumberOrderSids(Promoter.listOfOne(hostedNumberOrderSids));
+}
 
-    public AuthorizationDocumentUpdater setAddressSid(final String addressSid) {
-        this.addressSid = addressSid;
-        return this;
-    }
+public AuthorizationDocumentUpdater setAddressSid(final String addressSid){
+    this.addressSid = addressSid;
+    return this;
+}
 
-    public AuthorizationDocumentUpdater setEmail(final String email) {
-        this.email = email;
-        return this;
-    }
 
-    public AuthorizationDocumentUpdater setCcEmails(
-        final List<String> ccEmails
-    ) {
-        this.ccEmails = ccEmails;
-        return this;
-    }
+public AuthorizationDocumentUpdater setEmail(final String email){
+    this.email = email;
+    return this;
+}
 
-    public AuthorizationDocumentUpdater setCcEmails(final String ccEmails) {
-        return setCcEmails(Promoter.listOfOne(ccEmails));
-    }
 
-    public AuthorizationDocumentUpdater setStatus(
-        final AuthorizationDocument.Status status
-    ) {
-        this.status = status;
-        return this;
-    }
+public AuthorizationDocumentUpdater setCcEmails(final List<String> ccEmails){
+    this.ccEmails = ccEmails;
+    return this;
+}
 
-    public AuthorizationDocumentUpdater setContactTitle(
-        final String contactTitle
-    ) {
-        this.contactTitle = contactTitle;
-        return this;
-    }
+public AuthorizationDocumentUpdater setCcEmails(final String ccEmails){
+    return setCcEmails(Promoter.listOfOne(ccEmails));
+}
 
-    public AuthorizationDocumentUpdater setContactPhoneNumber(
-        final String contactPhoneNumber
-    ) {
-        this.contactPhoneNumber = contactPhoneNumber;
-        return this;
-    }
+public AuthorizationDocumentUpdater setStatus(final AuthorizationDocument.Status status){
+    this.status = status;
+    return this;
+}
 
-    @Override
+
+public AuthorizationDocumentUpdater setContactTitle(final String contactTitle){
+    this.contactTitle = contactTitle;
+    return this;
+}
+
+
+public AuthorizationDocumentUpdater setContactPhoneNumber(final String contactPhoneNumber){
+    this.contactPhoneNumber = contactPhoneNumber;
+    return this;
+}
+
+
+            @Override
     public AuthorizationDocument update(final TwilioRestClient client) {
-        String path = "/HostedNumbers/AuthorizationDocuments/{Sid}";
+    
+    String path = "/HostedNumbers/AuthorizationDocuments/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
@@ -116,99 +110,70 @@ public class AuthorizationDocumentUpdater
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "AuthorizationDocument update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("AuthorizationDocument update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return AuthorizationDocument.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return AuthorizationDocument.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+
+    if (hostedNumberOrderSids != null) {
+        for (String param: hostedNumberOrderSids) {
+            Serializer.toString(request, "HostedNumberOrderSids", param, ParameterType.URLENCODED);
+        }
     }
 
-    private void addPostParams(final Request request) {
-        if (hostedNumberOrderSids != null) {
-            for (String param : hostedNumberOrderSids) {
-                Serializer.toString(
-                    request,
-                    "HostedNumberOrderSids",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (addressSid != null) {
-            Serializer.toString(
-                request,
-                "AddressSid",
-                addressSid,
-                ParameterType.URLENCODED
-            );
-        }
+    if (addressSid != null) {
+        Serializer.toString(request, "AddressSid", addressSid, ParameterType.URLENCODED);
+    }
 
-        if (email != null) {
-            Serializer.toString(
-                request,
-                "Email",
-                email,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (ccEmails != null) {
-            for (String param : ccEmails) {
-                Serializer.toString(
-                    request,
-                    "CcEmails",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (status != null) {
-            Serializer.toString(
-                request,
-                "Status",
-                status,
-                ParameterType.URLENCODED
-            );
-        }
+    if (email != null) {
+        Serializer.toString(request, "Email", email, ParameterType.URLENCODED);
+    }
 
-        if (contactTitle != null) {
-            Serializer.toString(
-                request,
-                "ContactTitle",
-                contactTitle,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (contactPhoneNumber != null) {
-            Serializer.toString(
-                request,
-                "ContactPhoneNumber",
-                contactPhoneNumber,
-                ParameterType.URLENCODED
-            );
+
+
+    if (ccEmails != null) {
+        for (String param: ccEmails) {
+            Serializer.toString(request, "CcEmails", param, ParameterType.URLENCODED);
         }
     }
+
+
+    if (status != null) {
+        Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+    }
+
+
+
+    if (contactTitle != null) {
+        Serializer.toString(request, "ContactTitle", contactTitle, ParameterType.URLENCODED);
+    }
+
+
+
+    if (contactPhoneNumber != null) {
+        Serializer.toString(request, "ContactPhoneNumber", contactPhoneNumber, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

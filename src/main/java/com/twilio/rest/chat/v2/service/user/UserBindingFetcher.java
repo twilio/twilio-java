@@ -23,65 +23,53 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class UserBindingFetcher extends Fetcher<UserBinding> {
+    public class UserBindingFetcher extends Fetcher<UserBinding> {
 
-    private String pathServiceSid;
+            private String pathServiceSid;
     private String pathUserSid;
     private String pathSid;
 
-    public UserBindingFetcher(
-        final String pathServiceSid,
-        final String pathUserSid,
-        final String pathSid
-    ) {
+            public UserBindingFetcher(final String pathServiceSid, final String pathUserSid, final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathUserSid = pathUserSid;
         this.pathSid = pathSid;
     }
 
-    @Override
+        
+            @Override
     public UserBinding fetch(final TwilioRestClient client) {
-        String path =
-            "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}";
+    
+    String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"UserSid"+"}", this.pathUserSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "UserBinding fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("UserBinding fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-        return UserBinding.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return UserBinding.fromJson(response.getStream(), client.getObjectMapper());
     }
-}
+    }

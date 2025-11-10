@@ -25,72 +25,62 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class InsightsQuestionnairesCategoryDeleter
-    extends Deleter<InsightsQuestionnairesCategory> {
+            public class InsightsQuestionnairesCategoryDeleter extends Deleter<InsightsQuestionnairesCategory> {
 
-    private String pathCategorySid;
+                private String pathCategorySid;
     private String authorization;
 
-    public InsightsQuestionnairesCategoryDeleter(final String pathCategorySid) {
+                public InsightsQuestionnairesCategoryDeleter(final String pathCategorySid) {
         this.pathCategorySid = pathCategorySid;
     }
 
-    public InsightsQuestionnairesCategoryDeleter setAuthorization(
-        final String authorization
-    ) {
-        this.authorization = authorization;
-        return this;
-    }
+            
+public InsightsQuestionnairesCategoryDeleter setAuthorization(final String authorization){
+    this.authorization = authorization;
+    return this;
+}
 
-    @Override
+
+                @Override
     public boolean delete(final TwilioRestClient client) {
-        String path = "/v1/Insights/QualityManagement/Categories/{CategorySid}";
+    
+    String path = "/v1/Insights/QualityManagement/Categories/{CategorySid}";
 
-        path =
-            path.replace(
-                "{" + "CategorySid" + "}",
-                this.pathCategorySid.toString()
-            );
+    path = path.replace("{"+"CategorySid"+"}", this.pathCategorySid.toString());
 
+    
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.FLEXAPI.toString(),
             path
         );
         addHeaderParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "InsightsQuestionnairesCategory delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InsightsQuestionnairesCategory delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
         return response.getStatusCode() == 204;
     }
+                private void addHeaderParams(final Request request) {
 
-    private void addHeaderParams(final Request request) {
-        if (authorization != null) {
-            Serializer.toString(
-                request,
-                "Authorization",
-                authorization,
-                ParameterType.HEADER
-            );
-        }
+    if (authorization != null) {
+        Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
     }
+
 }
+            }

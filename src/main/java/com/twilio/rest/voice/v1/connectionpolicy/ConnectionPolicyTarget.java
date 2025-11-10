@@ -17,87 +17,110 @@ package com.twilio.rest.voice.v1.connectionpolicy;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ConnectionPolicyTarget extends Resource {
 
-    public static ConnectionPolicyTargetCreator creator(
-        final String pathConnectionPolicySid,
-        final URI target
-    ) {
+
+
+    public static ConnectionPolicyTargetCreator creator(final String pathConnectionPolicySid, final URI target) {
         return new ConnectionPolicyTargetCreator(
-            pathConnectionPolicySid,
-            target
+             pathConnectionPolicySid,  target
         );
     }
 
-    public static ConnectionPolicyTargetDeleter deleter(
-        final String pathConnectionPolicySid,
-        final String pathSid
-    ) {
+
+
+
+
+
+    
+
+
+
+    public static ConnectionPolicyTargetDeleter deleter(final String pathConnectionPolicySid, final String pathSid) {
         return new ConnectionPolicyTargetDeleter(
-            pathConnectionPolicySid,
-            pathSid
+             pathConnectionPolicySid,  pathSid
         );
     }
 
-    public static ConnectionPolicyTargetFetcher fetcher(
-        final String pathConnectionPolicySid,
-        final String pathSid
-    ) {
+
+
+
+    
+
+
+
+
+    public static ConnectionPolicyTargetFetcher fetcher(final String pathConnectionPolicySid, final String pathSid) {
         return new ConnectionPolicyTargetFetcher(
-            pathConnectionPolicySid,
-            pathSid
+             pathConnectionPolicySid,  pathSid
         );
     }
 
-    public static ConnectionPolicyTargetReader reader(
-        final String pathConnectionPolicySid
-    ) {
-        return new ConnectionPolicyTargetReader(pathConnectionPolicySid);
+
+
+    
+
+
+
+
+
+    public static ConnectionPolicyTargetReader reader(final String pathConnectionPolicySid) {
+        return new ConnectionPolicyTargetReader(
+             pathConnectionPolicySid
+        );
     }
 
-    public static ConnectionPolicyTargetUpdater updater(
-        final String pathConnectionPolicySid,
-        final String pathSid
-    ) {
+
+    
+
+
+
+
+
+
+    public static ConnectionPolicyTargetUpdater updater(final String pathConnectionPolicySid, final String pathSid) {
         return new ConnectionPolicyTargetUpdater(
-            pathConnectionPolicySid,
-            pathSid
+             pathConnectionPolicySid,  pathSid
         );
     }
+
+    
+
+
 
     /**
-     * Converts a JSON String into a ConnectionPolicyTarget object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return ConnectionPolicyTarget object represented by the provided JSON
-     */
-    public static ConnectionPolicyTarget fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a ConnectionPolicyTarget object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return ConnectionPolicyTarget object represented by the provided JSON
+    */
+    public static ConnectionPolicyTarget fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ConnectionPolicyTarget.class);
@@ -109,17 +132,14 @@ public class ConnectionPolicyTarget extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a ConnectionPolicyTarget object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return ConnectionPolicyTarget object represented by the provided JSON
-     */
-    public static ConnectionPolicyTarget fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a ConnectionPolicyTarget object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return ConnectionPolicyTarget object represented by the provided JSON
+    */
+    public static ConnectionPolicyTarget fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ConnectionPolicyTarget.class);
@@ -141,111 +161,115 @@ public class ConnectionPolicyTarget extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String connectionPolicySid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final Boolean enabled;
-
     @Getter
     private final String friendlyName;
-
     @Getter
     private final Integer priority;
-
     @Getter
     private final String sid;
-
     @Getter
     private final URI target;
-
     @Getter
     private final URI url;
-
     @Getter
     private final Integer weight;
 
-    @JsonCreator
-    private ConnectionPolicyTarget(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("connection_policy_sid") final String connectionPolicySid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("enabled") final Boolean enabled,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("priority") final Integer priority,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("target") final URI target,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("weight") final Integer weight
-    ) {
-        this.accountSid = accountSid;
-        this.connectionPolicySid = connectionPolicySid;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.enabled = enabled;
-        this.friendlyName = friendlyName;
-        this.priority = priority;
-        this.sid = sid;
-        this.target = target;
-        this.url = url;
-        this.weight = weight;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        ConnectionPolicyTarget other = (ConnectionPolicyTarget) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(connectionPolicySid, other.connectionPolicySid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(enabled, other.enabled) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(priority, other.priority) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(target, other.target) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(weight, other.weight)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            connectionPolicySid,
-            dateCreated,
-            dateUpdated,
-            enabled,
-            friendlyName,
-            priority,
-            sid,
-            target,
-            url,
-            weight
-        );
-    }
+@JsonCreator
+private ConnectionPolicyTarget(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("connection_policy_sid")
+    final String connectionPolicySid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("enabled")
+    final Boolean enabled, 
+    @JsonProperty("friendly_name")
+    final String friendlyName, 
+    @JsonProperty("priority")
+    final Integer priority, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("target")
+    final URI target, 
+    @JsonProperty("url")
+    final URI url, 
+    @JsonProperty("weight")
+    final Integer weight
+){
+    this.accountSid = accountSid;
+    this.connectionPolicySid = connectionPolicySid;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.enabled = enabled;
+    this.friendlyName = friendlyName;
+    this.priority = priority;
+    this.sid = sid;
+    this.target = target;
+    this.url = url;
+    this.weight = weight;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    ConnectionPolicyTarget other = (ConnectionPolicyTarget) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(connectionPolicySid, other.connectionPolicySid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(enabled, other.enabled) && 
+            Objects.equals(friendlyName, other.friendlyName) && 
+            Objects.equals(priority, other.priority) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(target, other.target) && 
+            Objects.equals(url, other.url) && 
+            Objects.equals(weight, other.weight)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            connectionPolicySid, 
+            dateCreated, 
+            dateUpdated, 
+            enabled, 
+            friendlyName, 
+            priority, 
+            sid, 
+            target, 
+            url, 
+            weight
+    );
+}
+
+
+
+}
+

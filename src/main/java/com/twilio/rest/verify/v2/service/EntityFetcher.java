@@ -23,58 +23,50 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class EntityFetcher extends Fetcher<Entity> {
+    public class EntityFetcher extends Fetcher<Entity> {
 
-    private String pathServiceSid;
+            private String pathServiceSid;
     private String pathIdentity;
 
-    public EntityFetcher(
-        final String pathServiceSid,
-        final String pathIdentity
-    ) {
+            public EntityFetcher(final String pathServiceSid, final String pathIdentity) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
     }
 
-    @Override
+        
+            @Override
     public Entity fetch(final TwilioRestClient client) {
-        String path = "/v2/Services/{ServiceSid}/Entities/{Identity}";
+    
+    String path = "/v2/Services/{ServiceSid}/Entities/{Identity}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+    path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.VERIFY.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Entity fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Entity fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
         return Entity.fromJson(response.getStream(), client.getObjectMapper());
     }
-}
+    }

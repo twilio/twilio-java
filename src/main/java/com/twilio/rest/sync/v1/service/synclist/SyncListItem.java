@@ -17,121 +17,149 @@ package com.twilio.rest.sync.v1.service.synclist;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncListItem extends Resource {
 
-    public static SyncListItemCreator creator(
-        final String pathServiceSid,
-        final String pathListSid,
-        final Object data
-    ) {
-        return new SyncListItemCreator(pathServiceSid, pathListSid, data);
+
+
+    public static SyncListItemCreator creator(final String pathServiceSid, final String pathListSid, final Object data) {
+        return new SyncListItemCreator(
+             pathServiceSid,  pathListSid,  data
+        );
     }
 
-    public static SyncListItemDeleter deleter(
-        final String pathServiceSid,
-        final String pathListSid,
-        final Integer pathIndex
-    ) {
-        return new SyncListItemDeleter(pathServiceSid, pathListSid, pathIndex);
+
+
+
+
+
+    
+
+
+
+    public static SyncListItemDeleter deleter(final String pathServiceSid, final String pathListSid, final Integer pathIndex) {
+        return new SyncListItemDeleter(
+             pathServiceSid,  pathListSid,  pathIndex
+        );
     }
 
-    public static SyncListItemFetcher fetcher(
-        final String pathServiceSid,
-        final String pathListSid,
-        final Integer pathIndex
-    ) {
-        return new SyncListItemFetcher(pathServiceSid, pathListSid, pathIndex);
+
+
+
+    
+
+
+
+
+    public static SyncListItemFetcher fetcher(final String pathServiceSid, final String pathListSid, final Integer pathIndex) {
+        return new SyncListItemFetcher(
+             pathServiceSid,  pathListSid,  pathIndex
+        );
     }
 
-    public static SyncListItemReader reader(
-        final String pathServiceSid,
-        final String pathListSid
-    ) {
-        return new SyncListItemReader(pathServiceSid, pathListSid);
+
+
+    
+
+
+
+
+
+    public static SyncListItemReader reader(final String pathServiceSid, final String pathListSid) {
+        return new SyncListItemReader(
+             pathServiceSid,  pathListSid
+        );
     }
 
-    public static SyncListItemUpdater updater(
-        final String pathServiceSid,
-        final String pathListSid,
-        final Integer pathIndex
-    ) {
-        return new SyncListItemUpdater(pathServiceSid, pathListSid, pathIndex);
+
+    
+
+
+
+
+
+
+    public static SyncListItemUpdater updater(final String pathServiceSid, final String pathListSid, final Integer pathIndex) {
+        return new SyncListItemUpdater(
+             pathServiceSid,  pathListSid,  pathIndex
+        );
     }
 
-    public enum QueryResultOrder {
-        ASC("asc"),
-        DESC("desc");
+    
 
-        private final String value;
+public enum QueryResultOrder {
+    ASC("asc"),
+    DESC("desc");
 
-        private QueryResultOrder(final String value) {
-            this.value = value;
-        }
+    private final String value;
 
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static QueryResultOrder forValue(final String value) {
-            return Promoter.enumFromString(value, QueryResultOrder.values());
-        }
+    private QueryResultOrder(final String value) {
+        this.value = value;
     }
 
-    public enum QueryFromBoundType {
-        INCLUSIVE("inclusive"),
-        EXCLUSIVE("exclusive");
-
-        private final String value;
-
-        private QueryFromBoundType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static QueryFromBoundType forValue(final String value) {
-            return Promoter.enumFromString(value, QueryFromBoundType.values());
-        }
+    public String toString() {
+        return value;
     }
+
+    @JsonCreator
+    public static QueryResultOrder forValue(final String value) {
+        return Promoter.enumFromString(value, QueryResultOrder.values());
+    }
+}
+public enum QueryFromBoundType {
+    INCLUSIVE("inclusive"),
+    EXCLUSIVE("exclusive");
+
+    private final String value;
+
+    private QueryFromBoundType(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static QueryFromBoundType forValue(final String value) {
+        return Promoter.enumFromString(value, QueryFromBoundType.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a SyncListItem object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return SyncListItem object represented by the provided JSON
-     */
-    public static SyncListItem fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a SyncListItem object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return SyncListItem object represented by the provided JSON
+    */
+    public static SyncListItem fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncListItem.class);
@@ -143,17 +171,14 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a SyncListItem object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return SyncListItem object represented by the provided JSON
-     */
-    public static SyncListItem fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a SyncListItem object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return SyncListItem object represented by the provided JSON
+    */
+    public static SyncListItem fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncListItem.class);
@@ -175,113 +200,116 @@ public class SyncListItem extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String createdBy;
-
     @Getter
     private final Object data;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateExpires;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final Integer index;
-
     @Getter
     private final String listSid;
-
     @Getter
     private final String revision;
-
     @Getter
     private final String serviceSid;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private SyncListItem(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("created_by") final String createdBy,
-        @JsonProperty("data") final Object data,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_expires") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateExpires,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("index") final Integer index,
-        @JsonProperty("list_sid") final String listSid,
-        @JsonProperty("revision") final String revision,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.createdBy = createdBy;
-        this.data = data;
-        this.dateCreated = dateCreated;
-        this.dateExpires = dateExpires;
-        this.dateUpdated = dateUpdated;
-        this.index = index;
-        this.listSid = listSid;
-        this.revision = revision;
-        this.serviceSid = serviceSid;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        SyncListItem other = (SyncListItem) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(createdBy, other.createdBy) &&
-            Objects.equals(data, other.data) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateExpires, other.dateExpires) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(index, other.index) &&
-            Objects.equals(listSid, other.listSid) &&
-            Objects.equals(revision, other.revision) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            createdBy,
-            data,
-            dateCreated,
-            dateExpires,
-            dateUpdated,
-            index,
-            listSid,
-            revision,
-            serviceSid,
-            url
-        );
-    }
+@JsonCreator
+private SyncListItem(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("created_by")
+    final String createdBy, 
+    @JsonProperty("data")
+    final Object data, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_expires")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateExpires, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("index")
+    final Integer index, 
+    @JsonProperty("list_sid")
+    final String listSid, 
+    @JsonProperty("revision")
+    final String revision, 
+    @JsonProperty("service_sid")
+    final String serviceSid, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.createdBy = createdBy;
+    this.data = data;
+    this.dateCreated = dateCreated;
+    this.dateExpires = dateExpires;
+    this.dateUpdated = dateUpdated;
+    this.index = index;
+    this.listSid = listSid;
+    this.revision = revision;
+    this.serviceSid = serviceSid;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    SyncListItem other = (SyncListItem) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(createdBy, other.createdBy) && 
+            Objects.equals(data, other.data) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateExpires, other.dateExpires) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(index, other.index) && 
+            Objects.equals(listSid, other.listSid) && 
+            Objects.equals(revision, other.revision) && 
+            Objects.equals(serviceSid, other.serviceSid) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            createdBy, 
+            data, 
+            dateCreated, 
+            dateExpires, 
+            dateUpdated, 
+            index, 
+            listSid, 
+            revision, 
+            serviceSid, 
+            url
+    );
+}
+
+
+
+}
+

@@ -17,68 +17,148 @@ package com.twilio.rest.marketplace.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
+import com.twilio.base.Reader;
+import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Objects;
+import com.twilio.exception.RestException;
+import com.twilio.http.HttpMethod;
+import com.twilio.http.Request;
+import com.twilio.http.Response;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Currency;
+import java.util.List;
+import java.util.Map;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InstalledAddOn extends Resource {
 
-    public static InstalledAddOnCreator creator(
-        final String availableAddOnSid,
-        final Boolean acceptTermsOfService
-    ) {
+
+
+    public static InstalledAddOnCreator creator(final String availableAddOnSid, final Boolean acceptTermsOfService) {
         return new InstalledAddOnCreator(
-            availableAddOnSid,
-            acceptTermsOfService
+             availableAddOnSid,  acceptTermsOfService
         );
     }
 
+
+
+
+
+
+    
+
+
+
     public static InstalledAddOnDeleter deleter(final String pathSid) {
-        return new InstalledAddOnDeleter(pathSid);
+        return new InstalledAddOnDeleter(
+             pathSid
+        );
     }
+
+
+
+
+    
+
+
+
 
     public static InstalledAddOnFetcher fetcher(final String pathSid) {
-        return new InstalledAddOnFetcher(pathSid);
+        return new InstalledAddOnFetcher(
+             pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static InstalledAddOnReader reader() {
-        return new InstalledAddOnReader();
+        return new InstalledAddOnReader(
+            
+        );
     }
+
+
+    
+
+
+
+
+
 
     public static InstalledAddOnUpdater updater(final String pathSid) {
-        return new InstalledAddOnUpdater(pathSid);
+        return new InstalledAddOnUpdater(
+             pathSid
+        );
     }
 
+    
+
+
+
     /**
-     * Converts a JSON String into a InstalledAddOn object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return InstalledAddOn object represented by the provided JSON
-     */
-    public static InstalledAddOn fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a InstalledAddOn object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return InstalledAddOn object represented by the provided JSON
+    */
+    public static InstalledAddOn fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InstalledAddOn.class);
@@ -90,17 +170,14 @@ public class InstalledAddOn extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a InstalledAddOn object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return InstalledAddOn object represented by the provided JSON
-     */
-    public static InstalledAddOn fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a InstalledAddOn object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return InstalledAddOn object represented by the provided JSON
+    */
+    public static InstalledAddOn fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InstalledAddOn.class);
@@ -122,104 +199,108 @@ public class InstalledAddOn extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final Object configuration;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String description;
-
     @Getter
     private final String friendlyName;
-
     @Getter
     private final Map<String, String> links;
-
     @Getter
     private final String sid;
-
     @Getter
     private final String uniqueName;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private InstalledAddOn(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("configuration") final Object configuration,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("description") final String description,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.configuration = configuration;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.description = description;
-        this.friendlyName = friendlyName;
-        this.links = links;
-        this.sid = sid;
-        this.uniqueName = uniqueName;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        InstalledAddOn other = (InstalledAddOn) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(configuration, other.configuration) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            configuration,
-            dateCreated,
-            dateUpdated,
-            description,
-            friendlyName,
-            links,
-            sid,
-            uniqueName,
-            url
-        );
-    }
+@JsonCreator
+private InstalledAddOn(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("configuration")
+    final Object configuration, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("description")
+    final String description, 
+    @JsonProperty("friendly_name")
+    final String friendlyName, 
+    @JsonProperty("links")
+    final Map<String, String> links, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("unique_name")
+    final String uniqueName, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.configuration = configuration;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.description = description;
+    this.friendlyName = friendlyName;
+    this.links = links;
+    this.sid = sid;
+    this.uniqueName = uniqueName;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    InstalledAddOn other = (InstalledAddOn) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(configuration, other.configuration) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(description, other.description) && 
+            Objects.equals(friendlyName, other.friendlyName) && 
+            Objects.equals(links, other.links) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(uniqueName, other.uniqueName) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            configuration, 
+            dateCreated, 
+            dateUpdated, 
+            description, 
+            friendlyName, 
+            links, 
+            sid, 
+            uniqueName, 
+            url
+    );
+}
+
+
+
+}
+

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.trunking.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +28,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.net.URI;
+import com.twilio.type.*;
 
 public class TrunkCreator extends Creator<Trunk> {
 
@@ -41,66 +44,68 @@ public class TrunkCreator extends Creator<Trunk> {
     private Boolean cnamLookupEnabled;
     private Trunk.TransferCallerId transferCallerId;
 
-    public TrunkCreator() {}
-
-    public TrunkCreator setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
+    public TrunkCreator() {
     }
 
-    public TrunkCreator setDomainName(final String domainName) {
-        this.domainName = domainName;
-        return this;
-    }
 
-    public TrunkCreator setDisasterRecoveryUrl(final URI disasterRecoveryUrl) {
-        this.disasterRecoveryUrl = disasterRecoveryUrl;
-        return this;
-    }
+public TrunkCreator setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public TrunkCreator setDisasterRecoveryUrl(
-        final String disasterRecoveryUrl
-    ) {
-        return setDisasterRecoveryUrl(
-            Promoter.uriFromString(disasterRecoveryUrl)
-        );
-    }
 
-    public TrunkCreator setDisasterRecoveryMethod(
-        final HttpMethod disasterRecoveryMethod
-    ) {
-        this.disasterRecoveryMethod = disasterRecoveryMethod;
-        return this;
-    }
+public TrunkCreator setDomainName(final String domainName){
+    this.domainName = domainName;
+    return this;
+}
 
-    public TrunkCreator setTransferMode(
-        final Trunk.TransferSetting transferMode
-    ) {
-        this.transferMode = transferMode;
-        return this;
-    }
 
-    public TrunkCreator setSecure(final Boolean secure) {
-        this.secure = secure;
-        return this;
-    }
+public TrunkCreator setDisasterRecoveryUrl(final URI disasterRecoveryUrl){
+    this.disasterRecoveryUrl = disasterRecoveryUrl;
+    return this;
+}
 
-    public TrunkCreator setCnamLookupEnabled(final Boolean cnamLookupEnabled) {
-        this.cnamLookupEnabled = cnamLookupEnabled;
-        return this;
-    }
+public TrunkCreator setDisasterRecoveryUrl(final String disasterRecoveryUrl){
+    return setDisasterRecoveryUrl(Promoter.uriFromString(disasterRecoveryUrl));
+}
 
-    public TrunkCreator setTransferCallerId(
-        final Trunk.TransferCallerId transferCallerId
-    ) {
-        this.transferCallerId = transferCallerId;
-        return this;
-    }
+public TrunkCreator setDisasterRecoveryMethod(final HttpMethod disasterRecoveryMethod){
+    this.disasterRecoveryMethod = disasterRecoveryMethod;
+    return this;
+}
+
+
+public TrunkCreator setTransferMode(final Trunk.TransferSetting transferMode){
+    this.transferMode = transferMode;
+    return this;
+}
+
+
+public TrunkCreator setSecure(final Boolean secure){
+    this.secure = secure;
+    return this;
+}
+
+
+public TrunkCreator setCnamLookupEnabled(final Boolean cnamLookupEnabled){
+    this.cnamLookupEnabled = cnamLookupEnabled;
+    return this;
+}
+
+
+public TrunkCreator setTransferCallerId(final Trunk.TransferCallerId transferCallerId){
+    this.transferCallerId = transferCallerId;
+    return this;
+}
+
 
     @Override
     public Trunk create(final TwilioRestClient client) {
-        String path = "/v1/Trunks";
+    
+    String path = "/v1/Trunks";
 
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
@@ -108,101 +113,72 @@ public class TrunkCreator extends Creator<Trunk> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Trunk creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Trunk creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return Trunk.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (domainName != null) {
-            Serializer.toString(
-                request,
-                "DomainName",
-                domainName,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (disasterRecoveryUrl != null) {
-            Serializer.toString(
-                request,
-                "DisasterRecoveryUrl",
-                disasterRecoveryUrl,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (disasterRecoveryMethod != null) {
-            Serializer.toString(
-                request,
-                "DisasterRecoveryMethod",
-                disasterRecoveryMethod,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (transferMode != null) {
-            Serializer.toString(
-                request,
-                "TransferMode",
-                transferMode,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (secure != null) {
-            Serializer.toString(
-                request,
-                "Secure",
-                secure,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (cnamLookupEnabled != null) {
-            Serializer.toString(
-                request,
-                "CnamLookupEnabled",
-                cnamLookupEnabled,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (transferCallerId != null) {
-            Serializer.toString(
-                request,
-                "TransferCallerId",
-                transferCallerId,
-                ParameterType.URLENCODED
-            );
-        }
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
+
+
+
+    if (domainName != null) {
+        Serializer.toString(request, "DomainName", domainName, ParameterType.URLENCODED);
+    }
+
+
+
+    if (disasterRecoveryUrl != null) {
+        Serializer.toString(request, "DisasterRecoveryUrl", disasterRecoveryUrl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (disasterRecoveryMethod != null) {
+        Serializer.toString(request, "DisasterRecoveryMethod", disasterRecoveryMethod, ParameterType.URLENCODED);
+    }
+
+
+
+    if (transferMode != null) {
+        Serializer.toString(request, "TransferMode", transferMode, ParameterType.URLENCODED);
+    }
+
+
+
+    if (secure != null) {
+        Serializer.toString(request, "Secure", secure, ParameterType.URLENCODED);
+    }
+
+
+
+    if (cnamLookupEnabled != null) {
+        Serializer.toString(request, "CnamLookupEnabled", cnamLookupEnabled, ParameterType.URLENCODED);
+    }
+
+
+
+    if (transferCallerId != null) {
+        Serializer.toString(request, "TransferCallerId", transferCallerId, ParameterType.URLENCODED);
+    }
+
+
+}
 }

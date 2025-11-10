@@ -17,100 +17,126 @@ package com.twilio.rest.supersim.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SmsCommand extends Resource {
 
-    public static SmsCommandCreator creator(
-        final String sim,
-        final String payload
-    ) {
-        return new SmsCommandCreator(sim, payload);
+
+
+    public static SmsCommandCreator creator(final String sim, final String payload) {
+        return new SmsCommandCreator(
+             sim,  payload
+        );
     }
+
+
+
+
+
+
+    
+
+
+
 
     public static SmsCommandFetcher fetcher(final String pathSid) {
-        return new SmsCommandFetcher(pathSid);
+        return new SmsCommandFetcher(
+             pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static SmsCommandReader reader() {
-        return new SmsCommandReader();
+        return new SmsCommandReader(
+            
+        );
     }
 
-    public enum Status {
-        QUEUED("queued"),
-        SENT("sent"),
-        DELIVERED("delivered"),
-        RECEIVED("received"),
-        FAILED("failed");
 
-        private final String value;
+    
 
-        private Status(final String value) {
-            this.value = value;
-        }
+public enum Status {
+    QUEUED("queued"),
+    SENT("sent"),
+    DELIVERED("delivered"),
+    RECEIVED("received"),
+    FAILED("failed");
 
-        public String toString() {
-            return value;
-        }
+    private final String value;
 
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
+    private Status(final String value) {
+        this.value = value;
     }
 
-    public enum Direction {
-        TO_SIM("to_sim"),
-        FROM_SIM("from_sim");
-
-        private final String value;
-
-        private Direction(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Direction forValue(final String value) {
-            return Promoter.enumFromString(value, Direction.values());
-        }
+    public String toString() {
+        return value;
     }
+
+    @JsonCreator
+    public static Status forValue(final String value) {
+        return Promoter.enumFromString(value, Status.values());
+    }
+}
+public enum Direction {
+    TO_SIM("to_sim"),
+    FROM_SIM("from_sim");
+
+    private final String value;
+
+    private Direction(final String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static Direction forValue(final String value) {
+        return Promoter.enumFromString(value, Direction.values());
+    }
+}
+
 
     /**
-     * Converts a JSON String into a SmsCommand object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return SmsCommand object represented by the provided JSON
-     */
-    public static SmsCommand fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a SmsCommand object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return SmsCommand object represented by the provided JSON
+    */
+    public static SmsCommand fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SmsCommand.class);
@@ -122,17 +148,14 @@ public class SmsCommand extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a SmsCommand object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return SmsCommand object represented by the provided JSON
-     */
-    public static SmsCommand fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a SmsCommand object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return SmsCommand object represented by the provided JSON
+    */
+    public static SmsCommand fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SmsCommand.class);
@@ -154,97 +177,101 @@ public class SmsCommand extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final SmsCommand.Direction direction;
-
     @Getter
     private final String payload;
-
     @Getter
     private final String sid;
-
     @Getter
     private final String simSid;
-
     @Getter
     private final SmsCommand.Status status;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private SmsCommand(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("direction") final SmsCommand.Direction direction,
-        @JsonProperty("payload") final String payload,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("sim_sid") final String simSid,
-        @JsonProperty("status") final SmsCommand.Status status,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.direction = direction;
-        this.payload = payload;
-        this.sid = sid;
-        this.simSid = simSid;
-        this.status = status;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        SmsCommand other = (SmsCommand) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(direction, other.direction) &&
-            Objects.equals(payload, other.payload) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(simSid, other.simSid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            dateCreated,
-            dateUpdated,
-            direction,
-            payload,
-            sid,
-            simSid,
-            status,
-            url
-        );
-    }
+@JsonCreator
+private SmsCommand(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("direction")
+    final SmsCommand.Direction direction, 
+    @JsonProperty("payload")
+    final String payload, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("sim_sid")
+    final String simSid, 
+    @JsonProperty("status")
+    final SmsCommand.Status status, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.dateCreated = dateCreated;
+    this.dateUpdated = dateUpdated;
+    this.direction = direction;
+    this.payload = payload;
+    this.sid = sid;
+    this.simSid = simSid;
+    this.status = status;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    SmsCommand other = (SmsCommand) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(direction, other.direction) && 
+            Objects.equals(payload, other.payload) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(simSid, other.simSid) && 
+            Objects.equals(status, other.status) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            dateCreated, 
+            dateUpdated, 
+            direction, 
+            payload, 
+            sid, 
+            simSid, 
+            status, 
+            url
+    );
+}
+
+
+
+}
+

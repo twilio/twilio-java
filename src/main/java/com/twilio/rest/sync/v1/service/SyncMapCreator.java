@@ -14,6 +14,7 @@
 
 package com.twilio.rest.sync.v1.service;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -26,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
 public class SyncMapCreator extends Creator<SyncMap> {
@@ -39,31 +42,33 @@ public class SyncMapCreator extends Creator<SyncMap> {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public SyncMapCreator setUniqueName(final String uniqueName) {
-        this.uniqueName = uniqueName;
-        return this;
-    }
 
-    public SyncMapCreator setTtl(final Integer ttl) {
-        this.ttl = ttl;
-        return this;
-    }
+public SyncMapCreator setUniqueName(final String uniqueName){
+    this.uniqueName = uniqueName;
+    return this;
+}
 
-    public SyncMapCreator setCollectionTtl(final Integer collectionTtl) {
-        this.collectionTtl = collectionTtl;
-        return this;
-    }
+
+public SyncMapCreator setTtl(final Integer ttl){
+    this.ttl = ttl;
+    return this;
+}
+
+
+public SyncMapCreator setCollectionTtl(final Integer collectionTtl){
+    this.collectionTtl = collectionTtl;
+    return this;
+}
+
 
     @Override
     public SyncMap create(final TwilioRestClient client) {
-        String path = "/v1/Services/{ServiceSid}/Maps";
+    
+    String path = "/v1/Services/{ServiceSid}/Maps";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+    path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
@@ -71,51 +76,42 @@ public class SyncMapCreator extends Creator<SyncMap> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "SyncMap creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SyncMap creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
+    
         return SyncMap.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
-        if (uniqueName != null) {
-            Serializer.toString(
-                request,
-                "UniqueName",
-                uniqueName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (ttl != null) {
-            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
-        }
-
-        if (collectionTtl != null) {
-            Serializer.toString(
-                request,
-                "CollectionTtl",
-                collectionTtl,
-                ParameterType.URLENCODED
-            );
-        }
+    if (uniqueName != null) {
+        Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
     }
+
+
+
+    if (ttl != null) {
+        Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
+    }
+
+
+
+    if (collectionTtl != null) {
+        Serializer.toString(request, "CollectionTtl", collectionTtl, ParameterType.URLENCODED);
+    }
+
+
+}
 }

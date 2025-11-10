@@ -13,8 +13,8 @@
  */
 
 package com.twilio.rest.flexapi.v1;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -25,23 +25,30 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class ConfigurationUpdater extends Updater<Configuration> {
+    public class ConfigurationUpdater extends Updater<Configuration> {
+            private Object body;
 
-    private Object body;
-
-    public ConfigurationUpdater() {}
-
-    public ConfigurationUpdater setBody(final Object body) {
-        this.body = body;
-        return this;
+            public ConfigurationUpdater() {
     }
 
-    @Override
-    public Configuration update(final TwilioRestClient client) {
-        String path = "/v1/Configuration";
+        
+public ConfigurationUpdater setBody(final Object body){
+    this.body = body;
+    return this;
+}
 
+
+            @Override
+    public Configuration update(final TwilioRestClient client) {
+    
+    String path = "/v1/Configuration";
+
+
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
@@ -49,37 +56,28 @@ public class ConfigurationUpdater extends Updater<Configuration> {
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Configuration update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Configuration update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Configuration.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    
+        return Configuration.fromJson(response.getStream(), client.getObjectMapper());
     }
-
-    private void addPostParams(final Request request, TwilioRestClient client) {
-        ObjectMapper objectMapper = client.getObjectMapper();
+        private void addPostParams(final Request request, TwilioRestClient client) {
+    ObjectMapper objectMapper = client.getObjectMapper();
         if (body != null) {
-            request.setBody(Configuration.toJson(body, objectMapper));
+        request.setBody(Configuration.toJson(body, objectMapper));
         }
-    }
 }
+    }

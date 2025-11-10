@@ -27,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.util.List;
+import com.twilio.type.*;
 
-public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
-
-    private String pathSid;
+    public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
+            private String pathSid;
     private String friendlyName;
     private String uniqueName;
     private String email;
@@ -44,78 +45,82 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     private String extension;
     private Integer callDelay;
 
-    public HostedNumberOrderUpdater(final String pathSid) {
+            public HostedNumberOrderUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public HostedNumberOrderUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+        
+public HostedNumberOrderUpdater setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
 
-    public HostedNumberOrderUpdater setUniqueName(final String uniqueName) {
-        this.uniqueName = uniqueName;
-        return this;
-    }
 
-    public HostedNumberOrderUpdater setEmail(final String email) {
-        this.email = email;
-        return this;
-    }
+public HostedNumberOrderUpdater setUniqueName(final String uniqueName){
+    this.uniqueName = uniqueName;
+    return this;
+}
 
-    public HostedNumberOrderUpdater setCcEmails(final List<String> ccEmails) {
-        this.ccEmails = ccEmails;
-        return this;
-    }
 
-    public HostedNumberOrderUpdater setCcEmails(final String ccEmails) {
-        return setCcEmails(Promoter.listOfOne(ccEmails));
-    }
+public HostedNumberOrderUpdater setEmail(final String email){
+    this.email = email;
+    return this;
+}
 
-    public HostedNumberOrderUpdater setStatus(
-        final HostedNumberOrder.Status status
-    ) {
-        this.status = status;
-        return this;
-    }
 
-    public HostedNumberOrderUpdater setVerificationCode(
-        final String verificationCode
-    ) {
-        this.verificationCode = verificationCode;
-        return this;
-    }
+public HostedNumberOrderUpdater setCcEmails(final List<String> ccEmails){
+    this.ccEmails = ccEmails;
+    return this;
+}
 
-    public HostedNumberOrderUpdater setVerificationType(
-        final HostedNumberOrder.VerificationType verificationType
-    ) {
-        this.verificationType = verificationType;
-        return this;
-    }
+public HostedNumberOrderUpdater setCcEmails(final String ccEmails){
+    return setCcEmails(Promoter.listOfOne(ccEmails));
+}
 
-    public HostedNumberOrderUpdater setVerificationDocumentSid(
-        final String verificationDocumentSid
-    ) {
-        this.verificationDocumentSid = verificationDocumentSid;
-        return this;
-    }
+public HostedNumberOrderUpdater setStatus(final HostedNumberOrder.Status status){
+    this.status = status;
+    return this;
+}
 
-    public HostedNumberOrderUpdater setExtension(final String extension) {
-        this.extension = extension;
-        return this;
-    }
 
-    public HostedNumberOrderUpdater setCallDelay(final Integer callDelay) {
-        this.callDelay = callDelay;
-        return this;
-    }
+public HostedNumberOrderUpdater setVerificationCode(final String verificationCode){
+    this.verificationCode = verificationCode;
+    return this;
+}
 
-    @Override
+
+public HostedNumberOrderUpdater setVerificationType(final HostedNumberOrder.VerificationType verificationType){
+    this.verificationType = verificationType;
+    return this;
+}
+
+
+public HostedNumberOrderUpdater setVerificationDocumentSid(final String verificationDocumentSid){
+    this.verificationDocumentSid = verificationDocumentSid;
+    return this;
+}
+
+
+public HostedNumberOrderUpdater setExtension(final String extension){
+    this.extension = extension;
+    return this;
+}
+
+
+public HostedNumberOrderUpdater setCallDelay(final Integer callDelay){
+    this.callDelay = callDelay;
+    return this;
+}
+
+
+            @Override
     public HostedNumberOrder update(final TwilioRestClient client) {
-        String path = "/HostedNumbers/HostedNumberOrders/{Sid}";
+    
+    String path = "/HostedNumbers/HostedNumberOrders/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
@@ -123,124 +128,86 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "HostedNumberOrder update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("HostedNumberOrder update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
+    
+        return HostedNumberOrder.fromJson(response.getStream(), client.getObjectMapper());
+    }
+        private void addPostParams(final Request request) {
 
-        return HostedNumberOrder.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
     }
 
-    private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (uniqueName != null) {
-            Serializer.toString(
-                request,
-                "UniqueName",
-                uniqueName,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (email != null) {
-            Serializer.toString(
-                request,
-                "Email",
-                email,
-                ParameterType.URLENCODED
-            );
-        }
+    if (uniqueName != null) {
+        Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
+    }
 
-        if (ccEmails != null) {
-            for (String param : ccEmails) {
-                Serializer.toString(
-                    request,
-                    "CcEmails",
-                    param,
-                    ParameterType.URLENCODED
-                );
-            }
-        }
 
-        if (status != null) {
-            Serializer.toString(
-                request,
-                "Status",
-                status,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (verificationCode != null) {
-            Serializer.toString(
-                request,
-                "VerificationCode",
-                verificationCode,
-                ParameterType.URLENCODED
-            );
-        }
+    if (email != null) {
+        Serializer.toString(request, "Email", email, ParameterType.URLENCODED);
+    }
 
-        if (verificationType != null) {
-            Serializer.toString(
-                request,
-                "VerificationType",
-                verificationType,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (verificationDocumentSid != null) {
-            Serializer.toString(
-                request,
-                "VerificationDocumentSid",
-                verificationDocumentSid,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (extension != null) {
-            Serializer.toString(
-                request,
-                "Extension",
-                extension,
-                ParameterType.URLENCODED
-            );
-        }
 
-        if (callDelay != null) {
-            Serializer.toString(
-                request,
-                "CallDelay",
-                callDelay,
-                ParameterType.URLENCODED
-            );
+    if (ccEmails != null) {
+        for (String param: ccEmails) {
+            Serializer.toString(request, "CcEmails", param, ParameterType.URLENCODED);
         }
     }
+
+
+    if (status != null) {
+        Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+    }
+
+
+
+    if (verificationCode != null) {
+        Serializer.toString(request, "VerificationCode", verificationCode, ParameterType.URLENCODED);
+    }
+
+
+
+    if (verificationType != null) {
+        Serializer.toString(request, "VerificationType", verificationType, ParameterType.URLENCODED);
+    }
+
+
+
+    if (verificationDocumentSid != null) {
+        Serializer.toString(request, "VerificationDocumentSid", verificationDocumentSid, ParameterType.URLENCODED);
+    }
+
+
+
+    if (extension != null) {
+        Serializer.toString(request, "Extension", extension, ParameterType.URLENCODED);
+    }
+
+
+
+    if (callDelay != null) {
+        Serializer.toString(request, "CallDelay", callDelay, ParameterType.URLENCODED);
+    }
+
+
 }
+    }

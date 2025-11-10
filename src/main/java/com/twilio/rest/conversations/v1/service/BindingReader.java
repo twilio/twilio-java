@@ -14,9 +14,7 @@
 
 package com.twilio.rest.conversations.v1.service;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -28,58 +26,59 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.util.List;
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class BindingReader extends Reader<Binding> {
 
-    private String pathChatServiceSid;
+        private String pathChatServiceSid;
     private List<Binding.BindingType> bindingType;
     private List<String> identity;
     private Long pageSize;
 
-    public BindingReader(final String pathChatServiceSid) {
+        public BindingReader(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;
     }
 
-    public BindingReader setBindingType(
-        final List<Binding.BindingType> bindingType
-    ) {
-        this.bindingType = bindingType;
-        return this;
-    }
+    
+public BindingReader setBindingType(final List<Binding.BindingType> bindingType){
+    this.bindingType = bindingType;
+    return this;
+}
 
-    public BindingReader setBindingType(final Binding.BindingType bindingType) {
-        return setBindingType(Promoter.listOfOne(bindingType));
-    }
+public BindingReader setBindingType(final Binding.BindingType bindingType){
+    return setBindingType(Promoter.listOfOne(bindingType));
+}
 
-    public BindingReader setIdentity(final List<String> identity) {
-        this.identity = identity;
-        return this;
-    }
+public BindingReader setIdentity(final List<String> identity){
+    this.identity = identity;
+    return this;
+}
 
-    public BindingReader setIdentity(final String identity) {
-        return setIdentity(Promoter.listOfOne(identity));
-    }
+public BindingReader setIdentity(final String identity){
+    return setIdentity(Promoter.listOfOne(identity));
+}
 
-    public BindingReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+public BindingReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
 
-    @Override
+
+        @Override
     public ResourceSet<Binding> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<Binding> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Services/{ChatServiceSid}/Bindings";
+        
+    String path = "/v1/Services/{ChatServiceSid}/Bindings";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
+    path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -91,101 +90,73 @@ public class BindingReader extends Reader<Binding> {
         return pageForRequest(client, request);
     }
 
-    private Page<Binding> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Binding> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Binding read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Binding read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "bindings",
             response.getContent(),
             Binding.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<Binding> previousPage(
-        final Page<Binding> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Binding> previousPage(final Page<Binding> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Binding> nextPage(
-        final Page<Binding> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<Binding> nextPage(final Page<Binding> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<Binding> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Binding> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (bindingType != null) {
-            for (Binding.BindingType param : bindingType) {
-                Serializer.toString(
-                    request,
-                    "BindingType",
-                    param,
-                    ParameterType.QUERY
-                );
-            }
-        }
 
-        if (identity != null) {
-            for (String param : identity) {
-                Serializer.toString(
-                    request,
-                    "Identity",
-                    param,
-                    ParameterType.QUERY
-                );
-            }
-        }
 
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
+
+
+    if (bindingType != null) {
+        for (Binding.BindingType param: bindingType) {
+            Serializer.toString(request, "BindingType", param, ParameterType.QUERY);
         }
     }
+
+
+
+
+
+    if (identity != null) {
+        for (String param: identity) {
+            Serializer.toString(request, "Identity", param, ParameterType.QUERY);
+        }
+    }
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

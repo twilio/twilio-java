@@ -14,9 +14,7 @@
 
 package com.twilio.rest.api.v2010.account;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -27,12 +25,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
+
 import java.time.LocalDate;
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class ConferenceReader extends Reader<Conference> {
 
-    private String pathAccountSid;
+        private String pathAccountSid;
     private LocalDate dateCreated;
     private LocalDate dateCreatedBefore;
     private LocalDate dateCreatedAfter;
@@ -43,82 +45,78 @@ public class ConferenceReader extends Reader<Conference> {
     private Conference.Status status;
     private Long pageSize;
 
-    public ConferenceReader() {}
-
+        public ConferenceReader() {
+    }
     public ConferenceReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public ConferenceReader setDateCreated(final LocalDate dateCreated) {
-        this.dateCreated = dateCreated;
-        return this;
-    }
+    
+public ConferenceReader setDateCreated(final LocalDate dateCreated){
+    this.dateCreated = dateCreated;
+    return this;
+}
 
-    public ConferenceReader setDateCreatedBefore(
-        final LocalDate dateCreatedBefore
-    ) {
-        this.dateCreatedBefore = dateCreatedBefore;
-        return this;
-    }
 
-    public ConferenceReader setDateCreatedAfter(
-        final LocalDate dateCreatedAfter
-    ) {
-        this.dateCreatedAfter = dateCreatedAfter;
-        return this;
-    }
+public ConferenceReader setDateCreatedBefore(final LocalDate dateCreatedBefore){
+    this.dateCreatedBefore = dateCreatedBefore;
+    return this;
+}
 
-    public ConferenceReader setDateUpdated(final LocalDate dateUpdated) {
-        this.dateUpdated = dateUpdated;
-        return this;
-    }
 
-    public ConferenceReader setDateUpdatedBefore(
-        final LocalDate dateUpdatedBefore
-    ) {
-        this.dateUpdatedBefore = dateUpdatedBefore;
-        return this;
-    }
+public ConferenceReader setDateCreatedAfter(final LocalDate dateCreatedAfter){
+    this.dateCreatedAfter = dateCreatedAfter;
+    return this;
+}
 
-    public ConferenceReader setDateUpdatedAfter(
-        final LocalDate dateUpdatedAfter
-    ) {
-        this.dateUpdatedAfter = dateUpdatedAfter;
-        return this;
-    }
 
-    public ConferenceReader setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
-    }
+public ConferenceReader setDateUpdated(final LocalDate dateUpdated){
+    this.dateUpdated = dateUpdated;
+    return this;
+}
 
-    public ConferenceReader setStatus(final Conference.Status status) {
-        this.status = status;
-        return this;
-    }
 
-    public ConferenceReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+public ConferenceReader setDateUpdatedBefore(final LocalDate dateUpdatedBefore){
+    this.dateUpdatedBefore = dateUpdatedBefore;
+    return this;
+}
 
-    @Override
+
+public ConferenceReader setDateUpdatedAfter(final LocalDate dateUpdatedAfter){
+    this.dateUpdatedAfter = dateUpdatedAfter;
+    return this;
+}
+
+
+public ConferenceReader setFriendlyName(final String friendlyName){
+    this.friendlyName = friendlyName;
+    return this;
+}
+
+
+public ConferenceReader setStatus(final Conference.Status status){
+    this.status = status;
+    return this;
+}
+
+
+public ConferenceReader setPageSize(final Long pageSize){
+    this.pageSize = pageSize;
+    return this;
+}
+
+
+        @Override
     public ResourceSet<Conference> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
-
+    
     public Page<Conference> firstPage(final TwilioRestClient client) {
-        String path = "/2010-04-01/Accounts/{AccountSid}/Conferences.json";
+        
+    String path = "/2010-04-01/Accounts/{AccountSid}/Conferences.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -130,146 +128,117 @@ public class ConferenceReader extends Reader<Conference> {
         return pageForRequest(client, request);
     }
 
-    private Page<Conference> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Conference> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Conference read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Conference read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
-
+            response.getStream(),
+            client.getObjectMapper());
+        
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
-        }
+        } 
 
         return Page.fromJson(
             "conferences",
             response.getContent(),
             Conference.class,
-            client.getObjectMapper()
-        );
+            client.getObjectMapper());
     }
 
     @Override
-    public Page<Conference> previousPage(
-        final Page<Conference> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Conference> previousPage(final Page<Conference> page, final TwilioRestClient client ) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Conference> nextPage(
-        final Page<Conference> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
-        return pageForRequest(client, request);
+    public Page<Conference> nextPage(final Page<Conference> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+        return pageForRequest(client, request); 
     }
 
     @Override
-    public Page<Conference> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Conference> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-        return pageForRequest(client, request);
+        return pageForRequest(client, request); 
     }
-
     private void addQueryParams(final Request request) {
-        if (dateCreated != null) {
-            Serializer.toString(
-                request,
-                "DateCreated",
-                dateCreated,
-                ParameterType.QUERY
-            );
-        }
 
-        if (dateCreatedBefore != null) {
-            Serializer.toString(
-                request,
-                "DateCreated<",
-                dateCreatedBefore,
-                ParameterType.QUERY
-            );
-        }
 
-        if (dateCreatedAfter != null) {
-            Serializer.toString(
-                request,
-                "DateCreated>",
-                dateCreatedAfter,
-                ParameterType.QUERY
-            );
-        }
-
-        if (dateUpdated != null) {
-            Serializer.toString(
-                request,
-                "DateUpdated",
-                dateUpdated,
-                ParameterType.QUERY
-            );
-        }
-
-        if (dateUpdatedBefore != null) {
-            Serializer.toString(
-                request,
-                "DateUpdated<",
-                dateUpdatedBefore,
-                ParameterType.QUERY
-            );
-        }
-
-        if (dateUpdatedAfter != null) {
-            Serializer.toString(
-                request,
-                "DateUpdated>",
-                dateUpdatedAfter,
-                ParameterType.QUERY
-            );
-        }
-
-        if (friendlyName != null) {
-            Serializer.toString(
-                request,
-                "FriendlyName",
-                friendlyName,
-                ParameterType.QUERY
-            );
-        }
-
-        if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.QUERY);
-        }
-
-        if (pageSize != null) {
-            Serializer.toString(
-                request,
-                "PageSize",
-                pageSize,
-                ParameterType.QUERY
-            );
-        }
+    if (dateCreated != null) {
+        Serializer.toString(request, "DateCreated", dateCreated, ParameterType.QUERY);
     }
+
+
+
+
+
+    if (dateCreatedBefore != null) {
+        Serializer.toString(request, "DateCreated<", dateCreatedBefore, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (dateCreatedAfter != null) {
+        Serializer.toString(request, "DateCreated>", dateCreatedAfter, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (dateUpdated != null) {
+        Serializer.toString(request, "DateUpdated", dateUpdated, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (dateUpdatedBefore != null) {
+        Serializer.toString(request, "DateUpdated<", dateUpdatedBefore, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (dateUpdatedAfter != null) {
+        Serializer.toString(request, "DateUpdated>", dateUpdatedAfter, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (friendlyName != null) {
+        Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (status != null) {
+        Serializer.toString(request, "Status", status, ParameterType.QUERY);
+    }
+
+
+
+
+
+    if (pageSize != null) {
+        Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+    }
+
+
+
+}
 }

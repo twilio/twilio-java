@@ -17,48 +17,70 @@ package com.twilio.rest.conversations.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Configuration extends Resource {
 
+
+
+
+
+
     public static ConfigurationFetcher fetcher() {
-        return new ConfigurationFetcher();
+        return new ConfigurationFetcher(
+            
+        );
     }
+
+
+
+    
+
+
+
+
+
 
     public static ConfigurationUpdater updater() {
-        return new ConfigurationUpdater();
+        return new ConfigurationUpdater(
+            
+        );
     }
 
+    
+
+
+
     /**
-     * Converts a JSON String into a Configuration object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Configuration object represented by the provided JSON
-     */
-    public static Configuration fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Configuration object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Configuration object represented by the provided JSON
+    */
+    public static Configuration fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Configuration.class);
@@ -70,17 +92,14 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Configuration object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Configuration object represented by the provided JSON
-     */
-    public static Configuration fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Configuration object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Configuration object represented by the provided JSON
+    */
+    public static Configuration fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Configuration.class);
@@ -102,91 +121,85 @@ public class Configuration extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final String defaultChatServiceSid;
-
     @Getter
     private final String defaultClosedTimer;
-
     @Getter
     private final String defaultInactiveTimer;
-
     @Getter
     private final String defaultMessagingServiceSid;
-
     @Getter
     private final Map<String, String> links;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private Configuration(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty(
-            "default_chat_service_sid"
-        ) final String defaultChatServiceSid,
-        @JsonProperty("default_closed_timer") final String defaultClosedTimer,
-        @JsonProperty(
-            "default_inactive_timer"
-        ) final String defaultInactiveTimer,
-        @JsonProperty(
-            "default_messaging_service_sid"
-        ) final String defaultMessagingServiceSid,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.defaultChatServiceSid = defaultChatServiceSid;
-        this.defaultClosedTimer = defaultClosedTimer;
-        this.defaultInactiveTimer = defaultInactiveTimer;
-        this.defaultMessagingServiceSid = defaultMessagingServiceSid;
-        this.links = links;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Configuration other = (Configuration) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(
-                defaultChatServiceSid,
-                other.defaultChatServiceSid
-            ) &&
-            Objects.equals(defaultClosedTimer, other.defaultClosedTimer) &&
-            Objects.equals(defaultInactiveTimer, other.defaultInactiveTimer) &&
-            Objects.equals(
-                defaultMessagingServiceSid,
-                other.defaultMessagingServiceSid
-            ) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            defaultChatServiceSid,
-            defaultClosedTimer,
-            defaultInactiveTimer,
-            defaultMessagingServiceSid,
-            links,
-            url
-        );
-    }
+@JsonCreator
+private Configuration(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("default_chat_service_sid")
+    final String defaultChatServiceSid, 
+    @JsonProperty("default_closed_timer")
+    final String defaultClosedTimer, 
+    @JsonProperty("default_inactive_timer")
+    final String defaultInactiveTimer, 
+    @JsonProperty("default_messaging_service_sid")
+    final String defaultMessagingServiceSid, 
+    @JsonProperty("links")
+    final Map<String, String> links, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.defaultChatServiceSid = defaultChatServiceSid;
+    this.defaultClosedTimer = defaultClosedTimer;
+    this.defaultInactiveTimer = defaultInactiveTimer;
+    this.defaultMessagingServiceSid = defaultMessagingServiceSid;
+    this.links = links;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Configuration other = (Configuration) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(defaultChatServiceSid, other.defaultChatServiceSid) && 
+            Objects.equals(defaultClosedTimer, other.defaultClosedTimer) && 
+            Objects.equals(defaultInactiveTimer, other.defaultInactiveTimer) && 
+            Objects.equals(defaultMessagingServiceSid, other.defaultMessagingServiceSid) && 
+            Objects.equals(links, other.links) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            defaultChatServiceSid, 
+            defaultClosedTimer, 
+            defaultInactiveTimer, 
+            defaultMessagingServiceSid, 
+            links, 
+            url
+    );
+}
+
+
+
+}
+

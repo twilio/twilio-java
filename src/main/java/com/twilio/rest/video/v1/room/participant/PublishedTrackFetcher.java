@@ -23,65 +23,53 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
+    public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
 
-    private String pathRoomSid;
+            private String pathRoomSid;
     private String pathParticipantSid;
     private String pathSid;
 
-    public PublishedTrackFetcher(
-        final String pathRoomSid,
-        final String pathParticipantSid,
-        final String pathSid
-    ) {
+            public PublishedTrackFetcher(final String pathRoomSid, final String pathParticipantSid, final String pathSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathParticipantSid = pathParticipantSid;
         this.pathSid = pathSid;
     }
 
-    @Override
+        
+            @Override
     public PublishedTrack fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid}";
+    
+    String path = "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid}";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
-        path =
-            path.replace(
-                "{" + "ParticipantSid" + "}",
-                this.pathParticipantSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    path = path.replace("{"+"RoomSid"+"}", this.pathRoomSid.toString());
+    path = path.replace("{"+"ParticipantSid"+"}", this.pathParticipantSid.toString());
+    path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
             path
         );
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "PublishedTrack fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("PublishedTrack fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-        return PublishedTrack.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return PublishedTrack.fromJson(response.getStream(), client.getObjectMapper());
     }
-}
+    }

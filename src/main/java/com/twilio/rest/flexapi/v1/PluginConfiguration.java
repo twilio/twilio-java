@@ -17,54 +17,85 @@ package com.twilio.rest.flexapi.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PluginConfiguration extends Resource {
 
+
+
     public static PluginConfigurationCreator creator(final String name) {
-        return new PluginConfigurationCreator(name);
+        return new PluginConfigurationCreator(
+             name
+        );
     }
+
+
+
+
+
+
+    
+
+
+
 
     public static PluginConfigurationFetcher fetcher(final String pathSid) {
-        return new PluginConfigurationFetcher(pathSid);
+        return new PluginConfigurationFetcher(
+             pathSid
+        );
     }
+
+
+
+    
+
+
+
+
 
     public static PluginConfigurationReader reader() {
-        return new PluginConfigurationReader();
+        return new PluginConfigurationReader(
+            
+        );
     }
 
+
+    
+
+
+
     /**
-     * Converts a JSON String into a PluginConfiguration object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return PluginConfiguration object represented by the provided JSON
-     */
-    public static PluginConfiguration fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a PluginConfiguration object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return PluginConfiguration object represented by the provided JSON
+    */
+    public static PluginConfiguration fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PluginConfiguration.class);
@@ -76,17 +107,14 @@ public class PluginConfiguration extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a PluginConfiguration object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return PluginConfiguration object represented by the provided JSON
-     */
-    public static PluginConfiguration fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a PluginConfiguration object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return PluginConfiguration object represented by the provided JSON
+    */
+    public static PluginConfiguration fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PluginConfiguration.class);
@@ -108,88 +136,93 @@ public class PluginConfiguration extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final Boolean archived;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final String description;
-
     @Getter
     private final Map<String, String> links;
-
     @Getter
     private final String name;
-
     @Getter
     private final String sid;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private PluginConfiguration(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("archived") final Boolean archived,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("description") final String description,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("name") final String name,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.archived = archived;
-        this.dateCreated = dateCreated;
-        this.description = description;
-        this.links = links;
-        this.name = name;
-        this.sid = sid;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        PluginConfiguration other = (PluginConfiguration) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(archived, other.archived) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(name, other.name) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            archived,
-            dateCreated,
-            description,
-            links,
-            name,
-            sid,
-            url
-        );
-    }
+@JsonCreator
+private PluginConfiguration(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("archived")
+    final Boolean archived, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("description")
+    final String description, 
+    @JsonProperty("links")
+    final Map<String, String> links, 
+    @JsonProperty("name")
+    final String name, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.archived = archived;
+    this.dateCreated = dateCreated;
+    this.description = description;
+    this.links = links;
+    this.name = name;
+    this.sid = sid;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    PluginConfiguration other = (PluginConfiguration) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(archived, other.archived) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(description, other.description) && 
+            Objects.equals(links, other.links) && 
+            Objects.equals(name, other.name) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            archived, 
+            dateCreated, 
+            description, 
+            links, 
+            name, 
+            sid, 
+            url
+    );
+}
+
+
+
+}
+

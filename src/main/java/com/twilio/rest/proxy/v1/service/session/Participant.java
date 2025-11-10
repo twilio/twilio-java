@@ -17,77 +17,98 @@ package com.twilio.rest.proxy.v1.service.session;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
+import lombok.Getter;
+import lombok.ToString;
+
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+import com.twilio.type.*;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.ToString;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
 
-    public static ParticipantCreator creator(
-        final String pathServiceSid,
-        final String pathSessionSid,
-        final String identifier
-    ) {
+
+
+    public static ParticipantCreator creator(final String pathServiceSid, final String pathSessionSid, final String identifier) {
         return new ParticipantCreator(
-            pathServiceSid,
-            pathSessionSid,
-            identifier
+             pathServiceSid,  pathSessionSid,  identifier
         );
     }
 
-    public static ParticipantDeleter deleter(
-        final String pathServiceSid,
-        final String pathSessionSid,
-        final String pathSid
-    ) {
-        return new ParticipantDeleter(pathServiceSid, pathSessionSid, pathSid);
+
+
+
+
+
+    
+
+
+
+    public static ParticipantDeleter deleter(final String pathServiceSid, final String pathSessionSid, final String pathSid) {
+        return new ParticipantDeleter(
+             pathServiceSid,  pathSessionSid,  pathSid
+        );
     }
 
-    public static ParticipantFetcher fetcher(
-        final String pathServiceSid,
-        final String pathSessionSid,
-        final String pathSid
-    ) {
-        return new ParticipantFetcher(pathServiceSid, pathSessionSid, pathSid);
+
+
+
+    
+
+
+
+
+    public static ParticipantFetcher fetcher(final String pathServiceSid, final String pathSessionSid, final String pathSid) {
+        return new ParticipantFetcher(
+             pathServiceSid,  pathSessionSid,  pathSid
+        );
     }
 
-    public static ParticipantReader reader(
-        final String pathServiceSid,
-        final String pathSessionSid
-    ) {
-        return new ParticipantReader(pathServiceSid, pathSessionSid);
+
+
+    
+
+
+
+
+
+    public static ParticipantReader reader(final String pathServiceSid, final String pathSessionSid) {
+        return new ParticipantReader(
+             pathServiceSid,  pathSessionSid
+        );
     }
+
+
+    
+
+
 
     /**
-     * Converts a JSON String into a Participant object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Participant object represented by the provided JSON
-     */
-    public static Participant fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Participant object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Participant object represented by the provided JSON
+    */
+    public static Participant fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Participant.class);
@@ -99,17 +120,14 @@ public class Participant extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Participant object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Participant object represented by the provided JSON
-     */
-    public static Participant fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Participant object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Participant object represented by the provided JSON
+    */
+    public static Participant fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Participant.class);
@@ -131,127 +149,130 @@ public class Participant extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final String accountSid;
-
     @Getter
     private final ZonedDateTime dateCreated;
-
     @Getter
     private final ZonedDateTime dateDeleted;
-
     @Getter
     private final ZonedDateTime dateUpdated;
-
     @Getter
     private final String friendlyName;
-
     @Getter
     private final String identifier;
-
     @Getter
     private final Map<String, String> links;
-
     @Getter
     private final String proxyIdentifier;
-
     @Getter
     private final String proxyIdentifierSid;
-
     @Getter
     private final String serviceSid;
-
     @Getter
     private final String sessionSid;
-
     @Getter
     private final String sid;
-
     @Getter
     private final URI url;
 
-    @JsonCreator
-    private Participant(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_deleted") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateDeleted,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("identifier") final String identifier,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("proxy_identifier") final String proxyIdentifier,
-        @JsonProperty("proxy_identifier_sid") final String proxyIdentifierSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("session_sid") final String sessionSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.dateCreated = dateCreated;
-        this.dateDeleted = dateDeleted;
-        this.dateUpdated = dateUpdated;
-        this.friendlyName = friendlyName;
-        this.identifier = identifier;
-        this.links = links;
-        this.proxyIdentifier = proxyIdentifier;
-        this.proxyIdentifierSid = proxyIdentifierSid;
-        this.serviceSid = serviceSid;
-        this.sessionSid = sessionSid;
-        this.sid = sid;
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Participant other = (Participant) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateDeleted, other.dateDeleted) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(identifier, other.identifier) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(proxyIdentifier, other.proxyIdentifier) &&
-            Objects.equals(proxyIdentifierSid, other.proxyIdentifierSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(sessionSid, other.sessionSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            dateCreated,
-            dateDeleted,
-            dateUpdated,
-            friendlyName,
-            identifier,
-            links,
-            proxyIdentifier,
-            proxyIdentifierSid,
-            serviceSid,
-            sessionSid,
-            sid,
-            url
-        );
-    }
+@JsonCreator
+private Participant(
+    @JsonProperty("account_sid")
+    final String accountSid, 
+    @JsonProperty("date_created")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateCreated, 
+    @JsonProperty("date_deleted")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateDeleted, 
+    @JsonProperty("date_updated")
+    @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+    final ZonedDateTime dateUpdated, 
+    @JsonProperty("friendly_name")
+    final String friendlyName, 
+    @JsonProperty("identifier")
+    final String identifier, 
+    @JsonProperty("links")
+    final Map<String, String> links, 
+    @JsonProperty("proxy_identifier")
+    final String proxyIdentifier, 
+    @JsonProperty("proxy_identifier_sid")
+    final String proxyIdentifierSid, 
+    @JsonProperty("service_sid")
+    final String serviceSid, 
+    @JsonProperty("session_sid")
+    final String sessionSid, 
+    @JsonProperty("sid")
+    final String sid, 
+    @JsonProperty("url")
+    final URI url
+){
+    this.accountSid = accountSid;
+    this.dateCreated = dateCreated;
+    this.dateDeleted = dateDeleted;
+    this.dateUpdated = dateUpdated;
+    this.friendlyName = friendlyName;
+    this.identifier = identifier;
+    this.links = links;
+    this.proxyIdentifier = proxyIdentifier;
+    this.proxyIdentifierSid = proxyIdentifierSid;
+    this.serviceSid = serviceSid;
+    this.sessionSid = sessionSid;
+    this.sid = sid;
+    this.url = url;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    Participant other = (Participant) o;
+    return (
+            Objects.equals(accountSid, other.accountSid) && 
+            Objects.equals(dateCreated, other.dateCreated) && 
+            Objects.equals(dateDeleted, other.dateDeleted) && 
+            Objects.equals(dateUpdated, other.dateUpdated) && 
+            Objects.equals(friendlyName, other.friendlyName) && 
+            Objects.equals(identifier, other.identifier) && 
+            Objects.equals(links, other.links) && 
+            Objects.equals(proxyIdentifier, other.proxyIdentifier) && 
+            Objects.equals(proxyIdentifierSid, other.proxyIdentifierSid) && 
+            Objects.equals(serviceSid, other.serviceSid) && 
+            Objects.equals(sessionSid, other.sessionSid) && 
+            Objects.equals(sid, other.sid) && 
+            Objects.equals(url, other.url)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            accountSid, 
+            dateCreated, 
+            dateDeleted, 
+            dateUpdated, 
+            friendlyName, 
+            identifier, 
+            links, 
+            proxyIdentifier, 
+            proxyIdentifierSid, 
+            serviceSid, 
+            sessionSid, 
+            sid, 
+            url
+    );
+}
+
+
+
+}
+

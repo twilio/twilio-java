@@ -16,133 +16,172 @@ package com.twilio.rest.content.v1.content;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.twilio.base.Resource;
-import com.twilio.base.Resource;
+
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
+import com.twilio.base.Reader;
+import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.*;
-import java.io.IOException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Objects;
+import com.twilio.exception.RestException;
+import com.twilio.http.HttpMethod;
+import com.twilio.http.Request;
+import com.twilio.http.Response;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.Domains;
+import com.twilio.type.FeedbackIssue;
+import com.twilio.type.IceServer;
+import com.twilio.type.InboundCallPrice;
+import com.twilio.type.InboundSmsPrice;
+import com.twilio.type.OutboundCallPrice;
+import com.twilio.type.OutboundCallPriceWithOrigin;
+import com.twilio.type.OutboundPrefixPrice;
+import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import com.twilio.type.OutboundSmsPrice;
+import com.twilio.type.PhoneNumberCapabilities;
+import com.twilio.type.PhoneNumberPrice;
+import com.twilio.type.RecordingRule;
+import com.twilio.type.SubscribeRule;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+
+
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Currency;
+import java.util.List;
+import java.util.Map;
+import com.twilio.type.*;
+import java.util.Objects;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ApprovalCreate extends Resource {
 
-    public static ApprovalCreateCreator creator(
-        final String pathContentSid,
-        final ApprovalCreate.ContentApprovalRequest contentApprovalRequest
-    ) {
+
+
+    public static ApprovalCreateCreator creator(final String pathContentSid, final ApprovalCreate.ContentApprovalRequest contentApprovalRequest) {
         return new ApprovalCreateCreator(
-            pathContentSid,
-            contentApprovalRequest
+             pathContentSid,  contentApprovalRequest
         );
     }
+
+
+
+
+
+
+    
+
+
 
     @JsonDeserialize(builder = ContentApprovalRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ContentApprovalRequest {
-
+    
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
-        @Getter
-        private final String name;
+        @Getter private final String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("category")
-        @Getter
-        private final String category;
+        @Getter private final String category;
 
-        private ContentApprovalRequest(Builder builder) {
-            this.name = builder.name;
-            this.category = builder.category;
-        }
 
-        public static Builder builder(
-            final String name,
-            final String category
-        ) {
-            return new Builder(name, category);
-        }
-
-        public static ContentApprovalRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(jsonString, ContentApprovalRequest.class);
-        }
-
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonProperty("name")
-            private String name;
-
-            @JsonProperty("category")
-            private String category;
-
-            @JsonCreator
-            public Builder(
-                @JsonProperty("name") final String name,
-                @JsonProperty("category") final String category
-            ) {
-                this.name = name;
-                this.category = category;
-            }
-
-            public ContentApprovalRequest build() {
-                return new ContentApprovalRequest(this);
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            ContentApprovalRequest other = (ContentApprovalRequest) o;
-            return (
-                Objects.equals(name, other.name) &&
-                Objects.equals(category, other.category)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(name, category);
-        }
+    private ContentApprovalRequest(Builder builder) {
+        this.name = builder.name;
+        this.category = builder.category;
+    }
+    public static Builder builder( final String name,   final String category ) {
+        return new Builder( name,   category ); 
     }
 
+    public static ContentApprovalRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+        return mapper.readValue(jsonString, ContentApprovalRequest.class);
+    }
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class Builder {
+        @JsonProperty("name")
+        private String name;
+
+        @JsonProperty("category")
+        private String category;
+
+
+        @JsonCreator
+        public Builder( @JsonProperty("name") final String name,   @JsonProperty("category") final String category ) {
+            this.name = name;
+            this.category = category;
+        }
+
+
+        public ContentApprovalRequest build() {
+            return new ContentApprovalRequest(this);
+        }
+    }
+    
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+    
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+    
+        ContentApprovalRequest other = (ContentApprovalRequest) o;
+        return (
+            Objects.equals(name, other.name) && 
+            Objects.equals(category, other.category)
+        );
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+        name, 
+        category
+        );
+    }
+
+    }
+    
+
     /**
-     * Converts a JSON String into a ApprovalCreate object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return ApprovalCreate object represented by the provided JSON
-     */
-    public static ApprovalCreate fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a ApprovalCreate object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return ApprovalCreate object represented by the provided JSON
+    */
+    public static ApprovalCreate fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ApprovalCreate.class);
@@ -154,17 +193,14 @@ public class ApprovalCreate extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a ApprovalCreate object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return ApprovalCreate object represented by the provided JSON
-     */
-    public static ApprovalCreate fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a ApprovalCreate object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return ApprovalCreate object represented by the provided JSON
+    */
+    public static ApprovalCreate fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ApprovalCreate.class);
@@ -186,74 +222,78 @@ public class ApprovalCreate extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+    
 
     @Getter
     private final Boolean allowCategoryChange;
-
     @Getter
     private final String category;
-
     @Getter
     private final String contentType;
-
     @Getter
     private final String name;
-
     @Getter
     private final String rejectionReason;
-
     @Getter
     private final String status;
 
-    @JsonCreator
-    private ApprovalCreate(
-        @JsonProperty(
-            "allow_category_change"
-        ) final Boolean allowCategoryChange,
-        @JsonProperty("category") final String category,
-        @JsonProperty("content_type") final String contentType,
-        @JsonProperty("name") final String name,
-        @JsonProperty("rejection_reason") final String rejectionReason,
-        @JsonProperty("status") final String status
-    ) {
-        this.allowCategoryChange = allowCategoryChange;
-        this.category = category;
-        this.contentType = contentType;
-        this.name = name;
-        this.rejectionReason = rejectionReason;
-        this.status = status;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        ApprovalCreate other = (ApprovalCreate) o;
-        return (
-            Objects.equals(allowCategoryChange, other.allowCategoryChange) &&
-            Objects.equals(category, other.category) &&
-            Objects.equals(contentType, other.contentType) &&
-            Objects.equals(name, other.name) &&
-            Objects.equals(rejectionReason, other.rejectionReason) &&
-            Objects.equals(status, other.status)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            allowCategoryChange,
-            category,
-            contentType,
-            name,
-            rejectionReason,
-            status
-        );
-    }
+@JsonCreator
+private ApprovalCreate(
+    @JsonProperty("allow_category_change")
+    final Boolean allowCategoryChange, 
+    @JsonProperty("category")
+    final String category, 
+    @JsonProperty("content_type")
+    final String contentType, 
+    @JsonProperty("name")
+    final String name, 
+    @JsonProperty("rejection_reason")
+    final String rejectionReason, 
+    @JsonProperty("status")
+    final String status
+){
+    this.allowCategoryChange = allowCategoryChange;
+    this.category = category;
+    this.contentType = contentType;
+    this.name = name;
+    this.rejectionReason = rejectionReason;
+    this.status = status;
 }
+
+@Override
+public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+    ApprovalCreate other = (ApprovalCreate) o;
+    return (
+            Objects.equals(allowCategoryChange, other.allowCategoryChange) && 
+            Objects.equals(category, other.category) && 
+            Objects.equals(contentType, other.contentType) && 
+            Objects.equals(name, other.name) && 
+            Objects.equals(rejectionReason, other.rejectionReason) && 
+            Objects.equals(status, other.status)
+    );
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(
+            allowCategoryChange, 
+            category, 
+            contentType, 
+            name, 
+            rejectionReason, 
+            status
+    );
+}
+
+
+
+}
+

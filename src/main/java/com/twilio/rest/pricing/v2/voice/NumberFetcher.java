@@ -26,79 +26,68 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import com.twilio.type.*;
 
-public class NumberFetcher extends Fetcher<Number> {
+    public class NumberFetcher extends Fetcher<Number> {
 
-    private com.twilio.type.PhoneNumber pathDestinationNumber;
+            private com.twilio.type.PhoneNumber pathDestinationNumber;
     private com.twilio.type.PhoneNumber originationNumber;
 
-    public NumberFetcher(
-        final com.twilio.type.PhoneNumber pathDestinationNumber
-    ) {
+            public NumberFetcher(final com.twilio.type.PhoneNumber pathDestinationNumber) {
         this.pathDestinationNumber = pathDestinationNumber;
     }
 
-    public NumberFetcher setOriginationNumber(
-        final com.twilio.type.PhoneNumber originationNumber
-    ) {
-        this.originationNumber = originationNumber;
-        return this;
-    }
+        
+public NumberFetcher setOriginationNumber(final com.twilio.type.PhoneNumber originationNumber){
+    this.originationNumber = originationNumber;
+    return this;
+}
 
-    public NumberFetcher setOriginationNumber(final String originationNumber) {
-        return setOriginationNumber(
-            Promoter.phoneNumberFromString(originationNumber)
-        );
-    }
+public NumberFetcher setOriginationNumber(final String originationNumber){
+    return setOriginationNumber(Promoter.phoneNumberFromString(originationNumber));
+}
 
-    @Override
+            @Override
     public Number fetch(final TwilioRestClient client) {
-        String path = "/v2/Voice/Numbers/{DestinationNumber}";
+    
+    String path = "/v2/Voice/Numbers/{DestinationNumber}";
 
-        path =
-            path.replace(
-                "{" + "DestinationNumber" + "}",
-                this.pathDestinationNumber.toString()
-            );
+    path = path.replace("{"+"DestinationNumber"+"}", this.pathDestinationNumber.toString());
 
+    
         Request request = new Request(
             HttpMethod.GET,
             Domains.PRICING.toString(),
             path
         );
         addQueryParams(request);
-
+    
         Response response = client.request(request);
-
+    
         if (response == null) {
-            throw new ApiConnectionException(
-                "Number fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Number fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
         return Number.fromJson(response.getStream(), client.getObjectMapper());
     }
+        private void addQueryParams(final Request request) {
 
-    private void addQueryParams(final Request request) {
-        if (originationNumber != null) {
-            Serializer.toString(
-                request,
-                "OriginationNumber",
-                originationNumber,
-                ParameterType.QUERY
-            );
-        }
+
+    if (originationNumber != null) {
+        Serializer.toString(request, "OriginationNumber", originationNumber, ParameterType.QUERY);
     }
+
+
+
 }
+    }

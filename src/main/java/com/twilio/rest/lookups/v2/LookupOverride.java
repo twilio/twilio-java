@@ -202,6 +202,20 @@ public class LookupOverride extends Resource {
             @JsonProperty("reason")
             private String reason;
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("line_type")
+            public Builder lineType(LookupOverride.LineType lineType) {
+                this.lineType = lineType;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("reason")
+            public Builder reason(String reason) {
+                this.reason = reason;
+                return this;
+            }
+
             public OverridesRequest build() {
                 return new OverridesRequest(this);
             }

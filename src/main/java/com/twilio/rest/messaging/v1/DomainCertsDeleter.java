@@ -24,6 +24,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
 public class DomainCertsDeleter extends Deleter<DomainCerts> {
 
@@ -43,6 +44,8 @@ public class DomainCertsDeleter extends Deleter<DomainCerts> {
                 this.pathDomainSid.toString()
             );
 
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.MESSAGING.toString(),
@@ -68,6 +71,6 @@ public class DomainCertsDeleter extends Deleter<DomainCerts> {
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatuses.test(response.getStatusCode());
     }
 }

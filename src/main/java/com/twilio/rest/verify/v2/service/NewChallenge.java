@@ -163,6 +163,20 @@ public class NewChallenge extends Resource {
             @JsonProperty("factor_sid")
             private String factorSid;
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("identity")
+            public Builder identity(String identity) {
+                this.identity = identity;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("factor_sid")
+            public Builder factorSid(String factorSid) {
+                this.factorSid = factorSid;
+                return this;
+            }
+
             public CreatePasskeysChallengeRequest build() {
                 return new CreatePasskeysChallengeRequest(this);
             }

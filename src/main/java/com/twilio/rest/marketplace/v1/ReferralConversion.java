@@ -82,6 +82,13 @@ public class ReferralConversion extends Resource {
             @JsonProperty("referral_account_sid")
             private String referralAccountSid;
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("referral_account_sid")
+            public Builder referralAccountSid(String referralAccountSid) {
+                this.referralAccountSid = referralAccountSid;
+                return this;
+            }
+
             public CreateReferralConversionRequest build() {
                 return new CreateReferralConversionRequest(this);
             }

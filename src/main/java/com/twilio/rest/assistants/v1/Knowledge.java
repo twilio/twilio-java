@@ -146,6 +146,52 @@ public class Knowledge extends Resource {
             @JsonProperty("embedding_model")
             private String embeddingModel;
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("description")
+            public Builder description(String description) {
+                this.description = description;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("knowledge_source_details")
+            public Builder knowledgeSourceDetails(
+                Object knowledgeSourceDetails
+            ) {
+                this.knowledgeSourceDetails = knowledgeSourceDetails;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("name")
+            public Builder name(String name) {
+                this.name = name;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("policy")
+            public Builder policy(
+                AssistantsV1ServiceCreatePolicyRequest policy
+            ) {
+                this.policy = policy;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            public Builder type(String type) {
+                this.type = type;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("embedding_model")
+            public Builder embeddingModel(String embeddingModel) {
+                this.embeddingModel = embeddingModel;
+                return this;
+            }
+
             public AssistantsV1ServiceUpdateKnowledgeRequest build() {
                 return new AssistantsV1ServiceUpdateKnowledgeRequest(this);
             }
@@ -425,6 +471,45 @@ public class Knowledge extends Resource {
             ) {
                 this.name = name;
                 this.type = type;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("assistant_id")
+            public Builder assistantId(String assistantId) {
+                this.assistantId = assistantId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("description")
+            public Builder description(String description) {
+                this.description = description;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("knowledge_source_details")
+            public Builder knowledgeSourceDetails(
+                Object knowledgeSourceDetails
+            ) {
+                this.knowledgeSourceDetails = knowledgeSourceDetails;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("policy")
+            public Builder policy(
+                AssistantsV1ServiceCreatePolicyRequest policy
+            ) {
+                this.policy = policy;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("embedding_model")
+            public Builder embeddingModel(String embeddingModel) {
+                this.embeddingModel = embeddingModel;
+                return this;
             }
 
             public AssistantsV1ServiceCreateKnowledgeRequest build() {

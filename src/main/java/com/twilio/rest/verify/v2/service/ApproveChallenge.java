@@ -377,6 +377,13 @@ public class ApproveChallenge extends Resource {
                 this.response = response;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            public Builder type(ApproveChallenge.Type type) {
+                this.type = type;
+                return this;
+            }
+
             public ApprovePasskeysChallengeRequest build() {
                 return new ApprovePasskeysChallengeRequest(this);
             }

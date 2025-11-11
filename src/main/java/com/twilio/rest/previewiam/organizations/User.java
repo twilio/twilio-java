@@ -201,6 +201,76 @@ public class User extends Resource {
                 this.userName = userName;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            public Builder id(String id) {
+                this.id = id;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("externalId")
+            public Builder externalId(String externalId) {
+                this.externalId = externalId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("displayName")
+            public Builder displayName(String displayName) {
+                this.displayName = displayName;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("name")
+            public Builder name(ScimName name) {
+                this.name = name;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("emails")
+            public Builder emails(List<ScimEmailAddress> emails) {
+                this.emails = emails;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("active")
+            public Builder active(Boolean active) {
+                this.active = active;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("locale")
+            public Builder locale(String locale) {
+                this.locale = locale;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("timezone")
+            public Builder timezone(String timezone) {
+                this.timezone = timezone;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("schemas")
+            public Builder schemas(List<String> schemas) {
+                this.schemas = schemas;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("meta")
+            public Builder meta(ScimMeta meta) {
+                this.meta = meta;
+                return this;
+            }
+
             public ScimUser build() {
                 return new ScimUser(this);
             }

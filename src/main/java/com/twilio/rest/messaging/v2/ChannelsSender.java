@@ -827,6 +827,29 @@ public class ChannelsSender extends Resource {
                 this.senderId = senderId;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("configuration")
+            public Builder configuration(
+                MessagingV2ChannelsSenderConfiguration configuration
+            ) {
+                this.configuration = configuration;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("webhook")
+            public Builder webhook(MessagingV2ChannelsSenderWebhook webhook) {
+                this.webhook = webhook;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("profile")
+            public Builder profile(MessagingV2ChannelsSenderProfile profile) {
+                this.profile = profile;
+                return this;
+            }
+
             public MessagingV2ChannelsSenderRequestsCreate build() {
                 return new MessagingV2ChannelsSenderRequestsCreate(this);
             }
@@ -1196,6 +1219,29 @@ public class ChannelsSender extends Resource {
 
             @JsonProperty("profile")
             private MessagingV2ChannelsSenderProfile profile;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("configuration")
+            public Builder configuration(
+                MessagingV2ChannelsSenderConfiguration configuration
+            ) {
+                this.configuration = configuration;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("webhook")
+            public Builder webhook(MessagingV2ChannelsSenderWebhook webhook) {
+                this.webhook = webhook;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("profile")
+            public Builder profile(MessagingV2ChannelsSenderProfile profile) {
+                this.profile = profile;
+                return this;
+            }
 
             public MessagingV2ChannelsSenderRequestsUpdate build() {
                 return new MessagingV2ChannelsSenderRequestsUpdate(this);

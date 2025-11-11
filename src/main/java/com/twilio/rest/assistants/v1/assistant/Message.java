@@ -138,6 +138,27 @@ public class Message extends Resource {
                 this.body = body;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("session_id")
+            public Builder sessionId(String sessionId) {
+                this.sessionId = sessionId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("webhook")
+            public Builder webhook(String webhook) {
+                this.webhook = webhook;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("mode")
+            public Builder mode(String mode) {
+                this.mode = mode;
+                return this;
+            }
+
             public AssistantsV1ServiceAssistantSendMessageRequest build() {
                 return new AssistantsV1ServiceAssistantSendMessageRequest(this);
             }

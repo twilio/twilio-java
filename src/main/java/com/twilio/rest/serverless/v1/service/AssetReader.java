@@ -81,7 +81,6 @@ public class AssetReader extends Reader<Asset> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

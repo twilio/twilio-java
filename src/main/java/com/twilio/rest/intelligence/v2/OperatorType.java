@@ -78,8 +78,7 @@ public class OperatorType extends Resource {
         TEXT_CLASSIFICATION("text-classification"),
         TEXT_EXTRACTION("text-extraction"),
         TEXT_EXTRACTION_NORMALIZED("text-extraction-normalized"),
-        TEXT_GENERATION("text-generation"),
-        JSON("json");
+        TEXT_GENERATION("text-generation");
 
         private final String value;
 

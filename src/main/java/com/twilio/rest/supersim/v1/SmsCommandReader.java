@@ -90,7 +90,6 @@ public class SmsCommandReader extends Reader<SmsCommand> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

@@ -87,7 +87,6 @@ public class WorkflowReader extends Reader<Workflow> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

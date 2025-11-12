@@ -54,8 +54,6 @@ public class Operator extends Resource {
         INTERNAL("internal"),
         BETA("beta"),
         PUBLIC("public"),
-        DEPRECATED("deprecated"),
-        GENERAL_AVAILABILITY("general-availability"),
         RETIRED("retired");
 
         private final String value;

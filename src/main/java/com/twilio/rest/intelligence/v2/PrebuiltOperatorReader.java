@@ -86,7 +86,6 @@ public class PrebuiltOperatorReader extends Reader<PrebuiltOperator> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

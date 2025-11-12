@@ -30,6 +30,7 @@ import com.twilio.type.*;
 import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import lombok.Getter;
@@ -99,10 +100,10 @@ public class Sentence extends Resource {
     }
 
     @Getter
-    private final String confidence;
+    private final BigDecimal confidence;
 
     @Getter
-    private final String endTime;
+    private final BigDecimal endTime;
 
     @Getter
     private final Integer mediaChannel;
@@ -114,7 +115,7 @@ public class Sentence extends Resource {
     private final String sid;
 
     @Getter
-    private final String startTime;
+    private final BigDecimal startTime;
 
     @Getter
     private final String transcript;
@@ -124,12 +125,12 @@ public class Sentence extends Resource {
 
     @JsonCreator
     private Sentence(
-        @JsonProperty("confidence") final String confidence,
-        @JsonProperty("end_time") final String endTime,
+        @JsonProperty("confidence") final BigDecimal confidence,
+        @JsonProperty("end_time") final BigDecimal endTime,
         @JsonProperty("media_channel") final Integer mediaChannel,
         @JsonProperty("sentence_index") final Integer sentenceIndex,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("start_time") final String startTime,
+        @JsonProperty("start_time") final BigDecimal startTime,
         @JsonProperty("transcript") final String transcript,
         @JsonProperty("words") final List<Object> words
     ) {

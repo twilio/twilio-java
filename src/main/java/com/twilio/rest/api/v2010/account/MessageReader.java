@@ -15,7 +15,8 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Page;
-import com.twilio.base.Reader;
+import com.twilio.base.PageMetadata;
+import com.twilio.base.ReaderV1;
 import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -28,10 +29,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.*;
+
 import java.time.ZonedDateTime;
 
-public class MessageReader extends Reader<Message> {
+public class MessageReader extends ReaderV1<Message> {
 
     private String pathAccountSid;
     private com.twilio.type.PhoneNumber to;
@@ -112,6 +113,65 @@ public class MessageReader extends Reader<Message> {
 
         return pageForRequest(client, request);
     }
+
+    @Override
+    public PageMetadata<Message> readWithMetadata(final TwilioRestClient client) {
+        String path = "/2010-04-01/Accounts/{AccountSid}/Messages.json";
+
+        this.pathAccountSid =
+                this.pathAccountSid == null
+                        ? client.getAccountSid()
+                        : this.pathAccountSid;
+        path =
+                path.replace(
+                        "{" + "AccountSid" + "}",
+                        this.pathAccountSid.toString()
+                );
+
+        Request request = new Request(
+                HttpMethod.GET,
+                Domains.API.toString(),
+                path
+        );
+        addQueryParams(request);
+
+        Response response = client.request(request);
+
+        if (response == null) {
+            throw new ApiConnectionException(
+                    "Message read failed: Unable to connect to server"
+            );
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            RestException restException = RestException.fromJson(
+                    response.getStream(),
+                    client.getObjectMapper()
+            );
+
+            if (restException == null) {
+                throw new ApiException(
+                        "Server Error, no content",
+                        response.getStatusCode()
+                );
+            }
+            throw new ApiException(restException);
+        }
+
+        Page<Message> firstPage = Page.fromJson(
+                "messages",
+                response.getContent(),
+                Message.class,
+                client.getObjectMapper()
+        );
+
+        ResourceSet<Message> resourceSet = new ResourceSet<>(this, client, firstPage);
+
+        return new PageMetadata<>(
+                resourceSet,
+                response.getStatusCode(),
+                response.getHeadersMap()
+        );
+    }
+
 
     private Page<Message> pageForRequest(
         final TwilioRestClient client,
@@ -221,6 +281,9 @@ public class MessageReader extends Reader<Message> {
                 pageSize,
                 ParameterType.QUERY
             );
+        }
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }
 }

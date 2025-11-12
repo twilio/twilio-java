@@ -13,6 +13,7 @@ import java.util.NoSuchElementException;
 public class ResourceSet<E extends Resource> implements Iterable<E> {
 
     private final Reader<E> reader;
+    private final ReaderV1<E> readerV1;
     private final TwilioRestClient client;
     private final Page<E> firstPage; // Store reference to first page to enable multiple iterations
 
@@ -32,6 +33,7 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
      */
     public ResourceSet(final Reader<E> reader, final TwilioRestClient client, final Page<E> page) {
         this.reader = reader;
+        this.readerV1 = null;
         this.client = client;
         this.firstPage = page; // Save first page to allow resetting iterator state
         this.page = page;
@@ -40,6 +42,20 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
 
         if (reader.getLimit() != null) {
             this.pageLimit = (long)(Math.ceil((double)reader.getLimit() / (double)page.getPageSize()));
+        }
+    }
+
+    public ResourceSet(final ReaderV1<E> reader, final TwilioRestClient client, final Page<E> page) {
+        this.reader = null;
+        this.readerV1 = reader;
+        this.client = client;
+        this.firstPage = page; // Save first page to allow resetting iterator state
+        this.page = page;
+        this.iterator = page.getRecords().iterator();
+        this.autoPaging = true;
+
+        if (readerV1.getLimit() != null) {
+            this.pageLimit = (long)(Math.ceil((double)readerV1.getLimit() / (double)page.getPageSize()));
         }
     }
 
@@ -57,16 +73,19 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
     }
 
     public ResourceSet<E> setPageSize(final int pageSize) {
-        reader.pageSize(pageSize);
+        if (readerV1 != null) readerV1.pageSize(pageSize);
+        else reader.pageSize(pageSize);
         return this;
     }
 
     public Long getLimit() {
+        if (readerV1 != null) return readerV1.getLimit();
         return reader.getLimit();
     }
 
     public ResourceSet<E> setLimit(final long limit) {
-        reader.limit(limit);
+        if (readerV1 != null) readerV1.limit(limit);
+        else reader.limit(limit);
         return this;
     }
 
@@ -91,7 +110,11 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
         }
 
         pages++;
-        page = reader.nextPage(page, client);
+        if (readerV1 != null) {
+            page = readerV1.nextPage(page, client);
+        } else {
+            page = reader.nextPage(page, client);
+        }
         iterator = page.getRecords().iterator();
     }
 

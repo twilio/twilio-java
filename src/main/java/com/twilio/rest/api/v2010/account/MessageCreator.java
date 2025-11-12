@@ -15,6 +15,8 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Creator;
+import com.twilio.base.CreatorV1;
+import com.twilio.base.ResponseMetadata;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -33,7 +35,7 @@ import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-public class MessageCreator extends Creator<Message> {
+public class MessageCreator extends CreatorV1<Message> {
 
     private String pathAccountSid;
     private com.twilio.type.PhoneNumber to;
@@ -348,6 +350,57 @@ public class MessageCreator extends Creator<Message> {
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public ResponseMetadata<Message> createWithMetadata(final TwilioRestClient client) {
+        String path = "/2010-04-01/Accounts/{AccountSid}/Messages.json";
+
+        this.pathAccountSid =
+                this.pathAccountSid == null
+                        ? client.getAccountSid()
+                        : this.pathAccountSid;
+        path =
+                path.replace(
+                        "{" + "AccountSid" + "}",
+                        this.pathAccountSid.toString()
+                );
+
+        Request request = new Request(
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
+        );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        addPostParams(request);
+
+        Response response = client.request(request);
+
+        if (response == null) {
+            throw new ApiConnectionException(
+                    "Message creation failed: Unable to connect to server"
+            );
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            RestException restException = RestException.fromJson(
+                    response.getStream(),
+                    client.getObjectMapper()
+            );
+            if (restException == null) {
+                throw new ApiException(
+                        "Server Error, no content",
+                        response.getStatusCode()
+                );
+            }
+            throw new ApiException(restException);
+        }
+
+        Message message = Message.fromJson(response.getStream(), client.getObjectMapper());
+
+        return new ResponseMetadata<>(
+                message,
+                response.getStatusCode(),
+                response.getHeadersMap()
+        );
     }
 
     private void addPostParams(final Request request) {

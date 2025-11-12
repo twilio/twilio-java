@@ -6,6 +6,8 @@ import org.apache.hc.core5.http.Header;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Response {
@@ -116,5 +118,22 @@ public class Response {
 
     public Header[] getHeaders() {
         return headers;
+    }
+
+    /**
+     * Get headers as a Map for easy access.
+     *
+     * @return map of header name to value (or null if no headers)
+     */
+    public Map<String, String> getHeadersMap() {
+        if (headers == null) {
+            return null;
+        }
+
+        Map<String, String> headerMap = new HashMap<>();
+        for (Header header : headers) {
+            headerMap.put(header.getName(), header.getValue());
+        }
+        return headerMap;
     }
 }

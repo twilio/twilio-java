@@ -24,6 +24,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
 public class QueueDeleter extends Deleter<Queue> {
 
@@ -54,6 +55,8 @@ public class QueueDeleter extends Deleter<Queue> {
             );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
@@ -79,6 +82,6 @@ public class QueueDeleter extends Deleter<Queue> {
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatuses.test(response.getStatusCode());
     }
 }

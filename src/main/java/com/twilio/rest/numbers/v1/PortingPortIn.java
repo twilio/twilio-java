@@ -770,6 +770,75 @@ public class PortingPortIn extends Resource {
                 this.losingCarrierInformation = losingCarrierInformation;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("phone_numbers")
+            public Builder phoneNumbers(
+                List<NumbersV1PortingPortInCreatePhoneNumbers> phoneNumbers
+            ) {
+                this.phoneNumbers = phoneNumbers;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("notification_emails")
+            public Builder notificationEmails(List<String> notificationEmails) {
+                this.notificationEmails = notificationEmails;
+                return this;
+            }
+
+            @JsonDeserialize(
+                using = com.twilio.converter.LocalDateDeserializer.class
+            )
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("target_port_in_date")
+            public Builder targetPortInDate(LocalDate targetPortInDate) {
+                this.targetPortInDate = targetPortInDate;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("target_port_in_time_range_start")
+            public Builder targetPortInTimeRangeStart(
+                String targetPortInTimeRangeStart
+            ) {
+                this.targetPortInTimeRangeStart = targetPortInTimeRangeStart;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("target_port_in_time_range_end")
+            public Builder targetPortInTimeRangeEnd(
+                String targetPortInTimeRangeEnd
+            ) {
+                this.targetPortInTimeRangeEnd = targetPortInTimeRangeEnd;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("bundle_sid")
+            public Builder bundleSid(String bundleSid) {
+                this.bundleSid = bundleSid;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("portability_advance_carrier")
+            public Builder portabilityAdvanceCarrier(
+                String portabilityAdvanceCarrier
+            ) {
+                this.portabilityAdvanceCarrier = portabilityAdvanceCarrier;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("auto_cancel_approval_numbers")
+            public Builder autoCancelApprovalNumbers(
+                String autoCancelApprovalNumbers
+            ) {
+                this.autoCancelApprovalNumbers = autoCancelApprovalNumbers;
+                return this;
+            }
+
             public NumbersV1PortingPortInCreate build() {
                 return new NumbersV1PortingPortInCreate(this);
             }
@@ -1222,6 +1291,9 @@ public class PortingPortIn extends Resource {
     private final String portabilityAdvanceCarrier;
 
     @Getter
+    private final URI signatureRequestUrl;
+
+    @Getter
     private final Integer supportTicketId;
 
     @Getter
@@ -1266,6 +1338,7 @@ public class PortingPortIn extends Resource {
         @JsonProperty(
             "portability_advance_carrier"
         ) final String portabilityAdvanceCarrier,
+        @JsonProperty("signature_request_url") final URI signatureRequestUrl,
         @JsonProperty("support_ticket_id") final Integer supportTicketId,
         @JsonProperty("target_port_in_date") @JsonDeserialize(
             using = com.twilio.converter.LocalDateDeserializer.class
@@ -1290,6 +1363,7 @@ public class PortingPortIn extends Resource {
         this.portInRequestSid = portInRequestSid;
         this.portInRequestStatus = portInRequestStatus;
         this.portabilityAdvanceCarrier = portabilityAdvanceCarrier;
+        this.signatureRequestUrl = signatureRequestUrl;
         this.supportTicketId = supportTicketId;
         this.targetPortInDate = targetPortInDate;
         this.targetPortInTimeRangeEnd = targetPortInTimeRangeEnd;
@@ -1333,6 +1407,7 @@ public class PortingPortIn extends Resource {
                 portabilityAdvanceCarrier,
                 other.portabilityAdvanceCarrier
             ) &&
+            Objects.equals(signatureRequestUrl, other.signatureRequestUrl) &&
             Objects.equals(supportTicketId, other.supportTicketId) &&
             Objects.equals(targetPortInDate, other.targetPortInDate) &&
             Objects.equals(
@@ -1362,6 +1437,7 @@ public class PortingPortIn extends Resource {
             portInRequestSid,
             portInRequestStatus,
             portabilityAdvanceCarrier,
+            signatureRequestUrl,
             supportTicketId,
             targetPortInDate,
             targetPortInTimeRangeEnd,

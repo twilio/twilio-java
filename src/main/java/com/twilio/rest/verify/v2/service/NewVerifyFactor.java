@@ -244,6 +244,36 @@ public class NewVerifyFactor extends Resource {
                 this.response = response;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            public Builder id(String id) {
+                this.id = id;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("rawId")
+            public Builder rawId(String rawId) {
+                this.rawId = rawId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("authenticatorAttachment")
+            public Builder authenticatorAttachment(
+                NewVerifyFactor.AuthenticatorAttachment authenticatorAttachment
+            ) {
+                this.authenticatorAttachment = authenticatorAttachment;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            public Builder type(NewVerifyFactor.Type type) {
+                this.type = type;
+                return this;
+            }
+
             public VerifyPasskeysFactorRequest build() {
                 return new VerifyPasskeysFactorRequest(this);
             }

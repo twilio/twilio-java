@@ -480,6 +480,13 @@ public class NewFactor extends Resource {
                 this.identity = identity;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("config")
+            public Builder config(CreateNewPasskeysFactorRequestConfig config) {
+                this.config = config;
+                return this;
+            }
+
             public CreateNewPasskeysFactorRequest build() {
                 return new CreateNewPasskeysFactorRequest(this);
             }

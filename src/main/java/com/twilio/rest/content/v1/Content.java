@@ -1192,11 +1192,8 @@ public class Content extends Resource {
             this.id = builder.id;
         }
 
-        public static Builder builder(
-            final Content.QuickReplyActionType type,
-            final String title
-        ) {
-            return new Builder(type, title);
+        public static Builder builder(final String title) {
+            return new Builder(title);
         }
 
         public static QuickReplyAction fromJson(
@@ -1219,12 +1216,15 @@ public class Content extends Resource {
             private String id;
 
             @JsonCreator
-            public Builder(
-                @JsonProperty("type") final Content.QuickReplyActionType type,
-                @JsonProperty("title") final String title
-            ) {
-                this.type = type;
+            public Builder(@JsonProperty("title") final String title) {
                 this.title = title;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            public Builder type(Content.QuickReplyActionType type) {
+                this.type = type;
+                return this;
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -1295,8 +1295,8 @@ public class Content extends Resource {
             this.actions = builder.actions;
         }
 
-        public static Builder builder(final String title) {
-            return new Builder(title);
+        public static Builder builder() {
+            return new Builder();
         }
 
         public static TwilioCard fromJson(
@@ -1321,9 +1321,11 @@ public class Content extends Resource {
             @JsonProperty("actions")
             private List<CardAction> actions;
 
-            @JsonCreator
-            public Builder(@JsonProperty("title") final String title) {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("title")
+            public Builder title(String title) {
                 this.title = title;
+                return this;
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -1527,6 +1529,20 @@ public class Content extends Resource {
             ) {
                 this.language = language;
                 this.types = types;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("friendly_name")
+            public Builder friendlyName(String friendlyName) {
+                this.friendlyName = friendlyName;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("variables")
+            public Builder variables(Map<String, String> variables) {
+                this.variables = variables;
+                return this;
             }
 
             public ContentCreateRequest build() {
@@ -1848,19 +1864,10 @@ public class Content extends Resource {
         public static Builder builder(
             final String body,
             final String buttonText,
-            final String subtitle,
-            final String mediaUrl,
             final List<FlowsPage> pages,
             final String type
         ) {
-            return new Builder(
-                body,
-                buttonText,
-                subtitle,
-                mediaUrl,
-                pages,
-                type
-            );
+            return new Builder(body, buttonText, pages, type);
         }
 
         public static TwilioFlows fromJson(
@@ -1895,17 +1902,27 @@ public class Content extends Resource {
             public Builder(
                 @JsonProperty("body") final String body,
                 @JsonProperty("button_text") final String buttonText,
-                @JsonProperty("subtitle") final String subtitle,
-                @JsonProperty("media_url") final String mediaUrl,
                 @JsonProperty("pages") final List<FlowsPage> pages,
                 @JsonProperty("type") final String type
             ) {
                 this.body = body;
                 this.buttonText = buttonText;
-                this.subtitle = subtitle;
-                this.mediaUrl = mediaUrl;
                 this.pages = pages;
                 this.type = type;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("subtitle")
+            public Builder subtitle(String subtitle) {
+                this.subtitle = subtitle;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("media_url")
+            public Builder mediaUrl(String mediaUrl) {
+                this.mediaUrl = mediaUrl;
+                return this;
             }
 
             public TwilioFlows build() {

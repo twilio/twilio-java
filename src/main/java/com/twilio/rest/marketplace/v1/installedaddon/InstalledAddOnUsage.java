@@ -118,6 +118,13 @@ public class InstalledAddOnUsage extends Resource {
                 this.billableItems = billableItems;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("total_submitted")
+            public Builder totalSubmitted(BigDecimal totalSubmitted) {
+                this.totalSubmitted = totalSubmitted;
+                return this;
+            }
+
             public MarketplaceV1InstalledAddOnInstalledAddOnUsage build() {
                 return new MarketplaceV1InstalledAddOnInstalledAddOnUsage(this);
             }

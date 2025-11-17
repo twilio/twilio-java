@@ -156,7 +156,8 @@ public class ValidationToken extends Jwt {
          * @see org.apache.http.client.methods.RequestBuilder#build
          */
         if (request instanceof HttpUriRequestBase) {
-            HttpEntity entity = ((HttpUriRequestBase) request).getEntity();
+            HttpEntity entityEnclosed = ((HttpEntityEnclosingRequest) request).getEntity(); 
+             HttpEntity entity = EntityUtils.getEntity(entityEnclosed); 
             builder.requestBody(IOUtils.toString(entity.getContent(), StandardCharsets.UTF_8));
         }
 

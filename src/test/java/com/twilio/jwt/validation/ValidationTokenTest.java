@@ -11,6 +11,7 @@ import org.apache.hc.client5.http.protocol.HttpClientContext;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpRequest;
+import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.message.BasicHeader;
 import org.apache.hc.core5.http.message.BasicHttpRequest;
 import org.apache.hc.core5.http.message.RequestLine;
@@ -148,7 +149,7 @@ public class ValidationTokenTest {
     }
 
     @Test
-    public void testTokenFromHttpRequest() throws IOException {
+    public void testTokenFromHttpRequest() throws IOException, ParseException {
         when(requestLine.getMethod()).thenReturn("POST");
         when(requestLine.getUri()).thenReturn("/Messages?PageSize=5&Limit=10");
         when(request.getHeaders()).thenReturn(headers);
@@ -164,7 +165,7 @@ public class ValidationTokenTest {
     }
 
     @Test
-    public void testTokenFromEntityRequest() throws IOException {
+    public void testTokenFromEntityRequest() throws IOException, ParseException {
 
         when(requestWithEntity.getHeaders()).thenReturn(headers);
         when(requestWithEntity.getEntity()).thenReturn(entity);
@@ -172,17 +173,18 @@ public class ValidationTokenTest {
         when(requestLine.getMethod()).thenReturn("POST");
         when(requestLine.getUri()).thenReturn("/Messages");
         when(requestWithEntity.getRequestUri()).thenReturn("/Messages?PageSize=5&Limit=10");
-
-        Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, requestWithEntity, SIGNED_HEADERS);
+        when(requestWithEntity.getMethod()).thenReturn("POST");
+        Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID,
+                privateKey, requestWithEntity, SIGNED_HEADERS);
         Claims claims = getClaimFromJwtToken(jwt);
 
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));
-        Assert.assertEquals("9871e786e0c77406cc78090b694593c3479a9215890c42981b4f8d5923d9511b", claims.get("rqh"));
+        Assert.assertEquals("c5bd35f331f34661917a2e68540d9f76d55b9c5b4281516f3adca11512332816", claims.get("rqh"));
     }
 
     @Test
-    public void testTokenFromHttpRequestWithHostPort() throws IOException {
+    public void testTokenFromHttpRequestWithHostPort() throws IOException, ParseException {
         headers[0] = new BasicHeader("host", "api.twilio.com:443");
 
         when(requestLine.getMethod()).thenReturn("GET");

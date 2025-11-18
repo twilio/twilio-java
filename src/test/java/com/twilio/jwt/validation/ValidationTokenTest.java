@@ -173,14 +173,13 @@ public class ValidationTokenTest {
         when(requestLine.getMethod()).thenReturn("POST");
         when(requestLine.getUri()).thenReturn("/Messages");
         when(requestWithEntity.getRequestUri()).thenReturn("/Messages?PageSize=5&Limit=10");
-        when(requestWithEntity.getMethod()).thenReturn("POST");
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID,
                 privateKey, requestWithEntity, SIGNED_HEADERS);
         Claims claims = getClaimFromJwtToken(jwt);
 
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));
-        Assert.assertEquals("c5bd35f331f34661917a2e68540d9f76d55b9c5b4281516f3adca11512332816", claims.get("rqh"));
+        Assert.assertEquals("9871e786e0c77406cc78090b694593c3479a9215890c42981b4f8d5923d9511b", claims.get("rqh"));
     }
 
     @Test

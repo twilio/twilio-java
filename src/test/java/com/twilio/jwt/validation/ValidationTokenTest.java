@@ -173,6 +173,7 @@ public class ValidationTokenTest {
         when(requestLine.getMethod()).thenReturn("POST");
         when(requestLine.getUri()).thenReturn("/Messages");
         when(requestWithEntity.getRequestUri()).thenReturn("/Messages?PageSize=5&Limit=10");
+
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, requestWithEntity, SIGNED_HEADERS);
         Claims claims = getClaimFromJwtToken(jwt);
 

@@ -8,9 +8,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.protocol.HttpClientContext;
+import org.apache.hc.core5.http.ClassicHttpRequest;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpRequest;
+import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.message.BasicHeader;
 import org.apache.hc.core5.http.message.BasicHttpRequest;
 import org.apache.hc.core5.http.message.RequestLine;
@@ -62,7 +64,7 @@ public class ValidationTokenTest {
     private RequestLine requestLine;
 
     @Mock
-    private HttpPost requestWithEntity;
+    private ClassicHttpRequest requestWithEntity;
 
     @Mock
     private HttpEntity entity;
@@ -148,7 +150,7 @@ public class ValidationTokenTest {
     }
 
     @Test
-    public void testTokenFromHttpRequest() throws IOException {
+    public void testTokenFromHttpRequest() throws IOException, ParseException {
         when(requestLine.getMethod()).thenReturn("POST");
         when(requestLine.getUri()).thenReturn("/Messages?PageSize=5&Limit=10");
         when(request.getHeaders()).thenReturn(headers);
@@ -164,7 +166,7 @@ public class ValidationTokenTest {
     }
 
     @Test
-    public void testTokenFromEntityRequest() throws IOException {
+    public void testTokenFromEntityRequest() throws IOException, ParseException {
 
         when(requestWithEntity.getHeaders()).thenReturn(headers);
         when(requestWithEntity.getEntity()).thenReturn(entity);
@@ -178,11 +180,11 @@ public class ValidationTokenTest {
 
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));
-        Assert.assertEquals("9871e786e0c77406cc78090b694593c3479a9215890c42981b4f8d5923d9511b", claims.get("rqh"));
+        Assert.assertEquals("96d94b3c5b14c8f0e04a708332006c68c5b0c2c6cc25db5d0fb3d017cdf7f4ff", claims.get("rqh"));
     }
 
     @Test
-    public void testTokenFromHttpRequestWithHostPort() throws IOException {
+    public void testTokenFromHttpRequestWithHostPort() throws IOException, ParseException {
         headers[0] = new BasicHeader("host", "api.twilio.com:443");
 
         when(requestLine.getMethod()).thenReturn("GET");

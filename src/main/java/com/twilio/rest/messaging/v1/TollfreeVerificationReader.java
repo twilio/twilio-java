@@ -224,5 +224,9 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
                 );
             }
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

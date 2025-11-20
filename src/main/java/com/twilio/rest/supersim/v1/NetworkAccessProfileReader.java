@@ -134,5 +134,9 @@ public class NetworkAccessProfileReader extends Reader<NetworkAccessProfile> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

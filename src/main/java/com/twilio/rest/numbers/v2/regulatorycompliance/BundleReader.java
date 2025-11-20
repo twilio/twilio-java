@@ -259,32 +259,13 @@ public class BundleReader extends Reader<Bundle> {
             );
         }
 
-        if (validUntilDate != null) {
-            Serializer.toString(
-                request,
-                "ValidUntilDate",
-                validUntilDate,
-                ParameterType.QUERY
-            );
-        }
-
-        if (validUntilDateBefore != null) {
-            Serializer.toString(
-                request,
-                "ValidUntilDate<",
-                validUntilDateBefore,
-                ParameterType.QUERY
-            );
-        }
-
-        if (validUntilDateAfter != null) {
-            Serializer.toString(
-                request,
-                "ValidUntilDate>",
-                validUntilDateAfter,
-                ParameterType.QUERY
-            );
-        }
+        Serializer.toString(
+            request,
+            "ValidUntilDate",
+            validUntilDate,
+            validUntilDateBefore,
+            validUntilDateAfter
+        );
 
         if (pageSize != null) {
             Serializer.toString(
@@ -293,6 +274,10 @@ public class BundleReader extends Reader<Bundle> {
                 pageSize,
                 ParameterType.QUERY
             );
+        }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }
 }

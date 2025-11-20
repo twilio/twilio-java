@@ -187,32 +187,13 @@ public class MessageReader extends Reader<Message> {
             Serializer.toString(request, "From", from, ParameterType.QUERY);
         }
 
-        if (dateSent != null) {
-            Serializer.toString(
-                request,
-                "DateSent",
-                dateSent,
-                ParameterType.QUERY
-            );
-        }
-
-        if (dateSentBefore != null) {
-            Serializer.toString(
-                request,
-                "DateSent<",
-                dateSentBefore,
-                ParameterType.QUERY
-            );
-        }
-
-        if (dateSentAfter != null) {
-            Serializer.toString(
-                request,
-                "DateSent>",
-                dateSentAfter,
-                ParameterType.QUERY
-            );
-        }
+        Serializer.toString(
+            request,
+            "DateSent",
+            dateSent,
+            dateSentBefore,
+            dateSentAfter
+        );
 
         if (pageSize != null) {
             Serializer.toString(
@@ -221,6 +202,10 @@ public class MessageReader extends Reader<Message> {
                 pageSize,
                 ParameterType.QUERY
             );
+        }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }
 }

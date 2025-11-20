@@ -264,5 +264,9 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

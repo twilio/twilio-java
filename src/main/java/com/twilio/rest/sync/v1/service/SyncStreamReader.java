@@ -141,5 +141,9 @@ public class SyncStreamReader extends Reader<SyncStream> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

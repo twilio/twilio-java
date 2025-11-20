@@ -182,5 +182,9 @@ public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

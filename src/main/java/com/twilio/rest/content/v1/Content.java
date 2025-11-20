@@ -66,6 +66,13 @@ public class Content extends Resource {
         return new ContentReader();
     }
 
+    public static ContentUpdater updater(
+        final String pathSid,
+        final Content.ContentUpdateRequest contentUpdateRequest
+    ) {
+        return new ContentUpdater(pathSid, contentUpdateRequest);
+    }
+
     public enum CarouselActionType {
         URL("URL"),
         PHONE_NUMBER("PHONE_NUMBER"),
@@ -1654,6 +1661,120 @@ public class Content extends Resource {
         @Override
         public int hashCode() {
             return Objects.hash(body, actions);
+        }
+    }
+
+    @JsonDeserialize(builder = ContentUpdateRequest.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class ContentUpdateRequest {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("friendly_name")
+        @Getter
+        private final String friendlyName;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("variables")
+        @Getter
+        private final Map<String, String> variables;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("language")
+        @Getter
+        private final String language;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("types")
+        @Getter
+        private final Types types;
+
+        private ContentUpdateRequest(Builder builder) {
+            this.friendlyName = builder.friendlyName;
+            this.variables = builder.variables;
+            this.language = builder.language;
+            this.types = builder.types;
+        }
+
+        public static Builder builder(final Types types) {
+            return new Builder(types);
+        }
+
+        public static ContentUpdateRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, ContentUpdateRequest.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("friendly_name")
+            private String friendlyName;
+
+            @JsonProperty("variables")
+            private Map<String, String> variables;
+
+            @JsonProperty("language")
+            private String language;
+
+            @JsonProperty("types")
+            private Types types;
+
+            @JsonCreator
+            public Builder(@JsonProperty("types") final Types types) {
+                this.types = types;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("friendly_name")
+            public Builder friendlyName(String friendlyName) {
+                this.friendlyName = friendlyName;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("variables")
+            public Builder variables(Map<String, String> variables) {
+                this.variables = variables;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("language")
+            public Builder language(String language) {
+                this.language = language;
+                return this;
+            }
+
+            public ContentUpdateRequest build() {
+                return new ContentUpdateRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ContentUpdateRequest other = (ContentUpdateRequest) o;
+            return (
+                Objects.equals(friendlyName, other.friendlyName) &&
+                Objects.equals(variables, other.variables) &&
+                Objects.equals(language, other.language) &&
+                Objects.equals(types, other.types)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(friendlyName, variables, language, types);
         }
     }
 

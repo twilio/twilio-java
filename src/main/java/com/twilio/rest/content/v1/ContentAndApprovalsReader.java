@@ -134,5 +134,9 @@ public class ContentAndApprovalsReader extends Reader<ContentAndApprovals> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

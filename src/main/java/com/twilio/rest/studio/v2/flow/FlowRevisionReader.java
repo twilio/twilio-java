@@ -137,5 +137,9 @@ public class FlowRevisionReader extends Reader<FlowRevision> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

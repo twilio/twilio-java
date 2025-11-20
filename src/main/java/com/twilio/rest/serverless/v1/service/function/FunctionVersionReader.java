@@ -152,5 +152,9 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -158,5 +158,9 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

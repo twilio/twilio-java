@@ -152,5 +152,9 @@ public class DeploymentReader extends Reader<Deployment> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

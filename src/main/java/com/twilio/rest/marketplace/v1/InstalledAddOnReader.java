@@ -132,5 +132,9 @@ public class InstalledAddOnReader extends Reader<InstalledAddOn> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

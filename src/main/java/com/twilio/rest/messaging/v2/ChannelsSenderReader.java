@@ -149,5 +149,9 @@ public class ChannelsSenderReader extends Reader<ChannelsSender> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

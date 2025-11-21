@@ -7,9 +7,12 @@ public class ApiException extends TwilioException {
     private static final long serialVersionUID = -3228320166955630014L;
 
     private final Integer code;
-    private final String moreInfo;
-    private final Integer status;
-    private final Map<String, Object> details;
+    private String moreInfo;
+    private Integer status;
+    private Map<String, Object> details;
+    private Integer httpStatusCode;
+    private Boolean userError;
+    private Map<String, Object> params;
 
     /**
      * Create a new API Exception.
@@ -40,6 +43,7 @@ public class ApiException extends TwilioException {
         this(message, null, null, status, null);
     }
 
+
     /**
      * Create a new API Exception.
      *
@@ -58,6 +62,18 @@ public class ApiException extends TwilioException {
         this.details = null;
     }
 
+
+    public ApiException(final Integer code, final String message, final Integer httpStatusCode, final Boolean userError,
+        final Throwable cause, String moreInfo, Integer status, Map<String, Object> details) {
+        super(message, cause);
+        this.code = code;
+        this.httpStatusCode = httpStatusCode;
+        this.userError = userError;
+        this.moreInfo = moreInfo;
+        this.status = status;
+        this.details = details;
+        this.params = null;
+    }
     /**
      * Create a new API Exception.
      *
@@ -69,6 +85,18 @@ public class ApiException extends TwilioException {
         this.moreInfo = restException.getMoreInfo();
         this.status = restException.getStatus();
         this.details = restException.getDetails();
+    }
+
+    /**
+     * Create V1.0 standard Rest Exception
+     * @return restException as RestExceptionV10
+     */
+    public ApiException(final RestExceptionV10 restException) {
+        super(restException.getMessage(), null);
+        this.code = restException.getCode();
+        this.httpStatusCode = restException.getHttpStatusCode();
+        this.userError = restException.getUserError();
+        this.params = restException.getParams();
     }
 
     public Integer getCode() {
@@ -85,5 +113,17 @@ public class ApiException extends TwilioException {
 
     public Map<String, Object> getDetails() {
         return details;
+    }
+
+    public Integer getHttpStatusCode() {
+        return httpStatusCode;
+    }
+
+    public Boolean getUserError() {
+        return userError;
+    }
+
+    public Map<String, Object> getParams() {
+        return params;
     }
 }

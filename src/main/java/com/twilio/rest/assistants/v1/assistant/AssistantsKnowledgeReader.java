@@ -143,5 +143,9 @@ public class AssistantsKnowledgeReader extends Reader<AssistantsKnowledge> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

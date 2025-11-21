@@ -160,5 +160,9 @@ public class IpAddressReader extends Reader<IpAddress> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

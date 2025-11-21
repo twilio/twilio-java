@@ -182,5 +182,9 @@ public class CommandReader extends Reader<Command> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

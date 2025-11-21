@@ -174,5 +174,9 @@ public class InviteReader extends Reader<Invite> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -137,5 +137,9 @@ public class SimIpAddressReader extends Reader<SimIpAddress> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

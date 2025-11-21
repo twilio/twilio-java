@@ -185,5 +185,9 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

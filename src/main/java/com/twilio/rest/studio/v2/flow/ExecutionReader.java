@@ -170,5 +170,9 @@ public class ExecutionReader extends Reader<Execution> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

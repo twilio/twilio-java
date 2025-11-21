@@ -144,5 +144,9 @@ public class AddressConfigurationReader extends Reader<AddressConfiguration> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

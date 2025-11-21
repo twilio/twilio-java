@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2025-11-11] Version 11.1.0
+---------------------------
+**Memory**
+# Memory API Changes
+- Added initial Memory API endpoints with darkseagreen badge status
+
 [2025-11-11] Version 11.0.3
 ---------------------------
 **Twiml**

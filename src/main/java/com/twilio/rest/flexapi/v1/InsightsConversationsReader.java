@@ -160,6 +160,10 @@ public class InsightsConversationsReader extends Reader<InsightsConversations> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 
     private void addHeaderParams(final Request request) {

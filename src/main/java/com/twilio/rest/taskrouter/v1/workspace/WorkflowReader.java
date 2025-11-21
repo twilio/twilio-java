@@ -156,5 +156,9 @@ public class WorkflowReader extends Reader<Workflow> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

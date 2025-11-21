@@ -296,5 +296,9 @@ public class ContentReader extends Reader<Content> {
                 );
             }
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

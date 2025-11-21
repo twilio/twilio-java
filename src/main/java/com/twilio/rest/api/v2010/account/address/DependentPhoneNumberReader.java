@@ -162,5 +162,9 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -150,5 +150,9 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -156,5 +156,9 @@ public class OperatorResultReader extends Reader<OperatorResult> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

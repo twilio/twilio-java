@@ -147,5 +147,9 @@ public class FlexFlowReader extends Reader<FlexFlow> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

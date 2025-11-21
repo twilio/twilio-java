@@ -140,5 +140,9 @@ public class BrandVettingReader extends Reader<BrandVetting> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

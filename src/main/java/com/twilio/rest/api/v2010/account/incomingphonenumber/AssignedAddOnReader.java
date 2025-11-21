@@ -160,5 +160,9 @@ public class AssignedAddOnReader extends Reader<AssignedAddOn> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -141,5 +141,9 @@ public class WebhookReader extends Reader<Webhook> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

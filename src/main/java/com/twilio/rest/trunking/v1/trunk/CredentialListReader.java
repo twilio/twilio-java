@@ -138,5 +138,9 @@ public class CredentialListReader extends Reader<CredentialList> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

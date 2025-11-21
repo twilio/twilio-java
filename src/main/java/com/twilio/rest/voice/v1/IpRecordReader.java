@@ -132,5 +132,9 @@ public class IpRecordReader extends Reader<IpRecord> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

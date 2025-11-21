@@ -138,5 +138,9 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

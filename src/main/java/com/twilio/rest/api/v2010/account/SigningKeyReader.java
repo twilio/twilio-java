@@ -147,5 +147,9 @@ public class SigningKeyReader extends Reader<SigningKey> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

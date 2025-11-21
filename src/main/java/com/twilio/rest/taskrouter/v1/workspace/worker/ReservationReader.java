@@ -169,5 +169,9 @@ public class ReservationReader extends Reader<Reservation> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

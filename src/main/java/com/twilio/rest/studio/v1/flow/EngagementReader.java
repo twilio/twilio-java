@@ -137,5 +137,9 @@ public class EngagementReader extends Reader<Engagement> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

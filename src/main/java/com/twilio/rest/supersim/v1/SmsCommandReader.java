@@ -167,5 +167,9 @@ public class SmsCommandReader extends Reader<SmsCommand> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -26,6 +26,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
 public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
 
@@ -61,6 +62,8 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
         path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
         path = path.replace("{" + "Key" + "}", this.pathKey.toString());
 
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SYNC.toString(),
@@ -87,7 +90,7 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatuses.test(response.getStatusCode());
     }
 
     private void addHeaderParams(final Request request) {

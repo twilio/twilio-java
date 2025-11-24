@@ -181,32 +181,13 @@ public class NotificationReader extends Reader<Notification> {
             Serializer.toString(request, "Log", log, ParameterType.QUERY);
         }
 
-        if (messageDate != null) {
-            Serializer.toString(
-                request,
-                "MessageDate",
-                messageDate,
-                ParameterType.QUERY
-            );
-        }
-
-        if (messageDateBefore != null) {
-            Serializer.toString(
-                request,
-                "MessageDate<",
-                messageDateBefore,
-                ParameterType.QUERY
-            );
-        }
-
-        if (messageDateAfter != null) {
-            Serializer.toString(
-                request,
-                "MessageDate>",
-                messageDateAfter,
-                ParameterType.QUERY
-            );
-        }
+        Serializer.toString(
+            request,
+            "MessageDate",
+            messageDate,
+            messageDateBefore,
+            messageDateAfter
+        );
 
         if (pageSize != null) {
             Serializer.toString(
@@ -215,6 +196,10 @@ public class NotificationReader extends Reader<Notification> {
                 pageSize,
                 ParameterType.QUERY
             );
+        }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }
 }

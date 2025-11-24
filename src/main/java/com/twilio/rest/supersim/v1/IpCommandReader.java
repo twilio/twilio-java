@@ -182,5 +182,9 @@ public class IpCommandReader extends Reader<IpCommand> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -166,5 +166,9 @@ public class RoleAssignmentReader extends Reader<RoleAssignment> {
         if (scope != null) {
             Serializer.toString(request, "Scope", scope, ParameterType.QUERY);
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -125,6 +125,27 @@ public class Feedback extends Resource {
                 this.sessionId = sessionId;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("message_id")
+            public Builder messageId(String messageId) {
+                this.messageId = messageId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("score")
+            public Builder score(Float score) {
+                this.score = score;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("text")
+            public Builder text(String text) {
+                this.text = text;
+                return this;
+            }
+
             public AssistantsV1ServiceCreateFeedbackRequest build() {
                 return new AssistantsV1ServiceCreateFeedbackRequest(this);
             }

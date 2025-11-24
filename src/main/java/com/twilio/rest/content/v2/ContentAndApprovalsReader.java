@@ -302,5 +302,9 @@ public class ContentAndApprovalsReader extends Reader<ContentAndApprovals> {
                 );
             }
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

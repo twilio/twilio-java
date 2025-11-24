@@ -230,59 +230,21 @@ public class CallReader extends Reader<Call> {
             Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
 
-        if (startTime != null) {
-            Serializer.toString(
-                request,
-                "StartTime",
-                startTime,
-                ParameterType.QUERY
-            );
-        }
+        Serializer.toString(
+            request,
+            "StartTime",
+            startTime,
+            startTimeBefore,
+            startTimeAfter
+        );
 
-        if (startTimeBefore != null) {
-            Serializer.toString(
-                request,
-                "StartTime<",
-                startTimeBefore,
-                ParameterType.QUERY
-            );
-        }
-
-        if (startTimeAfter != null) {
-            Serializer.toString(
-                request,
-                "StartTime>",
-                startTimeAfter,
-                ParameterType.QUERY
-            );
-        }
-
-        if (endTime != null) {
-            Serializer.toString(
-                request,
-                "EndTime",
-                endTime,
-                ParameterType.QUERY
-            );
-        }
-
-        if (endTimeBefore != null) {
-            Serializer.toString(
-                request,
-                "EndTime<",
-                endTimeBefore,
-                ParameterType.QUERY
-            );
-        }
-
-        if (endTimeAfter != null) {
-            Serializer.toString(
-                request,
-                "EndTime>",
-                endTimeAfter,
-                ParameterType.QUERY
-            );
-        }
+        Serializer.toString(
+            request,
+            "EndTime",
+            endTime,
+            endTimeBefore,
+            endTimeAfter
+        );
 
         if (pageSize != null) {
             Serializer.toString(
@@ -291,6 +253,10 @@ public class CallReader extends Reader<Call> {
                 pageSize,
                 ParameterType.QUERY
             );
+        }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }
 }

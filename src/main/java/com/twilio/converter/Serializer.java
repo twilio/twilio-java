@@ -50,7 +50,11 @@ public class Serializer {
     private static <T> String convertToString(T value) {
         if (value instanceof Map) {
             return Converter.mapToJson((Map<String, ? extends Object>) value);
-        } else {
+        } else if (value instanceof ZonedDateTime) {
+            return ((ZonedDateTime) value).format(
+                DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT));
+        }
+        else {
             return String.valueOf(value);
         }
     }

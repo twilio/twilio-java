@@ -11,10 +11,13 @@ import java.security.PrivateKey;
 import java.util.*;
 import java.util.function.Function;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.core5.http.ClassicHttpRequest;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpRequest;
-import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.core5.http.ParseException;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.apache.hc.core5.http.message.BasicClassicHttpRequest;
 
 import static io.jsonwebtoken.SignatureAlgorithm.PS256;
 import static io.jsonwebtoken.SignatureAlgorithm.RS256;
@@ -104,7 +107,7 @@ public class ValidationToken extends Jwt {
         PrivateKey privateKey,
         HttpRequest request,
         List<String> signedHeaders
-    ) throws IOException {
+    ) throws IOException, ParseException {
 
          return fromHttpRequest(accountSid, credentialSid, signingKeySid, privateKey, request, signedHeaders, SignatureAlgorithm.RS256);
     }
@@ -130,7 +133,7 @@ public class ValidationToken extends Jwt {
         HttpRequest request,
         List<String> signedHeaders,
         SignatureAlgorithm algorithm
-         ) throws IOException {
+         ) throws IOException, ParseException {
         Builder builder = new Builder(accountSid, credentialSid, signingKeySid, privateKey);
 
         String method = request.getMethod();
@@ -155,9 +158,9 @@ public class ValidationToken extends Jwt {
          *
          * @see org.apache.http.client.methods.RequestBuilder#build
          */
-        if (request instanceof HttpUriRequestBase) {
-            HttpEntity entity = ((HttpUriRequestBase) request).getEntity();
-            builder.requestBody(IOUtils.toString(entity.getContent(), StandardCharsets.UTF_8));
+        if (request instanceof BasicClassicHttpRequest && ((BasicClassicHttpRequest) request).getEntity() != null) {
+            HttpEntity entity = ((BasicClassicHttpRequest) request).getEntity();
+            builder.requestBody(EntityUtils.toString(entity, StandardCharsets.UTF_8));
         }
 
         return builder.build();

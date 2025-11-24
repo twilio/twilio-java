@@ -148,5 +148,9 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

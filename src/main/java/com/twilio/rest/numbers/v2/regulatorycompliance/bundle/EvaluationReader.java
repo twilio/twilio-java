@@ -142,5 +142,9 @@ public class EvaluationReader extends Reader<Evaluation> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -205,5 +205,9 @@ public class TollFreeReader extends Reader<TollFree> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

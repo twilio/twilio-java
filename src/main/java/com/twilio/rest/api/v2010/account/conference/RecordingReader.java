@@ -175,32 +175,13 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     private void addQueryParams(final Request request) {
-        if (dateCreated != null) {
-            Serializer.toString(
-                request,
-                "DateCreated",
-                dateCreated,
-                ParameterType.QUERY
-            );
-        }
-
-        if (dateCreatedBefore != null) {
-            Serializer.toString(
-                request,
-                "DateCreated<",
-                dateCreatedBefore,
-                ParameterType.QUERY
-            );
-        }
-
-        if (dateCreatedAfter != null) {
-            Serializer.toString(
-                request,
-                "DateCreated>",
-                dateCreatedAfter,
-                ParameterType.QUERY
-            );
-        }
+        Serializer.toString(
+            request,
+            "DateCreated",
+            dateCreated,
+            dateCreatedBefore,
+            dateCreatedAfter
+        );
 
         if (pageSize != null) {
             Serializer.toString(
@@ -209,6 +190,10 @@ public class RecordingReader extends Reader<Recording> {
                 pageSize,
                 ParameterType.QUERY
             );
+        }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }
 }

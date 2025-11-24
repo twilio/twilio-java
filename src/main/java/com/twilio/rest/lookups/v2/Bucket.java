@@ -103,6 +103,20 @@ public class Bucket extends Resource {
             @JsonProperty("ttl")
             private Integer ttl;
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("limit")
+            public Builder limit(Integer limit) {
+                this.limit = limit;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("ttl")
+            public Builder ttl(Integer ttl) {
+                this.ttl = ttl;
+                return this;
+            }
+
             public RateLimitRequest build() {
                 return new RateLimitRequest(this);
             }

@@ -196,59 +196,21 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     private void addQueryParams(final Request request) {
-        if (dateCreated != null) {
-            Serializer.toString(
-                request,
-                "DateCreated",
-                dateCreated,
-                ParameterType.QUERY
-            );
-        }
+        Serializer.toString(
+            request,
+            "DateCreated",
+            dateCreated,
+            dateCreatedBefore,
+            dateCreatedAfter
+        );
 
-        if (dateCreatedBefore != null) {
-            Serializer.toString(
-                request,
-                "DateCreated<",
-                dateCreatedBefore,
-                ParameterType.QUERY
-            );
-        }
-
-        if (dateCreatedAfter != null) {
-            Serializer.toString(
-                request,
-                "DateCreated>",
-                dateCreatedAfter,
-                ParameterType.QUERY
-            );
-        }
-
-        if (dateUpdated != null) {
-            Serializer.toString(
-                request,
-                "DateUpdated",
-                dateUpdated,
-                ParameterType.QUERY
-            );
-        }
-
-        if (dateUpdatedBefore != null) {
-            Serializer.toString(
-                request,
-                "DateUpdated<",
-                dateUpdatedBefore,
-                ParameterType.QUERY
-            );
-        }
-
-        if (dateUpdatedAfter != null) {
-            Serializer.toString(
-                request,
-                "DateUpdated>",
-                dateUpdatedAfter,
-                ParameterType.QUERY
-            );
-        }
+        Serializer.toString(
+            request,
+            "DateUpdated",
+            dateUpdated,
+            dateUpdatedBefore,
+            dateUpdatedAfter
+        );
 
         if (friendlyName != null) {
             Serializer.toString(
@@ -270,6 +232,10 @@ public class ConferenceReader extends Reader<Conference> {
                 pageSize,
                 ParameterType.QUERY
             );
+        }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }
 }

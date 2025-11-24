@@ -184,5 +184,9 @@ public class ChallengeReader extends Reader<Challenge> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

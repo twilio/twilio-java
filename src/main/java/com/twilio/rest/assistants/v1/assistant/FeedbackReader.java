@@ -137,5 +137,9 @@ public class FeedbackReader extends Reader<Feedback> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

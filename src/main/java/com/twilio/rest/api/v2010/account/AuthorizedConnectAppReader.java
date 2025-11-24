@@ -150,5 +150,9 @@ public class AuthorizedConnectAppReader extends Reader<AuthorizedConnectApp> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

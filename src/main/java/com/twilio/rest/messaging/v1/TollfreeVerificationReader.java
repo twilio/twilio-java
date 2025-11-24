@@ -18,6 +18,7 @@ import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -28,6 +29,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.util.List;
 
 public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
 
@@ -36,6 +38,7 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
     private String externalReferenceId;
     private Boolean includeSubAccounts;
     private Long pageSize;
+    private List<String> trustProductSid;
 
     public TollfreeVerificationReader() {}
 
@@ -70,6 +73,19 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
     public TollfreeVerificationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public TollfreeVerificationReader setTrustProductSid(
+        final List<String> trustProductSid
+    ) {
+        this.trustProductSid = trustProductSid;
+        return this;
+    }
+
+    public TollfreeVerificationReader setTrustProductSid(
+        final String trustProductSid
+    ) {
+        return setTrustProductSid(Promoter.listOfOne(trustProductSid));
     }
 
     @Override
@@ -196,6 +212,21 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
                 pageSize,
                 ParameterType.QUERY
             );
+        }
+
+        if (trustProductSid != null) {
+            for (String param : trustProductSid) {
+                Serializer.toString(
+                    request,
+                    "TrustProductSid",
+                    param,
+                    ParameterType.QUERY
+                );
+            }
+        }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }
 }

@@ -142,5 +142,9 @@ public class KnowledgeReader extends Reader<Knowledge> {
         if (tags != null) {
             Serializer.toString(request, "Tags", tags, ParameterType.QUERY);
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

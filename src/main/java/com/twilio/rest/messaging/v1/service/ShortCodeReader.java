@@ -141,5 +141,9 @@ public class ShortCodeReader extends Reader<ShortCode> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

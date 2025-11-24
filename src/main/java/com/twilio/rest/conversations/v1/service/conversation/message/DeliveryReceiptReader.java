@@ -160,5 +160,9 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

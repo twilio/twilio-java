@@ -26,6 +26,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
 public class InsightsQuestionnairesCategoryDeleter
     extends Deleter<InsightsQuestionnairesCategory> {
@@ -54,6 +55,8 @@ public class InsightsQuestionnairesCategoryDeleter
                 this.pathCategorySid.toString()
             );
 
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.FLEXAPI.toString(),
@@ -80,7 +83,7 @@ public class InsightsQuestionnairesCategoryDeleter
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatuses.test(response.getStatusCode());
     }
 
     private void addHeaderParams(final Request request) {

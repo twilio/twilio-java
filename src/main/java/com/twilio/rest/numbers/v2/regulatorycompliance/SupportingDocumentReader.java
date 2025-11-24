@@ -132,5 +132,9 @@ public class SupportingDocumentReader extends Reader<SupportingDocument> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

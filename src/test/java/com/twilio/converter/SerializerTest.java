@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.*;
 
 public class SerializerTest {
-    
+
     public Request buildRequest() {
         String path = "/2010-04-01/Accounts.json";
         Request request = new Request(HttpMethod.POST, Domains.API.toString(), path);
@@ -178,7 +179,7 @@ public class SerializerTest {
         Serializer.toString(request, "mapKey", map, ParameterType.QUERY);
         assertEquals("{\"key1\":\"value1\",\"key2\":\"value2\"}", request.getQueryParams().get("mapKey").get(0));
     }
-    
+
     @Test
     public void testToStringWithLocalDate() {
         Request request = buildRequest();
@@ -249,4 +250,35 @@ public class SerializerTest {
         assertEquals("2025-07-01T08:15:30", request.getQueryParams().get("dateTimeKey>").get(0));
         assertEquals("2025-07-05T08:15:30", request.getQueryParams().get("dateTimeKey<").get(0));
     }
+
+    /**
+     * Test convertToString with ZonedDateTime value
+     * Tests the datetime formatting branch: lines 53-56 in Serializer.java
+     */
+    @Test
+    public void testConvertToStringWithZonedDateTime() {
+        Request request = buildRequest();
+        ZonedDateTime dateTime = ZonedDateTime.parse("2025-11-20T15:30:45+00:00");
+
+        Serializer.toString(request, "dateTimeKey", dateTime, ParameterType.QUERY);
+
+        // Should format as "yyyy-MM-dd'T'HH:mm:ss" without timezone
+        assertEquals("2025-11-20T15:30:45", request.getQueryParams().get("dateTimeKey").get(0));
+    }
+
+    /**
+     * Test convertToString with ZonedDateTime value with different timezone
+     * Verifies that timezone information is preserved in the formatted output
+     */
+    @Test
+    public void testConvertToStringWithZonedDateTimeWithTimezone() {
+        Request request = buildRequest();
+        ZonedDateTime dateTime = ZonedDateTime.parse("2025-11-20T15:30:45+05:30");
+
+        Serializer.toString(request, "dateTimeKey", dateTime, ParameterType.QUERY);
+
+        // Should format with the same local time, ignoring timezone offset
+        assertEquals("2025-11-20T15:30:45", request.getQueryParams().get("dateTimeKey").get(0));
+    }
+
 }

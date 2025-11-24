@@ -160,5 +160,9 @@ public class TranscriptionReader extends Reader<Transcription> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

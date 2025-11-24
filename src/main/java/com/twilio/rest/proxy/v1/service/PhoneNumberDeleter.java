@@ -24,6 +24,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
 public class PhoneNumberDeleter extends Deleter<PhoneNumber> {
 
@@ -49,6 +50,8 @@ public class PhoneNumberDeleter extends Deleter<PhoneNumber> {
             );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PROXY.toString(),
@@ -74,6 +77,6 @@ public class PhoneNumberDeleter extends Deleter<PhoneNumber> {
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatuses.test(response.getStatusCode());
     }
 }

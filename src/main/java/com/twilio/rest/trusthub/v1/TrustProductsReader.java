@@ -172,5 +172,9 @@ public class TrustProductsReader extends Reader<TrustProducts> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

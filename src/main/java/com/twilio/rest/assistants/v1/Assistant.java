@@ -475,6 +475,45 @@ public class Assistant extends Resource {
             @JsonProperty("segment_credential")
             private AssistantsV1ServiceSegmentCredential segmentCredential;
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("customer_ai")
+            public Builder customerAi(
+                AssistantsV1ServiceCustomerAi customerAi
+            ) {
+                this.customerAi = customerAi;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("name")
+            public Builder name(String name) {
+                this.name = name;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("owner")
+            public Builder owner(String owner) {
+                this.owner = owner;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("personality_prompt")
+            public Builder personalityPrompt(String personalityPrompt) {
+                this.personalityPrompt = personalityPrompt;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("segment_credential")
+            public Builder segmentCredential(
+                AssistantsV1ServiceSegmentCredential segmentCredential
+            ) {
+                this.segmentCredential = segmentCredential;
+                return this;
+            }
+
             public AssistantsV1ServiceUpdateAssistantRequest build() {
                 return new AssistantsV1ServiceUpdateAssistantRequest(this);
             }
@@ -588,6 +627,38 @@ public class Assistant extends Resource {
             @JsonCreator
             public Builder(@JsonProperty("name") final String name) {
                 this.name = name;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("customer_ai")
+            public Builder customerAi(
+                AssistantsV1ServiceCustomerAi customerAi
+            ) {
+                this.customerAi = customerAi;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("owner")
+            public Builder owner(String owner) {
+                this.owner = owner;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("personality_prompt")
+            public Builder personalityPrompt(String personalityPrompt) {
+                this.personalityPrompt = personalityPrompt;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("segment_credential")
+            public Builder segmentCredential(
+                AssistantsV1ServiceSegmentCredential segmentCredential
+            ) {
+                this.segmentCredential = segmentCredential;
+                return this;
             }
 
             public AssistantsV1ServiceCreateAssistantRequest build() {

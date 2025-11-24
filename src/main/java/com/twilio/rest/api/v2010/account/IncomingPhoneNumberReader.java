@@ -209,5 +209,9 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

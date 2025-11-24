@@ -132,5 +132,9 @@ public class EndUserReader extends Reader<EndUser> {
                 ParameterType.QUERY
             );
         }
+
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

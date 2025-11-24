@@ -2,8 +2,10 @@ package com.twilio.base;
 
 import com.twilio.Twilio;
 import com.twilio.http.TwilioRestClient;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -18,6 +20,17 @@ public class PatcherTest {
 
     @Mock
     Resource mockResource;
+
+    @BeforeClass
+    public static void setUpClass() {
+        // Initialize Twilio once for all tests
+        Twilio.init("test-username", "test-password");
+    }
+
+    @AfterClass
+    public static void tearDownClass() {
+        Twilio.destroy();
+    }
 
     @Before
     public void init() {
@@ -58,9 +71,6 @@ public class PatcherTest {
 
     @Test
     public void testPatchAsyncWithClientReturnsCompletableFuture() {
-        // Initialize Twilio with test credentials to set executor service
-        Twilio.init("test-username", "test-password");
-
         try {
             TestPatcher patcher = new TestPatcher(mockResource);
             CompletableFuture<Resource> future = patcher.patchAsync(client);
@@ -73,8 +83,32 @@ public class PatcherTest {
             Assert.assertEquals(mockResource, result);
         } catch (InterruptedException | ExecutionException e) {
             Assert.fail("Async patch operation failed: " + e.getMessage());
-        } finally {
-            Twilio.destroy();
+        }
+    }
+
+    @Test
+    public void testPatchWithDefaultClient() {
+        TestPatcher patcher = new TestPatcher(mockResource);
+        Resource result = patcher.patch();
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(mockResource, result);
+    }
+
+    @Test
+    public void testPatchAsyncWithDefaultClient() {
+        try {
+            TestPatcher patcher = new TestPatcher(mockResource);
+            CompletableFuture<Resource> future = patcher.patchAsync();
+
+            Assert.assertNotNull(future);
+            Assert.assertTrue(future instanceof CompletableFuture);
+
+            // Verify the future completes with the expected resource
+            Resource result = future.get();
+            Assert.assertEquals(mockResource, result);
+        } catch (InterruptedException | ExecutionException e) {
+            Assert.fail("Async patch operation with default client failed: " + e.getMessage());
         }
     }
 }

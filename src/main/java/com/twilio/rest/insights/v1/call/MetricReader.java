@@ -89,7 +89,6 @@ public class MetricReader extends Reader<Metric> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

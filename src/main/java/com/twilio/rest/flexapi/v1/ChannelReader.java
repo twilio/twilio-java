@@ -72,7 +72,6 @@ public class ChannelReader extends Reader<Channel> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

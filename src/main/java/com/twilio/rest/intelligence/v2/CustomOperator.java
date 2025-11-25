@@ -74,9 +74,7 @@ public class CustomOperator extends Resource {
         INTERNAL("internal"),
         BETA("beta"),
         PUBLIC("public"),
-        RETIRED("retired"),
-        GENERAL_AVAILABILITY("general-availability"),
-        DEPRECATED("deprecated");
+        RETIRED("retired");
 
         private final String value;
 

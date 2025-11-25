@@ -182,6 +182,11 @@ public class TwilioRestClient {
             return this;
         }
 
+        /**
+         * @deprecated from 11.2.0. use region instead.
+         * Twilio is moving towards regional processing. This will be removed from 12.x.x.
+         */
+        @Deprecated
         public Builder edge(final String edge) {
             this.edge = edge;
             return this;

@@ -190,7 +190,7 @@ public class Twilio {
      * Set the edge.
      *
      * @param edge edge to make request
-     * deprecated from 11.2.0. Twilio is moving towards regional processing. This will be removed from 12.x.x.
+     * @deprecated from 11.2.0. Twilio is moving towards regional processing. This will be removed from 12.x.x.
      */
     @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated

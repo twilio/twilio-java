@@ -11,6 +11,8 @@ import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -39,6 +41,19 @@ public class Twilio {
     private static volatile ExecutorService executorService;
 
     private static CredentialProvider credentialProvider;
+
+    private static Map<String, String> regionMap = Map.of(
+        "au1", "sydney",
+        "br1", "sao-paulo",
+        "ie1", "dublin",
+        "de1", "frankfurt",
+        "jp1", "tokyo",
+        "jp2", "osaka",
+        "sg1", "singapore",
+        "us1", "ashburn",
+        "us2", "umatilla"
+    );
+
 
     private Twilio() {
     }
@@ -184,7 +199,10 @@ public class Twilio {
      * Set the edge.
      *
      * @param edge edge to make request
+     * deprecated from 11.2.0. Twilio is moving towards regional processing. This will be removed from 12.x.x.
      */
+    @SuppressWarnings("DeprecatedIsStillUsed")
+    @Deprecated
     public static synchronized void setEdge(final String edge) {
         if (!Objects.equals(edge, Twilio.edge)) {
             Twilio.invalidate();
@@ -234,7 +252,7 @@ public class Twilio {
         if (userAgentExtensions != null) {
             builder.userAgentExtensions(Twilio.userAgentExtensions);
         }
-
+        Twilio.edge = region != null ? regionMap.get(Twilio.region) : Twilio.edge;
         builder.region(Twilio.region);
         builder.edge(Twilio.edge);
 

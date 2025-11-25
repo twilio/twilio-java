@@ -2,6 +2,7 @@ package com.twilio.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.twilio.Twilio;
 import com.twilio.auth_strategy.AuthStrategy;
 import com.twilio.constant.EnumConstants;
 import java.util.ArrayList;
@@ -69,6 +70,17 @@ public class TwilioRestClient {
     @Getter
     private final List<String> userAgentExtensions;
     private static final Logger logger = LoggerFactory.getLogger(TwilioRestClient.class);
+    private static Map<String, String> regionMap = Map.of(
+        "au1", "sydney",
+        "br1", "sao-paulo",
+        "ie1", "dublin",
+        "de1", "frankfurt",
+        "jp1", "tokyo",
+        "jp2", "osaka",
+        "sg1", "singapore",
+        "us1", "ashburn",
+        "us2", "umatilla"
+    );
 
     protected TwilioRestClient(Builder b) {
         this.username = b.username;
@@ -76,7 +88,8 @@ public class TwilioRestClient {
         this.authStrategy = b.authStrategy;
         this.accountSid = b.accountSid;
         this.region = b.region;
-        this.edge = b.edge;
+//        this.edge = b.edge;
+        this.edge = b.region != null ? regionMap.get(b.region) : b.edge;
         this.httpClient = b.httpClient;
         this.objectMapper = b.objectMapper;
         this.userAgentExtensions = b.userAgentExtensions;
@@ -89,7 +102,7 @@ public class TwilioRestClient {
      * @return Response object
      */
     public Response request(final Request request) {
-        // If authStrategy is passed from NoAuth API, no need to set authStrategy (ex TokenCreator). 
+        // If authStrategy is passed from NoAuth API, no need to set authStrategy (ex TokenCreator).
         if (request.getAuthStrategy() == null) {
             if (username != null && password != null) {
                 request.setAuth(username, password);

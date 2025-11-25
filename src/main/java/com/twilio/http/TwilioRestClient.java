@@ -2,12 +2,10 @@ package com.twilio.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.twilio.Twilio;
 import com.twilio.auth_strategy.AuthStrategy;
 import com.twilio.constant.EnumConstants;
 import com.twilio.type.RegionEndpoints;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;

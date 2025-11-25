@@ -12,7 +12,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.type.RegionEndpoints;
-import java.util.HashMap;
 import java.util.Map;
 import lombok.Getter;
 

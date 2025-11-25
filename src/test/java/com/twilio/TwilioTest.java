@@ -168,10 +168,10 @@ public class TwilioTest {
         Twilio.setPassword("testToken");
         Map<String, String> regionMap = RegionEndpoints.getRegions();
         for( String key: regionMap.keySet() ) {
-            Twilio.setRegion(key); // region key present in regionMap
+            Twilio.setRegion(key);
             TwilioRestClient client = Twilio.getRestClient();
-            // The edge should be set to "sydney" as per regionMap
             assertEquals(regionMap.get(key), client.getEdge());
         }
     }
+
 }

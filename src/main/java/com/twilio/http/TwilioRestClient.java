@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.twilio.Twilio;
 import com.twilio.auth_strategy.AuthStrategy;
 import com.twilio.constant.EnumConstants;
+import com.twilio.type.RegionEndpoints;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -71,18 +72,7 @@ public class TwilioRestClient {
     @Getter
     private final List<String> userAgentExtensions;
     private static final Logger logger = LoggerFactory.getLogger(TwilioRestClient.class);
-    private static Map<String, String> regionMap = new HashMap<>();
-    static {
-            regionMap.put("au1", "sydney");
-            regionMap.put("br1", "sao-paulo");
-            regionMap.put("ie1", "dublin");
-            regionMap.put("de1", "frankfurt");
-            regionMap.put("jp1", "tokyo");
-            regionMap.put("jp2", "osaka");
-            regionMap.put("sg1", "singapore");
-            regionMap.put("us1", "ashburn");
-            regionMap.put("us2", "umatilla");
-    }
+    private static Map<String, String> regionMap = RegionEndpoints.getRegions();
 
     protected TwilioRestClient(Builder b) {
         this.username = b.username;
@@ -90,7 +80,6 @@ public class TwilioRestClient {
         this.authStrategy = b.authStrategy;
         this.accountSid = b.accountSid;
         this.region = b.region;
-//        this.edge = b.edge;
         this.edge = b.region != null ? regionMap.get(b.region) : b.edge;
         this.httpClient = b.httpClient;
         this.objectMapper = b.objectMapper;

@@ -11,6 +11,7 @@ import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.type.RegionEndpoints;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Getter;
@@ -42,18 +43,7 @@ public class Twilio {
 
     private static CredentialProvider credentialProvider;
 
-    private static Map<String, String> regionMap = new HashMap<>();
-    static {
-        regionMap.put("au1", "sydney");
-        regionMap.put("br1", "sao-paulo");
-        regionMap.put("ie1", "dublin");
-        regionMap.put("de1", "frankfurt");
-        regionMap.put("jp1", "tokyo");
-        regionMap.put("jp2", "osaka");
-        regionMap.put("sg1", "singapore");
-        regionMap.put("us1", "ashburn");
-        regionMap.put("us2", "umatilla");
-    }
+    private static Map<String, String> regionMap = RegionEndpoints.getRegions();
 
 
     private Twilio() {

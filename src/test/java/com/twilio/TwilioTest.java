@@ -9,6 +9,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 
+import com.twilio.type.RegionEndpoints;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -165,17 +166,8 @@ public class TwilioTest {
     public void testEdgeIsSetFromRegionMap() {
         Twilio.setUsername("testUser");
         Twilio.setPassword("testToken");
-        Map<String, String> regionMap = new HashMap<>();
-        regionMap.put("au1", "sydney");
-        regionMap.put("br1", "sao-paulo");
-        regionMap.put("ie1", "dublin");
-        regionMap.put("de1", "frankfurt");
-        regionMap.put("jp1", "tokyo");
-        regionMap.put("jp2", "osaka");
-        regionMap.put("sg1", "singapore");
-        regionMap.put("us1", "ashburn");
-        regionMap.put("us2", "umatilla");
-        for( String key : regionMap.keySet()){
+        Map<String, String> regionMap = RegionEndpoints.getRegions();
+        for( String key: regionMap.keySet() ) {
             Twilio.setRegion(key); // region key present in regionMap
             TwilioRestClient client = Twilio.getRestClient();
             // The edge should be set to "sydney" as per regionMap

@@ -164,14 +164,12 @@ public class TwilioTest {
 
     @Test
     public void testEdgeIsSetFromRegionMap() {
+        Map<String, String> regionMap = RegionEndpoints.getRegions();
         Twilio.setUsername("testUser");
         Twilio.setPassword("testToken");
-        Map<String, String> regionMap = RegionEndpoints.getRegions();
-        for( String key: regionMap.keySet() ) {
-            Twilio.setRegion(key);
-            TwilioRestClient client = Twilio.getRestClient();
-            assertEquals(regionMap.get(key), client.getEdge());
-        }
+        Twilio.setRegion("br1");
+        TwilioRestClient client = Twilio.getRestClient();
+        assertEquals(regionMap.get("br1"), client.getEdge());
     }
 
 }

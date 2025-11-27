@@ -2,6 +2,7 @@ package com.twilio.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.twilio.Twilio;
 import com.twilio.auth_strategy.AuthStrategy;
 import com.twilio.constant.EnumConstants;
 import com.twilio.type.RegionEndpoints;
@@ -78,7 +79,14 @@ public class TwilioRestClient {
         this.authStrategy = b.authStrategy;
         this.accountSid = b.accountSid;
         this.region = b.region;
-        this.edge = b.region != null ? regionMap.get(b.region) : b.edge;
+        if( b.edge == null && b.region != null ) {
+            java.util.logging.Logger.getLogger(TwilioRestClient.class.getName()).info(
+                "Setting edge from region. Edge deprecated and will be removed in future versions."
+            );
+            this.edge = regionMap.get(this.region);
+        }
+        else
+            this.edge = b.edge;
         this.httpClient = b.httpClient;
         this.objectMapper = b.objectMapper;
         this.userAgentExtensions = b.userAgentExtensions;

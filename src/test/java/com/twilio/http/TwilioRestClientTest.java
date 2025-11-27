@@ -168,12 +168,16 @@ public class TwilioRestClientTest {
 
     @Test
     public void testEdgeIsSetFromRegionMap() {
-        Twilio.setUsername("testUser");
-        Twilio.setPassword("testToken");
         Map<String, String> regionMap = RegionEndpoints.getRegions();
         for( String key: regionMap.keySet() ) {
             TwilioRestClient client = new TwilioRestClient.Builder(USER_NAME, TOKEN).region(key).build();
             assertEquals(regionMap.get(key), client.getEdge());
         }
+    }
+
+    @Test
+    public void testEdge() {
+        TwilioRestClient client = new TwilioRestClient.Builder(USER_NAME, TOKEN).region("us1").edge("someEdge").build();
+        assertEquals("someEdge", client.getEdge());
     }
 }

@@ -13,6 +13,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.type.RegionEndpoints;
 import java.util.Map;
+import java.util.logging.Logger;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -242,7 +243,12 @@ public class Twilio {
         if (userAgentExtensions != null) {
             builder.userAgentExtensions(Twilio.userAgentExtensions);
         }
-        Twilio.edge = region != null ? regionMap.get(Twilio.region) : Twilio.edge;
+        if( Twilio.edge == null && Twilio.region != null ) {
+            Logger.getLogger(Twilio.class.getName()).info(
+                "Setting edge from region is deprecated and will be removed in future versions."
+            );
+            Twilio.edge = regionMap.get(Twilio.region);
+        }
         builder.region(Twilio.region);
         builder.edge(Twilio.edge);
 

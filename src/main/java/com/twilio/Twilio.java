@@ -240,7 +240,7 @@ public class Twilio {
         if (userAgentExtensions != null) {
             builder.userAgentExtensions(Twilio.userAgentExtensions);
         }
-        if( Twilio.edge == null && Twilio.region != null ) {
+        if (Twilio.edge == null && Twilio.region != null) {
             Logger.getLogger(Twilio.class.getName()).warning(
                 "Setting `Edge` from `region` value. For regional processing, DNS is of format product.<city>.<region>.twilio.com; otherwise use product.twilio.com."
             );

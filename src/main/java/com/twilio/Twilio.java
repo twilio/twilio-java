@@ -245,7 +245,7 @@ public class Twilio {
         }
         if (Twilio.edge == null && Twilio.region != null) {
             logger.warn(
-                "Setting `Edge` from `region` value. For regional processing, DNS is of format product.<city>.<region>.twilio.com; otherwise use product.twilio.com."
+                "Setting default `Edge` for the provided `region`. For regional processing, DNS is of format product.<city>.<region>.twilio.com; otherwise use product.twilio.com."
             );
             Twilio.edge = regionMap.get(Twilio.region);
         }

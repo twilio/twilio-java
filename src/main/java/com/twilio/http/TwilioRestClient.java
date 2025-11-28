@@ -81,7 +81,7 @@ public class TwilioRestClient {
         this.region = b.region;
         if(b.edge == null && b.region != null) {
             logger.warn(
-                "Setting `Edge` from `region` value. For regional processing, DNS is of format product.<city>.<region>.twilio.com; otherwise use product.twilio.com."
+                "Setting default `Edge` for the provided `region`. For regional processing, DNS is of format product.<city>.<region>.twilio.com; otherwise use product.twilio.com."
             );
             this.edge = regionMap.get(this.region);
         }

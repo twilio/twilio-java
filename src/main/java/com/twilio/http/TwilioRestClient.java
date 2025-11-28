@@ -2,8 +2,10 @@ package com.twilio.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.twilio.Twilio;
 import com.twilio.auth_strategy.AuthStrategy;
 import com.twilio.constant.EnumConstants;
+import com.twilio.type.RegionEndpoints;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -69,6 +71,7 @@ public class TwilioRestClient {
     @Getter
     private final List<String> userAgentExtensions;
     private static final Logger logger = LoggerFactory.getLogger(TwilioRestClient.class);
+    private static Map<String, String> regionMap = RegionEndpoints.getRegions();
 
     protected TwilioRestClient(Builder b) {
         this.username = b.username;
@@ -76,7 +79,14 @@ public class TwilioRestClient {
         this.authStrategy = b.authStrategy;
         this.accountSid = b.accountSid;
         this.region = b.region;
-        this.edge = b.edge;
+        if(b.edge == null && b.region != null) {
+            logger.warn(
+                "Setting default `Edge` for the provided `region`. For regional processing, DNS is of format product.<city>.<region>.twilio.com; otherwise use product.twilio.com."
+            );
+            this.edge = regionMap.get(this.region);
+        }
+        else
+            this.edge = b.edge;
         this.httpClient = b.httpClient;
         this.objectMapper = b.objectMapper;
         this.userAgentExtensions = b.userAgentExtensions;
@@ -89,7 +99,7 @@ public class TwilioRestClient {
      * @return Response object
      */
     public Response request(final Request request) {
-        // If authStrategy is passed from NoAuth API, no need to set authStrategy (ex TokenCreator). 
+        // If authStrategy is passed from NoAuth API, no need to set authStrategy (ex TokenCreator).
         if (request.getAuthStrategy() == null) {
             if (username != null && password != null) {
                 request.setAuth(username, password);

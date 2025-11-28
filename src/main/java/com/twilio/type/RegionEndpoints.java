@@ -1,5 +1,6 @@
 package com.twilio.type;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +25,6 @@ public class RegionEndpoints {
     regionMap.put("us2", "umatilla");
   }
   public static Map<String, String> getRegions() {
-    return regionMap;
+    return Collections.unmodifiableMap(regionMap);
   }
 }

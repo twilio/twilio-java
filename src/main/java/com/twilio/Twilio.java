@@ -13,7 +13,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.type.RegionEndpoints;
 import java.util.Map;
-import java.util.logging.Logger;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -21,6 +20,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Singleton class to initialize Twilio environment.
@@ -44,6 +45,8 @@ public class Twilio {
     private static CredentialProvider credentialProvider;
 
     private static Map<String, String> regionMap = RegionEndpoints.getRegions();
+    private static final Logger logger = LoggerFactory.getLogger(Twilio.class);
+
 
 
     private Twilio() {
@@ -241,7 +244,7 @@ public class Twilio {
             builder.userAgentExtensions(Twilio.userAgentExtensions);
         }
         if (Twilio.edge == null && Twilio.region != null) {
-            Logger.getLogger(Twilio.class.getName()).warning(
+            logger.warn(
                 "Setting `Edge` from `region` value. For regional processing, DNS is of format product.<city>.<region>.twilio.com; otherwise use product.twilio.com."
             );
             Twilio.edge = regionMap.get(Twilio.region);

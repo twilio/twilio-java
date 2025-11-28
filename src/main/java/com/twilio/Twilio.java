@@ -190,10 +190,7 @@ public class Twilio {
      * Set the edge.
      *
      * @param edge edge to make request
-     * @deprecated from 11.2.0. Twilio is moving towards regional processing. This will be removed from 12.x.x.
      */
-    @SuppressWarnings("DeprecatedIsStillUsed")
-    @Deprecated
     public static synchronized void setEdge(final String edge) {
         if (!Objects.equals(edge, Twilio.edge)) {
             Twilio.invalidate();
@@ -244,8 +241,8 @@ public class Twilio {
             builder.userAgentExtensions(Twilio.userAgentExtensions);
         }
         if( Twilio.edge == null && Twilio.region != null ) {
-            Logger.getLogger(Twilio.class.getName()).info(
-                "Setting edge from region is deprecated and will be removed in future versions."
+            Logger.getLogger(Twilio.class.getName()).warning(
+                "Setting `Edge` from `region` value. For regional processing, DNS is of format product.<city>.<region>.twilio.com; otherwise use product.twilio.com."
             );
             Twilio.edge = regionMap.get(Twilio.region);
         }

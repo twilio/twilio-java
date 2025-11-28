@@ -80,8 +80,8 @@ public class TwilioRestClient {
         this.accountSid = b.accountSid;
         this.region = b.region;
         if( b.edge == null && b.region != null ) {
-            java.util.logging.Logger.getLogger(TwilioRestClient.class.getName()).info(
-                "Setting edge from region. Edge deprecated and will be removed in future versions."
+            java.util.logging.Logger.getLogger(TwilioRestClient.class.getName()).warning(
+                "Setting `Edge` from `region` value. For regional processing, DNS is of format product.<city>.<region>.twilio.com; otherwise use product.twilio.com."
             );
             this.edge = regionMap.get(this.region);
         }
@@ -188,11 +188,6 @@ public class TwilioRestClient {
             return this;
         }
 
-        /**
-         * @deprecated from 11.2.0. use region instead.
-         * Twilio is moving towards regional processing. This will be removed from 12.x.x.
-         */
-        @Deprecated
         public Builder edge(final String edge) {
             this.edge = edge;
             return this;

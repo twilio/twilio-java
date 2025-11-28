@@ -172,7 +172,6 @@ public class TwilioTest {
         assertEquals("someEdge", client.getEdge());
         Twilio.setEdge(null);
         Twilio.setRegion(null);
-        Twilio.setPassword(null);
     }
 
     @Test
@@ -184,7 +183,6 @@ public class TwilioTest {
         TwilioRestClient client = Twilio.getRestClient();
         assertEquals(regionMap.get("br1"), client.getEdge());
         Twilio.setRegion(null);
-        Twilio.setPassword(null);
     }
 
 }

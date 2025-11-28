@@ -3,6 +3,13 @@ package com.twilio.type;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Provides region-to-edge mappings for Twilio's regional processing.
+ * <p>
+ * This class is part of the transition away from direct edge configuration,
+ * allowing clients to use region identifiers that are mapped to the appropriate edge endpoints.
+ * It is intended to centralize and simplify region-to-edge lookups for Twilio services.
+ */
 public class RegionEndpoints {
   private static Map<String, String> regionMap = new HashMap<>();
   static {

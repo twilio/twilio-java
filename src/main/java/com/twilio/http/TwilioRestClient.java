@@ -79,7 +79,7 @@ public class TwilioRestClient {
         this.authStrategy = b.authStrategy;
         this.accountSid = b.accountSid;
         this.region = b.region;
-        if( b.edge == null && b.region != null ) {
+        if(b.edge == null && b.region != null) {
             java.util.logging.Logger.getLogger(TwilioRestClient.class.getName()).warning(
                 "Setting `Edge` from `region` value. For regional processing, DNS is of format product.<city>.<region>.twilio.com; otherwise use product.twilio.com."
             );

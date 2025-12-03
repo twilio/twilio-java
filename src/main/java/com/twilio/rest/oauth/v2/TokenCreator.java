@@ -31,6 +31,7 @@ import com.twilio.type.*;
 
 public class TokenCreator extends Creator<Token> {
 
+    private String accountSid;
     private String grantType;
     private String clientId;
     private String clientSecret;
@@ -82,6 +83,11 @@ public class TokenCreator extends Creator<Token> {
         return this;
     }
 
+    public TokenCreator setAccountSid(final String accountSid) {
+        this.accountSid = accountSid;
+        return this;
+    }
+
     @Override
     public Token create(final TwilioRestClient client) {
         String path = "/v2/token";
@@ -93,6 +99,7 @@ public class TokenCreator extends Creator<Token> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         request.setAuth(NoAuthStrategy.getInstance());
+        addQueryParams(request);
         addPostParams(request);
 
         Response response = client.request(request);
@@ -116,6 +123,17 @@ public class TokenCreator extends Creator<Token> {
         }
 
         return Token.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    private void addQueryParams(final Request request) {
+        if (accountSid != null) {
+            Serializer.toString(
+                request,
+                "account_sid",
+                accountSid,
+                ParameterType.QUERY
+            );
+        }
     }
 
     private void addPostParams(final Request request) {

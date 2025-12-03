@@ -1,6 +1,27 @@
 twilio-java changelog
 =====================
 
+[2025-12-03] Version 11.2.0
+---------------------------
+**Library - Chore**
+- [PR #931](https://github.com/twilio/twilio-java/pull/931): ignore region and edge for noauth apis example tokencreator. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #928](https://github.com/twilio/twilio-java/pull/928): Regional API domain processing. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Feature**
+- [PR #918](https://github.com/twilio/twilio-java/pull/918): add patch operation support. Thanks to [@kridai](https://github.com/kridai)!
+- [PR #917](https://github.com/twilio/twilio-java/pull/917): add token pagination strategy. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Add `twiml_session` resource for calls
+- Add `twiml_session` resource for calls
+
+**Monitor**
+- Update default output properties
+
+**Trusthub**
+- Added customer_profile_sid in toll-free initialize api payload.
+
+
 [2025-11-11] Version 11.1.0
 ---------------------------
 **Memory**

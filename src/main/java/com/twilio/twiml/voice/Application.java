@@ -46,7 +46,7 @@ public class Application extends TwiML {
 
     private final URI url;
     private final HttpMethod method;
-    private final List<Event> statusCallbackEvent;
+    private final List<Application.Event> statusCallbackEvent;
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
     private final String customerId;
@@ -141,13 +141,13 @@ public class Application extends TwiML {
      *
      * @return Events to trigger status callback
      */
-    public List<Event> getStatusCallbackEvents() {
+    public List<Application.Event> getStatusCallbackEvents() {
         return statusCallbackEvent;
     }
 
     protected String getStatusCallbackEventsAsString() {
         StringBuilder sb = new StringBuilder();
-        Iterator<Event> iter = this.getStatusCallbackEvents().iterator();
+        Iterator<Application.Event> iter = this.getStatusCallbackEvents().iterator();
         while (iter.hasNext()) {
             sb.append(iter.next().toString());
             if (iter.hasNext()) {
@@ -225,7 +225,7 @@ public class Application extends TwiML {
 
         private URI url;
         private HttpMethod method;
-        private List<Event> statusCallbackEvent;
+        private List<Application.Event> statusCallbackEvent;
         private URI statusCallback;
         private HttpMethod statusCallbackMethod;
         private String customerId;
@@ -275,7 +275,7 @@ public class Application extends TwiML {
          * Events to trigger status callback
          */
         @JacksonXmlProperty(isAttribute = true, localName = "statusCallbackEvent")
-        public Builder statusCallbackEvents(List<Event> statusCallbackEvent) {
+        public Builder statusCallbackEvents(List<Application.Event> statusCallbackEvent) {
             this.statusCallbackEvent = statusCallbackEvent;
             return this;
         }
@@ -283,7 +283,7 @@ public class Application extends TwiML {
         /**
          * Events to trigger status callback
          */
-        public Builder statusCallbackEvents(Event statusCallbackEvent) {
+        public Builder statusCallbackEvents(Application.Event statusCallbackEvent) {
             this.statusCallbackEvent = Promoter.listOfOne(statusCallbackEvent);
             return this;
         }

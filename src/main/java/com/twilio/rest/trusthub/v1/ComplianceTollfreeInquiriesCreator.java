@@ -35,6 +35,7 @@ public class ComplianceTollfreeInquiriesCreator
 
     private com.twilio.type.PhoneNumber tollfreePhoneNumber;
     private String notificationEmail;
+    private String customerProfileSid;
     private String businessName;
     private String businessWebsite;
     private List<String> useCaseCategories;
@@ -84,6 +85,13 @@ public class ComplianceTollfreeInquiriesCreator
         final String notificationEmail
     ) {
         this.notificationEmail = notificationEmail;
+        return this;
+    }
+
+    public ComplianceTollfreeInquiriesCreator setCustomerProfileSid(
+        final String customerProfileSid
+    ) {
+        this.customerProfileSid = customerProfileSid;
         return this;
     }
 
@@ -307,6 +315,15 @@ public class ComplianceTollfreeInquiriesCreator
                 request,
                 "NotificationEmail",
                 notificationEmail,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (customerProfileSid != null) {
+            Serializer.toString(
+                request,
+                "CustomerProfileSid",
+                customerProfileSid,
                 ParameterType.URLENCODED
             );
         }

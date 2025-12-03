@@ -50,6 +50,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     public enum Status {
+        TWILIO_PROCESSING("twilio-processing"),
         RECEIVED("received"),
         PENDING_VERIFICATION("pending-verification"),
         VERIFIED("verified"),

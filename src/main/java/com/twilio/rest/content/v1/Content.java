@@ -249,9 +249,10 @@ public class Content extends Resource {
 
         public static Builder builder(
             final String id,
+            final String title,
             final List<FlowsPageComponent> layout
         ) {
-            return new Builder(id, layout);
+            return new Builder(id, title, layout);
         }
 
         public static FlowsPage fromJson(
@@ -282,9 +283,11 @@ public class Content extends Resource {
             @JsonCreator
             public Builder(
                 @JsonProperty("id") final String id,
+                @JsonProperty("title") final String title,
                 @JsonProperty("layout") final List<FlowsPageComponent> layout
             ) {
                 this.id = id;
+                this.title = title;
                 this.layout = layout;
             }
 
@@ -292,13 +295,6 @@ public class Content extends Resource {
             @JsonProperty("next_page_id")
             public Builder nextPageId(String nextPageId) {
                 this.nextPageId = nextPageId;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("title")
-            public Builder title(String title) {
-                this.title = title;
                 return this;
             }
 
@@ -1602,8 +1598,11 @@ public class Content extends Resource {
             this.actions = builder.actions;
         }
 
-        public static Builder builder() {
-            return new Builder();
+        public static Builder builder(
+            final String body,
+            final List<CallToActionAction> actions
+        ) {
+            return new Builder(body, actions);
         }
 
         public static TwilioCallToAction fromJson(
@@ -1622,18 +1621,13 @@ public class Content extends Resource {
             @JsonProperty("actions")
             private List<CallToActionAction> actions;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("body")
-            public Builder body(String body) {
+            @JsonCreator
+            public Builder(
+                @JsonProperty("body") final String body,
+                @JsonProperty("actions") final List<CallToActionAction> actions
+            ) {
                 this.body = body;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("actions")
-            public Builder actions(List<CallToActionAction> actions) {
                 this.actions = actions;
-                return this;
             }
 
             public TwilioCallToAction build() {
@@ -2105,8 +2099,8 @@ public class Content extends Resource {
             this.type = builder.type;
         }
 
-        public static Builder builder(final String label, final String type) {
-            return new Builder(label, type);
+        public static Builder builder(final String type) {
+            return new Builder(type);
         }
 
         public static FlowsPageComponent fromJson(
@@ -2126,12 +2120,15 @@ public class Content extends Resource {
             private String type;
 
             @JsonCreator
-            public Builder(
-                @JsonProperty("label") final String label,
-                @JsonProperty("type") final String type
-            ) {
-                this.label = label;
+            public Builder(@JsonProperty("type") final String type) {
                 this.type = type;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("label")
+            public Builder label(String label) {
+                this.label = label;
+                return this;
             }
 
             public FlowsPageComponent build() {
@@ -3183,8 +3180,12 @@ public class Content extends Resource {
             this.actions = builder.actions;
         }
 
-        public static Builder builder() {
-            return new Builder();
+        public static Builder builder(
+            final String body,
+            final String media,
+            final List<CarouselAction> actions
+        ) {
+            return new Builder(body, media, actions);
         }
 
         public static CarouselCard fromJson(
@@ -3209,31 +3210,21 @@ public class Content extends Resource {
             @JsonProperty("actions")
             private List<CarouselAction> actions;
 
+            @JsonCreator
+            public Builder(
+                @JsonProperty("body") final String body,
+                @JsonProperty("media") final String media,
+                @JsonProperty("actions") final List<CarouselAction> actions
+            ) {
+                this.body = body;
+                this.media = media;
+                this.actions = actions;
+            }
+
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("title")
             public Builder title(String title) {
                 this.title = title;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("body")
-            public Builder body(String body) {
-                this.body = body;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("media")
-            public Builder media(String media) {
-                this.media = media;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("actions")
-            public Builder actions(List<CarouselAction> actions) {
-                this.actions = actions;
                 return this;
             }
 

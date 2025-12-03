@@ -103,11 +103,11 @@ public class Recording extends TwiML {
     }
 
     private final String recordingStatusCallback;
-    private final RecordingStatusCallbackMethod recordingStatusCallbackMethod;
-    private final List<Event> recordingStatusCallbackEvent;
-    private final Trim trim;
-    private final Track track;
-    private final Channels channels;
+    private final Recording.RecordingStatusCallbackMethod recordingStatusCallbackMethod;
+    private final List<Recording.Event> recordingStatusCallbackEvent;
+    private final Recording.Trim trim;
+    private final Recording.Track track;
+    private final Recording.Channels channels;
 
     /**
      * For XML Serialization/Deserialization
@@ -174,7 +174,7 @@ public class Recording extends TwiML {
      *
      * @return Recording Status Callback URL method
      */
-    public RecordingStatusCallbackMethod getRecordingStatusCallbackMethod() {
+    public Recording.RecordingStatusCallbackMethod getRecordingStatusCallbackMethod() {
         return recordingStatusCallbackMethod;
     }
 
@@ -183,13 +183,13 @@ public class Recording extends TwiML {
      *
      * @return Recording Status Callback Events
      */
-    public List<Event> getRecordingStatusCallbackEvents() {
+    public List<Recording.Event> getRecordingStatusCallbackEvents() {
         return recordingStatusCallbackEvent;
     }
 
     protected String getRecordingStatusCallbackEventsAsString() {
         StringBuilder sb = new StringBuilder();
-        Iterator<Event> iter = this.getRecordingStatusCallbackEvents().iterator();
+        Iterator<Recording.Event> iter = this.getRecordingStatusCallbackEvents().iterator();
         while (iter.hasNext()) {
             sb.append(iter.next().toString());
             if (iter.hasNext()) {
@@ -204,7 +204,7 @@ public class Recording extends TwiML {
      *
      * @return Trim the recording
      */
-    public Trim getTrim() {
+    public Recording.Trim getTrim() {
         return trim;
     }
 
@@ -213,7 +213,7 @@ public class Recording extends TwiML {
      *
      * @return To indicate which audio track should be recorded
      */
-    public Track getTrack() {
+    public Recording.Track getTrack() {
         return track;
     }
 
@@ -222,7 +222,7 @@ public class Recording extends TwiML {
      *
      * @return The recording channels for the final recording
      */
-    public Channels getChannels() {
+    public Recording.Channels getChannels() {
         return channels;
     }
 
@@ -246,11 +246,11 @@ public class Recording extends TwiML {
         }
 
         private String recordingStatusCallback;
-        private RecordingStatusCallbackMethod recordingStatusCallbackMethod;
-        private List<Event> recordingStatusCallbackEvent;
-        private Trim trim;
-        private Track track;
-        private Channels channels;
+        private Recording.RecordingStatusCallbackMethod recordingStatusCallbackMethod;
+        private List<Recording.Event> recordingStatusCallbackEvent;
+        private Recording.Trim trim;
+        private Recording.Track track;
+        private Recording.Channels channels;
 
         /**
          * Recording Status Callback URL
@@ -265,7 +265,7 @@ public class Recording extends TwiML {
          * Recording Status Callback URL method
          */
         @JacksonXmlProperty(isAttribute = true, localName = "recordingStatusCallbackMethod")
-        public Builder recordingStatusCallbackMethod(RecordingStatusCallbackMethod recordingStatusCallbackMethod) {
+        public Builder recordingStatusCallbackMethod(Recording.RecordingStatusCallbackMethod recordingStatusCallbackMethod) {
             this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
             return this;
         }
@@ -274,7 +274,7 @@ public class Recording extends TwiML {
          * Recording Status Callback Events
          */
         @JacksonXmlProperty(isAttribute = true, localName = "recordingStatusCallbackEvent")
-        public Builder recordingStatusCallbackEvents(List<Event> recordingStatusCallbackEvent) {
+        public Builder recordingStatusCallbackEvents(List<Recording.Event> recordingStatusCallbackEvent) {
             this.recordingStatusCallbackEvent = recordingStatusCallbackEvent;
             return this;
         }
@@ -282,7 +282,7 @@ public class Recording extends TwiML {
         /**
          * Recording Status Callback Events
          */
-        public Builder recordingStatusCallbackEvents(Event recordingStatusCallbackEvent) {
+        public Builder recordingStatusCallbackEvents(Recording.Event recordingStatusCallbackEvent) {
             this.recordingStatusCallbackEvent = Promoter.listOfOne(recordingStatusCallbackEvent);
             return this;
         }
@@ -291,7 +291,7 @@ public class Recording extends TwiML {
          * Trim the recording
          */
         @JacksonXmlProperty(isAttribute = true, localName = "trim")
-        public Builder trim(Trim trim) {
+        public Builder trim(Recording.Trim trim) {
             this.trim = trim;
             return this;
         }
@@ -300,7 +300,7 @@ public class Recording extends TwiML {
          * To indicate which audio track should be recorded
          */
         @JacksonXmlProperty(isAttribute = true, localName = "track")
-        public Builder track(Track track) {
+        public Builder track(Recording.Track track) {
             this.track = track;
             return this;
         }
@@ -309,7 +309,7 @@ public class Recording extends TwiML {
          * The recording channels for the final recording
          */
         @JacksonXmlProperty(isAttribute = true, localName = "channels")
-        public Builder channels(Channels channels) {
+        public Builder channels(Recording.Channels channels) {
             this.channels = channels;
             return this;
         }

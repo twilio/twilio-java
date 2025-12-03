@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.twilio.Twilio;
 import com.twilio.auth_strategy.AuthStrategy;
+import com.twilio.auth_strategy.NoAuthStrategy;
 import com.twilio.constant.EnumConstants;
 import com.twilio.type.RegionEndpoints;
 import java.util.ArrayList;
@@ -112,6 +113,13 @@ public class TwilioRestClient {
             request.setRegion(region);
         if (edge != null)
             request.setEdge(edge);
+
+        // If NoAuthStrategy is used, clear region and edge as Token endpoint does not support region/edge.
+        if (request.getAuthStrategy() != null && request.getAuthStrategy() instanceof NoAuthStrategy) {
+            request.setRegion(null);
+            request.setEdge(null);
+        }
+
 
         if (userAgentExtensions != null && !userAgentExtensions.isEmpty()) {
             request.setUserAgentExtensions(userAgentExtensions);

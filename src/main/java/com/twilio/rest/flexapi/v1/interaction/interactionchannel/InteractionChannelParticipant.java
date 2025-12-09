@@ -17,60 +17,66 @@ package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InteractionChannelParticipant extends Resource {
 
-
-    public static InteractionChannelParticipantCreator creator(final String pathInteractionSid, final String pathChannelSid, final InteractionChannelParticipant.Type type, final Object mediaProperties) {
+    public static InteractionChannelParticipantCreator creator(
+        final String pathInteractionSid,
+        final String pathChannelSid,
+        final InteractionChannelParticipant.Type type,
+        final Object mediaProperties
+    ) {
         return new InteractionChannelParticipantCreator(
-                pathInteractionSid, pathChannelSid, type, mediaProperties
+            pathInteractionSid,
+            pathChannelSid,
+            type,
+            mediaProperties
         );
     }
 
-
-    public static InteractionChannelParticipantReader reader(final String pathInteractionSid, final String pathChannelSid) {
+    public static InteractionChannelParticipantReader reader(
+        final String pathInteractionSid,
+        final String pathChannelSid
+    ) {
         return new InteractionChannelParticipantReader(
-                pathInteractionSid, pathChannelSid
+            pathInteractionSid,
+            pathChannelSid
         );
     }
 
-
-    public static InteractionChannelParticipantUpdater updater(final String pathInteractionSid, final String pathChannelSid, final String pathSid, final InteractionChannelParticipant.Status status) {
+    public static InteractionChannelParticipantUpdater updater(
+        final String pathInteractionSid,
+        final String pathChannelSid,
+        final String pathSid,
+        final InteractionChannelParticipant.Status status
+    ) {
         return new InteractionChannelParticipantUpdater(
-                pathInteractionSid, pathChannelSid, pathSid, status
+            pathInteractionSid,
+            pathChannelSid,
+            pathSid,
+            status
         );
     }
-
 
     public enum Status {
         CLOSED("closed"),
@@ -115,18 +121,23 @@ public class InteractionChannelParticipant extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a InteractionChannelParticipant object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return InteractionChannelParticipant object represented by the provided JSON
      */
-    public static InteractionChannelParticipant fromJson(final String json, final ObjectMapper objectMapper) {
+    public static InteractionChannelParticipant fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, InteractionChannelParticipant.class);
+            return objectMapper.readValue(
+                json,
+                InteractionChannelParticipant.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -138,14 +149,20 @@ public class InteractionChannelParticipant extends Resource {
      * Converts a JSON InputStream into a InteractionChannelParticipant object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return InteractionChannelParticipant object represented by the provided JSON
      */
-    public static InteractionChannelParticipant fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static InteractionChannelParticipant fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, InteractionChannelParticipant.class);
+            return objectMapper.readValue(
+                json,
+                InteractionChannelParticipant.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -165,28 +182,32 @@ public class InteractionChannelParticipant extends Resource {
         }
     }
 
-
     @Getter
     private final String channelSid;
+
     @Getter
     private final String interactionSid;
+
     @Getter
     private final Object routingProperties;
+
     @Getter
     private final String sid;
+
     @Getter
     private final InteractionChannelParticipant.Type type;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private InteractionChannelParticipant(
-            @JsonProperty("channel_sid") final String channelSid,
-            @JsonProperty("interaction_sid") final String interactionSid,
-            @JsonProperty("routing_properties") final Object routingProperties,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("type") final InteractionChannelParticipant.Type type,
-            @JsonProperty("url") final URI url
+        @JsonProperty("channel_sid") final String channelSid,
+        @JsonProperty("interaction_sid") final String interactionSid,
+        @JsonProperty("routing_properties") final Object routingProperties,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("type") final InteractionChannelParticipant.Type type,
+        @JsonProperty("url") final URI url
     ) {
         this.channelSid = channelSid;
         this.interactionSid = interactionSid;
@@ -208,27 +229,24 @@ public class InteractionChannelParticipant extends Resource {
 
         InteractionChannelParticipant other = (InteractionChannelParticipant) o;
         return (
-                Objects.equals(channelSid, other.channelSid) &&
-                        Objects.equals(interactionSid, other.interactionSid) &&
-                        Objects.equals(routingProperties, other.routingProperties) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(type, other.type) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(channelSid, other.channelSid) &&
+            Objects.equals(interactionSid, other.interactionSid) &&
+            Objects.equals(routingProperties, other.routingProperties) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                channelSid,
-                interactionSid,
-                routingProperties,
-                sid,
-                type,
-                url
+            channelSid,
+            interactionSid,
+            routingProperties,
+            sid,
+            type,
+            url
         );
     }
-
-
 }
-

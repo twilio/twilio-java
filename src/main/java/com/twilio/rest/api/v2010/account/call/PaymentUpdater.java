@@ -27,13 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
+import com.twilio.type.*;
 import java.net.URI;
 
-import com.twilio.type.*;
-
 public class PaymentUpdater extends Updater<Payment> {
+
     private String pathAccountSid;
     private String pathCallSid;
     private String pathSid;
@@ -42,14 +40,25 @@ public class PaymentUpdater extends Updater<Payment> {
     private Payment.Capture capture;
     private Payment.Status status;
 
-    public PaymentUpdater(final String pathCallSid, final String pathSid, final String idempotencyKey, final URI statusCallback) {
+    public PaymentUpdater(
+        final String pathCallSid,
+        final String pathSid,
+        final String idempotencyKey,
+        final URI statusCallback
+    ) {
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
         this.idempotencyKey = idempotencyKey;
         this.statusCallback = statusCallback;
     }
 
-    public PaymentUpdater(final String pathAccountSid, final String pathCallSid, final String pathSid, final String idempotencyKey, final URI statusCallback) {
+    public PaymentUpdater(
+        final String pathAccountSid,
+        final String pathCallSid,
+        final String pathSid,
+        final String idempotencyKey,
+        final URI statusCallback
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
@@ -57,12 +66,10 @@ public class PaymentUpdater extends Updater<Payment> {
         this.statusCallback = statusCallback;
     }
 
-
     public PaymentUpdater setIdempotencyKey(final String idempotencyKey) {
         this.idempotencyKey = idempotencyKey;
         return this;
     }
-
 
     public PaymentUpdater setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
@@ -78,28 +85,32 @@ public class PaymentUpdater extends Updater<Payment> {
         return this;
     }
 
-
     public PaymentUpdater setStatus(final Payment.Status status) {
         this.status = status;
         return this;
     }
 
-
     @Override
     public Payment update(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.API.toString(),
-                path
+            HttpMethod.POST,
+            Domains.API.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -107,14 +118,19 @@ public class PaymentUpdater extends Updater<Payment> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Payment update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Payment update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -123,26 +139,40 @@ public class PaymentUpdater extends Updater<Payment> {
     }
 
     private void addPostParams(final Request request) {
-
         if (idempotencyKey != null) {
-            Serializer.toString(request, "IdempotencyKey", idempotencyKey, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "IdempotencyKey",
+                idempotencyKey,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallback != null) {
-            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (capture != null) {
-            Serializer.toString(request, "Capture", capture, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Capture",
+                capture,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

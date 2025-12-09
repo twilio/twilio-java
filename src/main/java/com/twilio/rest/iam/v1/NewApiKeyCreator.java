@@ -14,7 +14,6 @@
 
 package com.twilio.rest.iam.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class NewApiKeyCreator extends Creator<NewApiKey> {
@@ -42,41 +39,34 @@ public class NewApiKeyCreator extends Creator<NewApiKey> {
         this.accountSid = accountSid;
     }
 
-
     public NewApiKeyCreator setAccountSid(final String accountSid) {
         this.accountSid = accountSid;
         return this;
     }
-
 
     public NewApiKeyCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
     public NewApiKeyCreator setKeyType(final NewApiKey.Keytype keyType) {
         this.keyType = keyType;
         return this;
     }
-
 
     public NewApiKeyCreator setPolicy(final Object policy) {
         this.policy = policy;
         return this;
     }
 
-
     @Override
     public NewApiKey create(final TwilioRestClient client) {
-
         String path = "/v1/Keys";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.IAM.toString(),
-                path
+            HttpMethod.POST,
+            Domains.IAM.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -84,42 +74,64 @@ public class NewApiKeyCreator extends Creator<NewApiKey> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("NewApiKey creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "NewApiKey creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return NewApiKey.fromJson(response.getStream(), client.getObjectMapper());
+        return NewApiKey.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (accountSid != null) {
-            Serializer.toString(request, "AccountSid", accountSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AccountSid",
+                accountSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (keyType != null) {
-            Serializer.toString(request, "KeyType", keyType, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "KeyType",
+                keyType,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (policy != null) {
-            Serializer.toString(request, "Policy", policy, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Policy",
+                policy,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

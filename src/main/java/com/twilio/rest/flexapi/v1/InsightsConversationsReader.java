@@ -14,7 +14,9 @@
 
 package com.twilio.rest.flexapi.v1;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
+import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -25,11 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
-import com.twilio.base.Page;
-import com.twilio.base.ResourceSet;
 
 public class InsightsConversationsReader extends Reader<InsightsConversations> {
 
@@ -37,42 +35,41 @@ public class InsightsConversationsReader extends Reader<InsightsConversations> {
     private Long pageSize;
     private String authorization;
 
-    public InsightsConversationsReader() {
-    }
-
+    public InsightsConversationsReader() {}
 
     public InsightsConversationsReader setSegmentId(final String segmentId) {
         this.segmentId = segmentId;
         return this;
     }
 
-
     public InsightsConversationsReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-
-    public InsightsConversationsReader setAuthorization(final String authorization) {
+    public InsightsConversationsReader setAuthorization(
+        final String authorization
+    ) {
         this.authorization = authorization;
         return this;
     }
 
-
     @Override
-    public ResourceSet<InsightsConversations> read(final TwilioRestClient client) {
+    public ResourceSet<InsightsConversations> read(
+        final TwilioRestClient client
+    ) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<InsightsConversations> firstPage(final TwilioRestClient client) {
-
+    public Page<InsightsConversations> firstPage(
+        final TwilioRestClient client
+    ) {
         String path = "/v1/Insights/Conversations";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.GET,
+            Domains.FLEXAPI.toString(),
+            path
         );
         addQueryParams(request);
         addHeaderParams(request);
@@ -80,66 +77,103 @@ public class InsightsConversationsReader extends Reader<InsightsConversations> {
         return pageForRequest(client, request);
     }
 
-    private Page<InsightsConversations> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<InsightsConversations> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("InsightsConversations read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InsightsConversations read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "conversations",
-                response.getContent(),
-                InsightsConversations.class,
-                client.getObjectMapper());
+            "conversations",
+            response.getContent(),
+            InsightsConversations.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<InsightsConversations> previousPage(final Page<InsightsConversations> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<InsightsConversations> previousPage(
+        final Page<InsightsConversations> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<InsightsConversations> nextPage(final Page<InsightsConversations> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<InsightsConversations> nextPage(
+        final Page<InsightsConversations> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<InsightsConversations> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<InsightsConversations> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (segmentId != null) {
-            Serializer.toString(request, "SegmentId", segmentId, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "SegmentId",
+                segmentId,
+                ParameterType.QUERY
+            );
         }
-
 
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
-
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 
     private void addHeaderParams(final Request request) {
-
         if (authorization != null) {
-            Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

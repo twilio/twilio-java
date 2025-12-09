@@ -14,7 +14,6 @@
 
 package com.twilio.rest.taskrouter.v1.workspace;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class WorkerCreator extends Creator<Worker> {
@@ -38,42 +35,43 @@ public class WorkerCreator extends Creator<Worker> {
     private String activitySid;
     private String attributes;
 
-    public WorkerCreator(final String pathWorkspaceSid, final String friendlyName) {
+    public WorkerCreator(
+        final String pathWorkspaceSid,
+        final String friendlyName
+    ) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
     }
-
 
     public WorkerCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
     public WorkerCreator setActivitySid(final String activitySid) {
         this.activitySid = activitySid;
         return this;
     }
-
 
     public WorkerCreator setAttributes(final String attributes) {
         this.attributes = attributes;
         return this;
     }
 
-
     @Override
     public Worker create(final TwilioRestClient client) {
-
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.TASKROUTER.toString(),
-                path
+            HttpMethod.POST,
+            Domains.TASKROUTER.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -81,14 +79,19 @@ public class WorkerCreator extends Creator<Worker> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Worker creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Worker creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -97,21 +100,31 @@ public class WorkerCreator extends Creator<Worker> {
     }
 
     private void addPostParams(final Request request) {
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (activitySid != null) {
-            Serializer.toString(request, "ActivitySid", activitySid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ActivitySid",
+                activitySid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (attributes != null) {
-            Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Attributes",
+                attributes,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

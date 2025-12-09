@@ -14,7 +14,6 @@
 
 package com.twilio.rest.messaging.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -24,51 +23,69 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
-public class LinkshorteningMessagingServiceCreator extends Creator<LinkshorteningMessagingService> {
+public class LinkshorteningMessagingServiceCreator
+    extends Creator<LinkshorteningMessagingService> {
 
     private String pathDomainSid;
     private String pathMessagingServiceSid;
 
-    public LinkshorteningMessagingServiceCreator(final String pathDomainSid, final String pathMessagingServiceSid) {
+    public LinkshorteningMessagingServiceCreator(
+        final String pathDomainSid,
+        final String pathMessagingServiceSid
+    ) {
         this.pathDomainSid = pathDomainSid;
         this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
-
     @Override
-    public LinkshorteningMessagingService create(final TwilioRestClient client) {
+    public LinkshorteningMessagingService create(
+        final TwilioRestClient client
+    ) {
+        String path =
+            "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}";
 
-        String path = "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}";
-
-        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "DomainSid" + "}",
+                this.pathDomainSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "MessagingServiceSid" + "}",
+                this.pathMessagingServiceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.MESSAGING.toString(),
-                path
+            HttpMethod.POST,
+            Domains.MESSAGING.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("LinkshorteningMessagingService creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "LinkshorteningMessagingService creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return LinkshorteningMessagingService.fromJson(response.getStream(), client.getObjectMapper());
+        return LinkshorteningMessagingService.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

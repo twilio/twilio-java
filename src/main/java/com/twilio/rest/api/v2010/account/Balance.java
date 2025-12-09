@@ -17,60 +17,46 @@ package com.twilio.rest.api.v2010.account;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.twilio.exception.ApiConnectionException;
-import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
-import java.io.InputStream;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-
+import com.twilio.base.Resource;
+import com.twilio.exception.ApiConnectionException;
+import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Balance extends Resource {
 
-
     public static BalanceFetcher fetcher() {
-        return new BalanceFetcher(
-
-        );
+        return new BalanceFetcher();
     }
-
 
     public static BalanceFetcher fetcher(final String pathAccountSid) {
-        return new BalanceFetcher(
-                pathAccountSid
-        );
+        return new BalanceFetcher(pathAccountSid);
     }
-
 
     /**
      * Converts a JSON String into a Balance object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Balance object represented by the provided JSON
      */
-    public static Balance fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Balance fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Balance.class);
@@ -85,11 +71,14 @@ public class Balance extends Resource {
      * Converts a JSON InputStream into a Balance object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Balance object represented by the provided JSON
      */
-    public static Balance fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Balance fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Balance.class);
@@ -112,19 +101,20 @@ public class Balance extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String balance;
+
     @Getter
     private final String currency;
 
     @JsonCreator
     private Balance(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("balance") final String balance,
-            @JsonProperty("currency") final String currency
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("balance") final String balance,
+        @JsonProperty("currency") final String currency
     ) {
         this.accountSid = accountSid;
         this.balance = balance;
@@ -143,21 +133,14 @@ public class Balance extends Resource {
 
         Balance other = (Balance) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(balance, other.balance) &&
-                        Objects.equals(currency, other.currency)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(balance, other.balance) &&
+            Objects.equals(currency, other.currency)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                accountSid,
-                balance,
-                currency
-        );
+        return Objects.hash(accountSid, balance, currency);
     }
-
-
 }
-

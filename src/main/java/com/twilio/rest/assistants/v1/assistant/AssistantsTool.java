@@ -17,69 +17,58 @@ package com.twilio.rest.assistants.v1.assistant;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssistantsTool extends Resource {
 
-
-    public static AssistantsToolCreator creator(final String pathAssistantId, final String pathId) {
-        return new AssistantsToolCreator(
-                pathAssistantId, pathId
-        );
+    public static AssistantsToolCreator creator(
+        final String pathAssistantId,
+        final String pathId
+    ) {
+        return new AssistantsToolCreator(pathAssistantId, pathId);
     }
 
-
-    public static AssistantsToolDeleter deleter(final String pathAssistantId, final String pathId) {
-        return new AssistantsToolDeleter(
-                pathAssistantId, pathId
-        );
+    public static AssistantsToolDeleter deleter(
+        final String pathAssistantId,
+        final String pathId
+    ) {
+        return new AssistantsToolDeleter(pathAssistantId, pathId);
     }
-
 
     public static AssistantsToolReader reader(final String pathAssistantId) {
-        return new AssistantsToolReader(
-                pathAssistantId
-        );
+        return new AssistantsToolReader(pathAssistantId);
     }
-
 
     /**
      * Converts a JSON String into a AssistantsTool object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AssistantsTool object represented by the provided JSON
      */
-    public static AssistantsTool fromJson(final String json, final ObjectMapper objectMapper) {
+    public static AssistantsTool fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AssistantsTool.class);
@@ -94,11 +83,14 @@ public class AssistantsTool extends Resource {
      * Converts a JSON InputStream into a AssistantsTool object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AssistantsTool object represented by the provided JSON
      */
-    public static AssistantsTool fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static AssistantsTool fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AssistantsTool.class);
@@ -121,45 +113,56 @@ public class AssistantsTool extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String description;
+
     @Getter
     private final Boolean enabled;
+
     @Getter
     private final String id;
+
     @Getter
     private final Object meta;
+
     @Getter
     private final String name;
+
     @Getter
     private final Boolean requiresAuth;
+
     @Getter
     private final String type;
+
     @Getter
     private final String url;
 
     @JsonCreator
     private AssistantsTool(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("description") final String description,
-            @JsonProperty("enabled") final Boolean enabled,
-            @JsonProperty("id") final String id,
-            @JsonProperty("meta") final Object meta,
-            @JsonProperty("name") final String name,
-            @JsonProperty("requires_auth") final Boolean requiresAuth,
-            @JsonProperty("type") final String type,
-            @JsonProperty("url") final String url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("description") final String description,
+        @JsonProperty("enabled") final Boolean enabled,
+        @JsonProperty("id") final String id,
+        @JsonProperty("meta") final Object meta,
+        @JsonProperty("name") final String name,
+        @JsonProperty("requires_auth") final Boolean requiresAuth,
+        @JsonProperty("type") final String type,
+        @JsonProperty("url") final String url
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -186,37 +189,34 @@ public class AssistantsTool extends Resource {
 
         AssistantsTool other = (AssistantsTool) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(description, other.description) &&
-                        Objects.equals(enabled, other.enabled) &&
-                        Objects.equals(id, other.id) &&
-                        Objects.equals(meta, other.meta) &&
-                        Objects.equals(name, other.name) &&
-                        Objects.equals(requiresAuth, other.requiresAuth) &&
-                        Objects.equals(type, other.type) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(enabled, other.enabled) &&
+            Objects.equals(id, other.id) &&
+            Objects.equals(meta, other.meta) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(requiresAuth, other.requiresAuth) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                description,
-                enabled,
-                id,
-                meta,
-                name,
-                requiresAuth,
-                type,
-                url
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            description,
+            enabled,
+            id,
+            meta,
+            name,
+            requiresAuth,
+            type,
+            url
         );
     }
-
-
 }
-

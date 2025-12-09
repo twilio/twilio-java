@@ -14,7 +14,6 @@
 
 package com.twilio.rest.supersim.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,11 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
-import java.net.URI;
-
 import com.twilio.type.*;
+import java.net.URI;
 
 public class IpCommandCreator extends Creator<IpCommand> {
 
@@ -43,36 +39,37 @@ public class IpCommandCreator extends Creator<IpCommand> {
     private URI callbackUrl;
     private HttpMethod callbackMethod;
 
-    public IpCommandCreator(final String sim, final String payload, final Integer devicePort) {
+    public IpCommandCreator(
+        final String sim,
+        final String payload,
+        final Integer devicePort
+    ) {
         this.sim = sim;
         this.payload = payload;
         this.devicePort = devicePort;
     }
-
 
     public IpCommandCreator setSim(final String sim) {
         this.sim = sim;
         return this;
     }
 
-
     public IpCommandCreator setPayload(final String payload) {
         this.payload = payload;
         return this;
     }
-
 
     public IpCommandCreator setDevicePort(final Integer devicePort) {
         this.devicePort = devicePort;
         return this;
     }
 
-
-    public IpCommandCreator setPayloadType(final IpCommand.PayloadType payloadType) {
+    public IpCommandCreator setPayloadType(
+        final IpCommand.PayloadType payloadType
+    ) {
         this.payloadType = payloadType;
         return this;
     }
-
 
     public IpCommandCreator setCallbackUrl(final URI callbackUrl) {
         this.callbackUrl = callbackUrl;
@@ -88,17 +85,14 @@ public class IpCommandCreator extends Creator<IpCommand> {
         return this;
     }
 
-
     @Override
     public IpCommand create(final TwilioRestClient client) {
-
         String path = "/v1/IpCommands";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.SUPERSIM.toString(),
-                path
+            HttpMethod.POST,
+            Domains.SUPERSIM.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -106,52 +100,77 @@ public class IpCommandCreator extends Creator<IpCommand> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("IpCommand creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "IpCommand creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return IpCommand.fromJson(response.getStream(), client.getObjectMapper());
+        return IpCommand.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (sim != null) {
             Serializer.toString(request, "Sim", sim, ParameterType.URLENCODED);
         }
 
-
         if (payload != null) {
-            Serializer.toString(request, "Payload", payload, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Payload",
+                payload,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (devicePort != null) {
-            Serializer.toString(request, "DevicePort", devicePort, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DevicePort",
+                devicePort,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (payloadType != null) {
-            Serializer.toString(request, "PayloadType", payloadType, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "PayloadType",
+                payloadType,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callbackUrl != null) {
-            Serializer.toString(request, "CallbackUrl", callbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallbackUrl",
+                callbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callbackMethod != null) {
-            Serializer.toString(request, "CallbackMethod", callbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallbackMethod",
+                callbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

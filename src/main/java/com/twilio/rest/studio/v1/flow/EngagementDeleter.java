@@ -23,9 +23,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
 public class EngagementDeleter extends Deleter<Engagement> {
 
@@ -37,36 +36,40 @@ public class EngagementDeleter extends Deleter<Engagement> {
         this.pathSid = pathSid;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
-
         String path = "/v1/Flows/{FlowSid}/Engagements/{Sid}";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
-                HttpMethod.DELETE,
-                Domains.STUDIO.toString(),
-                path
+            HttpMethod.DELETE,
+            Domains.STUDIO.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Engagement delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Engagement delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatuses.test(response.getStatusCode());
     }
 }

@@ -17,54 +17,37 @@ package com.twilio.rest.insights.v1.call;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Annotation extends Resource {
 
-
     public static AnnotationFetcher fetcher(final String pathCallSid) {
-        return new AnnotationFetcher(
-                pathCallSid
-        );
+        return new AnnotationFetcher(pathCallSid);
     }
-
 
     public static AnnotationUpdater updater(final String pathCallSid) {
-        return new AnnotationUpdater(
-                pathCallSid
-        );
+        return new AnnotationUpdater(pathCallSid);
     }
-
 
     public enum AnsweredBy {
         UNKNOWN_ANSWERED_BY("unknown_answered_by"),
@@ -111,15 +94,17 @@ public class Annotation extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Annotation object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Annotation object represented by the provided JSON
      */
-    public static Annotation fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Annotation fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Annotation.class);
@@ -134,11 +119,14 @@ public class Annotation extends Resource {
      * Converts a JSON InputStream into a Annotation object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Annotation object represented by the provided JSON
      */
-    public static Annotation fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Annotation fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Annotation.class);
@@ -161,40 +149,50 @@ public class Annotation extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Annotation.AnsweredBy answeredBy;
+
     @Getter
     private final Integer callScore;
+
     @Getter
     private final String callSid;
+
     @Getter
     private final String comment;
+
     @Getter
     private final Annotation.ConnectivityIssue connectivityIssue;
+
     @Getter
     private final String incident;
+
     @Getter
     private final List<String> qualityIssues;
+
     @Getter
     private final Boolean spam;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Annotation(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("answered_by") final Annotation.AnsweredBy answeredBy,
-            @JsonProperty("call_score") final Integer callScore,
-            @JsonProperty("call_sid") final String callSid,
-            @JsonProperty("comment") final String comment,
-            @JsonProperty("connectivity_issue") final Annotation.ConnectivityIssue connectivityIssue,
-            @JsonProperty("incident") final String incident,
-            @JsonProperty("quality_issues") final List<String> qualityIssues,
-            @JsonProperty("spam") final Boolean spam,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("answered_by") final Annotation.AnsweredBy answeredBy,
+        @JsonProperty("call_score") final Integer callScore,
+        @JsonProperty("call_sid") final String callSid,
+        @JsonProperty("comment") final String comment,
+        @JsonProperty(
+            "connectivity_issue"
+        ) final Annotation.ConnectivityIssue connectivityIssue,
+        @JsonProperty("incident") final String incident,
+        @JsonProperty("quality_issues") final List<String> qualityIssues,
+        @JsonProperty("spam") final Boolean spam,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.answeredBy = answeredBy;
@@ -220,35 +218,32 @@ public class Annotation extends Resource {
 
         Annotation other = (Annotation) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(answeredBy, other.answeredBy) &&
-                        Objects.equals(callScore, other.callScore) &&
-                        Objects.equals(callSid, other.callSid) &&
-                        Objects.equals(comment, other.comment) &&
-                        Objects.equals(connectivityIssue, other.connectivityIssue) &&
-                        Objects.equals(incident, other.incident) &&
-                        Objects.equals(qualityIssues, other.qualityIssues) &&
-                        Objects.equals(spam, other.spam) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(answeredBy, other.answeredBy) &&
+            Objects.equals(callScore, other.callScore) &&
+            Objects.equals(callSid, other.callSid) &&
+            Objects.equals(comment, other.comment) &&
+            Objects.equals(connectivityIssue, other.connectivityIssue) &&
+            Objects.equals(incident, other.incident) &&
+            Objects.equals(qualityIssues, other.qualityIssues) &&
+            Objects.equals(spam, other.spam) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                answeredBy,
-                callScore,
-                callSid,
-                comment,
-                connectivityIssue,
-                incident,
-                qualityIssues,
-                spam,
-                url
+            accountSid,
+            answeredBy,
+            callScore,
+            callSid,
+            comment,
+            connectivityIssue,
+            incident,
+            qualityIssues,
+            spam,
+            url
         );
     }
-
-
 }
-

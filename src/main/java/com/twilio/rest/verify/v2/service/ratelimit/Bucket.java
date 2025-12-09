@@ -17,84 +17,86 @@ package com.twilio.rest.verify.v2.service.ratelimit;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Bucket extends Resource {
 
-
-    public static BucketCreator creator(final String pathServiceSid, final String pathRateLimitSid, final Integer max, final Integer interval) {
+    public static BucketCreator creator(
+        final String pathServiceSid,
+        final String pathRateLimitSid,
+        final Integer max,
+        final Integer interval
+    ) {
         return new BucketCreator(
-                pathServiceSid, pathRateLimitSid, max, interval
+            pathServiceSid,
+            pathRateLimitSid,
+            max,
+            interval
         );
     }
 
-
-    public static BucketDeleter deleter(final String pathServiceSid, final String pathRateLimitSid, final String pathSid) {
-        return new BucketDeleter(
-                pathServiceSid, pathRateLimitSid, pathSid
-        );
+    public static BucketDeleter deleter(
+        final String pathServiceSid,
+        final String pathRateLimitSid,
+        final String pathSid
+    ) {
+        return new BucketDeleter(pathServiceSid, pathRateLimitSid, pathSid);
     }
 
-
-    public static BucketFetcher fetcher(final String pathServiceSid, final String pathRateLimitSid, final String pathSid) {
-        return new BucketFetcher(
-                pathServiceSid, pathRateLimitSid, pathSid
-        );
+    public static BucketFetcher fetcher(
+        final String pathServiceSid,
+        final String pathRateLimitSid,
+        final String pathSid
+    ) {
+        return new BucketFetcher(pathServiceSid, pathRateLimitSid, pathSid);
     }
 
-
-    public static BucketReader reader(final String pathServiceSid, final String pathRateLimitSid) {
-        return new BucketReader(
-                pathServiceSid, pathRateLimitSid
-        );
+    public static BucketReader reader(
+        final String pathServiceSid,
+        final String pathRateLimitSid
+    ) {
+        return new BucketReader(pathServiceSid, pathRateLimitSid);
     }
 
-
-    public static BucketUpdater updater(final String pathServiceSid, final String pathRateLimitSid, final String pathSid) {
-        return new BucketUpdater(
-                pathServiceSid, pathRateLimitSid, pathSid
-        );
+    public static BucketUpdater updater(
+        final String pathServiceSid,
+        final String pathRateLimitSid,
+        final String pathSid
+    ) {
+        return new BucketUpdater(pathServiceSid, pathRateLimitSid, pathSid);
     }
-
 
     /**
      * Converts a JSON String into a Bucket object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Bucket object represented by the provided JSON
      */
-    public static Bucket fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Bucket fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Bucket.class);
@@ -109,11 +111,14 @@ public class Bucket extends Resource {
      * Converts a JSON InputStream into a Bucket object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Bucket object represented by the provided JSON
      */
-    public static Bucket fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Bucket fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Bucket.class);
@@ -136,39 +141,48 @@ public class Bucket extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Integer interval;
+
     @Getter
     private final Integer max;
+
     @Getter
     private final String rateLimitSid;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Bucket(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("interval") final Integer interval,
-            @JsonProperty("max") final Integer max,
-            @JsonProperty("rate_limit_sid") final String rateLimitSid,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("interval") final Integer interval,
+        @JsonProperty("max") final Integer max,
+        @JsonProperty("rate_limit_sid") final String rateLimitSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -193,33 +207,30 @@ public class Bucket extends Resource {
 
         Bucket other = (Bucket) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(interval, other.interval) &&
-                        Objects.equals(max, other.max) &&
-                        Objects.equals(rateLimitSid, other.rateLimitSid) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(interval, other.interval) &&
+            Objects.equals(max, other.max) &&
+            Objects.equals(rateLimitSid, other.rateLimitSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                interval,
-                max,
-                rateLimitSid,
-                serviceSid,
-                sid,
-                url
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            interval,
+            max,
+            rateLimitSid,
+            serviceSid,
+            sid,
+            url
         );
     }
-
-
 }
-

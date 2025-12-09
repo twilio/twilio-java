@@ -16,59 +16,50 @@ package com.twilio.rest.assistants.v1.assistant;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.ZonedDateTime;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-
-
-import java.io.InputStream;
-import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Feedback extends Resource {
 
-
-    public static FeedbackCreator creator(final String pathId, final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest) {
+    public static FeedbackCreator creator(
+        final String pathId,
+        final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest
+    ) {
         return new FeedbackCreator(
-                pathId, assistantsV1ServiceCreateFeedbackRequest
+            pathId,
+            assistantsV1ServiceCreateFeedbackRequest
         );
     }
-
 
     public static FeedbackReader reader(final String pathId) {
-        return new FeedbackReader(
-                pathId
-        );
+        return new FeedbackReader(pathId);
     }
 
-
-    @JsonDeserialize(builder = AssistantsV1ServiceCreateFeedbackRequest.Builder.class)
+    @JsonDeserialize(
+        builder = AssistantsV1ServiceCreateFeedbackRequest.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCreateFeedbackRequest {
@@ -93,7 +84,6 @@ public class Feedback extends Resource {
         @Getter
         private final String text;
 
-
         private AssistantsV1ServiceCreateFeedbackRequest(Builder builder) {
             this.messageId = builder.messageId;
             this.score = builder.score;
@@ -105,12 +95,19 @@ public class Feedback extends Resource {
             return new Builder(sessionId);
         }
 
-        public static AssistantsV1ServiceCreateFeedbackRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, AssistantsV1ServiceCreateFeedbackRequest.class);
+        public static AssistantsV1ServiceCreateFeedbackRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceCreateFeedbackRequest.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("message_id")
             private String messageId;
 
@@ -123,12 +120,31 @@ public class Feedback extends Resource {
             @JsonProperty("text")
             private String text;
 
-
             @JsonCreator
             public Builder(@JsonProperty("session_id") final String sessionId) {
                 this.sessionId = sessionId;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("message_id")
+            public Builder messageId(String messageId) {
+                this.messageId = messageId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("score")
+            public Builder score(Float score) {
+                this.score = score;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("text")
+            public Builder text(String text) {
+                this.text = text;
+                return this;
+            }
 
             public AssistantsV1ServiceCreateFeedbackRequest build() {
                 return new AssistantsV1ServiceCreateFeedbackRequest(this);
@@ -145,36 +161,33 @@ public class Feedback extends Resource {
                 return false;
             }
 
-            AssistantsV1ServiceCreateFeedbackRequest other = (AssistantsV1ServiceCreateFeedbackRequest) o;
+            AssistantsV1ServiceCreateFeedbackRequest other =
+                (AssistantsV1ServiceCreateFeedbackRequest) o;
             return (
-                    Objects.equals(messageId, other.messageId) &&
-                            Objects.equals(score, other.score) &&
-                            Objects.equals(sessionId, other.sessionId) &&
-                            Objects.equals(text, other.text)
+                Objects.equals(messageId, other.messageId) &&
+                Objects.equals(score, other.score) &&
+                Objects.equals(sessionId, other.sessionId) &&
+                Objects.equals(text, other.text)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    messageId,
-                    score,
-                    sessionId,
-                    text
-            );
+            return Objects.hash(messageId, score, sessionId, text);
         }
-
     }
-
 
     /**
      * Converts a JSON String into a Feedback object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Feedback object represented by the provided JSON
      */
-    public static Feedback fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Feedback fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Feedback.class);
@@ -189,11 +202,14 @@ public class Feedback extends Resource {
      * Converts a JSON InputStream into a Feedback object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Feedback object represented by the provided JSON
      */
-    public static Feedback fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Feedback fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Feedback.class);
@@ -216,42 +232,52 @@ public class Feedback extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String assistantId;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String id;
+
     @Getter
     private final String messageId;
+
     @Getter
     private final Float score;
+
     @Getter
     private final String sessionId;
+
     @Getter
     private final String text;
+
     @Getter
     private final String userSid;
 
     @JsonCreator
     private Feedback(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("assistant_id") final String assistantId,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("id") final String id,
-            @JsonProperty("message_id") final String messageId,
-            @JsonProperty("score") final Float score,
-            @JsonProperty("session_id") final String sessionId,
-            @JsonProperty("text") final String text,
-            @JsonProperty("user_sid") final String userSid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("assistant_id") final String assistantId,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("id") final String id,
+        @JsonProperty("message_id") final String messageId,
+        @JsonProperty("score") final Float score,
+        @JsonProperty("session_id") final String sessionId,
+        @JsonProperty("text") final String text,
+        @JsonProperty("user_sid") final String userSid
     ) {
         this.accountSid = accountSid;
         this.assistantId = assistantId;
@@ -277,35 +303,32 @@ public class Feedback extends Resource {
 
         Feedback other = (Feedback) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(assistantId, other.assistantId) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(id, other.id) &&
-                        Objects.equals(messageId, other.messageId) &&
-                        Objects.equals(score, other.score) &&
-                        Objects.equals(sessionId, other.sessionId) &&
-                        Objects.equals(text, other.text) &&
-                        Objects.equals(userSid, other.userSid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(assistantId, other.assistantId) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(id, other.id) &&
+            Objects.equals(messageId, other.messageId) &&
+            Objects.equals(score, other.score) &&
+            Objects.equals(sessionId, other.sessionId) &&
+            Objects.equals(text, other.text) &&
+            Objects.equals(userSid, other.userSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                assistantId,
-                dateCreated,
-                dateUpdated,
-                id,
-                messageId,
-                score,
-                sessionId,
-                text,
-                userSid
+            accountSid,
+            assistantId,
+            dateCreated,
+            dateUpdated,
+            id,
+            messageId,
+            score,
+            sessionId,
+            text,
+            userSid
         );
     }
-
-
 }
-

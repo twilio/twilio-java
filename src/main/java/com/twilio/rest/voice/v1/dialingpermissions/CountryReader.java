@@ -14,7 +14,9 @@
 
 package com.twilio.rest.voice.v1.dialingpermissions;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
+import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -25,11 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
-import com.twilio.base.Page;
-import com.twilio.base.ResourceSet;
 
 public class CountryReader extends Reader<Country> {
 
@@ -41,51 +39,48 @@ public class CountryReader extends Reader<Country> {
     private Boolean highRiskTollfraudNumbersEnabled;
     private Long pageSize;
 
-    public CountryReader() {
-    }
-
+    public CountryReader() {}
 
     public CountryReader setIsoCode(final String isoCode) {
         this.isoCode = isoCode;
         return this;
     }
 
-
     public CountryReader setContinent(final String continent) {
         this.continent = continent;
         return this;
     }
-
 
     public CountryReader setCountryCode(final String countryCode) {
         this.countryCode = countryCode;
         return this;
     }
 
-
-    public CountryReader setLowRiskNumbersEnabled(final Boolean lowRiskNumbersEnabled) {
+    public CountryReader setLowRiskNumbersEnabled(
+        final Boolean lowRiskNumbersEnabled
+    ) {
         this.lowRiskNumbersEnabled = lowRiskNumbersEnabled;
         return this;
     }
 
-
-    public CountryReader setHighRiskSpecialNumbersEnabled(final Boolean highRiskSpecialNumbersEnabled) {
+    public CountryReader setHighRiskSpecialNumbersEnabled(
+        final Boolean highRiskSpecialNumbersEnabled
+    ) {
         this.highRiskSpecialNumbersEnabled = highRiskSpecialNumbersEnabled;
         return this;
     }
 
-
-    public CountryReader setHighRiskTollfraudNumbersEnabled(final Boolean highRiskTollfraudNumbersEnabled) {
+    public CountryReader setHighRiskTollfraudNumbersEnabled(
+        final Boolean highRiskTollfraudNumbersEnabled
+    ) {
         this.highRiskTollfraudNumbersEnabled = highRiskTollfraudNumbersEnabled;
         return this;
     }
-
 
     public CountryReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<Country> read(final TwilioRestClient client) {
@@ -93,97 +88,149 @@ public class CountryReader extends Reader<Country> {
     }
 
     public Page<Country> firstPage(final TwilioRestClient client) {
-
         String path = "/v1/DialingPermissions/Countries";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.VOICE.toString(),
-                path
+            HttpMethod.GET,
+            Domains.VOICE.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<Country> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Country> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Country read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Country read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "content",
-                response.getContent(),
-                Country.class,
-                client.getObjectMapper());
+            "content",
+            response.getContent(),
+            Country.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<Country> previousPage(final Page<Country> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<Country> previousPage(
+        final Page<Country> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Country> nextPage(final Page<Country> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<Country> nextPage(
+        final Page<Country> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Country> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Country> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (isoCode != null) {
-            Serializer.toString(request, "IsoCode", isoCode, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "IsoCode",
+                isoCode,
+                ParameterType.QUERY
+            );
         }
-
 
         if (continent != null) {
-            Serializer.toString(request, "Continent", continent, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Continent",
+                continent,
+                ParameterType.QUERY
+            );
         }
-
 
         if (countryCode != null) {
-            Serializer.toString(request, "CountryCode", countryCode, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "CountryCode",
+                countryCode,
+                ParameterType.QUERY
+            );
         }
-
 
         if (lowRiskNumbersEnabled != null) {
-            Serializer.toString(request, "LowRiskNumbersEnabled", lowRiskNumbersEnabled, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "LowRiskNumbersEnabled",
+                lowRiskNumbersEnabled,
+                ParameterType.QUERY
+            );
         }
-
 
         if (highRiskSpecialNumbersEnabled != null) {
-            Serializer.toString(request, "HighRiskSpecialNumbersEnabled", highRiskSpecialNumbersEnabled, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "HighRiskSpecialNumbersEnabled",
+                highRiskSpecialNumbersEnabled,
+                ParameterType.QUERY
+            );
         }
-
 
         if (highRiskTollfraudNumbersEnabled != null) {
-            Serializer.toString(request, "HighRiskTollfraudNumbersEnabled", highRiskTollfraudNumbersEnabled, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "HighRiskTollfraudNumbersEnabled",
+                highRiskTollfraudNumbersEnabled,
+                ParameterType.QUERY
+            );
         }
-
 
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
-
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

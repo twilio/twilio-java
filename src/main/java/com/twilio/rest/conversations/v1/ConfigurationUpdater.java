@@ -26,54 +26,53 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class ConfigurationUpdater extends Updater<Configuration> {
+
     private String defaultChatServiceSid;
     private String defaultMessagingServiceSid;
     private String defaultInactiveTimer;
     private String defaultClosedTimer;
 
-    public ConfigurationUpdater() {
-    }
+    public ConfigurationUpdater() {}
 
-
-    public ConfigurationUpdater setDefaultChatServiceSid(final String defaultChatServiceSid) {
+    public ConfigurationUpdater setDefaultChatServiceSid(
+        final String defaultChatServiceSid
+    ) {
         this.defaultChatServiceSid = defaultChatServiceSid;
         return this;
     }
 
-
-    public ConfigurationUpdater setDefaultMessagingServiceSid(final String defaultMessagingServiceSid) {
+    public ConfigurationUpdater setDefaultMessagingServiceSid(
+        final String defaultMessagingServiceSid
+    ) {
         this.defaultMessagingServiceSid = defaultMessagingServiceSid;
         return this;
     }
 
-
-    public ConfigurationUpdater setDefaultInactiveTimer(final String defaultInactiveTimer) {
+    public ConfigurationUpdater setDefaultInactiveTimer(
+        final String defaultInactiveTimer
+    ) {
         this.defaultInactiveTimer = defaultInactiveTimer;
         return this;
     }
 
-
-    public ConfigurationUpdater setDefaultClosedTimer(final String defaultClosedTimer) {
+    public ConfigurationUpdater setDefaultClosedTimer(
+        final String defaultClosedTimer
+    ) {
         this.defaultClosedTimer = defaultClosedTimer;
         return this;
     }
 
-
     @Override
     public Configuration update(final TwilioRestClient client) {
-
         String path = "/v1/Configuration";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.CONVERSATIONS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.CONVERSATIONS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -81,42 +80,64 @@ public class ConfigurationUpdater extends Updater<Configuration> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Configuration update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Configuration update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Configuration.fromJson(response.getStream(), client.getObjectMapper());
+        return Configuration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (defaultChatServiceSid != null) {
-            Serializer.toString(request, "DefaultChatServiceSid", defaultChatServiceSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DefaultChatServiceSid",
+                defaultChatServiceSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (defaultMessagingServiceSid != null) {
-            Serializer.toString(request, "DefaultMessagingServiceSid", defaultMessagingServiceSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DefaultMessagingServiceSid",
+                defaultMessagingServiceSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (defaultInactiveTimer != null) {
-            Serializer.toString(request, "DefaultInactiveTimer", defaultInactiveTimer, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DefaultInactiveTimer",
+                defaultInactiveTimer,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (defaultClosedTimer != null) {
-            Serializer.toString(request, "DefaultClosedTimer", defaultClosedTimer, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DefaultClosedTimer",
+                defaultClosedTimer,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

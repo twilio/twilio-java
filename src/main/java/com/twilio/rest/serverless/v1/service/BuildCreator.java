@@ -14,7 +14,6 @@
 
 package com.twilio.rest.serverless.v1.service;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,11 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
-import java.util.List;
-
 import com.twilio.type.*;
+import java.util.List;
 
 public class BuildCreator extends Creator<Build> {
 
@@ -46,7 +42,6 @@ public class BuildCreator extends Creator<Build> {
         this.pathServiceSid = pathServiceSid;
     }
 
-
     public BuildCreator setAssetVersions(final List<String> assetVersions) {
         this.assetVersions = assetVersions;
         return this;
@@ -56,7 +51,9 @@ public class BuildCreator extends Creator<Build> {
         return setAssetVersions(Promoter.listOfOne(assetVersions));
     }
 
-    public BuildCreator setFunctionVersions(final List<String> functionVersions) {
+    public BuildCreator setFunctionVersions(
+        final List<String> functionVersions
+    ) {
         this.functionVersions = functionVersions;
         return this;
     }
@@ -70,25 +67,25 @@ public class BuildCreator extends Creator<Build> {
         return this;
     }
 
-
     public BuildCreator setRuntime(final String runtime) {
         this.runtime = runtime;
         return this;
     }
 
-
     @Override
     public Build create(final TwilioRestClient client) {
-
         String path = "/v1/Services/{ServiceSid}/Builds";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.SERVERLESS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.SERVERLESS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -96,14 +93,19 @@ public class BuildCreator extends Creator<Build> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Build creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Build creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -112,31 +114,44 @@ public class BuildCreator extends Creator<Build> {
     }
 
     private void addPostParams(final Request request) {
-
-
         if (assetVersions != null) {
             for (String param : assetVersions) {
-                Serializer.toString(request, "AssetVersions", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "AssetVersions",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
-
 
         if (functionVersions != null) {
             for (String param : functionVersions) {
-                Serializer.toString(request, "FunctionVersions", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "FunctionVersions",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (dependencies != null) {
-            Serializer.toString(request, "Dependencies", dependencies, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Dependencies",
+                dependencies,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (runtime != null) {
-            Serializer.toString(request, "Runtime", runtime, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Runtime",
+                runtime,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

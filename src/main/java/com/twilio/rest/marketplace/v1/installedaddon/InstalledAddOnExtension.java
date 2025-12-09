@@ -17,68 +17,67 @@ package com.twilio.rest.marketplace.v1.installedaddon;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.twilio.exception.ApiConnectionException;
-import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
-import java.io.InputStream;
-import java.net.URI;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-
+import com.twilio.base.Resource;
+import com.twilio.exception.ApiConnectionException;
+import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InstalledAddOnExtension extends Resource {
 
-
-    public static InstalledAddOnExtensionFetcher fetcher(final String pathInstalledAddOnSid, final String pathSid) {
+    public static InstalledAddOnExtensionFetcher fetcher(
+        final String pathInstalledAddOnSid,
+        final String pathSid
+    ) {
         return new InstalledAddOnExtensionFetcher(
-                pathInstalledAddOnSid, pathSid
+            pathInstalledAddOnSid,
+            pathSid
         );
     }
 
-
-    public static InstalledAddOnExtensionReader reader(final String pathInstalledAddOnSid) {
-        return new InstalledAddOnExtensionReader(
-                pathInstalledAddOnSid
-        );
+    public static InstalledAddOnExtensionReader reader(
+        final String pathInstalledAddOnSid
+    ) {
+        return new InstalledAddOnExtensionReader(pathInstalledAddOnSid);
     }
 
-
-    public static InstalledAddOnExtensionUpdater updater(final String pathInstalledAddOnSid, final String pathSid, final Boolean enabled) {
+    public static InstalledAddOnExtensionUpdater updater(
+        final String pathInstalledAddOnSid,
+        final String pathSid,
+        final Boolean enabled
+    ) {
         return new InstalledAddOnExtensionUpdater(
-                pathInstalledAddOnSid, pathSid, enabled
+            pathInstalledAddOnSid,
+            pathSid,
+            enabled
         );
     }
-
 
     /**
      * Converts a JSON String into a InstalledAddOnExtension object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return InstalledAddOnExtension object represented by the provided JSON
      */
-    public static InstalledAddOnExtension fromJson(final String json, final ObjectMapper objectMapper) {
+    public static InstalledAddOnExtension fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InstalledAddOnExtension.class);
@@ -93,11 +92,14 @@ public class InstalledAddOnExtension extends Resource {
      * Converts a JSON InputStream into a InstalledAddOnExtension object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return InstalledAddOnExtension object represented by the provided JSON
      */
-    public static InstalledAddOnExtension fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static InstalledAddOnExtension fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InstalledAddOnExtension.class);
@@ -120,31 +122,36 @@ public class InstalledAddOnExtension extends Resource {
         }
     }
 
-
     @Getter
     private final Boolean enabled;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String installedAddOnSid;
+
     @Getter
     private final String productName;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String uniqueName;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private InstalledAddOnExtension(
-            @JsonProperty("enabled") final Boolean enabled,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("installed_add_on_sid") final String installedAddOnSid,
-            @JsonProperty("product_name") final String productName,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("unique_name") final String uniqueName,
-            @JsonProperty("url") final URI url
+        @JsonProperty("enabled") final Boolean enabled,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("installed_add_on_sid") final String installedAddOnSid,
+        @JsonProperty("product_name") final String productName,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url
     ) {
         this.enabled = enabled;
         this.friendlyName = friendlyName;
@@ -167,29 +174,26 @@ public class InstalledAddOnExtension extends Resource {
 
         InstalledAddOnExtension other = (InstalledAddOnExtension) o;
         return (
-                Objects.equals(enabled, other.enabled) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(installedAddOnSid, other.installedAddOnSid) &&
-                        Objects.equals(productName, other.productName) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(uniqueName, other.uniqueName) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(enabled, other.enabled) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(installedAddOnSid, other.installedAddOnSid) &&
+            Objects.equals(productName, other.productName) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                enabled,
-                friendlyName,
-                installedAddOnSid,
-                productName,
-                sid,
-                uniqueName,
-                url
+            enabled,
+            friendlyName,
+            installedAddOnSid,
+            productName,
+            sid,
+            uniqueName,
+            url
         );
     }
-
-
 }
-

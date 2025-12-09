@@ -14,7 +14,9 @@
 
 package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtypecalls;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
+import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -25,104 +27,151 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
-import com.twilio.base.Page;
-import com.twilio.base.ResourceSet;
 
-public class AuthCallsIpAccessControlListMappingReader extends Reader<AuthCallsIpAccessControlListMapping> {
+public class AuthCallsIpAccessControlListMappingReader
+    extends Reader<AuthCallsIpAccessControlListMapping> {
 
     private String pathAccountSid;
     private String pathDomainSid;
     private Long pageSize;
 
-    public AuthCallsIpAccessControlListMappingReader(final String pathDomainSid) {
+    public AuthCallsIpAccessControlListMappingReader(
+        final String pathDomainSid
+    ) {
         this.pathDomainSid = pathDomainSid;
     }
 
-    public AuthCallsIpAccessControlListMappingReader(final String pathAccountSid, final String pathDomainSid) {
+    public AuthCallsIpAccessControlListMappingReader(
+        final String pathAccountSid,
+        final String pathDomainSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
     }
 
-
-    public AuthCallsIpAccessControlListMappingReader setPageSize(final Long pageSize) {
+    public AuthCallsIpAccessControlListMappingReader setPageSize(
+        final Long pageSize
+    ) {
         this.pageSize = pageSize;
         return this;
     }
 
-
     @Override
-    public ResourceSet<AuthCallsIpAccessControlListMapping> read(final TwilioRestClient client) {
+    public ResourceSet<AuthCallsIpAccessControlListMapping> read(
+        final TwilioRestClient client
+    ) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<AuthCallsIpAccessControlListMapping> firstPage(final TwilioRestClient client) {
+    public Page<AuthCallsIpAccessControlListMapping> firstPage(
+        final TwilioRestClient client
+    ) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
-        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "DomainSid" + "}",
+                this.pathDomainSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.API.toString(),
-                path
+            HttpMethod.GET,
+            Domains.API.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<AuthCallsIpAccessControlListMapping> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<AuthCallsIpAccessControlListMapping> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("AuthCallsIpAccessControlListMapping read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AuthCallsIpAccessControlListMapping read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "contents",
-                response.getContent(),
-                AuthCallsIpAccessControlListMapping.class,
-                client.getObjectMapper());
+            "contents",
+            response.getContent(),
+            AuthCallsIpAccessControlListMapping.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<AuthCallsIpAccessControlListMapping> previousPage(final Page<AuthCallsIpAccessControlListMapping> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<AuthCallsIpAccessControlListMapping> previousPage(
+        final Page<AuthCallsIpAccessControlListMapping> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<AuthCallsIpAccessControlListMapping> nextPage(final Page<AuthCallsIpAccessControlListMapping> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<AuthCallsIpAccessControlListMapping> nextPage(
+        final Page<AuthCallsIpAccessControlListMapping> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<AuthCallsIpAccessControlListMapping> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<AuthCallsIpAccessControlListMapping> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
-
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

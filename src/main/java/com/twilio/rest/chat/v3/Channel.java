@@ -17,48 +17,37 @@ package com.twilio.rest.chat.v3;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Channel extends Resource {
 
-
-    public static ChannelUpdater updater(final String pathServiceSid, final String pathSid) {
-        return new ChannelUpdater(
-                pathServiceSid, pathSid
-        );
+    public static ChannelUpdater updater(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new ChannelUpdater(pathServiceSid, pathSid);
     }
-
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -100,15 +89,17 @@ public class Channel extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Channel object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Channel object represented by the provided JSON
      */
-    public static Channel fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Channel fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Channel.class);
@@ -123,11 +114,14 @@ public class Channel extends Resource {
      * Converts a JSON InputStream into a Channel object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Channel object represented by the provided JSON
      */
-    public static Channel fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Channel fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Channel.class);
@@ -150,54 +144,68 @@ public class Channel extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String attributes;
+
     @Getter
     private final String createdBy;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final Integer membersCount;
+
     @Getter
     private final Integer messagesCount;
+
     @Getter
     private final String messagingServiceSid;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Channel.ChannelType type;
+
     @Getter
     private final String uniqueName;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Channel(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("attributes") final String attributes,
-            @JsonProperty("created_by") final String createdBy,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("members_count") final Integer membersCount,
-            @JsonProperty("messages_count") final Integer messagesCount,
-            @JsonProperty("messaging_service_sid") final String messagingServiceSid,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("type") final Channel.ChannelType type,
-            @JsonProperty("unique_name") final String uniqueName,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("attributes") final String attributes,
+        @JsonProperty("created_by") final String createdBy,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("members_count") final Integer membersCount,
+        @JsonProperty("messages_count") final Integer messagesCount,
+        @JsonProperty("messaging_service_sid") final String messagingServiceSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("type") final Channel.ChannelType type,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.attributes = attributes;
@@ -227,43 +235,40 @@ public class Channel extends Resource {
 
         Channel other = (Channel) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(attributes, other.attributes) &&
-                        Objects.equals(createdBy, other.createdBy) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(membersCount, other.membersCount) &&
-                        Objects.equals(messagesCount, other.messagesCount) &&
-                        Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(type, other.type) &&
-                        Objects.equals(uniqueName, other.uniqueName) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(attributes, other.attributes) &&
+            Objects.equals(createdBy, other.createdBy) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(membersCount, other.membersCount) &&
+            Objects.equals(messagesCount, other.messagesCount) &&
+            Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                attributes,
-                createdBy,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                membersCount,
-                messagesCount,
-                messagingServiceSid,
-                serviceSid,
-                sid,
-                type,
-                uniqueName,
-                url
+            accountSid,
+            attributes,
+            createdBy,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            membersCount,
+            messagesCount,
+            messagingServiceSid,
+            serviceSid,
+            sid,
+            type,
+            uniqueName,
+            url
         );
     }
-
-
 }
-

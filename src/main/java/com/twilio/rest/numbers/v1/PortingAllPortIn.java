@@ -17,53 +17,42 @@ package com.twilio.rest.numbers.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.twilio.exception.ApiConnectionException;
-import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
-import java.io.InputStream;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-
+import com.twilio.base.Resource;
+import com.twilio.exception.ApiConnectionException;
+import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PortingAllPortIn extends Resource {
 
-
     public static PortingAllPortInReader reader() {
-        return new PortingAllPortInReader(
-
-        );
+        return new PortingAllPortInReader();
     }
-
 
     /**
      * Converts a JSON String into a PortingAllPortIn object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return PortingAllPortIn object represented by the provided JSON
      */
-    public static PortingAllPortIn fromJson(final String json, final ObjectMapper objectMapper) {
+    public static PortingAllPortIn fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PortingAllPortIn.class);
@@ -78,11 +67,14 @@ public class PortingAllPortIn extends Resource {
      * Converts a JSON InputStream into a PortingAllPortIn object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return PortingAllPortIn object represented by the provided JSON
      */
-    public static PortingAllPortIn fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static PortingAllPortIn fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PortingAllPortIn.class);
@@ -105,28 +97,38 @@ public class PortingAllPortIn extends Resource {
         }
     }
 
-
     @Getter
     private final Integer phoneNumbersPorted;
+
     @Getter
     private final Integer phoneNumbersRequested;
+
     @Getter
     private final String portInRequestSid;
+
     @Getter
     private final String portInRequestStatus;
+
     @Getter
     private final String statusLastUpdatedTimestamp;
+
     @Getter
     private final String suggestedAction;
 
     @JsonCreator
     private PortingAllPortIn(
-            @JsonProperty("phone_numbers_ported") final Integer phoneNumbersPorted,
-            @JsonProperty("phone_numbers_requested") final Integer phoneNumbersRequested,
-            @JsonProperty("port_in_request_sid") final String portInRequestSid,
-            @JsonProperty("port_in_request_status") final String portInRequestStatus,
-            @JsonProperty("status_last_updated_timestamp") final String statusLastUpdatedTimestamp,
-            @JsonProperty("suggested_action") final String suggestedAction
+        @JsonProperty("phone_numbers_ported") final Integer phoneNumbersPorted,
+        @JsonProperty(
+            "phone_numbers_requested"
+        ) final Integer phoneNumbersRequested,
+        @JsonProperty("port_in_request_sid") final String portInRequestSid,
+        @JsonProperty(
+            "port_in_request_status"
+        ) final String portInRequestStatus,
+        @JsonProperty(
+            "status_last_updated_timestamp"
+        ) final String statusLastUpdatedTimestamp,
+        @JsonProperty("suggested_action") final String suggestedAction
     ) {
         this.phoneNumbersPorted = phoneNumbersPorted;
         this.phoneNumbersRequested = phoneNumbersRequested;
@@ -148,27 +150,30 @@ public class PortingAllPortIn extends Resource {
 
         PortingAllPortIn other = (PortingAllPortIn) o;
         return (
-                Objects.equals(phoneNumbersPorted, other.phoneNumbersPorted) &&
-                        Objects.equals(phoneNumbersRequested, other.phoneNumbersRequested) &&
-                        Objects.equals(portInRequestSid, other.portInRequestSid) &&
-                        Objects.equals(portInRequestStatus, other.portInRequestStatus) &&
-                        Objects.equals(statusLastUpdatedTimestamp, other.statusLastUpdatedTimestamp) &&
-                        Objects.equals(suggestedAction, other.suggestedAction)
+            Objects.equals(phoneNumbersPorted, other.phoneNumbersPorted) &&
+            Objects.equals(
+                phoneNumbersRequested,
+                other.phoneNumbersRequested
+            ) &&
+            Objects.equals(portInRequestSid, other.portInRequestSid) &&
+            Objects.equals(portInRequestStatus, other.portInRequestStatus) &&
+            Objects.equals(
+                statusLastUpdatedTimestamp,
+                other.statusLastUpdatedTimestamp
+            ) &&
+            Objects.equals(suggestedAction, other.suggestedAction)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                phoneNumbersPorted,
-                phoneNumbersRequested,
-                portInRequestSid,
-                portInRequestStatus,
-                statusLastUpdatedTimestamp,
-                suggestedAction
+            phoneNumbersPorted,
+            phoneNumbersRequested,
+            portInRequestSid,
+            portInRequestStatus,
+            statusLastUpdatedTimestamp,
+            suggestedAction
         );
     }
-
-
 }
-

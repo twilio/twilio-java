@@ -17,61 +17,53 @@ package com.twilio.rest.intelligence.v2;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.twilio.exception.ApiConnectionException;
-import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
-import java.io.InputStream;
-import java.net.URI;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-
+import com.twilio.base.Resource;
+import com.twilio.exception.ApiConnectionException;
+import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class OperatorAttachment extends Resource {
 
-
-    public static OperatorAttachmentCreator creator(final String pathServiceSid, final String pathOperatorSid) {
-        return new OperatorAttachmentCreator(
-                pathServiceSid, pathOperatorSid
-        );
+    public static OperatorAttachmentCreator creator(
+        final String pathServiceSid,
+        final String pathOperatorSid
+    ) {
+        return new OperatorAttachmentCreator(pathServiceSid, pathOperatorSid);
     }
 
-
-    public static OperatorAttachmentDeleter deleter(final String pathServiceSid, final String pathOperatorSid) {
-        return new OperatorAttachmentDeleter(
-                pathServiceSid, pathOperatorSid
-        );
+    public static OperatorAttachmentDeleter deleter(
+        final String pathServiceSid,
+        final String pathOperatorSid
+    ) {
+        return new OperatorAttachmentDeleter(pathServiceSid, pathOperatorSid);
     }
-
 
     /**
      * Converts a JSON String into a OperatorAttachment object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return OperatorAttachment object represented by the provided JSON
      */
-    public static OperatorAttachment fromJson(final String json, final ObjectMapper objectMapper) {
+    public static OperatorAttachment fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, OperatorAttachment.class);
@@ -86,11 +78,14 @@ public class OperatorAttachment extends Resource {
      * Converts a JSON InputStream into a OperatorAttachment object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return OperatorAttachment object represented by the provided JSON
      */
-    public static OperatorAttachment fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static OperatorAttachment fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, OperatorAttachment.class);
@@ -113,19 +108,20 @@ public class OperatorAttachment extends Resource {
         }
     }
 
-
     @Getter
     private final String operatorSid;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private OperatorAttachment(
-            @JsonProperty("operator_sid") final String operatorSid,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("operator_sid") final String operatorSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("url") final URI url
     ) {
         this.operatorSid = operatorSid;
         this.serviceSid = serviceSid;
@@ -144,21 +140,14 @@ public class OperatorAttachment extends Resource {
 
         OperatorAttachment other = (OperatorAttachment) o;
         return (
-                Objects.equals(operatorSid, other.operatorSid) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(operatorSid, other.operatorSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                operatorSid,
-                serviceSid,
-                url
-        );
+        return Objects.hash(operatorSid, serviceSid, url);
     }
-
-
 }
-

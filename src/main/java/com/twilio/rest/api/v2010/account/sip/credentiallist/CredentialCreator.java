@@ -14,7 +14,6 @@
 
 package com.twilio.rest.api.v2010.account.sip.credentiallist;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class CredentialCreator extends Creator<Credential> {
@@ -38,46 +35,62 @@ public class CredentialCreator extends Creator<Credential> {
     private String username;
     private String password;
 
-    public CredentialCreator(final String pathCredentialListSid, final String username, final String password) {
+    public CredentialCreator(
+        final String pathCredentialListSid,
+        final String username,
+        final String password
+    ) {
         this.pathCredentialListSid = pathCredentialListSid;
         this.username = username;
         this.password = password;
     }
 
-    public CredentialCreator(final String pathAccountSid, final String pathCredentialListSid, final String username, final String password) {
+    public CredentialCreator(
+        final String pathAccountSid,
+        final String pathCredentialListSid,
+        final String username,
+        final String password
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathCredentialListSid = pathCredentialListSid;
         this.username = username;
         this.password = password;
     }
 
-
     public CredentialCreator setUsername(final String username) {
         this.username = username;
         return this;
     }
-
 
     public CredentialCreator setPassword(final String password) {
         this.password = password;
         return this;
     }
 
-
     @Override
     public Credential create(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
-        path = path.replace("{" + "CredentialListSid" + "}", this.pathCredentialListSid.toString());
-
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "CredentialListSid" + "}",
+                this.pathCredentialListSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.API.toString(),
-                path
+            HttpMethod.POST,
+            Domains.API.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -85,32 +98,46 @@ public class CredentialCreator extends Creator<Credential> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Credential creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Credential creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Credential.fromJson(response.getStream(), client.getObjectMapper());
+        return Credential.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (username != null) {
-            Serializer.toString(request, "Username", username, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Username",
+                username,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (password != null) {
-            Serializer.toString(request, "Password", password, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Password",
+                password,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

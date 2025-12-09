@@ -17,55 +17,44 @@ package com.twilio.rest.assistants.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Policy extends Resource {
 
-
     public static PolicyReader reader() {
-        return new PolicyReader(
-
-        );
+        return new PolicyReader();
     }
-
 
     /**
      * Converts a JSON String into a Policy object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Policy object represented by the provided JSON
      */
-    public static Policy fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Policy fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Policy.class);
@@ -80,11 +69,14 @@ public class Policy extends Resource {
      * Converts a JSON InputStream into a Policy object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Policy object represented by the provided JSON
      */
-    public static Policy fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Policy fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Policy.class);
@@ -107,39 +99,48 @@ public class Policy extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String description;
+
     @Getter
     private final String id;
+
     @Getter
     private final String name;
+
     @Getter
     private final Object policyDetails;
+
     @Getter
     private final String type;
+
     @Getter
     private final String userSid;
 
     @JsonCreator
     private Policy(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("description") final String description,
-            @JsonProperty("id") final String id,
-            @JsonProperty("name") final String name,
-            @JsonProperty("policy_details") final Object policyDetails,
-            @JsonProperty("type") final String type,
-            @JsonProperty("user_sid") final String userSid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("description") final String description,
+        @JsonProperty("id") final String id,
+        @JsonProperty("name") final String name,
+        @JsonProperty("policy_details") final Object policyDetails,
+        @JsonProperty("type") final String type,
+        @JsonProperty("user_sid") final String userSid
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -164,33 +165,30 @@ public class Policy extends Resource {
 
         Policy other = (Policy) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(description, other.description) &&
-                        Objects.equals(id, other.id) &&
-                        Objects.equals(name, other.name) &&
-                        Objects.equals(policyDetails, other.policyDetails) &&
-                        Objects.equals(type, other.type) &&
-                        Objects.equals(userSid, other.userSid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(id, other.id) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(policyDetails, other.policyDetails) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(userSid, other.userSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                description,
-                id,
-                name,
-                policyDetails,
-                type,
-                userSid
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            description,
+            id,
+            name,
+            policyDetails,
+            type,
+            userSid
         );
     }
-
-
 }
-

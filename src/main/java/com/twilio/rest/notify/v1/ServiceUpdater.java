@@ -26,11 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class ServiceUpdater extends Updater<Service> {
+
     private String pathSid;
     private String friendlyName;
     private String apnCredentialSid;
@@ -51,103 +50,106 @@ public class ServiceUpdater extends Updater<Service> {
         this.pathSid = pathSid;
     }
 
-
     public ServiceUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-
 
     public ServiceUpdater setApnCredentialSid(final String apnCredentialSid) {
         this.apnCredentialSid = apnCredentialSid;
         return this;
     }
 
-
     public ServiceUpdater setGcmCredentialSid(final String gcmCredentialSid) {
         this.gcmCredentialSid = gcmCredentialSid;
         return this;
     }
 
-
-    public ServiceUpdater setMessagingServiceSid(final String messagingServiceSid) {
+    public ServiceUpdater setMessagingServiceSid(
+        final String messagingServiceSid
+    ) {
         this.messagingServiceSid = messagingServiceSid;
         return this;
     }
 
-
-    public ServiceUpdater setFacebookMessengerPageId(final String facebookMessengerPageId) {
+    public ServiceUpdater setFacebookMessengerPageId(
+        final String facebookMessengerPageId
+    ) {
         this.facebookMessengerPageId = facebookMessengerPageId;
         return this;
     }
 
-
-    public ServiceUpdater setDefaultApnNotificationProtocolVersion(final String defaultApnNotificationProtocolVersion) {
-        this.defaultApnNotificationProtocolVersion = defaultApnNotificationProtocolVersion;
+    public ServiceUpdater setDefaultApnNotificationProtocolVersion(
+        final String defaultApnNotificationProtocolVersion
+    ) {
+        this.defaultApnNotificationProtocolVersion =
+            defaultApnNotificationProtocolVersion;
         return this;
     }
 
-
-    public ServiceUpdater setDefaultGcmNotificationProtocolVersion(final String defaultGcmNotificationProtocolVersion) {
-        this.defaultGcmNotificationProtocolVersion = defaultGcmNotificationProtocolVersion;
+    public ServiceUpdater setDefaultGcmNotificationProtocolVersion(
+        final String defaultGcmNotificationProtocolVersion
+    ) {
+        this.defaultGcmNotificationProtocolVersion =
+            defaultGcmNotificationProtocolVersion;
         return this;
     }
-
 
     public ServiceUpdater setFcmCredentialSid(final String fcmCredentialSid) {
         this.fcmCredentialSid = fcmCredentialSid;
         return this;
     }
 
-
-    public ServiceUpdater setDefaultFcmNotificationProtocolVersion(final String defaultFcmNotificationProtocolVersion) {
-        this.defaultFcmNotificationProtocolVersion = defaultFcmNotificationProtocolVersion;
+    public ServiceUpdater setDefaultFcmNotificationProtocolVersion(
+        final String defaultFcmNotificationProtocolVersion
+    ) {
+        this.defaultFcmNotificationProtocolVersion =
+            defaultFcmNotificationProtocolVersion;
         return this;
     }
-
 
     public ServiceUpdater setLogEnabled(final Boolean logEnabled) {
         this.logEnabled = logEnabled;
         return this;
     }
 
-
     public ServiceUpdater setAlexaSkillId(final String alexaSkillId) {
         this.alexaSkillId = alexaSkillId;
         return this;
     }
 
-
-    public ServiceUpdater setDefaultAlexaNotificationProtocolVersion(final String defaultAlexaNotificationProtocolVersion) {
-        this.defaultAlexaNotificationProtocolVersion = defaultAlexaNotificationProtocolVersion;
+    public ServiceUpdater setDefaultAlexaNotificationProtocolVersion(
+        final String defaultAlexaNotificationProtocolVersion
+    ) {
+        this.defaultAlexaNotificationProtocolVersion =
+            defaultAlexaNotificationProtocolVersion;
         return this;
     }
 
-
-    public ServiceUpdater setDeliveryCallbackUrl(final String deliveryCallbackUrl) {
+    public ServiceUpdater setDeliveryCallbackUrl(
+        final String deliveryCallbackUrl
+    ) {
         this.deliveryCallbackUrl = deliveryCallbackUrl;
         return this;
     }
 
-
-    public ServiceUpdater setDeliveryCallbackEnabled(final Boolean deliveryCallbackEnabled) {
+    public ServiceUpdater setDeliveryCallbackEnabled(
+        final Boolean deliveryCallbackEnabled
+    ) {
         this.deliveryCallbackEnabled = deliveryCallbackEnabled;
         return this;
     }
 
-
     @Override
     public Service update(final TwilioRestClient client) {
-
         String path = "/v1/Services/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.NOTIFY.toString(),
-                path
+            HttpMethod.POST,
+            Domains.NOTIFY.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -155,14 +157,19 @@ public class ServiceUpdater extends Updater<Service> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Service update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Service update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -171,76 +178,130 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     private void addPostParams(final Request request) {
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (apnCredentialSid != null) {
-            Serializer.toString(request, "ApnCredentialSid", apnCredentialSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ApnCredentialSid",
+                apnCredentialSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (gcmCredentialSid != null) {
-            Serializer.toString(request, "GcmCredentialSid", gcmCredentialSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "GcmCredentialSid",
+                gcmCredentialSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (messagingServiceSid != null) {
-            Serializer.toString(request, "MessagingServiceSid", messagingServiceSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MessagingServiceSid",
+                messagingServiceSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (facebookMessengerPageId != null) {
-            Serializer.toString(request, "FacebookMessengerPageId", facebookMessengerPageId, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FacebookMessengerPageId",
+                facebookMessengerPageId,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (defaultApnNotificationProtocolVersion != null) {
-            Serializer.toString(request, "DefaultApnNotificationProtocolVersion", defaultApnNotificationProtocolVersion, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DefaultApnNotificationProtocolVersion",
+                defaultApnNotificationProtocolVersion,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (defaultGcmNotificationProtocolVersion != null) {
-            Serializer.toString(request, "DefaultGcmNotificationProtocolVersion", defaultGcmNotificationProtocolVersion, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DefaultGcmNotificationProtocolVersion",
+                defaultGcmNotificationProtocolVersion,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (fcmCredentialSid != null) {
-            Serializer.toString(request, "FcmCredentialSid", fcmCredentialSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FcmCredentialSid",
+                fcmCredentialSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (defaultFcmNotificationProtocolVersion != null) {
-            Serializer.toString(request, "DefaultFcmNotificationProtocolVersion", defaultFcmNotificationProtocolVersion, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DefaultFcmNotificationProtocolVersion",
+                defaultFcmNotificationProtocolVersion,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (logEnabled != null) {
-            Serializer.toString(request, "LogEnabled", logEnabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "LogEnabled",
+                logEnabled,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (alexaSkillId != null) {
-            Serializer.toString(request, "AlexaSkillId", alexaSkillId, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AlexaSkillId",
+                alexaSkillId,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (defaultAlexaNotificationProtocolVersion != null) {
-            Serializer.toString(request, "DefaultAlexaNotificationProtocolVersion", defaultAlexaNotificationProtocolVersion, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DefaultAlexaNotificationProtocolVersion",
+                defaultAlexaNotificationProtocolVersion,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (deliveryCallbackUrl != null) {
-            Serializer.toString(request, "DeliveryCallbackUrl", deliveryCallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DeliveryCallbackUrl",
+                deliveryCallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (deliveryCallbackEnabled != null) {
-            Serializer.toString(request, "DeliveryCallbackEnabled", deliveryCallbackEnabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DeliveryCallbackEnabled",
+                deliveryCallbackEnabled,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

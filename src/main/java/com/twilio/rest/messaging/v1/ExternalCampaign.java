@@ -17,55 +17,47 @@ package com.twilio.rest.messaging.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ExternalCampaign extends Resource {
 
-
-    public static ExternalCampaignCreator creator(final String campaignId, final String messagingServiceSid) {
-        return new ExternalCampaignCreator(
-                campaignId, messagingServiceSid
-        );
+    public static ExternalCampaignCreator creator(
+        final String campaignId,
+        final String messagingServiceSid
+    ) {
+        return new ExternalCampaignCreator(campaignId, messagingServiceSid);
     }
-
 
     /**
      * Converts a JSON String into a ExternalCampaign object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ExternalCampaign object represented by the provided JSON
      */
-    public static ExternalCampaign fromJson(final String json, final ObjectMapper objectMapper) {
+    public static ExternalCampaign fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ExternalCampaign.class);
@@ -80,11 +72,14 @@ public class ExternalCampaign extends Resource {
      * Converts a JSON InputStream into a ExternalCampaign object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ExternalCampaign object represented by the provided JSON
      */
-    public static ExternalCampaign fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static ExternalCampaign fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ExternalCampaign.class);
@@ -107,26 +102,30 @@ public class ExternalCampaign extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String campaignId;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final String messagingServiceSid;
+
     @Getter
     private final String sid;
 
     @JsonCreator
     private ExternalCampaign(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("campaign_id") final String campaignId,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("messaging_service_sid") final String messagingServiceSid,
-            @JsonProperty("sid") final String sid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("campaign_id") final String campaignId,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("messaging_service_sid") final String messagingServiceSid,
+        @JsonProperty("sid") final String sid
     ) {
         this.accountSid = accountSid;
         this.campaignId = campaignId;
@@ -147,25 +146,22 @@ public class ExternalCampaign extends Resource {
 
         ExternalCampaign other = (ExternalCampaign) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(campaignId, other.campaignId) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
-                        Objects.equals(sid, other.sid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(campaignId, other.campaignId) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
+            Objects.equals(sid, other.sid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                campaignId,
-                dateCreated,
-                messagingServiceSid,
-                sid
+            accountSid,
+            campaignId,
+            dateCreated,
+            messagingServiceSid,
+            sid
         );
     }
-
-
 }
-

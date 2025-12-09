@@ -17,55 +17,43 @@ package com.twilio.rest.intelligence.v2.transcript;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.twilio.exception.ApiConnectionException;
-import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.util.List;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-
+import com.twilio.base.Resource;
+import com.twilio.exception.ApiConnectionException;
+import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Sentence extends Resource {
 
-
     public static SentenceReader reader(final String pathTranscriptSid) {
-        return new SentenceReader(
-                pathTranscriptSid
-        );
+        return new SentenceReader(pathTranscriptSid);
     }
-
 
     /**
      * Converts a JSON String into a Sentence object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Sentence object represented by the provided JSON
      */
-    public static Sentence fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Sentence fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Sentence.class);
@@ -80,11 +68,14 @@ public class Sentence extends Resource {
      * Converts a JSON InputStream into a Sentence object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Sentence object represented by the provided JSON
      */
-    public static Sentence fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Sentence fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Sentence.class);
@@ -107,34 +98,40 @@ public class Sentence extends Resource {
         }
     }
 
+    @Getter
+    private final String confidence;
 
     @Getter
-    private final BigDecimal confidence;
-    @Getter
-    private final BigDecimal endTime;
+    private final String endTime;
+
     @Getter
     private final Integer mediaChannel;
+
     @Getter
     private final Integer sentenceIndex;
+
     @Getter
     private final String sid;
+
     @Getter
-    private final BigDecimal startTime;
+    private final String startTime;
+
     @Getter
     private final String transcript;
+
     @Getter
     private final List<Object> words;
 
     @JsonCreator
     private Sentence(
-            @JsonProperty("confidence") final BigDecimal confidence,
-            @JsonProperty("end_time") final BigDecimal endTime,
-            @JsonProperty("media_channel") final Integer mediaChannel,
-            @JsonProperty("sentence_index") final Integer sentenceIndex,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("start_time") final BigDecimal startTime,
-            @JsonProperty("transcript") final String transcript,
-            @JsonProperty("words") final List<Object> words
+        @JsonProperty("confidence") final String confidence,
+        @JsonProperty("end_time") final String endTime,
+        @JsonProperty("media_channel") final Integer mediaChannel,
+        @JsonProperty("sentence_index") final Integer sentenceIndex,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("start_time") final String startTime,
+        @JsonProperty("transcript") final String transcript,
+        @JsonProperty("words") final List<Object> words
     ) {
         this.confidence = confidence;
         this.endTime = endTime;
@@ -158,31 +155,28 @@ public class Sentence extends Resource {
 
         Sentence other = (Sentence) o;
         return (
-                Objects.equals(confidence, other.confidence) &&
-                        Objects.equals(endTime, other.endTime) &&
-                        Objects.equals(mediaChannel, other.mediaChannel) &&
-                        Objects.equals(sentenceIndex, other.sentenceIndex) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(startTime, other.startTime) &&
-                        Objects.equals(transcript, other.transcript) &&
-                        Objects.equals(words, other.words)
+            Objects.equals(confidence, other.confidence) &&
+            Objects.equals(endTime, other.endTime) &&
+            Objects.equals(mediaChannel, other.mediaChannel) &&
+            Objects.equals(sentenceIndex, other.sentenceIndex) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(startTime, other.startTime) &&
+            Objects.equals(transcript, other.transcript) &&
+            Objects.equals(words, other.words)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                confidence,
-                endTime,
-                mediaChannel,
-                sentenceIndex,
-                sid,
-                startTime,
-                transcript,
-                words
+            confidence,
+            endTime,
+            mediaChannel,
+            sentenceIndex,
+            sid,
+            startTime,
+            transcript,
+            words
         );
     }
-
-
 }
-

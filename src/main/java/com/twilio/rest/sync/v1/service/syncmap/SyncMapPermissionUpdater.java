@@ -26,11 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
+
     private String pathServiceSid;
     private String pathMapSid;
     private String pathIdentity;
@@ -38,7 +37,14 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
     private Boolean write;
     private Boolean manage;
 
-    public SyncMapPermissionUpdater(final String pathServiceSid, final String pathMapSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage) {
+    public SyncMapPermissionUpdater(
+        final String pathServiceSid,
+        final String pathMapSid,
+        final String pathIdentity,
+        final Boolean read,
+        final Boolean write,
+        final Boolean manage
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
         this.pathIdentity = pathIdentity;
@@ -47,39 +53,39 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
         this.manage = manage;
     }
 
-
     public SyncMapPermissionUpdater setRead(final Boolean read) {
         this.read = read;
         return this;
     }
-
 
     public SyncMapPermissionUpdater setWrite(final Boolean write) {
         this.write = write;
         return this;
     }
 
-
     public SyncMapPermissionUpdater setManage(final Boolean manage) {
         this.manage = manage;
         return this;
     }
 
-
     @Override
     public SyncMapPermission update(final TwilioRestClient client) {
+        String path =
+            "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}";
 
-        String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}";
-
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
-        path = path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
-
+        path =
+            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.SYNC.toString(),
-                path
+            HttpMethod.POST,
+            Domains.SYNC.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -87,37 +93,55 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SyncMapPermission update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SyncMapPermission update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return SyncMapPermission.fromJson(response.getStream(), client.getObjectMapper());
+        return SyncMapPermission.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (read != null) {
-            Serializer.toString(request, "Read", read, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Read",
+                read,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (write != null) {
-            Serializer.toString(request, "Write", write, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Write",
+                write,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (manage != null) {
-            Serializer.toString(request, "Manage", manage, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Manage",
+                manage,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

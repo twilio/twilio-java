@@ -17,77 +17,60 @@ package com.twilio.rest.proxy.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Session extends Resource {
 
-
     public static SessionCreator creator(final String pathServiceSid) {
-        return new SessionCreator(
-                pathServiceSid
-        );
+        return new SessionCreator(pathServiceSid);
     }
 
-
-    public static SessionDeleter deleter(final String pathServiceSid, final String pathSid) {
-        return new SessionDeleter(
-                pathServiceSid, pathSid
-        );
+    public static SessionDeleter deleter(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new SessionDeleter(pathServiceSid, pathSid);
     }
 
-
-    public static SessionFetcher fetcher(final String pathServiceSid, final String pathSid) {
-        return new SessionFetcher(
-                pathServiceSid, pathSid
-        );
+    public static SessionFetcher fetcher(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new SessionFetcher(pathServiceSid, pathSid);
     }
-
 
     public static SessionReader reader(final String pathServiceSid) {
-        return new SessionReader(
-                pathServiceSid
-        );
+        return new SessionReader(pathServiceSid);
     }
 
-
-    public static SessionUpdater updater(final String pathServiceSid, final String pathSid) {
-        return new SessionUpdater(
-                pathServiceSid, pathSid
-        );
+    public static SessionUpdater updater(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new SessionUpdater(pathServiceSid, pathSid);
     }
-
 
     public enum Status {
         OPEN("open"),
@@ -133,15 +116,17 @@ public class Session extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Session object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Session object represented by the provided JSON
      */
-    public static Session fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Session fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Session.class);
@@ -156,11 +141,14 @@ public class Session extends Resource {
      * Converts a JSON InputStream into a Session object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Session object represented by the provided JSON
      */
-    public static Session fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Session fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Session.class);
@@ -183,64 +171,84 @@ public class Session extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String closedReason;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateEnded;
+
     @Getter
     private final ZonedDateTime dateExpiry;
+
     @Getter
     private final ZonedDateTime dateLastInteraction;
+
     @Getter
     private final ZonedDateTime dateStarted;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final Session.Mode mode;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Session.Status status;
+
     @Getter
     private final Integer ttl;
+
     @Getter
     private final String uniqueName;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Session(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("closed_reason") final String closedReason,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_ended")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateEnded,
-            @JsonProperty("date_expiry")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateExpiry,
-            @JsonProperty("date_last_interaction")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateLastInteraction,
-            @JsonProperty("date_started")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateStarted,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("mode") final Session.Mode mode,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final Session.Status status,
-            @JsonProperty("ttl") final Integer ttl,
-            @JsonProperty("unique_name") final String uniqueName,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("closed_reason") final String closedReason,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_ended") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateEnded,
+        @JsonProperty("date_expiry") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateExpiry,
+        @JsonProperty("date_last_interaction") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateLastInteraction,
+        @JsonProperty("date_started") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateStarted,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("mode") final Session.Mode mode,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final Session.Status status,
+        @JsonProperty("ttl") final Integer ttl,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.closedReason = closedReason;
@@ -272,47 +280,44 @@ public class Session extends Resource {
 
         Session other = (Session) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(closedReason, other.closedReason) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateEnded, other.dateEnded) &&
-                        Objects.equals(dateExpiry, other.dateExpiry) &&
-                        Objects.equals(dateLastInteraction, other.dateLastInteraction) &&
-                        Objects.equals(dateStarted, other.dateStarted) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(mode, other.mode) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(ttl, other.ttl) &&
-                        Objects.equals(uniqueName, other.uniqueName) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(closedReason, other.closedReason) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateEnded, other.dateEnded) &&
+            Objects.equals(dateExpiry, other.dateExpiry) &&
+            Objects.equals(dateLastInteraction, other.dateLastInteraction) &&
+            Objects.equals(dateStarted, other.dateStarted) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(mode, other.mode) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(ttl, other.ttl) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                closedReason,
-                dateCreated,
-                dateEnded,
-                dateExpiry,
-                dateLastInteraction,
-                dateStarted,
-                dateUpdated,
-                links,
-                mode,
-                serviceSid,
-                sid,
-                status,
-                ttl,
-                uniqueName,
-                url
+            accountSid,
+            closedReason,
+            dateCreated,
+            dateEnded,
+            dateExpiry,
+            dateLastInteraction,
+            dateStarted,
+            dateUpdated,
+            links,
+            mode,
+            serviceSid,
+            sid,
+            status,
+            ttl,
+            uniqueName,
+            url
         );
     }
-
-
 }
-

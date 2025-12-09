@@ -14,7 +14,6 @@
 
 package com.twilio.rest.taskrouter.v1.workspace;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class TaskQueueCreator extends Creator<TaskQueue> {
@@ -41,60 +38,64 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
     private String reservationActivitySid;
     private String assignmentActivitySid;
 
-    public TaskQueueCreator(final String pathWorkspaceSid, final String friendlyName) {
+    public TaskQueueCreator(
+        final String pathWorkspaceSid,
+        final String friendlyName
+    ) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
     }
-
 
     public TaskQueueCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
     public TaskQueueCreator setTargetWorkers(final String targetWorkers) {
         this.targetWorkers = targetWorkers;
         return this;
     }
 
-
-    public TaskQueueCreator setMaxReservedWorkers(final Integer maxReservedWorkers) {
+    public TaskQueueCreator setMaxReservedWorkers(
+        final Integer maxReservedWorkers
+    ) {
         this.maxReservedWorkers = maxReservedWorkers;
         return this;
     }
-
 
     public TaskQueueCreator setTaskOrder(final TaskQueue.TaskOrder taskOrder) {
         this.taskOrder = taskOrder;
         return this;
     }
 
-
-    public TaskQueueCreator setReservationActivitySid(final String reservationActivitySid) {
+    public TaskQueueCreator setReservationActivitySid(
+        final String reservationActivitySid
+    ) {
         this.reservationActivitySid = reservationActivitySid;
         return this;
     }
 
-
-    public TaskQueueCreator setAssignmentActivitySid(final String assignmentActivitySid) {
+    public TaskQueueCreator setAssignmentActivitySid(
+        final String assignmentActivitySid
+    ) {
         this.assignmentActivitySid = assignmentActivitySid;
         return this;
     }
 
-
     @Override
     public TaskQueue create(final TwilioRestClient client) {
-
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.TASKROUTER.toString(),
-                path
+            HttpMethod.POST,
+            Domains.TASKROUTER.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -102,52 +103,82 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("TaskQueue creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "TaskQueue creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return TaskQueue.fromJson(response.getStream(), client.getObjectMapper());
+        return TaskQueue.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (targetWorkers != null) {
-            Serializer.toString(request, "TargetWorkers", targetWorkers, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "TargetWorkers",
+                targetWorkers,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (maxReservedWorkers != null) {
-            Serializer.toString(request, "MaxReservedWorkers", maxReservedWorkers, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MaxReservedWorkers",
+                maxReservedWorkers,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (taskOrder != null) {
-            Serializer.toString(request, "TaskOrder", taskOrder, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "TaskOrder",
+                taskOrder,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (reservationActivitySid != null) {
-            Serializer.toString(request, "ReservationActivitySid", reservationActivitySid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ReservationActivitySid",
+                reservationActivitySid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (assignmentActivitySid != null) {
-            Serializer.toString(request, "AssignmentActivitySid", assignmentActivitySid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AssignmentActivitySid",
+                assignmentActivitySid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

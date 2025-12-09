@@ -17,62 +17,48 @@ package com.twilio.rest.numbers.v2.regulatorycompliance;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SupportingDocumentType extends Resource {
 
-
     public static SupportingDocumentTypeFetcher fetcher(final String pathSid) {
-        return new SupportingDocumentTypeFetcher(
-                pathSid
-        );
+        return new SupportingDocumentTypeFetcher(pathSid);
     }
-
 
     public static SupportingDocumentTypeReader reader() {
-        return new SupportingDocumentTypeReader(
-
-        );
+        return new SupportingDocumentTypeReader();
     }
-
 
     /**
      * Converts a JSON String into a SupportingDocumentType object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SupportingDocumentType object represented by the provided JSON
      */
-    public static SupportingDocumentType fromJson(final String json, final ObjectMapper objectMapper) {
+    public static SupportingDocumentType fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SupportingDocumentType.class);
@@ -87,11 +73,14 @@ public class SupportingDocumentType extends Resource {
      * Converts a JSON InputStream into a SupportingDocumentType object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SupportingDocumentType object represented by the provided JSON
      */
-    public static SupportingDocumentType fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static SupportingDocumentType fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SupportingDocumentType.class);
@@ -114,25 +103,28 @@ public class SupportingDocumentType extends Resource {
         }
     }
 
-
     @Getter
     private final List<Object> fields;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String machineName;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private SupportingDocumentType(
-            @JsonProperty("fields") final List<Object> fields,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("machine_name") final String machineName,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("fields") final List<Object> fields,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("machine_name") final String machineName,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
         this.fields = fields;
         this.friendlyName = friendlyName;
@@ -153,25 +145,16 @@ public class SupportingDocumentType extends Resource {
 
         SupportingDocumentType other = (SupportingDocumentType) o;
         return (
-                Objects.equals(fields, other.fields) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(machineName, other.machineName) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(fields, other.fields) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(machineName, other.machineName) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                fields,
-                friendlyName,
-                machineName,
-                sid,
-                url
-        );
+        return Objects.hash(fields, friendlyName, machineName, sid, url);
     }
-
-
 }
-

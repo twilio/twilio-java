@@ -17,56 +17,45 @@ package com.twilio.rest.iam.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class GetApiKeys extends Resource {
 
-
     public static GetApiKeysReader reader(final String accountSid) {
-        return new GetApiKeysReader(
-                accountSid
-        );
+        return new GetApiKeysReader(accountSid);
     }
-
 
     /**
      * Converts a JSON String into a GetApiKeys object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return GetApiKeys object represented by the provided JSON
      */
-    public static GetApiKeys fromJson(final String json, final ObjectMapper objectMapper) {
+    public static GetApiKeys fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, GetApiKeys.class);
@@ -81,11 +70,14 @@ public class GetApiKeys extends Resource {
      * Converts a JSON InputStream into a GetApiKeys object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return GetApiKeys object represented by the provided JSON
      */
-    public static GetApiKeys fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static GetApiKeys fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, GetApiKeys.class);
@@ -108,27 +100,32 @@ public class GetApiKeys extends Resource {
         }
     }
 
-
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final List<String> flags;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String sid;
 
     @JsonCreator
     private GetApiKeys(
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("flags") final List<String> flags,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("sid") final String sid
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("flags") final List<String> flags,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("sid") final String sid
     ) {
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
@@ -149,25 +146,16 @@ public class GetApiKeys extends Resource {
 
         GetApiKeys other = (GetApiKeys) o;
         return (
-                Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(flags, other.flags) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(sid, other.sid)
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(flags, other.flags) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(sid, other.sid)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                dateCreated,
-                dateUpdated,
-                flags,
-                friendlyName,
-                sid
-        );
+        return Objects.hash(dateCreated, dateUpdated, flags, friendlyName, sid);
     }
-
-
 }
-

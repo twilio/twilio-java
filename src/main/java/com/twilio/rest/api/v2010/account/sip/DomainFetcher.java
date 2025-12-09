@@ -23,8 +23,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class DomainFetcher extends Fetcher<Domain> {
@@ -41,34 +39,44 @@ public class DomainFetcher extends Fetcher<Domain> {
         this.pathSid = pathSid;
     }
 
-
     @Override
     public Domain fetch(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.API.toString(),
-                path
+            HttpMethod.GET,
+            Domains.API.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Domain fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Domain fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

@@ -17,55 +17,44 @@ package com.twilio.rest.wireless.v1.sim;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DataSession extends Resource {
 
-
     public static DataSessionReader reader(final String pathSimSid) {
-        return new DataSessionReader(
-                pathSimSid
-        );
+        return new DataSessionReader(pathSimSid);
     }
-
 
     /**
      * Converts a JSON String into a DataSession object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return DataSession object represented by the provided JSON
      */
-    public static DataSession fromJson(final String json, final ObjectMapper objectMapper) {
+    public static DataSession fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DataSession.class);
@@ -80,11 +69,14 @@ public class DataSession extends Resource {
      * Converts a JSON InputStream into a DataSession object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return DataSession object represented by the provided JSON
      */
-    public static DataSession fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static DataSession fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DataSession.class);
@@ -107,61 +99,80 @@ public class DataSession extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String cellId;
+
     @Getter
     private final Object cellLocationEstimate;
+
     @Getter
     private final ZonedDateTime end;
+
     @Getter
     private final String imei;
+
     @Getter
     private final ZonedDateTime lastUpdated;
+
     @Getter
     private final String operatorCountry;
+
     @Getter
     private final String operatorMcc;
+
     @Getter
     private final String operatorMnc;
+
     @Getter
     private final String operatorName;
+
     @Getter
     private final Integer packetsDownloaded;
+
     @Getter
     private final Integer packetsUploaded;
+
     @Getter
     private final String radioLink;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String simSid;
+
     @Getter
     private final ZonedDateTime start;
 
     @JsonCreator
     private DataSession(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("cell_id") final String cellId,
-            @JsonProperty("cell_location_estimate") final Object cellLocationEstimate,
-            @JsonProperty("end")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime end,
-            @JsonProperty("imei") final String imei,
-            @JsonProperty("last_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime lastUpdated,
-            @JsonProperty("operator_country") final String operatorCountry,
-            @JsonProperty("operator_mcc") final String operatorMcc,
-            @JsonProperty("operator_mnc") final String operatorMnc,
-            @JsonProperty("operator_name") final String operatorName,
-            @JsonProperty("packets_downloaded") final Integer packetsDownloaded,
-            @JsonProperty("packets_uploaded") final Integer packetsUploaded,
-            @JsonProperty("radio_link") final String radioLink,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("sim_sid") final String simSid,
-            @JsonProperty("start")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime start
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("cell_id") final String cellId,
+        @JsonProperty(
+            "cell_location_estimate"
+        ) final Object cellLocationEstimate,
+        @JsonProperty("end") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime end,
+        @JsonProperty("imei") final String imei,
+        @JsonProperty("last_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime lastUpdated,
+        @JsonProperty("operator_country") final String operatorCountry,
+        @JsonProperty("operator_mcc") final String operatorMcc,
+        @JsonProperty("operator_mnc") final String operatorMnc,
+        @JsonProperty("operator_name") final String operatorName,
+        @JsonProperty("packets_downloaded") final Integer packetsDownloaded,
+        @JsonProperty("packets_uploaded") final Integer packetsUploaded,
+        @JsonProperty("radio_link") final String radioLink,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("sim_sid") final String simSid,
+        @JsonProperty("start") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime start
     ) {
         this.accountSid = accountSid;
         this.cellId = cellId;
@@ -193,47 +204,44 @@ public class DataSession extends Resource {
 
         DataSession other = (DataSession) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(cellId, other.cellId) &&
-                        Objects.equals(cellLocationEstimate, other.cellLocationEstimate) &&
-                        Objects.equals(end, other.end) &&
-                        Objects.equals(imei, other.imei) &&
-                        Objects.equals(lastUpdated, other.lastUpdated) &&
-                        Objects.equals(operatorCountry, other.operatorCountry) &&
-                        Objects.equals(operatorMcc, other.operatorMcc) &&
-                        Objects.equals(operatorMnc, other.operatorMnc) &&
-                        Objects.equals(operatorName, other.operatorName) &&
-                        Objects.equals(packetsDownloaded, other.packetsDownloaded) &&
-                        Objects.equals(packetsUploaded, other.packetsUploaded) &&
-                        Objects.equals(radioLink, other.radioLink) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(simSid, other.simSid) &&
-                        Objects.equals(start, other.start)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(cellId, other.cellId) &&
+            Objects.equals(cellLocationEstimate, other.cellLocationEstimate) &&
+            Objects.equals(end, other.end) &&
+            Objects.equals(imei, other.imei) &&
+            Objects.equals(lastUpdated, other.lastUpdated) &&
+            Objects.equals(operatorCountry, other.operatorCountry) &&
+            Objects.equals(operatorMcc, other.operatorMcc) &&
+            Objects.equals(operatorMnc, other.operatorMnc) &&
+            Objects.equals(operatorName, other.operatorName) &&
+            Objects.equals(packetsDownloaded, other.packetsDownloaded) &&
+            Objects.equals(packetsUploaded, other.packetsUploaded) &&
+            Objects.equals(radioLink, other.radioLink) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(simSid, other.simSid) &&
+            Objects.equals(start, other.start)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                cellId,
-                cellLocationEstimate,
-                end,
-                imei,
-                lastUpdated,
-                operatorCountry,
-                operatorMcc,
-                operatorMnc,
-                operatorName,
-                packetsDownloaded,
-                packetsUploaded,
-                radioLink,
-                sid,
-                simSid,
-                start
+            accountSid,
+            cellId,
+            cellLocationEstimate,
+            end,
+            imei,
+            lastUpdated,
+            operatorCountry,
+            operatorMcc,
+            operatorMnc,
+            operatorName,
+            packetsDownloaded,
+            packetsUploaded,
+            radioLink,
+            sid,
+            simSid,
+            start
         );
     }
-
-
 }
-

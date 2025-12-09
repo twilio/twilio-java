@@ -23,11 +23,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
-public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNumberCountry> {
+public class AvailablePhoneNumberCountryFetcher
+    extends Fetcher<AvailablePhoneNumberCountry> {
 
     private String pathAccountSid;
     private String pathCountryCode;
@@ -36,42 +35,62 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
         this.pathCountryCode = pathCountryCode;
     }
 
-    public AvailablePhoneNumberCountryFetcher(final String pathAccountSid, final String pathCountryCode) {
+    public AvailablePhoneNumberCountryFetcher(
+        final String pathAccountSid,
+        final String pathCountryCode
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathCountryCode = pathCountryCode;
     }
 
-
     @Override
     public AvailablePhoneNumberCountry fetch(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
-        path = path.replace("{" + "CountryCode" + "}", this.pathCountryCode.toString());
-
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "CountryCode" + "}",
+                this.pathCountryCode.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.API.toString(),
-                path
+            HttpMethod.GET,
+            Domains.API.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("AvailablePhoneNumberCountry fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AvailablePhoneNumberCountry fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return AvailablePhoneNumberCountry.fromJson(response.getStream(), client.getObjectMapper());
+        return AvailablePhoneNumberCountry.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

@@ -17,85 +17,71 @@ package com.twilio.rest.sync.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncList extends Resource {
 
-
     public static SyncListCreator creator(final String pathServiceSid) {
-        return new SyncListCreator(
-                pathServiceSid
-        );
+        return new SyncListCreator(pathServiceSid);
     }
 
-
-    public static SyncListDeleter deleter(final String pathServiceSid, final String pathSid) {
-        return new SyncListDeleter(
-                pathServiceSid, pathSid
-        );
+    public static SyncListDeleter deleter(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new SyncListDeleter(pathServiceSid, pathSid);
     }
 
-
-    public static SyncListFetcher fetcher(final String pathServiceSid, final String pathSid) {
-        return new SyncListFetcher(
-                pathServiceSid, pathSid
-        );
+    public static SyncListFetcher fetcher(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new SyncListFetcher(pathServiceSid, pathSid);
     }
-
 
     public static SyncListReader reader(final String pathServiceSid) {
-        return new SyncListReader(
-                pathServiceSid
-        );
+        return new SyncListReader(pathServiceSid);
     }
 
-
-    public static SyncListUpdater updater(final String pathServiceSid, final String pathSid) {
-        return new SyncListUpdater(
-                pathServiceSid, pathSid
-        );
+    public static SyncListUpdater updater(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new SyncListUpdater(pathServiceSid, pathSid);
     }
-
 
     /**
      * Converts a JSON String into a SyncList object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SyncList object represented by the provided JSON
      */
-    public static SyncList fromJson(final String json, final ObjectMapper objectMapper) {
+    public static SyncList fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncList.class);
@@ -110,11 +96,14 @@ public class SyncList extends Resource {
      * Converts a JSON InputStream into a SyncList object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SyncList object represented by the provided JSON
      */
-    public static SyncList fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static SyncList fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncList.class);
@@ -137,46 +126,58 @@ public class SyncList extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String createdBy;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateExpires;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String revision;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String uniqueName;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private SyncList(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("created_by") final String createdBy,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_expires")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateExpires,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("revision") final String revision,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("unique_name") final String uniqueName,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("created_by") final String createdBy,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_expires") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateExpires,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("revision") final String revision,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.createdBy = createdBy;
@@ -203,37 +204,34 @@ public class SyncList extends Resource {
 
         SyncList other = (SyncList) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(createdBy, other.createdBy) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateExpires, other.dateExpires) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(revision, other.revision) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(uniqueName, other.uniqueName) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(createdBy, other.createdBy) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateExpires, other.dateExpires) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(revision, other.revision) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                createdBy,
-                dateCreated,
-                dateExpires,
-                dateUpdated,
-                links,
-                revision,
-                serviceSid,
-                sid,
-                uniqueName,
-                url
+            accountSid,
+            createdBy,
+            dateCreated,
+            dateExpires,
+            dateUpdated,
+            links,
+            revision,
+            serviceSid,
+            sid,
+            uniqueName,
+            url
         );
     }
-
-
 }
-

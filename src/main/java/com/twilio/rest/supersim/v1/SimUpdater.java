@@ -27,13 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
+import com.twilio.type.*;
 import java.net.URI;
 
-import com.twilio.type.*;
-
 public class SimUpdater extends Updater<Sim> {
+
     private String pathSid;
     private String uniqueName;
     private Sim.StatusUpdate status;
@@ -46,24 +44,20 @@ public class SimUpdater extends Updater<Sim> {
         this.pathSid = pathSid;
     }
 
-
     public SimUpdater setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
-
 
     public SimUpdater setStatus(final Sim.StatusUpdate status) {
         this.status = status;
         return this;
     }
 
-
     public SimUpdater setFleet(final String fleet) {
         this.fleet = fleet;
         return this;
     }
-
 
     public SimUpdater setCallbackUrl(final URI callbackUrl) {
         this.callbackUrl = callbackUrl;
@@ -79,25 +73,21 @@ public class SimUpdater extends Updater<Sim> {
         return this;
     }
 
-
     public SimUpdater setAccountSid(final String accountSid) {
         this.accountSid = accountSid;
         return this;
     }
 
-
     @Override
     public Sim update(final TwilioRestClient client) {
-
         String path = "/v1/Sims/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.SUPERSIM.toString(),
-                path
+            HttpMethod.POST,
+            Domains.SUPERSIM.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -105,14 +95,19 @@ public class SimUpdater extends Updater<Sim> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Sim update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Sim update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -121,36 +116,58 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     private void addPostParams(final Request request) {
-
         if (uniqueName != null) {
-            Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (fleet != null) {
-            Serializer.toString(request, "Fleet", fleet, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Fleet",
+                fleet,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callbackUrl != null) {
-            Serializer.toString(request, "CallbackUrl", callbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallbackUrl",
+                callbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callbackMethod != null) {
-            Serializer.toString(request, "CallbackMethod", callbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallbackMethod",
+                callbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (accountSid != null) {
-            Serializer.toString(request, "AccountSid", accountSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AccountSid",
+                accountSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

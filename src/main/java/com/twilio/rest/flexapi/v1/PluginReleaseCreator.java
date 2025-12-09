@@ -14,7 +14,6 @@
 
 package com.twilio.rest.flexapi.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class PluginReleaseCreator extends Creator<PluginRelease> {
@@ -40,29 +37,26 @@ public class PluginReleaseCreator extends Creator<PluginRelease> {
         this.configurationId = configurationId;
     }
 
-
-    public PluginReleaseCreator setConfigurationId(final String configurationId) {
+    public PluginReleaseCreator setConfigurationId(
+        final String configurationId
+    ) {
         this.configurationId = configurationId;
         return this;
     }
-
 
     public PluginReleaseCreator setFlexMetadata(final String flexMetadata) {
         this.flexMetadata = flexMetadata;
         return this;
     }
 
-
     @Override
     public PluginRelease create(final TwilioRestClient client) {
-
         String path = "/v1/PluginService/Releases";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.POST,
+            Domains.FLEXAPI.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
@@ -71,35 +65,48 @@ public class PluginReleaseCreator extends Creator<PluginRelease> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("PluginRelease creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PluginRelease creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return PluginRelease.fromJson(response.getStream(), client.getObjectMapper());
+        return PluginRelease.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (configurationId != null) {
-            Serializer.toString(request, "ConfigurationId", configurationId, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ConfigurationId",
+                configurationId,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 
     private void addHeaderParams(final Request request) {
-
         if (flexMetadata != null) {
-            Serializer.toString(request, "Flex-Metadata", flexMetadata, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "Flex-Metadata",
+                flexMetadata,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

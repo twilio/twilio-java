@@ -26,11 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class RoomUpdater extends Updater<Room> {
+
     private String pathSid;
     private Room.RoomStatus status;
 
@@ -39,25 +38,21 @@ public class RoomUpdater extends Updater<Room> {
         this.status = status;
     }
 
-
     public RoomUpdater setStatus(final Room.RoomStatus status) {
         this.status = status;
         return this;
     }
 
-
     @Override
     public Room update(final TwilioRestClient client) {
-
         String path = "/v1/Rooms/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.VIDEO.toString(),
-                path
+            HttpMethod.POST,
+            Domains.VIDEO.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -65,14 +60,19 @@ public class RoomUpdater extends Updater<Room> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Room update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Room update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -81,11 +81,13 @@ public class RoomUpdater extends Updater<Room> {
     }
 
     private void addPostParams(final Request request) {
-
         if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

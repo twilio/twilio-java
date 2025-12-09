@@ -17,62 +17,48 @@ package com.twilio.rest.preview.marketplace;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AvailableAddOn extends Resource {
 
-
     public static AvailableAddOnFetcher fetcher(final String pathSid) {
-        return new AvailableAddOnFetcher(
-                pathSid
-        );
+        return new AvailableAddOnFetcher(pathSid);
     }
-
 
     public static AvailableAddOnReader reader() {
-        return new AvailableAddOnReader(
-
-        );
+        return new AvailableAddOnReader();
     }
-
 
     /**
      * Converts a JSON String into a AvailableAddOn object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AvailableAddOn object represented by the provided JSON
      */
-    public static AvailableAddOn fromJson(final String json, final ObjectMapper objectMapper) {
+    public static AvailableAddOn fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AvailableAddOn.class);
@@ -87,11 +73,14 @@ public class AvailableAddOn extends Resource {
      * Converts a JSON InputStream into a AvailableAddOn object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AvailableAddOn object represented by the provided JSON
      */
-    public static AvailableAddOn fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static AvailableAddOn fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AvailableAddOn.class);
@@ -114,31 +103,36 @@ public class AvailableAddOn extends Resource {
         }
     }
 
-
     @Getter
     private final Object configurationSchema;
+
     @Getter
     private final String description;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String pricingType;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private AvailableAddOn(
-            @JsonProperty("configuration_schema") final Object configurationSchema,
-            @JsonProperty("description") final String description,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("pricing_type") final String pricingType,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("configuration_schema") final Object configurationSchema,
+        @JsonProperty("description") final String description,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("pricing_type") final String pricingType,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
         this.configurationSchema = configurationSchema;
         this.description = description;
@@ -161,29 +155,26 @@ public class AvailableAddOn extends Resource {
 
         AvailableAddOn other = (AvailableAddOn) o;
         return (
-                Objects.equals(configurationSchema, other.configurationSchema) &&
-                        Objects.equals(description, other.description) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(pricingType, other.pricingType) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(configurationSchema, other.configurationSchema) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(pricingType, other.pricingType) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                configurationSchema,
-                description,
-                friendlyName,
-                links,
-                pricingType,
-                sid,
-                url
+            configurationSchema,
+            description,
+            friendlyName,
+            links,
+            pricingType,
+            sid,
+            url
         );
     }
-
-
 }
-

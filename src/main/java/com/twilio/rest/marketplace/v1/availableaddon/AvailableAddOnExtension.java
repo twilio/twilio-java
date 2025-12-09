@@ -17,61 +17,55 @@ package com.twilio.rest.marketplace.v1.availableaddon;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.twilio.exception.ApiConnectionException;
-import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
-import java.io.InputStream;
-import java.net.URI;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-
+import com.twilio.base.Resource;
+import com.twilio.exception.ApiConnectionException;
+import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AvailableAddOnExtension extends Resource {
 
-
-    public static AvailableAddOnExtensionFetcher fetcher(final String pathAvailableAddOnSid, final String pathSid) {
+    public static AvailableAddOnExtensionFetcher fetcher(
+        final String pathAvailableAddOnSid,
+        final String pathSid
+    ) {
         return new AvailableAddOnExtensionFetcher(
-                pathAvailableAddOnSid, pathSid
+            pathAvailableAddOnSid,
+            pathSid
         );
     }
 
-
-    public static AvailableAddOnExtensionReader reader(final String pathAvailableAddOnSid) {
-        return new AvailableAddOnExtensionReader(
-                pathAvailableAddOnSid
-        );
+    public static AvailableAddOnExtensionReader reader(
+        final String pathAvailableAddOnSid
+    ) {
+        return new AvailableAddOnExtensionReader(pathAvailableAddOnSid);
     }
-
 
     /**
      * Converts a JSON String into a AvailableAddOnExtension object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AvailableAddOnExtension object represented by the provided JSON
      */
-    public static AvailableAddOnExtension fromJson(final String json, final ObjectMapper objectMapper) {
+    public static AvailableAddOnExtension fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AvailableAddOnExtension.class);
@@ -86,11 +80,14 @@ public class AvailableAddOnExtension extends Resource {
      * Converts a JSON InputStream into a AvailableAddOnExtension object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AvailableAddOnExtension object represented by the provided JSON
      */
-    public static AvailableAddOnExtension fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static AvailableAddOnExtension fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AvailableAddOnExtension.class);
@@ -113,28 +110,32 @@ public class AvailableAddOnExtension extends Resource {
         }
     }
 
-
     @Getter
     private final String availableAddOnSid;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String productName;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String uniqueName;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private AvailableAddOnExtension(
-            @JsonProperty("available_add_on_sid") final String availableAddOnSid,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("product_name") final String productName,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("unique_name") final String uniqueName,
-            @JsonProperty("url") final URI url
+        @JsonProperty("available_add_on_sid") final String availableAddOnSid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("product_name") final String productName,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url
     ) {
         this.availableAddOnSid = availableAddOnSid;
         this.friendlyName = friendlyName;
@@ -156,27 +157,24 @@ public class AvailableAddOnExtension extends Resource {
 
         AvailableAddOnExtension other = (AvailableAddOnExtension) o;
         return (
-                Objects.equals(availableAddOnSid, other.availableAddOnSid) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(productName, other.productName) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(uniqueName, other.uniqueName) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(availableAddOnSid, other.availableAddOnSid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(productName, other.productName) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                availableAddOnSid,
-                friendlyName,
-                productName,
-                sid,
-                uniqueName,
-                url
+            availableAddOnSid,
+            friendlyName,
+            productName,
+            sid,
+            uniqueName,
+            url
         );
     }
-
-
 }
-

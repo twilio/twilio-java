@@ -17,71 +17,60 @@ package com.twilio.rest.preview.hostedNumbers;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AuthorizationDocument extends Resource {
 
-
-    public static AuthorizationDocumentCreator creator(final List<String> hostedNumberOrderSids, final String addressSid, final String email, final String contactTitle, final String contactPhoneNumber) {
+    public static AuthorizationDocumentCreator creator(
+        final List<String> hostedNumberOrderSids,
+        final String addressSid,
+        final String email,
+        final String contactTitle,
+        final String contactPhoneNumber
+    ) {
         return new AuthorizationDocumentCreator(
-                hostedNumberOrderSids, addressSid, email, contactTitle, contactPhoneNumber
+            hostedNumberOrderSids,
+            addressSid,
+            email,
+            contactTitle,
+            contactPhoneNumber
         );
     }
-
 
     public static AuthorizationDocumentFetcher fetcher(final String pathSid) {
-        return new AuthorizationDocumentFetcher(
-                pathSid
-        );
+        return new AuthorizationDocumentFetcher(pathSid);
     }
-
 
     public static AuthorizationDocumentReader reader() {
-        return new AuthorizationDocumentReader(
-
-        );
+        return new AuthorizationDocumentReader();
     }
-
 
     public static AuthorizationDocumentUpdater updater(final String pathSid) {
-        return new AuthorizationDocumentUpdater(
-                pathSid
-        );
+        return new AuthorizationDocumentUpdater(pathSid);
     }
-
 
     public enum Status {
         OPENED("opened"),
@@ -106,15 +95,17 @@ public class AuthorizationDocument extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a AuthorizationDocument object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AuthorizationDocument object represented by the provided JSON
      */
-    public static AuthorizationDocument fromJson(final String json, final ObjectMapper objectMapper) {
+    public static AuthorizationDocument fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AuthorizationDocument.class);
@@ -129,11 +120,14 @@ public class AuthorizationDocument extends Resource {
      * Converts a JSON InputStream into a AuthorizationDocument object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AuthorizationDocument object represented by the provided JSON
      */
-    public static AuthorizationDocument fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static AuthorizationDocument fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AuthorizationDocument.class);
@@ -156,39 +150,48 @@ public class AuthorizationDocument extends Resource {
         }
     }
 
-
     @Getter
     private final String addressSid;
+
     @Getter
     private final List<String> ccEmails;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String email;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String sid;
+
     @Getter
     private final AuthorizationDocument.Status status;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private AuthorizationDocument(
-            @JsonProperty("address_sid") final String addressSid,
-            @JsonProperty("cc_emails") final List<String> ccEmails,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("email") final String email,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final AuthorizationDocument.Status status,
-            @JsonProperty("url") final URI url
+        @JsonProperty("address_sid") final String addressSid,
+        @JsonProperty("cc_emails") final List<String> ccEmails,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("email") final String email,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final AuthorizationDocument.Status status,
+        @JsonProperty("url") final URI url
     ) {
         this.addressSid = addressSid;
         this.ccEmails = ccEmails;
@@ -213,33 +216,30 @@ public class AuthorizationDocument extends Resource {
 
         AuthorizationDocument other = (AuthorizationDocument) o;
         return (
-                Objects.equals(addressSid, other.addressSid) &&
-                        Objects.equals(ccEmails, other.ccEmails) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(email, other.email) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(addressSid, other.addressSid) &&
+            Objects.equals(ccEmails, other.ccEmails) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(email, other.email) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                addressSid,
-                ccEmails,
-                dateCreated,
-                dateUpdated,
-                email,
-                links,
-                sid,
-                status,
-                url
+            addressSid,
+            ccEmails,
+            dateCreated,
+            dateUpdated,
+            email,
+            links,
+            sid,
+            status,
+            url
         );
     }
-
-
 }
-

@@ -14,7 +14,6 @@
 
 package com.twilio.rest.notify.v1.service;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,11 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
-import java.util.List;
-
 import com.twilio.type.*;
+import java.util.List;
 
 public class BindingCreator extends Creator<Binding> {
 
@@ -45,31 +41,34 @@ public class BindingCreator extends Creator<Binding> {
     private String credentialSid;
     private String endpoint;
 
-    public BindingCreator(final String pathServiceSid, final String identity, final Binding.BindingType bindingType, final String address) {
+    public BindingCreator(
+        final String pathServiceSid,
+        final String identity,
+        final Binding.BindingType bindingType,
+        final String address
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.identity = identity;
         this.bindingType = bindingType;
         this.address = address;
     }
 
-
     public BindingCreator setIdentity(final String identity) {
         this.identity = identity;
         return this;
     }
 
-
-    public BindingCreator setBindingType(final Binding.BindingType bindingType) {
+    public BindingCreator setBindingType(
+        final Binding.BindingType bindingType
+    ) {
         this.bindingType = bindingType;
         return this;
     }
-
 
     public BindingCreator setAddress(final String address) {
         this.address = address;
         return this;
     }
-
 
     public BindingCreator setTag(final List<String> tag) {
         this.tag = tag;
@@ -80,36 +79,37 @@ public class BindingCreator extends Creator<Binding> {
         return setTag(Promoter.listOfOne(tag));
     }
 
-    public BindingCreator setNotificationProtocolVersion(final String notificationProtocolVersion) {
+    public BindingCreator setNotificationProtocolVersion(
+        final String notificationProtocolVersion
+    ) {
         this.notificationProtocolVersion = notificationProtocolVersion;
         return this;
     }
-
 
     public BindingCreator setCredentialSid(final String credentialSid) {
         this.credentialSid = credentialSid;
         return this;
     }
 
-
     public BindingCreator setEndpoint(final String endpoint) {
         this.endpoint = endpoint;
         return this;
     }
 
-
     @Override
     public Binding create(final TwilioRestClient client) {
-
         String path = "/v1/Services/{ServiceSid}/Bindings";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.NOTIFY.toString(),
-                path
+            HttpMethod.POST,
+            Domains.NOTIFY.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -117,14 +117,19 @@ public class BindingCreator extends Creator<Binding> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Binding creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Binding creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -133,43 +138,69 @@ public class BindingCreator extends Creator<Binding> {
     }
 
     private void addPostParams(final Request request) {
-
         if (identity != null) {
-            Serializer.toString(request, "Identity", identity, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Identity",
+                identity,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (bindingType != null) {
-            Serializer.toString(request, "BindingType", bindingType, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BindingType",
+                bindingType,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (address != null) {
-            Serializer.toString(request, "Address", address, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Address",
+                address,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (tag != null) {
             for (String param : tag) {
-                Serializer.toString(request, "Tag", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "Tag",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (notificationProtocolVersion != null) {
-            Serializer.toString(request, "NotificationProtocolVersion", notificationProtocolVersion, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "NotificationProtocolVersion",
+                notificationProtocolVersion,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (credentialSid != null) {
-            Serializer.toString(request, "CredentialSid", credentialSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CredentialSid",
+                credentialSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (endpoint != null) {
-            Serializer.toString(request, "Endpoint", endpoint, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Endpoint",
+                endpoint,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

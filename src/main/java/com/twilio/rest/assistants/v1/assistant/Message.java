@@ -16,51 +16,45 @@ package com.twilio.rest.assistants.v1.assistant;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-
-
-import java.io.InputStream;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Message extends Resource {
 
-
-    public static MessageCreator creator(final String pathId, final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest) {
+    public static MessageCreator creator(
+        final String pathId,
+        final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest
+    ) {
         return new MessageCreator(
-                pathId, assistantsV1ServiceAssistantSendMessageRequest
+            pathId,
+            assistantsV1ServiceAssistantSendMessageRequest
         );
     }
 
-
-    @JsonDeserialize(builder = AssistantsV1ServiceAssistantSendMessageRequest.Builder.class)
+    @JsonDeserialize(
+        builder = AssistantsV1ServiceAssistantSendMessageRequest.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceAssistantSendMessageRequest {
@@ -90,8 +84,9 @@ public class Message extends Resource {
         @Getter
         private final String mode;
 
-
-        private AssistantsV1ServiceAssistantSendMessageRequest(Builder builder) {
+        private AssistantsV1ServiceAssistantSendMessageRequest(
+            Builder builder
+        ) {
             this.identity = builder.identity;
             this.sessionId = builder.sessionId;
             this.body = builder.body;
@@ -99,16 +94,26 @@ public class Message extends Resource {
             this.mode = builder.mode;
         }
 
-        public static Builder builder(final String identity, final String body) {
+        public static Builder builder(
+            final String identity,
+            final String body
+        ) {
             return new Builder(identity, body);
         }
 
-        public static AssistantsV1ServiceAssistantSendMessageRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, AssistantsV1ServiceAssistantSendMessageRequest.class);
+        public static AssistantsV1ServiceAssistantSendMessageRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceAssistantSendMessageRequest.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("identity")
             private String identity;
 
@@ -124,13 +129,35 @@ public class Message extends Resource {
             @JsonProperty("mode")
             private String mode;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("identity") final String identity, @JsonProperty("body") final String body) {
+            public Builder(
+                @JsonProperty("identity") final String identity,
+                @JsonProperty("body") final String body
+            ) {
                 this.identity = identity;
                 this.body = body;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("session_id")
+            public Builder sessionId(String sessionId) {
+                this.sessionId = sessionId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("webhook")
+            public Builder webhook(String webhook) {
+                this.webhook = webhook;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("mode")
+            public Builder mode(String mode) {
+                this.mode = mode;
+                return this;
+            }
 
             public AssistantsV1ServiceAssistantSendMessageRequest build() {
                 return new AssistantsV1ServiceAssistantSendMessageRequest(this);
@@ -147,38 +174,34 @@ public class Message extends Resource {
                 return false;
             }
 
-            AssistantsV1ServiceAssistantSendMessageRequest other = (AssistantsV1ServiceAssistantSendMessageRequest) o;
+            AssistantsV1ServiceAssistantSendMessageRequest other =
+                (AssistantsV1ServiceAssistantSendMessageRequest) o;
             return (
-                    Objects.equals(identity, other.identity) &&
-                            Objects.equals(sessionId, other.sessionId) &&
-                            Objects.equals(body, other.body) &&
-                            Objects.equals(webhook, other.webhook) &&
-                            Objects.equals(mode, other.mode)
+                Objects.equals(identity, other.identity) &&
+                Objects.equals(sessionId, other.sessionId) &&
+                Objects.equals(body, other.body) &&
+                Objects.equals(webhook, other.webhook) &&
+                Objects.equals(mode, other.mode)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    identity,
-                    sessionId,
-                    body,
-                    webhook,
-                    mode
-            );
+            return Objects.hash(identity, sessionId, body, webhook, mode);
         }
-
     }
-
 
     /**
      * Converts a JSON String into a Message object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Message object represented by the provided JSON
      */
-    public static Message fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Message fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Message.class);
@@ -193,11 +216,14 @@ public class Message extends Resource {
      * Converts a JSON InputStream into a Message object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Message object represented by the provided JSON
      */
-    public static Message fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Message fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Message.class);
@@ -220,31 +246,36 @@ public class Message extends Resource {
         }
     }
 
-
     @Getter
     private final Boolean aborted;
+
     @Getter
     private final String accountSid;
+
     @Getter
     private final String body;
+
     @Getter
     private final String error;
+
     @Getter
     private final Boolean flagged;
+
     @Getter
     private final String sessionId;
+
     @Getter
     private final String status;
 
     @JsonCreator
     private Message(
-            @JsonProperty("aborted") final Boolean aborted,
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("body") final String body,
-            @JsonProperty("error") final String error,
-            @JsonProperty("flagged") final Boolean flagged,
-            @JsonProperty("session_id") final String sessionId,
-            @JsonProperty("status") final String status
+        @JsonProperty("aborted") final Boolean aborted,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("body") final String body,
+        @JsonProperty("error") final String error,
+        @JsonProperty("flagged") final Boolean flagged,
+        @JsonProperty("session_id") final String sessionId,
+        @JsonProperty("status") final String status
     ) {
         this.aborted = aborted;
         this.accountSid = accountSid;
@@ -267,29 +298,26 @@ public class Message extends Resource {
 
         Message other = (Message) o;
         return (
-                Objects.equals(aborted, other.aborted) &&
-                        Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(body, other.body) &&
-                        Objects.equals(error, other.error) &&
-                        Objects.equals(flagged, other.flagged) &&
-                        Objects.equals(sessionId, other.sessionId) &&
-                        Objects.equals(status, other.status)
+            Objects.equals(aborted, other.aborted) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(body, other.body) &&
+            Objects.equals(error, other.error) &&
+            Objects.equals(flagged, other.flagged) &&
+            Objects.equals(sessionId, other.sessionId) &&
+            Objects.equals(status, other.status)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                aborted,
-                accountSid,
-                body,
-                error,
-                flagged,
-                sessionId,
-                status
+            aborted,
+            accountSid,
+            body,
+            error,
+            flagged,
+            sessionId,
+            status
         );
     }
-
-
 }
-

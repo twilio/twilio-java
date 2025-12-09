@@ -27,13 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
+import com.twilio.type.*;
 import java.net.URI;
 
-import com.twilio.type.*;
-
 public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
+
     private String pathAccountSid;
     private String pathSid;
     private String accountSid;
@@ -64,48 +62,55 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         this.pathSid = pathSid;
     }
 
-    public IncomingPhoneNumberUpdater(final String pathAccountSid, final String pathSid) {
+    public IncomingPhoneNumberUpdater(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
-
 
     public IncomingPhoneNumberUpdater setAccountSid(final String accountSid) {
         this.accountSid = accountSid;
         return this;
     }
 
-
     public IncomingPhoneNumberUpdater setApiVersion(final String apiVersion) {
         this.apiVersion = apiVersion;
         return this;
     }
 
-
-    public IncomingPhoneNumberUpdater setFriendlyName(final String friendlyName) {
+    public IncomingPhoneNumberUpdater setFriendlyName(
+        final String friendlyName
+    ) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
-    public IncomingPhoneNumberUpdater setSmsApplicationSid(final String smsApplicationSid) {
+    public IncomingPhoneNumberUpdater setSmsApplicationSid(
+        final String smsApplicationSid
+    ) {
         this.smsApplicationSid = smsApplicationSid;
         return this;
     }
 
-
-    public IncomingPhoneNumberUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod) {
+    public IncomingPhoneNumberUpdater setSmsFallbackMethod(
+        final HttpMethod smsFallbackMethod
+    ) {
         this.smsFallbackMethod = smsFallbackMethod;
         return this;
     }
 
-
-    public IncomingPhoneNumberUpdater setSmsFallbackUrl(final URI smsFallbackUrl) {
+    public IncomingPhoneNumberUpdater setSmsFallbackUrl(
+        final URI smsFallbackUrl
+    ) {
         this.smsFallbackUrl = smsFallbackUrl;
         return this;
     }
 
-    public IncomingPhoneNumberUpdater setSmsFallbackUrl(final String smsFallbackUrl) {
+    public IncomingPhoneNumberUpdater setSmsFallbackUrl(
+        final String smsFallbackUrl
+    ) {
         return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
     }
 
@@ -113,7 +118,6 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         this.smsMethod = smsMethod;
         return this;
     }
-
 
     public IncomingPhoneNumberUpdater setSmsUrl(final URI smsUrl) {
         this.smsUrl = smsUrl;
@@ -124,53 +128,66 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         return setSmsUrl(Promoter.uriFromString(smsUrl));
     }
 
-    public IncomingPhoneNumberUpdater setStatusCallback(final URI statusCallback) {
+    public IncomingPhoneNumberUpdater setStatusCallback(
+        final URI statusCallback
+    ) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public IncomingPhoneNumberUpdater setStatusCallback(final String statusCallback) {
+    public IncomingPhoneNumberUpdater setStatusCallback(
+        final String statusCallback
+    ) {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
 
-    public IncomingPhoneNumberUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
+    public IncomingPhoneNumberUpdater setStatusCallbackMethod(
+        final HttpMethod statusCallbackMethod
+    ) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
-
-    public IncomingPhoneNumberUpdater setVoiceApplicationSid(final String voiceApplicationSid) {
+    public IncomingPhoneNumberUpdater setVoiceApplicationSid(
+        final String voiceApplicationSid
+    ) {
         this.voiceApplicationSid = voiceApplicationSid;
         return this;
     }
 
-
-    public IncomingPhoneNumberUpdater setVoiceCallerIdLookup(final Boolean voiceCallerIdLookup) {
+    public IncomingPhoneNumberUpdater setVoiceCallerIdLookup(
+        final Boolean voiceCallerIdLookup
+    ) {
         this.voiceCallerIdLookup = voiceCallerIdLookup;
         return this;
     }
 
-
-    public IncomingPhoneNumberUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
+    public IncomingPhoneNumberUpdater setVoiceFallbackMethod(
+        final HttpMethod voiceFallbackMethod
+    ) {
         this.voiceFallbackMethod = voiceFallbackMethod;
         return this;
     }
 
-
-    public IncomingPhoneNumberUpdater setVoiceFallbackUrl(final URI voiceFallbackUrl) {
+    public IncomingPhoneNumberUpdater setVoiceFallbackUrl(
+        final URI voiceFallbackUrl
+    ) {
         this.voiceFallbackUrl = voiceFallbackUrl;
         return this;
     }
 
-    public IncomingPhoneNumberUpdater setVoiceFallbackUrl(final String voiceFallbackUrl) {
+    public IncomingPhoneNumberUpdater setVoiceFallbackUrl(
+        final String voiceFallbackUrl
+    ) {
         return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
     }
 
-    public IncomingPhoneNumberUpdater setVoiceMethod(final HttpMethod voiceMethod) {
+    public IncomingPhoneNumberUpdater setVoiceMethod(
+        final HttpMethod voiceMethod
+    ) {
         this.voiceMethod = voiceMethod;
         return this;
     }
-
 
     public IncomingPhoneNumberUpdater setVoiceUrl(final URI voiceUrl) {
         this.voiceUrl = voiceUrl;
@@ -181,62 +198,67 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         return setVoiceUrl(Promoter.uriFromString(voiceUrl));
     }
 
-    public IncomingPhoneNumberUpdater setEmergencyStatus(final IncomingPhoneNumber.EmergencyStatus emergencyStatus) {
+    public IncomingPhoneNumberUpdater setEmergencyStatus(
+        final IncomingPhoneNumber.EmergencyStatus emergencyStatus
+    ) {
         this.emergencyStatus = emergencyStatus;
         return this;
     }
 
-
-    public IncomingPhoneNumberUpdater setEmergencyAddressSid(final String emergencyAddressSid) {
+    public IncomingPhoneNumberUpdater setEmergencyAddressSid(
+        final String emergencyAddressSid
+    ) {
         this.emergencyAddressSid = emergencyAddressSid;
         return this;
     }
-
 
     public IncomingPhoneNumberUpdater setTrunkSid(final String trunkSid) {
         this.trunkSid = trunkSid;
         return this;
     }
 
-
-    public IncomingPhoneNumberUpdater setVoiceReceiveMode(final IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode) {
+    public IncomingPhoneNumberUpdater setVoiceReceiveMode(
+        final IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode
+    ) {
         this.voiceReceiveMode = voiceReceiveMode;
         return this;
     }
-
 
     public IncomingPhoneNumberUpdater setIdentitySid(final String identitySid) {
         this.identitySid = identitySid;
         return this;
     }
 
-
     public IncomingPhoneNumberUpdater setAddressSid(final String addressSid) {
         this.addressSid = addressSid;
         return this;
     }
-
 
     public IncomingPhoneNumberUpdater setBundleSid(final String bundleSid) {
         this.bundleSid = bundleSid;
         return this;
     }
 
-
     @Override
     public IncomingPhoneNumber update(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.API.toString(),
-                path
+            HttpMethod.POST,
+            Domains.API.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -244,137 +266,235 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("IncomingPhoneNumber update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "IncomingPhoneNumber update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return IncomingPhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
+        return IncomingPhoneNumber.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (accountSid != null) {
-            Serializer.toString(request, "AccountSid", accountSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AccountSid",
+                accountSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (apiVersion != null) {
-            Serializer.toString(request, "ApiVersion", apiVersion, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ApiVersion",
+                apiVersion,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (smsApplicationSid != null) {
-            Serializer.toString(request, "SmsApplicationSid", smsApplicationSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmsApplicationSid",
+                smsApplicationSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (smsFallbackMethod != null) {
-            Serializer.toString(request, "SmsFallbackMethod", smsFallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmsFallbackMethod",
+                smsFallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (smsFallbackUrl != null) {
-            Serializer.toString(request, "SmsFallbackUrl", smsFallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmsFallbackUrl",
+                smsFallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (smsMethod != null) {
-            Serializer.toString(request, "SmsMethod", smsMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmsMethod",
+                smsMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (smsUrl != null) {
-            Serializer.toString(request, "SmsUrl", smsUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmsUrl",
+                smsUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallback != null) {
-            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallbackMethod != null) {
-            Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallbackMethod",
+                statusCallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (voiceApplicationSid != null) {
-            Serializer.toString(request, "VoiceApplicationSid", voiceApplicationSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VoiceApplicationSid",
+                voiceApplicationSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (voiceCallerIdLookup != null) {
-            Serializer.toString(request, "VoiceCallerIdLookup", voiceCallerIdLookup, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VoiceCallerIdLookup",
+                voiceCallerIdLookup,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (voiceFallbackMethod != null) {
-            Serializer.toString(request, "VoiceFallbackMethod", voiceFallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VoiceFallbackMethod",
+                voiceFallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (voiceFallbackUrl != null) {
-            Serializer.toString(request, "VoiceFallbackUrl", voiceFallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VoiceFallbackUrl",
+                voiceFallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (voiceMethod != null) {
-            Serializer.toString(request, "VoiceMethod", voiceMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VoiceMethod",
+                voiceMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (voiceUrl != null) {
-            Serializer.toString(request, "VoiceUrl", voiceUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VoiceUrl",
+                voiceUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (emergencyStatus != null) {
-            Serializer.toString(request, "EmergencyStatus", emergencyStatus, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "EmergencyStatus",
+                emergencyStatus,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (emergencyAddressSid != null) {
-            Serializer.toString(request, "EmergencyAddressSid", emergencyAddressSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "EmergencyAddressSid",
+                emergencyAddressSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (trunkSid != null) {
-            Serializer.toString(request, "TrunkSid", trunkSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "TrunkSid",
+                trunkSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (voiceReceiveMode != null) {
-            Serializer.toString(request, "VoiceReceiveMode", voiceReceiveMode, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VoiceReceiveMode",
+                voiceReceiveMode,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (identitySid != null) {
-            Serializer.toString(request, "IdentitySid", identitySid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "IdentitySid",
+                identitySid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (addressSid != null) {
-            Serializer.toString(request, "AddressSid", addressSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AddressSid",
+                addressSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (bundleSid != null) {
-            Serializer.toString(request, "BundleSid", bundleSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BundleSid",
+                bundleSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

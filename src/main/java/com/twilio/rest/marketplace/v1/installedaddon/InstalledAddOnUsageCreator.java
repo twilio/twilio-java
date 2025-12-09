@@ -15,7 +15,6 @@
 package com.twilio.rest.marketplace.v1.installedaddon;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,8 +25,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
@@ -35,30 +32,37 @@ public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
     private String pathInstalledAddOnSid;
     private InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage;
 
-    public InstalledAddOnUsageCreator(final String pathInstalledAddOnSid, final InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage) {
+    public InstalledAddOnUsageCreator(
+        final String pathInstalledAddOnSid,
+        final InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage
+    ) {
         this.pathInstalledAddOnSid = pathInstalledAddOnSid;
-        this.marketplaceV1InstalledAddOnInstalledAddOnUsage = marketplaceV1InstalledAddOnInstalledAddOnUsage;
+        this.marketplaceV1InstalledAddOnInstalledAddOnUsage =
+            marketplaceV1InstalledAddOnInstalledAddOnUsage;
     }
 
-
-    public InstalledAddOnUsageCreator setMarketplaceV1InstalledAddOnInstalledAddOnUsage(final InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage) {
-        this.marketplaceV1InstalledAddOnInstalledAddOnUsage = marketplaceV1InstalledAddOnInstalledAddOnUsage;
+    public InstalledAddOnUsageCreator setMarketplaceV1InstalledAddOnInstalledAddOnUsage(
+        final InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage
+    ) {
+        this.marketplaceV1InstalledAddOnInstalledAddOnUsage =
+            marketplaceV1InstalledAddOnInstalledAddOnUsage;
         return this;
     }
 
-
     @Override
     public InstalledAddOnUsage create(final TwilioRestClient client) {
-
         String path = "/v1/InstalledAddOns/{InstalledAddOnSid}/Usage";
 
-        path = path.replace("{" + "InstalledAddOnSid" + "}", this.pathInstalledAddOnSid.toString());
-
+        path =
+            path.replace(
+                "{" + "InstalledAddOnSid" + "}",
+                this.pathInstalledAddOnSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.MARKETPLACE.toString(),
-                path
+            HttpMethod.POST,
+            Domains.MARKETPLACE.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
@@ -66,25 +70,38 @@ public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("InstalledAddOnUsage creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InstalledAddOnUsage creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return InstalledAddOnUsage.fromJson(response.getStream(), client.getObjectMapper());
+        return InstalledAddOnUsage.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (marketplaceV1InstalledAddOnInstalledAddOnUsage != null) {
-            request.setBody(InstalledAddOnUsage.toJson(marketplaceV1InstalledAddOnInstalledAddOnUsage, objectMapper));
+            request.setBody(
+                InstalledAddOnUsage.toJson(
+                    marketplaceV1InstalledAddOnInstalledAddOnUsage,
+                    objectMapper
+                )
+            );
         }
     }
 }

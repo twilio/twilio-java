@@ -25,11 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class PluginArchiveUpdater extends Updater<PluginArchive> {
+
     private String pathSid;
     private String flexMetadata;
 
@@ -37,51 +36,58 @@ public class PluginArchiveUpdater extends Updater<PluginArchive> {
         this.pathSid = pathSid;
     }
 
-
     public PluginArchiveUpdater setFlexMetadata(final String flexMetadata) {
         this.flexMetadata = flexMetadata;
         return this;
     }
 
-
     @Override
     public PluginArchive update(final TwilioRestClient client) {
-
         String path = "/v1/PluginService/Plugins/{Sid}/Archive";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.POST,
+            Domains.FLEXAPI.toString(),
+            path
         );
         addHeaderParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("PluginArchive update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PluginArchive update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return PluginArchive.fromJson(response.getStream(), client.getObjectMapper());
+        return PluginArchive.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addHeaderParams(final Request request) {
-
         if (flexMetadata != null) {
-            Serializer.toString(request, "Flex-Metadata", flexMetadata, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "Flex-Metadata",
+                flexMetadata,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

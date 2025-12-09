@@ -17,70 +17,56 @@ package com.twilio.rest.messaging.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DomainCerts extends Resource {
 
-
     public static DomainCertsDeleter deleter(final String pathDomainSid) {
-        return new DomainCertsDeleter(
-                pathDomainSid
-        );
+        return new DomainCertsDeleter(pathDomainSid);
     }
-
 
     public static DomainCertsFetcher fetcher(final String pathDomainSid) {
-        return new DomainCertsFetcher(
-                pathDomainSid
-        );
+        return new DomainCertsFetcher(pathDomainSid);
     }
 
-
-    public static DomainCertsUpdater updater(final String pathDomainSid, final String tlsCert) {
-        return new DomainCertsUpdater(
-                pathDomainSid, tlsCert
-        );
+    public static DomainCertsUpdater updater(
+        final String pathDomainSid,
+        final String tlsCert
+    ) {
+        return new DomainCertsUpdater(pathDomainSid, tlsCert);
     }
-
 
     /**
      * Converts a JSON String into a DomainCerts object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return DomainCerts object represented by the provided JSON
      */
-    public static DomainCerts fromJson(final String json, final ObjectMapper objectMapper) {
+    public static DomainCerts fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DomainCerts.class);
@@ -95,11 +81,14 @@ public class DomainCerts extends Resource {
      * Converts a JSON InputStream into a DomainCerts object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return DomainCerts object represented by the provided JSON
      */
-    public static DomainCerts fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static DomainCerts fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DomainCerts.class);
@@ -122,37 +111,46 @@ public class DomainCerts extends Resource {
         }
     }
 
-
     @Getter
     private final Object certInValidation;
+
     @Getter
     private final String certificateSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateExpires;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final URI domainName;
+
     @Getter
     private final String domainSid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private DomainCerts(
-            @JsonProperty("cert_in_validation") final Object certInValidation,
-            @JsonProperty("certificate_sid") final String certificateSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_expires")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateExpires,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("domain_name") final URI domainName,
-            @JsonProperty("domain_sid") final String domainSid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("cert_in_validation") final Object certInValidation,
+        @JsonProperty("certificate_sid") final String certificateSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_expires") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateExpires,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("domain_name") final URI domainName,
+        @JsonProperty("domain_sid") final String domainSid,
+        @JsonProperty("url") final URI url
     ) {
         this.certInValidation = certInValidation;
         this.certificateSid = certificateSid;
@@ -176,31 +174,28 @@ public class DomainCerts extends Resource {
 
         DomainCerts other = (DomainCerts) o;
         return (
-                Objects.equals(certInValidation, other.certInValidation) &&
-                        Objects.equals(certificateSid, other.certificateSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateExpires, other.dateExpires) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(domainName, other.domainName) &&
-                        Objects.equals(domainSid, other.domainSid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(certInValidation, other.certInValidation) &&
+            Objects.equals(certificateSid, other.certificateSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateExpires, other.dateExpires) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(domainName, other.domainName) &&
+            Objects.equals(domainSid, other.domainSid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                certInValidation,
-                certificateSid,
-                dateCreated,
-                dateExpires,
-                dateUpdated,
-                domainName,
-                domainSid,
-                url
+            certInValidation,
+            certificateSid,
+            dateCreated,
+            dateExpires,
+            dateUpdated,
+            domainName,
+            domainSid,
+            url
         );
     }
-
-
 }
-

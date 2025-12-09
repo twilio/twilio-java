@@ -17,53 +17,36 @@ package com.twilio.rest.frontlineapi.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class User extends Resource {
 
-
     public static UserFetcher fetcher(final String pathSid) {
-        return new UserFetcher(
-                pathSid
-        );
+        return new UserFetcher(pathSid);
     }
-
 
     public static UserUpdater updater(final String pathSid) {
-        return new UserUpdater(
-                pathSid
-        );
+        return new UserUpdater(pathSid);
     }
-
 
     public enum StateType {
         ACTIVE("active"),
@@ -85,15 +68,17 @@ public class User extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a User object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return User object represented by the provided JSON
      */
-    public static User fromJson(final String json, final ObjectMapper objectMapper) {
+    public static User fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, User.class);
@@ -108,11 +93,14 @@ public class User extends Resource {
      * Converts a JSON InputStream into a User object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return User object represented by the provided JSON
      */
-    public static User fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static User fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, User.class);
@@ -135,31 +123,36 @@ public class User extends Resource {
         }
     }
 
-
     @Getter
     private final String avatar;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String identity;
+
     @Getter
     private final Boolean isAvailable;
+
     @Getter
     private final String sid;
+
     @Getter
     private final User.StateType state;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private User(
-            @JsonProperty("avatar") final String avatar,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("identity") final String identity,
-            @JsonProperty("is_available") final Boolean isAvailable,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("state") final User.StateType state,
-            @JsonProperty("url") final URI url
+        @JsonProperty("avatar") final String avatar,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("is_available") final Boolean isAvailable,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("state") final User.StateType state,
+        @JsonProperty("url") final URI url
     ) {
         this.avatar = avatar;
         this.friendlyName = friendlyName;
@@ -182,29 +175,26 @@ public class User extends Resource {
 
         User other = (User) o;
         return (
-                Objects.equals(avatar, other.avatar) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(identity, other.identity) &&
-                        Objects.equals(isAvailable, other.isAvailable) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(state, other.state) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(avatar, other.avatar) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(isAvailable, other.isAvailable) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(state, other.state) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                avatar,
-                friendlyName,
-                identity,
-                isAvailable,
-                sid,
-                state,
-                url
+            avatar,
+            friendlyName,
+            identity,
+            isAvailable,
+            sid,
+            state,
+            url
         );
     }
-
-
 }
-

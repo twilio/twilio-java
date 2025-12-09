@@ -17,71 +17,54 @@ package com.twilio.rest.serverless.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Build extends Resource {
 
-
     public static BuildCreator creator(final String pathServiceSid) {
-        return new BuildCreator(
-                pathServiceSid
-        );
+        return new BuildCreator(pathServiceSid);
     }
 
-
-    public static BuildDeleter deleter(final String pathServiceSid, final String pathSid) {
-        return new BuildDeleter(
-                pathServiceSid, pathSid
-        );
+    public static BuildDeleter deleter(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new BuildDeleter(pathServiceSid, pathSid);
     }
 
-
-    public static BuildFetcher fetcher(final String pathServiceSid, final String pathSid) {
-        return new BuildFetcher(
-                pathServiceSid, pathSid
-        );
+    public static BuildFetcher fetcher(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new BuildFetcher(pathServiceSid, pathSid);
     }
-
 
     public static BuildReader reader(final String pathServiceSid) {
-        return new BuildReader(
-                pathServiceSid
-        );
+        return new BuildReader(pathServiceSid);
     }
-
 
     public enum Status {
         BUILDING("building"),
@@ -130,15 +113,17 @@ public class Build extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Build object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Build object represented by the provided JSON
      */
-    public static Build fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Build fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Build.class);
@@ -153,11 +138,14 @@ public class Build extends Resource {
      * Converts a JSON InputStream into a Build object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Build object represented by the provided JSON
      */
-    public static Build fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Build fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Build.class);
@@ -180,48 +168,60 @@ public class Build extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final List<Object> assetVersions;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final List<Object> dependencies;
+
     @Getter
     private final List<Object> functionVersions;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final Build.Runtime runtime;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Build.Status status;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Build(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("asset_versions") final List<Object> assetVersions,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("dependencies") final List<Object> dependencies,
-            @JsonProperty("function_versions") final List<Object> functionVersions,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("runtime") final Build.Runtime runtime,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final Build.Status status,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("asset_versions") final List<Object> assetVersions,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("dependencies") final List<Object> dependencies,
+        @JsonProperty("function_versions") final List<Object> functionVersions,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("runtime") final Build.Runtime runtime,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final Build.Status status,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.assetVersions = assetVersions;
@@ -249,39 +249,36 @@ public class Build extends Resource {
 
         Build other = (Build) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(assetVersions, other.assetVersions) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(dependencies, other.dependencies) &&
-                        Objects.equals(functionVersions, other.functionVersions) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(runtime, other.runtime) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(assetVersions, other.assetVersions) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(dependencies, other.dependencies) &&
+            Objects.equals(functionVersions, other.functionVersions) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(runtime, other.runtime) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                assetVersions,
-                dateCreated,
-                dateUpdated,
-                dependencies,
-                functionVersions,
-                links,
-                runtime,
-                serviceSid,
-                sid,
-                status,
-                url
+            accountSid,
+            assetVersions,
+            dateCreated,
+            dateUpdated,
+            dependencies,
+            functionVersions,
+            links,
+            runtime,
+            serviceSid,
+            sid,
+            status,
+            url
         );
     }
-
-
 }
-

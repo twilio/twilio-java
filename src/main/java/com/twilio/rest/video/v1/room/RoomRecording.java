@@ -17,63 +17,49 @@ package com.twilio.rest.video.v1.room;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RoomRecording extends Resource {
 
-
-    public static RoomRecordingDeleter deleter(final String pathRoomSid, final String pathSid) {
-        return new RoomRecordingDeleter(
-                pathRoomSid, pathSid
-        );
+    public static RoomRecordingDeleter deleter(
+        final String pathRoomSid,
+        final String pathSid
+    ) {
+        return new RoomRecordingDeleter(pathRoomSid, pathSid);
     }
 
-
-    public static RoomRecordingFetcher fetcher(final String pathRoomSid, final String pathSid) {
-        return new RoomRecordingFetcher(
-                pathRoomSid, pathSid
-        );
+    public static RoomRecordingFetcher fetcher(
+        final String pathRoomSid,
+        final String pathSid
+    ) {
+        return new RoomRecordingFetcher(pathRoomSid, pathSid);
     }
-
 
     public static RoomRecordingReader reader(final String pathRoomSid) {
-        return new RoomRecordingReader(
-                pathRoomSid
-        );
+        return new RoomRecordingReader(pathRoomSid);
     }
-
 
     public enum Status {
         PROCESSING("processing"),
@@ -160,15 +146,17 @@ public class RoomRecording extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a RoomRecording object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return RoomRecording object represented by the provided JSON
      */
-    public static RoomRecording fromJson(final String json, final ObjectMapper objectMapper) {
+    public static RoomRecording fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, RoomRecording.class);
@@ -183,11 +171,14 @@ public class RoomRecording extends Resource {
      * Converts a JSON InputStream into a RoomRecording object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return RoomRecording object represented by the provided JSON
      */
-    public static RoomRecording fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static RoomRecording fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, RoomRecording.class);
@@ -210,62 +201,82 @@ public class RoomRecording extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final RoomRecording.Codec codec;
+
     @Getter
     private final RoomRecording.Format containerFormat;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final Integer duration;
+
     @Getter
     private final Object groupingSids;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final URI mediaExternalLocation;
+
     @Getter
     private final Long offset;
+
     @Getter
     private final String roomSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Long size;
+
     @Getter
     private final String sourceSid;
+
     @Getter
     private final RoomRecording.Status status;
+
     @Getter
     private final String trackName;
+
     @Getter
     private final RoomRecording.Type type;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private RoomRecording(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("codec") final RoomRecording.Codec codec,
-            @JsonProperty("container_format") final RoomRecording.Format containerFormat,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("duration") final Integer duration,
-            @JsonProperty("grouping_sids") final Object groupingSids,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("media_external_location") final URI mediaExternalLocation,
-            @JsonProperty("offset") final Long offset,
-            @JsonProperty("room_sid") final String roomSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("size") final Long size,
-            @JsonProperty("source_sid") final String sourceSid,
-            @JsonProperty("status") final RoomRecording.Status status,
-            @JsonProperty("track_name") final String trackName,
-            @JsonProperty("type") final RoomRecording.Type type,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("codec") final RoomRecording.Codec codec,
+        @JsonProperty(
+            "container_format"
+        ) final RoomRecording.Format containerFormat,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("duration") final Integer duration,
+        @JsonProperty("grouping_sids") final Object groupingSids,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty(
+            "media_external_location"
+        ) final URI mediaExternalLocation,
+        @JsonProperty("offset") final Long offset,
+        @JsonProperty("room_sid") final String roomSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("size") final Long size,
+        @JsonProperty("source_sid") final String sourceSid,
+        @JsonProperty("status") final RoomRecording.Status status,
+        @JsonProperty("track_name") final String trackName,
+        @JsonProperty("type") final RoomRecording.Type type,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.codec = codec;
@@ -298,49 +309,49 @@ public class RoomRecording extends Resource {
 
         RoomRecording other = (RoomRecording) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(codec, other.codec) &&
-                        Objects.equals(containerFormat, other.containerFormat) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(duration, other.duration) &&
-                        Objects.equals(groupingSids, other.groupingSids) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(mediaExternalLocation, other.mediaExternalLocation) &&
-                        Objects.equals(offset, other.offset) &&
-                        Objects.equals(roomSid, other.roomSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(size, other.size) &&
-                        Objects.equals(sourceSid, other.sourceSid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(trackName, other.trackName) &&
-                        Objects.equals(type, other.type) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(codec, other.codec) &&
+            Objects.equals(containerFormat, other.containerFormat) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(duration, other.duration) &&
+            Objects.equals(groupingSids, other.groupingSids) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(
+                mediaExternalLocation,
+                other.mediaExternalLocation
+            ) &&
+            Objects.equals(offset, other.offset) &&
+            Objects.equals(roomSid, other.roomSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(size, other.size) &&
+            Objects.equals(sourceSid, other.sourceSid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(trackName, other.trackName) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                codec,
-                containerFormat,
-                dateCreated,
-                duration,
-                groupingSids,
-                links,
-                mediaExternalLocation,
-                offset,
-                roomSid,
-                sid,
-                size,
-                sourceSid,
-                status,
-                trackName,
-                type,
-                url
+            accountSid,
+            codec,
+            containerFormat,
+            dateCreated,
+            duration,
+            groupingSids,
+            links,
+            mediaExternalLocation,
+            offset,
+            roomSid,
+            sid,
+            size,
+            sourceSid,
+            status,
+            trackName,
+            type,
+            url
         );
     }
-
-
 }
-

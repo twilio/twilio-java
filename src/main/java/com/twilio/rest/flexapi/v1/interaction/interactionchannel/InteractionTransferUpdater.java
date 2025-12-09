@@ -15,7 +15,6 @@
 package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,43 +25,51 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class InteractionTransferUpdater extends Updater<InteractionTransfer> {
+
     private String pathInteractionSid;
     private String pathChannelSid;
     private String pathSid;
     private Object body;
 
-    public InteractionTransferUpdater(final String pathInteractionSid, final String pathChannelSid, final String pathSid) {
+    public InteractionTransferUpdater(
+        final String pathInteractionSid,
+        final String pathChannelSid,
+        final String pathSid
+    ) {
         this.pathInteractionSid = pathInteractionSid;
         this.pathChannelSid = pathChannelSid;
         this.pathSid = pathSid;
     }
-
 
     public InteractionTransferUpdater setBody(final Object body) {
         this.body = body;
         return this;
     }
 
-
     @Override
     public InteractionTransfer update(final TwilioRestClient client) {
+        String path =
+            "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid}";
 
-        String path = "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid}";
-
-        path = path.replace("{" + "InteractionSid" + "}", this.pathInteractionSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
+        path =
+            path.replace(
+                "{" + "InteractionSid" + "}",
+                this.pathInteractionSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.POST,
+            Domains.FLEXAPI.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
@@ -70,19 +77,27 @@ public class InteractionTransferUpdater extends Updater<InteractionTransfer> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("InteractionTransfer update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InteractionTransfer update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return InteractionTransfer.fromJson(response.getStream(), client.getObjectMapper());
+        return InteractionTransfer.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {

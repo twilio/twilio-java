@@ -23,8 +23,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class TranscriptionsFetcher extends Fetcher<Transcriptions> {
@@ -32,41 +30,49 @@ public class TranscriptionsFetcher extends Fetcher<Transcriptions> {
     private String pathRoomSid;
     private String pathTtid;
 
-    public TranscriptionsFetcher(final String pathRoomSid, final String pathTtid) {
+    public TranscriptionsFetcher(
+        final String pathRoomSid,
+        final String pathTtid
+    ) {
         this.pathRoomSid = pathRoomSid;
         this.pathTtid = pathTtid;
     }
 
-
     @Override
     public Transcriptions fetch(final TwilioRestClient client) {
-
         String path = "/v1/Rooms/{RoomSid}/Transcriptions/{Ttid}";
 
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
         path = path.replace("{" + "Ttid" + "}", this.pathTtid.toString());
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.VIDEO.toString(),
-                path
+            HttpMethod.GET,
+            Domains.VIDEO.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Transcriptions fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Transcriptions fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return Transcriptions.fromJson(response.getStream(), client.getObjectMapper());
+        return Transcriptions.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

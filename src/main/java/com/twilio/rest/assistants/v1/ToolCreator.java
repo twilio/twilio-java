@@ -15,7 +15,6 @@
 package com.twilio.rest.assistants.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,35 +25,35 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class ToolCreator extends Creator<Tool> {
 
     private Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest;
 
-    public ToolCreator(final Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest) {
-        this.assistantsV1ServiceCreateToolRequest = assistantsV1ServiceCreateToolRequest;
+    public ToolCreator(
+        final Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest
+    ) {
+        this.assistantsV1ServiceCreateToolRequest =
+            assistantsV1ServiceCreateToolRequest;
     }
 
-
-    public ToolCreator setAssistantsV1ServiceCreateToolRequest(final Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest) {
-        this.assistantsV1ServiceCreateToolRequest = assistantsV1ServiceCreateToolRequest;
+    public ToolCreator setAssistantsV1ServiceCreateToolRequest(
+        final Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest
+    ) {
+        this.assistantsV1ServiceCreateToolRequest =
+            assistantsV1ServiceCreateToolRequest;
         return this;
     }
 
-
     @Override
     public Tool create(final TwilioRestClient client) {
-
         String path = "/v1/Tools";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.ASSISTANTS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.ASSISTANTS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
@@ -62,14 +61,19 @@ public class ToolCreator extends Creator<Tool> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Tool creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Tool creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -80,7 +84,9 @@ public class ToolCreator extends Creator<Tool> {
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (assistantsV1ServiceCreateToolRequest != null) {
-            request.setBody(Tool.toJson(assistantsV1ServiceCreateToolRequest, objectMapper));
+            request.setBody(
+                Tool.toJson(assistantsV1ServiceCreateToolRequest, objectMapper)
+            );
         }
     }
 }

@@ -26,11 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class AddressUpdater extends Updater<Address> {
+
     private String pathAccountSid;
     private String pathSid;
     private String friendlyName;
@@ -52,75 +51,72 @@ public class AddressUpdater extends Updater<Address> {
         this.pathSid = pathSid;
     }
 
-
     public AddressUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-
 
     public AddressUpdater setCustomerName(final String customerName) {
         this.customerName = customerName;
         return this;
     }
 
-
     public AddressUpdater setStreet(final String street) {
         this.street = street;
         return this;
     }
-
 
     public AddressUpdater setCity(final String city) {
         this.city = city;
         return this;
     }
 
-
     public AddressUpdater setRegion(final String region) {
         this.region = region;
         return this;
     }
-
 
     public AddressUpdater setPostalCode(final String postalCode) {
         this.postalCode = postalCode;
         return this;
     }
 
-
     public AddressUpdater setEmergencyEnabled(final Boolean emergencyEnabled) {
         this.emergencyEnabled = emergencyEnabled;
         return this;
     }
 
-
-    public AddressUpdater setAutoCorrectAddress(final Boolean autoCorrectAddress) {
+    public AddressUpdater setAutoCorrectAddress(
+        final Boolean autoCorrectAddress
+    ) {
         this.autoCorrectAddress = autoCorrectAddress;
         return this;
     }
-
 
     public AddressUpdater setStreetSecondary(final String streetSecondary) {
         this.streetSecondary = streetSecondary;
         return this;
     }
 
-
     @Override
     public Address update(final TwilioRestClient client) {
-
         String path = "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.API.toString(),
-                path
+            HttpMethod.POST,
+            Domains.API.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -128,14 +124,19 @@ public class AddressUpdater extends Updater<Address> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Address update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Address update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -144,51 +145,85 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     private void addPostParams(final Request request) {
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (customerName != null) {
-            Serializer.toString(request, "CustomerName", customerName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CustomerName",
+                customerName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (street != null) {
-            Serializer.toString(request, "Street", street, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Street",
+                street,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (city != null) {
-            Serializer.toString(request, "City", city, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "City",
+                city,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (region != null) {
-            Serializer.toString(request, "Region", region, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Region",
+                region,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (postalCode != null) {
-            Serializer.toString(request, "PostalCode", postalCode, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "PostalCode",
+                postalCode,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (emergencyEnabled != null) {
-            Serializer.toString(request, "EmergencyEnabled", emergencyEnabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "EmergencyEnabled",
+                emergencyEnabled,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (autoCorrectAddress != null) {
-            Serializer.toString(request, "AutoCorrectAddress", autoCorrectAddress, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AutoCorrectAddress",
+                autoCorrectAddress,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (streetSecondary != null) {
-            Serializer.toString(request, "StreetSecondary", streetSecondary, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StreetSecondary",
+                streetSecondary,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

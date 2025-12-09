@@ -14,7 +14,9 @@
 
 package com.twilio.rest.flexapi.v1;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
+import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -25,32 +27,24 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
-import com.twilio.base.Page;
-import com.twilio.base.ResourceSet;
 
 public class PluginReleaseReader extends Reader<PluginRelease> {
 
     private Long pageSize;
     private String flexMetadata;
 
-    public PluginReleaseReader() {
-    }
-
+    public PluginReleaseReader() {}
 
     public PluginReleaseReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-
     public PluginReleaseReader setFlexMetadata(final String flexMetadata) {
         this.flexMetadata = flexMetadata;
         return this;
     }
-
 
     @Override
     public ResourceSet<PluginRelease> read(final TwilioRestClient client) {
@@ -58,14 +52,12 @@ public class PluginReleaseReader extends Reader<PluginRelease> {
     }
 
     public Page<PluginRelease> firstPage(final TwilioRestClient client) {
-
         String path = "/v1/PluginService/Releases";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.GET,
+            Domains.FLEXAPI.toString(),
+            path
         );
         addQueryParams(request);
         addHeaderParams(request);
@@ -73,61 +65,94 @@ public class PluginReleaseReader extends Reader<PluginRelease> {
         return pageForRequest(client, request);
     }
 
-    private Page<PluginRelease> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<PluginRelease> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("PluginRelease read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PluginRelease read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "releases",
-                response.getContent(),
-                PluginRelease.class,
-                client.getObjectMapper());
+            "releases",
+            response.getContent(),
+            PluginRelease.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<PluginRelease> previousPage(final Page<PluginRelease> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<PluginRelease> previousPage(
+        final Page<PluginRelease> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<PluginRelease> nextPage(final Page<PluginRelease> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<PluginRelease> nextPage(
+        final Page<PluginRelease> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<PluginRelease> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<PluginRelease> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
-
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 
     private void addHeaderParams(final Request request) {
-
         if (flexMetadata != null) {
-            Serializer.toString(request, "Flex-Metadata", flexMetadata, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "Flex-Metadata",
+                flexMetadata,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

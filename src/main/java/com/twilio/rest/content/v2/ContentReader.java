@@ -14,7 +14,9 @@
 
 package com.twilio.rest.content.v2;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
+import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -26,14 +28,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 import java.util.List;
-
-import com.twilio.type.*;
-import com.twilio.base.Page;
-import com.twilio.base.ResourceSet;
 
 public class ContentReader extends Reader<Content> {
 
@@ -48,51 +45,46 @@ public class ContentReader extends Reader<Content> {
     private List<String> contentType;
     private List<String> channelEligibility;
 
-    public ContentReader() {
-    }
-
+    public ContentReader() {}
 
     public ContentReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-
     public ContentReader setSortByDate(final String sortByDate) {
         this.sortByDate = sortByDate;
         return this;
     }
-
 
     public ContentReader setSortByContentName(final String sortByContentName) {
         this.sortByContentName = sortByContentName;
         return this;
     }
 
-
-    public ContentReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
+    public ContentReader setDateCreatedAfter(
+        final ZonedDateTime dateCreatedAfter
+    ) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
 
-
-    public ContentReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
+    public ContentReader setDateCreatedBefore(
+        final ZonedDateTime dateCreatedBefore
+    ) {
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
-
 
     public ContentReader setContentName(final String contentName) {
         this.contentName = contentName;
         return this;
     }
 
-
     public ContentReader setContent(final String content) {
         this.content = content;
         return this;
     }
-
 
     public ContentReader setLanguage(final List<String> language) {
         this.language = language;
@@ -112,12 +104,16 @@ public class ContentReader extends Reader<Content> {
         return setContentType(Promoter.listOfOne(contentType));
     }
 
-    public ContentReader setChannelEligibility(final List<String> channelEligibility) {
+    public ContentReader setChannelEligibility(
+        final List<String> channelEligibility
+    ) {
         this.channelEligibility = channelEligibility;
         return this;
     }
 
-    public ContentReader setChannelEligibility(final String channelEligibility) {
+    public ContentReader setChannelEligibility(
+        final String channelEligibility
+    ) {
         return setChannelEligibility(Promoter.listOfOne(channelEligibility));
     }
 
@@ -127,117 +123,182 @@ public class ContentReader extends Reader<Content> {
     }
 
     public Page<Content> firstPage(final TwilioRestClient client) {
-
         String path = "/v2/Content";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.CONTENT.toString(),
-                path
+            HttpMethod.GET,
+            Domains.CONTENT.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<Content> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Content> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Content read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Content read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "contents",
-                response.getContent(),
-                Content.class,
-                client.getObjectMapper());
+            "contents",
+            response.getContent(),
+            Content.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<Content> previousPage(final Page<Content> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<Content> previousPage(
+        final Page<Content> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Content> nextPage(final Page<Content> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<Content> nextPage(
+        final Page<Content> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Content> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Content> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
 
         if (sortByDate != null) {
-            Serializer.toString(request, "SortByDate", sortByDate, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "SortByDate",
+                sortByDate,
+                ParameterType.QUERY
+            );
         }
-
 
         if (sortByContentName != null) {
-            Serializer.toString(request, "SortByContentName", sortByContentName, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "SortByContentName",
+                sortByContentName,
+                ParameterType.QUERY
+            );
         }
-
 
         if (dateCreatedAfter != null) {
-            Serializer.toString(request, "DateCreatedAfter", dateCreatedAfter, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "DateCreatedAfter",
+                dateCreatedAfter,
+                ParameterType.QUERY
+            );
         }
-
 
         if (dateCreatedBefore != null) {
-            Serializer.toString(request, "DateCreatedBefore", dateCreatedBefore, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "DateCreatedBefore",
+                dateCreatedBefore,
+                ParameterType.QUERY
+            );
         }
-
 
         if (contentName != null) {
-            Serializer.toString(request, "ContentName", contentName, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "ContentName",
+                contentName,
+                ParameterType.QUERY
+            );
         }
-
 
         if (content != null) {
-            Serializer.toString(request, "Content", content, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Content",
+                content,
+                ParameterType.QUERY
+            );
         }
-
 
         if (language != null) {
             for (String param : language) {
-                Serializer.toString(request, "Language", param, ParameterType.QUERY);
+                Serializer.toString(
+                    request,
+                    "Language",
+                    param,
+                    ParameterType.QUERY
+                );
             }
         }
-
 
         if (contentType != null) {
             for (String param : contentType) {
-                Serializer.toString(request, "ContentType", param, ParameterType.QUERY);
+                Serializer.toString(
+                    request,
+                    "ContentType",
+                    param,
+                    ParameterType.QUERY
+                );
             }
         }
-
 
         if (channelEligibility != null) {
             for (String param : channelEligibility) {
-                Serializer.toString(request, "ChannelEligibility", param, ParameterType.QUERY);
+                Serializer.toString(
+                    request,
+                    "ChannelEligibility",
+                    param,
+                    ParameterType.QUERY
+                );
             }
         }
 
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

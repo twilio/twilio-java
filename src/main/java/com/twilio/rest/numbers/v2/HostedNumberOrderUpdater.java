@@ -26,52 +26,54 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
+
     private String pathSid;
     private HostedNumberOrder.Status status;
     private Integer verificationCallDelay;
     private String verificationCallExtension;
 
-    public HostedNumberOrderUpdater(final String pathSid, final HostedNumberOrder.Status status) {
+    public HostedNumberOrderUpdater(
+        final String pathSid,
+        final HostedNumberOrder.Status status
+    ) {
         this.pathSid = pathSid;
         this.status = status;
     }
 
-
-    public HostedNumberOrderUpdater setStatus(final HostedNumberOrder.Status status) {
+    public HostedNumberOrderUpdater setStatus(
+        final HostedNumberOrder.Status status
+    ) {
         this.status = status;
         return this;
     }
 
-
-    public HostedNumberOrderUpdater setVerificationCallDelay(final Integer verificationCallDelay) {
+    public HostedNumberOrderUpdater setVerificationCallDelay(
+        final Integer verificationCallDelay
+    ) {
         this.verificationCallDelay = verificationCallDelay;
         return this;
     }
 
-
-    public HostedNumberOrderUpdater setVerificationCallExtension(final String verificationCallExtension) {
+    public HostedNumberOrderUpdater setVerificationCallExtension(
+        final String verificationCallExtension
+    ) {
         this.verificationCallExtension = verificationCallExtension;
         return this;
     }
 
-
     @Override
     public HostedNumberOrder update(final TwilioRestClient client) {
-
         String path = "/v2/HostedNumber/Orders/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.NUMBERS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.NUMBERS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -79,37 +81,55 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("HostedNumberOrder update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "HostedNumberOrder update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return HostedNumberOrder.fromJson(response.getStream(), client.getObjectMapper());
+        return HostedNumberOrder.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (verificationCallDelay != null) {
-            Serializer.toString(request, "VerificationCallDelay", verificationCallDelay, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VerificationCallDelay",
+                verificationCallDelay,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (verificationCallExtension != null) {
-            Serializer.toString(request, "VerificationCallExtension", verificationCallExtension, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VerificationCallExtension",
+                verificationCallExtension,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

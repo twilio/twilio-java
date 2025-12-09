@@ -17,55 +17,38 @@ package com.twilio.rest.verify.v2;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class VerificationAttempt extends Resource {
 
-
     public static VerificationAttemptFetcher fetcher(final String pathSid) {
-        return new VerificationAttemptFetcher(
-                pathSid
-        );
+        return new VerificationAttemptFetcher(pathSid);
     }
-
 
     public static VerificationAttemptReader reader() {
-        return new VerificationAttemptReader(
-
-        );
+        return new VerificationAttemptReader();
     }
-
 
     public enum ConversionStatus {
         CONVERTED("converted"),
@@ -110,15 +93,17 @@ public class VerificationAttempt extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a VerificationAttempt object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return VerificationAttempt object represented by the provided JSON
      */
-    public static VerificationAttempt fromJson(final String json, final ObjectMapper objectMapper) {
+    public static VerificationAttempt fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, VerificationAttempt.class);
@@ -133,11 +118,14 @@ public class VerificationAttempt extends Resource {
      * Converts a JSON InputStream into a VerificationAttempt object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return VerificationAttempt object represented by the provided JSON
      */
-    public static VerificationAttempt fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static VerificationAttempt fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, VerificationAttempt.class);
@@ -160,45 +148,58 @@ public class VerificationAttempt extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final VerificationAttempt.Channels channel;
+
     @Getter
     private final Object channelData;
+
     @Getter
     private final VerificationAttempt.ConversionStatus conversionStatus;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Object price;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
+
     @Getter
     private final String verificationSid;
 
     @JsonCreator
     private VerificationAttempt(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("channel") final VerificationAttempt.Channels channel,
-            @JsonProperty("channel_data") final Object channelData,
-            @JsonProperty("conversion_status") final VerificationAttempt.ConversionStatus conversionStatus,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("price") final Object price,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("verification_sid") final String verificationSid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("channel") final VerificationAttempt.Channels channel,
+        @JsonProperty("channel_data") final Object channelData,
+        @JsonProperty(
+            "conversion_status"
+        ) final VerificationAttempt.ConversionStatus conversionStatus,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("price") final Object price,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("verification_sid") final String verificationSid
     ) {
         this.accountSid = accountSid;
         this.channel = channel;
@@ -225,37 +226,34 @@ public class VerificationAttempt extends Resource {
 
         VerificationAttempt other = (VerificationAttempt) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(channel, other.channel) &&
-                        Objects.equals(channelData, other.channelData) &&
-                        Objects.equals(conversionStatus, other.conversionStatus) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(price, other.price) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(verificationSid, other.verificationSid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(channel, other.channel) &&
+            Objects.equals(channelData, other.channelData) &&
+            Objects.equals(conversionStatus, other.conversionStatus) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(price, other.price) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(verificationSid, other.verificationSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                channel,
-                channelData,
-                conversionStatus,
-                dateCreated,
-                dateUpdated,
-                price,
-                serviceSid,
-                sid,
-                url,
-                verificationSid
+            accountSid,
+            channel,
+            channelData,
+            conversionStatus,
+            dateCreated,
+            dateUpdated,
+            price,
+            serviceSid,
+            sid,
+            url,
+            verificationSid
         );
     }
-
-
 }
-

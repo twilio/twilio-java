@@ -14,7 +14,6 @@
 
 package com.twilio.rest.video.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,11 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
-import java.net.URI;
-
 import com.twilio.type.*;
+import java.net.URI;
 
 public class RecordingSettingsCreator extends Creator<RecordingSettings> {
 
@@ -47,24 +43,24 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
         this.friendlyName = friendlyName;
     }
 
-
     public RecordingSettingsCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
-    public RecordingSettingsCreator setAwsCredentialsSid(final String awsCredentialsSid) {
+    public RecordingSettingsCreator setAwsCredentialsSid(
+        final String awsCredentialsSid
+    ) {
         this.awsCredentialsSid = awsCredentialsSid;
         return this;
     }
 
-
-    public RecordingSettingsCreator setEncryptionKeySid(final String encryptionKeySid) {
+    public RecordingSettingsCreator setEncryptionKeySid(
+        final String encryptionKeySid
+    ) {
         this.encryptionKeySid = encryptionKeySid;
         return this;
     }
-
 
     public RecordingSettingsCreator setAwsS3Url(final URI awsS3Url) {
         this.awsS3Url = awsS3Url;
@@ -75,28 +71,28 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
         return setAwsS3Url(Promoter.uriFromString(awsS3Url));
     }
 
-    public RecordingSettingsCreator setAwsStorageEnabled(final Boolean awsStorageEnabled) {
+    public RecordingSettingsCreator setAwsStorageEnabled(
+        final Boolean awsStorageEnabled
+    ) {
         this.awsStorageEnabled = awsStorageEnabled;
         return this;
     }
 
-
-    public RecordingSettingsCreator setEncryptionEnabled(final Boolean encryptionEnabled) {
+    public RecordingSettingsCreator setEncryptionEnabled(
+        final Boolean encryptionEnabled
+    ) {
         this.encryptionEnabled = encryptionEnabled;
         return this;
     }
 
-
     @Override
     public RecordingSettings create(final TwilioRestClient client) {
-
         String path = "/v1/RecordingSettings/Default";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.VIDEO.toString(),
-                path
+            HttpMethod.POST,
+            Domains.VIDEO.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -104,52 +100,82 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("RecordingSettings creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "RecordingSettings creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return RecordingSettings.fromJson(response.getStream(), client.getObjectMapper());
+        return RecordingSettings.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (awsCredentialsSid != null) {
-            Serializer.toString(request, "AwsCredentialsSid", awsCredentialsSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AwsCredentialsSid",
+                awsCredentialsSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (encryptionKeySid != null) {
-            Serializer.toString(request, "EncryptionKeySid", encryptionKeySid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "EncryptionKeySid",
+                encryptionKeySid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (awsS3Url != null) {
-            Serializer.toString(request, "AwsS3Url", awsS3Url, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AwsS3Url",
+                awsS3Url,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (awsStorageEnabled != null) {
-            Serializer.toString(request, "AwsStorageEnabled", awsStorageEnabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AwsStorageEnabled",
+                awsStorageEnabled,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (encryptionEnabled != null) {
-            Serializer.toString(request, "EncryptionEnabled", encryptionEnabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "EncryptionEnabled",
+                encryptionEnabled,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

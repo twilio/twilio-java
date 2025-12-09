@@ -26,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class AuthorizeFetcher extends Fetcher<Authorize> {
@@ -38,50 +36,41 @@ public class AuthorizeFetcher extends Fetcher<Authorize> {
     private String scope;
     private String state;
 
-    public AuthorizeFetcher() {
-    }
-
+    public AuthorizeFetcher() {}
 
     public AuthorizeFetcher setResponseType(final String responseType) {
         this.responseType = responseType;
         return this;
     }
 
-
     public AuthorizeFetcher setClientId(final String clientId) {
         this.clientId = clientId;
         return this;
     }
-
 
     public AuthorizeFetcher setRedirectUri(final String redirectUri) {
         this.redirectUri = redirectUri;
         return this;
     }
 
-
     public AuthorizeFetcher setScope(final String scope) {
         this.scope = scope;
         return this;
     }
-
 
     public AuthorizeFetcher setState(final String state) {
         this.state = state;
         return this;
     }
 
-
     @Override
     public Authorize fetch(final TwilioRestClient client) {
-
         String path = "/v1/authorize";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.PREVIEWIAM.toString(),
-                path
+            HttpMethod.GET,
+            Domains.PREVIEWIAM.toString(),
+            path
         );
         request.setAuth(NoAuthStrategy.getInstance());
         addQueryParams(request);
@@ -89,47 +78,62 @@ public class AuthorizeFetcher extends Fetcher<Authorize> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Authorize fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Authorize fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return Authorize.fromJson(response.getStream(), client.getObjectMapper());
+        return Authorize.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (responseType != null) {
-            Serializer.toString(request, "response_type", responseType, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "response_type",
+                responseType,
+                ParameterType.QUERY
+            );
         }
-
 
         if (clientId != null) {
-            Serializer.toString(request, "client_id", clientId, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "client_id",
+                clientId,
+                ParameterType.QUERY
+            );
         }
-
 
         if (redirectUri != null) {
-            Serializer.toString(request, "redirect_uri", redirectUri, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "redirect_uri",
+                redirectUri,
+                ParameterType.QUERY
+            );
         }
-
 
         if (scope != null) {
             Serializer.toString(request, "scope", scope, ParameterType.QUERY);
         }
 
-
         if (state != null) {
             Serializer.toString(request, "state", state, ParameterType.QUERY);
         }
-
-
     }
 }

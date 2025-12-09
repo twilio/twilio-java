@@ -17,61 +17,65 @@ package com.twilio.rest.api.v2010.account.recording.addonresult.payload;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.twilio.exception.ApiConnectionException;
-import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
-import java.io.InputStream;
-import java.net.URI;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-
+import com.twilio.base.Resource;
+import com.twilio.exception.ApiConnectionException;
+import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Data extends Resource {
 
-
-    public static DataFetcher fetcher(final String pathReferenceSid, final String pathAddOnResultSid, final String pathPayloadSid) {
+    public static DataFetcher fetcher(
+        final String pathReferenceSid,
+        final String pathAddOnResultSid,
+        final String pathPayloadSid
+    ) {
         return new DataFetcher(
-                pathReferenceSid, pathAddOnResultSid, pathPayloadSid
+            pathReferenceSid,
+            pathAddOnResultSid,
+            pathPayloadSid
         );
     }
 
-
-    public static DataFetcher fetcher(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid, final String pathPayloadSid) {
+    public static DataFetcher fetcher(
+        final String pathAccountSid,
+        final String pathReferenceSid,
+        final String pathAddOnResultSid,
+        final String pathPayloadSid
+    ) {
         return new DataFetcher(
-                pathAccountSid, pathReferenceSid, pathAddOnResultSid, pathPayloadSid
+            pathAccountSid,
+            pathReferenceSid,
+            pathAddOnResultSid,
+            pathPayloadSid
         );
     }
-
 
     /**
      * Converts a JSON String into a Data object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Data object represented by the provided JSON
      */
-    public static Data fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Data fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Data.class);
@@ -86,11 +90,14 @@ public class Data extends Resource {
      * Converts a JSON InputStream into a Data object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Data object represented by the provided JSON
      */
-    public static Data fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Data fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Data.class);
@@ -113,14 +120,11 @@ public class Data extends Resource {
         }
     }
 
-
     @Getter
     private final URI redirectTo;
 
     @JsonCreator
-    private Data(
-            @JsonProperty("redirect_to") final URI redirectTo
-    ) {
+    private Data(@JsonProperty("redirect_to") final URI redirectTo) {
         this.redirectTo = redirectTo;
     }
 
@@ -135,18 +139,11 @@ public class Data extends Resource {
         }
 
         Data other = (Data) o;
-        return (
-                Objects.equals(redirectTo, other.redirectTo)
-        );
+        return (Objects.equals(redirectTo, other.redirectTo));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                redirectTo
-        );
+        return Objects.hash(redirectTo);
     }
-
-
 }
-

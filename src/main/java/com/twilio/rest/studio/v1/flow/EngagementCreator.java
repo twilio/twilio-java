@@ -14,7 +14,6 @@
 
 package com.twilio.rest.studio.v1.flow;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,8 +27,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class EngagementCreator extends Creator<Engagement> {
@@ -39,12 +36,15 @@ public class EngagementCreator extends Creator<Engagement> {
     private com.twilio.type.PhoneNumber from;
     private Object parameters;
 
-    public EngagementCreator(final String pathFlowSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from) {
+    public EngagementCreator(
+        final String pathFlowSid,
+        final com.twilio.type.PhoneNumber to,
+        final com.twilio.type.PhoneNumber from
+    ) {
         this.pathFlowSid = pathFlowSid;
         this.to = to;
         this.from = from;
     }
-
 
     public EngagementCreator setTo(final com.twilio.type.PhoneNumber to) {
         this.to = to;
@@ -69,19 +69,16 @@ public class EngagementCreator extends Creator<Engagement> {
         return this;
     }
 
-
     @Override
     public Engagement create(final TwilioRestClient client) {
-
         String path = "/v1/Flows/{FlowSid}/Engagements";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.STUDIO.toString(),
-                path
+            HttpMethod.POST,
+            Domains.STUDIO.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -89,37 +86,50 @@ public class EngagementCreator extends Creator<Engagement> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Engagement creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Engagement creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Engagement.fromJson(response.getStream(), client.getObjectMapper());
+        return Engagement.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (to != null) {
             Serializer.toString(request, "To", to, ParameterType.URLENCODED);
         }
 
-
         if (from != null) {
-            Serializer.toString(request, "From", from, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "From",
+                from,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (parameters != null) {
-            Serializer.toString(request, "Parameters", parameters, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Parameters",
+                parameters,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

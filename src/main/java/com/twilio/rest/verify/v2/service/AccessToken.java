@@ -17,55 +17,45 @@ package com.twilio.rest.verify.v2.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AccessToken extends Resource {
 
-
-    public static AccessTokenCreator creator(final String pathServiceSid, final String identity, final AccessToken.FactorTypes factorType) {
-        return new AccessTokenCreator(
-                pathServiceSid, identity, factorType
-        );
+    public static AccessTokenCreator creator(
+        final String pathServiceSid,
+        final String identity,
+        final AccessToken.FactorTypes factorType
+    ) {
+        return new AccessTokenCreator(pathServiceSid, identity, factorType);
     }
 
-
-    public static AccessTokenFetcher fetcher(final String pathServiceSid, final String pathSid) {
-        return new AccessTokenFetcher(
-                pathServiceSid, pathSid
-        );
+    public static AccessTokenFetcher fetcher(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new AccessTokenFetcher(pathServiceSid, pathSid);
     }
-
 
     public enum FactorTypes {
         PUSH("push");
@@ -86,15 +76,17 @@ public class AccessToken extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a AccessToken object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AccessToken object represented by the provided JSON
      */
-    public static AccessToken fromJson(final String json, final ObjectMapper objectMapper) {
+    public static AccessToken fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AccessToken.class);
@@ -109,11 +101,14 @@ public class AccessToken extends Resource {
      * Converts a JSON InputStream into a AccessToken object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AccessToken object represented by the provided JSON
      */
-    public static AccessToken fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static AccessToken fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AccessToken.class);
@@ -136,41 +131,50 @@ public class AccessToken extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final String entityIdentity;
+
     @Getter
     private final String factorFriendlyName;
+
     @Getter
     private final AccessToken.FactorTypes factorType;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String token;
+
     @Getter
     private final Integer ttl;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private AccessToken(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("entity_identity") final String entityIdentity,
-            @JsonProperty("factor_friendly_name") final String factorFriendlyName,
-            @JsonProperty("factor_type") final AccessToken.FactorTypes factorType,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("token") final String token,
-            @JsonProperty("ttl") final Integer ttl,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("entity_identity") final String entityIdentity,
+        @JsonProperty("factor_friendly_name") final String factorFriendlyName,
+        @JsonProperty("factor_type") final AccessToken.FactorTypes factorType,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("token") final String token,
+        @JsonProperty("ttl") final Integer ttl,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -196,35 +200,32 @@ public class AccessToken extends Resource {
 
         AccessToken other = (AccessToken) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(entityIdentity, other.entityIdentity) &&
-                        Objects.equals(factorFriendlyName, other.factorFriendlyName) &&
-                        Objects.equals(factorType, other.factorType) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(token, other.token) &&
-                        Objects.equals(ttl, other.ttl) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(entityIdentity, other.entityIdentity) &&
+            Objects.equals(factorFriendlyName, other.factorFriendlyName) &&
+            Objects.equals(factorType, other.factorType) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(token, other.token) &&
+            Objects.equals(ttl, other.ttl) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                entityIdentity,
-                factorFriendlyName,
-                factorType,
-                serviceSid,
-                sid,
-                token,
-                ttl,
-                url
+            accountSid,
+            dateCreated,
+            entityIdentity,
+            factorFriendlyName,
+            factorType,
+            serviceSid,
+            sid,
+            token,
+            ttl,
+            url
         );
     }
-
-
 }
-

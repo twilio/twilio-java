@@ -27,13 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
+import com.twilio.type.*;
 import java.net.URI;
 
-import com.twilio.type.*;
-
 public class TrunkUpdater extends Updater<Trunk> {
+
     private String pathSid;
     private String friendlyName;
     private String domainName;
@@ -48,70 +46,70 @@ public class TrunkUpdater extends Updater<Trunk> {
         this.pathSid = pathSid;
     }
 
-
     public TrunkUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-
 
     public TrunkUpdater setDomainName(final String domainName) {
         this.domainName = domainName;
         return this;
     }
 
-
     public TrunkUpdater setDisasterRecoveryUrl(final URI disasterRecoveryUrl) {
         this.disasterRecoveryUrl = disasterRecoveryUrl;
         return this;
     }
 
-    public TrunkUpdater setDisasterRecoveryUrl(final String disasterRecoveryUrl) {
-        return setDisasterRecoveryUrl(Promoter.uriFromString(disasterRecoveryUrl));
+    public TrunkUpdater setDisasterRecoveryUrl(
+        final String disasterRecoveryUrl
+    ) {
+        return setDisasterRecoveryUrl(
+            Promoter.uriFromString(disasterRecoveryUrl)
+        );
     }
 
-    public TrunkUpdater setDisasterRecoveryMethod(final HttpMethod disasterRecoveryMethod) {
+    public TrunkUpdater setDisasterRecoveryMethod(
+        final HttpMethod disasterRecoveryMethod
+    ) {
         this.disasterRecoveryMethod = disasterRecoveryMethod;
         return this;
     }
 
-
-    public TrunkUpdater setTransferMode(final Trunk.TransferSetting transferMode) {
+    public TrunkUpdater setTransferMode(
+        final Trunk.TransferSetting transferMode
+    ) {
         this.transferMode = transferMode;
         return this;
     }
-
 
     public TrunkUpdater setSecure(final Boolean secure) {
         this.secure = secure;
         return this;
     }
 
-
     public TrunkUpdater setCnamLookupEnabled(final Boolean cnamLookupEnabled) {
         this.cnamLookupEnabled = cnamLookupEnabled;
         return this;
     }
 
-
-    public TrunkUpdater setTransferCallerId(final Trunk.TransferCallerId transferCallerId) {
+    public TrunkUpdater setTransferCallerId(
+        final Trunk.TransferCallerId transferCallerId
+    ) {
         this.transferCallerId = transferCallerId;
         return this;
     }
 
-
     @Override
     public Trunk update(final TwilioRestClient client) {
-
         String path = "/v1/Trunks/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.TRUNKING.toString(),
-                path
+            HttpMethod.POST,
+            Domains.TRUNKING.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -119,14 +117,19 @@ public class TrunkUpdater extends Updater<Trunk> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Trunk update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Trunk update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -135,46 +138,76 @@ public class TrunkUpdater extends Updater<Trunk> {
     }
 
     private void addPostParams(final Request request) {
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (domainName != null) {
-            Serializer.toString(request, "DomainName", domainName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DomainName",
+                domainName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (disasterRecoveryUrl != null) {
-            Serializer.toString(request, "DisasterRecoveryUrl", disasterRecoveryUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DisasterRecoveryUrl",
+                disasterRecoveryUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (disasterRecoveryMethod != null) {
-            Serializer.toString(request, "DisasterRecoveryMethod", disasterRecoveryMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DisasterRecoveryMethod",
+                disasterRecoveryMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (transferMode != null) {
-            Serializer.toString(request, "TransferMode", transferMode, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "TransferMode",
+                transferMode,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (secure != null) {
-            Serializer.toString(request, "Secure", secure, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Secure",
+                secure,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (cnamLookupEnabled != null) {
-            Serializer.toString(request, "CnamLookupEnabled", cnamLookupEnabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CnamLookupEnabled",
+                cnamLookupEnabled,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (transferCallerId != null) {
-            Serializer.toString(request, "TransferCallerId", transferCallerId, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "TransferCallerId",
+                transferCallerId,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

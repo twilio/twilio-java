@@ -17,78 +17,52 @@ package com.twilio.rest.messaging.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
 
-
     public static ServiceCreator creator(final String friendlyName) {
-        return new ServiceCreator(
-                friendlyName
-        );
+        return new ServiceCreator(friendlyName);
     }
-
 
     public static ServiceDeleter deleter(final String pathSid) {
-        return new ServiceDeleter(
-                pathSid
-        );
+        return new ServiceDeleter(pathSid);
     }
-
 
     public static ServiceFetcher fetcher(final String pathSid) {
-        return new ServiceFetcher(
-                pathSid
-        );
+        return new ServiceFetcher(pathSid);
     }
-
 
     public static ServiceReader reader() {
-        return new ServiceReader(
-
-        );
+        return new ServiceReader();
     }
-
 
     public static ServiceUpdater updater(final String pathSid) {
-        return new ServiceUpdater(
-                pathSid
-        );
+        return new ServiceUpdater(pathSid);
     }
-
 
     public enum ScanMessageContent {
         INHERIT("inherit"),
@@ -111,15 +85,17 @@ public class Service extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
      */
-    public static Service fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Service fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -134,11 +110,14 @@ public class Service extends Resource {
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
      */
-    public static Service fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Service fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -161,81 +140,112 @@ public class Service extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Boolean areaCodeGeomatch;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final HttpMethod fallbackMethod;
+
     @Getter
     private final Boolean fallbackToLongCode;
+
     @Getter
     private final URI fallbackUrl;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final HttpMethod inboundMethod;
+
     @Getter
     private final URI inboundRequestUrl;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final Boolean mmsConverter;
+
     @Getter
     private final Service.ScanMessageContent scanMessageContent;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Boolean smartEncoding;
+
     @Getter
     private final URI statusCallback;
+
     @Getter
     private final Boolean stickySender;
+
     @Getter
     private final Boolean synchronousValidation;
+
     @Getter
     private final URI url;
+
     @Getter
     private final Boolean usAppToPersonRegistered;
+
     @Getter
     private final Boolean useInboundWebhookOnNumber;
+
     @Getter
     private final String usecase;
+
     @Getter
     private final Integer validityPeriod;
 
     @JsonCreator
     private Service(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("area_code_geomatch") final Boolean areaCodeGeomatch,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("fallback_method") final HttpMethod fallbackMethod,
-            @JsonProperty("fallback_to_long_code") final Boolean fallbackToLongCode,
-            @JsonProperty("fallback_url") final URI fallbackUrl,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("inbound_method") final HttpMethod inboundMethod,
-            @JsonProperty("inbound_request_url") final URI inboundRequestUrl,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("mms_converter") final Boolean mmsConverter,
-            @JsonProperty("scan_message_content") final Service.ScanMessageContent scanMessageContent,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("smart_encoding") final Boolean smartEncoding,
-            @JsonProperty("status_callback") final URI statusCallback,
-            @JsonProperty("sticky_sender") final Boolean stickySender,
-            @JsonProperty("synchronous_validation") final Boolean synchronousValidation,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("us_app_to_person_registered") final Boolean usAppToPersonRegistered,
-            @JsonProperty("use_inbound_webhook_on_number") final Boolean useInboundWebhookOnNumber,
-            @JsonProperty("usecase") final String usecase,
-            @JsonProperty("validity_period") final Integer validityPeriod
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("area_code_geomatch") final Boolean areaCodeGeomatch,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("fallback_method") final HttpMethod fallbackMethod,
+        @JsonProperty("fallback_to_long_code") final Boolean fallbackToLongCode,
+        @JsonProperty("fallback_url") final URI fallbackUrl,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("inbound_method") final HttpMethod inboundMethod,
+        @JsonProperty("inbound_request_url") final URI inboundRequestUrl,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("mms_converter") final Boolean mmsConverter,
+        @JsonProperty(
+            "scan_message_content"
+        ) final Service.ScanMessageContent scanMessageContent,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("smart_encoding") final Boolean smartEncoding,
+        @JsonProperty("status_callback") final URI statusCallback,
+        @JsonProperty("sticky_sender") final Boolean stickySender,
+        @JsonProperty(
+            "synchronous_validation"
+        ) final Boolean synchronousValidation,
+        @JsonProperty("url") final URI url,
+        @JsonProperty(
+            "us_app_to_person_registered"
+        ) final Boolean usAppToPersonRegistered,
+        @JsonProperty(
+            "use_inbound_webhook_on_number"
+        ) final Boolean useInboundWebhookOnNumber,
+        @JsonProperty("usecase") final String usecase,
+        @JsonProperty("validity_period") final Integer validityPeriod
     ) {
         this.accountSid = accountSid;
         this.areaCodeGeomatch = areaCodeGeomatch;
@@ -274,61 +284,67 @@ public class Service extends Resource {
 
         Service other = (Service) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(areaCodeGeomatch, other.areaCodeGeomatch) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(fallbackMethod, other.fallbackMethod) &&
-                        Objects.equals(fallbackToLongCode, other.fallbackToLongCode) &&
-                        Objects.equals(fallbackUrl, other.fallbackUrl) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(inboundMethod, other.inboundMethod) &&
-                        Objects.equals(inboundRequestUrl, other.inboundRequestUrl) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(mmsConverter, other.mmsConverter) &&
-                        Objects.equals(scanMessageContent, other.scanMessageContent) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(smartEncoding, other.smartEncoding) &&
-                        Objects.equals(statusCallback, other.statusCallback) &&
-                        Objects.equals(stickySender, other.stickySender) &&
-                        Objects.equals(synchronousValidation, other.synchronousValidation) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(usAppToPersonRegistered, other.usAppToPersonRegistered) &&
-                        Objects.equals(useInboundWebhookOnNumber, other.useInboundWebhookOnNumber) &&
-                        Objects.equals(usecase, other.usecase) &&
-                        Objects.equals(validityPeriod, other.validityPeriod)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(areaCodeGeomatch, other.areaCodeGeomatch) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(fallbackMethod, other.fallbackMethod) &&
+            Objects.equals(fallbackToLongCode, other.fallbackToLongCode) &&
+            Objects.equals(fallbackUrl, other.fallbackUrl) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(inboundMethod, other.inboundMethod) &&
+            Objects.equals(inboundRequestUrl, other.inboundRequestUrl) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(mmsConverter, other.mmsConverter) &&
+            Objects.equals(scanMessageContent, other.scanMessageContent) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(smartEncoding, other.smartEncoding) &&
+            Objects.equals(statusCallback, other.statusCallback) &&
+            Objects.equals(stickySender, other.stickySender) &&
+            Objects.equals(
+                synchronousValidation,
+                other.synchronousValidation
+            ) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(
+                usAppToPersonRegistered,
+                other.usAppToPersonRegistered
+            ) &&
+            Objects.equals(
+                useInboundWebhookOnNumber,
+                other.useInboundWebhookOnNumber
+            ) &&
+            Objects.equals(usecase, other.usecase) &&
+            Objects.equals(validityPeriod, other.validityPeriod)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                areaCodeGeomatch,
-                dateCreated,
-                dateUpdated,
-                fallbackMethod,
-                fallbackToLongCode,
-                fallbackUrl,
-                friendlyName,
-                inboundMethod,
-                inboundRequestUrl,
-                links,
-                mmsConverter,
-                scanMessageContent,
-                sid,
-                smartEncoding,
-                statusCallback,
-                stickySender,
-                synchronousValidation,
-                url,
-                usAppToPersonRegistered,
-                useInboundWebhookOnNumber,
-                usecase,
-                validityPeriod
+            accountSid,
+            areaCodeGeomatch,
+            dateCreated,
+            dateUpdated,
+            fallbackMethod,
+            fallbackToLongCode,
+            fallbackUrl,
+            friendlyName,
+            inboundMethod,
+            inboundRequestUrl,
+            links,
+            mmsConverter,
+            scanMessageContent,
+            sid,
+            smartEncoding,
+            statusCallback,
+            stickySender,
+            synchronousValidation,
+            url,
+            usAppToPersonRegistered,
+            useInboundWebhookOnNumber,
+            usecase,
+            validityPeriod
         );
     }
-
-
 }
-

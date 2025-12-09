@@ -23,8 +23,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class AnnotationFetcher extends Fetcher<Annotation> {
@@ -35,35 +33,40 @@ public class AnnotationFetcher extends Fetcher<Annotation> {
         this.pathCallSid = pathCallSid;
     }
 
-
     @Override
     public Annotation fetch(final TwilioRestClient client) {
-
         String path = "/v1/Voice/{CallSid}/Annotation";
 
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.INSIGHTS.toString(),
-                path
+            HttpMethod.GET,
+            Domains.INSIGHTS.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Annotation fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Annotation fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return Annotation.fromJson(response.getStream(), client.getObjectMapper());
+        return Annotation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

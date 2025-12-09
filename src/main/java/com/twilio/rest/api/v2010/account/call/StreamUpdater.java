@@ -26,51 +26,63 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class StreamUpdater extends Updater<Stream> {
+
     private String pathAccountSid;
     private String pathCallSid;
     private String pathSid;
     private Stream.UpdateStatus status;
 
-    public StreamUpdater(final String pathCallSid, final String pathSid, final Stream.UpdateStatus status) {
+    public StreamUpdater(
+        final String pathCallSid,
+        final String pathSid,
+        final Stream.UpdateStatus status
+    ) {
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
         this.status = status;
     }
 
-    public StreamUpdater(final String pathAccountSid, final String pathCallSid, final String pathSid, final Stream.UpdateStatus status) {
+    public StreamUpdater(
+        final String pathAccountSid,
+        final String pathCallSid,
+        final String pathSid,
+        final Stream.UpdateStatus status
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
         this.status = status;
     }
 
-
     public StreamUpdater setStatus(final Stream.UpdateStatus status) {
         this.status = status;
         return this;
     }
 
-
     @Override
     public Stream update(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.API.toString(),
-                path
+            HttpMethod.POST,
+            Domains.API.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -78,14 +90,19 @@ public class StreamUpdater extends Updater<Stream> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Stream update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Stream update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -94,11 +111,13 @@ public class StreamUpdater extends Updater<Stream> {
     }
 
     private void addPostParams(final Request request) {
-
         if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

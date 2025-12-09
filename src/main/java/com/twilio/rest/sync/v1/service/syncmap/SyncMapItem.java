@@ -17,76 +17,70 @@ package com.twilio.rest.sync.v1.service.syncmap;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncMapItem extends Resource {
 
-
-    public static SyncMapItemCreator creator(final String pathServiceSid, final String pathMapSid, final String key, final Object data) {
-        return new SyncMapItemCreator(
-                pathServiceSid, pathMapSid, key, data
-        );
+    public static SyncMapItemCreator creator(
+        final String pathServiceSid,
+        final String pathMapSid,
+        final String key,
+        final Object data
+    ) {
+        return new SyncMapItemCreator(pathServiceSid, pathMapSid, key, data);
     }
 
-
-    public static SyncMapItemDeleter deleter(final String pathServiceSid, final String pathMapSid, final String pathKey) {
-        return new SyncMapItemDeleter(
-                pathServiceSid, pathMapSid, pathKey
-        );
+    public static SyncMapItemDeleter deleter(
+        final String pathServiceSid,
+        final String pathMapSid,
+        final String pathKey
+    ) {
+        return new SyncMapItemDeleter(pathServiceSid, pathMapSid, pathKey);
     }
 
-
-    public static SyncMapItemFetcher fetcher(final String pathServiceSid, final String pathMapSid, final String pathKey) {
-        return new SyncMapItemFetcher(
-                pathServiceSid, pathMapSid, pathKey
-        );
+    public static SyncMapItemFetcher fetcher(
+        final String pathServiceSid,
+        final String pathMapSid,
+        final String pathKey
+    ) {
+        return new SyncMapItemFetcher(pathServiceSid, pathMapSid, pathKey);
     }
 
-
-    public static SyncMapItemReader reader(final String pathServiceSid, final String pathMapSid) {
-        return new SyncMapItemReader(
-                pathServiceSid, pathMapSid
-        );
+    public static SyncMapItemReader reader(
+        final String pathServiceSid,
+        final String pathMapSid
+    ) {
+        return new SyncMapItemReader(pathServiceSid, pathMapSid);
     }
 
-
-    public static SyncMapItemUpdater updater(final String pathServiceSid, final String pathMapSid, final String pathKey) {
-        return new SyncMapItemUpdater(
-                pathServiceSid, pathMapSid, pathKey
-        );
+    public static SyncMapItemUpdater updater(
+        final String pathServiceSid,
+        final String pathMapSid,
+        final String pathKey
+    ) {
+        return new SyncMapItemUpdater(pathServiceSid, pathMapSid, pathKey);
     }
-
 
     public enum QueryResultOrder {
         ASC("asc"),
@@ -128,15 +122,17 @@ public class SyncMapItem extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a SyncMapItem object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SyncMapItem object represented by the provided JSON
      */
-    public static SyncMapItem fromJson(final String json, final ObjectMapper objectMapper) {
+    public static SyncMapItem fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncMapItem.class);
@@ -151,11 +147,14 @@ public class SyncMapItem extends Resource {
      * Converts a JSON InputStream into a SyncMapItem object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SyncMapItem object represented by the provided JSON
      */
-    public static SyncMapItem fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static SyncMapItem fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncMapItem.class);
@@ -178,46 +177,58 @@ public class SyncMapItem extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String createdBy;
+
     @Getter
     private final Object data;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateExpires;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String key;
+
     @Getter
     private final String mapSid;
+
     @Getter
     private final String revision;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private SyncMapItem(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("created_by") final String createdBy,
-            @JsonProperty("data") final Object data,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_expires")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateExpires,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("key") final String key,
-            @JsonProperty("map_sid") final String mapSid,
-            @JsonProperty("revision") final String revision,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("created_by") final String createdBy,
+        @JsonProperty("data") final Object data,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_expires") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateExpires,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("key") final String key,
+        @JsonProperty("map_sid") final String mapSid,
+        @JsonProperty("revision") final String revision,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.createdBy = createdBy;
@@ -244,37 +255,34 @@ public class SyncMapItem extends Resource {
 
         SyncMapItem other = (SyncMapItem) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(createdBy, other.createdBy) &&
-                        Objects.equals(data, other.data) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateExpires, other.dateExpires) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(key, other.key) &&
-                        Objects.equals(mapSid, other.mapSid) &&
-                        Objects.equals(revision, other.revision) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(createdBy, other.createdBy) &&
+            Objects.equals(data, other.data) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateExpires, other.dateExpires) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(key, other.key) &&
+            Objects.equals(mapSid, other.mapSid) &&
+            Objects.equals(revision, other.revision) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                createdBy,
-                data,
-                dateCreated,
-                dateExpires,
-                dateUpdated,
-                key,
-                mapSid,
-                revision,
-                serviceSid,
-                url
+            accountSid,
+            createdBy,
+            data,
+            dateCreated,
+            dateExpires,
+            dateUpdated,
+            key,
+            mapSid,
+            revision,
+            serviceSid,
+            url
         );
     }
-
-
 }
-

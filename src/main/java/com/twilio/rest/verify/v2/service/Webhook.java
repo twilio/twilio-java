@@ -17,77 +17,70 @@ package com.twilio.rest.verify.v2.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
 
-
-    public static WebhookCreator creator(final String pathServiceSid, final String friendlyName, final List<String> eventTypes, final String webhookUrl) {
+    public static WebhookCreator creator(
+        final String pathServiceSid,
+        final String friendlyName,
+        final List<String> eventTypes,
+        final String webhookUrl
+    ) {
         return new WebhookCreator(
-                pathServiceSid, friendlyName, eventTypes, webhookUrl
+            pathServiceSid,
+            friendlyName,
+            eventTypes,
+            webhookUrl
         );
     }
 
-
-    public static WebhookDeleter deleter(final String pathServiceSid, final String pathSid) {
-        return new WebhookDeleter(
-                pathServiceSid, pathSid
-        );
+    public static WebhookDeleter deleter(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new WebhookDeleter(pathServiceSid, pathSid);
     }
 
-
-    public static WebhookFetcher fetcher(final String pathServiceSid, final String pathSid) {
-        return new WebhookFetcher(
-                pathServiceSid, pathSid
-        );
+    public static WebhookFetcher fetcher(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new WebhookFetcher(pathServiceSid, pathSid);
     }
-
 
     public static WebhookReader reader(final String pathServiceSid) {
-        return new WebhookReader(
-                pathServiceSid
-        );
+        return new WebhookReader(pathServiceSid);
     }
 
-
-    public static WebhookUpdater updater(final String pathServiceSid, final String pathSid) {
-        return new WebhookUpdater(
-                pathServiceSid, pathSid
-        );
+    public static WebhookUpdater updater(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new WebhookUpdater(pathServiceSid, pathSid);
     }
-
 
     public enum Status {
         ENABLED("enabled"),
@@ -149,15 +142,17 @@ public class Webhook extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Webhook object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Webhook object represented by the provided JSON
      */
-    public static Webhook fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Webhook fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Webhook.class);
@@ -172,11 +167,14 @@ public class Webhook extends Resource {
      * Converts a JSON InputStream into a Webhook object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Webhook object represented by the provided JSON
      */
-    public static Webhook fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Webhook fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Webhook.class);
@@ -199,48 +197,60 @@ public class Webhook extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final List<String> eventTypes;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Webhook.Status status;
+
     @Getter
     private final URI url;
+
     @Getter
     private final Webhook.Version version;
+
     @Getter
     private final Webhook.Methods webhookMethod;
+
     @Getter
     private final URI webhookUrl;
 
     @JsonCreator
     private Webhook(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("event_types") final List<String> eventTypes,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final Webhook.Status status,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("version") final Webhook.Version version,
-            @JsonProperty("webhook_method") final Webhook.Methods webhookMethod,
-            @JsonProperty("webhook_url") final URI webhookUrl
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("event_types") final List<String> eventTypes,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final Webhook.Status status,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("version") final Webhook.Version version,
+        @JsonProperty("webhook_method") final Webhook.Methods webhookMethod,
+        @JsonProperty("webhook_url") final URI webhookUrl
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -268,39 +278,36 @@ public class Webhook extends Resource {
 
         Webhook other = (Webhook) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(eventTypes, other.eventTypes) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(version, other.version) &&
-                        Objects.equals(webhookMethod, other.webhookMethod) &&
-                        Objects.equals(webhookUrl, other.webhookUrl)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(eventTypes, other.eventTypes) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(version, other.version) &&
+            Objects.equals(webhookMethod, other.webhookMethod) &&
+            Objects.equals(webhookUrl, other.webhookUrl)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                eventTypes,
-                friendlyName,
-                serviceSid,
-                sid,
-                status,
-                url,
-                version,
-                webhookMethod,
-                webhookUrl
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            eventTypes,
+            friendlyName,
+            serviceSid,
+            sid,
+            status,
+            url,
+            version,
+            webhookMethod,
+            webhookUrl
         );
     }
-
-
 }
-

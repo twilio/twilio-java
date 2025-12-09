@@ -14,7 +14,6 @@
 
 package com.twilio.rest.api.v2010.account.call;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,13 +27,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
+import com.twilio.type.*;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Currency;
-
-import com.twilio.type.*;
 
 public class PaymentCreator extends Creator<Payment> {
 
@@ -57,25 +53,32 @@ public class PaymentCreator extends Creator<Payment> {
     private Payment.TokenType tokenType;
     private String validCardTypes;
 
-    public PaymentCreator(final String pathCallSid, final String idempotencyKey, final URI statusCallback) {
+    public PaymentCreator(
+        final String pathCallSid,
+        final String idempotencyKey,
+        final URI statusCallback
+    ) {
         this.pathCallSid = pathCallSid;
         this.idempotencyKey = idempotencyKey;
         this.statusCallback = statusCallback;
     }
 
-    public PaymentCreator(final String pathAccountSid, final String pathCallSid, final String idempotencyKey, final URI statusCallback) {
+    public PaymentCreator(
+        final String pathAccountSid,
+        final String pathCallSid,
+        final String idempotencyKey,
+        final URI statusCallback
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
         this.idempotencyKey = idempotencyKey;
         this.statusCallback = statusCallback;
     }
 
-
     public PaymentCreator setIdempotencyKey(final String idempotencyKey) {
         this.idempotencyKey = idempotencyKey;
         return this;
     }
-
 
     public PaymentCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
@@ -86,104 +89,102 @@ public class PaymentCreator extends Creator<Payment> {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
 
-    public PaymentCreator setBankAccountType(final Payment.BankAccountType bankAccountType) {
+    public PaymentCreator setBankAccountType(
+        final Payment.BankAccountType bankAccountType
+    ) {
         this.bankAccountType = bankAccountType;
         return this;
     }
-
 
     public PaymentCreator setChargeAmount(final BigDecimal chargeAmount) {
         this.chargeAmount = chargeAmount;
         return this;
     }
 
-
     public PaymentCreator setCurrency(final String currency) {
         this.currency = currency;
         return this;
     }
-
 
     public PaymentCreator setDescription(final String description) {
         this.description = description;
         return this;
     }
 
-
     public PaymentCreator setInput(final String input) {
         this.input = input;
         return this;
     }
 
-
-    public PaymentCreator setMinPostalCodeLength(final Integer minPostalCodeLength) {
+    public PaymentCreator setMinPostalCodeLength(
+        final Integer minPostalCodeLength
+    ) {
         this.minPostalCodeLength = minPostalCodeLength;
         return this;
     }
-
 
     public PaymentCreator setParameter(final Object parameter) {
         this.parameter = parameter;
         return this;
     }
 
-
     public PaymentCreator setPaymentConnector(final String paymentConnector) {
         this.paymentConnector = paymentConnector;
         return this;
     }
 
-
-    public PaymentCreator setPaymentMethod(final Payment.PaymentMethod paymentMethod) {
+    public PaymentCreator setPaymentMethod(
+        final Payment.PaymentMethod paymentMethod
+    ) {
         this.paymentMethod = paymentMethod;
         return this;
     }
-
 
     public PaymentCreator setPostalCode(final Boolean postalCode) {
         this.postalCode = postalCode;
         return this;
     }
 
-
     public PaymentCreator setSecurityCode(final Boolean securityCode) {
         this.securityCode = securityCode;
         return this;
     }
-
 
     public PaymentCreator setTimeout(final Integer timeout) {
         this.timeout = timeout;
         return this;
     }
 
-
     public PaymentCreator setTokenType(final Payment.TokenType tokenType) {
         this.tokenType = tokenType;
         return this;
     }
-
 
     public PaymentCreator setValidCardTypes(final String validCardTypes) {
         this.validCardTypes = validCardTypes;
         return this;
     }
 
-
     @Override
     public Payment create(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.API.toString(),
-                path
+            HttpMethod.POST,
+            Domains.API.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -191,14 +192,19 @@ public class PaymentCreator extends Creator<Payment> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Payment creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Payment creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -207,86 +213,148 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     private void addPostParams(final Request request) {
-
         if (idempotencyKey != null) {
-            Serializer.toString(request, "IdempotencyKey", idempotencyKey, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "IdempotencyKey",
+                idempotencyKey,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallback != null) {
-            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (bankAccountType != null) {
-            Serializer.toString(request, "BankAccountType", bankAccountType, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BankAccountType",
+                bankAccountType,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (chargeAmount != null) {
-            Serializer.toString(request, "ChargeAmount", chargeAmount, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ChargeAmount",
+                chargeAmount,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (currency != null) {
-            Serializer.toString(request, "Currency", currency, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Currency",
+                currency,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (description != null) {
-            Serializer.toString(request, "Description", description, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (input != null) {
-            Serializer.toString(request, "Input", input, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Input",
+                input,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (minPostalCodeLength != null) {
-            Serializer.toString(request, "MinPostalCodeLength", minPostalCodeLength, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MinPostalCodeLength",
+                minPostalCodeLength,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (parameter != null) {
-            Serializer.toString(request, "Parameter", parameter, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Parameter",
+                parameter,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (paymentConnector != null) {
-            Serializer.toString(request, "PaymentConnector", paymentConnector, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "PaymentConnector",
+                paymentConnector,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (paymentMethod != null) {
-            Serializer.toString(request, "PaymentMethod", paymentMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "PaymentMethod",
+                paymentMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (postalCode != null) {
-            Serializer.toString(request, "PostalCode", postalCode, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "PostalCode",
+                postalCode,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (securityCode != null) {
-            Serializer.toString(request, "SecurityCode", securityCode, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SecurityCode",
+                securityCode,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (timeout != null) {
-            Serializer.toString(request, "Timeout", timeout, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Timeout",
+                timeout,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (tokenType != null) {
-            Serializer.toString(request, "TokenType", tokenType, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "TokenType",
+                tokenType,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (validCardTypes != null) {
-            Serializer.toString(request, "ValidCardTypes", validCardTypes, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ValidCardTypes",
+                validCardTypes,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

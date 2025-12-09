@@ -16,53 +16,45 @@ package com.twilio.rest.verify.v2.service;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class NewChallenge extends Resource {
 
-
-    public static NewChallengeCreator creator(final String pathServiceSid, final NewChallenge.CreatePasskeysChallengeRequest createPasskeysChallengeRequest) {
+    public static NewChallengeCreator creator(
+        final String pathServiceSid,
+        final NewChallenge.CreatePasskeysChallengeRequest createPasskeysChallengeRequest
+    ) {
         return new NewChallengeCreator(
-                pathServiceSid, createPasskeysChallengeRequest
+            pathServiceSid,
+            createPasskeysChallengeRequest
         );
     }
-
 
     public enum Status {
         PENDING("pending"),
@@ -128,7 +120,6 @@ public class NewChallenge extends Resource {
         }
     }
 
-
     @JsonDeserialize(builder = CreatePasskeysChallengeRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
@@ -144,7 +135,6 @@ public class NewChallenge extends Resource {
         @Getter
         private final String factorSid;
 
-
         private CreatePasskeysChallengeRequest(Builder builder) {
             this.identity = builder.identity;
             this.factorSid = builder.factorSid;
@@ -154,18 +144,38 @@ public class NewChallenge extends Resource {
             return new Builder();
         }
 
-        public static CreatePasskeysChallengeRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, CreatePasskeysChallengeRequest.class);
+        public static CreatePasskeysChallengeRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CreatePasskeysChallengeRequest.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("identity")
             private String identity;
 
             @JsonProperty("factor_sid")
             private String factorSid;
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("identity")
+            public Builder identity(String identity) {
+                this.identity = identity;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("factor_sid")
+            public Builder factorSid(String factorSid) {
+                this.factorSid = factorSid;
+                return this;
+            }
 
             public CreatePasskeysChallengeRequest build() {
                 return new CreatePasskeysChallengeRequest(this);
@@ -182,32 +192,31 @@ public class NewChallenge extends Resource {
                 return false;
             }
 
-            CreatePasskeysChallengeRequest other = (CreatePasskeysChallengeRequest) o;
+            CreatePasskeysChallengeRequest other =
+                (CreatePasskeysChallengeRequest) o;
             return (
-                    Objects.equals(identity, other.identity) &&
-                            Objects.equals(factorSid, other.factorSid)
+                Objects.equals(identity, other.identity) &&
+                Objects.equals(factorSid, other.factorSid)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    identity,
-                    factorSid
-            );
+            return Objects.hash(identity, factorSid);
         }
-
     }
-
 
     /**
      * Converts a JSON String into a NewChallenge object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return NewChallenge object represented by the provided JSON
      */
-    public static NewChallenge fromJson(final String json, final ObjectMapper objectMapper) {
+    public static NewChallenge fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, NewChallenge.class);
@@ -222,11 +231,14 @@ public class NewChallenge extends Resource {
      * Converts a JSON InputStream into a NewChallenge object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return NewChallenge object represented by the provided JSON
      */
-    public static NewChallenge fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static NewChallenge fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, NewChallenge.class);
@@ -249,71 +261,94 @@ public class NewChallenge extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateResponded;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Object details;
+
     @Getter
     private final String entitySid;
+
     @Getter
     private final ZonedDateTime expirationDate;
+
     @Getter
     private final String factorSid;
+
     @Getter
     private final NewChallenge.FactorType factorType;
+
     @Getter
     private final Object hiddenDetails;
+
     @Getter
     private final String identity;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final Object metadata;
+
     @Getter
     private final Object options;
+
     @Getter
     private final NewChallenge.RespondedReason respondedReason;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final NewChallenge.Status status;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private NewChallenge(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_responded")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateResponded,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("details") final Object details,
-            @JsonProperty("entity_sid") final String entitySid,
-            @JsonProperty("expiration_date")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime expirationDate,
-            @JsonProperty("factor_sid") final String factorSid,
-            @JsonProperty("factor_type") final NewChallenge.FactorType factorType,
-            @JsonProperty("hidden_details") final Object hiddenDetails,
-            @JsonProperty("identity") final String identity,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("metadata") final Object metadata,
-            @JsonProperty("options") final Object options,
-            @JsonProperty("responded_reason") final NewChallenge.RespondedReason respondedReason,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final NewChallenge.Status status,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_responded") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateResponded,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("details") final Object details,
+        @JsonProperty("entity_sid") final String entitySid,
+        @JsonProperty("expiration_date") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime expirationDate,
+        @JsonProperty("factor_sid") final String factorSid,
+        @JsonProperty("factor_type") final NewChallenge.FactorType factorType,
+        @JsonProperty("hidden_details") final Object hiddenDetails,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("metadata") final Object metadata,
+        @JsonProperty("options") final Object options,
+        @JsonProperty(
+            "responded_reason"
+        ) final NewChallenge.RespondedReason respondedReason,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final NewChallenge.Status status,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -348,53 +383,50 @@ public class NewChallenge extends Resource {
 
         NewChallenge other = (NewChallenge) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateResponded, other.dateResponded) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(details, other.details) &&
-                        Objects.equals(entitySid, other.entitySid) &&
-                        Objects.equals(expirationDate, other.expirationDate) &&
-                        Objects.equals(factorSid, other.factorSid) &&
-                        Objects.equals(factorType, other.factorType) &&
-                        Objects.equals(hiddenDetails, other.hiddenDetails) &&
-                        Objects.equals(identity, other.identity) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(metadata, other.metadata) &&
-                        Objects.equals(options, other.options) &&
-                        Objects.equals(respondedReason, other.respondedReason) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateResponded, other.dateResponded) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(details, other.details) &&
+            Objects.equals(entitySid, other.entitySid) &&
+            Objects.equals(expirationDate, other.expirationDate) &&
+            Objects.equals(factorSid, other.factorSid) &&
+            Objects.equals(factorType, other.factorType) &&
+            Objects.equals(hiddenDetails, other.hiddenDetails) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(metadata, other.metadata) &&
+            Objects.equals(options, other.options) &&
+            Objects.equals(respondedReason, other.respondedReason) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateResponded,
-                dateUpdated,
-                details,
-                entitySid,
-                expirationDate,
-                factorSid,
-                factorType,
-                hiddenDetails,
-                identity,
-                links,
-                metadata,
-                options,
-                respondedReason,
-                serviceSid,
-                sid,
-                status,
-                url
+            accountSid,
+            dateCreated,
+            dateResponded,
+            dateUpdated,
+            details,
+            entitySid,
+            expirationDate,
+            factorSid,
+            factorType,
+            hiddenDetails,
+            identity,
+            links,
+            metadata,
+            options,
+            respondedReason,
+            serviceSid,
+            sid,
+            status,
+            url
         );
     }
-
-
 }
-

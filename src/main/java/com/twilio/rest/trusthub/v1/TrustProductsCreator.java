@@ -14,7 +14,6 @@
 
 package com.twilio.rest.trusthub.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,11 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
-import java.net.URI;
-
 import com.twilio.type.*;
+import java.net.URI;
 
 public class TrustProductsCreator extends Creator<TrustProducts> {
 
@@ -41,30 +37,30 @@ public class TrustProductsCreator extends Creator<TrustProducts> {
     private String policySid;
     private URI statusCallback;
 
-    public TrustProductsCreator(final String friendlyName, final String email, final String policySid) {
+    public TrustProductsCreator(
+        final String friendlyName,
+        final String email,
+        final String policySid
+    ) {
         this.friendlyName = friendlyName;
         this.email = email;
         this.policySid = policySid;
     }
-
 
     public TrustProductsCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
     public TrustProductsCreator setEmail(final String email) {
         this.email = email;
         return this;
     }
 
-
     public TrustProductsCreator setPolicySid(final String policySid) {
         this.policySid = policySid;
         return this;
     }
-
 
     public TrustProductsCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
@@ -77,14 +73,12 @@ public class TrustProductsCreator extends Creator<TrustProducts> {
 
     @Override
     public TrustProducts create(final TwilioRestClient client) {
-
         String path = "/v1/TrustProducts";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.TRUSTHUB.toString(),
-                path
+            HttpMethod.POST,
+            Domains.TRUSTHUB.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -92,42 +86,64 @@ public class TrustProductsCreator extends Creator<TrustProducts> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("TrustProducts creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "TrustProducts creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return TrustProducts.fromJson(response.getStream(), client.getObjectMapper());
+        return TrustProducts.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (email != null) {
-            Serializer.toString(request, "Email", email, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Email",
+                email,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (policySid != null) {
-            Serializer.toString(request, "PolicySid", policySid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "PolicySid",
+                policySid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallback != null) {
-            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

@@ -14,7 +14,6 @@
 
 package com.twilio.rest.messaging.v1.service;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,46 +26,51 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
-public class DestinationAlphaSenderCreator extends Creator<DestinationAlphaSender> {
+public class DestinationAlphaSenderCreator
+    extends Creator<DestinationAlphaSender> {
 
     private String pathServiceSid;
     private String alphaSender;
     private String isoCountryCode;
 
-    public DestinationAlphaSenderCreator(final String pathServiceSid, final String alphaSender) {
+    public DestinationAlphaSenderCreator(
+        final String pathServiceSid,
+        final String alphaSender
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.alphaSender = alphaSender;
     }
 
-
-    public DestinationAlphaSenderCreator setAlphaSender(final String alphaSender) {
+    public DestinationAlphaSenderCreator setAlphaSender(
+        final String alphaSender
+    ) {
         this.alphaSender = alphaSender;
         return this;
     }
 
-
-    public DestinationAlphaSenderCreator setIsoCountryCode(final String isoCountryCode) {
+    public DestinationAlphaSenderCreator setIsoCountryCode(
+        final String isoCountryCode
+    ) {
         this.isoCountryCode = isoCountryCode;
         return this;
     }
 
-
     @Override
     public DestinationAlphaSender create(final TwilioRestClient client) {
-
         String path = "/v1/Services/{ServiceSid}/DestinationAlphaSenders";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.MESSAGING.toString(),
-                path
+            HttpMethod.POST,
+            Domains.MESSAGING.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -74,32 +78,46 @@ public class DestinationAlphaSenderCreator extends Creator<DestinationAlphaSende
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("DestinationAlphaSender creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "DestinationAlphaSender creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return DestinationAlphaSender.fromJson(response.getStream(), client.getObjectMapper());
+        return DestinationAlphaSender.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (alphaSender != null) {
-            Serializer.toString(request, "AlphaSender", alphaSender, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AlphaSender",
+                alphaSender,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (isoCountryCode != null) {
-            Serializer.toString(request, "IsoCountryCode", isoCountryCode, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "IsoCountryCode",
+                isoCountryCode,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

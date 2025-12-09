@@ -16,41 +16,31 @@ package com.twilio.rest.numbers.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.ToString;
-
-
-import java.io.InputStream;
-
 import com.twilio.type.*;
-import com.twilio.base.Resource;
-
 import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
 import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import java.io.InputStream;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PortingWebhookConfigurationDelete extends Resource {
 
-
-    public static PortingWebhookConfigurationDeleteDeleter deleter(final PortingWebhookConfigurationDelete.WebhookType pathWebhookType) {
-        return new PortingWebhookConfigurationDeleteDeleter(
-                pathWebhookType
-        );
+    public static PortingWebhookConfigurationDeleteDeleter deleter(
+        final PortingWebhookConfigurationDelete.WebhookType pathWebhookType
+    ) {
+        return new PortingWebhookConfigurationDeleteDeleter(pathWebhookType);
     }
-
 
     public enum WebhookType {
         PORT_IN("PORT_IN"),
@@ -72,18 +62,23 @@ public class PortingWebhookConfigurationDelete extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a PortingWebhookConfigurationDelete object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return PortingWebhookConfigurationDelete object represented by the provided JSON
      */
-    public static PortingWebhookConfigurationDelete fromJson(final String json, final ObjectMapper objectMapper) {
+    public static PortingWebhookConfigurationDelete fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, PortingWebhookConfigurationDelete.class);
+            return objectMapper.readValue(
+                json,
+                PortingWebhookConfigurationDelete.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -95,14 +90,20 @@ public class PortingWebhookConfigurationDelete extends Resource {
      * Converts a JSON InputStream into a PortingWebhookConfigurationDelete object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return PortingWebhookConfigurationDelete object represented by the provided JSON
      */
-    public static PortingWebhookConfigurationDelete fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static PortingWebhookConfigurationDelete fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, PortingWebhookConfigurationDelete.class);
+            return objectMapper.readValue(
+                json,
+                PortingWebhookConfigurationDelete.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -123,8 +124,7 @@ public class PortingWebhookConfigurationDelete extends Resource {
     }
 
     @JsonCreator
-    private PortingWebhookConfigurationDelete() {
-    }
+    private PortingWebhookConfigurationDelete() {}
 
     @Override
     public boolean equals(Object obj) {
@@ -135,6 +135,4 @@ public class PortingWebhookConfigurationDelete extends Resource {
     public int hashCode() {
         return 1;
     }
-
 }
-

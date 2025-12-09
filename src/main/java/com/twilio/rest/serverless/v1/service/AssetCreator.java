@@ -14,7 +14,6 @@
 
 package com.twilio.rest.serverless.v1.service;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class AssetCreator extends Creator<Asset> {
@@ -36,30 +33,33 @@ public class AssetCreator extends Creator<Asset> {
     private String pathServiceSid;
     private String friendlyName;
 
-    public AssetCreator(final String pathServiceSid, final String friendlyName) {
+    public AssetCreator(
+        final String pathServiceSid,
+        final String friendlyName
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
     }
-
 
     public AssetCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
     @Override
     public Asset create(final TwilioRestClient client) {
-
         String path = "/v1/Services/{ServiceSid}/Assets";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.SERVERLESS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.SERVERLESS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -67,14 +67,19 @@ public class AssetCreator extends Creator<Asset> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Asset creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Asset creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -83,11 +88,13 @@ public class AssetCreator extends Creator<Asset> {
     }
 
     private void addPostParams(final Request request) {
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

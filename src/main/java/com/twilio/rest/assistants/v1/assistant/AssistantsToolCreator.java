@@ -14,7 +14,6 @@
 
 package com.twilio.rest.assistants.v1.assistant;
 
-
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -24,8 +23,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class AssistantsToolCreator extends Creator<AssistantsTool> {
@@ -33,42 +30,54 @@ public class AssistantsToolCreator extends Creator<AssistantsTool> {
     private String pathAssistantId;
     private String pathId;
 
-    public AssistantsToolCreator(final String pathAssistantId, final String pathId) {
+    public AssistantsToolCreator(
+        final String pathAssistantId,
+        final String pathId
+    ) {
         this.pathAssistantId = pathAssistantId;
         this.pathId = pathId;
     }
 
-
     @Override
     public AssistantsTool create(final TwilioRestClient client) {
-
         String path = "/v1/Assistants/{assistantId}/Tools/{id}";
 
-        path = path.replace("{" + "assistantId" + "}", this.pathAssistantId.toString());
+        path =
+            path.replace(
+                "{" + "assistantId" + "}",
+                this.pathAssistantId.toString()
+            );
         path = path.replace("{" + "id" + "}", this.pathId.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.ASSISTANTS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.ASSISTANTS.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("AssistantsTool creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AssistantsTool creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return AssistantsTool.fromJson(response.getStream(), client.getObjectMapper());
+        return AssistantsTool.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

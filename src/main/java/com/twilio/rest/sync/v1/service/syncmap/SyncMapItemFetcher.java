@@ -23,8 +23,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class SyncMapItemFetcher extends Fetcher<SyncMapItem> {
@@ -33,43 +31,56 @@ public class SyncMapItemFetcher extends Fetcher<SyncMapItem> {
     private String pathMapSid;
     private String pathKey;
 
-    public SyncMapItemFetcher(final String pathServiceSid, final String pathMapSid, final String pathKey) {
+    public SyncMapItemFetcher(
+        final String pathServiceSid,
+        final String pathMapSid,
+        final String pathKey
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
         this.pathKey = pathKey;
     }
 
-
     @Override
     public SyncMapItem fetch(final TwilioRestClient client) {
-
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
         path = path.replace("{" + "Key" + "}", this.pathKey.toString());
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.SYNC.toString(),
-                path
+            HttpMethod.GET,
+            Domains.SYNC.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SyncMapItem fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SyncMapItem fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return SyncMapItem.fromJson(response.getStream(), client.getObjectMapper());
+        return SyncMapItem.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

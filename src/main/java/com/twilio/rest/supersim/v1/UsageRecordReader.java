@@ -14,7 +14,9 @@
 
 package com.twilio.rest.supersim.v1;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
+import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -25,13 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
-import java.time.ZonedDateTime;
-
 import com.twilio.type.*;
-import com.twilio.base.Page;
-import com.twilio.base.ResourceSet;
+import java.time.ZonedDateTime;
 
 public class UsageRecordReader extends Reader<UsageRecord> {
 
@@ -45,63 +42,54 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     private ZonedDateTime endTime;
     private Long pageSize;
 
-    public UsageRecordReader() {
-    }
-
+    public UsageRecordReader() {}
 
     public UsageRecordReader setSim(final String sim) {
         this.sim = sim;
         return this;
     }
 
-
     public UsageRecordReader setFleet(final String fleet) {
         this.fleet = fleet;
         return this;
     }
-
 
     public UsageRecordReader setNetwork(final String network) {
         this.network = network;
         return this;
     }
 
-
     public UsageRecordReader setIsoCountry(final String isoCountry) {
         this.isoCountry = isoCountry;
         return this;
     }
-
 
     public UsageRecordReader setGroup(final UsageRecord.Group group) {
         this.group = group;
         return this;
     }
 
-
-    public UsageRecordReader setGranularity(final UsageRecord.Granularity granularity) {
+    public UsageRecordReader setGranularity(
+        final UsageRecord.Granularity granularity
+    ) {
         this.granularity = granularity;
         return this;
     }
-
 
     public UsageRecordReader setStartTime(final ZonedDateTime startTime) {
         this.startTime = startTime;
         return this;
     }
 
-
     public UsageRecordReader setEndTime(final ZonedDateTime endTime) {
         this.endTime = endTime;
         return this;
     }
 
-
     public UsageRecordReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<UsageRecord> read(final TwilioRestClient client) {
@@ -109,107 +97,152 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     public Page<UsageRecord> firstPage(final TwilioRestClient client) {
-
         String path = "/v1/UsageRecords";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.SUPERSIM.toString(),
-                path
+            HttpMethod.GET,
+            Domains.SUPERSIM.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<UsageRecord> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<UsageRecord> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("UsageRecord read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "UsageRecord read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "usage_records",
-                response.getContent(),
-                UsageRecord.class,
-                client.getObjectMapper());
+            "usage_records",
+            response.getContent(),
+            UsageRecord.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<UsageRecord> previousPage(final Page<UsageRecord> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<UsageRecord> previousPage(
+        final Page<UsageRecord> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<UsageRecord> nextPage(final Page<UsageRecord> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<UsageRecord> nextPage(
+        final Page<UsageRecord> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<UsageRecord> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<UsageRecord> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (sim != null) {
             Serializer.toString(request, "Sim", sim, ParameterType.QUERY);
         }
-
 
         if (fleet != null) {
             Serializer.toString(request, "Fleet", fleet, ParameterType.QUERY);
         }
 
-
         if (network != null) {
-            Serializer.toString(request, "Network", network, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Network",
+                network,
+                ParameterType.QUERY
+            );
         }
-
 
         if (isoCountry != null) {
-            Serializer.toString(request, "IsoCountry", isoCountry, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "IsoCountry",
+                isoCountry,
+                ParameterType.QUERY
+            );
         }
-
 
         if (group != null) {
             Serializer.toString(request, "Group", group, ParameterType.QUERY);
         }
 
-
         if (granularity != null) {
-            Serializer.toString(request, "Granularity", granularity, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Granularity",
+                granularity,
+                ParameterType.QUERY
+            );
         }
-
 
         if (startTime != null) {
-            Serializer.toString(request, "StartTime", startTime, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "StartTime",
+                startTime,
+                ParameterType.QUERY
+            );
         }
-
 
         if (endTime != null) {
-            Serializer.toString(request, "EndTime", endTime, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "EndTime",
+                endTime,
+                ParameterType.QUERY
+            );
         }
-
 
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
-
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

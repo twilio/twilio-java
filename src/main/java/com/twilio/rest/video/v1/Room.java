@@ -17,72 +17,52 @@ package com.twilio.rest.video.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Room extends Resource {
 
-
     public static RoomCreator creator() {
-        return new RoomCreator(
-
-        );
+        return new RoomCreator();
     }
-
 
     public static RoomFetcher fetcher(final String pathSid) {
-        return new RoomFetcher(
-                pathSid
-        );
+        return new RoomFetcher(pathSid);
     }
-
 
     public static RoomReader reader() {
-        return new RoomReader(
-
-        );
+        return new RoomReader();
     }
 
-
-    public static RoomUpdater updater(final String pathSid, final Room.RoomStatus status) {
-        return new RoomUpdater(
-                pathSid, status
-        );
+    public static RoomUpdater updater(
+        final String pathSid,
+        final Room.RoomStatus status
+    ) {
+        return new RoomUpdater(pathSid, status);
     }
-
 
     public enum RoomVideoCodec {
         VP8("VP8"),
@@ -167,15 +147,17 @@ public class Room extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Room object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Room object represented by the provided JSON
      */
-    public static Room fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Room fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Room.class);
@@ -190,11 +172,14 @@ public class Room extends Resource {
      * Converts a JSON InputStream into a Room object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Room object represented by the provided JSON
      */
-    public static Room fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Room fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Room.class);
@@ -217,85 +202,118 @@ public class Room extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Boolean audioOnly;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Integer duration;
+
     @Getter
     private final Integer emptyRoomTimeout;
+
     @Getter
     private final Boolean enableTurn;
+
     @Getter
     private final ZonedDateTime endTime;
+
     @Getter
     private final Boolean largeRoom;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final Integer maxConcurrentPublishedTracks;
+
     @Getter
     private final Integer maxParticipantDuration;
+
     @Getter
     private final Integer maxParticipants;
+
     @Getter
     private final String mediaRegion;
+
     @Getter
     private final Boolean recordParticipantsOnConnect;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Room.RoomStatus status;
+
     @Getter
     private final URI statusCallback;
+
     @Getter
     private final HttpMethod statusCallbackMethod;
+
     @Getter
     private final Room.RoomType type;
+
     @Getter
     private final String uniqueName;
+
     @Getter
     private final Integer unusedRoomTimeout;
+
     @Getter
     private final URI url;
+
     @Getter
     private final List<Room.VideoCodec> videoCodecs;
 
     @JsonCreator
     private Room(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("audio_only") final Boolean audioOnly,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("duration") final Integer duration,
-            @JsonProperty("empty_room_timeout") final Integer emptyRoomTimeout,
-            @JsonProperty("enable_turn") final Boolean enableTurn,
-            @JsonProperty("end_time")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime endTime,
-            @JsonProperty("large_room") final Boolean largeRoom,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("max_concurrent_published_tracks") final Integer maxConcurrentPublishedTracks,
-            @JsonProperty("max_participant_duration") final Integer maxParticipantDuration,
-            @JsonProperty("max_participants") final Integer maxParticipants,
-            @JsonProperty("media_region") final String mediaRegion,
-            @JsonProperty("record_participants_on_connect") final Boolean recordParticipantsOnConnect,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final Room.RoomStatus status,
-            @JsonProperty("status_callback") final URI statusCallback,
-            @JsonProperty("status_callback_method") final HttpMethod statusCallbackMethod,
-            @JsonProperty("type") final Room.RoomType type,
-            @JsonProperty("unique_name") final String uniqueName,
-            @JsonProperty("unused_room_timeout") final Integer unusedRoomTimeout,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("video_codecs") final List<Room.VideoCodec> videoCodecs
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("audio_only") final Boolean audioOnly,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("duration") final Integer duration,
+        @JsonProperty("empty_room_timeout") final Integer emptyRoomTimeout,
+        @JsonProperty("enable_turn") final Boolean enableTurn,
+        @JsonProperty("end_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime endTime,
+        @JsonProperty("large_room") final Boolean largeRoom,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty(
+            "max_concurrent_published_tracks"
+        ) final Integer maxConcurrentPublishedTracks,
+        @JsonProperty(
+            "max_participant_duration"
+        ) final Integer maxParticipantDuration,
+        @JsonProperty("max_participants") final Integer maxParticipants,
+        @JsonProperty("media_region") final String mediaRegion,
+        @JsonProperty(
+            "record_participants_on_connect"
+        ) final Boolean recordParticipantsOnConnect,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final Room.RoomStatus status,
+        @JsonProperty("status_callback") final URI statusCallback,
+        @JsonProperty(
+            "status_callback_method"
+        ) final HttpMethod statusCallbackMethod,
+        @JsonProperty("type") final Room.RoomType type,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("unused_room_timeout") final Integer unusedRoomTimeout,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("video_codecs") final List<Room.VideoCodec> videoCodecs
     ) {
         this.accountSid = accountSid;
         this.audioOnly = audioOnly;
@@ -335,63 +353,69 @@ public class Room extends Resource {
 
         Room other = (Room) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(audioOnly, other.audioOnly) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(duration, other.duration) &&
-                        Objects.equals(emptyRoomTimeout, other.emptyRoomTimeout) &&
-                        Objects.equals(enableTurn, other.enableTurn) &&
-                        Objects.equals(endTime, other.endTime) &&
-                        Objects.equals(largeRoom, other.largeRoom) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(maxConcurrentPublishedTracks, other.maxConcurrentPublishedTracks) &&
-                        Objects.equals(maxParticipantDuration, other.maxParticipantDuration) &&
-                        Objects.equals(maxParticipants, other.maxParticipants) &&
-                        Objects.equals(mediaRegion, other.mediaRegion) &&
-                        Objects.equals(recordParticipantsOnConnect, other.recordParticipantsOnConnect) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(statusCallback, other.statusCallback) &&
-                        Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
-                        Objects.equals(type, other.type) &&
-                        Objects.equals(uniqueName, other.uniqueName) &&
-                        Objects.equals(unusedRoomTimeout, other.unusedRoomTimeout) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(videoCodecs, other.videoCodecs)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(audioOnly, other.audioOnly) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(duration, other.duration) &&
+            Objects.equals(emptyRoomTimeout, other.emptyRoomTimeout) &&
+            Objects.equals(enableTurn, other.enableTurn) &&
+            Objects.equals(endTime, other.endTime) &&
+            Objects.equals(largeRoom, other.largeRoom) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(
+                maxConcurrentPublishedTracks,
+                other.maxConcurrentPublishedTracks
+            ) &&
+            Objects.equals(
+                maxParticipantDuration,
+                other.maxParticipantDuration
+            ) &&
+            Objects.equals(maxParticipants, other.maxParticipants) &&
+            Objects.equals(mediaRegion, other.mediaRegion) &&
+            Objects.equals(
+                recordParticipantsOnConnect,
+                other.recordParticipantsOnConnect
+            ) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(statusCallback, other.statusCallback) &&
+            Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(unusedRoomTimeout, other.unusedRoomTimeout) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(videoCodecs, other.videoCodecs)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                audioOnly,
-                dateCreated,
-                dateUpdated,
-                duration,
-                emptyRoomTimeout,
-                enableTurn,
-                endTime,
-                largeRoom,
-                links,
-                maxConcurrentPublishedTracks,
-                maxParticipantDuration,
-                maxParticipants,
-                mediaRegion,
-                recordParticipantsOnConnect,
-                sid,
-                status,
-                statusCallback,
-                statusCallbackMethod,
-                type,
-                uniqueName,
-                unusedRoomTimeout,
-                url,
-                videoCodecs
+            accountSid,
+            audioOnly,
+            dateCreated,
+            dateUpdated,
+            duration,
+            emptyRoomTimeout,
+            enableTurn,
+            endTime,
+            largeRoom,
+            links,
+            maxConcurrentPublishedTracks,
+            maxParticipantDuration,
+            maxParticipants,
+            mediaRegion,
+            recordParticipantsOnConnect,
+            sid,
+            status,
+            statusCallback,
+            statusCallbackMethod,
+            type,
+            uniqueName,
+            unusedRoomTimeout,
+            url,
+            videoCodecs
         );
     }
-
-
 }
-

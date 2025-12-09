@@ -23,50 +23,61 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
 public class SubscribedEventDeleter extends Deleter<SubscribedEvent> {
 
     private String pathSubscriptionSid;
     private String pathType;
 
-    public SubscribedEventDeleter(final String pathSubscriptionSid, final String pathType) {
+    public SubscribedEventDeleter(
+        final String pathSubscriptionSid,
+        final String pathType
+    ) {
         this.pathSubscriptionSid = pathSubscriptionSid;
         this.pathType = pathType;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
+        String path =
+            "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}";
 
-        String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}";
-
-        path = path.replace("{" + "SubscriptionSid" + "}", this.pathSubscriptionSid.toString());
+        path =
+            path.replace(
+                "{" + "SubscriptionSid" + "}",
+                this.pathSubscriptionSid.toString()
+            );
         path = path.replace("{" + "Type" + "}", this.pathType.toString());
 
-
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
-                HttpMethod.DELETE,
-                Domains.EVENTS.toString(),
-                path
+            HttpMethod.DELETE,
+            Domains.EVENTS.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SubscribedEvent delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SubscribedEvent delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatuses.test(response.getStatusCode());
     }
 }

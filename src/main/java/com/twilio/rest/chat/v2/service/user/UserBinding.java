@@ -17,63 +17,54 @@ package com.twilio.rest.chat.v2.service.user;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UserBinding extends Resource {
 
-
-    public static UserBindingDeleter deleter(final String pathServiceSid, final String pathUserSid, final String pathSid) {
-        return new UserBindingDeleter(
-                pathServiceSid, pathUserSid, pathSid
-        );
+    public static UserBindingDeleter deleter(
+        final String pathServiceSid,
+        final String pathUserSid,
+        final String pathSid
+    ) {
+        return new UserBindingDeleter(pathServiceSid, pathUserSid, pathSid);
     }
 
-
-    public static UserBindingFetcher fetcher(final String pathServiceSid, final String pathUserSid, final String pathSid) {
-        return new UserBindingFetcher(
-                pathServiceSid, pathUserSid, pathSid
-        );
+    public static UserBindingFetcher fetcher(
+        final String pathServiceSid,
+        final String pathUserSid,
+        final String pathSid
+    ) {
+        return new UserBindingFetcher(pathServiceSid, pathUserSid, pathSid);
     }
 
-
-    public static UserBindingReader reader(final String pathServiceSid, final String pathUserSid) {
-        return new UserBindingReader(
-                pathServiceSid, pathUserSid
-        );
+    public static UserBindingReader reader(
+        final String pathServiceSid,
+        final String pathUserSid
+    ) {
+        return new UserBindingReader(pathServiceSid, pathUserSid);
     }
-
 
     public enum BindingType {
         GCM("gcm"),
@@ -96,15 +87,17 @@ public class UserBinding extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a UserBinding object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return UserBinding object represented by the provided JSON
      */
-    public static UserBinding fromJson(final String json, final ObjectMapper objectMapper) {
+    public static UserBinding fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UserBinding.class);
@@ -119,11 +112,14 @@ public class UserBinding extends Resource {
      * Converts a JSON InputStream into a UserBinding object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return UserBinding object represented by the provided JSON
      */
-    public static UserBinding fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static UserBinding fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UserBinding.class);
@@ -146,48 +142,60 @@ public class UserBinding extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final UserBinding.BindingType bindingType;
+
     @Getter
     private final String credentialSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String endpoint;
+
     @Getter
     private final String identity;
+
     @Getter
     private final List<String> messageTypes;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
+
     @Getter
     private final String userSid;
 
     @JsonCreator
     private UserBinding(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("binding_type") final UserBinding.BindingType bindingType,
-            @JsonProperty("credential_sid") final String credentialSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("endpoint") final String endpoint,
-            @JsonProperty("identity") final String identity,
-            @JsonProperty("message_types") final List<String> messageTypes,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("user_sid") final String userSid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("binding_type") final UserBinding.BindingType bindingType,
+        @JsonProperty("credential_sid") final String credentialSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("endpoint") final String endpoint,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("message_types") final List<String> messageTypes,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("user_sid") final String userSid
     ) {
         this.accountSid = accountSid;
         this.bindingType = bindingType;
@@ -215,39 +223,36 @@ public class UserBinding extends Resource {
 
         UserBinding other = (UserBinding) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(bindingType, other.bindingType) &&
-                        Objects.equals(credentialSid, other.credentialSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(endpoint, other.endpoint) &&
-                        Objects.equals(identity, other.identity) &&
-                        Objects.equals(messageTypes, other.messageTypes) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(userSid, other.userSid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(bindingType, other.bindingType) &&
+            Objects.equals(credentialSid, other.credentialSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(endpoint, other.endpoint) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(messageTypes, other.messageTypes) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(userSid, other.userSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                bindingType,
-                credentialSid,
-                dateCreated,
-                dateUpdated,
-                endpoint,
-                identity,
-                messageTypes,
-                serviceSid,
-                sid,
-                url,
-                userSid
+            accountSid,
+            bindingType,
+            credentialSid,
+            dateCreated,
+            dateUpdated,
+            endpoint,
+            identity,
+            messageTypes,
+            serviceSid,
+            sid,
+            url,
+            userSid
         );
     }
-
-
 }
-

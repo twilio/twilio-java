@@ -17,76 +17,53 @@ package com.twilio.rest.conversations.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AddressConfiguration extends Resource {
 
-
-    public static AddressConfigurationCreator creator(final AddressConfiguration.Type type, final String address) {
-        return new AddressConfigurationCreator(
-                type, address
-        );
+    public static AddressConfigurationCreator creator(
+        final AddressConfiguration.Type type,
+        final String address
+    ) {
+        return new AddressConfigurationCreator(type, address);
     }
-
 
     public static AddressConfigurationDeleter deleter(final String pathSid) {
-        return new AddressConfigurationDeleter(
-                pathSid
-        );
+        return new AddressConfigurationDeleter(pathSid);
     }
-
 
     public static AddressConfigurationFetcher fetcher(final String pathSid) {
-        return new AddressConfigurationFetcher(
-                pathSid
-        );
+        return new AddressConfigurationFetcher(pathSid);
     }
-
 
     public static AddressConfigurationReader reader() {
-        return new AddressConfigurationReader(
-
-        );
+        return new AddressConfigurationReader();
     }
-
 
     public static AddressConfigurationUpdater updater(final String pathSid) {
-        return new AddressConfigurationUpdater(
-                pathSid
-        );
+        return new AddressConfigurationUpdater(pathSid);
     }
-
 
     public enum Type {
         SMS("sms"),
@@ -155,15 +132,17 @@ public class AddressConfiguration extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a AddressConfiguration object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AddressConfiguration object represented by the provided JSON
      */
-    public static AddressConfiguration fromJson(final String json, final ObjectMapper objectMapper) {
+    public static AddressConfiguration fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AddressConfiguration.class);
@@ -178,11 +157,14 @@ public class AddressConfiguration extends Resource {
      * Converts a JSON InputStream into a AddressConfiguration object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AddressConfiguration object represented by the provided JSON
      */
-    public static AddressConfiguration fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static AddressConfiguration fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AddressConfiguration.class);
@@ -205,42 +187,52 @@ public class AddressConfiguration extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String address;
+
     @Getter
     private final String addressCountry;
+
     @Getter
     private final Object autoCreation;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String type;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private AddressConfiguration(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("address") final String address,
-            @JsonProperty("address_country") final String addressCountry,
-            @JsonProperty("auto_creation") final Object autoCreation,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("type") final String type,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("address") final String address,
+        @JsonProperty("address_country") final String addressCountry,
+        @JsonProperty("auto_creation") final Object autoCreation,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("type") final String type,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.address = address;
@@ -266,35 +258,32 @@ public class AddressConfiguration extends Resource {
 
         AddressConfiguration other = (AddressConfiguration) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(address, other.address) &&
-                        Objects.equals(addressCountry, other.addressCountry) &&
-                        Objects.equals(autoCreation, other.autoCreation) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(type, other.type) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(address, other.address) &&
+            Objects.equals(addressCountry, other.addressCountry) &&
+            Objects.equals(autoCreation, other.autoCreation) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                address,
-                addressCountry,
-                autoCreation,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                sid,
-                type,
-                url
+            accountSid,
+            address,
+            addressCountry,
+            autoCreation,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            sid,
+            type,
+            url
         );
     }
-
-
 }
-

@@ -16,49 +16,41 @@ package com.twilio.rest.content.v1.content;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-
-
-import java.io.InputStream;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ApprovalCreate extends Resource {
 
-
-    public static ApprovalCreateCreator creator(final String pathContentSid, final ApprovalCreate.ContentApprovalRequest contentApprovalRequest) {
+    public static ApprovalCreateCreator creator(
+        final String pathContentSid,
+        final ApprovalCreate.ContentApprovalRequest contentApprovalRequest
+    ) {
         return new ApprovalCreateCreator(
-                pathContentSid, contentApprovalRequest
+            pathContentSid,
+            contentApprovalRequest
         );
     }
-
 
     @JsonDeserialize(builder = ContentApprovalRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -75,35 +67,42 @@ public class ApprovalCreate extends Resource {
         @Getter
         private final String category;
 
-
         private ContentApprovalRequest(Builder builder) {
             this.name = builder.name;
             this.category = builder.category;
         }
 
-        public static Builder builder(final String name, final String category) {
+        public static Builder builder(
+            final String name,
+            final String category
+        ) {
             return new Builder(name, category);
         }
 
-        public static ContentApprovalRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+        public static ContentApprovalRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
             return mapper.readValue(jsonString, ContentApprovalRequest.class);
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("name")
             private String name;
 
             @JsonProperty("category")
             private String category;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("name") final String name, @JsonProperty("category") final String category) {
+            public Builder(
+                @JsonProperty("name") final String name,
+                @JsonProperty("category") final String category
+            ) {
                 this.name = name;
                 this.category = category;
             }
-
 
             public ContentApprovalRequest build() {
                 return new ContentApprovalRequest(this);
@@ -122,30 +121,28 @@ public class ApprovalCreate extends Resource {
 
             ContentApprovalRequest other = (ContentApprovalRequest) o;
             return (
-                    Objects.equals(name, other.name) &&
-                            Objects.equals(category, other.category)
+                Objects.equals(name, other.name) &&
+                Objects.equals(category, other.category)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    name,
-                    category
-            );
+            return Objects.hash(name, category);
         }
-
     }
-
 
     /**
      * Converts a JSON String into a ApprovalCreate object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ApprovalCreate object represented by the provided JSON
      */
-    public static ApprovalCreate fromJson(final String json, final ObjectMapper objectMapper) {
+    public static ApprovalCreate fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ApprovalCreate.class);
@@ -160,11 +157,14 @@ public class ApprovalCreate extends Resource {
      * Converts a JSON InputStream into a ApprovalCreate object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ApprovalCreate object represented by the provided JSON
      */
-    public static ApprovalCreate fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static ApprovalCreate fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ApprovalCreate.class);
@@ -187,28 +187,34 @@ public class ApprovalCreate extends Resource {
         }
     }
 
-
     @Getter
     private final Boolean allowCategoryChange;
+
     @Getter
     private final String category;
+
     @Getter
     private final String contentType;
+
     @Getter
     private final String name;
+
     @Getter
     private final String rejectionReason;
+
     @Getter
     private final String status;
 
     @JsonCreator
     private ApprovalCreate(
-            @JsonProperty("allow_category_change") final Boolean allowCategoryChange,
-            @JsonProperty("category") final String category,
-            @JsonProperty("content_type") final String contentType,
-            @JsonProperty("name") final String name,
-            @JsonProperty("rejection_reason") final String rejectionReason,
-            @JsonProperty("status") final String status
+        @JsonProperty(
+            "allow_category_change"
+        ) final Boolean allowCategoryChange,
+        @JsonProperty("category") final String category,
+        @JsonProperty("content_type") final String contentType,
+        @JsonProperty("name") final String name,
+        @JsonProperty("rejection_reason") final String rejectionReason,
+        @JsonProperty("status") final String status
     ) {
         this.allowCategoryChange = allowCategoryChange;
         this.category = category;
@@ -230,27 +236,24 @@ public class ApprovalCreate extends Resource {
 
         ApprovalCreate other = (ApprovalCreate) o;
         return (
-                Objects.equals(allowCategoryChange, other.allowCategoryChange) &&
-                        Objects.equals(category, other.category) &&
-                        Objects.equals(contentType, other.contentType) &&
-                        Objects.equals(name, other.name) &&
-                        Objects.equals(rejectionReason, other.rejectionReason) &&
-                        Objects.equals(status, other.status)
+            Objects.equals(allowCategoryChange, other.allowCategoryChange) &&
+            Objects.equals(category, other.category) &&
+            Objects.equals(contentType, other.contentType) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(rejectionReason, other.rejectionReason) &&
+            Objects.equals(status, other.status)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                allowCategoryChange,
-                category,
-                contentType,
-                name,
-                rejectionReason,
-                status
+            allowCategoryChange,
+            category,
+            contentType,
+            name,
+            rejectionReason,
+            status
         );
     }
-
-
 }
-

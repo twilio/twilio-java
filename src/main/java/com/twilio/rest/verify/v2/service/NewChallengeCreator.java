@@ -15,7 +15,6 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,8 +25,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class NewChallengeCreator extends Creator<NewChallenge> {
@@ -35,30 +32,35 @@ public class NewChallengeCreator extends Creator<NewChallenge> {
     private String pathServiceSid;
     private NewChallenge.CreatePasskeysChallengeRequest createPasskeysChallengeRequest;
 
-    public NewChallengeCreator(final String pathServiceSid, final NewChallenge.CreatePasskeysChallengeRequest createPasskeysChallengeRequest) {
+    public NewChallengeCreator(
+        final String pathServiceSid,
+        final NewChallenge.CreatePasskeysChallengeRequest createPasskeysChallengeRequest
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.createPasskeysChallengeRequest = createPasskeysChallengeRequest;
     }
 
-
-    public NewChallengeCreator setCreatePasskeysChallengeRequest(final NewChallenge.CreatePasskeysChallengeRequest createPasskeysChallengeRequest) {
+    public NewChallengeCreator setCreatePasskeysChallengeRequest(
+        final NewChallenge.CreatePasskeysChallengeRequest createPasskeysChallengeRequest
+    ) {
         this.createPasskeysChallengeRequest = createPasskeysChallengeRequest;
         return this;
     }
 
-
     @Override
     public NewChallenge create(final TwilioRestClient client) {
-
         String path = "/v2/Services/{ServiceSid}/Passkeys/Challenges";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.VERIFY.toString(),
-                path
+            HttpMethod.POST,
+            Domains.VERIFY.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
@@ -66,25 +68,38 @@ public class NewChallengeCreator extends Creator<NewChallenge> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("NewChallenge creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "NewChallenge creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return NewChallenge.fromJson(response.getStream(), client.getObjectMapper());
+        return NewChallenge.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (createPasskeysChallengeRequest != null) {
-            request.setBody(NewChallenge.toJson(createPasskeysChallengeRequest, objectMapper));
+            request.setBody(
+                NewChallenge.toJson(
+                    createPasskeysChallengeRequest,
+                    objectMapper
+                )
+            );
         }
     }
 }

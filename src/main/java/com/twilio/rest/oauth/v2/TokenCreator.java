@@ -14,7 +14,6 @@
 
 package com.twilio.rest.oauth.v2;
 
-
 import com.twilio.auth_strategy.NoAuthStrategy;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
@@ -28,12 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class TokenCreator extends Creator<Token> {
 
+    private String accountSid;
     private String grantType;
     private String clientId;
     private String clientSecret;
@@ -43,84 +41,83 @@ public class TokenCreator extends Creator<Token> {
     private String refreshToken;
     private String scope;
 
-    public TokenCreator() {
-    }
-
+    public TokenCreator() {}
 
     public TokenCreator setGrantType(final String grantType) {
         this.grantType = grantType;
         return this;
     }
 
-
     public TokenCreator setClientId(final String clientId) {
         this.clientId = clientId;
         return this;
     }
-
 
     public TokenCreator setClientSecret(final String clientSecret) {
         this.clientSecret = clientSecret;
         return this;
     }
 
-
     public TokenCreator setCode(final String code) {
         this.code = code;
         return this;
     }
-
 
     public TokenCreator setRedirectUri(final String redirectUri) {
         this.redirectUri = redirectUri;
         return this;
     }
 
-
     public TokenCreator setAudience(final String audience) {
         this.audience = audience;
         return this;
     }
-
 
     public TokenCreator setRefreshToken(final String refreshToken) {
         this.refreshToken = refreshToken;
         return this;
     }
 
-
     public TokenCreator setScope(final String scope) {
         this.scope = scope;
         return this;
     }
 
+    public TokenCreator setAccountSid(final String accountSid) {
+        this.accountSid = accountSid;
+        return this;
+    }
 
     @Override
     public Token create(final TwilioRestClient client) {
-
         String path = "/v2/token";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.OAUTH.toString(),
-                path
+            HttpMethod.POST,
+            Domains.OAUTH.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         request.setAuth(NoAuthStrategy.getInstance());
+        addQueryParams(request);
         addPostParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Token creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Token creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -128,47 +125,88 @@ public class TokenCreator extends Creator<Token> {
         return Token.fromJson(response.getStream(), client.getObjectMapper());
     }
 
-    private void addPostParams(final Request request) {
-
-        if (grantType != null) {
-            Serializer.toString(request, "grant_type", grantType, ParameterType.URLENCODED);
+    private void addQueryParams(final Request request) {
+        if (accountSid != null) {
+            Serializer.toString(
+                request,
+                "account_sid",
+                accountSid,
+                ParameterType.QUERY
+            );
         }
+    }
 
+    private void addPostParams(final Request request) {
+        if (grantType != null) {
+            Serializer.toString(
+                request,
+                "grant_type",
+                grantType,
+                ParameterType.URLENCODED
+            );
+        }
 
         if (clientId != null) {
-            Serializer.toString(request, "client_id", clientId, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "client_id",
+                clientId,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (clientSecret != null) {
-            Serializer.toString(request, "client_secret", clientSecret, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "client_secret",
+                clientSecret,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (code != null) {
-            Serializer.toString(request, "code", code, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "code",
+                code,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (redirectUri != null) {
-            Serializer.toString(request, "redirect_uri", redirectUri, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "redirect_uri",
+                redirectUri,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (audience != null) {
-            Serializer.toString(request, "audience", audience, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "audience",
+                audience,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (refreshToken != null) {
-            Serializer.toString(request, "refresh_token", refreshToken, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "refresh_token",
+                refreshToken,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (scope != null) {
-            Serializer.toString(request, "scope", scope, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "scope",
+                scope,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

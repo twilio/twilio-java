@@ -17,75 +17,88 @@ package com.twilio.rest.sync.v1.service.synclist;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.twilio.exception.ApiConnectionException;
-import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
-import java.io.InputStream;
-import java.net.URI;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-
+import com.twilio.base.Resource;
+import com.twilio.exception.ApiConnectionException;
+import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncListPermission extends Resource {
 
-
-    public static SyncListPermissionDeleter deleter(final String pathServiceSid, final String pathListSid, final String pathIdentity) {
+    public static SyncListPermissionDeleter deleter(
+        final String pathServiceSid,
+        final String pathListSid,
+        final String pathIdentity
+    ) {
         return new SyncListPermissionDeleter(
-                pathServiceSid, pathListSid, pathIdentity
+            pathServiceSid,
+            pathListSid,
+            pathIdentity
         );
     }
 
-
-    public static SyncListPermissionFetcher fetcher(final String pathServiceSid, final String pathListSid, final String pathIdentity) {
+    public static SyncListPermissionFetcher fetcher(
+        final String pathServiceSid,
+        final String pathListSid,
+        final String pathIdentity
+    ) {
         return new SyncListPermissionFetcher(
-                pathServiceSid, pathListSid, pathIdentity
+            pathServiceSid,
+            pathListSid,
+            pathIdentity
         );
     }
 
-
-    public static SyncListPermissionReader reader(final String pathServiceSid, final String pathListSid) {
-        return new SyncListPermissionReader(
-                pathServiceSid, pathListSid
-        );
+    public static SyncListPermissionReader reader(
+        final String pathServiceSid,
+        final String pathListSid
+    ) {
+        return new SyncListPermissionReader(pathServiceSid, pathListSid);
     }
 
-
-    public static SyncListPermissionUpdater updater(final String pathServiceSid, final String pathListSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage) {
+    public static SyncListPermissionUpdater updater(
+        final String pathServiceSid,
+        final String pathListSid,
+        final String pathIdentity,
+        final Boolean read,
+        final Boolean write,
+        final Boolean manage
+    ) {
         return new SyncListPermissionUpdater(
-                pathServiceSid, pathListSid, pathIdentity, read, write, manage
+            pathServiceSid,
+            pathListSid,
+            pathIdentity,
+            read,
+            write,
+            manage
         );
     }
-
 
     /**
      * Converts a JSON String into a SyncListPermission object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SyncListPermission object represented by the provided JSON
      */
-    public static SyncListPermission fromJson(final String json, final ObjectMapper objectMapper) {
+    public static SyncListPermission fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncListPermission.class);
@@ -100,11 +113,14 @@ public class SyncListPermission extends Resource {
      * Converts a JSON InputStream into a SyncListPermission object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SyncListPermission object represented by the provided JSON
      */
-    public static SyncListPermission fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static SyncListPermission fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncListPermission.class);
@@ -127,34 +143,40 @@ public class SyncListPermission extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String identity;
+
     @Getter
     private final String listSid;
+
     @Getter
     private final Boolean manage;
+
     @Getter
     private final Boolean read;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final URI url;
+
     @Getter
     private final Boolean write;
 
     @JsonCreator
     private SyncListPermission(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("identity") final String identity,
-            @JsonProperty("list_sid") final String listSid,
-            @JsonProperty("manage") final Boolean manage,
-            @JsonProperty("read") final Boolean read,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("write") final Boolean write
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("list_sid") final String listSid,
+        @JsonProperty("manage") final Boolean manage,
+        @JsonProperty("read") final Boolean read,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("write") final Boolean write
     ) {
         this.accountSid = accountSid;
         this.identity = identity;
@@ -178,31 +200,28 @@ public class SyncListPermission extends Resource {
 
         SyncListPermission other = (SyncListPermission) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(identity, other.identity) &&
-                        Objects.equals(listSid, other.listSid) &&
-                        Objects.equals(manage, other.manage) &&
-                        Objects.equals(read, other.read) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(write, other.write)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(listSid, other.listSid) &&
+            Objects.equals(manage, other.manage) &&
+            Objects.equals(read, other.read) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(write, other.write)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                identity,
-                listSid,
-                manage,
-                read,
-                serviceSid,
-                url,
-                write
+            accountSid,
+            identity,
+            listSid,
+            manage,
+            read,
+            serviceSid,
+            url,
+            write
         );
     }
-
-
 }
-

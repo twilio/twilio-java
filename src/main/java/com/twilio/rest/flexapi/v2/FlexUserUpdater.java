@@ -26,54 +26,58 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class FlexUserUpdater extends Updater<FlexUser> {
+
     private String pathInstanceSid;
     private String pathFlexUserSid;
     private String email;
     private String userSid;
     private String locale;
 
-    public FlexUserUpdater(final String pathInstanceSid, final String pathFlexUserSid) {
+    public FlexUserUpdater(
+        final String pathInstanceSid,
+        final String pathFlexUserSid
+    ) {
         this.pathInstanceSid = pathInstanceSid;
         this.pathFlexUserSid = pathFlexUserSid;
     }
-
 
     public FlexUserUpdater setEmail(final String email) {
         this.email = email;
         return this;
     }
 
-
     public FlexUserUpdater setUserSid(final String userSid) {
         this.userSid = userSid;
         return this;
     }
-
 
     public FlexUserUpdater setLocale(final String locale) {
         this.locale = locale;
         return this;
     }
 
-
     @Override
     public FlexUser update(final TwilioRestClient client) {
-
         String path = "/v2/Instances/{InstanceSid}/Users/{FlexUserSid}";
 
-        path = path.replace("{" + "InstanceSid" + "}", this.pathInstanceSid.toString());
-        path = path.replace("{" + "FlexUserSid" + "}", this.pathFlexUserSid.toString());
-
+        path =
+            path.replace(
+                "{" + "InstanceSid" + "}",
+                this.pathInstanceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "FlexUserSid" + "}",
+                this.pathFlexUserSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.POST,
+            Domains.FLEXAPI.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -81,37 +85,55 @@ public class FlexUserUpdater extends Updater<FlexUser> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("FlexUser update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "FlexUser update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return FlexUser.fromJson(response.getStream(), client.getObjectMapper());
+        return FlexUser.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (email != null) {
-            Serializer.toString(request, "Email", email, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Email",
+                email,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (userSid != null) {
-            Serializer.toString(request, "UserSid", userSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "UserSid",
+                userSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (locale != null) {
-            Serializer.toString(request, "Locale", locale, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Locale",
+                locale,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

@@ -23,8 +23,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class WebhookFetcher extends Fetcher<Webhook> {
@@ -33,40 +31,55 @@ public class WebhookFetcher extends Fetcher<Webhook> {
     private String pathConversationSid;
     private String pathSid;
 
-    public WebhookFetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathSid) {
+    public WebhookFetcher(
+        final String pathChatServiceSid,
+        final String pathConversationSid,
+        final String pathSid
+    ) {
         this.pathChatServiceSid = pathChatServiceSid;
         this.pathConversationSid = pathConversationSid;
         this.pathSid = pathSid;
     }
 
-
     @Override
     public Webhook fetch(final TwilioRestClient client) {
+        String path =
+            "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}";
 
-        String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}";
-
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
-        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
+        path =
+            path.replace(
+                "{" + "ChatServiceSid" + "}",
+                this.pathChatServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ConversationSid" + "}",
+                this.pathConversationSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.CONVERSATIONS.toString(),
-                path
+            HttpMethod.GET,
+            Domains.CONVERSATIONS.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Webhook fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Webhook fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

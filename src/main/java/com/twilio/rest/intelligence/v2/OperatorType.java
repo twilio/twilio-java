@@ -17,56 +17,39 @@ package com.twilio.rest.intelligence.v2;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class OperatorType extends Resource {
 
-
     public static OperatorTypeFetcher fetcher(final String pathSid) {
-        return new OperatorTypeFetcher(
-                pathSid
-        );
+        return new OperatorTypeFetcher(pathSid);
     }
-
 
     public static OperatorTypeReader reader() {
-        return new OperatorTypeReader(
-
-        );
+        return new OperatorTypeReader();
     }
-
 
     public enum Availability {
         INTERNAL("internal"),
@@ -95,7 +78,8 @@ public class OperatorType extends Resource {
         TEXT_CLASSIFICATION("text-classification"),
         TEXT_EXTRACTION("text-extraction"),
         TEXT_EXTRACTION_NORMALIZED("text-extraction-normalized"),
-        TEXT_GENERATION("text-generation");
+        TEXT_GENERATION("text-generation"),
+        JSON("json");
 
         private final String value;
 
@@ -134,15 +118,17 @@ public class OperatorType extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a OperatorType object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return OperatorType object represented by the provided JSON
      */
-    public static OperatorType fromJson(final String json, final ObjectMapper objectMapper) {
+    public static OperatorType fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, OperatorType.class);
@@ -157,11 +143,14 @@ public class OperatorType extends Resource {
      * Converts a JSON InputStream into a OperatorType object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return OperatorType object represented by the provided JSON
      */
-    public static OperatorType fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static OperatorType fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, OperatorType.class);
@@ -184,54 +173,72 @@ public class OperatorType extends Resource {
         }
     }
 
-
     @Getter
     private final OperatorType.Availability availability;
+
     @Getter
     private final Object configSchema;
+
     @Getter
     private final Boolean configurable;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String description;
+
     @Getter
     private final URI docsLink;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String name;
+
     @Getter
     private final OperatorType.OutputType outputType;
+
     @Getter
     private final OperatorType.Provider provider;
+
     @Getter
     private final String sid;
+
     @Getter
     private final List<String> supportedLanguages;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private OperatorType(
-            @JsonProperty("availability") final OperatorType.Availability availability,
-            @JsonProperty("config_schema") final Object configSchema,
-            @JsonProperty("configurable") final Boolean configurable,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("description") final String description,
-            @JsonProperty("docs_link") final URI docsLink,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("name") final String name,
-            @JsonProperty("output_type") final OperatorType.OutputType outputType,
-            @JsonProperty("provider") final OperatorType.Provider provider,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("supported_languages") final List<String> supportedLanguages,
-            @JsonProperty("url") final URI url
+        @JsonProperty(
+            "availability"
+        ) final OperatorType.Availability availability,
+        @JsonProperty("config_schema") final Object configSchema,
+        @JsonProperty("configurable") final Boolean configurable,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("description") final String description,
+        @JsonProperty("docs_link") final URI docsLink,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("name") final String name,
+        @JsonProperty("output_type") final OperatorType.OutputType outputType,
+        @JsonProperty("provider") final OperatorType.Provider provider,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("supported_languages") final List<
+            String
+        > supportedLanguages,
+        @JsonProperty("url") final URI url
     ) {
         this.availability = availability;
         this.configSchema = configSchema;
@@ -261,43 +268,40 @@ public class OperatorType extends Resource {
 
         OperatorType other = (OperatorType) o;
         return (
-                Objects.equals(availability, other.availability) &&
-                        Objects.equals(configSchema, other.configSchema) &&
-                        Objects.equals(configurable, other.configurable) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(description, other.description) &&
-                        Objects.equals(docsLink, other.docsLink) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(name, other.name) &&
-                        Objects.equals(outputType, other.outputType) &&
-                        Objects.equals(provider, other.provider) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(supportedLanguages, other.supportedLanguages) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(availability, other.availability) &&
+            Objects.equals(configSchema, other.configSchema) &&
+            Objects.equals(configurable, other.configurable) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(docsLink, other.docsLink) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(outputType, other.outputType) &&
+            Objects.equals(provider, other.provider) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(supportedLanguages, other.supportedLanguages) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                availability,
-                configSchema,
-                configurable,
-                dateCreated,
-                dateUpdated,
-                description,
-                docsLink,
-                friendlyName,
-                name,
-                outputType,
-                provider,
-                sid,
-                supportedLanguages,
-                url
+            availability,
+            configSchema,
+            configurable,
+            dateCreated,
+            dateUpdated,
+            description,
+            docsLink,
+            friendlyName,
+            name,
+            outputType,
+            provider,
+            sid,
+            supportedLanguages,
+            url
         );
     }
-
-
 }
-

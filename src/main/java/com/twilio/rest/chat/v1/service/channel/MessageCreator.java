@@ -14,7 +14,6 @@
 
 package com.twilio.rest.chat.v1.service.channel;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class MessageCreator extends Creator<Message> {
@@ -39,44 +36,51 @@ public class MessageCreator extends Creator<Message> {
     private String from;
     private String attributes;
 
-    public MessageCreator(final String pathServiceSid, final String pathChannelSid, final String body) {
+    public MessageCreator(
+        final String pathServiceSid,
+        final String pathChannelSid,
+        final String body
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
         this.body = body;
     }
-
 
     public MessageCreator setBody(final String body) {
         this.body = body;
         return this;
     }
 
-
     public MessageCreator setFrom(final String from) {
         this.from = from;
         return this;
     }
-
 
     public MessageCreator setAttributes(final String attributes) {
         this.attributes = attributes;
         return this;
     }
 
-
     @Override
     public Message create(final TwilioRestClient client) {
+        String path =
+            "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages";
 
-        String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages";
-
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.CHAT.toString(),
-                path
+            HttpMethod.POST,
+            Domains.CHAT.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -84,14 +88,19 @@ public class MessageCreator extends Creator<Message> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Message creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Message creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -100,21 +109,31 @@ public class MessageCreator extends Creator<Message> {
     }
 
     private void addPostParams(final Request request) {
-
         if (body != null) {
-            Serializer.toString(request, "Body", body, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Body",
+                body,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (from != null) {
-            Serializer.toString(request, "From", from, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "From",
+                from,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (attributes != null) {
-            Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Attributes",
+                attributes,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

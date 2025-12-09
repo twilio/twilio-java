@@ -25,8 +25,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
@@ -35,67 +33,83 @@ public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
     private String targetAccountSid;
     private String addressSid;
 
-    public PortingPortabilityFetcher(final com.twilio.type.PhoneNumber pathPhoneNumber) {
+    public PortingPortabilityFetcher(
+        final com.twilio.type.PhoneNumber pathPhoneNumber
+    ) {
         this.pathPhoneNumber = pathPhoneNumber;
     }
 
-
-    public PortingPortabilityFetcher setTargetAccountSid(final String targetAccountSid) {
+    public PortingPortabilityFetcher setTargetAccountSid(
+        final String targetAccountSid
+    ) {
         this.targetAccountSid = targetAccountSid;
         return this;
     }
-
 
     public PortingPortabilityFetcher setAddressSid(final String addressSid) {
         this.addressSid = addressSid;
         return this;
     }
 
-
     @Override
     public PortingPortability fetch(final TwilioRestClient client) {
-
         String path = "/v1/Porting/Portability/PhoneNumber/{PhoneNumber}";
 
-        path = path.replace("{" + "PhoneNumber" + "}", this.pathPhoneNumber.toString());
-
+        path =
+            path.replace(
+                "{" + "PhoneNumber" + "}",
+                this.pathPhoneNumber.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.NUMBERS.toString(),
-                path
+            HttpMethod.GET,
+            Domains.NUMBERS.toString(),
+            path
         );
         addQueryParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("PortingPortability fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PortingPortability fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return PortingPortability.fromJson(response.getStream(), client.getObjectMapper());
+        return PortingPortability.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (targetAccountSid != null) {
-            Serializer.toString(request, "TargetAccountSid", targetAccountSid, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "TargetAccountSid",
+                targetAccountSid,
+                ParameterType.QUERY
+            );
         }
-
 
         if (addressSid != null) {
-            Serializer.toString(request, "AddressSid", addressSid, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "AddressSid",
+                addressSid,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

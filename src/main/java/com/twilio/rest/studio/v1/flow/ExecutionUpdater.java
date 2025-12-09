@@ -26,41 +26,40 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class ExecutionUpdater extends Updater<Execution> {
+
     private String pathFlowSid;
     private String pathSid;
     private Execution.Status status;
 
-    public ExecutionUpdater(final String pathFlowSid, final String pathSid, final Execution.Status status) {
+    public ExecutionUpdater(
+        final String pathFlowSid,
+        final String pathSid,
+        final Execution.Status status
+    ) {
         this.pathFlowSid = pathFlowSid;
         this.pathSid = pathSid;
         this.status = status;
     }
-
 
     public ExecutionUpdater setStatus(final Execution.Status status) {
         this.status = status;
         return this;
     }
 
-
     @Override
     public Execution update(final TwilioRestClient client) {
-
         String path = "/v1/Flows/{FlowSid}/Executions/{Sid}";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.STUDIO.toString(),
-                path
+            HttpMethod.POST,
+            Domains.STUDIO.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -68,27 +67,37 @@ public class ExecutionUpdater extends Updater<Execution> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Execution update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Execution update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Execution.fromJson(response.getStream(), client.getObjectMapper());
+        return Execution.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

@@ -17,85 +17,62 @@ package com.twilio.rest.voice.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ByocTrunk extends Resource {
 
-
     public static ByocTrunkCreator creator() {
-        return new ByocTrunkCreator(
-
-        );
+        return new ByocTrunkCreator();
     }
-
 
     public static ByocTrunkDeleter deleter(final String pathSid) {
-        return new ByocTrunkDeleter(
-                pathSid
-        );
+        return new ByocTrunkDeleter(pathSid);
     }
-
 
     public static ByocTrunkFetcher fetcher(final String pathSid) {
-        return new ByocTrunkFetcher(
-                pathSid
-        );
+        return new ByocTrunkFetcher(pathSid);
     }
-
 
     public static ByocTrunkReader reader() {
-        return new ByocTrunkReader(
-
-        );
+        return new ByocTrunkReader();
     }
-
 
     public static ByocTrunkUpdater updater(final String pathSid) {
-        return new ByocTrunkUpdater(
-                pathSid
-        );
+        return new ByocTrunkUpdater(pathSid);
     }
-
 
     /**
      * Converts a JSON String into a ByocTrunk object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ByocTrunk object represented by the provided JSON
      */
-    public static ByocTrunk fromJson(final String json, final ObjectMapper objectMapper) {
+    public static ByocTrunk fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ByocTrunk.class);
@@ -110,11 +87,14 @@ public class ByocTrunk extends Resource {
      * Converts a JSON InputStream into a ByocTrunk object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ByocTrunk object represented by the provided JSON
      */
-    public static ByocTrunk fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static ByocTrunk fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ByocTrunk.class);
@@ -137,57 +117,76 @@ public class ByocTrunk extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Boolean cnamLookupEnabled;
+
     @Getter
     private final String connectionPolicySid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String fromDomainSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final HttpMethod statusCallbackMethod;
+
     @Getter
     private final URI statusCallbackUrl;
+
     @Getter
     private final URI url;
+
     @Getter
     private final HttpMethod voiceFallbackMethod;
+
     @Getter
     private final URI voiceFallbackUrl;
+
     @Getter
     private final HttpMethod voiceMethod;
+
     @Getter
     private final URI voiceUrl;
 
     @JsonCreator
     private ByocTrunk(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("cnam_lookup_enabled") final Boolean cnamLookupEnabled,
-            @JsonProperty("connection_policy_sid") final String connectionPolicySid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("from_domain_sid") final String fromDomainSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status_callback_method") final HttpMethod statusCallbackMethod,
-            @JsonProperty("status_callback_url") final URI statusCallbackUrl,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("voice_fallback_method") final HttpMethod voiceFallbackMethod,
-            @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
-            @JsonProperty("voice_method") final HttpMethod voiceMethod,
-            @JsonProperty("voice_url") final URI voiceUrl
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("cnam_lookup_enabled") final Boolean cnamLookupEnabled,
+        @JsonProperty("connection_policy_sid") final String connectionPolicySid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("from_domain_sid") final String fromDomainSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty(
+            "status_callback_method"
+        ) final HttpMethod statusCallbackMethod,
+        @JsonProperty("status_callback_url") final URI statusCallbackUrl,
+        @JsonProperty("url") final URI url,
+        @JsonProperty(
+            "voice_fallback_method"
+        ) final HttpMethod voiceFallbackMethod,
+        @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
+        @JsonProperty("voice_method") final HttpMethod voiceMethod,
+        @JsonProperty("voice_url") final URI voiceUrl
     ) {
         this.accountSid = accountSid;
         this.cnamLookupEnabled = cnamLookupEnabled;
@@ -218,45 +217,42 @@ public class ByocTrunk extends Resource {
 
         ByocTrunk other = (ByocTrunk) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) &&
-                        Objects.equals(connectionPolicySid, other.connectionPolicySid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(fromDomainSid, other.fromDomainSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
-                        Objects.equals(statusCallbackUrl, other.statusCallbackUrl) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
-                        Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
-                        Objects.equals(voiceMethod, other.voiceMethod) &&
-                        Objects.equals(voiceUrl, other.voiceUrl)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) &&
+            Objects.equals(connectionPolicySid, other.connectionPolicySid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(fromDomainSid, other.fromDomainSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+            Objects.equals(statusCallbackUrl, other.statusCallbackUrl) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
+            Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
+            Objects.equals(voiceMethod, other.voiceMethod) &&
+            Objects.equals(voiceUrl, other.voiceUrl)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                cnamLookupEnabled,
-                connectionPolicySid,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                fromDomainSid,
-                sid,
-                statusCallbackMethod,
-                statusCallbackUrl,
-                url,
-                voiceFallbackMethod,
-                voiceFallbackUrl,
-                voiceMethod,
-                voiceUrl
+            accountSid,
+            cnamLookupEnabled,
+            connectionPolicySid,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            fromDomainSid,
+            sid,
+            statusCallbackMethod,
+            statusCallbackUrl,
+            url,
+            voiceFallbackMethod,
+            voiceFallbackUrl,
+            voiceMethod,
+            voiceUrl
         );
     }
-
-
 }
-

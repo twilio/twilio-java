@@ -16,53 +16,45 @@ package com.twilio.rest.verify.v2.service;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ApproveChallenge extends Resource {
 
-
-    public static ApproveChallengeUpdater updater(final String pathServiceSid, final ApproveChallenge.ApprovePasskeysChallengeRequest approvePasskeysChallengeRequest) {
+    public static ApproveChallengeUpdater updater(
+        final String pathServiceSid,
+        final ApproveChallenge.ApprovePasskeysChallengeRequest approvePasskeysChallengeRequest
+    ) {
         return new ApproveChallengeUpdater(
-                pathServiceSid, approvePasskeysChallengeRequest
+            pathServiceSid,
+            approvePasskeysChallengeRequest
         );
     }
-
 
     public enum Status {
         PENDING("pending"),
@@ -121,7 +113,10 @@ public class ApproveChallenge extends Resource {
 
         @JsonCreator
         public static AuthenticatorAttachment forValue(final String value) {
-            return Promoter.enumFromString(value, AuthenticatorAttachment.values());
+            return Promoter.enumFromString(
+                value,
+                AuthenticatorAttachment.values()
+            );
         }
     }
 
@@ -167,8 +162,9 @@ public class ApproveChallenge extends Resource {
         }
     }
 
-
-    @JsonDeserialize(builder = ApprovePasskeysChallengeRequestResponse.Builder.class)
+    @JsonDeserialize(
+        builder = ApprovePasskeysChallengeRequestResponse.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ApprovePasskeysChallengeRequestResponse {
@@ -193,7 +189,6 @@ public class ApproveChallenge extends Resource {
         @Getter
         private final String userHandle;
 
-
         private ApprovePasskeysChallengeRequestResponse(Builder builder) {
             this.authenticatorData = builder.authenticatorData;
             this.clientDataJSON = builder.clientDataJSON;
@@ -201,16 +196,27 @@ public class ApproveChallenge extends Resource {
             this.userHandle = builder.userHandle;
         }
 
-        public static Builder builder(final String authenticatorData, final String clientDataJSON, final String signature) {
+        public static Builder builder(
+            final String authenticatorData,
+            final String clientDataJSON,
+            final String signature
+        ) {
             return new Builder(authenticatorData, clientDataJSON, signature);
         }
 
-        public static ApprovePasskeysChallengeRequestResponse fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, ApprovePasskeysChallengeRequestResponse.class);
+        public static ApprovePasskeysChallengeRequestResponse fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                ApprovePasskeysChallengeRequestResponse.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("authenticatorData")
             private String authenticatorData;
 
@@ -223,9 +229,14 @@ public class ApproveChallenge extends Resource {
             @JsonProperty("userHandle")
             private String userHandle;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("authenticatorData") final String authenticatorData, @JsonProperty("clientDataJSON") final String clientDataJSON, @JsonProperty("signature") final String signature) {
+            public Builder(
+                @JsonProperty(
+                    "authenticatorData"
+                ) final String authenticatorData,
+                @JsonProperty("clientDataJSON") final String clientDataJSON,
+                @JsonProperty("signature") final String signature
+            ) {
                 this.authenticatorData = authenticatorData;
                 this.clientDataJSON = clientDataJSON;
                 this.signature = signature;
@@ -253,27 +264,26 @@ public class ApproveChallenge extends Resource {
                 return false;
             }
 
-            ApprovePasskeysChallengeRequestResponse other = (ApprovePasskeysChallengeRequestResponse) o;
+            ApprovePasskeysChallengeRequestResponse other =
+                (ApprovePasskeysChallengeRequestResponse) o;
             return (
-                    Objects.equals(authenticatorData, other.authenticatorData) &&
-                            Objects.equals(clientDataJSON, other.clientDataJSON) &&
-                            Objects.equals(signature, other.signature) &&
-                            Objects.equals(userHandle, other.userHandle)
+                Objects.equals(authenticatorData, other.authenticatorData) &&
+                Objects.equals(clientDataJSON, other.clientDataJSON) &&
+                Objects.equals(signature, other.signature) &&
+                Objects.equals(userHandle, other.userHandle)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    authenticatorData,
-                    clientDataJSON,
-                    signature,
-                    userHandle
+                authenticatorData,
+                clientDataJSON,
+                signature,
+                userHandle
             );
         }
-
     }
-
 
     @JsonDeserialize(builder = ApprovePasskeysChallengeRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -305,7 +315,6 @@ public class ApproveChallenge extends Resource {
         @Getter
         private final ApprovePasskeysChallengeRequestResponse response;
 
-
         private ApprovePasskeysChallengeRequest(Builder builder) {
             this.id = builder.id;
             this.rawId = builder.rawId;
@@ -314,16 +323,28 @@ public class ApproveChallenge extends Resource {
             this.response = builder.response;
         }
 
-        public static Builder builder(final String id, final String rawId, final ApproveChallenge.AuthenticatorAttachment authenticatorAttachment, final ApprovePasskeysChallengeRequestResponse response) {
+        public static Builder builder(
+            final String id,
+            final String rawId,
+            final ApproveChallenge.AuthenticatorAttachment authenticatorAttachment,
+            final ApprovePasskeysChallengeRequestResponse response
+        ) {
             return new Builder(id, rawId, authenticatorAttachment, response);
         }
 
-        public static ApprovePasskeysChallengeRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, ApprovePasskeysChallengeRequest.class);
+        public static ApprovePasskeysChallengeRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                ApprovePasskeysChallengeRequest.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("id")
             private String id;
 
@@ -339,15 +360,29 @@ public class ApproveChallenge extends Resource {
             @JsonProperty("response")
             private ApprovePasskeysChallengeRequestResponse response;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("id") final String id, @JsonProperty("rawId") final String rawId, @JsonProperty("authenticatorAttachment") final ApproveChallenge.AuthenticatorAttachment authenticatorAttachment, @JsonProperty("response") final ApprovePasskeysChallengeRequestResponse response) {
+            public Builder(
+                @JsonProperty("id") final String id,
+                @JsonProperty("rawId") final String rawId,
+                @JsonProperty(
+                    "authenticatorAttachment"
+                ) final ApproveChallenge.AuthenticatorAttachment authenticatorAttachment,
+                @JsonProperty(
+                    "response"
+                ) final ApprovePasskeysChallengeRequestResponse response
+            ) {
                 this.id = id;
                 this.rawId = rawId;
                 this.authenticatorAttachment = authenticatorAttachment;
                 this.response = response;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            public Builder type(ApproveChallenge.Type type) {
+                this.type = type;
+                return this;
+            }
 
             public ApprovePasskeysChallengeRequest build() {
                 return new ApprovePasskeysChallengeRequest(this);
@@ -364,38 +399,43 @@ public class ApproveChallenge extends Resource {
                 return false;
             }
 
-            ApprovePasskeysChallengeRequest other = (ApprovePasskeysChallengeRequest) o;
+            ApprovePasskeysChallengeRequest other =
+                (ApprovePasskeysChallengeRequest) o;
             return (
-                    Objects.equals(id, other.id) &&
-                            Objects.equals(rawId, other.rawId) &&
-                            Objects.equals(authenticatorAttachment, other.authenticatorAttachment) &&
-                            Objects.equals(type, other.type) &&
-                            Objects.equals(response, other.response)
+                Objects.equals(id, other.id) &&
+                Objects.equals(rawId, other.rawId) &&
+                Objects.equals(
+                    authenticatorAttachment,
+                    other.authenticatorAttachment
+                ) &&
+                Objects.equals(type, other.type) &&
+                Objects.equals(response, other.response)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    id,
-                    rawId,
-                    authenticatorAttachment,
-                    type,
-                    response
+                id,
+                rawId,
+                authenticatorAttachment,
+                type,
+                response
             );
         }
-
     }
-
 
     /**
      * Converts a JSON String into a ApproveChallenge object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ApproveChallenge object represented by the provided JSON
      */
-    public static ApproveChallenge fromJson(final String json, final ObjectMapper objectMapper) {
+    public static ApproveChallenge fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ApproveChallenge.class);
@@ -410,11 +450,14 @@ public class ApproveChallenge extends Resource {
      * Converts a JSON InputStream into a ApproveChallenge object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ApproveChallenge object represented by the provided JSON
      */
-    public static ApproveChallenge fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static ApproveChallenge fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ApproveChallenge.class);
@@ -437,71 +480,96 @@ public class ApproveChallenge extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateResponded;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Object details;
+
     @Getter
     private final String entitySid;
+
     @Getter
     private final ZonedDateTime expirationDate;
+
     @Getter
     private final String factorSid;
+
     @Getter
     private final ApproveChallenge.FactorType factorType;
+
     @Getter
     private final Object hiddenDetails;
+
     @Getter
     private final String identity;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final Object metadata;
+
     @Getter
     private final Object options;
+
     @Getter
     private final ApproveChallenge.RespondedReason respondedReason;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final ApproveChallenge.Status status;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private ApproveChallenge(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_responded")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateResponded,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("details") final Object details,
-            @JsonProperty("entity_sid") final String entitySid,
-            @JsonProperty("expiration_date")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime expirationDate,
-            @JsonProperty("factor_sid") final String factorSid,
-            @JsonProperty("factor_type") final ApproveChallenge.FactorType factorType,
-            @JsonProperty("hidden_details") final Object hiddenDetails,
-            @JsonProperty("identity") final String identity,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("metadata") final Object metadata,
-            @JsonProperty("options") final Object options,
-            @JsonProperty("responded_reason") final ApproveChallenge.RespondedReason respondedReason,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final ApproveChallenge.Status status,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_responded") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateResponded,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("details") final Object details,
+        @JsonProperty("entity_sid") final String entitySid,
+        @JsonProperty("expiration_date") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime expirationDate,
+        @JsonProperty("factor_sid") final String factorSid,
+        @JsonProperty(
+            "factor_type"
+        ) final ApproveChallenge.FactorType factorType,
+        @JsonProperty("hidden_details") final Object hiddenDetails,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("metadata") final Object metadata,
+        @JsonProperty("options") final Object options,
+        @JsonProperty(
+            "responded_reason"
+        ) final ApproveChallenge.RespondedReason respondedReason,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final ApproveChallenge.Status status,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -536,53 +604,50 @@ public class ApproveChallenge extends Resource {
 
         ApproveChallenge other = (ApproveChallenge) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateResponded, other.dateResponded) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(details, other.details) &&
-                        Objects.equals(entitySid, other.entitySid) &&
-                        Objects.equals(expirationDate, other.expirationDate) &&
-                        Objects.equals(factorSid, other.factorSid) &&
-                        Objects.equals(factorType, other.factorType) &&
-                        Objects.equals(hiddenDetails, other.hiddenDetails) &&
-                        Objects.equals(identity, other.identity) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(metadata, other.metadata) &&
-                        Objects.equals(options, other.options) &&
-                        Objects.equals(respondedReason, other.respondedReason) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateResponded, other.dateResponded) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(details, other.details) &&
+            Objects.equals(entitySid, other.entitySid) &&
+            Objects.equals(expirationDate, other.expirationDate) &&
+            Objects.equals(factorSid, other.factorSid) &&
+            Objects.equals(factorType, other.factorType) &&
+            Objects.equals(hiddenDetails, other.hiddenDetails) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(metadata, other.metadata) &&
+            Objects.equals(options, other.options) &&
+            Objects.equals(respondedReason, other.respondedReason) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateResponded,
-                dateUpdated,
-                details,
-                entitySid,
-                expirationDate,
-                factorSid,
-                factorType,
-                hiddenDetails,
-                identity,
-                links,
-                metadata,
-                options,
-                respondedReason,
-                serviceSid,
-                sid,
-                status,
-                url
+            accountSid,
+            dateCreated,
+            dateResponded,
+            dateUpdated,
+            details,
+            entitySid,
+            expirationDate,
+            factorSid,
+            factorType,
+            hiddenDetails,
+            identity,
+            links,
+            metadata,
+            options,
+            respondedReason,
+            serviceSid,
+            sid,
+            status,
+            url
         );
     }
-
-
 }
-

@@ -15,7 +15,6 @@
 package com.twilio.rest.previewiam.organizations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,8 +25,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class UserCreator extends Creator<User> {
@@ -35,30 +32,33 @@ public class UserCreator extends Creator<User> {
     private String pathOrganizationSid;
     private User.ScimUser scimUser;
 
-    public UserCreator(final String pathOrganizationSid, final User.ScimUser scimUser) {
+    public UserCreator(
+        final String pathOrganizationSid,
+        final User.ScimUser scimUser
+    ) {
         this.pathOrganizationSid = pathOrganizationSid;
         this.scimUser = scimUser;
     }
-
 
     public UserCreator setScimUser(final User.ScimUser scimUser) {
         this.scimUser = scimUser;
         return this;
     }
 
-
     @Override
     public User create(final TwilioRestClient client) {
-
         String path = "/Organizations/{OrganizationSid}/scim/Users";
 
-        path = path.replace("{" + "OrganizationSid" + "}", this.pathOrganizationSid.toString());
-
+        path =
+            path.replace(
+                "{" + "OrganizationSid" + "}",
+                this.pathOrganizationSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.PREVIEWIAM.toString(),
-                path
+            HttpMethod.POST,
+            Domains.PREVIEWIAM.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
@@ -66,14 +66,19 @@ public class UserCreator extends Creator<User> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("User creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "User creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

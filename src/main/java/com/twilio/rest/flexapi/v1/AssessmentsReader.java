@@ -14,7 +14,9 @@
 
 package com.twilio.rest.flexapi.v1;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
+import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -25,11 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
-import com.twilio.base.Page;
-import com.twilio.base.ResourceSet;
 
 public class AssessmentsReader extends Reader<Assessments> {
 
@@ -37,27 +35,22 @@ public class AssessmentsReader extends Reader<Assessments> {
     private Long pageSize;
     private String authorization;
 
-    public AssessmentsReader() {
-    }
-
+    public AssessmentsReader() {}
 
     public AssessmentsReader setSegmentId(final String segmentId) {
         this.segmentId = segmentId;
         return this;
     }
 
-
     public AssessmentsReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-
     public AssessmentsReader setAuthorization(final String authorization) {
         this.authorization = authorization;
         return this;
     }
-
 
     @Override
     public ResourceSet<Assessments> read(final TwilioRestClient client) {
@@ -65,14 +58,12 @@ public class AssessmentsReader extends Reader<Assessments> {
     }
 
     public Page<Assessments> firstPage(final TwilioRestClient client) {
-
         String path = "/v1/Insights/QualityManagement/Assessments";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.GET,
+            Domains.FLEXAPI.toString(),
+            path
         );
         addQueryParams(request);
         addHeaderParams(request);
@@ -80,66 +71,103 @@ public class AssessmentsReader extends Reader<Assessments> {
         return pageForRequest(client, request);
     }
 
-    private Page<Assessments> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Assessments> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Assessments read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Assessments read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "assessments",
-                response.getContent(),
-                Assessments.class,
-                client.getObjectMapper());
+            "assessments",
+            response.getContent(),
+            Assessments.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<Assessments> previousPage(final Page<Assessments> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<Assessments> previousPage(
+        final Page<Assessments> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Assessments> nextPage(final Page<Assessments> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<Assessments> nextPage(
+        final Page<Assessments> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Assessments> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Assessments> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (segmentId != null) {
-            Serializer.toString(request, "SegmentId", segmentId, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "SegmentId",
+                segmentId,
+                ParameterType.QUERY
+            );
         }
-
 
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
-
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 
     private void addHeaderParams(final Request request) {
-
         if (authorization != null) {
-            Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

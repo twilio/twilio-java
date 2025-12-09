@@ -17,72 +17,49 @@ package com.twilio.rest.video.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Composition extends Resource {
 
-
     public static CompositionCreator creator(final String roomSid) {
-        return new CompositionCreator(
-                roomSid
-        );
+        return new CompositionCreator(roomSid);
     }
-
 
     public static CompositionDeleter deleter(final String pathSid) {
-        return new CompositionDeleter(
-                pathSid
-        );
+        return new CompositionDeleter(pathSid);
     }
-
 
     public static CompositionFetcher fetcher(final String pathSid) {
-        return new CompositionFetcher(
-                pathSid
-        );
+        return new CompositionFetcher(pathSid);
     }
-
 
     public static CompositionReader reader() {
-        return new CompositionReader(
-
-        );
+        return new CompositionReader();
     }
-
 
     public enum Status {
         ENQUEUED("enqueued"),
@@ -127,15 +104,17 @@ public class Composition extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Composition object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Composition object represented by the provided JSON
      */
-    public static Composition fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Composition fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Composition.class);
@@ -150,11 +129,14 @@ public class Composition extends Resource {
      * Converts a JSON InputStream into a Composition object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Composition object represented by the provided JSON
      */
-    public static Composition fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Composition fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Composition.class);
@@ -177,76 +159,104 @@ public class Composition extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final List<String> audioSources;
+
     @Getter
     private final List<String> audioSourcesExcluded;
+
     @Getter
     private final Integer bitrate;
+
     @Getter
     private final ZonedDateTime dateCompleted;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateDeleted;
+
     @Getter
     private final Integer duration;
+
     @Getter
     private final Composition.Format format;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final URI mediaExternalLocation;
+
     @Getter
     private final String resolution;
+
     @Getter
     private final String roomSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Long size;
+
     @Getter
     private final Composition.Status status;
+
     @Getter
     private final URI statusCallback;
+
     @Getter
     private final HttpMethod statusCallbackMethod;
+
     @Getter
     private final Boolean trim;
+
     @Getter
     private final URI url;
+
     @Getter
     private final Object videoLayout;
 
     @JsonCreator
     private Composition(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("audio_sources") final List<String> audioSources,
-            @JsonProperty("audio_sources_excluded") final List<String> audioSourcesExcluded,
-            @JsonProperty("bitrate") final Integer bitrate,
-            @JsonProperty("date_completed")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCompleted,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_deleted")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateDeleted,
-            @JsonProperty("duration") final Integer duration,
-            @JsonProperty("format") final Composition.Format format,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("media_external_location") final URI mediaExternalLocation,
-            @JsonProperty("resolution") final String resolution,
-            @JsonProperty("room_sid") final String roomSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("size") final Long size,
-            @JsonProperty("status") final Composition.Status status,
-            @JsonProperty("status_callback") final URI statusCallback,
-            @JsonProperty("status_callback_method") final HttpMethod statusCallbackMethod,
-            @JsonProperty("trim") final Boolean trim,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("video_layout") final Object videoLayout
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("audio_sources") final List<String> audioSources,
+        @JsonProperty("audio_sources_excluded") final List<
+            String
+        > audioSourcesExcluded,
+        @JsonProperty("bitrate") final Integer bitrate,
+        @JsonProperty("date_completed") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCompleted,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_deleted") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateDeleted,
+        @JsonProperty("duration") final Integer duration,
+        @JsonProperty("format") final Composition.Format format,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty(
+            "media_external_location"
+        ) final URI mediaExternalLocation,
+        @JsonProperty("resolution") final String resolution,
+        @JsonProperty("room_sid") final String roomSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("size") final Long size,
+        @JsonProperty("status") final Composition.Status status,
+        @JsonProperty("status_callback") final URI statusCallback,
+        @JsonProperty(
+            "status_callback_method"
+        ) final HttpMethod statusCallbackMethod,
+        @JsonProperty("trim") final Boolean trim,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("video_layout") final Object videoLayout
     ) {
         this.accountSid = accountSid;
         this.audioSources = audioSources;
@@ -283,57 +293,57 @@ public class Composition extends Resource {
 
         Composition other = (Composition) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(audioSources, other.audioSources) &&
-                        Objects.equals(audioSourcesExcluded, other.audioSourcesExcluded) &&
-                        Objects.equals(bitrate, other.bitrate) &&
-                        Objects.equals(dateCompleted, other.dateCompleted) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateDeleted, other.dateDeleted) &&
-                        Objects.equals(duration, other.duration) &&
-                        Objects.equals(format, other.format) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(mediaExternalLocation, other.mediaExternalLocation) &&
-                        Objects.equals(resolution, other.resolution) &&
-                        Objects.equals(roomSid, other.roomSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(size, other.size) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(statusCallback, other.statusCallback) &&
-                        Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
-                        Objects.equals(trim, other.trim) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(videoLayout, other.videoLayout)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(audioSources, other.audioSources) &&
+            Objects.equals(audioSourcesExcluded, other.audioSourcesExcluded) &&
+            Objects.equals(bitrate, other.bitrate) &&
+            Objects.equals(dateCompleted, other.dateCompleted) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateDeleted, other.dateDeleted) &&
+            Objects.equals(duration, other.duration) &&
+            Objects.equals(format, other.format) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(
+                mediaExternalLocation,
+                other.mediaExternalLocation
+            ) &&
+            Objects.equals(resolution, other.resolution) &&
+            Objects.equals(roomSid, other.roomSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(size, other.size) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(statusCallback, other.statusCallback) &&
+            Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+            Objects.equals(trim, other.trim) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(videoLayout, other.videoLayout)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                audioSources,
-                audioSourcesExcluded,
-                bitrate,
-                dateCompleted,
-                dateCreated,
-                dateDeleted,
-                duration,
-                format,
-                links,
-                mediaExternalLocation,
-                resolution,
-                roomSid,
-                sid,
-                size,
-                status,
-                statusCallback,
-                statusCallbackMethod,
-                trim,
-                url,
-                videoLayout
+            accountSid,
+            audioSources,
+            audioSourcesExcluded,
+            bitrate,
+            dateCompleted,
+            dateCreated,
+            dateDeleted,
+            duration,
+            format,
+            links,
+            mediaExternalLocation,
+            resolution,
+            roomSid,
+            sid,
+            size,
+            status,
+            statusCallback,
+            statusCallbackMethod,
+            trim,
+            url,
+            videoLayout
         );
     }
-
-
 }
-

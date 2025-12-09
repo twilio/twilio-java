@@ -17,78 +17,56 @@ package com.twilio.rest.trusthub.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CustomerProfiles extends Resource {
 
-
-    public static CustomerProfilesCreator creator(final String friendlyName, final String email, final String policySid) {
-        return new CustomerProfilesCreator(
-                friendlyName, email, policySid
-        );
+    public static CustomerProfilesCreator creator(
+        final String friendlyName,
+        final String email,
+        final String policySid
+    ) {
+        return new CustomerProfilesCreator(friendlyName, email, policySid);
     }
-
 
     public static CustomerProfilesDeleter deleter(final String pathSid) {
-        return new CustomerProfilesDeleter(
-                pathSid
-        );
+        return new CustomerProfilesDeleter(pathSid);
     }
-
 
     public static CustomerProfilesFetcher fetcher(final String pathSid) {
-        return new CustomerProfilesFetcher(
-                pathSid
-        );
+        return new CustomerProfilesFetcher(pathSid);
     }
-
 
     public static CustomerProfilesReader reader() {
-        return new CustomerProfilesReader(
-
-        );
+        return new CustomerProfilesReader();
     }
-
 
     public static CustomerProfilesUpdater updater(final String pathSid) {
-        return new CustomerProfilesUpdater(
-                pathSid
-        );
+        return new CustomerProfilesUpdater(pathSid);
     }
-
 
     public enum Status {
         DRAFT("draft"),
@@ -113,15 +91,17 @@ public class CustomerProfiles extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a CustomerProfiles object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return CustomerProfiles object represented by the provided JSON
      */
-    public static CustomerProfiles fromJson(final String json, final ObjectMapper objectMapper) {
+    public static CustomerProfiles fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, CustomerProfiles.class);
@@ -136,11 +116,14 @@ public class CustomerProfiles extends Resource {
      * Converts a JSON InputStream into a CustomerProfiles object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return CustomerProfiles object represented by the provided JSON
      */
-    public static CustomerProfiles fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static CustomerProfiles fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, CustomerProfiles.class);
@@ -163,52 +146,66 @@ public class CustomerProfiles extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String email;
+
     @Getter
     private final List<Object> errors;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String policySid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final CustomerProfiles.Status status;
+
     @Getter
     private final URI statusCallback;
+
     @Getter
     private final URI url;
+
     @Getter
     private final ZonedDateTime validUntil;
 
     @JsonCreator
     private CustomerProfiles(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("email") final String email,
-            @JsonProperty("errors") final List<Object> errors,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("policy_sid") final String policySid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final CustomerProfiles.Status status,
-            @JsonProperty("status_callback") final URI statusCallback,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("valid_until")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime validUntil
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("email") final String email,
+        @JsonProperty("errors") final List<Object> errors,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("policy_sid") final String policySid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final CustomerProfiles.Status status,
+        @JsonProperty("status_callback") final URI statusCallback,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("valid_until") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime validUntil
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -237,41 +234,38 @@ public class CustomerProfiles extends Resource {
 
         CustomerProfiles other = (CustomerProfiles) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(email, other.email) &&
-                        Objects.equals(errors, other.errors) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(policySid, other.policySid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(statusCallback, other.statusCallback) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(validUntil, other.validUntil)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(email, other.email) &&
+            Objects.equals(errors, other.errors) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(policySid, other.policySid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(statusCallback, other.statusCallback) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(validUntil, other.validUntil)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                email,
-                errors,
-                friendlyName,
-                links,
-                policySid,
-                sid,
-                status,
-                statusCallback,
-                url,
-                validUntil
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            email,
+            errors,
+            friendlyName,
+            links,
+            policySid,
+            sid,
+            status,
+            statusCallback,
+            url,
+            validUntil
         );
     }
-
-
 }
-

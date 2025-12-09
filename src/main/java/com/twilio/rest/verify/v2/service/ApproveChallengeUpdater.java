@@ -15,7 +15,6 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,38 +25,42 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class ApproveChallengeUpdater extends Updater<ApproveChallenge> {
+
     private String pathServiceSid;
     private ApproveChallenge.ApprovePasskeysChallengeRequest approvePasskeysChallengeRequest;
 
-    public ApproveChallengeUpdater(final String pathServiceSid, final ApproveChallenge.ApprovePasskeysChallengeRequest approvePasskeysChallengeRequest) {
+    public ApproveChallengeUpdater(
+        final String pathServiceSid,
+        final ApproveChallenge.ApprovePasskeysChallengeRequest approvePasskeysChallengeRequest
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.approvePasskeysChallengeRequest = approvePasskeysChallengeRequest;
     }
 
-
-    public ApproveChallengeUpdater setApprovePasskeysChallengeRequest(final ApproveChallenge.ApprovePasskeysChallengeRequest approvePasskeysChallengeRequest) {
+    public ApproveChallengeUpdater setApprovePasskeysChallengeRequest(
+        final ApproveChallenge.ApprovePasskeysChallengeRequest approvePasskeysChallengeRequest
+    ) {
         this.approvePasskeysChallengeRequest = approvePasskeysChallengeRequest;
         return this;
     }
 
-
     @Override
     public ApproveChallenge update(final TwilioRestClient client) {
-
         String path = "/v2/Services/{ServiceSid}/Passkeys/ApproveChallenge";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.VERIFY.toString(),
-                path
+            HttpMethod.POST,
+            Domains.VERIFY.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
@@ -65,25 +68,38 @@ public class ApproveChallengeUpdater extends Updater<ApproveChallenge> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("ApproveChallenge update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ApproveChallenge update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return ApproveChallenge.fromJson(response.getStream(), client.getObjectMapper());
+        return ApproveChallenge.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (approvePasskeysChallengeRequest != null) {
-            request.setBody(ApproveChallenge.toJson(approvePasskeysChallengeRequest, objectMapper));
+            request.setBody(
+                ApproveChallenge.toJson(
+                    approvePasskeysChallengeRequest,
+                    objectMapper
+                )
+            );
         }
     }
 }

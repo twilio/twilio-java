@@ -17,54 +17,45 @@ package com.twilio.rest.intelligence.v2.transcript;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.twilio.exception.ApiConnectionException;
-import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
-import java.io.InputStream;
-import java.net.URI;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-
+import com.twilio.base.Resource;
+import com.twilio.exception.ApiConnectionException;
+import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class EncryptedSentences extends Resource {
 
-
-    public static EncryptedSentencesFetcher fetcher(final String pathTranscriptSid) {
-        return new EncryptedSentencesFetcher(
-                pathTranscriptSid
-        );
+    public static EncryptedSentencesFetcher fetcher(
+        final String pathTranscriptSid
+    ) {
+        return new EncryptedSentencesFetcher(pathTranscriptSid);
     }
-
 
     /**
      * Converts a JSON String into a EncryptedSentences object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return EncryptedSentences object represented by the provided JSON
      */
-    public static EncryptedSentences fromJson(final String json, final ObjectMapper objectMapper) {
+    public static EncryptedSentences fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, EncryptedSentences.class);
@@ -79,11 +70,14 @@ public class EncryptedSentences extends Resource {
      * Converts a JSON InputStream into a EncryptedSentences object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return EncryptedSentences object represented by the provided JSON
      */
-    public static EncryptedSentences fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static EncryptedSentences fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, EncryptedSentences.class);
@@ -106,19 +100,20 @@ public class EncryptedSentences extends Resource {
         }
     }
 
-
     @Getter
     private final URI location;
+
     @Getter
     private final String transcriptSid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private EncryptedSentences(
-            @JsonProperty("location") final URI location,
-            @JsonProperty("transcript_sid") final String transcriptSid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("location") final URI location,
+        @JsonProperty("transcript_sid") final String transcriptSid,
+        @JsonProperty("url") final URI url
     ) {
         this.location = location;
         this.transcriptSid = transcriptSid;
@@ -137,21 +132,14 @@ public class EncryptedSentences extends Resource {
 
         EncryptedSentences other = (EncryptedSentences) o;
         return (
-                Objects.equals(location, other.location) &&
-                        Objects.equals(transcriptSid, other.transcriptSid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(location, other.location) &&
+            Objects.equals(transcriptSid, other.transcriptSid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                location,
-                transcriptSid,
-                url
-        );
+        return Objects.hash(location, transcriptSid, url);
     }
-
-
 }
-

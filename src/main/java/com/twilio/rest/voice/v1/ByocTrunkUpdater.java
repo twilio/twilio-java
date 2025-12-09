@@ -27,13 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
+import com.twilio.type.*;
 import java.net.URI;
 
-import com.twilio.type.*;
-
 public class ByocTrunkUpdater extends Updater<ByocTrunk> {
+
     private String pathSid;
     private String friendlyName;
     private URI voiceUrl;
@@ -50,12 +48,10 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
         this.pathSid = pathSid;
     }
 
-
     public ByocTrunkUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-
 
     public ByocTrunkUpdater setVoiceUrl(final URI voiceUrl) {
         this.voiceUrl = voiceUrl;
@@ -71,7 +67,6 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
         return this;
     }
 
-
     public ByocTrunkUpdater setVoiceFallbackUrl(final URI voiceFallbackUrl) {
         this.voiceFallbackUrl = voiceFallbackUrl;
         return this;
@@ -81,57 +76,60 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
         return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
     }
 
-    public ByocTrunkUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
+    public ByocTrunkUpdater setVoiceFallbackMethod(
+        final HttpMethod voiceFallbackMethod
+    ) {
         this.voiceFallbackMethod = voiceFallbackMethod;
         return this;
     }
-
 
     public ByocTrunkUpdater setStatusCallbackUrl(final URI statusCallbackUrl) {
         this.statusCallbackUrl = statusCallbackUrl;
         return this;
     }
 
-    public ByocTrunkUpdater setStatusCallbackUrl(final String statusCallbackUrl) {
+    public ByocTrunkUpdater setStatusCallbackUrl(
+        final String statusCallbackUrl
+    ) {
         return setStatusCallbackUrl(Promoter.uriFromString(statusCallbackUrl));
     }
 
-    public ByocTrunkUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
+    public ByocTrunkUpdater setStatusCallbackMethod(
+        final HttpMethod statusCallbackMethod
+    ) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
-
-    public ByocTrunkUpdater setCnamLookupEnabled(final Boolean cnamLookupEnabled) {
+    public ByocTrunkUpdater setCnamLookupEnabled(
+        final Boolean cnamLookupEnabled
+    ) {
         this.cnamLookupEnabled = cnamLookupEnabled;
         return this;
     }
 
-
-    public ByocTrunkUpdater setConnectionPolicySid(final String connectionPolicySid) {
+    public ByocTrunkUpdater setConnectionPolicySid(
+        final String connectionPolicySid
+    ) {
         this.connectionPolicySid = connectionPolicySid;
         return this;
     }
-
 
     public ByocTrunkUpdater setFromDomainSid(final String fromDomainSid) {
         this.fromDomainSid = fromDomainSid;
         return this;
     }
 
-
     @Override
     public ByocTrunk update(final TwilioRestClient client) {
-
         String path = "/v1/ByocTrunks/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.VOICE.toString(),
-                path
+            HttpMethod.POST,
+            Domains.VOICE.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -139,72 +137,118 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("ByocTrunk update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ByocTrunk update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return ByocTrunk.fromJson(response.getStream(), client.getObjectMapper());
+        return ByocTrunk.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (voiceUrl != null) {
-            Serializer.toString(request, "VoiceUrl", voiceUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VoiceUrl",
+                voiceUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (voiceMethod != null) {
-            Serializer.toString(request, "VoiceMethod", voiceMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VoiceMethod",
+                voiceMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (voiceFallbackUrl != null) {
-            Serializer.toString(request, "VoiceFallbackUrl", voiceFallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VoiceFallbackUrl",
+                voiceFallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (voiceFallbackMethod != null) {
-            Serializer.toString(request, "VoiceFallbackMethod", voiceFallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VoiceFallbackMethod",
+                voiceFallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallbackUrl != null) {
-            Serializer.toString(request, "StatusCallbackUrl", statusCallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallbackUrl",
+                statusCallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallbackMethod != null) {
-            Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallbackMethod",
+                statusCallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (cnamLookupEnabled != null) {
-            Serializer.toString(request, "CnamLookupEnabled", cnamLookupEnabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CnamLookupEnabled",
+                cnamLookupEnabled,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (connectionPolicySid != null) {
-            Serializer.toString(request, "ConnectionPolicySid", connectionPolicySid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ConnectionPolicySid",
+                connectionPolicySid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (fromDomainSid != null) {
-            Serializer.toString(request, "FromDomainSid", fromDomainSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FromDomainSid",
+                fromDomainSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

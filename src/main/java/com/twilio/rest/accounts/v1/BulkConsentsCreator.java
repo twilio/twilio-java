@@ -14,7 +14,6 @@
 
 package com.twilio.rest.accounts.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,11 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
-import java.util.List;
-
 import com.twilio.type.*;
+import java.util.List;
 
 public class BulkConsentsCreator extends Creator<BulkConsents> {
 
@@ -41,7 +37,6 @@ public class BulkConsentsCreator extends Creator<BulkConsents> {
     public BulkConsentsCreator(final List<Object> items) {
         this.items = items;
     }
-
 
     public BulkConsentsCreator setItems(final List<Object> items) {
         this.items = items;
@@ -54,14 +49,12 @@ public class BulkConsentsCreator extends Creator<BulkConsents> {
 
     @Override
     public BulkConsents create(final TwilioRestClient client) {
-
         String path = "/v1/Consents/Bulk";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.ACCOUNTS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.ACCOUNTS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -69,29 +62,39 @@ public class BulkConsentsCreator extends Creator<BulkConsents> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("BulkConsents creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "BulkConsents creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return BulkConsents.fromJson(response.getStream(), client.getObjectMapper());
+        return BulkConsents.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
-
         if (items != null) {
             for (Object param : items) {
-                Serializer.toString(request, "Items", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "Items",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
-
     }
 }

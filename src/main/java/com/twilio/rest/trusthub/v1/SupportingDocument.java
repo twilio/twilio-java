@@ -17,76 +17,53 @@ package com.twilio.rest.trusthub.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SupportingDocument extends Resource {
 
-
-    public static SupportingDocumentCreator creator(final String friendlyName, final String type) {
-        return new SupportingDocumentCreator(
-                friendlyName, type
-        );
+    public static SupportingDocumentCreator creator(
+        final String friendlyName,
+        final String type
+    ) {
+        return new SupportingDocumentCreator(friendlyName, type);
     }
-
 
     public static SupportingDocumentDeleter deleter(final String pathSid) {
-        return new SupportingDocumentDeleter(
-                pathSid
-        );
+        return new SupportingDocumentDeleter(pathSid);
     }
-
 
     public static SupportingDocumentFetcher fetcher(final String pathSid) {
-        return new SupportingDocumentFetcher(
-                pathSid
-        );
+        return new SupportingDocumentFetcher(pathSid);
     }
-
 
     public static SupportingDocumentReader reader() {
-        return new SupportingDocumentReader(
-
-        );
+        return new SupportingDocumentReader();
     }
-
 
     public static SupportingDocumentUpdater updater(final String pathSid) {
-        return new SupportingDocumentUpdater(
-                pathSid
-        );
+        return new SupportingDocumentUpdater(pathSid);
     }
-
 
     public enum Status {
         DRAFT("DRAFT"),
@@ -112,15 +89,17 @@ public class SupportingDocument extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a SupportingDocument object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SupportingDocument object represented by the provided JSON
      */
-    public static SupportingDocument fromJson(final String json, final ObjectMapper objectMapper) {
+    public static SupportingDocument fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SupportingDocument.class);
@@ -135,11 +114,14 @@ public class SupportingDocument extends Resource {
      * Converts a JSON InputStream into a SupportingDocument object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SupportingDocument object represented by the provided JSON
      */
-    public static SupportingDocument fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static SupportingDocument fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SupportingDocument.class);
@@ -162,42 +144,52 @@ public class SupportingDocument extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Object attributes;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String mimeType;
+
     @Getter
     private final String sid;
+
     @Getter
     private final SupportingDocument.Status status;
+
     @Getter
     private final String type;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private SupportingDocument(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("attributes") final Object attributes,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("mime_type") final String mimeType,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final SupportingDocument.Status status,
-            @JsonProperty("type") final String type,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("attributes") final Object attributes,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("mime_type") final String mimeType,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final SupportingDocument.Status status,
+        @JsonProperty("type") final String type,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.attributes = attributes;
@@ -223,35 +215,32 @@ public class SupportingDocument extends Resource {
 
         SupportingDocument other = (SupportingDocument) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(attributes, other.attributes) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(mimeType, other.mimeType) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(type, other.type) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(attributes, other.attributes) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(mimeType, other.mimeType) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                attributes,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                mimeType,
-                sid,
-                status,
-                type,
-                url
+            accountSid,
+            attributes,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            mimeType,
+            sid,
+            status,
+            type,
+            url
         );
     }
-
-
 }
-

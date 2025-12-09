@@ -15,7 +15,6 @@
 package com.twilio.rest.assistants.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,11 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class ToolUpdater extends Updater<Tool> {
+
     private String pathId;
     private Tool.AssistantsV1ServiceUpdateToolRequest assistantsV1ServiceUpdateToolRequest;
 
@@ -38,25 +36,24 @@ public class ToolUpdater extends Updater<Tool> {
         this.pathId = pathId;
     }
 
-
-    public ToolUpdater setAssistantsV1ServiceUpdateToolRequest(final Tool.AssistantsV1ServiceUpdateToolRequest assistantsV1ServiceUpdateToolRequest) {
-        this.assistantsV1ServiceUpdateToolRequest = assistantsV1ServiceUpdateToolRequest;
+    public ToolUpdater setAssistantsV1ServiceUpdateToolRequest(
+        final Tool.AssistantsV1ServiceUpdateToolRequest assistantsV1ServiceUpdateToolRequest
+    ) {
+        this.assistantsV1ServiceUpdateToolRequest =
+            assistantsV1ServiceUpdateToolRequest;
         return this;
     }
 
-
     @Override
     public Tool update(final TwilioRestClient client) {
-
         String path = "/v1/Tools/{id}";
 
         path = path.replace("{" + "id" + "}", this.pathId.toString());
 
-
         Request request = new Request(
-                HttpMethod.PUT,
-                Domains.ASSISTANTS.toString(),
-                path
+            HttpMethod.PUT,
+            Domains.ASSISTANTS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
@@ -64,14 +61,19 @@ public class ToolUpdater extends Updater<Tool> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Tool update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Tool update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -82,7 +84,9 @@ public class ToolUpdater extends Updater<Tool> {
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (assistantsV1ServiceUpdateToolRequest != null) {
-            request.setBody(Tool.toJson(assistantsV1ServiceUpdateToolRequest, objectMapper));
+            request.setBody(
+                Tool.toJson(assistantsV1ServiceUpdateToolRequest, objectMapper)
+            );
         }
     }
 }

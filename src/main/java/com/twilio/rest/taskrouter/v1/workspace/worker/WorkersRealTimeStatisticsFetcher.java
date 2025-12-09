@@ -25,11 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
-public class WorkersRealTimeStatisticsFetcher extends Fetcher<WorkersRealTimeStatistics> {
+public class WorkersRealTimeStatisticsFetcher
+    extends Fetcher<WorkersRealTimeStatistics> {
 
     private String pathWorkspaceSid;
     private String taskChannel;
@@ -38,52 +37,64 @@ public class WorkersRealTimeStatisticsFetcher extends Fetcher<WorkersRealTimeSta
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
-
-    public WorkersRealTimeStatisticsFetcher setTaskChannel(final String taskChannel) {
+    public WorkersRealTimeStatisticsFetcher setTaskChannel(
+        final String taskChannel
+    ) {
         this.taskChannel = taskChannel;
         return this;
     }
 
-
     @Override
     public WorkersRealTimeStatistics fetch(final TwilioRestClient client) {
+        String path =
+            "/v1/Workspaces/{WorkspaceSid}/Workers/RealTimeStatistics";
 
-        String path = "/v1/Workspaces/{WorkspaceSid}/Workers/RealTimeStatistics";
-
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.TASKROUTER.toString(),
-                path
+            HttpMethod.GET,
+            Domains.TASKROUTER.toString(),
+            path
         );
         addQueryParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("WorkersRealTimeStatistics fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "WorkersRealTimeStatistics fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return WorkersRealTimeStatistics.fromJson(response.getStream(), client.getObjectMapper());
+        return WorkersRealTimeStatistics.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (taskChannel != null) {
-            Serializer.toString(request, "TaskChannel", taskChannel, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "TaskChannel",
+                taskChannel,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

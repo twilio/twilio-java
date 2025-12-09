@@ -26,44 +26,56 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
-public class InteractionChannelParticipantUpdater extends Updater<InteractionChannelParticipant> {
+public class InteractionChannelParticipantUpdater
+    extends Updater<InteractionChannelParticipant> {
+
     private String pathInteractionSid;
     private String pathChannelSid;
     private String pathSid;
     private InteractionChannelParticipant.Status status;
 
-    public InteractionChannelParticipantUpdater(final String pathInteractionSid, final String pathChannelSid, final String pathSid, final InteractionChannelParticipant.Status status) {
+    public InteractionChannelParticipantUpdater(
+        final String pathInteractionSid,
+        final String pathChannelSid,
+        final String pathSid,
+        final InteractionChannelParticipant.Status status
+    ) {
         this.pathInteractionSid = pathInteractionSid;
         this.pathChannelSid = pathChannelSid;
         this.pathSid = pathSid;
         this.status = status;
     }
 
-
-    public InteractionChannelParticipantUpdater setStatus(final InteractionChannelParticipant.Status status) {
+    public InteractionChannelParticipantUpdater setStatus(
+        final InteractionChannelParticipant.Status status
+    ) {
         this.status = status;
         return this;
     }
 
-
     @Override
     public InteractionChannelParticipant update(final TwilioRestClient client) {
+        String path =
+            "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants/{Sid}";
 
-        String path = "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants/{Sid}";
-
-        path = path.replace("{" + "InteractionSid" + "}", this.pathInteractionSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
+        path =
+            path.replace(
+                "{" + "InteractionSid" + "}",
+                this.pathInteractionSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.POST,
+            Domains.FLEXAPI.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -71,27 +83,37 @@ public class InteractionChannelParticipantUpdater extends Updater<InteractionCha
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("InteractionChannelParticipant update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InteractionChannelParticipant update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return InteractionChannelParticipant.fromJson(response.getStream(), client.getObjectMapper());
+        return InteractionChannelParticipant.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

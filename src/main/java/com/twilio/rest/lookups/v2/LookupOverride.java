@@ -16,72 +16,61 @@ package com.twilio.rest.lookups.v2;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.ZonedDateTime;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-
-
-import java.io.InputStream;
-import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class LookupOverride extends Resource {
 
-
-    public static LookupOverrideCreator creator(final String pathField, final String pathPhoneNumber) {
-        return new LookupOverrideCreator(
-                pathField, pathPhoneNumber
-        );
+    public static LookupOverrideCreator creator(
+        final String pathField,
+        final String pathPhoneNumber
+    ) {
+        return new LookupOverrideCreator(pathField, pathPhoneNumber);
     }
 
-
-    public static LookupOverrideDeleter deleter(final String pathField, final String pathPhoneNumber) {
-        return new LookupOverrideDeleter(
-                pathField, pathPhoneNumber
-        );
+    public static LookupOverrideDeleter deleter(
+        final String pathField,
+        final String pathPhoneNumber
+    ) {
+        return new LookupOverrideDeleter(pathField, pathPhoneNumber);
     }
 
-
-    public static LookupOverrideFetcher fetcher(final String pathField, final String pathPhoneNumber) {
-        return new LookupOverrideFetcher(
-                pathField, pathPhoneNumber
-        );
+    public static LookupOverrideFetcher fetcher(
+        final String pathField,
+        final String pathPhoneNumber
+    ) {
+        return new LookupOverrideFetcher(pathField, pathPhoneNumber);
     }
 
-
-    public static LookupOverrideUpdater updater(final String pathField, final String pathPhoneNumber) {
-        return new LookupOverrideUpdater(
-                pathField, pathPhoneNumber
-        );
+    public static LookupOverrideUpdater updater(
+        final String pathField,
+        final String pathPhoneNumber
+    ) {
+        return new LookupOverrideUpdater(pathField, pathPhoneNumber);
     }
-
 
     public enum OverriddenLineType {
         MOBILE("mobile"),
@@ -173,7 +162,6 @@ public class LookupOverride extends Resource {
         }
     }
 
-
     @JsonDeserialize(builder = OverridesRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
@@ -189,7 +177,6 @@ public class LookupOverride extends Resource {
         @Getter
         private final String reason;
 
-
         private OverridesRequest(Builder builder) {
             this.lineType = builder.lineType;
             this.reason = builder.reason;
@@ -199,18 +186,35 @@ public class LookupOverride extends Resource {
             return new Builder();
         }
 
-        public static OverridesRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+        public static OverridesRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
             return mapper.readValue(jsonString, OverridesRequest.class);
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("line_type")
             private LookupOverride.LineType lineType;
 
             @JsonProperty("reason")
             private String reason;
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("line_type")
+            public Builder lineType(LookupOverride.LineType lineType) {
+                this.lineType = lineType;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("reason")
+            public Builder reason(String reason) {
+                this.reason = reason;
+                return this;
+            }
 
             public OverridesRequest build() {
                 return new OverridesRequest(this);
@@ -229,30 +233,28 @@ public class LookupOverride extends Resource {
 
             OverridesRequest other = (OverridesRequest) o;
             return (
-                    Objects.equals(lineType, other.lineType) &&
-                            Objects.equals(reason, other.reason)
+                Objects.equals(lineType, other.lineType) &&
+                Objects.equals(reason, other.reason)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    lineType,
-                    reason
-            );
+            return Objects.hash(lineType, reason);
         }
-
     }
-
 
     /**
      * Converts a JSON String into a LookupOverride object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return LookupOverride object represented by the provided JSON
      */
-    public static LookupOverride fromJson(final String json, final ObjectMapper objectMapper) {
+    public static LookupOverride fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, LookupOverride.class);
@@ -267,11 +269,14 @@ public class LookupOverride extends Resource {
      * Converts a JSON InputStream into a LookupOverride object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return LookupOverride object represented by the provided JSON
      */
-    public static LookupOverride fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static LookupOverride fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, LookupOverride.class);
@@ -294,29 +299,40 @@ public class LookupOverride extends Resource {
         }
     }
 
-
     @Getter
     private final LookupOverride.OriginalLineType originalLineType;
+
     @Getter
     private final String overriddenByAccountSid;
+
     @Getter
     private final LookupOverride.OverriddenLineType overriddenLineType;
+
     @Getter
     private final String overrideReason;
+
     @Getter
     private final ZonedDateTime overrideTimestamp;
+
     @Getter
     private final String phoneNumber;
 
     @JsonCreator
     private LookupOverride(
-            @JsonProperty("original_line_type") final LookupOverride.OriginalLineType originalLineType,
-            @JsonProperty("overridden_by_account_sid") final String overriddenByAccountSid,
-            @JsonProperty("overridden_line_type") final LookupOverride.OverriddenLineType overriddenLineType,
-            @JsonProperty("override_reason") final String overrideReason,
-            @JsonProperty("override_timestamp")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime overrideTimestamp,
-            @JsonProperty("phone_number") final String phoneNumber
+        @JsonProperty(
+            "original_line_type"
+        ) final LookupOverride.OriginalLineType originalLineType,
+        @JsonProperty(
+            "overridden_by_account_sid"
+        ) final String overriddenByAccountSid,
+        @JsonProperty(
+            "overridden_line_type"
+        ) final LookupOverride.OverriddenLineType overriddenLineType,
+        @JsonProperty("override_reason") final String overrideReason,
+        @JsonProperty("override_timestamp") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime overrideTimestamp,
+        @JsonProperty("phone_number") final String phoneNumber
     ) {
         this.originalLineType = originalLineType;
         this.overriddenByAccountSid = overriddenByAccountSid;
@@ -338,27 +354,27 @@ public class LookupOverride extends Resource {
 
         LookupOverride other = (LookupOverride) o;
         return (
-                Objects.equals(originalLineType, other.originalLineType) &&
-                        Objects.equals(overriddenByAccountSid, other.overriddenByAccountSid) &&
-                        Objects.equals(overriddenLineType, other.overriddenLineType) &&
-                        Objects.equals(overrideReason, other.overrideReason) &&
-                        Objects.equals(overrideTimestamp, other.overrideTimestamp) &&
-                        Objects.equals(phoneNumber, other.phoneNumber)
+            Objects.equals(originalLineType, other.originalLineType) &&
+            Objects.equals(
+                overriddenByAccountSid,
+                other.overriddenByAccountSid
+            ) &&
+            Objects.equals(overriddenLineType, other.overriddenLineType) &&
+            Objects.equals(overrideReason, other.overrideReason) &&
+            Objects.equals(overrideTimestamp, other.overrideTimestamp) &&
+            Objects.equals(phoneNumber, other.phoneNumber)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                originalLineType,
-                overriddenByAccountSid,
-                overriddenLineType,
-                overrideReason,
-                overrideTimestamp,
-                phoneNumber
+            originalLineType,
+            overriddenByAccountSid,
+            overriddenLineType,
+            overrideReason,
+            overrideTimestamp,
+            phoneNumber
         );
     }
-
-
 }
-

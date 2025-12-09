@@ -17,64 +17,50 @@ package com.twilio.rest.monitor.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Alert extends Resource {
 
-
     public static AlertFetcher fetcher(final String pathSid) {
-        return new AlertFetcher(
-                pathSid
-        );
+        return new AlertFetcher(pathSid);
     }
-
 
     public static AlertReader reader() {
-        return new AlertReader(
-
-        );
+        return new AlertReader();
     }
-
 
     /**
      * Converts a JSON String into a Alert object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Alert object represented by the provided JSON
      */
-    public static Alert fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Alert fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Alert.class);
@@ -89,11 +75,14 @@ public class Alert extends Resource {
      * Converts a JSON InputStream into a Alert object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Alert object represented by the provided JSON
      */
-    public static Alert fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Alert fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Alert.class);
@@ -116,70 +105,90 @@ public class Alert extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String alertText;
+
     @Getter
     private final String apiVersion;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateGenerated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String errorCode;
+
     @Getter
     private final String logLevel;
+
     @Getter
     private final String moreInfo;
+
     @Getter
     private final String requestHeaders;
+
     @Getter
     private final HttpMethod requestMethod;
+
     @Getter
     private final String requestUrl;
+
     @Getter
     private final String requestVariables;
+
     @Getter
     private final String resourceSid;
+
     @Getter
     private final String responseBody;
+
     @Getter
     private final String responseHeaders;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Alert(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("alert_text") final String alertText,
-            @JsonProperty("api_version") final String apiVersion,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_generated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateGenerated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("error_code") final String errorCode,
-            @JsonProperty("log_level") final String logLevel,
-            @JsonProperty("more_info") final String moreInfo,
-            @JsonProperty("request_headers") final String requestHeaders,
-            @JsonProperty("request_method") final HttpMethod requestMethod,
-            @JsonProperty("request_url") final String requestUrl,
-            @JsonProperty("request_variables") final String requestVariables,
-            @JsonProperty("resource_sid") final String resourceSid,
-            @JsonProperty("response_body") final String responseBody,
-            @JsonProperty("response_headers") final String responseHeaders,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("alert_text") final String alertText,
+        @JsonProperty("api_version") final String apiVersion,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_generated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateGenerated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("error_code") final String errorCode,
+        @JsonProperty("log_level") final String logLevel,
+        @JsonProperty("more_info") final String moreInfo,
+        @JsonProperty("request_headers") final String requestHeaders,
+        @JsonProperty("request_method") final HttpMethod requestMethod,
+        @JsonProperty("request_url") final String requestUrl,
+        @JsonProperty("request_variables") final String requestVariables,
+        @JsonProperty("resource_sid") final String resourceSid,
+        @JsonProperty("response_body") final String responseBody,
+        @JsonProperty("response_headers") final String responseHeaders,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.alertText = alertText;
@@ -214,53 +223,50 @@ public class Alert extends Resource {
 
         Alert other = (Alert) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(alertText, other.alertText) &&
-                        Objects.equals(apiVersion, other.apiVersion) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateGenerated, other.dateGenerated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(errorCode, other.errorCode) &&
-                        Objects.equals(logLevel, other.logLevel) &&
-                        Objects.equals(moreInfo, other.moreInfo) &&
-                        Objects.equals(requestHeaders, other.requestHeaders) &&
-                        Objects.equals(requestMethod, other.requestMethod) &&
-                        Objects.equals(requestUrl, other.requestUrl) &&
-                        Objects.equals(requestVariables, other.requestVariables) &&
-                        Objects.equals(resourceSid, other.resourceSid) &&
-                        Objects.equals(responseBody, other.responseBody) &&
-                        Objects.equals(responseHeaders, other.responseHeaders) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(alertText, other.alertText) &&
+            Objects.equals(apiVersion, other.apiVersion) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateGenerated, other.dateGenerated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(errorCode, other.errorCode) &&
+            Objects.equals(logLevel, other.logLevel) &&
+            Objects.equals(moreInfo, other.moreInfo) &&
+            Objects.equals(requestHeaders, other.requestHeaders) &&
+            Objects.equals(requestMethod, other.requestMethod) &&
+            Objects.equals(requestUrl, other.requestUrl) &&
+            Objects.equals(requestVariables, other.requestVariables) &&
+            Objects.equals(resourceSid, other.resourceSid) &&
+            Objects.equals(responseBody, other.responseBody) &&
+            Objects.equals(responseHeaders, other.responseHeaders) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                alertText,
-                apiVersion,
-                dateCreated,
-                dateGenerated,
-                dateUpdated,
-                errorCode,
-                logLevel,
-                moreInfo,
-                requestHeaders,
-                requestMethod,
-                requestUrl,
-                requestVariables,
-                resourceSid,
-                responseBody,
-                responseHeaders,
-                serviceSid,
-                sid,
-                url
+            accountSid,
+            alertText,
+            apiVersion,
+            dateCreated,
+            dateGenerated,
+            dateUpdated,
+            errorCode,
+            logLevel,
+            moreInfo,
+            requestHeaders,
+            requestMethod,
+            requestUrl,
+            requestVariables,
+            resourceSid,
+            responseBody,
+            responseHeaders,
+            serviceSid,
+            sid,
+            url
         );
     }
-
-
 }
-

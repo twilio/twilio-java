@@ -23,8 +23,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class RecordingRulesFetcher extends Fetcher<RecordingRules> {
@@ -35,35 +33,40 @@ public class RecordingRulesFetcher extends Fetcher<RecordingRules> {
         this.pathRoomSid = pathRoomSid;
     }
 
-
     @Override
     public RecordingRules fetch(final TwilioRestClient client) {
-
         String path = "/v1/Rooms/{RoomSid}/RecordingRules";
 
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.VIDEO.toString(),
-                path
+            HttpMethod.GET,
+            Domains.VIDEO.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("RecordingRules fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "RecordingRules fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return RecordingRules.fromJson(response.getStream(), client.getObjectMapper());
+        return RecordingRules.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

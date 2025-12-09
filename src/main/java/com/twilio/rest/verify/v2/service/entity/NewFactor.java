@@ -17,48 +17,44 @@ package com.twilio.rest.verify.v2.service.entity;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class NewFactor extends Resource {
 
-
-    public static NewFactorCreator creator(final String pathServiceSid, final String pathIdentity, final String friendlyName, final NewFactor.FactorTypes factorType) {
+    public static NewFactorCreator creator(
+        final String pathServiceSid,
+        final String pathIdentity,
+        final String friendlyName,
+        final NewFactor.FactorTypes factorType
+    ) {
         return new NewFactorCreator(
-                pathServiceSid, pathIdentity, friendlyName, factorType
+            pathServiceSid,
+            pathIdentity,
+            friendlyName,
+            factorType
         );
     }
-
 
     public enum TotpAlgorithms {
         SHA1("sha1"),
@@ -98,7 +94,10 @@ public class NewFactor extends Resource {
 
         @JsonCreator
         public static NotificationPlatforms forValue(final String value) {
-            return Promoter.enumFromString(value, NotificationPlatforms.values());
+            return Promoter.enumFromString(
+                value,
+                NotificationPlatforms.values()
+            );
         }
     }
 
@@ -143,15 +142,17 @@ public class NewFactor extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a NewFactor object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return NewFactor object represented by the provided JSON
      */
-    public static NewFactor fromJson(final String json, final ObjectMapper objectMapper) {
+    public static NewFactor fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, NewFactor.class);
@@ -166,11 +167,14 @@ public class NewFactor extends Resource {
      * Converts a JSON InputStream into a NewFactor object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return NewFactor object represented by the provided JSON
      */
-    public static NewFactor fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static NewFactor fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, NewFactor.class);
@@ -193,57 +197,72 @@ public class NewFactor extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Object binding;
+
     @Getter
     private final Object config;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String entitySid;
+
     @Getter
     private final NewFactor.FactorTypes factorType;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String identity;
+
     @Getter
     private final Object metadata;
+
     @Getter
     private final Object options;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final NewFactor.FactorStatuses status;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private NewFactor(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("binding") final Object binding,
-            @JsonProperty("config") final Object config,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("entity_sid") final String entitySid,
-            @JsonProperty("factor_type") final NewFactor.FactorTypes factorType,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("identity") final String identity,
-            @JsonProperty("metadata") final Object metadata,
-            @JsonProperty("options") final Object options,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final NewFactor.FactorStatuses status,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("binding") final Object binding,
+        @JsonProperty("config") final Object config,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("entity_sid") final String entitySid,
+        @JsonProperty("factor_type") final NewFactor.FactorTypes factorType,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("metadata") final Object metadata,
+        @JsonProperty("options") final Object options,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final NewFactor.FactorStatuses status,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.binding = binding;
@@ -274,45 +293,42 @@ public class NewFactor extends Resource {
 
         NewFactor other = (NewFactor) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(binding, other.binding) &&
-                        Objects.equals(config, other.config) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(entitySid, other.entitySid) &&
-                        Objects.equals(factorType, other.factorType) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(identity, other.identity) &&
-                        Objects.equals(metadata, other.metadata) &&
-                        Objects.equals(options, other.options) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(binding, other.binding) &&
+            Objects.equals(config, other.config) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(entitySid, other.entitySid) &&
+            Objects.equals(factorType, other.factorType) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(metadata, other.metadata) &&
+            Objects.equals(options, other.options) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                binding,
-                config,
-                dateCreated,
-                dateUpdated,
-                entitySid,
-                factorType,
-                friendlyName,
-                identity,
-                metadata,
-                options,
-                serviceSid,
-                sid,
-                status,
-                url
+            accountSid,
+            binding,
+            config,
+            dateCreated,
+            dateUpdated,
+            entitySid,
+            factorType,
+            friendlyName,
+            identity,
+            metadata,
+            options,
+            serviceSid,
+            sid,
+            status,
+            url
         );
     }
-
-
 }
-

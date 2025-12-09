@@ -14,7 +14,6 @@
 
 package com.twilio.rest.ipmessaging.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class CredentialCreator extends Creator<Credential> {
@@ -45,59 +42,49 @@ public class CredentialCreator extends Creator<Credential> {
         this.type = type;
     }
 
-
     public CredentialCreator setType(final Credential.PushService type) {
         this.type = type;
         return this;
     }
-
 
     public CredentialCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
     public CredentialCreator setCertificate(final String certificate) {
         this.certificate = certificate;
         return this;
     }
-
 
     public CredentialCreator setPrivateKey(final String privateKey) {
         this.privateKey = privateKey;
         return this;
     }
 
-
     public CredentialCreator setSandbox(final Boolean sandbox) {
         this.sandbox = sandbox;
         return this;
     }
-
 
     public CredentialCreator setApiKey(final String apiKey) {
         this.apiKey = apiKey;
         return this;
     }
 
-
     public CredentialCreator setSecret(final String secret) {
         this.secret = secret;
         return this;
     }
 
-
     @Override
     public Credential create(final TwilioRestClient client) {
-
         String path = "/v1/Credentials";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.IPMESSAGING.toString(),
-                path
+            HttpMethod.POST,
+            Domains.IPMESSAGING.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -105,57 +92,91 @@ public class CredentialCreator extends Creator<Credential> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Credential creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Credential creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Credential.fromJson(response.getStream(), client.getObjectMapper());
+        return Credential.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (type != null) {
-            Serializer.toString(request, "Type", type, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Type",
+                type,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (certificate != null) {
-            Serializer.toString(request, "Certificate", certificate, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Certificate",
+                certificate,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (privateKey != null) {
-            Serializer.toString(request, "PrivateKey", privateKey, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "PrivateKey",
+                privateKey,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (sandbox != null) {
-            Serializer.toString(request, "Sandbox", sandbox, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Sandbox",
+                sandbox,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (apiKey != null) {
-            Serializer.toString(request, "ApiKey", apiKey, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ApiKey",
+                apiKey,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (secret != null) {
-            Serializer.toString(request, "Secret", secret, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Secret",
+                secret,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

@@ -14,7 +14,6 @@
 
 package com.twilio.rest.verify.v2.service.entity;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,12 +27,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 import java.util.List;
-
-import com.twilio.type.*;
 
 public class ChallengeCreator extends Creator<Challenge> {
 
@@ -46,30 +42,32 @@ public class ChallengeCreator extends Creator<Challenge> {
     private Object hiddenDetails;
     private String authPayload;
 
-    public ChallengeCreator(final String pathServiceSid, final String pathIdentity, final String factorSid) {
+    public ChallengeCreator(
+        final String pathServiceSid,
+        final String pathIdentity,
+        final String factorSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
         this.factorSid = factorSid;
     }
-
 
     public ChallengeCreator setFactorSid(final String factorSid) {
         this.factorSid = factorSid;
         return this;
     }
 
-
-    public ChallengeCreator setExpirationDate(final ZonedDateTime expirationDate) {
+    public ChallengeCreator setExpirationDate(
+        final ZonedDateTime expirationDate
+    ) {
         this.expirationDate = expirationDate;
         return this;
     }
-
 
     public ChallengeCreator setDetailsMessage(final String detailsMessage) {
         this.detailsMessage = detailsMessage;
         return this;
     }
-
 
     public ChallengeCreator setDetailsFields(final List<Object> detailsFields) {
         this.detailsFields = detailsFields;
@@ -85,26 +83,28 @@ public class ChallengeCreator extends Creator<Challenge> {
         return this;
     }
 
-
     public ChallengeCreator setAuthPayload(final String authPayload) {
         this.authPayload = authPayload;
         return this;
     }
 
-
     @Override
     public Challenge create(final TwilioRestClient client) {
+        String path =
+            "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges";
 
-        String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges";
-
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-        path = path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
-
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.VERIFY.toString(),
-                path
+            HttpMethod.POST,
+            Domains.VERIFY.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -112,54 +112,84 @@ public class ChallengeCreator extends Creator<Challenge> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Challenge creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Challenge creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Challenge.fromJson(response.getStream(), client.getObjectMapper());
+        return Challenge.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (factorSid != null) {
-            Serializer.toString(request, "FactorSid", factorSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FactorSid",
+                factorSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (expirationDate != null) {
-            Serializer.toString(request, "ExpirationDate", expirationDate, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ExpirationDate",
+                expirationDate,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (detailsMessage != null) {
-            Serializer.toString(request, "Details.Message", detailsMessage, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Details.Message",
+                detailsMessage,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (detailsFields != null) {
             for (Object param : detailsFields) {
-                Serializer.toString(request, "Details.Fields", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "Details.Fields",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (hiddenDetails != null) {
-            Serializer.toString(request, "HiddenDetails", hiddenDetails, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "HiddenDetails",
+                hiddenDetails,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (authPayload != null) {
-            Serializer.toString(request, "AuthPayload", authPayload, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AuthPayload",
+                authPayload,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

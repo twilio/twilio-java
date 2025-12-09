@@ -14,7 +14,6 @@
 
 package com.twilio.rest.events.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,11 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
-import java.util.List;
-
 import com.twilio.type.*;
+import java.util.List;
 
 public class SubscriptionCreator extends Creator<Subscription> {
 
@@ -40,24 +36,25 @@ public class SubscriptionCreator extends Creator<Subscription> {
     private String sinkSid;
     private List<Object> types;
 
-    public SubscriptionCreator(final String description, final String sinkSid, final List<Object> types) {
+    public SubscriptionCreator(
+        final String description,
+        final String sinkSid,
+        final List<Object> types
+    ) {
         this.description = description;
         this.sinkSid = sinkSid;
         this.types = types;
     }
-
 
     public SubscriptionCreator setDescription(final String description) {
         this.description = description;
         return this;
     }
 
-
     public SubscriptionCreator setSinkSid(final String sinkSid) {
         this.sinkSid = sinkSid;
         return this;
     }
-
 
     public SubscriptionCreator setTypes(final List<Object> types) {
         this.types = types;
@@ -70,14 +67,12 @@ public class SubscriptionCreator extends Creator<Subscription> {
 
     @Override
     public Subscription create(final TwilioRestClient client) {
-
         String path = "/v1/Subscriptions";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.EVENTS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.EVENTS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -85,38 +80,57 @@ public class SubscriptionCreator extends Creator<Subscription> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Subscription creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Subscription creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Subscription.fromJson(response.getStream(), client.getObjectMapper());
+        return Subscription.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (description != null) {
-            Serializer.toString(request, "Description", description, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (sinkSid != null) {
-            Serializer.toString(request, "SinkSid", sinkSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SinkSid",
+                sinkSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (types != null) {
             for (Object param : types) {
-                Serializer.toString(request, "Types", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "Types",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
-
     }
 }

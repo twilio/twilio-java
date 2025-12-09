@@ -14,7 +14,6 @@
 
 package com.twilio.rest.flexapi.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,13 +26,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
+import com.twilio.type.*;
 import java.math.BigDecimal;
 
-import com.twilio.type.*;
-
-public class InsightsAssessmentsCommentCreator extends Creator<InsightsAssessmentsComment> {
+public class InsightsAssessmentsCommentCreator
+    extends Creator<InsightsAssessmentsComment> {
 
     private String authorization;
     private String categoryId;
@@ -43,7 +40,14 @@ public class InsightsAssessmentsCommentCreator extends Creator<InsightsAssessmen
     private String agentId;
     private BigDecimal offset;
 
-    public InsightsAssessmentsCommentCreator(final String categoryId, final String categoryName, final String comment, final String segmentId, final String agentId, final BigDecimal offset) {
+    public InsightsAssessmentsCommentCreator(
+        final String categoryId,
+        final String categoryName,
+        final String comment,
+        final String segmentId,
+        final String agentId,
+        final BigDecimal offset
+    ) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.comment = comment;
@@ -52,59 +56,59 @@ public class InsightsAssessmentsCommentCreator extends Creator<InsightsAssessmen
         this.offset = offset;
     }
 
-
-    public InsightsAssessmentsCommentCreator setCategoryId(final String categoryId) {
+    public InsightsAssessmentsCommentCreator setCategoryId(
+        final String categoryId
+    ) {
         this.categoryId = categoryId;
         return this;
     }
 
-
-    public InsightsAssessmentsCommentCreator setCategoryName(final String categoryName) {
+    public InsightsAssessmentsCommentCreator setCategoryName(
+        final String categoryName
+    ) {
         this.categoryName = categoryName;
         return this;
     }
-
 
     public InsightsAssessmentsCommentCreator setComment(final String comment) {
         this.comment = comment;
         return this;
     }
 
-
-    public InsightsAssessmentsCommentCreator setSegmentId(final String segmentId) {
+    public InsightsAssessmentsCommentCreator setSegmentId(
+        final String segmentId
+    ) {
         this.segmentId = segmentId;
         return this;
     }
-
 
     public InsightsAssessmentsCommentCreator setAgentId(final String agentId) {
         this.agentId = agentId;
         return this;
     }
 
-
-    public InsightsAssessmentsCommentCreator setOffset(final BigDecimal offset) {
+    public InsightsAssessmentsCommentCreator setOffset(
+        final BigDecimal offset
+    ) {
         this.offset = offset;
         return this;
     }
 
-
-    public InsightsAssessmentsCommentCreator setAuthorization(final String authorization) {
+    public InsightsAssessmentsCommentCreator setAuthorization(
+        final String authorization
+    ) {
         this.authorization = authorization;
         return this;
     }
 
-
     @Override
     public InsightsAssessmentsComment create(final TwilioRestClient client) {
-
         String path = "/v1/Insights/QualityManagement/Assessments/Comments";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.POST,
+            Domains.FLEXAPI.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
@@ -113,60 +117,93 @@ public class InsightsAssessmentsCommentCreator extends Creator<InsightsAssessmen
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("InsightsAssessmentsComment creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InsightsAssessmentsComment creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return InsightsAssessmentsComment.fromJson(response.getStream(), client.getObjectMapper());
+        return InsightsAssessmentsComment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (categoryId != null) {
-            Serializer.toString(request, "CategoryId", categoryId, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CategoryId",
+                categoryId,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (categoryName != null) {
-            Serializer.toString(request, "CategoryName", categoryName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CategoryName",
+                categoryName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (comment != null) {
-            Serializer.toString(request, "Comment", comment, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Comment",
+                comment,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (segmentId != null) {
-            Serializer.toString(request, "SegmentId", segmentId, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SegmentId",
+                segmentId,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (agentId != null) {
-            Serializer.toString(request, "AgentId", agentId, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AgentId",
+                agentId,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (offset != null) {
-            Serializer.toString(request, "Offset", offset, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Offset",
+                offset,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 
     private void addHeaderParams(final Request request) {
-
         if (authorization != null) {
-            Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

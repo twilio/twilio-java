@@ -25,11 +25,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
-public class InsightsQuestionnairesQuestionDeleter extends Deleter<InsightsQuestionnairesQuestion> {
+public class InsightsQuestionnairesQuestionDeleter
+    extends Deleter<InsightsQuestionnairesQuestion> {
 
     private String pathQuestionSid;
     private String authorization;
@@ -38,50 +38,62 @@ public class InsightsQuestionnairesQuestionDeleter extends Deleter<InsightsQuest
         this.pathQuestionSid = pathQuestionSid;
     }
 
-
-    public InsightsQuestionnairesQuestionDeleter setAuthorization(final String authorization) {
+    public InsightsQuestionnairesQuestionDeleter setAuthorization(
+        final String authorization
+    ) {
         this.authorization = authorization;
         return this;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
-
         String path = "/v1/Insights/QualityManagement/Questions/{QuestionSid}";
 
-        path = path.replace("{" + "QuestionSid" + "}", this.pathQuestionSid.toString());
+        path =
+            path.replace(
+                "{" + "QuestionSid" + "}",
+                this.pathQuestionSid.toString()
+            );
 
-
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
-                HttpMethod.DELETE,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.DELETE,
+            Domains.FLEXAPI.toString(),
+            path
         );
         addHeaderParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("InsightsQuestionnairesQuestion delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InsightsQuestionnairesQuestion delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatuses.test(response.getStatusCode());
     }
 
     private void addHeaderParams(final Request request) {
-
         if (authorization != null) {
-            Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

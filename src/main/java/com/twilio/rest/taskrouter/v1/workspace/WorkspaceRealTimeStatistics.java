@@ -17,58 +17,52 @@ package com.twilio.rest.taskrouter.v1.workspace;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WorkspaceRealTimeStatistics extends Resource {
 
-
-    public static WorkspaceRealTimeStatisticsFetcher fetcher(final String pathWorkspaceSid) {
-        return new WorkspaceRealTimeStatisticsFetcher(
-                pathWorkspaceSid
-        );
+    public static WorkspaceRealTimeStatisticsFetcher fetcher(
+        final String pathWorkspaceSid
+    ) {
+        return new WorkspaceRealTimeStatisticsFetcher(pathWorkspaceSid);
     }
-
 
     /**
      * Converts a JSON String into a WorkspaceRealTimeStatistics object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return WorkspaceRealTimeStatistics object represented by the provided JSON
      */
-    public static WorkspaceRealTimeStatistics fromJson(final String json, final ObjectMapper objectMapper) {
+    public static WorkspaceRealTimeStatistics fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, WorkspaceRealTimeStatistics.class);
+            return objectMapper.readValue(
+                json,
+                WorkspaceRealTimeStatistics.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -80,14 +74,20 @@ public class WorkspaceRealTimeStatistics extends Resource {
      * Converts a JSON InputStream into a WorkspaceRealTimeStatistics object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return WorkspaceRealTimeStatistics object represented by the provided JSON
      */
-    public static WorkspaceRealTimeStatistics fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static WorkspaceRealTimeStatistics fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, WorkspaceRealTimeStatistics.class);
+            return objectMapper.readValue(
+                json,
+                WorkspaceRealTimeStatistics.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -107,40 +107,54 @@ public class WorkspaceRealTimeStatistics extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final List<Object> activityStatistics;
+
     @Getter
     private final Integer longestTaskWaitingAge;
+
     @Getter
     private final String longestTaskWaitingSid;
+
     @Getter
     private final Object tasksByPriority;
+
     @Getter
     private final Object tasksByStatus;
+
     @Getter
     private final Integer totalTasks;
+
     @Getter
     private final Integer totalWorkers;
+
     @Getter
     private final URI url;
+
     @Getter
     private final String workspaceSid;
 
     @JsonCreator
     private WorkspaceRealTimeStatistics(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("activity_statistics") final List<Object> activityStatistics,
-            @JsonProperty("longest_task_waiting_age") final Integer longestTaskWaitingAge,
-            @JsonProperty("longest_task_waiting_sid") final String longestTaskWaitingSid,
-            @JsonProperty("tasks_by_priority") final Object tasksByPriority,
-            @JsonProperty("tasks_by_status") final Object tasksByStatus,
-            @JsonProperty("total_tasks") final Integer totalTasks,
-            @JsonProperty("total_workers") final Integer totalWorkers,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("workspace_sid") final String workspaceSid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("activity_statistics") final List<
+            Object
+        > activityStatistics,
+        @JsonProperty(
+            "longest_task_waiting_age"
+        ) final Integer longestTaskWaitingAge,
+        @JsonProperty(
+            "longest_task_waiting_sid"
+        ) final String longestTaskWaitingSid,
+        @JsonProperty("tasks_by_priority") final Object tasksByPriority,
+        @JsonProperty("tasks_by_status") final Object tasksByStatus,
+        @JsonProperty("total_tasks") final Integer totalTasks,
+        @JsonProperty("total_workers") final Integer totalWorkers,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.activityStatistics = activityStatistics;
@@ -166,35 +180,38 @@ public class WorkspaceRealTimeStatistics extends Resource {
 
         WorkspaceRealTimeStatistics other = (WorkspaceRealTimeStatistics) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(activityStatistics, other.activityStatistics) &&
-                        Objects.equals(longestTaskWaitingAge, other.longestTaskWaitingAge) &&
-                        Objects.equals(longestTaskWaitingSid, other.longestTaskWaitingSid) &&
-                        Objects.equals(tasksByPriority, other.tasksByPriority) &&
-                        Objects.equals(tasksByStatus, other.tasksByStatus) &&
-                        Objects.equals(totalTasks, other.totalTasks) &&
-                        Objects.equals(totalWorkers, other.totalWorkers) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(workspaceSid, other.workspaceSid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(activityStatistics, other.activityStatistics) &&
+            Objects.equals(
+                longestTaskWaitingAge,
+                other.longestTaskWaitingAge
+            ) &&
+            Objects.equals(
+                longestTaskWaitingSid,
+                other.longestTaskWaitingSid
+            ) &&
+            Objects.equals(tasksByPriority, other.tasksByPriority) &&
+            Objects.equals(tasksByStatus, other.tasksByStatus) &&
+            Objects.equals(totalTasks, other.totalTasks) &&
+            Objects.equals(totalWorkers, other.totalWorkers) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                activityStatistics,
-                longestTaskWaitingAge,
-                longestTaskWaitingSid,
-                tasksByPriority,
-                tasksByStatus,
-                totalTasks,
-                totalWorkers,
-                url,
-                workspaceSid
+            accountSid,
+            activityStatistics,
+            longestTaskWaitingAge,
+            longestTaskWaitingSid,
+            tasksByPriority,
+            tasksByStatus,
+            totalTasks,
+            totalWorkers,
+            url,
+            workspaceSid
         );
     }
-
-
 }
-

@@ -26,11 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
+
     private String pathSid;
     private String moduleInfo;
     private String description;
@@ -44,61 +43,57 @@ public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
         this.pathSid = pathSid;
     }
 
-
     public ModuleDataManagementUpdater setModuleInfo(final String moduleInfo) {
         this.moduleInfo = moduleInfo;
         return this;
     }
 
-
-    public ModuleDataManagementUpdater setDescription(final String description) {
+    public ModuleDataManagementUpdater setDescription(
+        final String description
+    ) {
         this.description = description;
         return this;
     }
 
-
-    public ModuleDataManagementUpdater setDocumentation(final String documentation) {
+    public ModuleDataManagementUpdater setDocumentation(
+        final String documentation
+    ) {
         this.documentation = documentation;
         return this;
     }
-
 
     public ModuleDataManagementUpdater setPolicies(final String policies) {
         this.policies = policies;
         return this;
     }
 
-
     public ModuleDataManagementUpdater setSupport(final String support) {
         this.support = support;
         return this;
     }
 
-
-    public ModuleDataManagementUpdater setConfiguration(final String configuration) {
+    public ModuleDataManagementUpdater setConfiguration(
+        final String configuration
+    ) {
         this.configuration = configuration;
         return this;
     }
-
 
     public ModuleDataManagementUpdater setPricing(final String pricing) {
         this.pricing = pricing;
         return this;
     }
 
-
     @Override
     public ModuleDataManagement update(final TwilioRestClient client) {
-
         String path = "/v1/Listing/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.MARKETPLACE.toString(),
-                path
+            HttpMethod.POST,
+            Domains.MARKETPLACE.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -106,57 +101,91 @@ public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("ModuleDataManagement update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ModuleDataManagement update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return ModuleDataManagement.fromJson(response.getStream(), client.getObjectMapper());
+        return ModuleDataManagement.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (moduleInfo != null) {
-            Serializer.toString(request, "ModuleInfo", moduleInfo, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ModuleInfo",
+                moduleInfo,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (description != null) {
-            Serializer.toString(request, "Description", description, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (documentation != null) {
-            Serializer.toString(request, "Documentation", documentation, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Documentation",
+                documentation,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (policies != null) {
-            Serializer.toString(request, "Policies", policies, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Policies",
+                policies,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (support != null) {
-            Serializer.toString(request, "Support", support, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Support",
+                support,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (configuration != null) {
-            Serializer.toString(request, "Configuration", configuration, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Configuration",
+                configuration,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (pricing != null) {
-            Serializer.toString(request, "Pricing", pricing, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Pricing",
+                pricing,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

@@ -17,59 +17,53 @@ package com.twilio.rest.messaging.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DomainConfigMessagingService extends Resource {
 
-
-    public static DomainConfigMessagingServiceFetcher fetcher(final String pathMessagingServiceSid) {
-        return new DomainConfigMessagingServiceFetcher(
-                pathMessagingServiceSid
-        );
+    public static DomainConfigMessagingServiceFetcher fetcher(
+        final String pathMessagingServiceSid
+    ) {
+        return new DomainConfigMessagingServiceFetcher(pathMessagingServiceSid);
     }
-
 
     /**
      * Converts a JSON String into a DomainConfigMessagingService object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return DomainConfigMessagingService object represented by the provided JSON
      */
-    public static DomainConfigMessagingService fromJson(final String json, final ObjectMapper objectMapper) {
+    public static DomainConfigMessagingService fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, DomainConfigMessagingService.class);
+            return objectMapper.readValue(
+                json,
+                DomainConfigMessagingService.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -81,14 +75,20 @@ public class DomainConfigMessagingService extends Resource {
      * Converts a JSON InputStream into a DomainConfigMessagingService object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return DomainConfigMessagingService object represented by the provided JSON
      */
-    public static DomainConfigMessagingService fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static DomainConfigMessagingService fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, DomainConfigMessagingService.class);
+            return objectMapper.readValue(
+                json,
+                DomainConfigMessagingService.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -108,39 +108,48 @@ public class DomainConfigMessagingService extends Resource {
         }
     }
 
-
     @Getter
     private final URI callbackUrl;
+
     @Getter
     private final String configSid;
+
     @Getter
     private final Boolean continueOnFailure;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String domainSid;
+
     @Getter
     private final URI fallbackUrl;
+
     @Getter
     private final String messagingServiceSid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private DomainConfigMessagingService(
-            @JsonProperty("callback_url") final URI callbackUrl,
-            @JsonProperty("config_sid") final String configSid,
-            @JsonProperty("continue_on_failure") final Boolean continueOnFailure,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("domain_sid") final String domainSid,
-            @JsonProperty("fallback_url") final URI fallbackUrl,
-            @JsonProperty("messaging_service_sid") final String messagingServiceSid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("callback_url") final URI callbackUrl,
+        @JsonProperty("config_sid") final String configSid,
+        @JsonProperty("continue_on_failure") final Boolean continueOnFailure,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("domain_sid") final String domainSid,
+        @JsonProperty("fallback_url") final URI fallbackUrl,
+        @JsonProperty("messaging_service_sid") final String messagingServiceSid,
+        @JsonProperty("url") final URI url
     ) {
         this.callbackUrl = callbackUrl;
         this.configSid = configSid;
@@ -165,33 +174,30 @@ public class DomainConfigMessagingService extends Resource {
 
         DomainConfigMessagingService other = (DomainConfigMessagingService) o;
         return (
-                Objects.equals(callbackUrl, other.callbackUrl) &&
-                        Objects.equals(configSid, other.configSid) &&
-                        Objects.equals(continueOnFailure, other.continueOnFailure) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(domainSid, other.domainSid) &&
-                        Objects.equals(fallbackUrl, other.fallbackUrl) &&
-                        Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(callbackUrl, other.callbackUrl) &&
+            Objects.equals(configSid, other.configSid) &&
+            Objects.equals(continueOnFailure, other.continueOnFailure) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(domainSid, other.domainSid) &&
+            Objects.equals(fallbackUrl, other.fallbackUrl) &&
+            Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                callbackUrl,
-                configSid,
-                continueOnFailure,
-                dateCreated,
-                dateUpdated,
-                domainSid,
-                fallbackUrl,
-                messagingServiceSid,
-                url
+            callbackUrl,
+            configSid,
+            continueOnFailure,
+            dateCreated,
+            dateUpdated,
+            domainSid,
+            fallbackUrl,
+            messagingServiceSid,
+            url
         );
     }
-
-
 }
-

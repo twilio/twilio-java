@@ -17,71 +17,64 @@ package com.twilio.rest.notify.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Binding extends Resource {
 
-
-    public static BindingCreator creator(final String pathServiceSid, final String identity, final Binding.BindingType bindingType, final String address) {
+    public static BindingCreator creator(
+        final String pathServiceSid,
+        final String identity,
+        final Binding.BindingType bindingType,
+        final String address
+    ) {
         return new BindingCreator(
-                pathServiceSid, identity, bindingType, address
+            pathServiceSid,
+            identity,
+            bindingType,
+            address
         );
     }
 
-
-    public static BindingDeleter deleter(final String pathServiceSid, final String pathSid) {
-        return new BindingDeleter(
-                pathServiceSid, pathSid
-        );
+    public static BindingDeleter deleter(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new BindingDeleter(pathServiceSid, pathSid);
     }
 
-
-    public static BindingFetcher fetcher(final String pathServiceSid, final String pathSid) {
-        return new BindingFetcher(
-                pathServiceSid, pathSid
-        );
+    public static BindingFetcher fetcher(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new BindingFetcher(pathServiceSid, pathSid);
     }
-
 
     public static BindingReader reader(final String pathServiceSid) {
-        return new BindingReader(
-                pathServiceSid
-        );
+        return new BindingReader(pathServiceSid);
     }
-
 
     public enum BindingType {
         APN("apn"),
@@ -107,15 +100,17 @@ public class Binding extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Binding object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Binding object represented by the provided JSON
      */
-    public static Binding fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Binding fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Binding.class);
@@ -130,11 +125,14 @@ public class Binding extends Resource {
      * Converts a JSON InputStream into a Binding object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Binding object represented by the provided JSON
      */
-    public static Binding fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Binding fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Binding.class);
@@ -157,54 +155,70 @@ public class Binding extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String address;
+
     @Getter
     private final String bindingType;
+
     @Getter
     private final String credentialSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String endpoint;
+
     @Getter
     private final String identity;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String notificationProtocolVersion;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final List<String> tags;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Binding(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("address") final String address,
-            @JsonProperty("binding_type") final String bindingType,
-            @JsonProperty("credential_sid") final String credentialSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("endpoint") final String endpoint,
-            @JsonProperty("identity") final String identity,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("notification_protocol_version") final String notificationProtocolVersion,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("tags") final List<String> tags,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("address") final String address,
+        @JsonProperty("binding_type") final String bindingType,
+        @JsonProperty("credential_sid") final String credentialSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("endpoint") final String endpoint,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty(
+            "notification_protocol_version"
+        ) final String notificationProtocolVersion,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("tags") final List<String> tags,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.address = address;
@@ -234,43 +248,43 @@ public class Binding extends Resource {
 
         Binding other = (Binding) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(address, other.address) &&
-                        Objects.equals(bindingType, other.bindingType) &&
-                        Objects.equals(credentialSid, other.credentialSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(endpoint, other.endpoint) &&
-                        Objects.equals(identity, other.identity) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(notificationProtocolVersion, other.notificationProtocolVersion) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(tags, other.tags) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(address, other.address) &&
+            Objects.equals(bindingType, other.bindingType) &&
+            Objects.equals(credentialSid, other.credentialSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(endpoint, other.endpoint) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(
+                notificationProtocolVersion,
+                other.notificationProtocolVersion
+            ) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(tags, other.tags) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                address,
-                bindingType,
-                credentialSid,
-                dateCreated,
-                dateUpdated,
-                endpoint,
-                identity,
-                links,
-                notificationProtocolVersion,
-                serviceSid,
-                sid,
-                tags,
-                url
+            accountSid,
+            address,
+            bindingType,
+            credentialSid,
+            dateCreated,
+            dateUpdated,
+            endpoint,
+            identity,
+            links,
+            notificationProtocolVersion,
+            serviceSid,
+            sid,
+            tags,
+            url
         );
     }
-
-
 }
-

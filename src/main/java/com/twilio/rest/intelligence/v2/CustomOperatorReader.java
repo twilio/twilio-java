@@ -14,7 +14,9 @@
 
 package com.twilio.rest.intelligence.v2;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
+import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -25,11 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
-import com.twilio.base.Page;
-import com.twilio.base.ResourceSet;
 
 public class CustomOperatorReader extends Reader<CustomOperator> {
 
@@ -37,27 +35,24 @@ public class CustomOperatorReader extends Reader<CustomOperator> {
     private String languageCode;
     private Long pageSize;
 
-    public CustomOperatorReader() {
-    }
+    public CustomOperatorReader() {}
 
-
-    public CustomOperatorReader setAvailability(final CustomOperator.Availability availability) {
+    public CustomOperatorReader setAvailability(
+        final CustomOperator.Availability availability
+    ) {
         this.availability = availability;
         return this;
     }
-
 
     public CustomOperatorReader setLanguageCode(final String languageCode) {
         this.languageCode = languageCode;
         return this;
     }
 
-
     public CustomOperatorReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<CustomOperator> read(final TwilioRestClient client) {
@@ -65,77 +60,113 @@ public class CustomOperatorReader extends Reader<CustomOperator> {
     }
 
     public Page<CustomOperator> firstPage(final TwilioRestClient client) {
-
         String path = "/v2/Operators/Custom";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.INTELLIGENCE.toString(),
-                path
+            HttpMethod.GET,
+            Domains.INTELLIGENCE.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<CustomOperator> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<CustomOperator> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("CustomOperator read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "CustomOperator read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "operators",
-                response.getContent(),
-                CustomOperator.class,
-                client.getObjectMapper());
+            "operators",
+            response.getContent(),
+            CustomOperator.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<CustomOperator> previousPage(final Page<CustomOperator> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<CustomOperator> previousPage(
+        final Page<CustomOperator> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<CustomOperator> nextPage(final Page<CustomOperator> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<CustomOperator> nextPage(
+        final Page<CustomOperator> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<CustomOperator> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<CustomOperator> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (availability != null) {
-            Serializer.toString(request, "Availability", availability, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Availability",
+                availability,
+                ParameterType.QUERY
+            );
         }
-
 
         if (languageCode != null) {
-            Serializer.toString(request, "LanguageCode", languageCode, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "LanguageCode",
+                languageCode,
+                ParameterType.QUERY
+            );
         }
-
 
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
-
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

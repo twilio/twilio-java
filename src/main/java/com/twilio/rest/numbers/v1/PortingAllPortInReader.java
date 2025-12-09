@@ -14,7 +14,9 @@
 
 package com.twilio.rest.numbers.v1;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
+import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -25,13 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
-import java.time.ZonedDateTime;
-
 import com.twilio.type.*;
-import com.twilio.base.Page;
-import com.twilio.base.ResourceSet;
+import java.time.ZonedDateTime;
 
 public class PortingAllPortInReader extends Reader<PortingAllPortIn> {
 
@@ -42,45 +39,45 @@ public class PortingAllPortInReader extends Reader<PortingAllPortIn> {
     private ZonedDateTime createdBefore;
     private ZonedDateTime createdAfter;
 
-    public PortingAllPortInReader() {
-    }
-
+    public PortingAllPortInReader() {}
 
     public PortingAllPortInReader setToken(final String token) {
         this.token = token;
         return this;
     }
 
-
     public PortingAllPortInReader setSize(final Integer size) {
         this.size = size;
         return this;
     }
 
-
-    public PortingAllPortInReader setPortInRequestSid(final String portInRequestSid) {
+    public PortingAllPortInReader setPortInRequestSid(
+        final String portInRequestSid
+    ) {
         this.portInRequestSid = portInRequestSid;
         return this;
     }
 
-
-    public PortingAllPortInReader setPortInRequestStatus(final String portInRequestStatus) {
+    public PortingAllPortInReader setPortInRequestStatus(
+        final String portInRequestStatus
+    ) {
         this.portInRequestStatus = portInRequestStatus;
         return this;
     }
 
-
-    public PortingAllPortInReader setCreatedBefore(final ZonedDateTime createdBefore) {
+    public PortingAllPortInReader setCreatedBefore(
+        final ZonedDateTime createdBefore
+    ) {
         this.createdBefore = createdBefore;
         return this;
     }
 
-
-    public PortingAllPortInReader setCreatedAfter(final ZonedDateTime createdAfter) {
+    public PortingAllPortInReader setCreatedAfter(
+        final ZonedDateTime createdAfter
+    ) {
         this.createdAfter = createdAfter;
         return this;
     }
-
 
     @Override
     public ResourceSet<PortingAllPortIn> read(final TwilioRestClient client) {
@@ -88,92 +85,130 @@ public class PortingAllPortInReader extends Reader<PortingAllPortIn> {
     }
 
     public Page<PortingAllPortIn> firstPage(final TwilioRestClient client) {
-
         String path = "/v1/Porting/PortIn/PortInRequests";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.NUMBERS.toString(),
-                path
+            HttpMethod.GET,
+            Domains.NUMBERS.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<PortingAllPortIn> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<PortingAllPortIn> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("PortingAllPortIn read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PortingAllPortIn read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "port_in_requests",
-                response.getContent(),
-                PortingAllPortIn.class,
-                client.getObjectMapper());
+            "port_in_requests",
+            response.getContent(),
+            PortingAllPortIn.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<PortingAllPortIn> previousPage(final Page<PortingAllPortIn> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<PortingAllPortIn> previousPage(
+        final Page<PortingAllPortIn> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<PortingAllPortIn> nextPage(final Page<PortingAllPortIn> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<PortingAllPortIn> nextPage(
+        final Page<PortingAllPortIn> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<PortingAllPortIn> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<PortingAllPortIn> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (token != null) {
             Serializer.toString(request, "Token", token, ParameterType.QUERY);
         }
-
 
         if (size != null) {
             Serializer.toString(request, "Size", size, ParameterType.QUERY);
         }
 
-
         if (portInRequestSid != null) {
-            Serializer.toString(request, "PortInRequestSid", portInRequestSid, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PortInRequestSid",
+                portInRequestSid,
+                ParameterType.QUERY
+            );
         }
-
 
         if (portInRequestStatus != null) {
-            Serializer.toString(request, "PortInRequestStatus", portInRequestStatus, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PortInRequestStatus",
+                portInRequestStatus,
+                ParameterType.QUERY
+            );
         }
-
 
         if (createdBefore != null) {
-            Serializer.toString(request, "CreatedBefore", createdBefore, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "CreatedBefore",
+                createdBefore,
+                ParameterType.QUERY
+            );
         }
-
 
         if (createdAfter != null) {
-            Serializer.toString(request, "CreatedAfter", createdAfter, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "CreatedAfter",
+                createdAfter,
+                ParameterType.QUERY
+            );
         }
 
-
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

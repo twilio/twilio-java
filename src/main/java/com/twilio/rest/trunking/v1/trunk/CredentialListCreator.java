@@ -14,7 +14,6 @@
 
 package com.twilio.rest.trunking.v1.trunk;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class CredentialListCreator extends Creator<CredentialList> {
@@ -36,30 +33,32 @@ public class CredentialListCreator extends Creator<CredentialList> {
     private String pathTrunkSid;
     private String credentialListSid;
 
-    public CredentialListCreator(final String pathTrunkSid, final String credentialListSid) {
+    public CredentialListCreator(
+        final String pathTrunkSid,
+        final String credentialListSid
+    ) {
         this.pathTrunkSid = pathTrunkSid;
         this.credentialListSid = credentialListSid;
     }
 
-
-    public CredentialListCreator setCredentialListSid(final String credentialListSid) {
+    public CredentialListCreator setCredentialListSid(
+        final String credentialListSid
+    ) {
         this.credentialListSid = credentialListSid;
         return this;
     }
 
-
     @Override
     public CredentialList create(final TwilioRestClient client) {
-
         String path = "/v1/Trunks/{TrunkSid}/CredentialLists";
 
-        path = path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
-
+        path =
+            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.TRUNKING.toString(),
-                path
+            HttpMethod.POST,
+            Domains.TRUNKING.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -67,27 +66,37 @@ public class CredentialListCreator extends Creator<CredentialList> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("CredentialList creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "CredentialList creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return CredentialList.fromJson(response.getStream(), client.getObjectMapper());
+        return CredentialList.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (credentialListSid != null) {
-            Serializer.toString(request, "CredentialListSid", credentialListSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CredentialListSid",
+                credentialListSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

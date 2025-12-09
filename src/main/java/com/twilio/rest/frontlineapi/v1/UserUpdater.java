@@ -26,11 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class UserUpdater extends Updater<User> {
+
     private String pathSid;
     private String friendlyName;
     private String avatar;
@@ -41,43 +40,36 @@ public class UserUpdater extends Updater<User> {
         this.pathSid = pathSid;
     }
 
-
     public UserUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-
 
     public UserUpdater setAvatar(final String avatar) {
         this.avatar = avatar;
         return this;
     }
 
-
     public UserUpdater setState(final User.StateType state) {
         this.state = state;
         return this;
     }
-
 
     public UserUpdater setIsAvailable(final Boolean isAvailable) {
         this.isAvailable = isAvailable;
         return this;
     }
 
-
     @Override
     public User update(final TwilioRestClient client) {
-
         String path = "/v1/Users/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.FRONTLINEAPI.toString(),
-                path
+            HttpMethod.POST,
+            Domains.FRONTLINEAPI.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -85,14 +77,19 @@ public class UserUpdater extends Updater<User> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("User update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "User update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -101,26 +98,40 @@ public class UserUpdater extends Updater<User> {
     }
 
     private void addPostParams(final Request request) {
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (avatar != null) {
-            Serializer.toString(request, "Avatar", avatar, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Avatar",
+                avatar,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (state != null) {
-            Serializer.toString(request, "State", state, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "State",
+                state,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (isAvailable != null) {
-            Serializer.toString(request, "IsAvailable", isAvailable, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "IsAvailable",
+                isAvailable,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

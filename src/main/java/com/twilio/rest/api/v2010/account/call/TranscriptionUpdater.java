@@ -26,51 +26,65 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class TranscriptionUpdater extends Updater<Transcription> {
+
     private String pathAccountSid;
     private String pathCallSid;
     private String pathSid;
     private Transcription.UpdateStatus status;
 
-    public TranscriptionUpdater(final String pathCallSid, final String pathSid, final Transcription.UpdateStatus status) {
+    public TranscriptionUpdater(
+        final String pathCallSid,
+        final String pathSid,
+        final Transcription.UpdateStatus status
+    ) {
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
         this.status = status;
     }
 
-    public TranscriptionUpdater(final String pathAccountSid, final String pathCallSid, final String pathSid, final Transcription.UpdateStatus status) {
+    public TranscriptionUpdater(
+        final String pathAccountSid,
+        final String pathCallSid,
+        final String pathSid,
+        final Transcription.UpdateStatus status
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
         this.status = status;
     }
 
-
-    public TranscriptionUpdater setStatus(final Transcription.UpdateStatus status) {
+    public TranscriptionUpdater setStatus(
+        final Transcription.UpdateStatus status
+    ) {
         this.status = status;
         return this;
     }
 
-
     @Override
     public Transcription update(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions/{Sid}.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions/{Sid}.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.API.toString(),
-                path
+            HttpMethod.POST,
+            Domains.API.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -78,27 +92,37 @@ public class TranscriptionUpdater extends Updater<Transcription> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Transcription update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Transcription update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Transcription.fromJson(response.getStream(), client.getObjectMapper());
+        return Transcription.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

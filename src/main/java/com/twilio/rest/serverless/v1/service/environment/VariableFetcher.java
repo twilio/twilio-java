@@ -23,8 +23,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class VariableFetcher extends Fetcher<Variable> {
@@ -33,43 +31,61 @@ public class VariableFetcher extends Fetcher<Variable> {
     private String pathEnvironmentSid;
     private String pathSid;
 
-    public VariableFetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid) {
+    public VariableFetcher(
+        final String pathServiceSid,
+        final String pathEnvironmentSid,
+        final String pathSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
         this.pathSid = pathSid;
     }
 
-
     @Override
     public Variable fetch(final TwilioRestClient client) {
+        String path =
+            "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}";
 
-        String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}";
-
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-        path = path.replace("{" + "EnvironmentSid" + "}", this.pathEnvironmentSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "EnvironmentSid" + "}",
+                this.pathEnvironmentSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.SERVERLESS.toString(),
-                path
+            HttpMethod.GET,
+            Domains.SERVERLESS.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Variable fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Variable fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return Variable.fromJson(response.getStream(), client.getObjectMapper());
+        return Variable.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

@@ -17,53 +17,44 @@ package com.twilio.rest.trusthub.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ComplianceRegistrationInquiries extends Resource {
 
-
-    public static ComplianceRegistrationInquiriesCreator creator(final ComplianceRegistrationInquiries.EndUserType endUserType, final ComplianceRegistrationInquiries.PhoneNumberType phoneNumberType) {
+    public static ComplianceRegistrationInquiriesCreator creator(
+        final ComplianceRegistrationInquiries.EndUserType endUserType,
+        final ComplianceRegistrationInquiries.PhoneNumberType phoneNumberType
+    ) {
         return new ComplianceRegistrationInquiriesCreator(
-                endUserType, phoneNumberType
+            endUserType,
+            phoneNumberType
         );
     }
 
-
-    public static ComplianceRegistrationInquiriesUpdater updater(final String pathRegistrationId) {
-        return new ComplianceRegistrationInquiriesUpdater(
-                pathRegistrationId
-        );
+    public static ComplianceRegistrationInquiriesUpdater updater(
+        final String pathRegistrationId
+    ) {
+        return new ComplianceRegistrationInquiriesUpdater(pathRegistrationId);
     }
-
 
     public enum EndUserType {
         INDIVIDUAL("Individual"),
@@ -102,7 +93,10 @@ public class ComplianceRegistrationInquiries extends Resource {
 
         @JsonCreator
         public static BusinessIdentityType forValue(final String value) {
-            return Promoter.enumFromString(value, BusinessIdentityType.values());
+            return Promoter.enumFromString(
+                value,
+                BusinessIdentityType.values()
+            );
         }
     }
 
@@ -124,8 +118,13 @@ public class ComplianceRegistrationInquiries extends Resource {
         }
 
         @JsonCreator
-        public static BusinessRegistrationAuthority forValue(final String value) {
-            return Promoter.enumFromString(value, BusinessRegistrationAuthority.values());
+        public static BusinessRegistrationAuthority forValue(
+            final String value
+        ) {
+            return Promoter.enumFromString(
+                value,
+                BusinessRegistrationAuthority.values()
+            );
         }
     }
 
@@ -151,18 +150,23 @@ public class ComplianceRegistrationInquiries extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a ComplianceRegistrationInquiries object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ComplianceRegistrationInquiries object represented by the provided JSON
      */
-    public static ComplianceRegistrationInquiries fromJson(final String json, final ObjectMapper objectMapper) {
+    public static ComplianceRegistrationInquiries fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, ComplianceRegistrationInquiries.class);
+            return objectMapper.readValue(
+                json,
+                ComplianceRegistrationInquiries.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -174,14 +178,20 @@ public class ComplianceRegistrationInquiries extends Resource {
      * Converts a JSON InputStream into a ComplianceRegistrationInquiries object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ComplianceRegistrationInquiries object represented by the provided JSON
      */
-    public static ComplianceRegistrationInquiries fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static ComplianceRegistrationInquiries fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, ComplianceRegistrationInquiries.class);
+            return objectMapper.readValue(
+                json,
+                ComplianceRegistrationInquiries.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -201,22 +211,24 @@ public class ComplianceRegistrationInquiries extends Resource {
         }
     }
 
-
     @Getter
     private final String inquiryId;
+
     @Getter
     private final String inquirySessionToken;
+
     @Getter
     private final String registrationId;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private ComplianceRegistrationInquiries(
-            @JsonProperty("inquiry_id") final String inquiryId,
-            @JsonProperty("inquiry_session_token") final String inquirySessionToken,
-            @JsonProperty("registration_id") final String registrationId,
-            @JsonProperty("url") final URI url
+        @JsonProperty("inquiry_id") final String inquiryId,
+        @JsonProperty("inquiry_session_token") final String inquirySessionToken,
+        @JsonProperty("registration_id") final String registrationId,
+        @JsonProperty("url") final URI url
     ) {
         this.inquiryId = inquiryId;
         this.inquirySessionToken = inquirySessionToken;
@@ -234,25 +246,23 @@ public class ComplianceRegistrationInquiries extends Resource {
             return false;
         }
 
-        ComplianceRegistrationInquiries other = (ComplianceRegistrationInquiries) o;
+        ComplianceRegistrationInquiries other =
+            (ComplianceRegistrationInquiries) o;
         return (
-                Objects.equals(inquiryId, other.inquiryId) &&
-                        Objects.equals(inquirySessionToken, other.inquirySessionToken) &&
-                        Objects.equals(registrationId, other.registrationId) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(inquiryId, other.inquiryId) &&
+            Objects.equals(inquirySessionToken, other.inquirySessionToken) &&
+            Objects.equals(registrationId, other.registrationId) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                inquiryId,
-                inquirySessionToken,
-                registrationId,
-                url
+            inquiryId,
+            inquirySessionToken,
+            registrationId,
+            url
         );
     }
-
-
 }
-

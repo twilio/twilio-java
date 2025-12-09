@@ -17,63 +17,49 @@ package com.twilio.rest.intelligence.v2.transcript;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class OperatorResult extends Resource {
 
-
-    public static OperatorResultFetcher fetcher(final String pathTranscriptSid, final String pathOperatorSid) {
-        return new OperatorResultFetcher(
-                pathTranscriptSid, pathOperatorSid
-        );
+    public static OperatorResultFetcher fetcher(
+        final String pathTranscriptSid,
+        final String pathOperatorSid
+    ) {
+        return new OperatorResultFetcher(pathTranscriptSid, pathOperatorSid);
     }
-
 
     public static OperatorResultReader reader(final String pathTranscriptSid) {
-        return new OperatorResultReader(
-                pathTranscriptSid
-        );
+        return new OperatorResultReader(pathTranscriptSid);
     }
 
-
     public enum OperatorType {
-        CONVERSATION_CLASSIFY("conversation_classify"),
-        UTTERANCE_CLASSIFY("utterance_classify"),
+        CONVERSATION_CLASSIFY("conversation-classify"),
+        UTTERANCE_CLASSIFY("utterance-classify"),
         EXTRACT("extract"),
-        EXTRACT_NORMALIZE("extract_normalize"),
-        PII_EXTRACT("pii_extract"),
-        TEXT_GENERATION("text_generation"),
+        EXTRACT_NORMALIZE("extract-normalize"),
+        PII_EXTRACT("pii-extract"),
+        TEXT_GENERATION("text-generation"),
         JSON("json");
 
         private final String value;
@@ -92,15 +78,17 @@ public class OperatorResult extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a OperatorResult object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return OperatorResult object represented by the provided JSON
      */
-    public static OperatorResult fromJson(final String json, final ObjectMapper objectMapper) {
+    public static OperatorResult fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, OperatorResult.class);
@@ -115,11 +103,14 @@ public class OperatorResult extends Resource {
      * Converts a JSON InputStream into a OperatorResult object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return OperatorResult object represented by the provided JSON
      */
-    public static OperatorResult fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static OperatorResult fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, OperatorResult.class);
@@ -142,58 +133,78 @@ public class OperatorResult extends Resource {
         }
     }
 
-
     @Getter
     private final Boolean extractMatch;
+
     @Getter
     private final Object extractResults;
+
     @Getter
     private final Object jsonResults;
+
     @Getter
     private final Object labelProbabilities;
+
     @Getter
     private final BigDecimal matchProbability;
+
     @Getter
     private final String name;
+
     @Getter
     private final String normalizedResult;
+
     @Getter
     private final String operatorSid;
+
     @Getter
     private final OperatorResult.OperatorType operatorType;
+
     @Getter
     private final String predictedLabel;
+
     @Getter
     private final BigDecimal predictedProbability;
+
     @Getter
     private final Object textGenerationResults;
+
     @Getter
     private final String transcriptSid;
+
     @Getter
     private final URI url;
+
     @Getter
     private final Boolean utteranceMatch;
+
     @Getter
     private final List<Object> utteranceResults;
 
     @JsonCreator
     private OperatorResult(
-            @JsonProperty("extract_match") final Boolean extractMatch,
-            @JsonProperty("extract_results") final Object extractResults,
-            @JsonProperty("json_results") final Object jsonResults,
-            @JsonProperty("label_probabilities") final Object labelProbabilities,
-            @JsonProperty("match_probability") final BigDecimal matchProbability,
-            @JsonProperty("name") final String name,
-            @JsonProperty("normalized_result") final String normalizedResult,
-            @JsonProperty("operator_sid") final String operatorSid,
-            @JsonProperty("operator_type") final OperatorResult.OperatorType operatorType,
-            @JsonProperty("predicted_label") final String predictedLabel,
-            @JsonProperty("predicted_probability") final BigDecimal predictedProbability,
-            @JsonProperty("text_generation_results") final Object textGenerationResults,
-            @JsonProperty("transcript_sid") final String transcriptSid,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("utterance_match") final Boolean utteranceMatch,
-            @JsonProperty("utterance_results") final List<Object> utteranceResults
+        @JsonProperty("extract_match") final Boolean extractMatch,
+        @JsonProperty("extract_results") final Object extractResults,
+        @JsonProperty("json_results") final Object jsonResults,
+        @JsonProperty("label_probabilities") final Object labelProbabilities,
+        @JsonProperty("match_probability") final BigDecimal matchProbability,
+        @JsonProperty("name") final String name,
+        @JsonProperty("normalized_result") final String normalizedResult,
+        @JsonProperty("operator_sid") final String operatorSid,
+        @JsonProperty(
+            "operator_type"
+        ) final OperatorResult.OperatorType operatorType,
+        @JsonProperty("predicted_label") final String predictedLabel,
+        @JsonProperty(
+            "predicted_probability"
+        ) final BigDecimal predictedProbability,
+        @JsonProperty(
+            "text_generation_results"
+        ) final Object textGenerationResults,
+        @JsonProperty("transcript_sid") final String transcriptSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("utterance_match") final Boolean utteranceMatch,
+        @JsonProperty("utterance_results") final List<Object> utteranceResults
     ) {
         this.extractMatch = extractMatch;
         this.extractResults = extractResults;
@@ -225,47 +236,47 @@ public class OperatorResult extends Resource {
 
         OperatorResult other = (OperatorResult) o;
         return (
-                Objects.equals(extractMatch, other.extractMatch) &&
-                        Objects.equals(extractResults, other.extractResults) &&
-                        Objects.equals(jsonResults, other.jsonResults) &&
-                        Objects.equals(labelProbabilities, other.labelProbabilities) &&
-                        Objects.equals(matchProbability, other.matchProbability) &&
-                        Objects.equals(name, other.name) &&
-                        Objects.equals(normalizedResult, other.normalizedResult) &&
-                        Objects.equals(operatorSid, other.operatorSid) &&
-                        Objects.equals(operatorType, other.operatorType) &&
-                        Objects.equals(predictedLabel, other.predictedLabel) &&
-                        Objects.equals(predictedProbability, other.predictedProbability) &&
-                        Objects.equals(textGenerationResults, other.textGenerationResults) &&
-                        Objects.equals(transcriptSid, other.transcriptSid) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(utteranceMatch, other.utteranceMatch) &&
-                        Objects.equals(utteranceResults, other.utteranceResults)
+            Objects.equals(extractMatch, other.extractMatch) &&
+            Objects.equals(extractResults, other.extractResults) &&
+            Objects.equals(jsonResults, other.jsonResults) &&
+            Objects.equals(labelProbabilities, other.labelProbabilities) &&
+            Objects.equals(matchProbability, other.matchProbability) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(normalizedResult, other.normalizedResult) &&
+            Objects.equals(operatorSid, other.operatorSid) &&
+            Objects.equals(operatorType, other.operatorType) &&
+            Objects.equals(predictedLabel, other.predictedLabel) &&
+            Objects.equals(predictedProbability, other.predictedProbability) &&
+            Objects.equals(
+                textGenerationResults,
+                other.textGenerationResults
+            ) &&
+            Objects.equals(transcriptSid, other.transcriptSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(utteranceMatch, other.utteranceMatch) &&
+            Objects.equals(utteranceResults, other.utteranceResults)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                extractMatch,
-                extractResults,
-                jsonResults,
-                labelProbabilities,
-                matchProbability,
-                name,
-                normalizedResult,
-                operatorSid,
-                operatorType,
-                predictedLabel,
-                predictedProbability,
-                textGenerationResults,
-                transcriptSid,
-                url,
-                utteranceMatch,
-                utteranceResults
+            extractMatch,
+            extractResults,
+            jsonResults,
+            labelProbabilities,
+            matchProbability,
+            name,
+            normalizedResult,
+            operatorSid,
+            operatorType,
+            predictedLabel,
+            predictedProbability,
+            textGenerationResults,
+            transcriptSid,
+            url,
+            utteranceMatch,
+            utteranceResults
         );
     }
-
-
 }
-

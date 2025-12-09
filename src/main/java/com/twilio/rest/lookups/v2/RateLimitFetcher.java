@@ -26,19 +26,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
-import java.util.List;
-
 import com.twilio.type.*;
+import java.util.List;
 
 public class RateLimitFetcher extends Fetcher<RateLimit> {
 
     private List<String> fields;
 
-    public RateLimitFetcher() {
-    }
-
+    public RateLimitFetcher() {}
 
     public RateLimitFetcher setFields(final List<String> fields) {
         this.fields = fields;
@@ -51,42 +46,50 @@ public class RateLimitFetcher extends Fetcher<RateLimit> {
 
     @Override
     public RateLimit fetch(final TwilioRestClient client) {
-
         String path = "/v2/RateLimits";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.LOOKUPS.toString(),
-                path
+            HttpMethod.GET,
+            Domains.LOOKUPS.toString(),
+            path
         );
         addQueryParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("RateLimit fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "RateLimit fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return RateLimit.fromJson(response.getStream(), client.getObjectMapper());
+        return RateLimit.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (fields != null) {
             for (String param : fields) {
-                Serializer.toString(request, "Fields", param, ParameterType.QUERY);
+                Serializer.toString(
+                    request,
+                    "Fields",
+                    param,
+                    ParameterType.QUERY
+                );
             }
         }
-
     }
 }

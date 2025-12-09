@@ -14,7 +14,6 @@
 
 package com.twilio.rest.verify.v2.service;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class VerificationCheckCreator extends Creator<VerificationCheck> {
@@ -45,55 +42,54 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
         this.pathServiceSid = pathServiceSid;
     }
 
-
     public VerificationCheckCreator setCode(final String code) {
         this.code = code;
         return this;
     }
-
 
     public VerificationCheckCreator setTo(final String to) {
         this.to = to;
         return this;
     }
 
-
-    public VerificationCheckCreator setVerificationSid(final String verificationSid) {
+    public VerificationCheckCreator setVerificationSid(
+        final String verificationSid
+    ) {
         this.verificationSid = verificationSid;
         return this;
     }
-
 
     public VerificationCheckCreator setAmount(final String amount) {
         this.amount = amount;
         return this;
     }
 
-
     public VerificationCheckCreator setPayee(final String payee) {
         this.payee = payee;
         return this;
     }
 
-
-    public VerificationCheckCreator setSnaClientToken(final String snaClientToken) {
+    public VerificationCheckCreator setSnaClientToken(
+        final String snaClientToken
+    ) {
         this.snaClientToken = snaClientToken;
         return this;
     }
 
-
     @Override
     public VerificationCheck create(final TwilioRestClient client) {
-
         String path = "/v2/Services/{ServiceSid}/VerificationCheck";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.VERIFY.toString(),
-                path
+            HttpMethod.POST,
+            Domains.VERIFY.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -101,52 +97,77 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("VerificationCheck creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "VerificationCheck creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return VerificationCheck.fromJson(response.getStream(), client.getObjectMapper());
+        return VerificationCheck.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (code != null) {
-            Serializer.toString(request, "Code", code, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Code",
+                code,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (to != null) {
             Serializer.toString(request, "To", to, ParameterType.URLENCODED);
         }
 
-
         if (verificationSid != null) {
-            Serializer.toString(request, "VerificationSid", verificationSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VerificationSid",
+                verificationSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (amount != null) {
-            Serializer.toString(request, "Amount", amount, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Amount",
+                amount,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (payee != null) {
-            Serializer.toString(request, "Payee", payee, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Payee",
+                payee,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (snaClientToken != null) {
-            Serializer.toString(request, "SnaClientToken", snaClientToken, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SnaClientToken",
+                snaClientToken,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

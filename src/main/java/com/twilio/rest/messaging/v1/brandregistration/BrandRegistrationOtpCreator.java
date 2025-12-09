@@ -14,7 +14,6 @@
 
 package com.twilio.rest.messaging.v1.brandregistration;
 
-
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -24,8 +23,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class BrandRegistrationOtpCreator extends Creator<BrandRegistrationOtp> {
@@ -36,36 +33,46 @@ public class BrandRegistrationOtpCreator extends Creator<BrandRegistrationOtp> {
         this.pathBrandRegistrationSid = pathBrandRegistrationSid;
     }
 
-
     @Override
     public BrandRegistrationOtp create(final TwilioRestClient client) {
+        String path =
+            "/v1/a2p/BrandRegistrations/{BrandRegistrationSid}/SmsOtp";
 
-        String path = "/v1/a2p/BrandRegistrations/{BrandRegistrationSid}/SmsOtp";
-
-        path = path.replace("{" + "BrandRegistrationSid" + "}", this.pathBrandRegistrationSid.toString());
-
+        path =
+            path.replace(
+                "{" + "BrandRegistrationSid" + "}",
+                this.pathBrandRegistrationSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.MESSAGING.toString(),
-                path
+            HttpMethod.POST,
+            Domains.MESSAGING.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("BrandRegistrationOtp creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "BrandRegistrationOtp creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return BrandRegistrationOtp.fromJson(response.getStream(), client.getObjectMapper());
+        return BrandRegistrationOtp.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

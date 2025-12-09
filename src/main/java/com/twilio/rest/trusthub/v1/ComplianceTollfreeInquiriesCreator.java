@@ -14,7 +14,6 @@
 
 package com.twilio.rest.trusthub.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,16 +27,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
+import com.twilio.type.*;
 import java.util.List;
 
-import com.twilio.type.*;
-
-public class ComplianceTollfreeInquiriesCreator extends Creator<ComplianceTollfreeInquiries> {
+public class ComplianceTollfreeInquiriesCreator
+    extends Creator<ComplianceTollfreeInquiries> {
 
     private com.twilio.type.PhoneNumber tollfreePhoneNumber;
     private String notificationEmail;
+    private String customerProfileSid;
     private String businessName;
     private String businessWebsite;
     private List<String> useCaseCategories;
@@ -60,172 +58,218 @@ public class ComplianceTollfreeInquiriesCreator extends Creator<ComplianceTollfr
     private String themeSetId;
     private Boolean skipMessagingUseCase;
 
-    public ComplianceTollfreeInquiriesCreator(final com.twilio.type.PhoneNumber tollfreePhoneNumber, final String notificationEmail) {
+    public ComplianceTollfreeInquiriesCreator(
+        final com.twilio.type.PhoneNumber tollfreePhoneNumber,
+        final String notificationEmail
+    ) {
         this.tollfreePhoneNumber = tollfreePhoneNumber;
         this.notificationEmail = notificationEmail;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setTollfreePhoneNumber(final com.twilio.type.PhoneNumber tollfreePhoneNumber) {
+    public ComplianceTollfreeInquiriesCreator setTollfreePhoneNumber(
+        final com.twilio.type.PhoneNumber tollfreePhoneNumber
+    ) {
         this.tollfreePhoneNumber = tollfreePhoneNumber;
         return this;
     }
 
-    public ComplianceTollfreeInquiriesCreator setTollfreePhoneNumber(final String tollfreePhoneNumber) {
-        return setTollfreePhoneNumber(Promoter.phoneNumberFromString(tollfreePhoneNumber));
+    public ComplianceTollfreeInquiriesCreator setTollfreePhoneNumber(
+        final String tollfreePhoneNumber
+    ) {
+        return setTollfreePhoneNumber(
+            Promoter.phoneNumberFromString(tollfreePhoneNumber)
+        );
     }
 
-    public ComplianceTollfreeInquiriesCreator setNotificationEmail(final String notificationEmail) {
+    public ComplianceTollfreeInquiriesCreator setNotificationEmail(
+        final String notificationEmail
+    ) {
         this.notificationEmail = notificationEmail;
         return this;
     }
 
+    public ComplianceTollfreeInquiriesCreator setCustomerProfileSid(
+        final String customerProfileSid
+    ) {
+        this.customerProfileSid = customerProfileSid;
+        return this;
+    }
 
-    public ComplianceTollfreeInquiriesCreator setBusinessName(final String businessName) {
+    public ComplianceTollfreeInquiriesCreator setBusinessName(
+        final String businessName
+    ) {
         this.businessName = businessName;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setBusinessWebsite(final String businessWebsite) {
+    public ComplianceTollfreeInquiriesCreator setBusinessWebsite(
+        final String businessWebsite
+    ) {
         this.businessWebsite = businessWebsite;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setUseCaseCategories(final List<String> useCaseCategories) {
+    public ComplianceTollfreeInquiriesCreator setUseCaseCategories(
+        final List<String> useCaseCategories
+    ) {
         this.useCaseCategories = useCaseCategories;
         return this;
     }
 
-    public ComplianceTollfreeInquiriesCreator setUseCaseCategories(final String useCaseCategories) {
+    public ComplianceTollfreeInquiriesCreator setUseCaseCategories(
+        final String useCaseCategories
+    ) {
         return setUseCaseCategories(Promoter.listOfOne(useCaseCategories));
     }
 
-    public ComplianceTollfreeInquiriesCreator setUseCaseSummary(final String useCaseSummary) {
+    public ComplianceTollfreeInquiriesCreator setUseCaseSummary(
+        final String useCaseSummary
+    ) {
         this.useCaseSummary = useCaseSummary;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setProductionMessageSample(final String productionMessageSample) {
+    public ComplianceTollfreeInquiriesCreator setProductionMessageSample(
+        final String productionMessageSample
+    ) {
         this.productionMessageSample = productionMessageSample;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setOptInImageUrls(final List<String> optInImageUrls) {
+    public ComplianceTollfreeInquiriesCreator setOptInImageUrls(
+        final List<String> optInImageUrls
+    ) {
         this.optInImageUrls = optInImageUrls;
         return this;
     }
 
-    public ComplianceTollfreeInquiriesCreator setOptInImageUrls(final String optInImageUrls) {
+    public ComplianceTollfreeInquiriesCreator setOptInImageUrls(
+        final String optInImageUrls
+    ) {
         return setOptInImageUrls(Promoter.listOfOne(optInImageUrls));
     }
 
-    public ComplianceTollfreeInquiriesCreator setOptInType(final ComplianceTollfreeInquiries.OptInType optInType) {
+    public ComplianceTollfreeInquiriesCreator setOptInType(
+        final ComplianceTollfreeInquiries.OptInType optInType
+    ) {
         this.optInType = optInType;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setMessageVolume(final String messageVolume) {
+    public ComplianceTollfreeInquiriesCreator setMessageVolume(
+        final String messageVolume
+    ) {
         this.messageVolume = messageVolume;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setBusinessStreetAddress(final String businessStreetAddress) {
+    public ComplianceTollfreeInquiriesCreator setBusinessStreetAddress(
+        final String businessStreetAddress
+    ) {
         this.businessStreetAddress = businessStreetAddress;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setBusinessStreetAddress2(final String businessStreetAddress2) {
+    public ComplianceTollfreeInquiriesCreator setBusinessStreetAddress2(
+        final String businessStreetAddress2
+    ) {
         this.businessStreetAddress2 = businessStreetAddress2;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setBusinessCity(final String businessCity) {
+    public ComplianceTollfreeInquiriesCreator setBusinessCity(
+        final String businessCity
+    ) {
         this.businessCity = businessCity;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setBusinessStateProvinceRegion(final String businessStateProvinceRegion) {
+    public ComplianceTollfreeInquiriesCreator setBusinessStateProvinceRegion(
+        final String businessStateProvinceRegion
+    ) {
         this.businessStateProvinceRegion = businessStateProvinceRegion;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setBusinessPostalCode(final String businessPostalCode) {
+    public ComplianceTollfreeInquiriesCreator setBusinessPostalCode(
+        final String businessPostalCode
+    ) {
         this.businessPostalCode = businessPostalCode;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setBusinessCountry(final String businessCountry) {
+    public ComplianceTollfreeInquiriesCreator setBusinessCountry(
+        final String businessCountry
+    ) {
         this.businessCountry = businessCountry;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setAdditionalInformation(final String additionalInformation) {
+    public ComplianceTollfreeInquiriesCreator setAdditionalInformation(
+        final String additionalInformation
+    ) {
         this.additionalInformation = additionalInformation;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setBusinessContactFirstName(final String businessContactFirstName) {
+    public ComplianceTollfreeInquiriesCreator setBusinessContactFirstName(
+        final String businessContactFirstName
+    ) {
         this.businessContactFirstName = businessContactFirstName;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setBusinessContactLastName(final String businessContactLastName) {
+    public ComplianceTollfreeInquiriesCreator setBusinessContactLastName(
+        final String businessContactLastName
+    ) {
         this.businessContactLastName = businessContactLastName;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setBusinessContactEmail(final String businessContactEmail) {
+    public ComplianceTollfreeInquiriesCreator setBusinessContactEmail(
+        final String businessContactEmail
+    ) {
         this.businessContactEmail = businessContactEmail;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setBusinessContactPhone(final com.twilio.type.PhoneNumber businessContactPhone) {
+    public ComplianceTollfreeInquiriesCreator setBusinessContactPhone(
+        final com.twilio.type.PhoneNumber businessContactPhone
+    ) {
         this.businessContactPhone = businessContactPhone;
         return this;
     }
 
-    public ComplianceTollfreeInquiriesCreator setBusinessContactPhone(final String businessContactPhone) {
-        return setBusinessContactPhone(Promoter.phoneNumberFromString(businessContactPhone));
+    public ComplianceTollfreeInquiriesCreator setBusinessContactPhone(
+        final String businessContactPhone
+    ) {
+        return setBusinessContactPhone(
+            Promoter.phoneNumberFromString(businessContactPhone)
+        );
     }
 
-    public ComplianceTollfreeInquiriesCreator setThemeSetId(final String themeSetId) {
+    public ComplianceTollfreeInquiriesCreator setThemeSetId(
+        final String themeSetId
+    ) {
         this.themeSetId = themeSetId;
         return this;
     }
 
-
-    public ComplianceTollfreeInquiriesCreator setSkipMessagingUseCase(final Boolean skipMessagingUseCase) {
+    public ComplianceTollfreeInquiriesCreator setSkipMessagingUseCase(
+        final Boolean skipMessagingUseCase
+    ) {
         this.skipMessagingUseCase = skipMessagingUseCase;
         return this;
     }
 
-
     @Override
     public ComplianceTollfreeInquiries create(final TwilioRestClient client) {
-
         String path = "/v1/ComplianceInquiries/Tollfree/Initialize";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.TRUSTHUB.toString(),
-                path
+            HttpMethod.POST,
+            Domains.TRUSTHUB.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -233,141 +277,248 @@ public class ComplianceTollfreeInquiriesCreator extends Creator<ComplianceTollfr
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("ComplianceTollfreeInquiries creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ComplianceTollfreeInquiries creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return ComplianceTollfreeInquiries.fromJson(response.getStream(), client.getObjectMapper());
+        return ComplianceTollfreeInquiries.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (tollfreePhoneNumber != null) {
-            Serializer.toString(request, "TollfreePhoneNumber", tollfreePhoneNumber, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "TollfreePhoneNumber",
+                tollfreePhoneNumber,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (notificationEmail != null) {
-            Serializer.toString(request, "NotificationEmail", notificationEmail, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "NotificationEmail",
+                notificationEmail,
+                ParameterType.URLENCODED
+            );
         }
 
+        if (customerProfileSid != null) {
+            Serializer.toString(
+                request,
+                "CustomerProfileSid",
+                customerProfileSid,
+                ParameterType.URLENCODED
+            );
+        }
 
         if (businessName != null) {
-            Serializer.toString(request, "BusinessName", businessName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BusinessName",
+                businessName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (businessWebsite != null) {
-            Serializer.toString(request, "BusinessWebsite", businessWebsite, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BusinessWebsite",
+                businessWebsite,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (useCaseCategories != null) {
             for (String param : useCaseCategories) {
-                Serializer.toString(request, "UseCaseCategories", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "UseCaseCategories",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (useCaseSummary != null) {
-            Serializer.toString(request, "UseCaseSummary", useCaseSummary, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "UseCaseSummary",
+                useCaseSummary,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (productionMessageSample != null) {
-            Serializer.toString(request, "ProductionMessageSample", productionMessageSample, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ProductionMessageSample",
+                productionMessageSample,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (optInImageUrls != null) {
             for (String param : optInImageUrls) {
-                Serializer.toString(request, "OptInImageUrls", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "OptInImageUrls",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (optInType != null) {
-            Serializer.toString(request, "OptInType", optInType, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "OptInType",
+                optInType,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (messageVolume != null) {
-            Serializer.toString(request, "MessageVolume", messageVolume, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MessageVolume",
+                messageVolume,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (businessStreetAddress != null) {
-            Serializer.toString(request, "BusinessStreetAddress", businessStreetAddress, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BusinessStreetAddress",
+                businessStreetAddress,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (businessStreetAddress2 != null) {
-            Serializer.toString(request, "BusinessStreetAddress2", businessStreetAddress2, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BusinessStreetAddress2",
+                businessStreetAddress2,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (businessCity != null) {
-            Serializer.toString(request, "BusinessCity", businessCity, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BusinessCity",
+                businessCity,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (businessStateProvinceRegion != null) {
-            Serializer.toString(request, "BusinessStateProvinceRegion", businessStateProvinceRegion, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BusinessStateProvinceRegion",
+                businessStateProvinceRegion,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (businessPostalCode != null) {
-            Serializer.toString(request, "BusinessPostalCode", businessPostalCode, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BusinessPostalCode",
+                businessPostalCode,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (businessCountry != null) {
-            Serializer.toString(request, "BusinessCountry", businessCountry, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BusinessCountry",
+                businessCountry,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (additionalInformation != null) {
-            Serializer.toString(request, "AdditionalInformation", additionalInformation, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AdditionalInformation",
+                additionalInformation,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (businessContactFirstName != null) {
-            Serializer.toString(request, "BusinessContactFirstName", businessContactFirstName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BusinessContactFirstName",
+                businessContactFirstName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (businessContactLastName != null) {
-            Serializer.toString(request, "BusinessContactLastName", businessContactLastName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BusinessContactLastName",
+                businessContactLastName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (businessContactEmail != null) {
-            Serializer.toString(request, "BusinessContactEmail", businessContactEmail, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BusinessContactEmail",
+                businessContactEmail,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (businessContactPhone != null) {
-            Serializer.toString(request, "BusinessContactPhone", businessContactPhone, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BusinessContactPhone",
+                businessContactPhone,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (themeSetId != null) {
-            Serializer.toString(request, "ThemeSetId", themeSetId, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ThemeSetId",
+                themeSetId,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (skipMessagingUseCase != null) {
-            Serializer.toString(request, "SkipMessagingUseCase", skipMessagingUseCase, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SkipMessagingUseCase",
+                skipMessagingUseCase,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

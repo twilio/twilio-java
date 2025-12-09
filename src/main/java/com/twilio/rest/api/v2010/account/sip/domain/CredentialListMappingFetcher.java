@@ -23,59 +23,82 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
-public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping> {
+public class CredentialListMappingFetcher
+    extends Fetcher<CredentialListMapping> {
 
     private String pathAccountSid;
     private String pathDomainSid;
     private String pathSid;
 
-    public CredentialListMappingFetcher(final String pathDomainSid, final String pathSid) {
+    public CredentialListMappingFetcher(
+        final String pathDomainSid,
+        final String pathSid
+    ) {
         this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
     }
 
-    public CredentialListMappingFetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
+    public CredentialListMappingFetcher(
+        final String pathAccountSid,
+        final String pathDomainSid,
+        final String pathSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
     }
 
-
     @Override
     public CredentialListMapping fetch(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
-        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "DomainSid" + "}",
+                this.pathDomainSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.API.toString(),
-                path
+            HttpMethod.GET,
+            Domains.API.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("CredentialListMapping fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "CredentialListMapping fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return CredentialListMapping.fromJson(response.getStream(), client.getObjectMapper());
+        return CredentialListMapping.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

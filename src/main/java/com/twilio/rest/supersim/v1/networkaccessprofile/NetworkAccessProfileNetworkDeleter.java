@@ -23,50 +23,62 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
-public class NetworkAccessProfileNetworkDeleter extends Deleter<NetworkAccessProfileNetwork> {
+public class NetworkAccessProfileNetworkDeleter
+    extends Deleter<NetworkAccessProfileNetwork> {
 
     private String pathNetworkAccessProfileSid;
     private String pathSid;
 
-    public NetworkAccessProfileNetworkDeleter(final String pathNetworkAccessProfileSid, final String pathSid) {
+    public NetworkAccessProfileNetworkDeleter(
+        final String pathNetworkAccessProfileSid,
+        final String pathSid
+    ) {
         this.pathNetworkAccessProfileSid = pathNetworkAccessProfileSid;
         this.pathSid = pathSid;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
+        String path =
+            "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}";
 
-        String path = "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}";
-
-        path = path.replace("{" + "NetworkAccessProfileSid" + "}", this.pathNetworkAccessProfileSid.toString());
+        path =
+            path.replace(
+                "{" + "NetworkAccessProfileSid" + "}",
+                this.pathNetworkAccessProfileSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
-                HttpMethod.DELETE,
-                Domains.SUPERSIM.toString(),
-                path
+            HttpMethod.DELETE,
+            Domains.SUPERSIM.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("NetworkAccessProfileNetwork delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "NetworkAccessProfileNetwork delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatuses.test(response.getStatusCode());
     }
 }

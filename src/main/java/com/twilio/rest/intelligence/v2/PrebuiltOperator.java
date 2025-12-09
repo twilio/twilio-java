@@ -17,61 +17,45 @@ package com.twilio.rest.intelligence.v2;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PrebuiltOperator extends Resource {
 
-
     public static PrebuiltOperatorFetcher fetcher(final String pathSid) {
-        return new PrebuiltOperatorFetcher(
-                pathSid
-        );
+        return new PrebuiltOperatorFetcher(pathSid);
     }
-
 
     public static PrebuiltOperatorReader reader() {
-        return new PrebuiltOperatorReader(
-
-        );
+        return new PrebuiltOperatorReader();
     }
-
 
     public enum Availability {
         INTERNAL("internal"),
         BETA("beta"),
         PUBLIC("public"),
-        RETIRED("retired");
+        RETIRED("retired"),
+        GENERAL_AVAILABILITY("general-availability");
 
         private final String value;
 
@@ -89,15 +73,17 @@ public class PrebuiltOperator extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a PrebuiltOperator object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return PrebuiltOperator object represented by the provided JSON
      */
-    public static PrebuiltOperator fromJson(final String json, final ObjectMapper objectMapper) {
+    public static PrebuiltOperator fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PrebuiltOperator.class);
@@ -112,11 +98,14 @@ public class PrebuiltOperator extends Resource {
      * Converts a JSON InputStream into a PrebuiltOperator object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return PrebuiltOperator object represented by the provided JSON
      */
-    public static PrebuiltOperator fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static PrebuiltOperator fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PrebuiltOperator.class);
@@ -139,48 +128,62 @@ public class PrebuiltOperator extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String author;
+
     @Getter
     private final PrebuiltOperator.Availability availability;
+
     @Getter
     private final Object config;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String description;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String operatorType;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
+
     @Getter
     private final Integer version;
 
     @JsonCreator
     private PrebuiltOperator(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("author") final String author,
-            @JsonProperty("availability") final PrebuiltOperator.Availability availability,
-            @JsonProperty("config") final Object config,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("description") final String description,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("operator_type") final String operatorType,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("version") final Integer version
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("author") final String author,
+        @JsonProperty(
+            "availability"
+        ) final PrebuiltOperator.Availability availability,
+        @JsonProperty("config") final Object config,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("description") final String description,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("operator_type") final String operatorType,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("version") final Integer version
     ) {
         this.accountSid = accountSid;
         this.author = author;
@@ -208,39 +211,36 @@ public class PrebuiltOperator extends Resource {
 
         PrebuiltOperator other = (PrebuiltOperator) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(author, other.author) &&
-                        Objects.equals(availability, other.availability) &&
-                        Objects.equals(config, other.config) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(description, other.description) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(operatorType, other.operatorType) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(version, other.version)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(author, other.author) &&
+            Objects.equals(availability, other.availability) &&
+            Objects.equals(config, other.config) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(operatorType, other.operatorType) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(version, other.version)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                author,
-                availability,
-                config,
-                dateCreated,
-                dateUpdated,
-                description,
-                friendlyName,
-                operatorType,
-                sid,
-                url,
-                version
+            accountSid,
+            author,
+            availability,
+            config,
+            dateCreated,
+            dateUpdated,
+            description,
+            friendlyName,
+            operatorType,
+            sid,
+            url,
+            version
         );
     }
-
-
 }
-

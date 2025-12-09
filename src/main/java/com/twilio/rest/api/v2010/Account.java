@@ -17,83 +17,54 @@ package com.twilio.rest.api.v2010;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Account extends Resource {
 
-
     public static AccountCreator creator() {
-        return new AccountCreator(
-
-        );
+        return new AccountCreator();
     }
-
 
     public static AccountFetcher fetcher() {
-        return new AccountFetcher(
-
-        );
+        return new AccountFetcher();
     }
-
 
     public static AccountFetcher fetcher(final String pathSid) {
-        return new AccountFetcher(
-                pathSid
-        );
+        return new AccountFetcher(pathSid);
     }
-
 
     public static AccountReader reader() {
-        return new AccountReader(
-
-        );
+        return new AccountReader();
     }
-
 
     public static AccountUpdater updater() {
-        return new AccountUpdater(
-
-        );
+        return new AccountUpdater();
     }
-
 
     public static AccountUpdater updater(final String pathSid) {
-        return new AccountUpdater(
-                pathSid
-        );
+        return new AccountUpdater(pathSid);
     }
-
 
     public enum Status {
         ACTIVE("active"),
@@ -136,15 +107,17 @@ public class Account extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Account object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Account object represented by the provided JSON
      */
-    public static Account fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Account fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Account.class);
@@ -159,11 +132,14 @@ public class Account extends Resource {
      * Converts a JSON InputStream into a Account object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Account object represented by the provided JSON
      */
-    public static Account fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Account fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Account.class);
@@ -186,42 +162,55 @@ public class Account extends Resource {
         }
     }
 
-
     @Getter
     private final String authToken;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String ownerAccountSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Account.Status status;
+
     @Getter
     private final Map<String, String> subresourceUris;
+
     @Getter
     private final Account.Type type;
+
     @Getter
     private final String uri;
 
     @JsonCreator
     private Account(
-            @JsonProperty("auth_token") final String authToken,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("owner_account_sid") final String ownerAccountSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final Account.Status status,
-            @JsonProperty("subresource_uris") final Map<String, String> subresourceUris,
-            @JsonProperty("type") final Account.Type type,
-            @JsonProperty("uri") final String uri
+        @JsonProperty("auth_token") final String authToken,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("owner_account_sid") final String ownerAccountSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final Account.Status status,
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris,
+        @JsonProperty("type") final Account.Type type,
+        @JsonProperty("uri") final String uri
     ) {
         this.authToken = authToken;
         this.dateCreated = dateCreated;
@@ -247,35 +236,32 @@ public class Account extends Resource {
 
         Account other = (Account) o;
         return (
-                Objects.equals(authToken, other.authToken) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(ownerAccountSid, other.ownerAccountSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(subresourceUris, other.subresourceUris) &&
-                        Objects.equals(type, other.type) &&
-                        Objects.equals(uri, other.uri)
+            Objects.equals(authToken, other.authToken) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(ownerAccountSid, other.ownerAccountSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(subresourceUris, other.subresourceUris) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(uri, other.uri)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                authToken,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                ownerAccountSid,
-                sid,
-                status,
-                subresourceUris,
-                type,
-                uri
+            authToken,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            ownerAccountSid,
+            sid,
+            status,
+            subresourceUris,
+            type,
+            uri
         );
     }
-
-
 }
-

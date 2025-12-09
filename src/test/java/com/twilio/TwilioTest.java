@@ -9,8 +9,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 
+import com.twilio.type.RegionEndpoints;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -158,4 +161,28 @@ public class TwilioTest {
 
         Twilio.validateSslCertificate(networkHttpClient);
     }
+
+    @Test
+    public void testEdge() {
+        Twilio.setUsername("testUser");
+        Twilio.setPassword("testToken");
+        Twilio.setRegion("br1");
+        Twilio.setEdge("someEdge");
+        TwilioRestClient client = Twilio.getRestClient();
+        assertEquals("someEdge", client.getEdge());
+        Twilio.setEdge(null);
+        Twilio.setRegion(null);
+    }
+
+    @Test
+    public void testEdgeIsSetFromRegionMap() {
+        Map<String, String> regionMap = RegionEndpoints.getRegions();
+        Twilio.setUsername("testUser");
+        Twilio.setPassword("testToken");
+        Twilio.setRegion("br1");
+        TwilioRestClient client = Twilio.getRestClient();
+        assertEquals(regionMap.get("br1"), client.getEdge());
+        Twilio.setRegion(null);
+    }
+
 }

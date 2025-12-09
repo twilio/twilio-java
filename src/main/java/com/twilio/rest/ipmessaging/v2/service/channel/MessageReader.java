@@ -14,7 +14,9 @@
 
 package com.twilio.rest.ipmessaging.v2.service.channel;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
+import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -25,11 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
-import com.twilio.base.Page;
-import com.twilio.base.ResourceSet;
 
 public class MessageReader extends Reader<Message> {
 
@@ -38,23 +36,23 @@ public class MessageReader extends Reader<Message> {
     private Message.OrderType order;
     private Long pageSize;
 
-    public MessageReader(final String pathServiceSid, final String pathChannelSid) {
+    public MessageReader(
+        final String pathServiceSid,
+        final String pathChannelSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
     }
-
 
     public MessageReader setOrder(final Message.OrderType order) {
         this.order = order;
         return this;
     }
 
-
     public MessageReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<Message> read(final TwilioRestClient client) {
@@ -62,74 +60,111 @@ public class MessageReader extends Reader<Message> {
     }
 
     public Page<Message> firstPage(final TwilioRestClient client) {
+        String path =
+            "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages";
 
-        String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages";
-
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.IPMESSAGING.toString(),
-                path
+            HttpMethod.GET,
+            Domains.IPMESSAGING.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<Message> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Message> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Message read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Message read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "messages",
-                response.getContent(),
-                Message.class,
-                client.getObjectMapper());
+            "messages",
+            response.getContent(),
+            Message.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<Message> previousPage(final Page<Message> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<Message> previousPage(
+        final Page<Message> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Message> nextPage(final Page<Message> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<Message> nextPage(
+        final Page<Message> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Message> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Message> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (order != null) {
             Serializer.toString(request, "Order", order, ParameterType.QUERY);
         }
 
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
-
+        if (getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

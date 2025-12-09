@@ -25,9 +25,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
 public class ParticipantDeleter extends Deleter<Participant> {
 
@@ -35,56 +34,71 @@ public class ParticipantDeleter extends Deleter<Participant> {
     private String pathSid;
     private Participant.WebhookEnabledType xTwilioWebhookEnabled;
 
-    public ParticipantDeleter(final String pathConversationSid, final String pathSid) {
+    public ParticipantDeleter(
+        final String pathConversationSid,
+        final String pathSid
+    ) {
         this.pathConversationSid = pathConversationSid;
         this.pathSid = pathSid;
     }
 
-
-    public ParticipantDeleter setXTwilioWebhookEnabled(final Participant.WebhookEnabledType xTwilioWebhookEnabled) {
+    public ParticipantDeleter setXTwilioWebhookEnabled(
+        final Participant.WebhookEnabledType xTwilioWebhookEnabled
+    ) {
         this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
-
         String path = "/v1/Conversations/{ConversationSid}/Participants/{Sid}";
 
-        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
+        path =
+            path.replace(
+                "{" + "ConversationSid" + "}",
+                this.pathConversationSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
-                HttpMethod.DELETE,
-                Domains.CONVERSATIONS.toString(),
-                path
+            HttpMethod.DELETE,
+            Domains.CONVERSATIONS.toString(),
+            path
         );
         addHeaderParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Participant delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Participant delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatuses.test(response.getStatusCode());
     }
 
     private void addHeaderParams(final Request request) {
-
         if (xTwilioWebhookEnabled != null) {
-            Serializer.toString(request, "X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "X-Twilio-Webhook-Enabled",
+                xTwilioWebhookEnabled,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

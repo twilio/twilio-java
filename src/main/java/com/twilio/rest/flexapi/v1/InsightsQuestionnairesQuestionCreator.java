@@ -14,7 +14,6 @@
 
 package com.twilio.rest.flexapi.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,11 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
-public class InsightsQuestionnairesQuestionCreator extends Creator<InsightsQuestionnairesQuestion> {
+public class InsightsQuestionnairesQuestionCreator
+    extends Creator<InsightsQuestionnairesQuestion> {
 
     private String authorization;
     private String categorySid;
@@ -40,60 +38,70 @@ public class InsightsQuestionnairesQuestionCreator extends Creator<InsightsQuest
     private Boolean allowNa;
     private String description;
 
-    public InsightsQuestionnairesQuestionCreator(final String categorySid, final String question, final String answerSetId, final Boolean allowNa) {
+    public InsightsQuestionnairesQuestionCreator(
+        final String categorySid,
+        final String question,
+        final String answerSetId,
+        final Boolean allowNa
+    ) {
         this.categorySid = categorySid;
         this.question = question;
         this.answerSetId = answerSetId;
         this.allowNa = allowNa;
     }
 
-
-    public InsightsQuestionnairesQuestionCreator setCategorySid(final String categorySid) {
+    public InsightsQuestionnairesQuestionCreator setCategorySid(
+        final String categorySid
+    ) {
         this.categorySid = categorySid;
         return this;
     }
 
-
-    public InsightsQuestionnairesQuestionCreator setQuestion(final String question) {
+    public InsightsQuestionnairesQuestionCreator setQuestion(
+        final String question
+    ) {
         this.question = question;
         return this;
     }
 
-
-    public InsightsQuestionnairesQuestionCreator setAnswerSetId(final String answerSetId) {
+    public InsightsQuestionnairesQuestionCreator setAnswerSetId(
+        final String answerSetId
+    ) {
         this.answerSetId = answerSetId;
         return this;
     }
 
-
-    public InsightsQuestionnairesQuestionCreator setAllowNa(final Boolean allowNa) {
+    public InsightsQuestionnairesQuestionCreator setAllowNa(
+        final Boolean allowNa
+    ) {
         this.allowNa = allowNa;
         return this;
     }
 
-
-    public InsightsQuestionnairesQuestionCreator setDescription(final String description) {
+    public InsightsQuestionnairesQuestionCreator setDescription(
+        final String description
+    ) {
         this.description = description;
         return this;
     }
 
-
-    public InsightsQuestionnairesQuestionCreator setAuthorization(final String authorization) {
+    public InsightsQuestionnairesQuestionCreator setAuthorization(
+        final String authorization
+    ) {
         this.authorization = authorization;
         return this;
     }
 
-
     @Override
-    public InsightsQuestionnairesQuestion create(final TwilioRestClient client) {
-
+    public InsightsQuestionnairesQuestion create(
+        final TwilioRestClient client
+    ) {
         String path = "/v1/Insights/QualityManagement/Questions";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.POST,
+            Domains.FLEXAPI.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
@@ -102,55 +110,84 @@ public class InsightsQuestionnairesQuestionCreator extends Creator<InsightsQuest
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("InsightsQuestionnairesQuestion creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InsightsQuestionnairesQuestion creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return InsightsQuestionnairesQuestion.fromJson(response.getStream(), client.getObjectMapper());
+        return InsightsQuestionnairesQuestion.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (categorySid != null) {
-            Serializer.toString(request, "CategorySid", categorySid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CategorySid",
+                categorySid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (question != null) {
-            Serializer.toString(request, "Question", question, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Question",
+                question,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (answerSetId != null) {
-            Serializer.toString(request, "AnswerSetId", answerSetId, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AnswerSetId",
+                answerSetId,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (allowNa != null) {
-            Serializer.toString(request, "AllowNa", allowNa, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AllowNa",
+                allowNa,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (description != null) {
-            Serializer.toString(request, "Description", description, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 
     private void addHeaderParams(final Request request) {
-
         if (authorization != null) {
-            Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

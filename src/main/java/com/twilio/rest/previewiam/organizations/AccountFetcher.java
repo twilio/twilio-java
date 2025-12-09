@@ -23,8 +23,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class AccountFetcher extends Fetcher<Account> {
@@ -32,38 +30,51 @@ public class AccountFetcher extends Fetcher<Account> {
     private String pathOrganizationSid;
     private String pathAccountSid;
 
-    public AccountFetcher(final String pathOrganizationSid, final String pathAccountSid) {
+    public AccountFetcher(
+        final String pathOrganizationSid,
+        final String pathAccountSid
+    ) {
         this.pathOrganizationSid = pathOrganizationSid;
         this.pathAccountSid = pathAccountSid;
     }
 
-
     @Override
     public Account fetch(final TwilioRestClient client) {
-
         String path = "/Organizations/{OrganizationSid}/Accounts/{AccountSid}";
 
-        path = path.replace("{" + "OrganizationSid" + "}", this.pathOrganizationSid.toString());
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
-
+        path =
+            path.replace(
+                "{" + "OrganizationSid" + "}",
+                this.pathOrganizationSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.PREVIEWIAM.toString(),
-                path
+            HttpMethod.GET,
+            Domains.PREVIEWIAM.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Account fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Account fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

@@ -25,8 +25,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class PluginVersionsFetcher extends Fetcher<PluginVersions> {
@@ -35,56 +33,70 @@ public class PluginVersionsFetcher extends Fetcher<PluginVersions> {
     private String pathSid;
     private String flexMetadata;
 
-    public PluginVersionsFetcher(final String pathPluginSid, final String pathSid) {
+    public PluginVersionsFetcher(
+        final String pathPluginSid,
+        final String pathSid
+    ) {
         this.pathPluginSid = pathPluginSid;
         this.pathSid = pathSid;
     }
-
 
     public PluginVersionsFetcher setFlexMetadata(final String flexMetadata) {
         this.flexMetadata = flexMetadata;
         return this;
     }
 
-
     @Override
     public PluginVersions fetch(final TwilioRestClient client) {
-
         String path = "/v1/PluginService/Plugins/{PluginSid}/Versions/{Sid}";
 
-        path = path.replace("{" + "PluginSid" + "}", this.pathPluginSid.toString());
+        path =
+            path.replace(
+                "{" + "PluginSid" + "}",
+                this.pathPluginSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.GET,
+            Domains.FLEXAPI.toString(),
+            path
         );
         addHeaderParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("PluginVersions fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PluginVersions fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return PluginVersions.fromJson(response.getStream(), client.getObjectMapper());
+        return PluginVersions.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addHeaderParams(final Request request) {
-
         if (flexMetadata != null) {
-            Serializer.toString(request, "Flex-Metadata", flexMetadata, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "Flex-Metadata",
+                flexMetadata,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

@@ -17,54 +17,43 @@ package com.twilio.rest.flexapi.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.twilio.exception.ApiConnectionException;
-import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
-import java.io.InputStream;
-import java.net.URI;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-
+import com.twilio.base.Resource;
+import com.twilio.exception.ApiConnectionException;
+import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsSettingsComment extends Resource {
 
-
     public static InsightsSettingsCommentFetcher fetcher() {
-        return new InsightsSettingsCommentFetcher(
-
-        );
+        return new InsightsSettingsCommentFetcher();
     }
-
 
     /**
      * Converts a JSON String into a InsightsSettingsComment object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return InsightsSettingsComment object represented by the provided JSON
      */
-    public static InsightsSettingsComment fromJson(final String json, final ObjectMapper objectMapper) {
+    public static InsightsSettingsComment fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InsightsSettingsComment.class);
@@ -79,11 +68,14 @@ public class InsightsSettingsComment extends Resource {
      * Converts a JSON InputStream into a InsightsSettingsComment object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return InsightsSettingsComment object represented by the provided JSON
      */
-    public static InsightsSettingsComment fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static InsightsSettingsComment fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InsightsSettingsComment.class);
@@ -106,19 +98,20 @@ public class InsightsSettingsComment extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Object comments;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private InsightsSettingsComment(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("comments") final Object comments,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("comments") final Object comments,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.comments = comments;
@@ -137,21 +130,14 @@ public class InsightsSettingsComment extends Resource {
 
         InsightsSettingsComment other = (InsightsSettingsComment) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(comments, other.comments) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(comments, other.comments) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                accountSid,
-                comments,
-                url
-        );
+        return Objects.hash(accountSid, comments, url);
     }
-
-
 }
-

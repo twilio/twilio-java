@@ -26,63 +26,64 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
+import com.twilio.type.*;
 import java.math.BigDecimal;
 
-import com.twilio.type.*;
-
 public class AssessmentsUpdater extends Updater<Assessments> {
+
     private String pathAssessmentSid;
     private String authorization;
     private BigDecimal offset;
     private String answerText;
     private String answerId;
 
-    public AssessmentsUpdater(final String pathAssessmentSid, final BigDecimal offset, final String answerText, final String answerId) {
+    public AssessmentsUpdater(
+        final String pathAssessmentSid,
+        final BigDecimal offset,
+        final String answerText,
+        final String answerId
+    ) {
         this.pathAssessmentSid = pathAssessmentSid;
         this.offset = offset;
         this.answerText = answerText;
         this.answerId = answerId;
     }
 
-
     public AssessmentsUpdater setOffset(final BigDecimal offset) {
         this.offset = offset;
         return this;
     }
-
 
     public AssessmentsUpdater setAnswerText(final String answerText) {
         this.answerText = answerText;
         return this;
     }
 
-
     public AssessmentsUpdater setAnswerId(final String answerId) {
         this.answerId = answerId;
         return this;
     }
-
 
     public AssessmentsUpdater setAuthorization(final String authorization) {
         this.authorization = authorization;
         return this;
     }
 
-
     @Override
     public Assessments update(final TwilioRestClient client) {
+        String path =
+            "/v1/Insights/QualityManagement/Assessments/{AssessmentSid}";
 
-        String path = "/v1/Insights/QualityManagement/Assessments/{AssessmentSid}";
-
-        path = path.replace("{" + "AssessmentSid" + "}", this.pathAssessmentSid.toString());
-
+        path =
+            path.replace(
+                "{" + "AssessmentSid" + "}",
+                this.pathAssessmentSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.POST,
+            Domains.FLEXAPI.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
@@ -91,45 +92,66 @@ public class AssessmentsUpdater extends Updater<Assessments> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Assessments update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Assessments update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Assessments.fromJson(response.getStream(), client.getObjectMapper());
+        return Assessments.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (offset != null) {
-            Serializer.toString(request, "Offset", offset, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Offset",
+                offset,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (answerText != null) {
-            Serializer.toString(request, "AnswerText", answerText, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AnswerText",
+                answerText,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (answerId != null) {
-            Serializer.toString(request, "AnswerId", answerId, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AnswerId",
+                answerId,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 
     private void addHeaderParams(final Request request) {
-
         if (authorization != null) {
-            Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

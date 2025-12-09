@@ -17,85 +17,79 @@ package com.twilio.rest.taskrouter.v1.workspace;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Workflow extends Resource {
 
-
-    public static WorkflowCreator creator(final String pathWorkspaceSid, final String friendlyName, final String configuration) {
+    public static WorkflowCreator creator(
+        final String pathWorkspaceSid,
+        final String friendlyName,
+        final String configuration
+    ) {
         return new WorkflowCreator(
-                pathWorkspaceSid, friendlyName, configuration
+            pathWorkspaceSid,
+            friendlyName,
+            configuration
         );
     }
 
-
-    public static WorkflowDeleter deleter(final String pathWorkspaceSid, final String pathSid) {
-        return new WorkflowDeleter(
-                pathWorkspaceSid, pathSid
-        );
+    public static WorkflowDeleter deleter(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
+        return new WorkflowDeleter(pathWorkspaceSid, pathSid);
     }
 
-
-    public static WorkflowFetcher fetcher(final String pathWorkspaceSid, final String pathSid) {
-        return new WorkflowFetcher(
-                pathWorkspaceSid, pathSid
-        );
+    public static WorkflowFetcher fetcher(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
+        return new WorkflowFetcher(pathWorkspaceSid, pathSid);
     }
-
 
     public static WorkflowReader reader(final String pathWorkspaceSid) {
-        return new WorkflowReader(
-                pathWorkspaceSid
-        );
+        return new WorkflowReader(pathWorkspaceSid);
     }
 
-
-    public static WorkflowUpdater updater(final String pathWorkspaceSid, final String pathSid) {
-        return new WorkflowUpdater(
-                pathWorkspaceSid, pathSid
-        );
+    public static WorkflowUpdater updater(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
+        return new WorkflowUpdater(pathWorkspaceSid, pathSid);
     }
-
 
     /**
      * Converts a JSON String into a Workflow object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Workflow object represented by the provided JSON
      */
-    public static Workflow fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Workflow fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Workflow.class);
@@ -110,11 +104,14 @@ public class Workflow extends Resource {
      * Converts a JSON InputStream into a Workflow object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Workflow object represented by the provided JSON
      */
-    public static Workflow fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Workflow fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Workflow.class);
@@ -137,51 +134,70 @@ public class Workflow extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final URI assignmentCallbackUrl;
+
     @Getter
     private final String configuration;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String documentContentType;
+
     @Getter
     private final URI fallbackAssignmentCallbackUrl;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Integer taskReservationTimeout;
+
     @Getter
     private final URI url;
+
     @Getter
     private final String workspaceSid;
 
     @JsonCreator
     private Workflow(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("assignment_callback_url") final URI assignmentCallbackUrl,
-            @JsonProperty("configuration") final String configuration,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("document_content_type") final String documentContentType,
-            @JsonProperty("fallback_assignment_callback_url") final URI fallbackAssignmentCallbackUrl,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("task_reservation_timeout") final Integer taskReservationTimeout,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("workspace_sid") final String workspaceSid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty(
+            "assignment_callback_url"
+        ) final URI assignmentCallbackUrl,
+        @JsonProperty("configuration") final String configuration,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("document_content_type") final String documentContentType,
+        @JsonProperty(
+            "fallback_assignment_callback_url"
+        ) final URI fallbackAssignmentCallbackUrl,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty(
+            "task_reservation_timeout"
+        ) final Integer taskReservationTimeout,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.assignmentCallbackUrl = assignmentCallbackUrl;
@@ -210,41 +226,47 @@ public class Workflow extends Resource {
 
         Workflow other = (Workflow) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(assignmentCallbackUrl, other.assignmentCallbackUrl) &&
-                        Objects.equals(configuration, other.configuration) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(documentContentType, other.documentContentType) &&
-                        Objects.equals(fallbackAssignmentCallbackUrl, other.fallbackAssignmentCallbackUrl) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(taskReservationTimeout, other.taskReservationTimeout) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(workspaceSid, other.workspaceSid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(
+                assignmentCallbackUrl,
+                other.assignmentCallbackUrl
+            ) &&
+            Objects.equals(configuration, other.configuration) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(documentContentType, other.documentContentType) &&
+            Objects.equals(
+                fallbackAssignmentCallbackUrl,
+                other.fallbackAssignmentCallbackUrl
+            ) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(
+                taskReservationTimeout,
+                other.taskReservationTimeout
+            ) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                assignmentCallbackUrl,
-                configuration,
-                dateCreated,
-                dateUpdated,
-                documentContentType,
-                fallbackAssignmentCallbackUrl,
-                friendlyName,
-                links,
-                sid,
-                taskReservationTimeout,
-                url,
-                workspaceSid
+            accountSid,
+            assignmentCallbackUrl,
+            configuration,
+            dateCreated,
+            dateUpdated,
+            documentContentType,
+            fallbackAssignmentCallbackUrl,
+            friendlyName,
+            links,
+            sid,
+            taskReservationTimeout,
+            url,
+            workspaceSid
         );
     }
-
-
 }
-

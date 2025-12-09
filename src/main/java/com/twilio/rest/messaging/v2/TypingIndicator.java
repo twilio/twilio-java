@@ -17,45 +17,34 @@ package com.twilio.rest.messaging.v2;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
-
-
-import java.io.InputStream;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TypingIndicator extends Resource {
 
-
-    public static TypingIndicatorCreator creator(final TypingIndicator.Channel channel, final String messageId) {
-        return new TypingIndicatorCreator(
-                channel, messageId
-        );
+    public static TypingIndicatorCreator creator(
+        final TypingIndicator.Channel channel,
+        final String messageId
+    ) {
+        return new TypingIndicatorCreator(channel, messageId);
     }
-
 
     public enum Channel {
         WHATSAPP("whatsapp");
@@ -76,15 +65,17 @@ public class TypingIndicator extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a TypingIndicator object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return TypingIndicator object represented by the provided JSON
      */
-    public static TypingIndicator fromJson(final String json, final ObjectMapper objectMapper) {
+    public static TypingIndicator fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, TypingIndicator.class);
@@ -99,11 +90,14 @@ public class TypingIndicator extends Resource {
      * Converts a JSON InputStream into a TypingIndicator object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return TypingIndicator object represented by the provided JSON
      */
-    public static TypingIndicator fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static TypingIndicator fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, TypingIndicator.class);
@@ -126,14 +120,11 @@ public class TypingIndicator extends Resource {
         }
     }
 
-
     @Getter
     private final Boolean success;
 
     @JsonCreator
-    private TypingIndicator(
-            @JsonProperty("success") final Boolean success
-    ) {
+    private TypingIndicator(@JsonProperty("success") final Boolean success) {
         this.success = success;
     }
 
@@ -148,18 +139,11 @@ public class TypingIndicator extends Resource {
         }
 
         TypingIndicator other = (TypingIndicator) o;
-        return (
-                Objects.equals(success, other.success)
-        );
+        return (Objects.equals(success, other.success));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                success
-        );
+        return Objects.hash(success);
     }
-
-
 }
-

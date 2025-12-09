@@ -17,77 +17,60 @@ package com.twilio.rest.taskrouter.v1.workspace;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Task extends Resource {
 
-
     public static TaskCreator creator(final String pathWorkspaceSid) {
-        return new TaskCreator(
-                pathWorkspaceSid
-        );
+        return new TaskCreator(pathWorkspaceSid);
     }
 
-
-    public static TaskDeleter deleter(final String pathWorkspaceSid, final String pathSid) {
-        return new TaskDeleter(
-                pathWorkspaceSid, pathSid
-        );
+    public static TaskDeleter deleter(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
+        return new TaskDeleter(pathWorkspaceSid, pathSid);
     }
 
-
-    public static TaskFetcher fetcher(final String pathWorkspaceSid, final String pathSid) {
-        return new TaskFetcher(
-                pathWorkspaceSid, pathSid
-        );
+    public static TaskFetcher fetcher(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
+        return new TaskFetcher(pathWorkspaceSid, pathSid);
     }
-
 
     public static TaskReader reader(final String pathWorkspaceSid) {
-        return new TaskReader(
-                pathWorkspaceSid
-        );
+        return new TaskReader(pathWorkspaceSid);
     }
 
-
-    public static TaskUpdater updater(final String pathWorkspaceSid, final String pathSid) {
-        return new TaskUpdater(
-                pathWorkspaceSid, pathSid
-        );
+    public static TaskUpdater updater(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
+        return new TaskUpdater(pathWorkspaceSid, pathSid);
     }
-
 
     public enum Status {
         PENDING("pending"),
@@ -113,15 +96,17 @@ public class Task extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Task object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Task object represented by the provided JSON
      */
-    public static Task fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Task fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Task.class);
@@ -136,11 +121,14 @@ public class Task extends Resource {
      * Converts a JSON InputStream into a Task object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Task object represented by the provided JSON
      */
-    public static Task fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Task fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Task.class);
@@ -163,86 +151,118 @@ public class Task extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String addons;
+
     @Getter
     private final Integer age;
+
     @Getter
     private final Task.Status assignmentStatus;
+
     @Getter
     private final String attributes;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Boolean ignoreCapacity;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final Integer priority;
+
     @Getter
     private final String reason;
+
     @Getter
     private final String routingTarget;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String taskChannelSid;
+
     @Getter
     private final String taskChannelUniqueName;
+
     @Getter
     private final ZonedDateTime taskQueueEnteredDate;
+
     @Getter
     private final String taskQueueFriendlyName;
+
     @Getter
     private final String taskQueueSid;
+
     @Getter
     private final Integer timeout;
+
     @Getter
     private final URI url;
+
     @Getter
     private final ZonedDateTime virtualStartTime;
+
     @Getter
     private final String workflowFriendlyName;
+
     @Getter
     private final String workflowSid;
+
     @Getter
     private final String workspaceSid;
 
     @JsonCreator
     private Task(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("addons") final String addons,
-            @JsonProperty("age") final Integer age,
-            @JsonProperty("assignment_status") final Task.Status assignmentStatus,
-            @JsonProperty("attributes") final String attributes,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("ignore_capacity") final Boolean ignoreCapacity,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("priority") final Integer priority,
-            @JsonProperty("reason") final String reason,
-            @JsonProperty("routing_target") final String routingTarget,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("task_channel_sid") final String taskChannelSid,
-            @JsonProperty("task_channel_unique_name") final String taskChannelUniqueName,
-            @JsonProperty("task_queue_entered_date")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime taskQueueEnteredDate,
-            @JsonProperty("task_queue_friendly_name") final String taskQueueFriendlyName,
-            @JsonProperty("task_queue_sid") final String taskQueueSid,
-            @JsonProperty("timeout") final Integer timeout,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("virtual_start_time")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime virtualStartTime,
-            @JsonProperty("workflow_friendly_name") final String workflowFriendlyName,
-            @JsonProperty("workflow_sid") final String workflowSid,
-            @JsonProperty("workspace_sid") final String workspaceSid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("addons") final String addons,
+        @JsonProperty("age") final Integer age,
+        @JsonProperty("assignment_status") final Task.Status assignmentStatus,
+        @JsonProperty("attributes") final String attributes,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("ignore_capacity") final Boolean ignoreCapacity,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("priority") final Integer priority,
+        @JsonProperty("reason") final String reason,
+        @JsonProperty("routing_target") final String routingTarget,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("task_channel_sid") final String taskChannelSid,
+        @JsonProperty(
+            "task_channel_unique_name"
+        ) final String taskChannelUniqueName,
+        @JsonProperty("task_queue_entered_date") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime taskQueueEnteredDate,
+        @JsonProperty(
+            "task_queue_friendly_name"
+        ) final String taskQueueFriendlyName,
+        @JsonProperty("task_queue_sid") final String taskQueueSid,
+        @JsonProperty("timeout") final Integer timeout,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("virtual_start_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime virtualStartTime,
+        @JsonProperty(
+            "workflow_friendly_name"
+        ) final String workflowFriendlyName,
+        @JsonProperty("workflow_sid") final String workflowSid,
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.addons = addons;
@@ -282,63 +302,66 @@ public class Task extends Resource {
 
         Task other = (Task) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(addons, other.addons) &&
-                        Objects.equals(age, other.age) &&
-                        Objects.equals(assignmentStatus, other.assignmentStatus) &&
-                        Objects.equals(attributes, other.attributes) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(ignoreCapacity, other.ignoreCapacity) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(priority, other.priority) &&
-                        Objects.equals(reason, other.reason) &&
-                        Objects.equals(routingTarget, other.routingTarget) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(taskChannelSid, other.taskChannelSid) &&
-                        Objects.equals(taskChannelUniqueName, other.taskChannelUniqueName) &&
-                        Objects.equals(taskQueueEnteredDate, other.taskQueueEnteredDate) &&
-                        Objects.equals(taskQueueFriendlyName, other.taskQueueFriendlyName) &&
-                        Objects.equals(taskQueueSid, other.taskQueueSid) &&
-                        Objects.equals(timeout, other.timeout) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(virtualStartTime, other.virtualStartTime) &&
-                        Objects.equals(workflowFriendlyName, other.workflowFriendlyName) &&
-                        Objects.equals(workflowSid, other.workflowSid) &&
-                        Objects.equals(workspaceSid, other.workspaceSid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(addons, other.addons) &&
+            Objects.equals(age, other.age) &&
+            Objects.equals(assignmentStatus, other.assignmentStatus) &&
+            Objects.equals(attributes, other.attributes) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(ignoreCapacity, other.ignoreCapacity) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(priority, other.priority) &&
+            Objects.equals(reason, other.reason) &&
+            Objects.equals(routingTarget, other.routingTarget) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(taskChannelSid, other.taskChannelSid) &&
+            Objects.equals(
+                taskChannelUniqueName,
+                other.taskChannelUniqueName
+            ) &&
+            Objects.equals(taskQueueEnteredDate, other.taskQueueEnteredDate) &&
+            Objects.equals(
+                taskQueueFriendlyName,
+                other.taskQueueFriendlyName
+            ) &&
+            Objects.equals(taskQueueSid, other.taskQueueSid) &&
+            Objects.equals(timeout, other.timeout) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(virtualStartTime, other.virtualStartTime) &&
+            Objects.equals(workflowFriendlyName, other.workflowFriendlyName) &&
+            Objects.equals(workflowSid, other.workflowSid) &&
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                addons,
-                age,
-                assignmentStatus,
-                attributes,
-                dateCreated,
-                dateUpdated,
-                ignoreCapacity,
-                links,
-                priority,
-                reason,
-                routingTarget,
-                sid,
-                taskChannelSid,
-                taskChannelUniqueName,
-                taskQueueEnteredDate,
-                taskQueueFriendlyName,
-                taskQueueSid,
-                timeout,
-                url,
-                virtualStartTime,
-                workflowFriendlyName,
-                workflowSid,
-                workspaceSid
+            accountSid,
+            addons,
+            age,
+            assignmentStatus,
+            attributes,
+            dateCreated,
+            dateUpdated,
+            ignoreCapacity,
+            links,
+            priority,
+            reason,
+            routingTarget,
+            sid,
+            taskChannelSid,
+            taskChannelUniqueName,
+            taskQueueEnteredDate,
+            taskQueueFriendlyName,
+            taskQueueSid,
+            timeout,
+            url,
+            virtualStartTime,
+            workflowFriendlyName,
+            workflowSid,
+            workspaceSid
         );
     }
-
-
 }
-

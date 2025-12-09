@@ -16,49 +16,37 @@ package com.twilio.rest.marketplace.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-
-
-import java.io.InputStream;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ReferralConversion extends Resource {
 
-
-    public static ReferralConversionCreator creator(final ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest) {
-        return new ReferralConversionCreator(
-                createReferralConversionRequest
-        );
+    public static ReferralConversionCreator creator(
+        final ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest
+    ) {
+        return new ReferralConversionCreator(createReferralConversionRequest);
     }
-
 
     @JsonDeserialize(builder = CreateReferralConversionRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -70,7 +58,6 @@ public class ReferralConversion extends Resource {
         @Getter
         private final String referralAccountSid;
 
-
         private CreateReferralConversionRequest(Builder builder) {
             this.referralAccountSid = builder.referralAccountSid;
         }
@@ -79,15 +66,28 @@ public class ReferralConversion extends Resource {
             return new Builder();
         }
 
-        public static CreateReferralConversionRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, CreateReferralConversionRequest.class);
+        public static CreateReferralConversionRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CreateReferralConversionRequest.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("referral_account_sid")
             private String referralAccountSid;
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("referral_account_sid")
+            public Builder referralAccountSid(String referralAccountSid) {
+                this.referralAccountSid = referralAccountSid;
+                return this;
+            }
 
             public CreateReferralConversionRequest build() {
                 return new CreateReferralConversionRequest(this);
@@ -104,30 +104,30 @@ public class ReferralConversion extends Resource {
                 return false;
             }
 
-            CreateReferralConversionRequest other = (CreateReferralConversionRequest) o;
+            CreateReferralConversionRequest other =
+                (CreateReferralConversionRequest) o;
             return (
-                    Objects.equals(referralAccountSid, other.referralAccountSid)
+                Objects.equals(referralAccountSid, other.referralAccountSid)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    referralAccountSid
-            );
+            return Objects.hash(referralAccountSid);
         }
-
     }
-
 
     /**
      * Converts a JSON String into a ReferralConversion object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ReferralConversion object represented by the provided JSON
      */
-    public static ReferralConversion fromJson(final String json, final ObjectMapper objectMapper) {
+    public static ReferralConversion fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ReferralConversion.class);
@@ -142,11 +142,14 @@ public class ReferralConversion extends Resource {
      * Converts a JSON InputStream into a ReferralConversion object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ReferralConversion object represented by the provided JSON
      */
-    public static ReferralConversion fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static ReferralConversion fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ReferralConversion.class);
@@ -169,13 +172,12 @@ public class ReferralConversion extends Resource {
         }
     }
 
-
     @Getter
     private final String convertedAccountSid;
 
     @JsonCreator
     private ReferralConversion(
-            @JsonProperty("converted_account_sid") final String convertedAccountSid
+        @JsonProperty("converted_account_sid") final String convertedAccountSid
     ) {
         this.convertedAccountSid = convertedAccountSid;
     }
@@ -191,18 +193,11 @@ public class ReferralConversion extends Resource {
         }
 
         ReferralConversion other = (ReferralConversion) o;
-        return (
-                Objects.equals(convertedAccountSid, other.convertedAccountSid)
-        );
+        return (Objects.equals(convertedAccountSid, other.convertedAccountSid));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                convertedAccountSid
-        );
+        return Objects.hash(convertedAccountSid);
     }
-
-
 }
-

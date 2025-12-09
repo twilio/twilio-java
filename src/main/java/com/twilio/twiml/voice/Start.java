@@ -157,6 +157,15 @@ public class Start extends TwiML {
         }
 
         /**
+         * Add a child {@code <Recording>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "Recording")
+        public Builder recording(Recording recording) {
+            this.children.add(recording);
+            return this;
+        }
+
+        /**
          * Create and return resulting {@code <Start>} element
          */
         public Start build() {

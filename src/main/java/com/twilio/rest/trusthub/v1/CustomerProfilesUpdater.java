@@ -27,13 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
+import com.twilio.type.*;
 import java.net.URI;
 
-import com.twilio.type.*;
-
 public class CustomerProfilesUpdater extends Updater<CustomerProfiles> {
+
     private String pathSid;
     private CustomerProfiles.Status status;
     private URI statusCallback;
@@ -44,19 +42,21 @@ public class CustomerProfilesUpdater extends Updater<CustomerProfiles> {
         this.pathSid = pathSid;
     }
 
-
-    public CustomerProfilesUpdater setStatus(final CustomerProfiles.Status status) {
+    public CustomerProfilesUpdater setStatus(
+        final CustomerProfiles.Status status
+    ) {
         this.status = status;
         return this;
     }
-
 
     public CustomerProfilesUpdater setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public CustomerProfilesUpdater setStatusCallback(final String statusCallback) {
+    public CustomerProfilesUpdater setStatusCallback(
+        final String statusCallback
+    ) {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
 
@@ -65,25 +65,21 @@ public class CustomerProfilesUpdater extends Updater<CustomerProfiles> {
         return this;
     }
 
-
     public CustomerProfilesUpdater setEmail(final String email) {
         this.email = email;
         return this;
     }
 
-
     @Override
     public CustomerProfiles update(final TwilioRestClient client) {
-
         String path = "/v1/CustomerProfiles/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.TRUSTHUB.toString(),
-                path
+            HttpMethod.POST,
+            Domains.TRUSTHUB.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -91,42 +87,64 @@ public class CustomerProfilesUpdater extends Updater<CustomerProfiles> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("CustomerProfiles update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "CustomerProfiles update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return CustomerProfiles.fromJson(response.getStream(), client.getObjectMapper());
+        return CustomerProfiles.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallback != null) {
-            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (email != null) {
-            Serializer.toString(request, "Email", email, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Email",
+                email,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

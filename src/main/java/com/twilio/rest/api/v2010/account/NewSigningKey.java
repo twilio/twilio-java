@@ -17,62 +17,48 @@ package com.twilio.rest.api.v2010.account;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class NewSigningKey extends Resource {
 
-
     public static NewSigningKeyCreator creator() {
-        return new NewSigningKeyCreator(
-
-        );
+        return new NewSigningKeyCreator();
     }
-
 
     public static NewSigningKeyCreator creator(final String pathAccountSid) {
-        return new NewSigningKeyCreator(
-                pathAccountSid
-        );
+        return new NewSigningKeyCreator(pathAccountSid);
     }
-
 
     /**
      * Converts a JSON String into a NewSigningKey object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return NewSigningKey object represented by the provided JSON
      */
-    public static NewSigningKey fromJson(final String json, final ObjectMapper objectMapper) {
+    public static NewSigningKey fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, NewSigningKey.class);
@@ -87,11 +73,14 @@ public class NewSigningKey extends Resource {
      * Converts a JSON InputStream into a NewSigningKey object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return NewSigningKey object represented by the provided JSON
      */
-    public static NewSigningKey fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static NewSigningKey fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, NewSigningKey.class);
@@ -114,27 +103,32 @@ public class NewSigningKey extends Resource {
         }
     }
 
-
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String secret;
+
     @Getter
     private final String sid;
 
     @JsonCreator
     private NewSigningKey(
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("secret") final String secret,
-            @JsonProperty("sid") final String sid
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("secret") final String secret,
+        @JsonProperty("sid") final String sid
     ) {
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
@@ -155,25 +149,22 @@ public class NewSigningKey extends Resource {
 
         NewSigningKey other = (NewSigningKey) o;
         return (
-                Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(secret, other.secret) &&
-                        Objects.equals(sid, other.sid)
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(secret, other.secret) &&
+            Objects.equals(sid, other.sid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                secret,
-                sid
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            secret,
+            sid
         );
     }
-
-
 }
-

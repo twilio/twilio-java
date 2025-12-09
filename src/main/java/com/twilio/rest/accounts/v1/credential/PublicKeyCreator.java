@@ -14,7 +14,6 @@
 
 package com.twilio.rest.accounts.v1.credential;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class PublicKeyCreator extends Creator<PublicKey> {
@@ -41,35 +38,29 @@ public class PublicKeyCreator extends Creator<PublicKey> {
         this.publicKey = publicKey;
     }
 
-
     public PublicKeyCreator setPublicKey(final String publicKey) {
         this.publicKey = publicKey;
         return this;
     }
-
 
     public PublicKeyCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
     public PublicKeyCreator setAccountSid(final String accountSid) {
         this.accountSid = accountSid;
         return this;
     }
 
-
     @Override
     public PublicKey create(final TwilioRestClient client) {
-
         String path = "/v1/Credentials/PublicKeys";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.ACCOUNTS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.ACCOUNTS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -77,37 +68,55 @@ public class PublicKeyCreator extends Creator<PublicKey> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("PublicKey creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PublicKey creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return PublicKey.fromJson(response.getStream(), client.getObjectMapper());
+        return PublicKey.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (publicKey != null) {
-            Serializer.toString(request, "PublicKey", publicKey, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "PublicKey",
+                publicKey,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (accountSid != null) {
-            Serializer.toString(request, "AccountSid", accountSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AccountSid",
+                accountSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

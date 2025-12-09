@@ -17,48 +17,34 @@ package com.twilio.rest.notify.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Notification extends Resource {
 
-
     public static NotificationCreator creator(final String pathServiceSid) {
-        return new NotificationCreator(
-                pathServiceSid
-        );
+        return new NotificationCreator(pathServiceSid);
     }
-
 
     public enum Priority {
         HIGH("high"),
@@ -80,15 +66,17 @@ public class Notification extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Notification object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Notification object represented by the provided JSON
      */
-    public static Notification fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Notification fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Notification.class);
@@ -103,11 +91,14 @@ public class Notification extends Resource {
      * Converts a JSON InputStream into a Notification object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Notification object represented by the provided JSON
      */
-    public static Notification fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Notification fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Notification.class);
@@ -130,71 +121,90 @@ public class Notification extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String action;
+
     @Getter
     private final Object alexa;
+
     @Getter
     private final Object apn;
+
     @Getter
     private final String body;
+
     @Getter
     private final Object data;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final Object facebookMessenger;
+
     @Getter
     private final Object fcm;
+
     @Getter
     private final Object gcm;
+
     @Getter
     private final List<String> identities;
+
     @Getter
     private final Notification.Priority priority;
+
     @Getter
     private final List<String> segments;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Object sms;
+
     @Getter
     private final String sound;
+
     @Getter
     private final List<String> tags;
+
     @Getter
     private final String title;
+
     @Getter
     private final Integer ttl;
 
     @JsonCreator
     private Notification(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("action") final String action,
-            @JsonProperty("alexa") final Object alexa,
-            @JsonProperty("apn") final Object apn,
-            @JsonProperty("body") final String body,
-            @JsonProperty("data") final Object data,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("facebook_messenger") final Object facebookMessenger,
-            @JsonProperty("fcm") final Object fcm,
-            @JsonProperty("gcm") final Object gcm,
-            @JsonProperty("identities") final List<String> identities,
-            @JsonProperty("priority") final Notification.Priority priority,
-            @JsonProperty("segments") final List<String> segments,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("sms") final Object sms,
-            @JsonProperty("sound") final String sound,
-            @JsonProperty("tags") final List<String> tags,
-            @JsonProperty("title") final String title,
-            @JsonProperty("ttl") final Integer ttl
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("action") final String action,
+        @JsonProperty("alexa") final Object alexa,
+        @JsonProperty("apn") final Object apn,
+        @JsonProperty("body") final String body,
+        @JsonProperty("data") final Object data,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("facebook_messenger") final Object facebookMessenger,
+        @JsonProperty("fcm") final Object fcm,
+        @JsonProperty("gcm") final Object gcm,
+        @JsonProperty("identities") final List<String> identities,
+        @JsonProperty("priority") final Notification.Priority priority,
+        @JsonProperty("segments") final List<String> segments,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("sms") final Object sms,
+        @JsonProperty("sound") final String sound,
+        @JsonProperty("tags") final List<String> tags,
+        @JsonProperty("title") final String title,
+        @JsonProperty("ttl") final Integer ttl
     ) {
         this.accountSid = accountSid;
         this.action = action;
@@ -230,55 +240,52 @@ public class Notification extends Resource {
 
         Notification other = (Notification) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(action, other.action) &&
-                        Objects.equals(alexa, other.alexa) &&
-                        Objects.equals(apn, other.apn) &&
-                        Objects.equals(body, other.body) &&
-                        Objects.equals(data, other.data) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(facebookMessenger, other.facebookMessenger) &&
-                        Objects.equals(fcm, other.fcm) &&
-                        Objects.equals(gcm, other.gcm) &&
-                        Objects.equals(identities, other.identities) &&
-                        Objects.equals(priority, other.priority) &&
-                        Objects.equals(segments, other.segments) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(sms, other.sms) &&
-                        Objects.equals(sound, other.sound) &&
-                        Objects.equals(tags, other.tags) &&
-                        Objects.equals(title, other.title) &&
-                        Objects.equals(ttl, other.ttl)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(action, other.action) &&
+            Objects.equals(alexa, other.alexa) &&
+            Objects.equals(apn, other.apn) &&
+            Objects.equals(body, other.body) &&
+            Objects.equals(data, other.data) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(facebookMessenger, other.facebookMessenger) &&
+            Objects.equals(fcm, other.fcm) &&
+            Objects.equals(gcm, other.gcm) &&
+            Objects.equals(identities, other.identities) &&
+            Objects.equals(priority, other.priority) &&
+            Objects.equals(segments, other.segments) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(sms, other.sms) &&
+            Objects.equals(sound, other.sound) &&
+            Objects.equals(tags, other.tags) &&
+            Objects.equals(title, other.title) &&
+            Objects.equals(ttl, other.ttl)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                action,
-                alexa,
-                apn,
-                body,
-                data,
-                dateCreated,
-                facebookMessenger,
-                fcm,
-                gcm,
-                identities,
-                priority,
-                segments,
-                serviceSid,
-                sid,
-                sms,
-                sound,
-                tags,
-                title,
-                ttl
+            accountSid,
+            action,
+            alexa,
+            apn,
+            body,
+            data,
+            dateCreated,
+            facebookMessenger,
+            fcm,
+            gcm,
+            identities,
+            priority,
+            segments,
+            serviceSid,
+            sid,
+            sms,
+            sound,
+            tags,
+            title,
+            ttl
         );
     }
-
-
 }
-

@@ -17,69 +17,52 @@ package com.twilio.rest.flexapi.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Interaction extends Resource {
 
-
     public static InteractionCreator creator(final Object channel) {
-        return new InteractionCreator(
-                channel
-        );
+        return new InteractionCreator(channel);
     }
-
 
     public static InteractionFetcher fetcher(final String pathSid) {
-        return new InteractionFetcher(
-                pathSid
-        );
+        return new InteractionFetcher(pathSid);
     }
-
 
     public static InteractionUpdater updater(final String pathSid) {
-        return new InteractionUpdater(
-                pathSid
-        );
+        return new InteractionUpdater(pathSid);
     }
-
 
     /**
      * Converts a JSON String into a Interaction object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Interaction object represented by the provided JSON
      */
-    public static Interaction fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Interaction fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Interaction.class);
@@ -94,11 +77,14 @@ public class Interaction extends Resource {
      * Converts a JSON InputStream into a Interaction object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Interaction object represented by the provided JSON
      */
-    public static Interaction fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Interaction fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Interaction.class);
@@ -121,31 +107,38 @@ public class Interaction extends Resource {
         }
     }
 
-
     @Getter
     private final Object channel;
+
     @Getter
     private final String interactionContextSid;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final Object routing;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
+
     @Getter
     private final String webhookTtid;
 
     @JsonCreator
     private Interaction(
-            @JsonProperty("channel") final Object channel,
-            @JsonProperty("interaction_context_sid") final String interactionContextSid,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("routing") final Object routing,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("webhook_ttid") final String webhookTtid
+        @JsonProperty("channel") final Object channel,
+        @JsonProperty(
+            "interaction_context_sid"
+        ) final String interactionContextSid,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("routing") final Object routing,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("webhook_ttid") final String webhookTtid
     ) {
         this.channel = channel;
         this.interactionContextSid = interactionContextSid;
@@ -168,29 +161,29 @@ public class Interaction extends Resource {
 
         Interaction other = (Interaction) o;
         return (
-                Objects.equals(channel, other.channel) &&
-                        Objects.equals(interactionContextSid, other.interactionContextSid) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(routing, other.routing) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(webhookTtid, other.webhookTtid)
+            Objects.equals(channel, other.channel) &&
+            Objects.equals(
+                interactionContextSid,
+                other.interactionContextSid
+            ) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(routing, other.routing) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(webhookTtid, other.webhookTtid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                channel,
-                interactionContextSid,
-                links,
-                routing,
-                sid,
-                url,
-                webhookTtid
+            channel,
+            interactionContextSid,
+            links,
+            routing,
+            sid,
+            url,
+            webhookTtid
         );
     }
-
-
 }
-

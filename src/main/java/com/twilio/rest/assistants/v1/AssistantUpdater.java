@@ -15,7 +15,6 @@
 package com.twilio.rest.assistants.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,11 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class AssistantUpdater extends Updater<Assistant> {
+
     private String pathId;
     private Assistant.AssistantsV1ServiceUpdateAssistantRequest assistantsV1ServiceUpdateAssistantRequest;
 
@@ -38,25 +36,24 @@ public class AssistantUpdater extends Updater<Assistant> {
         this.pathId = pathId;
     }
 
-
-    public AssistantUpdater setAssistantsV1ServiceUpdateAssistantRequest(final Assistant.AssistantsV1ServiceUpdateAssistantRequest assistantsV1ServiceUpdateAssistantRequest) {
-        this.assistantsV1ServiceUpdateAssistantRequest = assistantsV1ServiceUpdateAssistantRequest;
+    public AssistantUpdater setAssistantsV1ServiceUpdateAssistantRequest(
+        final Assistant.AssistantsV1ServiceUpdateAssistantRequest assistantsV1ServiceUpdateAssistantRequest
+    ) {
+        this.assistantsV1ServiceUpdateAssistantRequest =
+            assistantsV1ServiceUpdateAssistantRequest;
         return this;
     }
 
-
     @Override
     public Assistant update(final TwilioRestClient client) {
-
         String path = "/v1/Assistants/{id}";
 
         path = path.replace("{" + "id" + "}", this.pathId.toString());
 
-
         Request request = new Request(
-                HttpMethod.PUT,
-                Domains.ASSISTANTS.toString(),
-                path
+            HttpMethod.PUT,
+            Domains.ASSISTANTS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
@@ -64,25 +61,38 @@ public class AssistantUpdater extends Updater<Assistant> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Assistant update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Assistant update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Assistant.fromJson(response.getStream(), client.getObjectMapper());
+        return Assistant.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (assistantsV1ServiceUpdateAssistantRequest != null) {
-            request.setBody(Assistant.toJson(assistantsV1ServiceUpdateAssistantRequest, objectMapper));
+            request.setBody(
+                Assistant.toJson(
+                    assistantsV1ServiceUpdateAssistantRequest,
+                    objectMapper
+                )
+            );
         }
     }
 }

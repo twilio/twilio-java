@@ -17,78 +17,59 @@ package com.twilio.rest.studio.v2;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Flow extends Resource {
 
-
-    public static FlowCreator creator(final String friendlyName, final Flow.Status status, final Object definition) {
-        return new FlowCreator(
-                friendlyName, status, definition
-        );
+    public static FlowCreator creator(
+        final String friendlyName,
+        final Flow.Status status,
+        final Object definition
+    ) {
+        return new FlowCreator(friendlyName, status, definition);
     }
-
 
     public static FlowDeleter deleter(final String pathSid) {
-        return new FlowDeleter(
-                pathSid
-        );
+        return new FlowDeleter(pathSid);
     }
-
 
     public static FlowFetcher fetcher(final String pathSid) {
-        return new FlowFetcher(
-                pathSid
-        );
+        return new FlowFetcher(pathSid);
     }
-
 
     public static FlowReader reader() {
-        return new FlowReader(
-
-        );
+        return new FlowReader();
     }
 
-
-    public static FlowUpdater updater(final String pathSid, final Flow.Status status) {
-        return new FlowUpdater(
-                pathSid, status
-        );
+    public static FlowUpdater updater(
+        final String pathSid,
+        final Flow.Status status
+    ) {
+        return new FlowUpdater(pathSid, status);
     }
-
 
     public enum Status {
         DRAFT("draft"),
@@ -110,15 +91,17 @@ public class Flow extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Flow object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Flow object represented by the provided JSON
      */
-    public static Flow fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Flow fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Flow.class);
@@ -133,11 +116,14 @@ public class Flow extends Resource {
      * Converts a JSON InputStream into a Flow object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Flow object represented by the provided JSON
      */
-    public static Flow fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Flow fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Flow.class);
@@ -160,57 +146,72 @@ public class Flow extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String commitMessage;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Object definition;
+
     @Getter
     private final List<Object> errors;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final Integer revision;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Flow.Status status;
+
     @Getter
     private final URI url;
+
     @Getter
     private final Boolean valid;
+
     @Getter
     private final List<Object> warnings;
+
     @Getter
     private final URI webhookUrl;
 
     @JsonCreator
     private Flow(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("commit_message") final String commitMessage,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("definition") final Object definition,
-            @JsonProperty("errors") final List<Object> errors,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("revision") final Integer revision,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final Flow.Status status,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("valid") final Boolean valid,
-            @JsonProperty("warnings") final List<Object> warnings,
-            @JsonProperty("webhook_url") final URI webhookUrl
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("commit_message") final String commitMessage,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("definition") final Object definition,
+        @JsonProperty("errors") final List<Object> errors,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("revision") final Integer revision,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final Flow.Status status,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("valid") final Boolean valid,
+        @JsonProperty("warnings") final List<Object> warnings,
+        @JsonProperty("webhook_url") final URI webhookUrl
     ) {
         this.accountSid = accountSid;
         this.commitMessage = commitMessage;
@@ -241,45 +242,42 @@ public class Flow extends Resource {
 
         Flow other = (Flow) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(commitMessage, other.commitMessage) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(definition, other.definition) &&
-                        Objects.equals(errors, other.errors) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(revision, other.revision) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(valid, other.valid) &&
-                        Objects.equals(warnings, other.warnings) &&
-                        Objects.equals(webhookUrl, other.webhookUrl)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(commitMessage, other.commitMessage) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(definition, other.definition) &&
+            Objects.equals(errors, other.errors) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(revision, other.revision) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(valid, other.valid) &&
+            Objects.equals(warnings, other.warnings) &&
+            Objects.equals(webhookUrl, other.webhookUrl)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                commitMessage,
-                dateCreated,
-                dateUpdated,
-                definition,
-                errors,
-                friendlyName,
-                links,
-                revision,
-                sid,
-                status,
-                url,
-                valid,
-                warnings,
-                webhookUrl
+            accountSid,
+            commitMessage,
+            dateCreated,
+            dateUpdated,
+            definition,
+            errors,
+            friendlyName,
+            links,
+            revision,
+            sid,
+            status,
+            url,
+            valid,
+            warnings,
+            webhookUrl
         );
     }
-
-
 }
-

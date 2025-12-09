@@ -27,13 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
+import com.twilio.type.*;
 import java.net.URI;
 
-import com.twilio.type.*;
-
 public class SimUpdater extends Updater<Sim> {
+
     private String pathSid;
     private String uniqueName;
     private HttpMethod callbackMethod;
@@ -58,18 +56,15 @@ public class SimUpdater extends Updater<Sim> {
         this.pathSid = pathSid;
     }
 
-
     public SimUpdater setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
 
-
     public SimUpdater setCallbackMethod(final HttpMethod callbackMethod) {
         this.callbackMethod = callbackMethod;
         return this;
     }
-
 
     public SimUpdater setCallbackUrl(final URI callbackUrl) {
         this.callbackUrl = callbackUrl;
@@ -85,24 +80,22 @@ public class SimUpdater extends Updater<Sim> {
         return this;
     }
 
-
     public SimUpdater setRatePlan(final String ratePlan) {
         this.ratePlan = ratePlan;
         return this;
     }
-
 
     public SimUpdater setStatus(final Sim.Status status) {
         this.status = status;
         return this;
     }
 
-
-    public SimUpdater setCommandsCallbackMethod(final HttpMethod commandsCallbackMethod) {
+    public SimUpdater setCommandsCallbackMethod(
+        final HttpMethod commandsCallbackMethod
+    ) {
         this.commandsCallbackMethod = commandsCallbackMethod;
         return this;
     }
-
 
     public SimUpdater setCommandsCallbackUrl(final URI commandsCallbackUrl) {
         this.commandsCallbackUrl = commandsCallbackUrl;
@@ -110,14 +103,15 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     public SimUpdater setCommandsCallbackUrl(final String commandsCallbackUrl) {
-        return setCommandsCallbackUrl(Promoter.uriFromString(commandsCallbackUrl));
+        return setCommandsCallbackUrl(
+            Promoter.uriFromString(commandsCallbackUrl)
+        );
     }
 
     public SimUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod) {
         this.smsFallbackMethod = smsFallbackMethod;
         return this;
     }
-
 
     public SimUpdater setSmsFallbackUrl(final URI smsFallbackUrl) {
         this.smsFallbackUrl = smsFallbackUrl;
@@ -133,7 +127,6 @@ public class SimUpdater extends Updater<Sim> {
         return this;
     }
 
-
     public SimUpdater setSmsUrl(final URI smsUrl) {
         this.smsUrl = smsUrl;
         return this;
@@ -143,11 +136,12 @@ public class SimUpdater extends Updater<Sim> {
         return setSmsUrl(Promoter.uriFromString(smsUrl));
     }
 
-    public SimUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
+    public SimUpdater setVoiceFallbackMethod(
+        final HttpMethod voiceFallbackMethod
+    ) {
         this.voiceFallbackMethod = voiceFallbackMethod;
         return this;
     }
-
 
     public SimUpdater setVoiceFallbackUrl(final URI voiceFallbackUrl) {
         this.voiceFallbackUrl = voiceFallbackUrl;
@@ -163,7 +157,6 @@ public class SimUpdater extends Updater<Sim> {
         return this;
     }
 
-
     public SimUpdater setVoiceUrl(final URI voiceUrl) {
         this.voiceUrl = voiceUrl;
         return this;
@@ -178,25 +171,21 @@ public class SimUpdater extends Updater<Sim> {
         return this;
     }
 
-
     public SimUpdater setAccountSid(final String accountSid) {
         this.accountSid = accountSid;
         return this;
     }
 
-
     @Override
     public Sim update(final TwilioRestClient client) {
-
         String path = "/v1/Sims/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.WIRELESS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.WIRELESS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -204,14 +193,19 @@ public class SimUpdater extends Updater<Sim> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Sim update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Sim update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -220,96 +214,166 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     private void addPostParams(final Request request) {
-
         if (uniqueName != null) {
-            Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callbackMethod != null) {
-            Serializer.toString(request, "CallbackMethod", callbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallbackMethod",
+                callbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callbackUrl != null) {
-            Serializer.toString(request, "CallbackUrl", callbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallbackUrl",
+                callbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (ratePlan != null) {
-            Serializer.toString(request, "RatePlan", ratePlan, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "RatePlan",
+                ratePlan,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (commandsCallbackMethod != null) {
-            Serializer.toString(request, "CommandsCallbackMethod", commandsCallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CommandsCallbackMethod",
+                commandsCallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (commandsCallbackUrl != null) {
-            Serializer.toString(request, "CommandsCallbackUrl", commandsCallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CommandsCallbackUrl",
+                commandsCallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (smsFallbackMethod != null) {
-            Serializer.toString(request, "SmsFallbackMethod", smsFallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmsFallbackMethod",
+                smsFallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (smsFallbackUrl != null) {
-            Serializer.toString(request, "SmsFallbackUrl", smsFallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmsFallbackUrl",
+                smsFallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (smsMethod != null) {
-            Serializer.toString(request, "SmsMethod", smsMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmsMethod",
+                smsMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (smsUrl != null) {
-            Serializer.toString(request, "SmsUrl", smsUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmsUrl",
+                smsUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (voiceFallbackMethod != null) {
-            Serializer.toString(request, "VoiceFallbackMethod", voiceFallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VoiceFallbackMethod",
+                voiceFallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (voiceFallbackUrl != null) {
-            Serializer.toString(request, "VoiceFallbackUrl", voiceFallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VoiceFallbackUrl",
+                voiceFallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (voiceMethod != null) {
-            Serializer.toString(request, "VoiceMethod", voiceMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VoiceMethod",
+                voiceMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (voiceUrl != null) {
-            Serializer.toString(request, "VoiceUrl", voiceUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VoiceUrl",
+                voiceUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (resetStatus != null) {
-            Serializer.toString(request, "ResetStatus", resetStatus, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ResetStatus",
+                resetStatus,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (accountSid != null) {
-            Serializer.toString(request, "AccountSid", accountSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AccountSid",
+                accountSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

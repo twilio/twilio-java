@@ -17,53 +17,45 @@ package com.twilio.rest.oauth.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.twilio.exception.ApiConnectionException;
-import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
-import java.io.InputStream;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-
+import com.twilio.base.Resource;
+import com.twilio.exception.ApiConnectionException;
+import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Token extends Resource {
 
-
-    public static TokenCreator creator(final String grantType, final String clientId) {
-        return new TokenCreator(
-                grantType, clientId
-        );
+    public static TokenCreator creator(
+        final String grantType,
+        final String clientId
+    ) {
+        return new TokenCreator(grantType, clientId);
     }
-
 
     /**
      * Converts a JSON String into a Token object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Token object represented by the provided JSON
      */
-    public static Token fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Token fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Token.class);
@@ -78,11 +70,14 @@ public class Token extends Resource {
      * Converts a JSON InputStream into a Token object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Token object represented by the provided JSON
      */
-    public static Token fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Token fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Token.class);
@@ -105,25 +100,28 @@ public class Token extends Resource {
         }
     }
 
-
     @Getter
     private final String accessToken;
+
     @Getter
     private final Long expiresIn;
+
     @Getter
     private final String idToken;
+
     @Getter
     private final String refreshToken;
+
     @Getter
     private final String tokenType;
 
     @JsonCreator
     private Token(
-            @JsonProperty("access_token") final String accessToken,
-            @JsonProperty("expires_in") final Long expiresIn,
-            @JsonProperty("id_token") final String idToken,
-            @JsonProperty("refresh_token") final String refreshToken,
-            @JsonProperty("token_type") final String tokenType
+        @JsonProperty("access_token") final String accessToken,
+        @JsonProperty("expires_in") final Long expiresIn,
+        @JsonProperty("id_token") final String idToken,
+        @JsonProperty("refresh_token") final String refreshToken,
+        @JsonProperty("token_type") final String tokenType
     ) {
         this.accessToken = accessToken;
         this.expiresIn = expiresIn;
@@ -144,25 +142,22 @@ public class Token extends Resource {
 
         Token other = (Token) o;
         return (
-                Objects.equals(accessToken, other.accessToken) &&
-                        Objects.equals(expiresIn, other.expiresIn) &&
-                        Objects.equals(idToken, other.idToken) &&
-                        Objects.equals(refreshToken, other.refreshToken) &&
-                        Objects.equals(tokenType, other.tokenType)
+            Objects.equals(accessToken, other.accessToken) &&
+            Objects.equals(expiresIn, other.expiresIn) &&
+            Objects.equals(idToken, other.idToken) &&
+            Objects.equals(refreshToken, other.refreshToken) &&
+            Objects.equals(tokenType, other.tokenType)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accessToken,
-                expiresIn,
-                idToken,
-                refreshToken,
-                tokenType
+            accessToken,
+            expiresIn,
+            idToken,
+            refreshToken,
+            tokenType
         );
     }
-
-
 }
-

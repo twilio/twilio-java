@@ -14,7 +14,6 @@
 
 package com.twilio.rest.serverless.v1.service;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class EnvironmentCreator extends Creator<Environment> {
@@ -37,36 +34,38 @@ public class EnvironmentCreator extends Creator<Environment> {
     private String uniqueName;
     private String domainSuffix;
 
-    public EnvironmentCreator(final String pathServiceSid, final String uniqueName) {
+    public EnvironmentCreator(
+        final String pathServiceSid,
+        final String uniqueName
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.uniqueName = uniqueName;
     }
-
 
     public EnvironmentCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
 
-
     public EnvironmentCreator setDomainSuffix(final String domainSuffix) {
         this.domainSuffix = domainSuffix;
         return this;
     }
 
-
     @Override
     public Environment create(final TwilioRestClient client) {
-
         String path = "/v1/Services/{ServiceSid}/Environments";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.SERVERLESS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.SERVERLESS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -74,32 +73,46 @@ public class EnvironmentCreator extends Creator<Environment> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Environment creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Environment creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Environment.fromJson(response.getStream(), client.getObjectMapper());
+        return Environment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (uniqueName != null) {
-            Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (domainSuffix != null) {
-            Serializer.toString(request, "DomainSuffix", domainSuffix, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DomainSuffix",
+                domainSuffix,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

@@ -17,78 +17,67 @@ package com.twilio.rest.messaging.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ShortCode extends Resource {
 
-
-    public static ShortCodeCreator creator(final String pathServiceSid, final String shortCodeSid) {
-        return new ShortCodeCreator(
-                pathServiceSid, shortCodeSid
-        );
+    public static ShortCodeCreator creator(
+        final String pathServiceSid,
+        final String shortCodeSid
+    ) {
+        return new ShortCodeCreator(pathServiceSid, shortCodeSid);
     }
 
-
-    public static ShortCodeDeleter deleter(final String pathServiceSid, final String pathSid) {
-        return new ShortCodeDeleter(
-                pathServiceSid, pathSid
-        );
+    public static ShortCodeDeleter deleter(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new ShortCodeDeleter(pathServiceSid, pathSid);
     }
 
-
-    public static ShortCodeFetcher fetcher(final String pathServiceSid, final String pathSid) {
-        return new ShortCodeFetcher(
-                pathServiceSid, pathSid
-        );
+    public static ShortCodeFetcher fetcher(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new ShortCodeFetcher(pathServiceSid, pathSid);
     }
-
 
     public static ShortCodeReader reader(final String pathServiceSid) {
-        return new ShortCodeReader(
-                pathServiceSid
-        );
+        return new ShortCodeReader(pathServiceSid);
     }
-
 
     /**
      * Converts a JSON String into a ShortCode object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ShortCode object represented by the provided JSON
      */
-    public static ShortCode fromJson(final String json, final ObjectMapper objectMapper) {
+    public static ShortCode fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ShortCode.class);
@@ -103,11 +92,14 @@ public class ShortCode extends Resource {
      * Converts a JSON InputStream into a ShortCode object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ShortCode object represented by the provided JSON
      */
-    public static ShortCode fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static ShortCode fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ShortCode.class);
@@ -130,39 +122,48 @@ public class ShortCode extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final List<String> capabilities;
+
     @Getter
     private final String countryCode;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String shortCode;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private ShortCode(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("capabilities") final List<String> capabilities,
-            @JsonProperty("country_code") final String countryCode,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("short_code") final String shortCode,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("capabilities") final List<String> capabilities,
+        @JsonProperty("country_code") final String countryCode,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("short_code") final String shortCode,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.capabilities = capabilities;
@@ -187,33 +188,30 @@ public class ShortCode extends Resource {
 
         ShortCode other = (ShortCode) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(capabilities, other.capabilities) &&
-                        Objects.equals(countryCode, other.countryCode) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(shortCode, other.shortCode) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(capabilities, other.capabilities) &&
+            Objects.equals(countryCode, other.countryCode) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(shortCode, other.shortCode) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                capabilities,
-                countryCode,
-                dateCreated,
-                dateUpdated,
-                serviceSid,
-                shortCode,
-                sid,
-                url
+            accountSid,
+            capabilities,
+            countryCode,
+            dateCreated,
+            dateUpdated,
+            serviceSid,
+            shortCode,
+            sid,
+            url
         );
     }
-
-
 }
-

@@ -17,61 +17,53 @@ package com.twilio.rest.trusthub.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.twilio.exception.ApiConnectionException;
-import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
-import java.io.InputStream;
-import java.net.URI;
-
-import com.twilio.type.*;
-
-import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-
+import com.twilio.base.Resource;
+import com.twilio.exception.ApiConnectionException;
+import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ComplianceInquiries extends Resource {
 
-
-    public static ComplianceInquiriesCreator creator(final String primaryProfileSid) {
-        return new ComplianceInquiriesCreator(
-                primaryProfileSid
-        );
+    public static ComplianceInquiriesCreator creator() {
+        return new ComplianceInquiriesCreator();
     }
 
-
-    public static ComplianceInquiriesUpdater updater(final String pathCustomerId, final String primaryProfileSid) {
+    public static ComplianceInquiriesUpdater updater(
+        final String pathCustomerId,
+        final String primaryProfileSid
+    ) {
         return new ComplianceInquiriesUpdater(
-                pathCustomerId, primaryProfileSid
+            pathCustomerId,
+            primaryProfileSid
         );
     }
-
 
     /**
      * Converts a JSON String into a ComplianceInquiries object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ComplianceInquiries object represented by the provided JSON
      */
-    public static ComplianceInquiries fromJson(final String json, final ObjectMapper objectMapper) {
+    public static ComplianceInquiries fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ComplianceInquiries.class);
@@ -86,11 +78,14 @@ public class ComplianceInquiries extends Resource {
      * Converts a JSON InputStream into a ComplianceInquiries object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ComplianceInquiries object represented by the provided JSON
      */
-    public static ComplianceInquiries fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static ComplianceInquiries fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ComplianceInquiries.class);
@@ -113,22 +108,24 @@ public class ComplianceInquiries extends Resource {
         }
     }
 
-
     @Getter
     private final String customerId;
+
     @Getter
     private final String inquiryId;
+
     @Getter
     private final String inquirySessionToken;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private ComplianceInquiries(
-            @JsonProperty("customer_id") final String customerId,
-            @JsonProperty("inquiry_id") final String inquiryId,
-            @JsonProperty("inquiry_session_token") final String inquirySessionToken,
-            @JsonProperty("url") final URI url
+        @JsonProperty("customer_id") final String customerId,
+        @JsonProperty("inquiry_id") final String inquiryId,
+        @JsonProperty("inquiry_session_token") final String inquirySessionToken,
+        @JsonProperty("url") final URI url
     ) {
         this.customerId = customerId;
         this.inquiryId = inquiryId;
@@ -148,23 +145,15 @@ public class ComplianceInquiries extends Resource {
 
         ComplianceInquiries other = (ComplianceInquiries) o;
         return (
-                Objects.equals(customerId, other.customerId) &&
-                        Objects.equals(inquiryId, other.inquiryId) &&
-                        Objects.equals(inquirySessionToken, other.inquirySessionToken) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(customerId, other.customerId) &&
+            Objects.equals(inquiryId, other.inquiryId) &&
+            Objects.equals(inquirySessionToken, other.inquirySessionToken) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                customerId,
-                inquiryId,
-                inquirySessionToken,
-                url
-        );
+        return Objects.hash(customerId, inquiryId, inquirySessionToken, url);
     }
-
-
 }
-

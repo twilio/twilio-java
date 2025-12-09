@@ -14,7 +14,6 @@
 
 package com.twilio.rest.events.v1.subscription;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import com.twilio.type.*;
 
 public class SubscribedEventCreator extends Creator<SubscribedEvent> {
@@ -37,36 +34,40 @@ public class SubscribedEventCreator extends Creator<SubscribedEvent> {
     private String type;
     private Integer schemaVersion;
 
-    public SubscribedEventCreator(final String pathSubscriptionSid, final String type) {
+    public SubscribedEventCreator(
+        final String pathSubscriptionSid,
+        final String type
+    ) {
         this.pathSubscriptionSid = pathSubscriptionSid;
         this.type = type;
     }
-
 
     public SubscribedEventCreator setType(final String type) {
         this.type = type;
         return this;
     }
 
-
-    public SubscribedEventCreator setSchemaVersion(final Integer schemaVersion) {
+    public SubscribedEventCreator setSchemaVersion(
+        final Integer schemaVersion
+    ) {
         this.schemaVersion = schemaVersion;
         return this;
     }
 
-
     @Override
     public SubscribedEvent create(final TwilioRestClient client) {
-
         String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents";
 
-        path = path.replace("{" + "SubscriptionSid" + "}", this.pathSubscriptionSid.toString());
-
+        path =
+            path.replace(
+                "{" + "SubscriptionSid" + "}",
+                this.pathSubscriptionSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.EVENTS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.EVENTS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -74,32 +75,46 @@ public class SubscribedEventCreator extends Creator<SubscribedEvent> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SubscribedEvent creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SubscribedEvent creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return SubscribedEvent.fromJson(response.getStream(), client.getObjectMapper());
+        return SubscribedEvent.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (type != null) {
-            Serializer.toString(request, "Type", type, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Type",
+                type,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (schemaVersion != null) {
-            Serializer.toString(request, "SchemaVersion", schemaVersion, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SchemaVersion",
+                schemaVersion,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

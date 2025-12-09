@@ -17,62 +17,48 @@ package com.twilio.rest.assistants.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
-
+import com.twilio.type.*;
+import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Session extends Resource {
 
-
     public static SessionFetcher fetcher(final String pathId) {
-        return new SessionFetcher(
-                pathId
-        );
+        return new SessionFetcher(pathId);
     }
-
 
     public static SessionReader reader() {
-        return new SessionReader(
-
-        );
+        return new SessionReader();
     }
-
 
     /**
      * Converts a JSON String into a Session object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Session object represented by the provided JSON
      */
-    public static Session fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Session fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Session.class);
@@ -87,11 +73,14 @@ public class Session extends Resource {
      * Converts a JSON InputStream into a Session object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Session object represented by the provided JSON
      */
-    public static Session fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Session fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Session.class);
@@ -114,33 +103,40 @@ public class Session extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String assistantId;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String id;
+
     @Getter
     private final String identity;
+
     @Getter
     private final Boolean verified;
 
     @JsonCreator
     private Session(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("assistant_id") final String assistantId,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("id") final String id,
-            @JsonProperty("identity") final String identity,
-            @JsonProperty("verified") final Boolean verified
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("assistant_id") final String assistantId,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("id") final String id,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("verified") final Boolean verified
     ) {
         this.accountSid = accountSid;
         this.assistantId = assistantId;
@@ -163,29 +159,26 @@ public class Session extends Resource {
 
         Session other = (Session) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(assistantId, other.assistantId) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(id, other.id) &&
-                        Objects.equals(identity, other.identity) &&
-                        Objects.equals(verified, other.verified)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(assistantId, other.assistantId) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(id, other.id) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(verified, other.verified)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                assistantId,
-                dateCreated,
-                dateUpdated,
-                id,
-                identity,
-                verified
+            accountSid,
+            assistantId,
+            dateCreated,
+            dateUpdated,
+            id,
+            identity,
+            verified
         );
     }
-
-
 }
-

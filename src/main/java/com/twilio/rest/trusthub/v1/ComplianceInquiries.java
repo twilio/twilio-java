@@ -39,8 +39,10 @@ import lombok.ToString;
 @ToString
 public class ComplianceInquiries extends Resource {
 
-    public static ComplianceInquiriesCreator creator() {
-        return new ComplianceInquiriesCreator();
+    public static ComplianceInquiriesCreator creator(
+        final String primaryProfileSid
+    ) {
+        return new ComplianceInquiriesCreator(primaryProfileSid);
     }
 
     public static ComplianceInquiriesUpdater updater(

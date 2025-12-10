@@ -113,7 +113,6 @@ public class TodayReader extends Reader<Today> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

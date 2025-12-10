@@ -54,12 +54,12 @@ public class OperatorResult extends Resource {
     }
 
     public enum OperatorType {
-        CONVERSATION_CLASSIFY("conversation-classify"),
-        UTTERANCE_CLASSIFY("utterance-classify"),
+        CONVERSATION_CLASSIFY("conversation_classify"),
+        UTTERANCE_CLASSIFY("utterance_classify"),
         EXTRACT("extract"),
-        EXTRACT_NORMALIZE("extract-normalize"),
-        PII_EXTRACT("pii-extract"),
-        TEXT_GENERATION("text-generation"),
+        EXTRACT_NORMALIZE("extract_normalize"),
+        PII_EXTRACT("pii_extract"),
+        TEXT_GENERATION("text_generation"),
         JSON("json");
 
         private final String value;

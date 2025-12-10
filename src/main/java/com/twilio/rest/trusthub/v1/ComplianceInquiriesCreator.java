@@ -30,11 +30,20 @@ import com.twilio.type.*;
 
 public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
 
+    private String primaryProfileSid;
     private String notificationEmail;
     private String themeSetId;
-    private String primaryProfileSid;
 
-    public ComplianceInquiriesCreator() {}
+    public ComplianceInquiriesCreator(final String primaryProfileSid) {
+        this.primaryProfileSid = primaryProfileSid;
+    }
+
+    public ComplianceInquiriesCreator setPrimaryProfileSid(
+        final String primaryProfileSid
+    ) {
+        this.primaryProfileSid = primaryProfileSid;
+        return this;
+    }
 
     public ComplianceInquiriesCreator setNotificationEmail(
         final String notificationEmail
@@ -45,13 +54,6 @@ public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
 
     public ComplianceInquiriesCreator setThemeSetId(final String themeSetId) {
         this.themeSetId = themeSetId;
-        return this;
-    }
-
-    public ComplianceInquiriesCreator setPrimaryProfileSid(
-        final String primaryProfileSid
-    ) {
-        this.primaryProfileSid = primaryProfileSid;
         return this;
     }
 
@@ -94,6 +96,15 @@ public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
     }
 
     private void addPostParams(final Request request) {
+        if (primaryProfileSid != null) {
+            Serializer.toString(
+                request,
+                "PrimaryProfileSid",
+                primaryProfileSid,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (notificationEmail != null) {
             Serializer.toString(
                 request,
@@ -108,15 +119,6 @@ public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
                 request,
                 "ThemeSetId",
                 themeSetId,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (primaryProfileSid != null) {
-            Serializer.toString(
-                request,
-                "PrimaryProfileSid",
-                primaryProfileSid,
                 ParameterType.URLENCODED
             );
         }

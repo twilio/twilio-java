@@ -28,7 +28,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
-import java.time.ZonedDateTime;
 
 public class PortingAllPortInReader extends Reader<PortingAllPortIn> {
 
@@ -36,8 +35,8 @@ public class PortingAllPortInReader extends Reader<PortingAllPortIn> {
     private Integer size;
     private String portInRequestSid;
     private String portInRequestStatus;
-    private ZonedDateTime createdBefore;
-    private ZonedDateTime createdAfter;
+    private String createdBefore;
+    private String createdAfter;
 
     public PortingAllPortInReader() {}
 
@@ -65,16 +64,12 @@ public class PortingAllPortInReader extends Reader<PortingAllPortIn> {
         return this;
     }
 
-    public PortingAllPortInReader setCreatedBefore(
-        final ZonedDateTime createdBefore
-    ) {
+    public PortingAllPortInReader setCreatedBefore(final String createdBefore) {
         this.createdBefore = createdBefore;
         return this;
     }
 
-    public PortingAllPortInReader setCreatedAfter(
-        final ZonedDateTime createdAfter
-    ) {
+    public PortingAllPortInReader setCreatedAfter(final String createdAfter) {
         this.createdAfter = createdAfter;
         return this;
     }

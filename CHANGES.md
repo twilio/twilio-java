@@ -1,6 +1,18 @@
 twilio-java changelog
 =====================
 
+[2025-12-17] Version 11.3.0
+---------------------------
+**Trunking**
+- Corrected the type used for phone number capabilities when accessed through a Trunk. **(breaking change)**
+- Corrected the type used for phone number capabilities when accessed through a Trunk. **(breaking change)**
+
+**Trusthub**
+- Added new parameters in in toll-free initialize api payload.
+- Remove the invalid status transition to Draft from the examples
+- Change the value of email to a valid one in the examples.
+
+
 [2025-12-03] Version 11.2.0
 ---------------------------
 **Library - Chore**

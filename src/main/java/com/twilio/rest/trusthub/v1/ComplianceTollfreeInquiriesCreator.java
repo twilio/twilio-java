@@ -57,6 +57,18 @@ public class ComplianceTollfreeInquiriesCreator
     private com.twilio.type.PhoneNumber businessContactPhone;
     private String themeSetId;
     private Boolean skipMessagingUseCase;
+    private String businessRegistrationNumber;
+    private String businessRegistrationAuthority;
+    private String businessRegistrationCountry;
+    private ComplianceTollfreeInquiries.BusinessType businessType;
+    private String doingBusinessAs;
+    private String optInConfirmationMessage;
+    private String helpMessageSample;
+    private String privacyPolicyUrl;
+    private String termsAndConditionsUrl;
+    private Boolean ageGatedContent;
+    private String externalReferenceId;
+    private List<String> optInKeywords;
 
     public ComplianceTollfreeInquiriesCreator(
         final com.twilio.type.PhoneNumber tollfreePhoneNumber,
@@ -260,6 +272,96 @@ public class ComplianceTollfreeInquiriesCreator
     ) {
         this.skipMessagingUseCase = skipMessagingUseCase;
         return this;
+    }
+
+    public ComplianceTollfreeInquiriesCreator setBusinessRegistrationNumber(
+        final String businessRegistrationNumber
+    ) {
+        this.businessRegistrationNumber = businessRegistrationNumber;
+        return this;
+    }
+
+    public ComplianceTollfreeInquiriesCreator setBusinessRegistrationAuthority(
+        final String businessRegistrationAuthority
+    ) {
+        this.businessRegistrationAuthority = businessRegistrationAuthority;
+        return this;
+    }
+
+    public ComplianceTollfreeInquiriesCreator setBusinessRegistrationCountry(
+        final String businessRegistrationCountry
+    ) {
+        this.businessRegistrationCountry = businessRegistrationCountry;
+        return this;
+    }
+
+    public ComplianceTollfreeInquiriesCreator setBusinessType(
+        final ComplianceTollfreeInquiries.BusinessType businessType
+    ) {
+        this.businessType = businessType;
+        return this;
+    }
+
+    public ComplianceTollfreeInquiriesCreator setDoingBusinessAs(
+        final String doingBusinessAs
+    ) {
+        this.doingBusinessAs = doingBusinessAs;
+        return this;
+    }
+
+    public ComplianceTollfreeInquiriesCreator setOptInConfirmationMessage(
+        final String optInConfirmationMessage
+    ) {
+        this.optInConfirmationMessage = optInConfirmationMessage;
+        return this;
+    }
+
+    public ComplianceTollfreeInquiriesCreator setHelpMessageSample(
+        final String helpMessageSample
+    ) {
+        this.helpMessageSample = helpMessageSample;
+        return this;
+    }
+
+    public ComplianceTollfreeInquiriesCreator setPrivacyPolicyUrl(
+        final String privacyPolicyUrl
+    ) {
+        this.privacyPolicyUrl = privacyPolicyUrl;
+        return this;
+    }
+
+    public ComplianceTollfreeInquiriesCreator setTermsAndConditionsUrl(
+        final String termsAndConditionsUrl
+    ) {
+        this.termsAndConditionsUrl = termsAndConditionsUrl;
+        return this;
+    }
+
+    public ComplianceTollfreeInquiriesCreator setAgeGatedContent(
+        final Boolean ageGatedContent
+    ) {
+        this.ageGatedContent = ageGatedContent;
+        return this;
+    }
+
+    public ComplianceTollfreeInquiriesCreator setExternalReferenceId(
+        final String externalReferenceId
+    ) {
+        this.externalReferenceId = externalReferenceId;
+        return this;
+    }
+
+    public ComplianceTollfreeInquiriesCreator setOptInKeywords(
+        final List<String> optInKeywords
+    ) {
+        this.optInKeywords = optInKeywords;
+        return this;
+    }
+
+    public ComplianceTollfreeInquiriesCreator setOptInKeywords(
+        final String optInKeywords
+    ) {
+        return setOptInKeywords(Promoter.listOfOne(optInKeywords));
     }
 
     @Override
@@ -519,6 +621,116 @@ public class ComplianceTollfreeInquiriesCreator
                 skipMessagingUseCase,
                 ParameterType.URLENCODED
             );
+        }
+
+        if (businessRegistrationNumber != null) {
+            Serializer.toString(
+                request,
+                "BusinessRegistrationNumber",
+                businessRegistrationNumber,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (businessRegistrationAuthority != null) {
+            Serializer.toString(
+                request,
+                "BusinessRegistrationAuthority",
+                businessRegistrationAuthority,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (businessRegistrationCountry != null) {
+            Serializer.toString(
+                request,
+                "BusinessRegistrationCountry",
+                businessRegistrationCountry,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (businessType != null) {
+            Serializer.toString(
+                request,
+                "BusinessType",
+                businessType,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (doingBusinessAs != null) {
+            Serializer.toString(
+                request,
+                "DoingBusinessAs",
+                doingBusinessAs,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (optInConfirmationMessage != null) {
+            Serializer.toString(
+                request,
+                "OptInConfirmationMessage",
+                optInConfirmationMessage,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (helpMessageSample != null) {
+            Serializer.toString(
+                request,
+                "HelpMessageSample",
+                helpMessageSample,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (privacyPolicyUrl != null) {
+            Serializer.toString(
+                request,
+                "PrivacyPolicyUrl",
+                privacyPolicyUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (termsAndConditionsUrl != null) {
+            Serializer.toString(
+                request,
+                "TermsAndConditionsUrl",
+                termsAndConditionsUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (ageGatedContent != null) {
+            Serializer.toString(
+                request,
+                "AgeGatedContent",
+                ageGatedContent,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (externalReferenceId != null) {
+            Serializer.toString(
+                request,
+                "ExternalReferenceId",
+                externalReferenceId,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (optInKeywords != null) {
+            for (String param : optInKeywords) {
+                Serializer.toString(
+                    request,
+                    "OptInKeywords",
+                    param,
+                    ParameterType.URLENCODED
+                );
+            }
         }
     }
 }

@@ -30,6 +30,7 @@ import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
 import com.twilio.type.*;
+import com.twilio.type.PhoneNumberCapabilities;
 import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -159,7 +160,7 @@ public class PhoneNumber extends Resource {
     private final Boolean beta;
 
     @Getter
-    private final Map<String, String> capabilities;
+    private final PhoneNumberCapabilities capabilities;
 
     @Getter
     private final ZonedDateTime dateCreated;
@@ -232,7 +233,9 @@ public class PhoneNumber extends Resource {
         ) final PhoneNumber.AddressRequirement addressRequirements,
         @JsonProperty("api_version") final String apiVersion,
         @JsonProperty("beta") final Boolean beta,
-        @JsonProperty("capabilities") final Map<String, String> capabilities,
+        @JsonProperty(
+            "capabilities"
+        ) final PhoneNumberCapabilities capabilities,
         @JsonProperty("date_created") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
         ) final ZonedDateTime dateCreated,

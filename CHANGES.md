@@ -1,6 +1,13 @@
 twilio-java changelog
 =====================
 
+[2026-01-07] Version 11.3.1
+---------------------------
+**Api**
+- Added optional parameter `clientNotificationUrl` for create call api
+- Added optional parameter `clientNotificationUrl` for create participant api
+
+
 [2025-12-17] Version 11.3.0
 ---------------------------
 **Trunking**

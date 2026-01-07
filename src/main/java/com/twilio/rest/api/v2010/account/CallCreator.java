@@ -66,6 +66,7 @@ public class CallCreator extends Creator<Call> {
     private String callToken;
     private String recordingTrack;
     private Integer timeLimit;
+    private URI clientNotificationUrl;
     private URI url;
     private com.twilio.type.Twiml twiml;
     private String applicationSid;
@@ -347,6 +348,21 @@ public class CallCreator extends Creator<Call> {
     public CallCreator setTimeLimit(final Integer timeLimit) {
         this.timeLimit = timeLimit;
         return this;
+    }
+
+    public CallCreator setClientNotificationUrl(
+        final URI clientNotificationUrl
+    ) {
+        this.clientNotificationUrl = clientNotificationUrl;
+        return this;
+    }
+
+    public CallCreator setClientNotificationUrl(
+        final String clientNotificationUrl
+    ) {
+        return setClientNotificationUrl(
+            Promoter.uriFromString(clientNotificationUrl)
+        );
     }
 
     public CallCreator setUrl(final URI url) {
@@ -701,6 +717,15 @@ public class CallCreator extends Creator<Call> {
                 request,
                 "TimeLimit",
                 timeLimit,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (clientNotificationUrl != null) {
+            Serializer.toString(
+                request,
+                "ClientNotificationUrl",
+                clientNotificationUrl,
                 ParameterType.URLENCODED
             );
         }

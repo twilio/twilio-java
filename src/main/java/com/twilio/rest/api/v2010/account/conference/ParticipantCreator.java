@@ -83,6 +83,7 @@ public class ParticipantCreator extends Creator<Participant> {
     private HttpMethod amdStatusCallbackMethod;
     private String trim;
     private String callToken;
+    private URI clientNotificationUrl;
     private String callerDisplayName;
 
     public ParticipantCreator(
@@ -465,6 +466,21 @@ public class ParticipantCreator extends Creator<Participant> {
     public ParticipantCreator setCallToken(final String callToken) {
         this.callToken = callToken;
         return this;
+    }
+
+    public ParticipantCreator setClientNotificationUrl(
+        final URI clientNotificationUrl
+    ) {
+        this.clientNotificationUrl = clientNotificationUrl;
+        return this;
+    }
+
+    public ParticipantCreator setClientNotificationUrl(
+        final String clientNotificationUrl
+    ) {
+        return setClientNotificationUrl(
+            Promoter.uriFromString(clientNotificationUrl)
+        );
     }
 
     public ParticipantCreator setCallerDisplayName(
@@ -960,6 +976,15 @@ public class ParticipantCreator extends Creator<Participant> {
                 request,
                 "CallToken",
                 callToken,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (clientNotificationUrl != null) {
+            Serializer.toString(
+                request,
+                "ClientNotificationUrl",
+                clientNotificationUrl,
                 ParameterType.URLENCODED
             );
         }

@@ -67,6 +67,8 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification> {
     private String termsAndConditionsUrl;
     private Boolean ageGatedContent;
     private List<String> optInKeywords;
+    private TollfreeVerification.VettingProvider vettingProvider;
+    private String vettingId;
 
     public TollfreeVerificationCreator(
         final String businessName,
@@ -361,6 +363,18 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification> {
         final String optInKeywords
     ) {
         return setOptInKeywords(Promoter.listOfOne(optInKeywords));
+    }
+
+    public TollfreeVerificationCreator setVettingProvider(
+        final TollfreeVerification.VettingProvider vettingProvider
+    ) {
+        this.vettingProvider = vettingProvider;
+        return this;
+    }
+
+    public TollfreeVerificationCreator setVettingId(final String vettingId) {
+        this.vettingId = vettingId;
+        return this;
     }
 
     @Override
@@ -721,6 +735,24 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification> {
                     ParameterType.URLENCODED
                 );
             }
+        }
+
+        if (vettingProvider != null) {
+            Serializer.toString(
+                request,
+                "VettingProvider",
+                vettingProvider,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (vettingId != null) {
+            Serializer.toString(
+                request,
+                "VettingId",
+                vettingId,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

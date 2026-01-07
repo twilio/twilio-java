@@ -107,6 +107,25 @@ public class TollfreeVerification extends Resource {
         }
     }
 
+    public enum VettingProvider {
+        CAMPAIGN_VERIFY("CAMPAIGN_VERIFY");
+
+        private final String value;
+
+        private VettingProvider(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static VettingProvider forValue(final String value) {
+            return Promoter.enumFromString(value, VettingProvider.values());
+        }
+    }
+
     public enum BusinessType {
         PRIVATE_PROFIT("PRIVATE_PROFIT"),
         PUBLIC_PROFIT("PUBLIC_PROFIT"),
@@ -360,6 +379,15 @@ public class TollfreeVerification extends Resource {
     @Getter
     private final String useCaseSummary;
 
+    @Getter
+    private final String vettingId;
+
+    @Getter
+    private final ZonedDateTime vettingIdExpiration;
+
+    @Getter
+    private final TollfreeVerification.VettingProvider vettingProvider;
+
     @JsonCreator
     private TollfreeVerification(
         @JsonProperty("account_sid") final String accountSid,
@@ -457,7 +485,14 @@ public class TollfreeVerification extends Resource {
         @JsonProperty("use_case_categories") final List<
             String
         > useCaseCategories,
-        @JsonProperty("use_case_summary") final String useCaseSummary
+        @JsonProperty("use_case_summary") final String useCaseSummary,
+        @JsonProperty("vetting_id") final String vettingId,
+        @JsonProperty("vetting_id_expiration") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime vettingIdExpiration,
+        @JsonProperty(
+            "vetting_provider"
+        ) final TollfreeVerification.VettingProvider vettingProvider
     ) {
         this.accountSid = accountSid;
         this.additionalInformation = additionalInformation;
@@ -509,6 +544,9 @@ public class TollfreeVerification extends Resource {
         this.url = url;
         this.useCaseCategories = useCaseCategories;
         this.useCaseSummary = useCaseSummary;
+        this.vettingId = vettingId;
+        this.vettingIdExpiration = vettingIdExpiration;
+        this.vettingProvider = vettingProvider;
     }
 
     @Override
@@ -614,7 +652,10 @@ public class TollfreeVerification extends Resource {
             Objects.equals(trustProductSid, other.trustProductSid) &&
             Objects.equals(url, other.url) &&
             Objects.equals(useCaseCategories, other.useCaseCategories) &&
-            Objects.equals(useCaseSummary, other.useCaseSummary)
+            Objects.equals(useCaseSummary, other.useCaseSummary) &&
+            Objects.equals(vettingId, other.vettingId) &&
+            Objects.equals(vettingIdExpiration, other.vettingIdExpiration) &&
+            Objects.equals(vettingProvider, other.vettingProvider)
         );
     }
 
@@ -670,7 +711,10 @@ public class TollfreeVerification extends Resource {
             trustProductSid,
             url,
             useCaseCategories,
-            useCaseSummary
+            useCaseSummary,
+            vettingId,
+            vettingIdExpiration,
+            vettingProvider
         );
     }
 }

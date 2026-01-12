@@ -72,7 +72,6 @@ public class AwsReader extends Reader<Aws> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

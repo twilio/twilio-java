@@ -99,7 +99,6 @@ public class InsightsSegmentsReader extends Reader<InsightsSegments> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

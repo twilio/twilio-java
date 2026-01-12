@@ -68,8 +68,7 @@ public class Transcript extends Resource {
         COMPLETED("completed"),
         NEW("new"),
         FAILED("failed"),
-        CANCELED("canceled"),
-        ERROR("error");
+        CANCELED("canceled");
 
         private final String value;
 

@@ -80,7 +80,6 @@ public class AddressConfigurationReader extends Reader<AddressConfiguration> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

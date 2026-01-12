@@ -607,8 +607,11 @@ public class ChannelsSender extends Resource {
             this.countries = builder.countries;
         }
 
-        public static Builder builder(final String registrationSid) {
-            return new Builder(registrationSid);
+        public static Builder builder(
+            final String registrationSid,
+            final List<MessagingV2RcsComplianceCountryResponse> countries
+        ) {
+            return new Builder(registrationSid, countries);
         }
 
         public static MessagingV2RcsComplianceResponse fromJson(
@@ -632,18 +635,13 @@ public class ChannelsSender extends Resource {
 
             @JsonCreator
             public Builder(
-                @JsonProperty("registration_sid") final String registrationSid
+                @JsonProperty("registration_sid") final String registrationSid,
+                @JsonProperty("countries") final List<
+                    MessagingV2RcsComplianceCountryResponse
+                > countries
             ) {
                 this.registrationSid = registrationSid;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("countries")
-            public Builder countries(
-                List<MessagingV2RcsComplianceCountryResponse> countries
-            ) {
                 this.countries = countries;
-                return this;
             }
 
             public MessagingV2RcsComplianceResponse build() {
@@ -1399,8 +1397,12 @@ public class ChannelsSender extends Resource {
             this.carriers = builder.carriers;
         }
 
-        public static Builder builder(final String country) {
-            return new Builder(country);
+        public static Builder builder(
+            final String country,
+            final String registrationSid,
+            final ChannelsSender.MessagingVRcsCountryStatus status
+        ) {
+            return new Builder(country, registrationSid, status);
         }
 
         public static MessagingV2RcsComplianceCountryResponse fromJson(
@@ -1429,24 +1431,16 @@ public class ChannelsSender extends Resource {
             private List<MessagingV2RcsCarrier> carriers;
 
             @JsonCreator
-            public Builder(@JsonProperty("country") final String country) {
-                this.country = country;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("registration_sid")
-            public Builder registrationSid(String registrationSid) {
-                this.registrationSid = registrationSid;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("status")
-            public Builder status(
-                ChannelsSender.MessagingVRcsCountryStatus status
+            public Builder(
+                @JsonProperty("country") final String country,
+                @JsonProperty("registration_sid") final String registrationSid,
+                @JsonProperty(
+                    "status"
+                ) final ChannelsSender.MessagingVRcsCountryStatus status
             ) {
+                this.country = country;
+                this.registrationSid = registrationSid;
                 this.status = status;
-                return this;
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)

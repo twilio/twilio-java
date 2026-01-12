@@ -122,7 +122,6 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

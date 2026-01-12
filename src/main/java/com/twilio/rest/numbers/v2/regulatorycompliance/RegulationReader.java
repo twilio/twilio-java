@@ -100,7 +100,6 @@ public class RegulationReader extends Reader<Regulation> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

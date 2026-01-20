@@ -2,6 +2,7 @@ package com.twilio.base;
 
 import org.apache.hc.core5.http.Header;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,7 +55,7 @@ public class TwilioResponse<T> {
      * @return map of header names to values
      */
     public Map<String, String> getHeaders() {
-        return headers;
+        return Collections.unmodifiableMap(headers);
     }
 
     private Map<String, String> convertHeaders(final Header[] headerArray) {

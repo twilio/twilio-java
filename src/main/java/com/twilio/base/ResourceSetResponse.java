@@ -2,6 +2,7 @@ package com.twilio.base;
 
 import org.apache.hc.core5.http.Header;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class ResourceSetResponse<E extends Resource> implements Iterable<E> {
     private final Map<String, String> headers;
 
     /**
-     * Create a ResourceSetMetadata with the resource set, status code, and headers.
+     * Create a ResourceSetResponse with the resource set, status code, and headers.
      *
      * @param resourceSet the underlying resource set
      * @param statusCode  HTTP status code from the first page response
@@ -58,7 +59,7 @@ public class ResourceSetResponse<E extends Resource> implements Iterable<E> {
      * @return map of header names to values
      */
     public Map<String, String> getHeaders() {
-        return headers;
+        return Collections.unmodifiableMap(headers);
     }
 
     /**
@@ -84,7 +85,7 @@ public class ResourceSetResponse<E extends Resource> implements Iterable<E> {
      * Enable or disable auto-paging.
      *
      * @param autoPaging whether to enable auto-paging
-     * @return this ResourceSetMetadata for method chaining
+     * @return this ResourceSetResponse for method chaining
      */
     public ResourceSetResponse<E> setAutoPaging(final boolean autoPaging) {
         resourceSet.setAutoPaging(autoPaging);
@@ -104,7 +105,7 @@ public class ResourceSetResponse<E extends Resource> implements Iterable<E> {
      * Set the page size.
      *
      * @param pageSize the page size
-     * @return this ResourceSetMetadata for method chaining
+     * @return this ResourceSetResponse for method chaining
      */
     public ResourceSetResponse<E> setPageSize(final int pageSize) {
         resourceSet.setPageSize(pageSize);
@@ -124,7 +125,7 @@ public class ResourceSetResponse<E extends Resource> implements Iterable<E> {
      * Set the limit on total records.
      *
      * @param limit the maximum number of records to return
-     * @return this ResourceSetMetadata for method chaining
+     * @return this ResourceSetResponse for method chaining
      */
     public ResourceSetResponse<E> setLimit(final long limit) {
         resourceSet.setLimit(limit);
@@ -157,7 +158,7 @@ public class ResourceSetResponse<E extends Resource> implements Iterable<E> {
 
     @Override
     public String toString() {
-        return "ResourceSetMetadata{" +
+        return "ResourceSetResponse{" +
             "statusCode=" + statusCode +
             ", headers=" + headers +
             ", resourceSet=" + resourceSet +

@@ -47,4 +47,8 @@ public abstract class Updater<T extends Resource> {
      * @return Requested object
      */
     public abstract T update(final TwilioRestClient client);
+
+    public TwilioResponse<T> updateWithResponse(final TwilioRestClient client) {
+        throw new UnsupportedOperationException("updateWithResponse is not supported for this resource.");
+    }
 }

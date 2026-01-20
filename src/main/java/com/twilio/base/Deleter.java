@@ -47,4 +47,8 @@ public abstract class Deleter<T extends Resource> {
      * @return true if the object was deleted
      */
     public abstract boolean delete(final TwilioRestClient client);
+
+    public TwilioResponse<Boolean> deleteWithResponse(final TwilioRestClient client) {
+        throw new UnsupportedOperationException("deleteWithResponse is not supported for this resource.");
+    }
 }

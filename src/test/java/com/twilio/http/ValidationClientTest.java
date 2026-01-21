@@ -185,15 +185,17 @@ public class ValidationClientTest {
     public void testIOExceptionHandling() throws Exception {
         // Set up a key pair for validation
         final KeyPair keyPair = generateKeyPair();
-        
+
         // Create a server that will immediately close the connection
         final MockWebServer server = new MockWebServer();
-        
+
+        // Get the URL before shutting down the server (mockwebserver 5.x behavior)
+        final HttpUrl url = server.url("/resource");
+
         // Force the server to shut down before making the request
         server.shutdown();
-        
+
         // Create a request to the closed server which will cause IOException
-        final HttpUrl url = server.url("/resource");
         final ValidationClient client = new ValidationClient(
             "AC123456789",
             "CR987654321",
@@ -201,7 +203,7 @@ public class ValidationClientTest {
             keyPair.getPrivate()
         );
         final Request request = new Request(HttpMethod.GET, url.url().toString());
-        
+
         // This should throw an ApiException wrapping the IOException
         client.makeRequest(request);
     }

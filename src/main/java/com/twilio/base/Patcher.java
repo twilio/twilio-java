@@ -47,4 +47,11 @@ public abstract class Patcher<T extends Resource> {
      * @return Requested object
      */
     public abstract T patch(final TwilioRestClient client);
+
+    public TwilioResponse<T> patchWithResponse() {
+        return patchWithResponse(Twilio.getRestClient());
+    }
+    public TwilioResponse<T> patchWithResponse(final TwilioRestClient client) {
+        throw new UnsupportedOperationException("patchWithResponse is not supported for this resource.");
+    }
 }

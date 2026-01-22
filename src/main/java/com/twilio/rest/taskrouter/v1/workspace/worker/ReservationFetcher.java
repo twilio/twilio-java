@@ -15,6 +15,7 @@
 package com.twilio.rest.taskrouter.v1.workspace.worker;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -41,8 +42,7 @@ public class ReservationFetcher extends Fetcher<Reservation> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Reservation fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}";
 
@@ -83,9 +83,31 @@ public class ReservationFetcher extends Fetcher<Reservation> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Reservation fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Reservation.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Reservation> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Reservation content = Reservation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

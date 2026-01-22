@@ -17,6 +17,8 @@ package com.twilio.rest.numbers.v2.regulatorycompliance;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -40,12 +42,30 @@ public class SupportingDocumentReader extends Reader<SupportingDocument> {
         return this;
     }
 
-    @Override
-    public ResourceSet<SupportingDocument> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<SupportingDocument> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SupportingDocument> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            SupportingDocument.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<SupportingDocument> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<SupportingDocument> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/SupportingDocuments";
 
         Request request = new Request(
@@ -54,11 +74,38 @@ public class SupportingDocumentReader extends Reader<SupportingDocument> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<SupportingDocument> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<SupportingDocument> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<SupportingDocument> pageForRequest(
+    public TwilioResponse<Page<SupportingDocument>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SupportingDocument> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            SupportingDocument.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -81,7 +128,14 @@ public class SupportingDocumentReader extends Reader<SupportingDocument> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<SupportingDocument> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "results",
             response.getContent(),

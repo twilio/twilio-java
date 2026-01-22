@@ -15,6 +15,7 @@
 package com.twilio.rest.chat.v2.service.channel;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -113,8 +114,7 @@ public class WebhookCreator extends Creator<Webhook> {
         return this;
     }
 
-    @Override
-    public Webhook create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks";
 
@@ -156,8 +156,29 @@ public class WebhookCreator extends Creator<Webhook> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Webhook create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Webhook> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Webhook content = Webhook.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

@@ -15,6 +15,7 @@
 package com.twilio.rest.numbers.v2;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -44,8 +45,7 @@ public class BulkHostedNumberOrderFetcher
         return this;
     }
 
-    @Override
-    public BulkHostedNumberOrder fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/HostedNumber/Orders/Bulk/{BulkHostingSid}";
 
         path =
@@ -80,9 +80,31 @@ public class BulkHostedNumberOrderFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public BulkHostedNumberOrder fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return BulkHostedNumberOrder.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<BulkHostedNumberOrder> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        BulkHostedNumberOrder content = BulkHostedNumberOrder.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

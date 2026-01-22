@@ -17,6 +17,8 @@ package com.twilio.rest.bulkexports.v1.export;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -43,12 +45,26 @@ public class DayReader extends Reader<Day> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Day> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Day> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Day> page = Page.fromJson(
+            "days",
+            response.getContent(),
+            Day.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Day> resourceSet = new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Day> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Exports/{ResourceType}/Days";
 
         path =
@@ -63,11 +79,38 @@ public class DayReader extends Reader<Day> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Day> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Day> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Day> pageForRequest(
+    public TwilioResponse<Page<Day>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Day> page = Page.fromJson(
+            "days",
+            response.getContent(),
+            Day.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -90,7 +133,14 @@ public class DayReader extends Reader<Day> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Day> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "days",
             response.getContent(),

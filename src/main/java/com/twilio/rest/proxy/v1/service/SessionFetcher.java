@@ -15,6 +15,7 @@
 package com.twilio.rest.proxy.v1.service;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -35,8 +36,7 @@ public class SessionFetcher extends Fetcher<Session> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Session fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Sessions/{Sid}";
 
         path =
@@ -71,6 +71,28 @@ public class SessionFetcher extends Fetcher<Session> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Session fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Session.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Session> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Session content = Session.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

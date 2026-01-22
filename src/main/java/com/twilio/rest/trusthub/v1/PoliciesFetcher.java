@@ -15,6 +15,7 @@
 package com.twilio.rest.trusthub.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class PoliciesFetcher extends Fetcher<Policies> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Policies fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Policies/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,9 +64,31 @@ public class PoliciesFetcher extends Fetcher<Policies> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Policies fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Policies.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Policies> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Policies content = Policies.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

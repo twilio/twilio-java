@@ -14,6 +14,7 @@
 
 package com.twilio.rest.sync.v1.service.syncmap;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -68,8 +69,7 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
         return this;
     }
 
-    @Override
-    public SyncMapPermission update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}";
 
@@ -109,10 +109,31 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SyncMapPermission update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SyncMapPermission.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<SyncMapPermission> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SyncMapPermission content = SyncMapPermission.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

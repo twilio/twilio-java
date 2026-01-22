@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -42,8 +43,7 @@ public class NotificationFetcher extends Fetcher<Notification> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Notification fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json";
 
@@ -83,9 +83,31 @@ public class NotificationFetcher extends Fetcher<Notification> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Notification fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Notification.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Notification> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Notification content = Notification.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

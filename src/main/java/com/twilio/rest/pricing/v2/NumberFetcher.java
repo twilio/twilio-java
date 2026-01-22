@@ -15,6 +15,7 @@
 package com.twilio.rest.pricing.v2;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -52,8 +53,7 @@ public class NumberFetcher extends Fetcher<Number> {
         );
     }
 
-    @Override
-    public Number fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Trunking/Numbers/{DestinationNumber}";
 
         path =
@@ -88,7 +88,29 @@ public class NumberFetcher extends Fetcher<Number> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Number fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Number.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Number> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Number content = Number.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addQueryParams(final Request request) {

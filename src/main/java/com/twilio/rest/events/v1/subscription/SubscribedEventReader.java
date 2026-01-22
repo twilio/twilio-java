@@ -17,6 +17,8 @@ package com.twilio.rest.events.v1.subscription;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -43,12 +45,30 @@ public class SubscribedEventReader extends Reader<SubscribedEvent> {
         return this;
     }
 
-    @Override
-    public ResourceSet<SubscribedEvent> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<SubscribedEvent> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SubscribedEvent> page = Page.fromJson(
+            "types",
+            response.getContent(),
+            SubscribedEvent.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<SubscribedEvent> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<SubscribedEvent> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents";
 
         path =
@@ -63,11 +83,38 @@ public class SubscribedEventReader extends Reader<SubscribedEvent> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<SubscribedEvent> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<SubscribedEvent> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<SubscribedEvent> pageForRequest(
+    public TwilioResponse<Page<SubscribedEvent>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SubscribedEvent> page = Page.fromJson(
+            "types",
+            response.getContent(),
+            SubscribedEvent.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -90,7 +137,14 @@ public class SubscribedEventReader extends Reader<SubscribedEvent> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<SubscribedEvent> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "types",
             response.getContent(),

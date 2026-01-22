@@ -17,6 +17,8 @@ package com.twilio.rest.studio.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -40,12 +42,26 @@ public class FlowReader extends Reader<Flow> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Flow> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Flow> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Flow> page = Page.fromJson(
+            "flows",
+            response.getContent(),
+            Flow.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Flow> resourceSet = new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Flow> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/Flows";
 
         Request request = new Request(
@@ -54,11 +70,38 @@ public class FlowReader extends Reader<Flow> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Flow> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Flow> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Flow> pageForRequest(
+    public TwilioResponse<Page<Flow>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Flow> page = Page.fromJson(
+            "flows",
+            response.getContent(),
+            Flow.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -81,7 +124,14 @@ public class FlowReader extends Reader<Flow> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Flow> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "flows",
             response.getContent(),

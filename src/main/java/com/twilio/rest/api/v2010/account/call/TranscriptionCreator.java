@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -48,6 +49,7 @@ public class TranscriptionCreator extends Creator<Transcription> {
     private String hints;
     private Boolean enableAutomaticPunctuation;
     private String intelligenceService;
+    private Boolean enableProviderData;
 
     public TranscriptionCreator(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -155,8 +157,14 @@ public class TranscriptionCreator extends Creator<Transcription> {
         return this;
     }
 
-    @Override
-    public Transcription create(final TwilioRestClient client) {
+    public TranscriptionCreator setEnableProviderData(
+        final Boolean enableProviderData
+    ) {
+        this.enableProviderData = enableProviderData;
+        return this;
+    }
+
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json";
 
@@ -198,10 +206,31 @@ public class TranscriptionCreator extends Creator<Transcription> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Transcription create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Transcription.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Transcription> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Transcription content = Transcription.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 
@@ -328,6 +357,15 @@ public class TranscriptionCreator extends Creator<Transcription> {
                 request,
                 "IntelligenceService",
                 intelligenceService,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (enableProviderData != null) {
+            Serializer.toString(
+                request,
+                "EnableProviderData",
+                enableProviderData,
                 ParameterType.URLENCODED
             );
         }

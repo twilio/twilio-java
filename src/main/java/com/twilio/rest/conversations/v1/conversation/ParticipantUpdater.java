@@ -14,6 +14,7 @@
 
 package com.twilio.rest.conversations.v1.conversation;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -113,8 +114,7 @@ public class ParticipantUpdater extends Updater<Participant> {
         return this;
     }
 
-    @Override
-    public Participant update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Conversations/{ConversationSid}/Participants/{Sid}";
 
         path =
@@ -152,10 +152,31 @@ public class ParticipantUpdater extends Updater<Participant> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Participant update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Participant.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Participant> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Participant content = Participant.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

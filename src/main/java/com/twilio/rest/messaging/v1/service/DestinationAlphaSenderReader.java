@@ -17,6 +17,8 @@ package com.twilio.rest.messaging.v1.service;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -52,16 +54,30 @@ public class DestinationAlphaSenderReader
         return this;
     }
 
-    @Override
-    public ResourceSet<DestinationAlphaSender> read(
+    public ResourceSetResponse<DestinationAlphaSender> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<DestinationAlphaSender> page = Page.fromJson(
+            "alpha_senders",
+            response.getContent(),
+            DestinationAlphaSender.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<DestinationAlphaSender> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<DestinationAlphaSender> firstPage(
-        final TwilioRestClient client
-    ) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/DestinationAlphaSenders";
 
         path =
@@ -76,11 +92,42 @@ public class DestinationAlphaSenderReader
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<DestinationAlphaSender> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<DestinationAlphaSender> firstPage(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<DestinationAlphaSender> pageForRequest(
+    public TwilioResponse<Page<DestinationAlphaSender>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<DestinationAlphaSender> page = Page.fromJson(
+            "alpha_senders",
+            response.getContent(),
+            DestinationAlphaSender.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -103,7 +150,14 @@ public class DestinationAlphaSenderReader
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<DestinationAlphaSender> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "alpha_senders",
             response.getContent(),

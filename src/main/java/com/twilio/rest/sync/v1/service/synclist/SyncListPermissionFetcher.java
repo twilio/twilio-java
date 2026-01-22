@@ -15,6 +15,7 @@
 package com.twilio.rest.sync.v1.service.synclist;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -41,8 +42,7 @@ public class SyncListPermissionFetcher extends Fetcher<SyncListPermission> {
         this.pathIdentity = pathIdentity;
     }
 
-    @Override
-    public SyncListPermission fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
 
@@ -80,9 +80,31 @@ public class SyncListPermissionFetcher extends Fetcher<SyncListPermission> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public SyncListPermission fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SyncListPermission.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<SyncListPermission> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SyncListPermission content = SyncListPermission.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

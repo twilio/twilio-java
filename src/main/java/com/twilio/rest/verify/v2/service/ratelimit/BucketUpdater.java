@@ -14,6 +14,7 @@
 
 package com.twilio.rest.verify.v2.service.ratelimit;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -56,8 +57,7 @@ public class BucketUpdater extends Updater<Bucket> {
         return this;
     }
 
-    @Override
-    public Bucket update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}";
 
@@ -100,8 +100,29 @@ public class BucketUpdater extends Updater<Bucket> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Bucket update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Bucket.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Bucket> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Bucket content = Bucket.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

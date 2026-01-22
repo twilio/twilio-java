@@ -15,6 +15,7 @@
 package com.twilio.rest.sync.v1.service.syncstream;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -49,8 +50,7 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
         return this;
     }
 
-    @Override
-    public StreamMessage create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages";
 
         path =
@@ -91,10 +91,31 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public StreamMessage create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return StreamMessage.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<StreamMessage> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        StreamMessage content = StreamMessage.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

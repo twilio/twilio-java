@@ -14,6 +14,7 @@
 
 package com.twilio.rest.flexapi.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -52,8 +53,7 @@ public class WebChannelUpdater extends Updater<WebChannel> {
         return this;
     }
 
-    @Override
-    public WebChannel update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/WebChannels/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -85,10 +85,31 @@ public class WebChannelUpdater extends Updater<WebChannel> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public WebChannel update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return WebChannel.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<WebChannel> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        WebChannel content = WebChannel.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

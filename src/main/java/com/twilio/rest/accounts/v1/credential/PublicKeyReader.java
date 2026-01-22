@@ -17,6 +17,8 @@ package com.twilio.rest.accounts.v1.credential;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -40,12 +42,30 @@ public class PublicKeyReader extends Reader<PublicKey> {
         return this;
     }
 
-    @Override
-    public ResourceSet<PublicKey> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<PublicKey> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<PublicKey> page = Page.fromJson(
+            "credentials",
+            response.getContent(),
+            PublicKey.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<PublicKey> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<PublicKey> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Credentials/PublicKeys";
 
         Request request = new Request(
@@ -54,11 +74,38 @@ public class PublicKeyReader extends Reader<PublicKey> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<PublicKey> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<PublicKey> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<PublicKey> pageForRequest(
+    public TwilioResponse<Page<PublicKey>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<PublicKey> page = Page.fromJson(
+            "credentials",
+            response.getContent(),
+            PublicKey.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -81,7 +128,14 @@ public class PublicKeyReader extends Reader<PublicKey> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<PublicKey> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "credentials",
             response.getContent(),

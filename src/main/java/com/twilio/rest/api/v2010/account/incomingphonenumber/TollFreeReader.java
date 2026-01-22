@@ -17,6 +17,8 @@ package com.twilio.rest.api.v2010.account.incomingphonenumber;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -76,12 +78,30 @@ public class TollFreeReader extends Reader<TollFree> {
         return this;
     }
 
-    @Override
-    public ResourceSet<TollFree> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<TollFree> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TollFree> page = Page.fromJson(
+            "incoming_phone_numbers",
+            response.getContent(),
+            TollFree.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<TollFree> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<TollFree> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json";
 
@@ -101,11 +121,38 @@ public class TollFreeReader extends Reader<TollFree> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<TollFree> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<TollFree> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<TollFree> pageForRequest(
+    public TwilioResponse<Page<TollFree>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TollFree> page = Page.fromJson(
+            "incoming_phone_numbers",
+            response.getContent(),
+            TollFree.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -128,7 +175,14 @@ public class TollFreeReader extends Reader<TollFree> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<TollFree> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "incoming_phone_numbers",
             response.getContent(),

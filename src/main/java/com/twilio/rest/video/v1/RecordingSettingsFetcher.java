@@ -15,6 +15,7 @@
 package com.twilio.rest.video.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,8 +30,7 @@ public class RecordingSettingsFetcher extends Fetcher<RecordingSettings> {
 
     public RecordingSettingsFetcher() {}
 
-    @Override
-    public RecordingSettings fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/RecordingSettings/Default";
 
         Request request = new Request(
@@ -58,9 +58,31 @@ public class RecordingSettingsFetcher extends Fetcher<RecordingSettings> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public RecordingSettings fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return RecordingSettings.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<RecordingSettings> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        RecordingSettings content = RecordingSettings.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

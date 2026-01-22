@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -40,8 +41,7 @@ public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
         return this;
     }
 
-    @Override
-    public InsightsUserRoles fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Insights/UserRoles";
 
         Request request = new Request(
@@ -70,9 +70,31 @@ public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public InsightsUserRoles fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return InsightsUserRoles.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<InsightsUserRoles> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        InsightsUserRoles content = InsightsUserRoles.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

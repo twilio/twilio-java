@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.incomingphonenumber.assignedaddon;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -55,8 +56,7 @@ public class AssignedAddOnExtensionFetcher
         this.pathSid = pathSid;
     }
 
-    @Override
-    public AssignedAddOnExtension fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json";
 
@@ -106,9 +106,31 @@ public class AssignedAddOnExtensionFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public AssignedAddOnExtension fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return AssignedAddOnExtension.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<AssignedAddOnExtension> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        AssignedAddOnExtension content = AssignedAddOnExtension.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

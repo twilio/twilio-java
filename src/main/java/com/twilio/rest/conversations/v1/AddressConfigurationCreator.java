@@ -15,6 +15,7 @@
 package com.twilio.rest.conversations.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -144,8 +145,7 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration> {
         return this;
     }
 
-    @Override
-    public AddressConfiguration create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Configuration/Addresses";
 
         Request request = new Request(
@@ -175,10 +175,31 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public AddressConfiguration create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return AddressConfiguration.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<AddressConfiguration> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        AddressConfiguration content = AddressConfiguration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

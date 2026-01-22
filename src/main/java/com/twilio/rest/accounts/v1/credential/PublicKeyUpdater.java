@@ -14,6 +14,7 @@
 
 package com.twilio.rest.accounts.v1.credential;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -42,8 +43,7 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
         return this;
     }
 
-    @Override
-    public PublicKey update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Credentials/PublicKeys/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -75,10 +75,31 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public PublicKey update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PublicKey.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<PublicKey> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PublicKey content = PublicKey.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

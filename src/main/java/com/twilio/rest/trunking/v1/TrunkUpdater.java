@@ -14,6 +14,7 @@
 
 package com.twilio.rest.trunking.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -100,8 +101,7 @@ public class TrunkUpdater extends Updater<Trunk> {
         return this;
     }
 
-    @Override
-    public Trunk update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -133,8 +133,29 @@ public class TrunkUpdater extends Updater<Trunk> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Trunk update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Trunk.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Trunk> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Trunk content = Trunk.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

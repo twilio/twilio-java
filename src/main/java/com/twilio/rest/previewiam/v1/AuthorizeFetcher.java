@@ -16,6 +16,7 @@ package com.twilio.rest.previewiam.v1;
 
 import com.twilio.auth_strategy.NoAuthStrategy;
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -63,8 +64,7 @@ public class AuthorizeFetcher extends Fetcher<Authorize> {
         return this;
     }
 
-    @Override
-    public Authorize fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/authorize";
 
         Request request = new Request(
@@ -94,9 +94,31 @@ public class AuthorizeFetcher extends Fetcher<Authorize> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Authorize fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Authorize.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Authorize> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Authorize content = Authorize.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

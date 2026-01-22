@@ -15,6 +15,7 @@
 package com.twilio.rest.sync.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -54,8 +55,7 @@ public class DocumentCreator extends Creator<Document> {
         return this;
     }
 
-    @Override
-    public Document create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Documents";
 
         path =
@@ -91,10 +91,31 @@ public class DocumentCreator extends Creator<Document> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Document create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Document.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Document> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Document content = Document.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

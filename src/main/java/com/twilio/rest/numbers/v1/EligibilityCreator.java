@@ -16,6 +16,7 @@ package com.twilio.rest.numbers.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -38,8 +39,7 @@ public class EligibilityCreator extends Creator<Eligibility> {
         return this;
     }
 
-    @Override
-    public Eligibility create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/HostedNumber/Eligibility";
 
         Request request = new Request(
@@ -69,10 +69,31 @@ public class EligibilityCreator extends Creator<Eligibility> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Eligibility create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Eligibility.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Eligibility> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Eligibility content = Eligibility.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

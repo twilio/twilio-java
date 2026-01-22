@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.usage;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -39,8 +40,7 @@ public class TriggerFetcher extends Fetcher<Trigger> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Trigger fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json";
 
@@ -80,6 +80,28 @@ public class TriggerFetcher extends Fetcher<Trigger> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Trigger fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Trigger.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Trigger> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Trigger content = Trigger.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

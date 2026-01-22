@@ -17,6 +17,8 @@ package com.twilio.rest.content.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -40,12 +42,30 @@ public class LegacyContentReader extends Reader<LegacyContent> {
         return this;
     }
 
-    @Override
-    public ResourceSet<LegacyContent> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<LegacyContent> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<LegacyContent> page = Page.fromJson(
+            "contents",
+            response.getContent(),
+            LegacyContent.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<LegacyContent> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<LegacyContent> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/LegacyContent";
 
         Request request = new Request(
@@ -54,11 +74,38 @@ public class LegacyContentReader extends Reader<LegacyContent> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<LegacyContent> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<LegacyContent> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<LegacyContent> pageForRequest(
+    public TwilioResponse<Page<LegacyContent>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<LegacyContent> page = Page.fromJson(
+            "contents",
+            response.getContent(),
+            LegacyContent.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -81,7 +128,14 @@ public class LegacyContentReader extends Reader<LegacyContent> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<LegacyContent> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "contents",
             response.getContent(),

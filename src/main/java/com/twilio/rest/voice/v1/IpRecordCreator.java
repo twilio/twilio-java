@@ -15,6 +15,7 @@
 package com.twilio.rest.voice.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -53,8 +54,7 @@ public class IpRecordCreator extends Creator<IpRecord> {
         return this;
     }
 
-    @Override
-    public IpRecord create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/IpRecords";
 
         Request request = new Request(
@@ -84,10 +84,31 @@ public class IpRecordCreator extends Creator<IpRecord> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public IpRecord create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return IpRecord.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<IpRecord> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        IpRecord content = IpRecord.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

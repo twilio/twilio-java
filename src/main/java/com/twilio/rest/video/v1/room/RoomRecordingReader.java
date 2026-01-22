@@ -17,6 +17,8 @@ package com.twilio.rest.video.v1.room;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -72,12 +74,30 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
         return this;
     }
 
-    @Override
-    public ResourceSet<RoomRecording> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<RoomRecording> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<RoomRecording> page = Page.fromJson(
+            "recordings",
+            response.getContent(),
+            RoomRecording.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<RoomRecording> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<RoomRecording> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Rooms/{RoomSid}/Recordings";
 
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
@@ -88,11 +108,38 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<RoomRecording> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<RoomRecording> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<RoomRecording> pageForRequest(
+    public TwilioResponse<Page<RoomRecording>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<RoomRecording> page = Page.fromJson(
+            "recordings",
+            response.getContent(),
+            RoomRecording.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -115,7 +162,14 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<RoomRecording> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "recordings",
             response.getContent(),

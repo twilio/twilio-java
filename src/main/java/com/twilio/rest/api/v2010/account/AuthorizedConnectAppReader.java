@@ -17,6 +17,8 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -45,14 +47,30 @@ public class AuthorizedConnectAppReader extends Reader<AuthorizedConnectApp> {
         return this;
     }
 
-    @Override
-    public ResourceSet<AuthorizedConnectApp> read(
+    public ResourceSetResponse<AuthorizedConnectApp> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AuthorizedConnectApp> page = Page.fromJson(
+            "authorized_connect_apps",
+            response.getContent(),
+            AuthorizedConnectApp.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<AuthorizedConnectApp> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<AuthorizedConnectApp> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json";
 
@@ -72,11 +90,40 @@ public class AuthorizedConnectAppReader extends Reader<AuthorizedConnectApp> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<AuthorizedConnectApp> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<AuthorizedConnectApp> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<AuthorizedConnectApp> pageForRequest(
+    public TwilioResponse<Page<AuthorizedConnectApp>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AuthorizedConnectApp> page = Page.fromJson(
+            "authorized_connect_apps",
+            response.getContent(),
+            AuthorizedConnectApp.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -99,7 +146,14 @@ public class AuthorizedConnectAppReader extends Reader<AuthorizedConnectApp> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<AuthorizedConnectApp> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "authorized_connect_apps",
             response.getContent(),

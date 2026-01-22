@@ -14,6 +14,7 @@
 
 package com.twilio.rest.flexapi.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -44,8 +45,7 @@ public class PluginConfigurationArchiveUpdater
         return this;
     }
 
-    @Override
-    public PluginConfigurationArchive update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/PluginService/Configurations/{Sid}/Archive";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -76,10 +76,32 @@ public class PluginConfigurationArchiveUpdater
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public PluginConfigurationArchive update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PluginConfigurationArchive.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<PluginConfigurationArchive> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PluginConfigurationArchive content =
+            PluginConfigurationArchive.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

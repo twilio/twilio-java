@@ -17,6 +17,8 @@ package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -43,12 +45,30 @@ public class EvaluationReader extends Reader<Evaluation> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Evaluation> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Evaluation> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Evaluation> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            Evaluation.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Evaluation> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Evaluation> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations";
 
@@ -64,11 +84,38 @@ public class EvaluationReader extends Reader<Evaluation> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Evaluation> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Evaluation> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Evaluation> pageForRequest(
+    public TwilioResponse<Page<Evaluation>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Evaluation> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            Evaluation.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -91,7 +138,14 @@ public class EvaluationReader extends Reader<Evaluation> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Evaluation> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "results",
             response.getContent(),

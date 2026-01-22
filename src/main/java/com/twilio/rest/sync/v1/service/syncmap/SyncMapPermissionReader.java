@@ -17,6 +17,8 @@ package com.twilio.rest.sync.v1.service.syncmap;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -48,12 +50,30 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
         return this;
     }
 
-    @Override
-    public ResourceSet<SyncMapPermission> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<SyncMapPermission> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SyncMapPermission> page = Page.fromJson(
+            "permissions",
+            response.getContent(),
+            SyncMapPermission.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<SyncMapPermission> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<SyncMapPermission> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions";
 
         path =
@@ -69,11 +89,38 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<SyncMapPermission> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<SyncMapPermission> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<SyncMapPermission> pageForRequest(
+    public TwilioResponse<Page<SyncMapPermission>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SyncMapPermission> page = Page.fromJson(
+            "permissions",
+            response.getContent(),
+            SyncMapPermission.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -96,7 +143,14 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<SyncMapPermission> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "permissions",
             response.getContent(),

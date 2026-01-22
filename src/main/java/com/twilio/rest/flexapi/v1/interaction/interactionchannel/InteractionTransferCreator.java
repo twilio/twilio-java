@@ -16,6 +16,7 @@ package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -46,8 +47,7 @@ public class InteractionTransferCreator extends Creator<InteractionTransfer> {
         return this;
     }
 
-    @Override
-    public InteractionTransfer create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers";
 
@@ -89,10 +89,31 @@ public class InteractionTransferCreator extends Creator<InteractionTransfer> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public InteractionTransfer create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return InteractionTransfer.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<InteractionTransfer> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        InteractionTransfer content = InteractionTransfer.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

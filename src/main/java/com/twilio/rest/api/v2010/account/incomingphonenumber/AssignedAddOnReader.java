@@ -17,6 +17,8 @@ package com.twilio.rest.api.v2010.account.incomingphonenumber;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -52,12 +54,30 @@ public class AssignedAddOnReader extends Reader<AssignedAddOn> {
         return this;
     }
 
-    @Override
-    public ResourceSet<AssignedAddOn> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<AssignedAddOn> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AssignedAddOn> page = Page.fromJson(
+            "assigned_add_ons",
+            response.getContent(),
+            AssignedAddOn.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<AssignedAddOn> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<AssignedAddOn> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json";
 
@@ -82,11 +102,38 @@ public class AssignedAddOnReader extends Reader<AssignedAddOn> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<AssignedAddOn> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<AssignedAddOn> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<AssignedAddOn> pageForRequest(
+    public TwilioResponse<Page<AssignedAddOn>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AssignedAddOn> page = Page.fromJson(
+            "assigned_add_ons",
+            response.getContent(),
+            AssignedAddOn.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -109,7 +156,14 @@ public class AssignedAddOnReader extends Reader<AssignedAddOn> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<AssignedAddOn> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "assigned_add_ons",
             response.getContent(),

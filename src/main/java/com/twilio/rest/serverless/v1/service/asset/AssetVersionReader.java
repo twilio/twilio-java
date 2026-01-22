@@ -17,6 +17,8 @@ package com.twilio.rest.serverless.v1.service.asset;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -48,12 +50,30 @@ public class AssetVersionReader extends Reader<AssetVersion> {
         return this;
     }
 
-    @Override
-    public ResourceSet<AssetVersion> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<AssetVersion> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AssetVersion> page = Page.fromJson(
+            "asset_versions",
+            response.getContent(),
+            AssetVersion.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<AssetVersion> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<AssetVersion> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions";
 
         path =
@@ -70,11 +90,38 @@ public class AssetVersionReader extends Reader<AssetVersion> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<AssetVersion> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<AssetVersion> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<AssetVersion> pageForRequest(
+    public TwilioResponse<Page<AssetVersion>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AssetVersion> page = Page.fromJson(
+            "asset_versions",
+            response.getContent(),
+            AssetVersion.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -97,7 +144,14 @@ public class AssetVersionReader extends Reader<AssetVersion> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<AssetVersion> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "asset_versions",
             response.getContent(),

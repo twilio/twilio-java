@@ -15,6 +15,7 @@
 package com.twilio.rest.notify.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -168,8 +169,7 @@ public class NotificationCreator extends Creator<Notification> {
         return setTag(Promoter.listOfOne(tag));
     }
 
-    @Override
-    public Notification create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Notifications";
 
         path =
@@ -205,10 +205,31 @@ public class NotificationCreator extends Creator<Notification> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Notification create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Notification.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Notification> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Notification content = Notification.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

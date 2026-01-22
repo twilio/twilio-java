@@ -14,6 +14,7 @@
 
 package com.twilio.rest.preview.wireless;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -48,8 +49,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
         return this;
     }
 
-    @Override
-    public RatePlan update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/wireless/RatePlans/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -81,10 +81,31 @@ public class RatePlanUpdater extends Updater<RatePlan> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public RatePlan update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return RatePlan.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<RatePlan> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        RatePlan content = RatePlan.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

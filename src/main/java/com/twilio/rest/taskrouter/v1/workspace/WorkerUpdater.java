@@ -14,6 +14,7 @@
 
 package com.twilio.rest.taskrouter.v1.workspace;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -70,8 +71,7 @@ public class WorkerUpdater extends Updater<Worker> {
         return this;
     }
 
-    @Override
-    public Worker update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}";
 
         path =
@@ -109,8 +109,29 @@ public class WorkerUpdater extends Updater<Worker> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Worker update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Worker.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Worker> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Worker content = Worker.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

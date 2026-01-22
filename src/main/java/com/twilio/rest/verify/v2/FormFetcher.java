@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class FormFetcher extends Fetcher<Form> {
         this.pathFormType = pathFormType;
     }
 
-    @Override
-    public Form fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Forms/{FormType}";
 
         path =
@@ -65,6 +65,28 @@ public class FormFetcher extends Fetcher<Form> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Form fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Form.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Form> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Form content = Form.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

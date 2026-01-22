@@ -14,6 +14,7 @@
 
 package com.twilio.rest.voice.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -42,8 +43,7 @@ public class IpRecordUpdater extends Updater<IpRecord> {
         return this;
     }
 
-    @Override
-    public IpRecord update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/IpRecords/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -75,10 +75,31 @@ public class IpRecordUpdater extends Updater<IpRecord> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public IpRecord update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return IpRecord.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<IpRecord> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        IpRecord content = IpRecord.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.flexapi.v2;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -59,8 +60,7 @@ public class FlexUserUpdater extends Updater<FlexUser> {
         return this;
     }
 
-    @Override
-    public FlexUser update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Instances/{InstanceSid}/Users/{FlexUserSid}";
 
         path =
@@ -101,10 +101,31 @@ public class FlexUserUpdater extends Updater<FlexUser> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public FlexUser update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return FlexUser.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<FlexUser> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        FlexUser content = FlexUser.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

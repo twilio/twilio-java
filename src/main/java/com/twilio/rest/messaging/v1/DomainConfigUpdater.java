@@ -14,6 +14,7 @@
 
 package com.twilio.rest.messaging.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -72,8 +73,7 @@ public class DomainConfigUpdater extends Updater<DomainConfig> {
         return this;
     }
 
-    @Override
-    public DomainConfig update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
 
         path =
@@ -109,10 +109,31 @@ public class DomainConfigUpdater extends Updater<DomainConfig> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public DomainConfig update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return DomainConfig.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<DomainConfig> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        DomainConfig content = DomainConfig.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

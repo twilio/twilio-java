@@ -14,6 +14,7 @@
 
 package com.twilio.rest.voice.v1.connectionpolicy;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -80,8 +81,7 @@ public class ConnectionPolicyTargetUpdater
         return this;
     }
 
-    @Override
-    public ConnectionPolicyTarget update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
@@ -119,10 +119,31 @@ public class ConnectionPolicyTargetUpdater
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ConnectionPolicyTarget update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ConnectionPolicyTarget.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ConnectionPolicyTarget> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ConnectionPolicyTarget content = ConnectionPolicyTarget.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

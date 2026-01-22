@@ -17,6 +17,8 @@ package com.twilio.rest.taskrouter.v1.workspace;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -69,12 +71,30 @@ public class TaskQueueReader extends Reader<TaskQueue> {
         return this;
     }
 
-    @Override
-    public ResourceSet<TaskQueue> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<TaskQueue> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TaskQueue> page = Page.fromJson(
+            "task_queues",
+            response.getContent(),
+            TaskQueue.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<TaskQueue> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<TaskQueue> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues";
 
         path =
@@ -89,11 +109,38 @@ public class TaskQueueReader extends Reader<TaskQueue> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<TaskQueue> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<TaskQueue> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<TaskQueue> pageForRequest(
+    public TwilioResponse<Page<TaskQueue>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TaskQueue> page = Page.fromJson(
+            "task_queues",
+            response.getContent(),
+            TaskQueue.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -116,7 +163,14 @@ public class TaskQueueReader extends Reader<TaskQueue> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<TaskQueue> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "task_queues",
             response.getContent(),

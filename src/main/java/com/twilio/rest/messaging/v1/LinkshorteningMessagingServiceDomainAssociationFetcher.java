@@ -15,6 +15,7 @@
 package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -36,10 +37,7 @@ public class LinkshorteningMessagingServiceDomainAssociationFetcher
         this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
-    @Override
-    public LinkshorteningMessagingServiceDomainAssociation fetch(
-        final TwilioRestClient client
-    ) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/LinkShortening/MessagingServices/{MessagingServiceSid}/Domain";
 
@@ -74,9 +72,34 @@ public class LinkshorteningMessagingServiceDomainAssociationFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public LinkshorteningMessagingServiceDomainAssociation fetch(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
         return LinkshorteningMessagingServiceDomainAssociation.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<
+        LinkshorteningMessagingServiceDomainAssociation
+    > fetchWithResponse(final TwilioRestClient client) {
+        Response response = makeRequest(client);
+        LinkshorteningMessagingServiceDomainAssociation content =
+            LinkshorteningMessagingServiceDomainAssociation.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

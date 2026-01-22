@@ -14,6 +14,7 @@
 
 package com.twilio.rest.marketplace.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -84,8 +85,7 @@ public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
         return this;
     }
 
-    @Override
-    public ModuleDataManagement update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Listing/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -117,10 +117,31 @@ public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ModuleDataManagement update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ModuleDataManagement.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ModuleDataManagement> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ModuleDataManagement content = ModuleDataManagement.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

@@ -17,6 +17,8 @@ package com.twilio.rest.api.v2010.account.availablephonenumbercountry;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -173,12 +175,26 @@ public class VoipReader extends Reader<Voip> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Voip> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Voip> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Voip> page = Page.fromJson(
+            "available_phone_numbers",
+            response.getContent(),
+            Voip.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Voip> resourceSet = new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Voip> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json";
 
@@ -203,11 +219,38 @@ public class VoipReader extends Reader<Voip> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Voip> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Voip> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Voip> pageForRequest(
+    public TwilioResponse<Page<Voip>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Voip> page = Page.fromJson(
+            "available_phone_numbers",
+            response.getContent(),
+            Voip.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -230,7 +273,14 @@ public class VoipReader extends Reader<Voip> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Voip> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "available_phone_numbers",
             response.getContent(),

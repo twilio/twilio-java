@@ -14,6 +14,7 @@
 
 package com.twilio.rest.accounts.v1.credential;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -42,8 +43,7 @@ public class AwsUpdater extends Updater<Aws> {
         return this;
     }
 
-    @Override
-    public Aws update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Credentials/AWS/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -75,8 +75,29 @@ public class AwsUpdater extends Updater<Aws> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Aws update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Aws.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Aws> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Aws content = Aws.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

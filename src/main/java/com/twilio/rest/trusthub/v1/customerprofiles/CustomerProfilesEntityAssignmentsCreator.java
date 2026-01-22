@@ -15,6 +15,7 @@
 package com.twilio.rest.trusthub.v1.customerprofiles;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -49,10 +50,7 @@ public class CustomerProfilesEntityAssignmentsCreator
         return this;
     }
 
-    @Override
-    public CustomerProfilesEntityAssignments create(
-        final TwilioRestClient client
-    ) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments";
 
@@ -89,10 +87,34 @@ public class CustomerProfilesEntityAssignmentsCreator
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public CustomerProfilesEntityAssignments create(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
         return CustomerProfilesEntityAssignments.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<CustomerProfilesEntityAssignments> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        CustomerProfilesEntityAssignments content =
+            CustomerProfilesEntityAssignments.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

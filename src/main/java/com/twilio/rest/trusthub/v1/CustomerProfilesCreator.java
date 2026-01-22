@@ -15,6 +15,7 @@
 package com.twilio.rest.trusthub.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -73,8 +74,7 @@ public class CustomerProfilesCreator extends Creator<CustomerProfiles> {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
 
-    @Override
-    public CustomerProfiles create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/CustomerProfiles";
 
         Request request = new Request(
@@ -104,10 +104,31 @@ public class CustomerProfilesCreator extends Creator<CustomerProfiles> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public CustomerProfiles create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return CustomerProfiles.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<CustomerProfiles> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        CustomerProfiles content = CustomerProfiles.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

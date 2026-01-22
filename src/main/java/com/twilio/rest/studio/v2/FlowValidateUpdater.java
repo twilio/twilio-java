@@ -14,6 +14,7 @@
 
 package com.twilio.rest.studio.v2;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -65,8 +66,7 @@ public class FlowValidateUpdater extends Updater<FlowValidate> {
         return this;
     }
 
-    @Override
-    public FlowValidate update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Flows/Validate";
 
         Request request = new Request(
@@ -96,10 +96,31 @@ public class FlowValidateUpdater extends Updater<FlowValidate> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public FlowValidate update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return FlowValidate.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<FlowValidate> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        FlowValidate content = FlowValidate.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

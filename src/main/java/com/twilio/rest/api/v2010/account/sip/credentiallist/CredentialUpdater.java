@@ -14,6 +14,7 @@
 
 package com.twilio.rest.api.v2010.account.sip.credentiallist;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -58,8 +59,7 @@ public class CredentialUpdater extends Updater<Credential> {
         return this;
     }
 
-    @Override
-    public Credential update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json";
 
@@ -106,10 +106,31 @@ public class CredentialUpdater extends Updater<Credential> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Credential update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Credential.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Credential> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Credential content = Credential.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

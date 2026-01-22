@@ -15,6 +15,7 @@
 package com.twilio.rest.content.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -47,8 +48,7 @@ public class ContentUpdater extends Updater<Content> {
         return this;
     }
 
-    @Override
-    public Content update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Content/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -80,8 +80,29 @@ public class ContentUpdater extends Updater<Content> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Content update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Content.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Content> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Content content = Content.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {

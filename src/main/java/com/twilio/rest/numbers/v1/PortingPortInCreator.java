@@ -16,6 +16,7 @@ package com.twilio.rest.numbers.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -44,8 +45,7 @@ public class PortingPortInCreator extends Creator<PortingPortIn> {
         return this;
     }
 
-    @Override
-    public PortingPortIn create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Porting/PortIn";
 
         Request request = new Request(
@@ -75,10 +75,31 @@ public class PortingPortInCreator extends Creator<PortingPortIn> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public PortingPortIn create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PortingPortIn.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<PortingPortIn> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PortingPortIn content = PortingPortIn.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

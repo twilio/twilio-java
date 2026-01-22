@@ -17,6 +17,8 @@ package com.twilio.rest.numbers.v2.authorizationdocument;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -85,16 +87,30 @@ public class DependentHostedNumberOrderReader
         return this;
     }
 
-    @Override
-    public ResourceSet<DependentHostedNumberOrder> read(
+    public ResourceSetResponse<DependentHostedNumberOrder> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<DependentHostedNumberOrder> page = Page.fromJson(
+            "items",
+            response.getContent(),
+            DependentHostedNumberOrder.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<DependentHostedNumberOrder> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<DependentHostedNumberOrder> firstPage(
-        final TwilioRestClient client
-    ) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v2/HostedNumber/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders";
 
@@ -110,11 +126,42 @@ public class DependentHostedNumberOrderReader
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<DependentHostedNumberOrder> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<DependentHostedNumberOrder> firstPage(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<DependentHostedNumberOrder> pageForRequest(
+    public TwilioResponse<
+        Page<DependentHostedNumberOrder>
+    > firstPageWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<DependentHostedNumberOrder> page = Page.fromJson(
+            "items",
+            response.getContent(),
+            DependentHostedNumberOrder.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -137,7 +184,14 @@ public class DependentHostedNumberOrderReader
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<DependentHostedNumberOrder> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "items",
             response.getContent(),

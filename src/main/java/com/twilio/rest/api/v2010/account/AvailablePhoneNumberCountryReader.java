@@ -17,6 +17,8 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -46,16 +48,27 @@ public class AvailablePhoneNumberCountryReader
         return this;
     }
 
-    @Override
-    public ResourceSet<AvailablePhoneNumberCountry> read(
+    public ResourceSetResponse<AvailablePhoneNumberCountry> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AvailablePhoneNumberCountry> page = Page.fromJson(
+            "countries",
+            response.getContent(),
+            AvailablePhoneNumberCountry.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<AvailablePhoneNumberCountry> resourceSet =
+            new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<AvailablePhoneNumberCountry> firstPage(
-        final TwilioRestClient client
-    ) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json";
 
@@ -75,11 +88,42 @@ public class AvailablePhoneNumberCountryReader
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<AvailablePhoneNumberCountry> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<AvailablePhoneNumberCountry> firstPage(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<AvailablePhoneNumberCountry> pageForRequest(
+    public TwilioResponse<
+        Page<AvailablePhoneNumberCountry>
+    > firstPageWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AvailablePhoneNumberCountry> page = Page.fromJson(
+            "countries",
+            response.getContent(),
+            AvailablePhoneNumberCountry.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -102,7 +146,14 @@ public class AvailablePhoneNumberCountryReader
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<AvailablePhoneNumberCountry> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "countries",
             response.getContent(),

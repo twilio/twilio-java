@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -42,8 +43,7 @@ public class IncomingPhoneNumberFetcher extends Fetcher<IncomingPhoneNumber> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public IncomingPhoneNumber fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json";
 
@@ -83,9 +83,31 @@ public class IncomingPhoneNumberFetcher extends Fetcher<IncomingPhoneNumber> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public IncomingPhoneNumber fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return IncomingPhoneNumber.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<IncomingPhoneNumber> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        IncomingPhoneNumber content = IncomingPhoneNumber.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

@@ -15,6 +15,7 @@
 package com.twilio.rest.voice.v1.dialingpermissions;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,8 +30,7 @@ public class SettingsFetcher extends Fetcher<Settings> {
 
     public SettingsFetcher() {}
 
-    @Override
-    public Settings fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Settings";
 
         Request request = new Request(
@@ -58,9 +58,31 @@ public class SettingsFetcher extends Fetcher<Settings> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Settings fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Settings.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Settings> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Settings content = Settings.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

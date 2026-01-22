@@ -15,6 +15,7 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class EndUserTypeFetcher extends Fetcher<EndUserType> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public EndUserType fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/EndUserTypes/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,9 +64,31 @@ public class EndUserTypeFetcher extends Fetcher<EndUserType> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public EndUserType fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return EndUserType.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<EndUserType> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        EndUserType content = EndUserType.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1.plugin;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -46,8 +47,7 @@ public class PluginVersionsFetcher extends Fetcher<PluginVersions> {
         return this;
     }
 
-    @Override
-    public PluginVersions fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/PluginService/Plugins/{PluginSid}/Versions/{Sid}";
 
         path =
@@ -83,9 +83,31 @@ public class PluginVersionsFetcher extends Fetcher<PluginVersions> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public PluginVersions fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PluginVersions.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<PluginVersions> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PluginVersions content = PluginVersions.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

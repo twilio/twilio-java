@@ -17,6 +17,8 @@ package com.twilio.rest.numbers.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -74,12 +76,30 @@ public class PortingAllPortInReader extends Reader<PortingAllPortIn> {
         return this;
     }
 
-    @Override
-    public ResourceSet<PortingAllPortIn> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<PortingAllPortIn> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<PortingAllPortIn> page = Page.fromJson(
+            "port_in_requests",
+            response.getContent(),
+            PortingAllPortIn.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<PortingAllPortIn> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<PortingAllPortIn> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Porting/PortIn/PortInRequests";
 
         Request request = new Request(
@@ -88,11 +108,38 @@ public class PortingAllPortInReader extends Reader<PortingAllPortIn> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<PortingAllPortIn> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<PortingAllPortIn> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<PortingAllPortIn> pageForRequest(
+    public TwilioResponse<Page<PortingAllPortIn>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<PortingAllPortIn> page = Page.fromJson(
+            "port_in_requests",
+            response.getContent(),
+            PortingAllPortIn.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -115,7 +162,14 @@ public class PortingAllPortInReader extends Reader<PortingAllPortIn> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<PortingAllPortIn> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "port_in_requests",
             response.getContent(),

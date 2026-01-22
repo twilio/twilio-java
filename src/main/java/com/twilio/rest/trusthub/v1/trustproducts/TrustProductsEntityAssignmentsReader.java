@@ -17,6 +17,8 @@ package com.twilio.rest.trusthub.v1.trustproducts;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -56,16 +58,27 @@ public class TrustProductsEntityAssignmentsReader
         return this;
     }
 
-    @Override
-    public ResourceSet<TrustProductsEntityAssignments> read(
+    public ResourceSetResponse<TrustProductsEntityAssignments> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TrustProductsEntityAssignments> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            TrustProductsEntityAssignments.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<TrustProductsEntityAssignments> resourceSet =
+            new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<TrustProductsEntityAssignments> firstPage(
-        final TwilioRestClient client
-    ) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/TrustProducts/{TrustProductSid}/EntityAssignments";
 
         path =
@@ -80,11 +93,42 @@ public class TrustProductsEntityAssignmentsReader
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<TrustProductsEntityAssignments> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<TrustProductsEntityAssignments> firstPage(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<TrustProductsEntityAssignments> pageForRequest(
+    public TwilioResponse<
+        Page<TrustProductsEntityAssignments>
+    > firstPageWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TrustProductsEntityAssignments> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            TrustProductsEntityAssignments.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -107,7 +151,14 @@ public class TrustProductsEntityAssignmentsReader
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<TrustProductsEntityAssignments> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "results",
             response.getContent(),

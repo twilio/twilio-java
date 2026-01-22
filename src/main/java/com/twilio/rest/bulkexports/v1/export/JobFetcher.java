@@ -15,6 +15,7 @@
 package com.twilio.rest.bulkexports.v1.export;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class JobFetcher extends Fetcher<Job> {
         this.pathJobSid = pathJobSid;
     }
 
-    @Override
-    public Job fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Exports/Jobs/{JobSid}";
 
         path = path.replace("{" + "JobSid" + "}", this.pathJobSid.toString());
@@ -64,6 +64,28 @@ public class JobFetcher extends Fetcher<Job> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Job fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Job.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Job> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Job content = Job.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

@@ -17,6 +17,8 @@ package com.twilio.rest.video.v1.room.participant;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -48,12 +50,30 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
         return this;
     }
 
-    @Override
-    public ResourceSet<PublishedTrack> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<PublishedTrack> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<PublishedTrack> page = Page.fromJson(
+            "published_tracks",
+            response.getContent(),
+            PublishedTrack.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<PublishedTrack> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<PublishedTrack> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks";
 
@@ -70,11 +90,38 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<PublishedTrack> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<PublishedTrack> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<PublishedTrack> pageForRequest(
+    public TwilioResponse<Page<PublishedTrack>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<PublishedTrack> page = Page.fromJson(
+            "published_tracks",
+            response.getContent(),
+            PublishedTrack.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -97,7 +144,14 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<PublishedTrack> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "published_tracks",
             response.getContent(),

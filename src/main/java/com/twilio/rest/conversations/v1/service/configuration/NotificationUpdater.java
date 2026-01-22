@@ -14,6 +14,7 @@
 
 package com.twilio.rest.conversations.v1.service.configuration;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -138,8 +139,7 @@ public class NotificationUpdater extends Updater<Notification> {
         return this;
     }
 
-    @Override
-    public Notification update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ChatServiceSid}/Configuration/Notifications";
 
@@ -176,10 +176,31 @@ public class NotificationUpdater extends Updater<Notification> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Notification update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Notification.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Notification> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Notification content = Notification.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

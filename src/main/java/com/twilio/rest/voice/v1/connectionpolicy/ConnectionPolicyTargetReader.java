@@ -17,6 +17,8 @@ package com.twilio.rest.voice.v1.connectionpolicy;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -44,16 +46,30 @@ public class ConnectionPolicyTargetReader
         return this;
     }
 
-    @Override
-    public ResourceSet<ConnectionPolicyTarget> read(
+    public ResourceSetResponse<ConnectionPolicyTarget> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<ConnectionPolicyTarget> page = Page.fromJson(
+            "targets",
+            response.getContent(),
+            ConnectionPolicyTarget.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<ConnectionPolicyTarget> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<ConnectionPolicyTarget> firstPage(
-        final TwilioRestClient client
-    ) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets";
 
         path =
@@ -68,11 +84,42 @@ public class ConnectionPolicyTargetReader
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<ConnectionPolicyTarget> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<ConnectionPolicyTarget> firstPage(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<ConnectionPolicyTarget> pageForRequest(
+    public TwilioResponse<Page<ConnectionPolicyTarget>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<ConnectionPolicyTarget> page = Page.fromJson(
+            "targets",
+            response.getContent(),
+            ConnectionPolicyTarget.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -95,7 +142,14 @@ public class ConnectionPolicyTargetReader
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<ConnectionPolicyTarget> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "targets",
             response.getContent(),

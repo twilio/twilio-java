@@ -17,6 +17,8 @@ package com.twilio.rest.events.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -46,12 +48,30 @@ public class SubscriptionReader extends Reader<Subscription> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Subscription> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Subscription> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Subscription> page = Page.fromJson(
+            "subscriptions",
+            response.getContent(),
+            Subscription.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Subscription> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Subscription> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Subscriptions";
 
         Request request = new Request(
@@ -60,11 +80,38 @@ public class SubscriptionReader extends Reader<Subscription> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Subscription> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Subscription> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Subscription> pageForRequest(
+    public TwilioResponse<Page<Subscription>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Subscription> page = Page.fromJson(
+            "subscriptions",
+            response.getContent(),
+            Subscription.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -87,7 +134,14 @@ public class SubscriptionReader extends Reader<Subscription> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Subscription> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "subscriptions",
             response.getContent(),

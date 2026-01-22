@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -42,8 +43,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
         this.pathConnectAppSid = pathConnectAppSid;
     }
 
-    @Override
-    public AuthorizedConnectApp fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json";
 
@@ -87,9 +87,31 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public AuthorizedConnectApp fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return AuthorizedConnectApp.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<AuthorizedConnectApp> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        AuthorizedConnectApp content = AuthorizedConnectApp.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

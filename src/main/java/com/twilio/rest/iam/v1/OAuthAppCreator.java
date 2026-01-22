@@ -16,6 +16,7 @@ package com.twilio.rest.iam.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -46,8 +47,7 @@ public class OAuthAppCreator extends Creator<OAuthApp> {
         return this;
     }
 
-    @Override
-    public OAuthApp create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Account/OAuthApps";
 
         Request request = new Request(
@@ -77,10 +77,31 @@ public class OAuthAppCreator extends Creator<OAuthApp> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public OAuthApp create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return OAuthApp.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<OAuthApp> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        OAuthApp content = OAuthApp.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.trusthub.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -70,8 +71,7 @@ public class CustomerProfilesUpdater extends Updater<CustomerProfiles> {
         return this;
     }
 
-    @Override
-    public CustomerProfiles update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/CustomerProfiles/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -103,10 +103,31 @@ public class CustomerProfilesUpdater extends Updater<CustomerProfiles> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public CustomerProfiles update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return CustomerProfiles.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<CustomerProfiles> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        CustomerProfiles content = CustomerProfiles.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

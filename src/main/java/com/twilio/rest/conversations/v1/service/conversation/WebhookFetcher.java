@@ -15,6 +15,7 @@
 package com.twilio.rest.conversations.v1.service.conversation;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -41,8 +42,7 @@ public class WebhookFetcher extends Fetcher<Webhook> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Webhook fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}";
 
@@ -83,6 +83,28 @@ public class WebhookFetcher extends Fetcher<Webhook> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Webhook fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Webhook> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Webhook content = Webhook.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

@@ -15,6 +15,7 @@
 package com.twilio.rest.studio.v1.flow.execution.executionstep;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -41,8 +42,7 @@ public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
         this.pathStepSid = pathStepSid;
     }
 
-    @Override
-    public ExecutionStepContext fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context";
 
@@ -79,9 +79,31 @@ public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public ExecutionStepContext fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ExecutionStepContext.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ExecutionStepContext> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ExecutionStepContext content = ExecutionStepContext.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

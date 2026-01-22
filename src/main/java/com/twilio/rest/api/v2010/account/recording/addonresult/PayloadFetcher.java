@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.recording.addonresult;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -54,8 +55,7 @@ public class PayloadFetcher extends Fetcher<Payload> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Payload fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json";
 
@@ -105,6 +105,28 @@ public class PayloadFetcher extends Fetcher<Payload> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Payload fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Payload.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Payload> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Payload content = Payload.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

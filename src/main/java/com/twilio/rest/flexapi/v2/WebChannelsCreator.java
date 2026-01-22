@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v2;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -77,8 +78,7 @@ public class WebChannelsCreator extends Creator<WebChannels> {
         return this;
     }
 
-    @Override
-    public WebChannels create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/WebChats";
 
         Request request = new Request(
@@ -109,10 +109,31 @@ public class WebChannelsCreator extends Creator<WebChannels> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public WebChannels create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return WebChannels.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<WebChannels> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        WebChannels content = WebChannels.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

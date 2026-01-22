@@ -17,6 +17,8 @@ package com.twilio.rest.previewiam.organizations;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -55,12 +57,30 @@ public class RoleAssignmentReader extends Reader<RoleAssignment> {
         return this;
     }
 
-    @Override
-    public ResourceSet<RoleAssignment> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<RoleAssignment> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<RoleAssignment> page = Page.fromJson(
+            "content",
+            response.getContent(),
+            RoleAssignment.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<RoleAssignment> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<RoleAssignment> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/RoleAssignments";
 
         path =
@@ -75,11 +95,38 @@ public class RoleAssignmentReader extends Reader<RoleAssignment> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<RoleAssignment> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<RoleAssignment> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<RoleAssignment> pageForRequest(
+    public TwilioResponse<Page<RoleAssignment>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<RoleAssignment> page = Page.fromJson(
+            "content",
+            response.getContent(),
+            RoleAssignment.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -102,7 +149,14 @@ public class RoleAssignmentReader extends Reader<RoleAssignment> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<RoleAssignment> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "content",
             response.getContent(),

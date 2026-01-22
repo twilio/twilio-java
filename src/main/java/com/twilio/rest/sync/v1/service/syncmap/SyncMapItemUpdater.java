@@ -14,6 +14,7 @@
 
 package com.twilio.rest.sync.v1.service.syncmap;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -74,8 +75,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
         return this;
     }
 
-    @Override
-    public SyncMapItem update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}";
 
         path =
@@ -114,10 +114,31 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SyncMapItem update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SyncMapItem.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<SyncMapItem> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SyncMapItem content = SyncMapItem.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

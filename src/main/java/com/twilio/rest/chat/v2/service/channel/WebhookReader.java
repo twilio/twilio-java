@@ -17,6 +17,8 @@ package com.twilio.rest.chat.v2.service.channel;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -48,12 +50,30 @@ public class WebhookReader extends Reader<Webhook> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Webhook> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Webhook> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Webhook> page = Page.fromJson(
+            "webhooks",
+            response.getContent(),
+            Webhook.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Webhook> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Webhook> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks";
 
@@ -74,11 +94,38 @@ public class WebhookReader extends Reader<Webhook> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Webhook> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Webhook> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Webhook> pageForRequest(
+    public TwilioResponse<Page<Webhook>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Webhook> page = Page.fromJson(
+            "webhooks",
+            response.getContent(),
+            Webhook.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -101,7 +148,14 @@ public class WebhookReader extends Reader<Webhook> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Webhook> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "webhooks",
             response.getContent(),

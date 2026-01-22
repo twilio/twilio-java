@@ -14,6 +14,7 @@
 
 package com.twilio.rest.messaging.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -340,8 +341,7 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
         return this;
     }
 
-    @Override
-    public TollfreeVerification update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Tollfree/Verifications/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -373,10 +373,31 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public TollfreeVerification update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return TollfreeVerification.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<TollfreeVerification> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        TollfreeVerification content = TollfreeVerification.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

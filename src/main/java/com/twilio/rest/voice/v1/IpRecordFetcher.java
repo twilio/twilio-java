@@ -15,6 +15,7 @@
 package com.twilio.rest.voice.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class IpRecordFetcher extends Fetcher<IpRecord> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public IpRecord fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/IpRecords/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,9 +64,31 @@ public class IpRecordFetcher extends Fetcher<IpRecord> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public IpRecord fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return IpRecord.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<IpRecord> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        IpRecord content = IpRecord.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

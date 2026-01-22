@@ -14,6 +14,7 @@
 
 package com.twilio.rest.messaging.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -33,8 +34,7 @@ public class BrandRegistrationUpdater extends Updater<BrandRegistration> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public BrandRegistration update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/a2p/BrandRegistrations/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,10 +64,31 @@ public class BrandRegistrationUpdater extends Updater<BrandRegistration> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public BrandRegistration update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return BrandRegistration.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<BrandRegistration> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        BrandRegistration content = BrandRegistration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

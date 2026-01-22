@@ -15,6 +15,7 @@
 package com.twilio.rest.trunking.v1.trunk;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -48,8 +49,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
         return this;
     }
 
-    @Override
-    public CredentialList create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/CredentialLists";
 
         path =
@@ -82,10 +82,31 @@ public class CredentialListCreator extends Creator<CredentialList> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public CredentialList create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return CredentialList.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<CredentialList> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        CredentialList content = CredentialList.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

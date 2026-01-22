@@ -15,6 +15,7 @@
 package com.twilio.rest.notify.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -96,8 +97,7 @@ public class BindingCreator extends Creator<Binding> {
         return this;
     }
 
-    @Override
-    public Binding create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Bindings";
 
         path =
@@ -133,8 +133,29 @@ public class BindingCreator extends Creator<Binding> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Binding create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Binding.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Binding> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Binding content = Binding.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

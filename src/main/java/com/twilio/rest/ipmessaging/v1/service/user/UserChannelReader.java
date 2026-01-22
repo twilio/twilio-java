@@ -17,6 +17,8 @@ package com.twilio.rest.ipmessaging.v1.service.user;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -48,12 +50,30 @@ public class UserChannelReader extends Reader<UserChannel> {
         return this;
     }
 
-    @Override
-    public ResourceSet<UserChannel> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<UserChannel> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<UserChannel> page = Page.fromJson(
+            "channels",
+            response.getContent(),
+            UserChannel.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<UserChannel> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<UserChannel> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Users/{UserSid}/Channels";
 
         path =
@@ -69,11 +89,38 @@ public class UserChannelReader extends Reader<UserChannel> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<UserChannel> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<UserChannel> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<UserChannel> pageForRequest(
+    public TwilioResponse<Page<UserChannel>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<UserChannel> page = Page.fromJson(
+            "channels",
+            response.getContent(),
+            UserChannel.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -96,7 +143,14 @@ public class UserChannelReader extends Reader<UserChannel> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<UserChannel> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "channels",
             response.getContent(),

@@ -15,6 +15,7 @@
 package com.twilio.rest.serverless.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -72,8 +73,7 @@ public class BuildCreator extends Creator<Build> {
         return this;
     }
 
-    @Override
-    public Build create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Builds";
 
         path =
@@ -109,8 +109,29 @@ public class BuildCreator extends Creator<Build> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Build create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Build.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Build> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Build content = Build.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

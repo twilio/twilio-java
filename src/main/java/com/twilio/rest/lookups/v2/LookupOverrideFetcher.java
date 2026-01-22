@@ -15,6 +15,7 @@
 package com.twilio.rest.lookups.v2;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -38,8 +39,7 @@ public class LookupOverrideFetcher extends Fetcher<LookupOverride> {
         this.pathPhoneNumber = pathPhoneNumber;
     }
 
-    @Override
-    public LookupOverride fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/PhoneNumbers/{PhoneNumber}/Overrides/{Field}";
 
         path = path.replace("{" + "Field" + "}", this.pathField.toString());
@@ -74,9 +74,31 @@ public class LookupOverrideFetcher extends Fetcher<LookupOverride> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public LookupOverride fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return LookupOverride.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<LookupOverride> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        LookupOverride content = LookupOverride.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

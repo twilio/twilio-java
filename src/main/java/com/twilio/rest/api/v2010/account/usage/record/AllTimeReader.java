@@ -17,6 +17,8 @@ package com.twilio.rest.api.v2010.account.usage.record;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -72,12 +74,30 @@ public class AllTimeReader extends Reader<AllTime> {
         return this;
     }
 
-    @Override
-    public ResourceSet<AllTime> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<AllTime> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AllTime> page = Page.fromJson(
+            "usage_records",
+            response.getContent(),
+            AllTime.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<AllTime> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<AllTime> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json";
 
@@ -97,11 +117,38 @@ public class AllTimeReader extends Reader<AllTime> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<AllTime> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<AllTime> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<AllTime> pageForRequest(
+    public TwilioResponse<Page<AllTime>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AllTime> page = Page.fromJson(
+            "usage_records",
+            response.getContent(),
+            AllTime.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -124,7 +171,14 @@ public class AllTimeReader extends Reader<AllTime> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<AllTime> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "usage_records",
             response.getContent(),

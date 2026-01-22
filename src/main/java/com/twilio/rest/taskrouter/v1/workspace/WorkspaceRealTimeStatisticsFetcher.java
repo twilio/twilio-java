@@ -15,6 +15,7 @@
 package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -44,8 +45,7 @@ public class WorkspaceRealTimeStatisticsFetcher
         return this;
     }
 
-    @Override
-    public WorkspaceRealTimeStatistics fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/RealTimeStatistics";
 
         path =
@@ -80,9 +80,32 @@ public class WorkspaceRealTimeStatisticsFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public WorkspaceRealTimeStatistics fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return WorkspaceRealTimeStatistics.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<WorkspaceRealTimeStatistics> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        WorkspaceRealTimeStatistics content =
+            WorkspaceRealTimeStatistics.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

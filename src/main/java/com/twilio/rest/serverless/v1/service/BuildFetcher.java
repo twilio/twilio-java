@@ -15,6 +15,7 @@
 package com.twilio.rest.serverless.v1.service;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -35,8 +36,7 @@ public class BuildFetcher extends Fetcher<Build> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Build fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Builds/{Sid}";
 
         path =
@@ -71,6 +71,28 @@ public class BuildFetcher extends Fetcher<Build> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Build fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Build.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Build> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Build content = Build.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

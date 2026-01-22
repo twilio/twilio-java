@@ -15,6 +15,7 @@
 package com.twilio.rest.messaging.v1.service;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -38,8 +39,7 @@ public class UsAppToPersonFetcher extends Fetcher<UsAppToPerson> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public UsAppToPerson fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}";
 
@@ -75,9 +75,31 @@ public class UsAppToPersonFetcher extends Fetcher<UsAppToPerson> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public UsAppToPerson fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return UsAppToPerson.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<UsAppToPerson> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        UsAppToPerson content = UsAppToPerson.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

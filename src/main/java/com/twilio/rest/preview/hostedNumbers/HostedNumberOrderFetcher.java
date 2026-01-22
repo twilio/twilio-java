@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.hostedNumbers;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class HostedNumberOrderFetcher extends Fetcher<HostedNumberOrder> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public HostedNumberOrder fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/HostedNumbers/HostedNumberOrders/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,9 +64,31 @@ public class HostedNumberOrderFetcher extends Fetcher<HostedNumberOrder> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public HostedNumberOrder fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return HostedNumberOrder.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<HostedNumberOrder> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        HostedNumberOrder content = HostedNumberOrder.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

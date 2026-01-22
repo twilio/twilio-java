@@ -15,6 +15,7 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -90,8 +91,7 @@ public class BundleCreator extends Creator<Bundle> {
         return this;
     }
 
-    @Override
-    public Bundle create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles";
 
         Request request = new Request(
@@ -121,8 +121,29 @@ public class BundleCreator extends Creator<Bundle> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Bundle create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Bundle.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Bundle> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Bundle content = Bundle.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

@@ -16,6 +16,7 @@ package com.twilio.rest.assistants.v1.assistant;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -49,8 +50,7 @@ public class FeedbackCreator extends Creator<Feedback> {
         return this;
     }
 
-    @Override
-    public Feedback create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Assistants/{id}/Feedbacks";
 
         path = path.replace("{" + "id" + "}", this.pathId.toString());
@@ -82,10 +82,31 @@ public class FeedbackCreator extends Creator<Feedback> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Feedback create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Feedback.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Feedback> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Feedback content = Feedback.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

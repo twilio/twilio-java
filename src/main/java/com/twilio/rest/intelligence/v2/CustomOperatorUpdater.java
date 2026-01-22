@@ -14,6 +14,7 @@
 
 package com.twilio.rest.intelligence.v2;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -60,8 +61,7 @@ public class CustomOperatorUpdater extends Updater<CustomOperator> {
         return this;
     }
 
-    @Override
-    public CustomOperator update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Operators/Custom/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -94,10 +94,31 @@ public class CustomOperatorUpdater extends Updater<CustomOperator> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public CustomOperator update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return CustomOperator.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<CustomOperator> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        CustomOperator content = CustomOperator.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

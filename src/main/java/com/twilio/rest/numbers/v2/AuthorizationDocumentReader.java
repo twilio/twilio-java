@@ -17,6 +17,8 @@ package com.twilio.rest.numbers.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -54,6 +56,41 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
         return this;
     }
 
+    public ResourceSetResponse<AuthorizationDocument> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AuthorizationDocument> page = Page.fromJson(
+            "items",
+            response.getContent(),
+            AuthorizationDocument.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<AuthorizationDocument> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v2/HostedNumber/AuthorizationDocuments";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.NUMBERS.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
+    }
+
     @Override
     public ResourceSet<AuthorizationDocument> read(
         final TwilioRestClient client
@@ -64,19 +101,29 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
     public Page<AuthorizationDocument> firstPage(
         final TwilioRestClient client
     ) {
-        String path = "/v2/HostedNumber/AuthorizationDocuments";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.NUMBERS.toString(),
-            path
-        );
-        addQueryParams(request);
-
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<AuthorizationDocument> pageForRequest(
+    public TwilioResponse<Page<AuthorizationDocument>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AuthorizationDocument> page = Page.fromJson(
+            "items",
+            response.getContent(),
+            AuthorizationDocument.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -99,7 +146,14 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<AuthorizationDocument> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "items",
             response.getContent(),

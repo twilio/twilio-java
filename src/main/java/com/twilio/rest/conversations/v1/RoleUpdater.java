@@ -14,6 +14,7 @@
 
 package com.twilio.rest.conversations.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -49,8 +50,7 @@ public class RoleUpdater extends Updater<Role> {
         return setPermission(Promoter.listOfOne(permission));
     }
 
-    @Override
-    public Role update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Roles/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -82,8 +82,29 @@ public class RoleUpdater extends Updater<Role> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Role update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Role.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Role> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Role content = Role.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

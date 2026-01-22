@@ -14,6 +14,7 @@
 
 package com.twilio.rest.numbers.v2.regulatorycompliance;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -66,8 +67,7 @@ public class BundleUpdater extends Updater<Bundle> {
         return this;
     }
 
-    @Override
-    public Bundle update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -99,8 +99,29 @@ public class BundleUpdater extends Updater<Bundle> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Bundle update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Bundle.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Bundle> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Bundle content = Bundle.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

@@ -17,6 +17,8 @@ package com.twilio.rest.intelligence.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -54,12 +56,30 @@ public class PrebuiltOperatorReader extends Reader<PrebuiltOperator> {
         return this;
     }
 
-    @Override
-    public ResourceSet<PrebuiltOperator> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<PrebuiltOperator> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<PrebuiltOperator> page = Page.fromJson(
+            "operators",
+            response.getContent(),
+            PrebuiltOperator.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<PrebuiltOperator> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<PrebuiltOperator> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/Operators/PreBuilt";
 
         Request request = new Request(
@@ -68,11 +88,38 @@ public class PrebuiltOperatorReader extends Reader<PrebuiltOperator> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<PrebuiltOperator> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<PrebuiltOperator> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<PrebuiltOperator> pageForRequest(
+    public TwilioResponse<Page<PrebuiltOperator>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<PrebuiltOperator> page = Page.fromJson(
+            "operators",
+            response.getContent(),
+            PrebuiltOperator.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -95,7 +142,14 @@ public class PrebuiltOperatorReader extends Reader<PrebuiltOperator> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<PrebuiltOperator> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "operators",
             response.getContent(),

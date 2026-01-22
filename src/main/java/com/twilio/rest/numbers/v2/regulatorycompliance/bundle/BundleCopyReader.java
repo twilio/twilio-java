@@ -17,6 +17,8 @@ package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -43,12 +45,30 @@ public class BundleCopyReader extends Reader<BundleCopy> {
         return this;
     }
 
-    @Override
-    public ResourceSet<BundleCopy> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<BundleCopy> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<BundleCopy> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            BundleCopy.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<BundleCopy> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<BundleCopy> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Copies";
 
         path =
@@ -63,11 +83,38 @@ public class BundleCopyReader extends Reader<BundleCopy> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<BundleCopy> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<BundleCopy> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<BundleCopy> pageForRequest(
+    public TwilioResponse<Page<BundleCopy>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<BundleCopy> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            BundleCopy.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -90,7 +137,14 @@ public class BundleCopyReader extends Reader<BundleCopy> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<BundleCopy> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "results",
             response.getContent(),

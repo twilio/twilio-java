@@ -17,6 +17,8 @@ package com.twilio.rest.trunking.v1.trunk;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -43,12 +45,30 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
         return this;
     }
 
-    @Override
-    public ResourceSet<OriginationUrl> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<OriginationUrl> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<OriginationUrl> page = Page.fromJson(
+            "origination_urls",
+            response.getContent(),
+            OriginationUrl.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<OriginationUrl> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<OriginationUrl> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/OriginationUrls";
 
         path =
@@ -60,11 +80,38 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<OriginationUrl> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<OriginationUrl> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<OriginationUrl> pageForRequest(
+    public TwilioResponse<Page<OriginationUrl>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<OriginationUrl> page = Page.fromJson(
+            "origination_urls",
+            response.getContent(),
+            OriginationUrl.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -87,7 +134,14 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<OriginationUrl> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "origination_urls",
             response.getContent(),

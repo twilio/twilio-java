@@ -15,6 +15,7 @@
 package com.twilio.rest.video.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class CompositionHookFetcher extends Fetcher<CompositionHook> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public CompositionHook fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/CompositionHooks/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,9 +64,31 @@ public class CompositionHookFetcher extends Fetcher<CompositionHook> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public CompositionHook fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return CompositionHook.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<CompositionHook> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        CompositionHook content = CompositionHook.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

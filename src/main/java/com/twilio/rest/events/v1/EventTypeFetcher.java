@@ -15,6 +15,7 @@
 package com.twilio.rest.events.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class EventTypeFetcher extends Fetcher<EventType> {
         this.pathType = pathType;
     }
 
-    @Override
-    public EventType fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Types/{Type}";
 
         path = path.replace("{" + "Type" + "}", this.pathType.toString());
@@ -64,9 +64,31 @@ public class EventTypeFetcher extends Fetcher<EventType> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public EventType fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return EventType.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<EventType> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        EventType content = EventType.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

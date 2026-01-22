@@ -14,6 +14,7 @@
 
 package com.twilio.rest.video.v1.room.participant;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -47,8 +48,7 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
         return this;
     }
 
-    @Override
-    public SubscribeRules update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules";
 
@@ -86,10 +86,31 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SubscribeRules update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SubscribeRules.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<SubscribeRules> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SubscribeRules content = SubscribeRules.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

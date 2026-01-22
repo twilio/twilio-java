@@ -17,6 +17,8 @@ package com.twilio.rest.chat.v2.service.user;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -64,12 +66,30 @@ public class UserBindingReader extends Reader<UserBinding> {
         return this;
     }
 
-    @Override
-    public ResourceSet<UserBinding> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<UserBinding> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<UserBinding> page = Page.fromJson(
+            "bindings",
+            response.getContent(),
+            UserBinding.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<UserBinding> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<UserBinding> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings";
 
         path =
@@ -85,11 +105,38 @@ public class UserBindingReader extends Reader<UserBinding> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<UserBinding> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<UserBinding> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<UserBinding> pageForRequest(
+    public TwilioResponse<Page<UserBinding>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<UserBinding> page = Page.fromJson(
+            "bindings",
+            response.getContent(),
+            UserBinding.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -112,7 +159,14 @@ public class UserBindingReader extends Reader<UserBinding> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<UserBinding> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "bindings",
             response.getContent(),

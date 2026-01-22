@@ -14,6 +14,7 @@
 
 package com.twilio.rest.studio.v2.flow;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -49,8 +50,7 @@ public class ExecutionUpdater extends Updater<Execution> {
         return this;
     }
 
-    @Override
-    public Execution update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Flows/{FlowSid}/Executions/{Sid}";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
@@ -83,10 +83,31 @@ public class ExecutionUpdater extends Updater<Execution> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Execution update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Execution.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Execution> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Execution content = Execution.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

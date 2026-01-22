@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -67,8 +68,7 @@ public class PluginConfigurationCreator extends Creator<PluginConfiguration> {
         return this;
     }
 
-    @Override
-    public PluginConfiguration create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/PluginService/Configurations";
 
         Request request = new Request(
@@ -99,10 +99,31 @@ public class PluginConfigurationCreator extends Creator<PluginConfiguration> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public PluginConfiguration create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PluginConfiguration.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<PluginConfiguration> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PluginConfiguration content = PluginConfiguration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

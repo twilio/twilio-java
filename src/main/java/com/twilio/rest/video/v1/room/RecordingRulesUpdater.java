@@ -14,6 +14,7 @@
 
 package com.twilio.rest.video.v1.room;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -42,8 +43,7 @@ public class RecordingRulesUpdater extends Updater<RecordingRules> {
         return this;
     }
 
-    @Override
-    public RecordingRules update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Rooms/{RoomSid}/RecordingRules";
 
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
@@ -75,10 +75,31 @@ public class RecordingRulesUpdater extends Updater<RecordingRules> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public RecordingRules update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return RecordingRules.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<RecordingRules> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        RecordingRules content = RecordingRules.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

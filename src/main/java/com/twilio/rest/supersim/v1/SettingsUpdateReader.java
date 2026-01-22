@@ -17,6 +17,8 @@ package com.twilio.rest.supersim.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -52,12 +54,30 @@ public class SettingsUpdateReader extends Reader<SettingsUpdate> {
         return this;
     }
 
-    @Override
-    public ResourceSet<SettingsUpdate> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<SettingsUpdate> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SettingsUpdate> page = Page.fromJson(
+            "settings_updates",
+            response.getContent(),
+            SettingsUpdate.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<SettingsUpdate> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<SettingsUpdate> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/SettingsUpdates";
 
         Request request = new Request(
@@ -66,11 +86,38 @@ public class SettingsUpdateReader extends Reader<SettingsUpdate> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<SettingsUpdate> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<SettingsUpdate> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<SettingsUpdate> pageForRequest(
+    public TwilioResponse<Page<SettingsUpdate>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SettingsUpdate> page = Page.fromJson(
+            "settings_updates",
+            response.getContent(),
+            SettingsUpdate.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -93,7 +140,14 @@ public class SettingsUpdateReader extends Reader<SettingsUpdate> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<SettingsUpdate> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "settings_updates",
             response.getContent(),

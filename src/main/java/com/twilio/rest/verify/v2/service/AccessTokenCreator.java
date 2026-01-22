@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -70,8 +71,7 @@ public class AccessTokenCreator extends Creator<AccessToken> {
         return this;
     }
 
-    @Override
-    public AccessToken create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/AccessTokens";
 
         path =
@@ -107,10 +107,31 @@ public class AccessTokenCreator extends Creator<AccessToken> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public AccessToken create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return AccessToken.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<AccessToken> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        AccessToken content = AccessToken.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

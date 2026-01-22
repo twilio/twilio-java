@@ -17,6 +17,8 @@ package com.twilio.rest.proxy.v1.service.session.participant;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -51,12 +53,30 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
         return this;
     }
 
-    @Override
-    public ResourceSet<MessageInteraction> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<MessageInteraction> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<MessageInteraction> page = Page.fromJson(
+            "interactions",
+            response.getContent(),
+            MessageInteraction.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<MessageInteraction> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<MessageInteraction> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions";
 
@@ -82,11 +102,38 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<MessageInteraction> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<MessageInteraction> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<MessageInteraction> pageForRequest(
+    public TwilioResponse<Page<MessageInteraction>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<MessageInteraction> page = Page.fromJson(
+            "interactions",
+            response.getContent(),
+            MessageInteraction.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -109,7 +156,14 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<MessageInteraction> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "interactions",
             response.getContent(),

@@ -17,6 +17,8 @@ package com.twilio.rest.video.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -69,12 +71,30 @@ public class CompositionHookReader extends Reader<CompositionHook> {
         return this;
     }
 
-    @Override
-    public ResourceSet<CompositionHook> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<CompositionHook> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<CompositionHook> page = Page.fromJson(
+            "composition_hooks",
+            response.getContent(),
+            CompositionHook.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<CompositionHook> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<CompositionHook> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/CompositionHooks";
 
         Request request = new Request(
@@ -83,11 +103,38 @@ public class CompositionHookReader extends Reader<CompositionHook> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<CompositionHook> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<CompositionHook> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<CompositionHook> pageForRequest(
+    public TwilioResponse<Page<CompositionHook>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<CompositionHook> page = Page.fromJson(
+            "composition_hooks",
+            response.getContent(),
+            CompositionHook.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -110,7 +157,14 @@ public class CompositionHookReader extends Reader<CompositionHook> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<CompositionHook> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "composition_hooks",
             response.getContent(),

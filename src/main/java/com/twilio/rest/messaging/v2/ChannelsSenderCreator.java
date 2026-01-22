@@ -16,6 +16,7 @@ package com.twilio.rest.messaging.v2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -46,8 +47,7 @@ public class ChannelsSenderCreator extends Creator<ChannelsSender> {
         return this;
     }
 
-    @Override
-    public ChannelsSender create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Channels/Senders";
 
         Request request = new Request(
@@ -77,10 +77,31 @@ public class ChannelsSenderCreator extends Creator<ChannelsSender> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ChannelsSender create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ChannelsSender.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ChannelsSender> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ChannelsSender content = ChannelsSender.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

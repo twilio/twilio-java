@@ -15,6 +15,7 @@
 package com.twilio.rest.lookups.v2;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -129,8 +130,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         return this;
     }
 
-    @Override
-    public PhoneNumber fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/PhoneNumbers/{PhoneNumber}";
 
         path =
@@ -165,9 +165,31 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public PhoneNumber fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PhoneNumber.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<PhoneNumber> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PhoneNumber content = PhoneNumber.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

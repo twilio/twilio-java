@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -139,8 +140,7 @@ public class NewFactorCreator extends Creator<NewFactor> {
         return this;
     }
 
-    @Override
-    public NewFactor create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors";
 
         path =
@@ -178,10 +178,31 @@ public class NewFactorCreator extends Creator<NewFactor> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public NewFactor create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return NewFactor.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<NewFactor> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        NewFactor content = NewFactor.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

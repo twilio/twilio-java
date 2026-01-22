@@ -17,6 +17,8 @@ package com.twilio.rest.serverless.v1.service.environment;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -48,12 +50,30 @@ public class DeploymentReader extends Reader<Deployment> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Deployment> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Deployment> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Deployment> page = Page.fromJson(
+            "deployments",
+            response.getContent(),
+            Deployment.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Deployment> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Deployment> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments";
 
@@ -74,11 +94,38 @@ public class DeploymentReader extends Reader<Deployment> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Deployment> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Deployment> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Deployment> pageForRequest(
+    public TwilioResponse<Page<Deployment>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Deployment> page = Page.fromJson(
+            "deployments",
+            response.getContent(),
+            Deployment.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -101,7 +148,14 @@ public class DeploymentReader extends Reader<Deployment> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Deployment> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "deployments",
             response.getContent(),

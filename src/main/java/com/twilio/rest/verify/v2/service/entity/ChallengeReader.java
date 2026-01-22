@@ -17,6 +17,8 @@ package com.twilio.rest.verify.v2.service.entity;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -66,12 +68,30 @@ public class ChallengeReader extends Reader<Challenge> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Challenge> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Challenge> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Challenge> page = Page.fromJson(
+            "challenges",
+            response.getContent(),
+            Challenge.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Challenge> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Challenge> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges";
 
@@ -89,11 +109,38 @@ public class ChallengeReader extends Reader<Challenge> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Challenge> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Challenge> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Challenge> pageForRequest(
+    public TwilioResponse<Page<Challenge>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Challenge> page = Page.fromJson(
+            "challenges",
+            response.getContent(),
+            Challenge.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -116,7 +163,14 @@ public class ChallengeReader extends Reader<Challenge> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Challenge> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "challenges",
             response.getContent(),

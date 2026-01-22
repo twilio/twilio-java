@@ -15,6 +15,7 @@
 package com.twilio.rest.insights.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class ConferenceFetcher extends Fetcher<Conference> {
         this.pathConferenceSid = pathConferenceSid;
     }
 
-    @Override
-    public Conference fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Conferences/{ConferenceSid}";
 
         path =
@@ -68,9 +68,31 @@ public class ConferenceFetcher extends Fetcher<Conference> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Conference fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Conference.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Conference> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Conference content = Conference.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

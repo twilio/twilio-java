@@ -17,6 +17,8 @@ package com.twilio.rest.supersim.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -48,12 +50,26 @@ public class FleetReader extends Reader<Fleet> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Fleet> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Fleet> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Fleet> page = Page.fromJson(
+            "fleets",
+            response.getContent(),
+            Fleet.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Fleet> resourceSet = new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Fleet> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Fleets";
 
         Request request = new Request(
@@ -62,11 +78,38 @@ public class FleetReader extends Reader<Fleet> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Fleet> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Fleet> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Fleet> pageForRequest(
+    public TwilioResponse<Page<Fleet>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Fleet> page = Page.fromJson(
+            "fleets",
+            response.getContent(),
+            Fleet.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -89,7 +132,14 @@ public class FleetReader extends Reader<Fleet> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Fleet> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "fleets",
             response.getContent(),

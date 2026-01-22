@@ -15,6 +15,7 @@
 package com.twilio.rest.marketplace.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -45,8 +46,7 @@ public class ModuleDataCreator extends Creator<ModuleData> {
         return this;
     }
 
-    @Override
-    public ModuleData create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Listings";
 
         Request request = new Request(
@@ -76,10 +76,31 @@ public class ModuleDataCreator extends Creator<ModuleData> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ModuleData create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ModuleData.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ModuleData> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ModuleData content = ModuleData.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

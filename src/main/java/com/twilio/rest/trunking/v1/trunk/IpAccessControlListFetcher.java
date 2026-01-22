@@ -15,6 +15,7 @@
 package com.twilio.rest.trunking.v1.trunk;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -38,8 +39,7 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public IpAccessControlList fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}";
 
         path =
@@ -71,9 +71,31 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public IpAccessControlList fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return IpAccessControlList.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<IpAccessControlList> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        IpAccessControlList content = IpAccessControlList.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

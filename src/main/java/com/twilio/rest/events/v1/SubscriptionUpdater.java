@@ -14,6 +14,7 @@
 
 package com.twilio.rest.events.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -42,8 +43,7 @@ public class SubscriptionUpdater extends Updater<Subscription> {
         return this;
     }
 
-    @Override
-    public Subscription update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Subscriptions/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -75,10 +75,31 @@ public class SubscriptionUpdater extends Updater<Subscription> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Subscription update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Subscription.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Subscription> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Subscription content = Subscription.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

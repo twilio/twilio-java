@@ -17,6 +17,8 @@ package com.twilio.rest.intelligence.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -90,12 +92,30 @@ public class TranscriptReader extends Reader<Transcript> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Transcript> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Transcript> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Transcript> page = Page.fromJson(
+            "transcripts",
+            response.getContent(),
+            Transcript.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Transcript> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Transcript> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/Transcripts";
 
         Request request = new Request(
@@ -104,11 +124,38 @@ public class TranscriptReader extends Reader<Transcript> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Transcript> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Transcript> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Transcript> pageForRequest(
+    public TwilioResponse<Page<Transcript>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Transcript> page = Page.fromJson(
+            "transcripts",
+            response.getContent(),
+            Transcript.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -131,7 +178,14 @@ public class TranscriptReader extends Reader<Transcript> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Transcript> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "transcripts",
             response.getContent(),

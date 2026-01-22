@@ -17,6 +17,8 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -102,12 +104,30 @@ public class ConferenceReader extends Reader<Conference> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Conference> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Conference> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Conference> page = Page.fromJson(
+            "conferences",
+            response.getContent(),
+            Conference.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Conference> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Conference> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Conferences.json";
 
         this.pathAccountSid =
@@ -126,11 +146,38 @@ public class ConferenceReader extends Reader<Conference> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Conference> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Conference> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Conference> pageForRequest(
+    public TwilioResponse<Page<Conference>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Conference> page = Page.fromJson(
+            "conferences",
+            response.getContent(),
+            Conference.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -153,7 +200,14 @@ public class ConferenceReader extends Reader<Conference> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Conference> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "conferences",
             response.getContent(),

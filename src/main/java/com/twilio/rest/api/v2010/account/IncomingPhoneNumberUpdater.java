@@ -14,6 +14,7 @@
 
 package com.twilio.rest.api.v2010.account;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -239,8 +240,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         return this;
     }
 
-    @Override
-    public IncomingPhoneNumber update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json";
 
@@ -282,10 +282,31 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public IncomingPhoneNumber update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return IncomingPhoneNumber.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<IncomingPhoneNumber> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        IncomingPhoneNumber content = IncomingPhoneNumber.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

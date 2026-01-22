@@ -15,6 +15,7 @@
 package com.twilio.rest.messaging.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -184,8 +185,7 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
         return this;
     }
 
-    @Override
-    public UsAppToPerson create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p";
 
         path =
@@ -221,10 +221,31 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public UsAppToPerson create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return UsAppToPerson.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<UsAppToPerson> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        UsAppToPerson content = UsAppToPerson.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

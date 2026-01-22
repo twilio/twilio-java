@@ -15,6 +15,7 @@
 package com.twilio.rest.messaging.v1.service;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -39,8 +40,7 @@ public class DestinationAlphaSenderFetcher
         this.pathSid = pathSid;
     }
 
-    @Override
-    public DestinationAlphaSender fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/DestinationAlphaSenders/{Sid}";
 
         path =
@@ -75,9 +75,31 @@ public class DestinationAlphaSenderFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public DestinationAlphaSender fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return DestinationAlphaSender.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<DestinationAlphaSender> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        DestinationAlphaSender content = DestinationAlphaSender.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

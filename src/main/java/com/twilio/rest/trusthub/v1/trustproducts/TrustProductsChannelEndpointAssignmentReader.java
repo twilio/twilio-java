@@ -17,6 +17,8 @@ package com.twilio.rest.trusthub.v1.trustproducts;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -64,16 +66,27 @@ public class TrustProductsChannelEndpointAssignmentReader
         return this;
     }
 
-    @Override
-    public ResourceSet<TrustProductsChannelEndpointAssignment> read(
-        final TwilioRestClient client
-    ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<
+        TrustProductsChannelEndpointAssignment
+    > readWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TrustProductsChannelEndpointAssignment> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            TrustProductsChannelEndpointAssignment.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<TrustProductsChannelEndpointAssignment> resourceSet =
+            new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<TrustProductsChannelEndpointAssignment> firstPage(
-        final TwilioRestClient client
-    ) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments";
 
@@ -89,11 +102,42 @@ public class TrustProductsChannelEndpointAssignmentReader
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<TrustProductsChannelEndpointAssignment> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<TrustProductsChannelEndpointAssignment> firstPage(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<TrustProductsChannelEndpointAssignment> pageForRequest(
+    public TwilioResponse<
+        Page<TrustProductsChannelEndpointAssignment>
+    > firstPageWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TrustProductsChannelEndpointAssignment> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            TrustProductsChannelEndpointAssignment.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -116,7 +160,14 @@ public class TrustProductsChannelEndpointAssignmentReader
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<TrustProductsChannelEndpointAssignment> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "results",
             response.getContent(),

@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.conference;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -490,8 +491,7 @@ public class ParticipantCreator extends Creator<Participant> {
         return this;
     }
 
-    @Override
-    public Participant create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json";
 
@@ -537,10 +537,31 @@ public class ParticipantCreator extends Creator<Participant> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Participant create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Participant.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Participant> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Participant content = Participant.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

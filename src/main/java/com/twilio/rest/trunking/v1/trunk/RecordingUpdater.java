@@ -14,6 +14,7 @@
 
 package com.twilio.rest.trunking.v1.trunk;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -48,8 +49,7 @@ public class RecordingUpdater extends Updater<Recording> {
         return this;
     }
 
-    @Override
-    public Recording update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/Recording";
 
         path =
@@ -82,10 +82,31 @@ public class RecordingUpdater extends Updater<Recording> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Recording update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Recording.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Recording> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Recording content = Recording.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

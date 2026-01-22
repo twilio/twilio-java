@@ -15,6 +15,7 @@
 package com.twilio.rest.proxy.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -79,8 +80,7 @@ public class SessionCreator extends Creator<Session> {
         return setParticipants(Promoter.listOfOne(participants));
     }
 
-    @Override
-    public Session create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Sessions";
 
         path =
@@ -116,8 +116,29 @@ public class SessionCreator extends Creator<Session> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Session create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Session.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Session> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Session content = Session.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

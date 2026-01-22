@@ -15,6 +15,7 @@
 package com.twilio.rest.accounts.v1.credential;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -53,8 +54,7 @@ public class PublicKeyCreator extends Creator<PublicKey> {
         return this;
     }
 
-    @Override
-    public PublicKey create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Credentials/PublicKeys";
 
         Request request = new Request(
@@ -84,10 +84,31 @@ public class PublicKeyCreator extends Creator<PublicKey> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public PublicKey create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PublicKey.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<PublicKey> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PublicKey content = PublicKey.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

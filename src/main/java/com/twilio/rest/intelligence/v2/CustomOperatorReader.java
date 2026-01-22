@@ -17,6 +17,8 @@ package com.twilio.rest.intelligence.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -54,12 +56,30 @@ public class CustomOperatorReader extends Reader<CustomOperator> {
         return this;
     }
 
-    @Override
-    public ResourceSet<CustomOperator> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<CustomOperator> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<CustomOperator> page = Page.fromJson(
+            "operators",
+            response.getContent(),
+            CustomOperator.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<CustomOperator> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<CustomOperator> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/Operators/Custom";
 
         Request request = new Request(
@@ -68,11 +88,38 @@ public class CustomOperatorReader extends Reader<CustomOperator> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<CustomOperator> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<CustomOperator> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<CustomOperator> pageForRequest(
+    public TwilioResponse<Page<CustomOperator>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<CustomOperator> page = Page.fromJson(
+            "operators",
+            response.getContent(),
+            CustomOperator.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -95,7 +142,14 @@ public class CustomOperatorReader extends Reader<CustomOperator> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<CustomOperator> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "operators",
             response.getContent(),

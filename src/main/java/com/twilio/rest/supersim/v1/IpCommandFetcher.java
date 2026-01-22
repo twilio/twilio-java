@@ -15,6 +15,7 @@
 package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class IpCommandFetcher extends Fetcher<IpCommand> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public IpCommand fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/IpCommands/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,9 +64,31 @@ public class IpCommandFetcher extends Fetcher<IpCommand> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public IpCommand fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return IpCommand.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<IpCommand> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        IpCommand content = IpCommand.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.chat.v1.service.channel;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -58,8 +59,7 @@ public class MemberUpdater extends Updater<Member> {
         return this;
     }
 
-    @Override
-    public Member update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}";
 
@@ -102,8 +102,29 @@ public class MemberUpdater extends Updater<Member> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Member update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Member.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Member> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Member content = Member.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

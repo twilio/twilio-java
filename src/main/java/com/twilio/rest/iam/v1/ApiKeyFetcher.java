@@ -15,6 +15,7 @@
 package com.twilio.rest.iam.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class ApiKeyFetcher extends Fetcher<ApiKey> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public ApiKey fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Keys/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,6 +64,28 @@ public class ApiKeyFetcher extends Fetcher<ApiKey> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public ApiKey fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ApiKey.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<ApiKey> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ApiKey content = ApiKey.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

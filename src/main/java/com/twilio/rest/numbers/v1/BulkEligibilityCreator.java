@@ -16,6 +16,7 @@ package com.twilio.rest.numbers.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -38,8 +39,7 @@ public class BulkEligibilityCreator extends Creator<BulkEligibility> {
         return this;
     }
 
-    @Override
-    public BulkEligibility create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/HostedNumber/Eligibility/Bulk";
 
         Request request = new Request(
@@ -69,10 +69,31 @@ public class BulkEligibilityCreator extends Creator<BulkEligibility> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public BulkEligibility create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return BulkEligibility.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<BulkEligibility> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        BulkEligibility content = BulkEligibility.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

@@ -15,6 +15,7 @@
 package com.twilio.rest.studio.v1.flow.engagement.step;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -41,8 +42,7 @@ public class StepContextFetcher extends Fetcher<StepContext> {
         this.pathStepSid = pathStepSid;
     }
 
-    @Override
-    public StepContext fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{StepSid}/Context";
 
@@ -79,9 +79,31 @@ public class StepContextFetcher extends Fetcher<StepContext> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public StepContext fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return StepContext.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<StepContext> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        StepContext content = StepContext.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

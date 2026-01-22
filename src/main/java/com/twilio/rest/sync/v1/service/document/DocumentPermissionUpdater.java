@@ -14,6 +14,7 @@
 
 package com.twilio.rest.sync.v1.service.document;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -68,8 +69,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
         return this;
     }
 
-    @Override
-    public DocumentPermission update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
 
@@ -113,10 +113,31 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public DocumentPermission update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return DocumentPermission.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<DocumentPermission> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        DocumentPermission content = DocumentPermission.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

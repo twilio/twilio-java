@@ -15,6 +15,7 @@
 package com.twilio.rest.voice.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class ConnectionPolicyFetcher extends Fetcher<ConnectionPolicy> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public ConnectionPolicy fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/ConnectionPolicies/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,9 +64,31 @@ public class ConnectionPolicyFetcher extends Fetcher<ConnectionPolicy> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public ConnectionPolicy fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ConnectionPolicy.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ConnectionPolicy> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ConnectionPolicy content = ConnectionPolicy.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

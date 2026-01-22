@@ -15,6 +15,7 @@
 package com.twilio.rest.knowledge.v1.knowledge;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class KnowledgeStatusFetcher extends Fetcher<KnowledgeStatus> {
         this.pathId = pathId;
     }
 
-    @Override
-    public KnowledgeStatus fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Knowledge/{id}/Status";
 
         path = path.replace("{" + "id" + "}", this.pathId.toString());
@@ -64,9 +64,31 @@ public class KnowledgeStatusFetcher extends Fetcher<KnowledgeStatus> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public KnowledgeStatus fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return KnowledgeStatus.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<KnowledgeStatus> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        KnowledgeStatus content = KnowledgeStatus.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

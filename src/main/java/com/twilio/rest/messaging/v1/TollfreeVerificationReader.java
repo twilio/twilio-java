@@ -17,6 +17,8 @@ package com.twilio.rest.messaging.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -88,14 +90,30 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
         return setTrustProductSid(Promoter.listOfOne(trustProductSid));
     }
 
-    @Override
-    public ResourceSet<TollfreeVerification> read(
+    public ResourceSetResponse<TollfreeVerification> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TollfreeVerification> page = Page.fromJson(
+            "verifications",
+            response.getContent(),
+            TollfreeVerification.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<TollfreeVerification> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<TollfreeVerification> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Tollfree/Verifications";
 
         Request request = new Request(
@@ -104,11 +122,40 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<TollfreeVerification> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<TollfreeVerification> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<TollfreeVerification> pageForRequest(
+    public TwilioResponse<Page<TollfreeVerification>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TollfreeVerification> page = Page.fromJson(
+            "verifications",
+            response.getContent(),
+            TollfreeVerification.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -131,7 +178,14 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<TollfreeVerification> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "verifications",
             response.getContent(),

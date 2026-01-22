@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.incomingphonenumber;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -226,8 +227,7 @@ public class LocalCreator extends Creator<Local> {
         return this;
     }
 
-    @Override
-    public Local create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json";
 
@@ -268,8 +268,29 @@ public class LocalCreator extends Creator<Local> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Local create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Local.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Local> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Local content = Local.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

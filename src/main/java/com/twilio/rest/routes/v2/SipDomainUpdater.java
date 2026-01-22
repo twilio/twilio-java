@@ -14,6 +14,7 @@
 
 package com.twilio.rest.routes.v2;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -48,8 +49,7 @@ public class SipDomainUpdater extends Updater<SipDomain> {
         return this;
     }
 
-    @Override
-    public SipDomain update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/SipDomains/{SipDomain}";
 
         path =
@@ -85,10 +85,31 @@ public class SipDomainUpdater extends Updater<SipDomain> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SipDomain update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SipDomain.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<SipDomain> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SipDomain content = SipDomain.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

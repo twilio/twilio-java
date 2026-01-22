@@ -15,6 +15,7 @@
 package com.twilio.rest.wireless.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -125,8 +126,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
         return this;
     }
 
-    @Override
-    public RatePlan create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/RatePlans";
 
         Request request = new Request(
@@ -156,10 +156,31 @@ public class RatePlanCreator extends Creator<RatePlan> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public RatePlan create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return RatePlan.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<RatePlan> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        RatePlan content = RatePlan.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

@@ -16,6 +16,7 @@ package com.twilio.rest.marketplace.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -44,8 +45,7 @@ public class ReferralConversionCreator extends Creator<ReferralConversion> {
         return this;
     }
 
-    @Override
-    public ReferralConversion create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/ReferralConversion";
 
         Request request = new Request(
@@ -75,10 +75,31 @@ public class ReferralConversionCreator extends Creator<ReferralConversion> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ReferralConversion create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ReferralConversion.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ReferralConversion> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ReferralConversion content = ReferralConversion.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

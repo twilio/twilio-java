@@ -15,6 +15,7 @@
 package com.twilio.rest.chat.v2.service.user;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -41,8 +42,7 @@ public class UserBindingFetcher extends Fetcher<UserBinding> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public UserBinding fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}";
 
@@ -79,9 +79,31 @@ public class UserBindingFetcher extends Fetcher<UserBinding> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public UserBinding fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return UserBinding.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<UserBinding> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        UserBinding content = UserBinding.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

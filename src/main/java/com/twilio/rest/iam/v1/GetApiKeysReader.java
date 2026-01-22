@@ -17,6 +17,8 @@ package com.twilio.rest.iam.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -48,12 +50,30 @@ public class GetApiKeysReader extends Reader<GetApiKeys> {
         return this;
     }
 
-    @Override
-    public ResourceSet<GetApiKeys> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<GetApiKeys> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<GetApiKeys> page = Page.fromJson(
+            "keys",
+            response.getContent(),
+            GetApiKeys.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<GetApiKeys> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<GetApiKeys> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Keys";
 
         Request request = new Request(
@@ -62,11 +82,38 @@ public class GetApiKeysReader extends Reader<GetApiKeys> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<GetApiKeys> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<GetApiKeys> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<GetApiKeys> pageForRequest(
+    public TwilioResponse<Page<GetApiKeys>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<GetApiKeys> page = Page.fromJson(
+            "keys",
+            response.getContent(),
+            GetApiKeys.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -89,7 +136,14 @@ public class GetApiKeysReader extends Reader<GetApiKeys> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<GetApiKeys> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "keys",
             response.getContent(),

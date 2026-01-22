@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -41,8 +42,7 @@ public class InteractionTransferFetcher extends Fetcher<InteractionTransfer> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public InteractionTransfer fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid}";
 
@@ -83,9 +83,31 @@ public class InteractionTransferFetcher extends Fetcher<InteractionTransfer> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public InteractionTransfer fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return InteractionTransfer.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<InteractionTransfer> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        InteractionTransfer content = InteractionTransfer.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

@@ -15,6 +15,7 @@
 package com.twilio.rest.trunking.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class TrunkFetcher extends Fetcher<Trunk> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Trunk fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,6 +64,28 @@ public class TrunkFetcher extends Fetcher<Trunk> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Trunk fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Trunk.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Trunk> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Trunk content = Trunk.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

@@ -15,6 +15,7 @@
 package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class DomainConfigFetcher extends Fetcher<DomainConfig> {
         this.pathDomainSid = pathDomainSid;
     }
 
-    @Override
-    public DomainConfig fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
 
         path =
@@ -68,9 +68,31 @@ public class DomainConfigFetcher extends Fetcher<DomainConfig> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public DomainConfig fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return DomainConfig.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<DomainConfig> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        DomainConfig content = DomainConfig.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

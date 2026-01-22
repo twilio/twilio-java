@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.message;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -46,8 +47,7 @@ public class MediaFetcher extends Fetcher<Media> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Media fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json";
 
@@ -92,6 +92,28 @@ public class MediaFetcher extends Fetcher<Media> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Media fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Media.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Media> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Media content = Media.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

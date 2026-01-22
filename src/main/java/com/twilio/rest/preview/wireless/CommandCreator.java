@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.wireless;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -83,8 +84,7 @@ public class CommandCreator extends Creator<Command> {
         return this;
     }
 
-    @Override
-    public Command create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/wireless/Commands";
 
         Request request = new Request(
@@ -114,8 +114,29 @@ public class CommandCreator extends Creator<Command> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Command create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Command.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Command> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Command content = Command.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

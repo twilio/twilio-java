@@ -17,6 +17,8 @@ package com.twilio.rest.voice.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -40,12 +42,30 @@ public class ByocTrunkReader extends Reader<ByocTrunk> {
         return this;
     }
 
-    @Override
-    public ResourceSet<ByocTrunk> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<ByocTrunk> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<ByocTrunk> page = Page.fromJson(
+            "byoc_trunks",
+            response.getContent(),
+            ByocTrunk.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<ByocTrunk> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<ByocTrunk> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/ByocTrunks";
 
         Request request = new Request(
@@ -54,11 +74,38 @@ public class ByocTrunkReader extends Reader<ByocTrunk> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<ByocTrunk> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<ByocTrunk> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<ByocTrunk> pageForRequest(
+    public TwilioResponse<Page<ByocTrunk>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<ByocTrunk> page = Page.fromJson(
+            "byoc_trunks",
+            response.getContent(),
+            ByocTrunk.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -81,7 +128,14 @@ public class ByocTrunkReader extends Reader<ByocTrunk> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<ByocTrunk> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "byoc_trunks",
             response.getContent(),

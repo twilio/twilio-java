@@ -14,6 +14,7 @@
 
 package com.twilio.rest.api.v2010.account;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -98,8 +99,7 @@ public class AddressUpdater extends Updater<Address> {
         return this;
     }
 
-    @Override
-    public Address update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json";
 
         this.pathAccountSid =
@@ -140,8 +140,29 @@ public class AddressUpdater extends Updater<Address> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Address update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Address.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Address> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Address content = Address.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

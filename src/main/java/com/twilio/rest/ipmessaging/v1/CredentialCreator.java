@@ -15,6 +15,7 @@
 package com.twilio.rest.ipmessaging.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -77,8 +78,7 @@ public class CredentialCreator extends Creator<Credential> {
         return this;
     }
 
-    @Override
-    public Credential create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Credentials";
 
         Request request = new Request(
@@ -108,10 +108,31 @@ public class CredentialCreator extends Creator<Credential> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Credential create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Credential.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Credential> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Credential content = Credential.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

@@ -17,6 +17,8 @@ package com.twilio.rest.content.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -121,14 +123,30 @@ public class ContentAndApprovalsReader extends Reader<ContentAndApprovals> {
         return setChannelEligibility(Promoter.listOfOne(channelEligibility));
     }
 
-    @Override
-    public ResourceSet<ContentAndApprovals> read(
+    public ResourceSetResponse<ContentAndApprovals> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<ContentAndApprovals> page = Page.fromJson(
+            "contents",
+            response.getContent(),
+            ContentAndApprovals.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<ContentAndApprovals> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<ContentAndApprovals> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/ContentAndApprovals";
 
         Request request = new Request(
@@ -137,11 +155,40 @@ public class ContentAndApprovalsReader extends Reader<ContentAndApprovals> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<ContentAndApprovals> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<ContentAndApprovals> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<ContentAndApprovals> pageForRequest(
+    public TwilioResponse<Page<ContentAndApprovals>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<ContentAndApprovals> page = Page.fromJson(
+            "contents",
+            response.getContent(),
+            ContentAndApprovals.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -164,7 +211,14 @@ public class ContentAndApprovalsReader extends Reader<ContentAndApprovals> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<ContentAndApprovals> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "contents",
             response.getContent(),

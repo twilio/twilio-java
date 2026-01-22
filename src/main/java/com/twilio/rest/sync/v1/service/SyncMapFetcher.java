@@ -15,6 +15,7 @@
 package com.twilio.rest.sync.v1.service;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -35,8 +36,7 @@ public class SyncMapFetcher extends Fetcher<SyncMap> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public SyncMap fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Maps/{Sid}";
 
         path =
@@ -71,6 +71,28 @@ public class SyncMapFetcher extends Fetcher<SyncMap> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public SyncMap fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SyncMap.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<SyncMap> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SyncMap content = SyncMap.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

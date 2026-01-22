@@ -15,6 +15,7 @@
 package com.twilio.rest.serverless.v1.service.environment;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -57,8 +58,7 @@ public class VariableCreator extends Creator<Variable> {
         return this;
     }
 
-    @Override
-    public Variable create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables";
 
@@ -100,10 +100,31 @@ public class VariableCreator extends Creator<Variable> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Variable create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Variable.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Variable> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Variable content = Variable.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

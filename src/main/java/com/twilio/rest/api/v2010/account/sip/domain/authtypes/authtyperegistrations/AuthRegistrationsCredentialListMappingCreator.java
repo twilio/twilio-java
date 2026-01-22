@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtyperegistrations;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -60,10 +61,7 @@ public class AuthRegistrationsCredentialListMappingCreator
         return this;
     }
 
-    @Override
-    public AuthRegistrationsCredentialListMapping create(
-        final TwilioRestClient client
-    ) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json";
 
@@ -109,10 +107,34 @@ public class AuthRegistrationsCredentialListMappingCreator
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public AuthRegistrationsCredentialListMapping create(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
         return AuthRegistrationsCredentialListMapping.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<
+        AuthRegistrationsCredentialListMapping
+    > createWithResponse(final TwilioRestClient client) {
+        Response response = makeRequest(client);
+        AuthRegistrationsCredentialListMapping content =
+            AuthRegistrationsCredentialListMapping.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

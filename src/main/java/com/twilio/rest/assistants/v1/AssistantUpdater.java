@@ -15,6 +15,7 @@
 package com.twilio.rest.assistants.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -44,8 +45,7 @@ public class AssistantUpdater extends Updater<Assistant> {
         return this;
     }
 
-    @Override
-    public Assistant update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Assistants/{id}";
 
         path = path.replace("{" + "id" + "}", this.pathId.toString());
@@ -77,10 +77,31 @@ public class AssistantUpdater extends Updater<Assistant> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Assistant update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Assistant.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Assistant> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Assistant content = Assistant.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

@@ -15,6 +15,7 @@
 package com.twilio.rest.serverless.v1.service.environment;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -41,8 +42,7 @@ public class DeploymentFetcher extends Fetcher<Deployment> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Deployment fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments/{Sid}";
 
@@ -83,9 +83,31 @@ public class DeploymentFetcher extends Fetcher<Deployment> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Deployment fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Deployment.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Deployment> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Deployment content = Deployment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

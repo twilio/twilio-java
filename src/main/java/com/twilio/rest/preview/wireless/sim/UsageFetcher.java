@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.wireless.sim;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -47,8 +48,7 @@ public class UsageFetcher extends Fetcher<Usage> {
         return this;
     }
 
-    @Override
-    public Usage fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/wireless/Sims/{SimSid}/Usage";
 
         path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
@@ -79,7 +79,29 @@ public class UsageFetcher extends Fetcher<Usage> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Usage fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Usage.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Usage> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Usage content = Usage.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addQueryParams(final Request request) {

@@ -15,6 +15,7 @@
 package com.twilio.rest.accounts.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -47,8 +48,7 @@ public class BulkConsentsCreator extends Creator<BulkConsents> {
         return setItems(Promoter.listOfOne(items));
     }
 
-    @Override
-    public BulkConsents create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Consents/Bulk";
 
         Request request = new Request(
@@ -78,10 +78,31 @@ public class BulkConsentsCreator extends Creator<BulkConsents> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public BulkConsents create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return BulkConsents.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<BulkConsents> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        BulkConsents content = BulkConsents.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

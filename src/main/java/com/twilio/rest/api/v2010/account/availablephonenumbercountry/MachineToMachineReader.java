@@ -17,6 +17,8 @@ package com.twilio.rest.api.v2010.account.availablephonenumbercountry;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -173,12 +175,30 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
         return this;
     }
 
-    @Override
-    public ResourceSet<MachineToMachine> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<MachineToMachine> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<MachineToMachine> page = Page.fromJson(
+            "available_phone_numbers",
+            response.getContent(),
+            MachineToMachine.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<MachineToMachine> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<MachineToMachine> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json";
 
@@ -203,11 +223,38 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<MachineToMachine> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<MachineToMachine> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<MachineToMachine> pageForRequest(
+    public TwilioResponse<Page<MachineToMachine>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<MachineToMachine> page = Page.fromJson(
+            "available_phone_numbers",
+            response.getContent(),
+            MachineToMachine.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -230,7 +277,14 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<MachineToMachine> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "available_phone_numbers",
             response.getContent(),

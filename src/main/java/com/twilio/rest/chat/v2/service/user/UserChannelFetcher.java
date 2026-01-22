@@ -15,6 +15,7 @@
 package com.twilio.rest.chat.v2.service.user;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -41,8 +42,7 @@ public class UserChannelFetcher extends Fetcher<UserChannel> {
         this.pathChannelSid = pathChannelSid;
     }
 
-    @Override
-    public UserChannel fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}";
 
@@ -83,9 +83,31 @@ public class UserChannelFetcher extends Fetcher<UserChannel> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public UserChannel fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return UserChannel.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<UserChannel> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        UserChannel content = UserChannel.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

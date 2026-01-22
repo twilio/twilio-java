@@ -14,6 +14,7 @@
 
 package com.twilio.rest.conversations.v1.service.configuration;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -75,8 +76,7 @@ public class WebhookUpdater extends Updater<Webhook> {
         return this;
     }
 
-    @Override
-    public Webhook update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Configuration/Webhooks";
 
         path =
@@ -112,8 +112,29 @@ public class WebhookUpdater extends Updater<Webhook> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Webhook update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Webhook> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Webhook content = Webhook.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

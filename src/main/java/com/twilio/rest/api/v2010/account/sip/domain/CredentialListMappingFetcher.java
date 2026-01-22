@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.sip.domain;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -50,8 +51,7 @@ public class CredentialListMappingFetcher
         this.pathSid = pathSid;
     }
 
-    @Override
-    public CredentialListMapping fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json";
 
@@ -96,9 +96,31 @@ public class CredentialListMappingFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public CredentialListMapping fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return CredentialListMapping.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<CredentialListMapping> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        CredentialListMapping content = CredentialListMapping.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

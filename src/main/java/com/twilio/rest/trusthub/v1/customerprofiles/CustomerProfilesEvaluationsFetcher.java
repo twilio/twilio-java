@@ -15,6 +15,7 @@
 package com.twilio.rest.trusthub.v1.customerprofiles;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -39,8 +40,7 @@ public class CustomerProfilesEvaluationsFetcher
         this.pathSid = pathSid;
     }
 
-    @Override
-    public CustomerProfilesEvaluations fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations/{Sid}";
 
@@ -76,9 +76,32 @@ public class CustomerProfilesEvaluationsFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public CustomerProfilesEvaluations fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return CustomerProfilesEvaluations.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<CustomerProfilesEvaluations> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        CustomerProfilesEvaluations content =
+            CustomerProfilesEvaluations.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

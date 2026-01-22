@@ -15,6 +15,7 @@
 package com.twilio.rest.trusthub.v1.trustproducts;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -39,10 +40,7 @@ public class TrustProductsChannelEndpointAssignmentFetcher
         this.pathSid = pathSid;
     }
 
-    @Override
-    public TrustProductsChannelEndpointAssignment fetch(
-        final TwilioRestClient client
-    ) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid}";
 
@@ -78,9 +76,34 @@ public class TrustProductsChannelEndpointAssignmentFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public TrustProductsChannelEndpointAssignment fetch(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
         return TrustProductsChannelEndpointAssignment.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<
+        TrustProductsChannelEndpointAssignment
+    > fetchWithResponse(final TwilioRestClient client) {
+        Response response = makeRequest(client);
+        TrustProductsChannelEndpointAssignment content =
+            TrustProductsChannelEndpointAssignment.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

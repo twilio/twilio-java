@@ -17,6 +17,8 @@ package com.twilio.rest.trunking.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -40,12 +42,26 @@ public class TrunkReader extends Reader<Trunk> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Trunk> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Trunk> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Trunk> page = Page.fromJson(
+            "trunks",
+            response.getContent(),
+            Trunk.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Trunk> resourceSet = new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Trunk> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks";
 
         Request request = new Request(
@@ -54,11 +70,38 @@ public class TrunkReader extends Reader<Trunk> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Trunk> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Trunk> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Trunk> pageForRequest(
+    public TwilioResponse<Page<Trunk>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Trunk> page = Page.fromJson(
+            "trunks",
+            response.getContent(),
+            Trunk.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -81,7 +124,14 @@ public class TrunkReader extends Reader<Trunk> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Trunk> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "trunks",
             response.getContent(),

@@ -419,6 +419,8 @@ public class DialTest {
 
         builder.client(new Client.Builder().build());
 
+        builder.sip(new Sip.Builder().build());
+
         builder.application(new Application.Builder().build());
 
         final Dial elem = builder.build();
@@ -426,6 +428,7 @@ public class DialTest {
         Assert.assertEquals(
             Dial.Builder.fromXml("<Dial>" +
                 "<Client/>" +
+                "<Sip/>" +
                 "<Application/>" +
             "</Dial>").build().toXml(),
             elem.toXml()

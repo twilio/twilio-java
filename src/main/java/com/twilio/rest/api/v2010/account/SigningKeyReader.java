@@ -17,6 +17,8 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -45,12 +47,30 @@ public class SigningKeyReader extends Reader<SigningKey> {
         return this;
     }
 
-    @Override
-    public ResourceSet<SigningKey> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<SigningKey> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SigningKey> page = Page.fromJson(
+            "signing_keys",
+            response.getContent(),
+            SigningKey.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<SigningKey> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<SigningKey> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json";
 
         this.pathAccountSid =
@@ -69,11 +89,38 @@ public class SigningKeyReader extends Reader<SigningKey> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<SigningKey> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<SigningKey> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<SigningKey> pageForRequest(
+    public TwilioResponse<Page<SigningKey>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SigningKey> page = Page.fromJson(
+            "signing_keys",
+            response.getContent(),
+            SigningKey.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -96,7 +143,14 @@ public class SigningKeyReader extends Reader<SigningKey> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<SigningKey> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "signing_keys",
             response.getContent(),

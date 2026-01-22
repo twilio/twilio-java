@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,8 +30,7 @@ public class ProvisioningStatusFetcher extends Fetcher<ProvisioningStatus> {
 
     public ProvisioningStatusFetcher() {}
 
-    @Override
-    public ProvisioningStatus fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/account/provision/status";
 
         Request request = new Request(
@@ -58,9 +58,31 @@ public class ProvisioningStatusFetcher extends Fetcher<ProvisioningStatus> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public ProvisioningStatus fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ProvisioningStatus.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ProvisioningStatus> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ProvisioningStatus content = ProvisioningStatus.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

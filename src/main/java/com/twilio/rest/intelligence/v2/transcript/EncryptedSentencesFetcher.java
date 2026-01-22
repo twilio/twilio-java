@@ -15,6 +15,7 @@
 package com.twilio.rest.intelligence.v2.transcript;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -41,8 +42,7 @@ public class EncryptedSentencesFetcher extends Fetcher<EncryptedSentences> {
         return this;
     }
 
-    @Override
-    public EncryptedSentences fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Transcripts/{TranscriptSid}/Sentences/Encrypted";
 
         path =
@@ -77,9 +77,31 @@ public class EncryptedSentencesFetcher extends Fetcher<EncryptedSentences> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public EncryptedSentences fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return EncryptedSentences.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<EncryptedSentences> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        EncryptedSentences content = EncryptedSentences.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

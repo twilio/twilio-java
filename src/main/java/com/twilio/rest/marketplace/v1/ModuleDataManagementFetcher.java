@@ -15,6 +15,7 @@
 package com.twilio.rest.marketplace.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class ModuleDataManagementFetcher extends Fetcher<ModuleDataManagement> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public ModuleDataManagement fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Listing/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,9 +64,31 @@ public class ModuleDataManagementFetcher extends Fetcher<ModuleDataManagement> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public ModuleDataManagement fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ModuleDataManagement.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ModuleDataManagement> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ModuleDataManagement content = ModuleDataManagement.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

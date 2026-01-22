@@ -14,6 +14,7 @@
 
 package com.twilio.rest.wireless.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -176,8 +177,7 @@ public class SimUpdater extends Updater<Sim> {
         return this;
     }
 
-    @Override
-    public Sim update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Sims/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -209,8 +209,29 @@ public class SimUpdater extends Updater<Sim> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Sim update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Sim.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Sim> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Sim content = Sim.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

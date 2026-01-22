@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -61,8 +62,7 @@ public class InteractionCreator extends Creator<Interaction> {
         return this;
     }
 
-    @Override
-    public Interaction create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Interactions";
 
         Request request = new Request(
@@ -92,10 +92,31 @@ public class InteractionCreator extends Creator<Interaction> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Interaction create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Interaction.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Interaction> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Interaction content = Interaction.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

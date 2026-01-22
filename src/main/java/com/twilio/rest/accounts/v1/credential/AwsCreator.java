@@ -15,6 +15,7 @@
 package com.twilio.rest.accounts.v1.credential;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -53,8 +54,7 @@ public class AwsCreator extends Creator<Aws> {
         return this;
     }
 
-    @Override
-    public Aws create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Credentials/AWS";
 
         Request request = new Request(
@@ -84,8 +84,29 @@ public class AwsCreator extends Creator<Aws> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Aws create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Aws.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Aws> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Aws content = Aws.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

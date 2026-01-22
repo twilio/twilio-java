@@ -14,6 +14,7 @@
 
 package com.twilio.rest.sync.v1.service;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -47,8 +48,7 @@ public class SyncStreamUpdater extends Updater<SyncStream> {
         return this;
     }
 
-    @Override
-    public SyncStream update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Streams/{Sid}";
 
         path =
@@ -85,10 +85,31 @@ public class SyncStreamUpdater extends Updater<SyncStream> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SyncStream update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SyncStream.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<SyncStream> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SyncStream content = SyncStream.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

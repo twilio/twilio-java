@@ -15,6 +15,7 @@
 package com.twilio.rest.sync.v1.service.syncmap;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -41,8 +42,7 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
         this.pathIdentity = pathIdentity;
     }
 
-    @Override
-    public SyncMapPermission fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}";
 
@@ -80,9 +80,31 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public SyncMapPermission fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SyncMapPermission.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<SyncMapPermission> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SyncMapPermission content = SyncMapPermission.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

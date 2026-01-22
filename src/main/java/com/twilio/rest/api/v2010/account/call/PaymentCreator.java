@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -165,8 +166,7 @@ public class PaymentCreator extends Creator<Payment> {
         return this;
     }
 
-    @Override
-    public Payment create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json";
 
@@ -208,8 +208,29 @@ public class PaymentCreator extends Creator<Payment> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Payment create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Payment.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Payment> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Payment content = Payment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

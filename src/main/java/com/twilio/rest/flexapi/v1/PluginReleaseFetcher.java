@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -41,8 +42,7 @@ public class PluginReleaseFetcher extends Fetcher<PluginRelease> {
         return this;
     }
 
-    @Override
-    public PluginRelease fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/PluginService/Releases/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -73,9 +73,31 @@ public class PluginReleaseFetcher extends Fetcher<PluginRelease> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public PluginRelease fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PluginRelease.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<PluginRelease> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PluginRelease content = PluginRelease.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

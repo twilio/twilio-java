@@ -15,6 +15,7 @@
 package com.twilio.rest.sync.v1.service;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -38,8 +39,7 @@ public class SyncStreamFetcher extends Fetcher<SyncStream> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public SyncStream fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Streams/{Sid}";
 
         path =
@@ -74,9 +74,31 @@ public class SyncStreamFetcher extends Fetcher<SyncStream> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public SyncStream fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SyncStream.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<SyncStream> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SyncStream content = SyncStream.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

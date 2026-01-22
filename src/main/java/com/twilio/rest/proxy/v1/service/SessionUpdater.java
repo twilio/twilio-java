@@ -14,6 +14,7 @@
 
 package com.twilio.rest.proxy.v1.service;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -57,8 +58,7 @@ public class SessionUpdater extends Updater<Session> {
         return this;
     }
 
-    @Override
-    public Session update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Sessions/{Sid}";
 
         path =
@@ -95,8 +95,29 @@ public class SessionUpdater extends Updater<Session> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Session update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Session.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Session> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Session content = Session.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

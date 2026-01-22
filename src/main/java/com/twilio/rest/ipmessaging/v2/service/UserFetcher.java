@@ -15,6 +15,7 @@
 package com.twilio.rest.ipmessaging.v2.service;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -35,8 +36,7 @@ public class UserFetcher extends Fetcher<User> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public User fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Users/{Sid}";
 
         path =
@@ -71,6 +71,28 @@ public class UserFetcher extends Fetcher<User> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public User fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return User.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<User> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        User content = User.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

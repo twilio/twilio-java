@@ -17,6 +17,8 @@ package com.twilio.rest.intelligence.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -40,12 +42,30 @@ public class OperatorTypeReader extends Reader<OperatorType> {
         return this;
     }
 
-    @Override
-    public ResourceSet<OperatorType> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<OperatorType> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<OperatorType> page = Page.fromJson(
+            "operator_types",
+            response.getContent(),
+            OperatorType.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<OperatorType> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<OperatorType> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/OperatorTypes";
 
         Request request = new Request(
@@ -54,11 +74,38 @@ public class OperatorTypeReader extends Reader<OperatorType> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<OperatorType> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<OperatorType> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<OperatorType> pageForRequest(
+    public TwilioResponse<Page<OperatorType>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<OperatorType> page = Page.fromJson(
+            "operator_types",
+            response.getContent(),
+            OperatorType.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -81,7 +128,14 @@ public class OperatorTypeReader extends Reader<OperatorType> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<OperatorType> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "operator_types",
             response.getContent(),

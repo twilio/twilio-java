@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.conference;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -49,8 +50,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Recording fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json";
 
@@ -95,9 +95,31 @@ public class RecordingFetcher extends Fetcher<Recording> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Recording fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Recording.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Recording> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Recording content = Recording.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

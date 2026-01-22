@@ -14,6 +14,7 @@
 
 package com.twilio.rest.api.v2010.account;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -193,8 +194,7 @@ public class ApplicationUpdater extends Updater<Application> {
         return this;
     }
 
-    @Override
-    public Application update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json";
 
@@ -236,10 +236,31 @@ public class ApplicationUpdater extends Updater<Application> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Application update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Application.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Application> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Application content = Application.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

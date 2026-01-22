@@ -17,6 +17,8 @@ package com.twilio.rest.studio.v1.flow.engagement;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -48,12 +50,26 @@ public class StepReader extends Reader<Step> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Step> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Step> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Step> page = Page.fromJson(
+            "steps",
+            response.getContent(),
+            Step.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Step> resourceSet = new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Step> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
@@ -69,11 +85,38 @@ public class StepReader extends Reader<Step> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Step> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Step> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Step> pageForRequest(
+    public TwilioResponse<Page<Step>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Step> page = Page.fromJson(
+            "steps",
+            response.getContent(),
+            Step.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -96,7 +139,14 @@ public class StepReader extends Reader<Step> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Step> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "steps",
             response.getContent(),

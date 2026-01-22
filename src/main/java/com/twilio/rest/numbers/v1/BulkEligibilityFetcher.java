@@ -15,6 +15,7 @@
 package com.twilio.rest.numbers.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class BulkEligibilityFetcher extends Fetcher<BulkEligibility> {
         this.pathRequestId = pathRequestId;
     }
 
-    @Override
-    public BulkEligibility fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/HostedNumber/Eligibility/Bulk/{RequestId}";
 
         path =
@@ -68,9 +68,31 @@ public class BulkEligibilityFetcher extends Fetcher<BulkEligibility> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public BulkEligibility fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return BulkEligibility.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<BulkEligibility> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        BulkEligibility content = BulkEligibility.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

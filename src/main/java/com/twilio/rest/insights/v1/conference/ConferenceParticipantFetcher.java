@@ -15,6 +15,7 @@
 package com.twilio.rest.insights.v1.conference;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -53,8 +54,7 @@ public class ConferenceParticipantFetcher
         return this;
     }
 
-    @Override
-    public ConferenceParticipant fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Conferences/{ConferenceSid}/Participants/{ParticipantSid}";
 
@@ -95,9 +95,31 @@ public class ConferenceParticipantFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public ConferenceParticipant fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ConferenceParticipant.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ConferenceParticipant> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ConferenceParticipant content = ConferenceParticipant.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

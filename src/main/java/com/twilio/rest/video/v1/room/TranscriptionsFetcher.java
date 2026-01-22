@@ -15,6 +15,7 @@
 package com.twilio.rest.video.v1.room;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -38,8 +39,7 @@ public class TranscriptionsFetcher extends Fetcher<Transcriptions> {
         this.pathTtid = pathTtid;
     }
 
-    @Override
-    public Transcriptions fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Rooms/{RoomSid}/Transcriptions/{Ttid}";
 
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
@@ -70,9 +70,31 @@ public class TranscriptionsFetcher extends Fetcher<Transcriptions> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Transcriptions fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Transcriptions.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Transcriptions> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Transcriptions content = Transcriptions.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

@@ -15,6 +15,7 @@
 package com.twilio.rest.messaging.v1.brandregistration;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -54,8 +55,7 @@ public class BrandVettingCreator extends Creator<BrandVetting> {
         return this;
     }
 
-    @Override
-    public BrandVetting create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings";
 
         path =
@@ -88,10 +88,31 @@ public class BrandVettingCreator extends Creator<BrandVetting> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public BrandVetting create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return BrandVetting.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<BrandVetting> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        BrandVetting content = BrandVetting.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

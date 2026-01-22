@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -39,8 +40,7 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public ShortCode fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json";
 
@@ -80,9 +80,31 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public ShortCode fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ShortCode.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ShortCode> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ShortCode content = ShortCode.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

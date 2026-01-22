@@ -14,6 +14,7 @@
 
 package com.twilio.rest.api.v2010.account;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -71,8 +72,7 @@ public class ConferenceUpdater extends Updater<Conference> {
         return this;
     }
 
-    @Override
-    public Conference update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json";
 
@@ -114,10 +114,31 @@ public class ConferenceUpdater extends Updater<Conference> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Conference update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Conference.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Conference> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Conference content = Conference.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

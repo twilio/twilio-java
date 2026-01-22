@@ -14,6 +14,7 @@
 
 package com.twilio.rest.conversations.v1.conversation;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -86,8 +87,7 @@ public class MessageUpdater extends Updater<Message> {
         return this;
     }
 
-    @Override
-    public Message update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Conversations/{ConversationSid}/Messages/{Sid}";
 
         path =
@@ -125,8 +125,29 @@ public class MessageUpdater extends Updater<Message> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Message update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Message.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Message> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Message content = Message.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

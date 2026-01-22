@@ -15,6 +15,7 @@
 package com.twilio.rest.intelligence.v2;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -63,8 +64,7 @@ public class TranscriptCreator extends Creator<Transcript> {
         return this;
     }
 
-    @Override
-    public Transcript create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Transcripts";
 
         Request request = new Request(
@@ -94,10 +94,31 @@ public class TranscriptCreator extends Creator<Transcript> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Transcript create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Transcript.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Transcript> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Transcript content = Transcript.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

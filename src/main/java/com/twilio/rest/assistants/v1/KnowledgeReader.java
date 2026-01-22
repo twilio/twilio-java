@@ -17,6 +17,8 @@ package com.twilio.rest.assistants.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -46,12 +48,30 @@ public class KnowledgeReader extends Reader<Knowledge> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Knowledge> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Knowledge> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Knowledge> page = Page.fromJson(
+            "knowledge",
+            response.getContent(),
+            Knowledge.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Knowledge> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Knowledge> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Knowledge";
 
         Request request = new Request(
@@ -60,11 +80,38 @@ public class KnowledgeReader extends Reader<Knowledge> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Knowledge> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Knowledge> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Knowledge> pageForRequest(
+    public TwilioResponse<Page<Knowledge>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Knowledge> page = Page.fromJson(
+            "knowledge",
+            response.getContent(),
+            Knowledge.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -87,7 +134,14 @@ public class KnowledgeReader extends Reader<Knowledge> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Knowledge> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "knowledge",
             response.getContent(),

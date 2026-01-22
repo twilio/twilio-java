@@ -17,6 +17,8 @@ package com.twilio.rest.messaging.v1.service;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -43,12 +45,30 @@ public class UsAppToPersonReader extends Reader<UsAppToPerson> {
         return this;
     }
 
-    @Override
-    public ResourceSet<UsAppToPerson> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<UsAppToPerson> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<UsAppToPerson> page = Page.fromJson(
+            "compliance",
+            response.getContent(),
+            UsAppToPerson.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<UsAppToPerson> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<UsAppToPerson> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p";
 
         path =
@@ -63,11 +83,38 @@ public class UsAppToPersonReader extends Reader<UsAppToPerson> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<UsAppToPerson> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<UsAppToPerson> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<UsAppToPerson> pageForRequest(
+    public TwilioResponse<Page<UsAppToPerson>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<UsAppToPerson> page = Page.fromJson(
+            "compliance",
+            response.getContent(),
+            UsAppToPerson.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -90,7 +137,14 @@ public class UsAppToPersonReader extends Reader<UsAppToPerson> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<UsAppToPerson> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "compliance",
             response.getContent(),

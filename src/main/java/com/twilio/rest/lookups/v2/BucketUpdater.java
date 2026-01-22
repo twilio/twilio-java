@@ -15,6 +15,7 @@
 package com.twilio.rest.lookups.v2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -45,8 +46,7 @@ public class BucketUpdater extends Updater<Bucket> {
         return this;
     }
 
-    @Override
-    public Bucket update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/RateLimits/Fields/{Field}/Bucket/{Bucket}";
 
         path = path.replace("{" + "Field" + "}", this.pathField.toString());
@@ -79,8 +79,29 @@ public class BucketUpdater extends Updater<Bucket> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Bucket update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Bucket.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Bucket> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Bucket content = Bucket.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {

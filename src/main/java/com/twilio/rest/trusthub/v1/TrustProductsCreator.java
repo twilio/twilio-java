@@ -15,6 +15,7 @@
 package com.twilio.rest.trusthub.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -71,8 +72,7 @@ public class TrustProductsCreator extends Creator<TrustProducts> {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
 
-    @Override
-    public TrustProducts create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/TrustProducts";
 
         Request request = new Request(
@@ -102,10 +102,31 @@ public class TrustProductsCreator extends Creator<TrustProducts> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public TrustProducts create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return TrustProducts.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<TrustProducts> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        TrustProducts content = TrustProducts.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

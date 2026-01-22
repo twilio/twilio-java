@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -38,8 +39,7 @@ public class VerificationFetcher extends Fetcher<Verification> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Verification fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Verifications/{Sid}";
 
         path =
@@ -74,9 +74,31 @@ public class VerificationFetcher extends Fetcher<Verification> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Verification fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Verification.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Verification> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Verification content = Verification.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

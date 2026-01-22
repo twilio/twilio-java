@@ -17,6 +17,8 @@ package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtypecalls;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -55,16 +57,27 @@ public class AuthCallsCredentialListMappingReader
         return this;
     }
 
-    @Override
-    public ResourceSet<AuthCallsCredentialListMapping> read(
+    public ResourceSetResponse<AuthCallsCredentialListMapping> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AuthCallsCredentialListMapping> page = Page.fromJson(
+            "contents",
+            response.getContent(),
+            AuthCallsCredentialListMapping.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<AuthCallsCredentialListMapping> resourceSet =
+            new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<AuthCallsCredentialListMapping> firstPage(
-        final TwilioRestClient client
-    ) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json";
 
@@ -89,11 +102,42 @@ public class AuthCallsCredentialListMappingReader
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<AuthCallsCredentialListMapping> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<AuthCallsCredentialListMapping> firstPage(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<AuthCallsCredentialListMapping> pageForRequest(
+    public TwilioResponse<
+        Page<AuthCallsCredentialListMapping>
+    > firstPageWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AuthCallsCredentialListMapping> page = Page.fromJson(
+            "contents",
+            response.getContent(),
+            AuthCallsCredentialListMapping.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -116,7 +160,14 @@ public class AuthCallsCredentialListMappingReader
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<AuthCallsCredentialListMapping> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "contents",
             response.getContent(),

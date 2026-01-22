@@ -16,6 +16,7 @@ package com.twilio.rest.previewiam.organizations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -49,8 +50,7 @@ public class RoleAssignmentCreator extends Creator<RoleAssignment> {
         return this;
     }
 
-    @Override
-    public RoleAssignment create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/RoleAssignments";
 
         path =
@@ -86,10 +86,31 @@ public class RoleAssignmentCreator extends Creator<RoleAssignment> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public RoleAssignment create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return RoleAssignment.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<RoleAssignment> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        RoleAssignment content = RoleAssignment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

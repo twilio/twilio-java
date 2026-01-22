@@ -14,6 +14,7 @@
 
 package com.twilio.rest.supersim.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -92,8 +93,7 @@ public class FleetUpdater extends Updater<Fleet> {
         return this;
     }
 
-    @Override
-    public Fleet update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Fleets/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -125,8 +125,29 @@ public class FleetUpdater extends Updater<Fleet> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Fleet update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Fleet.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Fleet> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Fleet content = Fleet.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

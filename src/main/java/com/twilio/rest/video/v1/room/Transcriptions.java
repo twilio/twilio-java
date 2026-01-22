@@ -162,6 +162,9 @@ public class Transcriptions extends Resource {
     private final String roomSid;
 
     @Getter
+    private final String sourceSid;
+
+    @Getter
     private final ZonedDateTime startTime;
 
     @Getter
@@ -188,6 +191,7 @@ public class Transcriptions extends Resource {
             using = com.twilio.converter.ISO8601Deserializer.class
         ) final ZonedDateTime endTime,
         @JsonProperty("room_sid") final String roomSid,
+        @JsonProperty("source_sid") final String sourceSid,
         @JsonProperty("start_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
         ) final ZonedDateTime startTime,
@@ -202,6 +206,7 @@ public class Transcriptions extends Resource {
         this.duration = duration;
         this.endTime = endTime;
         this.roomSid = roomSid;
+        this.sourceSid = sourceSid;
         this.startTime = startTime;
         this.status = status;
         this.ttid = ttid;
@@ -227,6 +232,7 @@ public class Transcriptions extends Resource {
             Objects.equals(duration, other.duration) &&
             Objects.equals(endTime, other.endTime) &&
             Objects.equals(roomSid, other.roomSid) &&
+            Objects.equals(sourceSid, other.sourceSid) &&
             Objects.equals(startTime, other.startTime) &&
             Objects.equals(status, other.status) &&
             Objects.equals(ttid, other.ttid) &&
@@ -244,6 +250,7 @@ public class Transcriptions extends Resource {
             duration,
             endTime,
             roomSid,
+            sourceSid,
             startTime,
             status,
             ttid,

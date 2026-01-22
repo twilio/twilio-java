@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -47,8 +48,7 @@ public class NewVerifyFactorUpdater extends Updater<NewVerifyFactor> {
         return this;
     }
 
-    @Override
-    public NewVerifyFactor update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Passkeys/VerifyFactor";
 
         path =
@@ -84,10 +84,31 @@ public class NewVerifyFactorUpdater extends Updater<NewVerifyFactor> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public NewVerifyFactor update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return NewVerifyFactor.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<NewVerifyFactor> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        NewVerifyFactor content = NewVerifyFactor.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

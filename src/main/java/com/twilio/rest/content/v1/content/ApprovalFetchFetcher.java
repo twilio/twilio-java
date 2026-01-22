@@ -15,6 +15,7 @@
 package com.twilio.rest.content.v1.content;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class ApprovalFetchFetcher extends Fetcher<ApprovalFetch> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public ApprovalFetch fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Content/{Sid}/ApprovalRequests";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,9 +64,31 @@ public class ApprovalFetchFetcher extends Fetcher<ApprovalFetch> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public ApprovalFetch fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ApprovalFetch.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ApprovalFetch> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ApprovalFetch content = ApprovalFetch.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

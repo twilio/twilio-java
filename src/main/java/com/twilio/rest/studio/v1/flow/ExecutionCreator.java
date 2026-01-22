@@ -15,6 +15,7 @@
 package com.twilio.rest.studio.v1.flow;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -69,8 +70,7 @@ public class ExecutionCreator extends Creator<Execution> {
         return this;
     }
 
-    @Override
-    public Execution create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Flows/{FlowSid}/Executions";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
@@ -102,10 +102,31 @@ public class ExecutionCreator extends Creator<Execution> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Execution create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Execution.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Execution> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Execution content = Execution.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

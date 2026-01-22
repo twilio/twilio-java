@@ -17,6 +17,8 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -78,14 +80,30 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
         return this;
     }
 
-    @Override
-    public ResourceSet<IncomingPhoneNumber> read(
+    public ResourceSetResponse<IncomingPhoneNumber> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<IncomingPhoneNumber> page = Page.fromJson(
+            "incoming_phone_numbers",
+            response.getContent(),
+            IncomingPhoneNumber.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<IncomingPhoneNumber> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<IncomingPhoneNumber> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json";
 
@@ -105,11 +123,40 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<IncomingPhoneNumber> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<IncomingPhoneNumber> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<IncomingPhoneNumber> pageForRequest(
+    public TwilioResponse<Page<IncomingPhoneNumber>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<IncomingPhoneNumber> page = Page.fromJson(
+            "incoming_phone_numbers",
+            response.getContent(),
+            IncomingPhoneNumber.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -132,7 +179,14 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<IncomingPhoneNumber> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "incoming_phone_numbers",
             response.getContent(),

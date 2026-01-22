@@ -15,6 +15,7 @@
 package com.twilio.rest.ipmessaging.v2.service;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -35,8 +36,7 @@ public class BindingFetcher extends Fetcher<Binding> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Binding fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Bindings/{Sid}";
 
         path =
@@ -71,6 +71,28 @@ public class BindingFetcher extends Fetcher<Binding> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Binding fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Binding.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Binding> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Binding content = Binding.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

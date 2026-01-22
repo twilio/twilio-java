@@ -15,6 +15,7 @@
 package com.twilio.rest.voice.v1.dialingpermissions;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -43,8 +44,7 @@ public class BulkCountryUpdateCreator extends Creator<BulkCountryUpdate> {
         return this;
     }
 
-    @Override
-    public BulkCountryUpdate create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/DialingPermissions/BulkCountryUpdates";
 
         Request request = new Request(
@@ -74,10 +74,31 @@ public class BulkCountryUpdateCreator extends Creator<BulkCountryUpdate> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public BulkCountryUpdate create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return BulkCountryUpdate.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<BulkCountryUpdate> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        BulkCountryUpdate content = BulkCountryUpdate.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

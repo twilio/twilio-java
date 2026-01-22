@@ -14,6 +14,7 @@
 
 package com.twilio.rest.video.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -43,8 +44,7 @@ public class RoomUpdater extends Updater<Room> {
         return this;
     }
 
-    @Override
-    public Room update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Rooms/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -76,8 +76,29 @@ public class RoomUpdater extends Updater<Room> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Room update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Room.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Room> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Room content = Room.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

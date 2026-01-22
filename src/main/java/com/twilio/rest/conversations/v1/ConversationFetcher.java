@@ -15,6 +15,7 @@
 package com.twilio.rest.conversations.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class ConversationFetcher extends Fetcher<Conversation> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Conversation fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Conversations/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,9 +64,31 @@ public class ConversationFetcher extends Fetcher<Conversation> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Conversation fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Conversation.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Conversation> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Conversation content = Conversation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

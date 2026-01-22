@@ -15,6 +15,7 @@
 package com.twilio.rest.insights.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -38,8 +39,7 @@ public class SettingFetcher extends Fetcher<Setting> {
         return this;
     }
 
-    @Override
-    public Setting fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Voice/Settings";
 
         Request request = new Request(
@@ -68,7 +68,29 @@ public class SettingFetcher extends Fetcher<Setting> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Setting fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Setting.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Setting> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Setting content = Setting.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addQueryParams(final Request request) {

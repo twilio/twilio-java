@@ -15,6 +15,7 @@
 package com.twilio.rest.studio.v2.flow;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -35,8 +36,7 @@ public class ExecutionFetcher extends Fetcher<Execution> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Execution fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Flows/{FlowSid}/Executions/{Sid}";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
@@ -67,9 +67,31 @@ public class ExecutionFetcher extends Fetcher<Execution> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Execution fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Execution.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Execution> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Execution content = Execution.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

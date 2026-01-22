@@ -15,6 +15,7 @@
 package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -39,10 +40,7 @@ public class LinkshorteningMessagingServiceCreator
         this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
-    @Override
-    public LinkshorteningMessagingService create(
-        final TwilioRestClient client
-    ) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}";
 
@@ -82,10 +80,34 @@ public class LinkshorteningMessagingServiceCreator
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public LinkshorteningMessagingService create(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
         return LinkshorteningMessagingService.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<LinkshorteningMessagingService> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        LinkshorteningMessagingService content =
+            LinkshorteningMessagingService.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

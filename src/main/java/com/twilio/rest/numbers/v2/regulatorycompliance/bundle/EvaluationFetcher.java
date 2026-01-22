@@ -15,6 +15,7 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -35,8 +36,7 @@ public class EvaluationFetcher extends Fetcher<Evaluation> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Evaluation fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid}";
 
@@ -72,9 +72,31 @@ public class EvaluationFetcher extends Fetcher<Evaluation> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Evaluation fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Evaluation.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Evaluation> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Evaluation content = Evaluation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

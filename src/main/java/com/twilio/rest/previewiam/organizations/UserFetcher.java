@@ -15,6 +15,7 @@
 package com.twilio.rest.previewiam.organizations;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -38,8 +39,7 @@ public class UserFetcher extends Fetcher<User> {
         this.pathUserSid = pathUserSid;
     }
 
-    @Override
-    public User fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/scim/Users/{UserSid}";
 
         path =
@@ -74,6 +74,28 @@ public class UserFetcher extends Fetcher<User> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public User fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return User.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<User> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        User content = User.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

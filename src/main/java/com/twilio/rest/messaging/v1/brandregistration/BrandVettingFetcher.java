@@ -15,6 +15,7 @@
 package com.twilio.rest.messaging.v1.brandregistration;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -38,8 +39,7 @@ public class BrandVettingFetcher extends Fetcher<BrandVetting> {
         this.pathBrandVettingSid = pathBrandVettingSid;
     }
 
-    @Override
-    public BrandVetting fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid}";
 
@@ -76,9 +76,31 @@ public class BrandVettingFetcher extends Fetcher<BrandVetting> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public BrandVetting fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return BrandVetting.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<BrandVetting> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        BrandVetting content = BrandVetting.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

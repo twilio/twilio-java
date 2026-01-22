@@ -15,6 +15,7 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -42,8 +43,7 @@ public class BundleCopyCreator extends Creator<BundleCopy> {
         return this;
     }
 
-    @Override
-    public BundleCopy create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Copies";
 
         path =
@@ -79,10 +79,31 @@ public class BundleCopyCreator extends Creator<BundleCopy> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public BundleCopy create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return BundleCopy.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<BundleCopy> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        BundleCopy content = BundleCopy.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

@@ -15,6 +15,7 @@
 package com.twilio.rest.supersim.v1.networkaccessprofile;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -39,8 +40,7 @@ public class NetworkAccessProfileNetworkFetcher
         this.pathSid = pathSid;
     }
 
-    @Override
-    public NetworkAccessProfileNetwork fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}";
 
@@ -76,9 +76,32 @@ public class NetworkAccessProfileNetworkFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public NetworkAccessProfileNetwork fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return NetworkAccessProfileNetwork.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<NetworkAccessProfileNetwork> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        NetworkAccessProfileNetwork content =
+            NetworkAccessProfileNetwork.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

@@ -17,6 +17,8 @@ package com.twilio.rest.supersim.v1.sim;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -43,12 +45,30 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
         return this;
     }
 
-    @Override
-    public ResourceSet<BillingPeriod> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<BillingPeriod> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<BillingPeriod> page = Page.fromJson(
+            "billing_periods",
+            response.getContent(),
+            BillingPeriod.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<BillingPeriod> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<BillingPeriod> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Sims/{SimSid}/BillingPeriods";
 
         path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
@@ -59,11 +79,38 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<BillingPeriod> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<BillingPeriod> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<BillingPeriod> pageForRequest(
+    public TwilioResponse<Page<BillingPeriod>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<BillingPeriod> page = Page.fromJson(
+            "billing_periods",
+            response.getContent(),
+            BillingPeriod.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -86,7 +133,14 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<BillingPeriod> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "billing_periods",
             response.getContent(),

@@ -64,7 +64,7 @@ public class Sip extends TwiML {
      * For XML Serialization/Deserialization
      */
     private Sip() {
-        this(new Builder((URI) null));
+        this(new Builder());
     }
 
     /**
@@ -353,9 +353,9 @@ public class Sip extends TwiML {
         }
 
         /**
-         * Create a {@code <Sip>} (for XML deserialization)
+         * Create a {@code <Sip>} with child elements
          */
-        private Builder() {
+        public Builder() {
         }
 
         /**
@@ -506,6 +506,41 @@ public class Sip extends TwiML {
         @JacksonXmlProperty(isAttribute = true, localName = "machineDetectionSilenceTimeout")
         public Builder machineDetectionSilenceTimeout(Integer machineDetectionSilenceTimeout) {
             this.machineDetectionSilenceTimeout = machineDetectionSilenceTimeout;
+            return this;
+        }
+
+        /**
+         * SIP URL
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "sipUrl")
+        public Builder sipUrl(URI sipUrl) {
+            this.sipUrl = sipUrl;
+            return this;
+        }
+
+        /**
+         * SIP URL
+         */
+        public Builder sipUrl(String sipUrl) {
+            this.sipUrl = Promoter.uriFromString(sipUrl);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Uri>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "Uri")
+        public Builder uri(SipUri sipUri) {
+            this.children.add(sipUri);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Headers>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "Headers")
+        public Builder headers(Headers headers) {
+            this.children.add(headers);
             return this;
         }
 

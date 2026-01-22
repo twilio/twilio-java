@@ -17,6 +17,8 @@ package com.twilio.rest.supersim.v1.networkaccessprofile;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -46,16 +48,27 @@ public class NetworkAccessProfileNetworkReader
         return this;
     }
 
-    @Override
-    public ResourceSet<NetworkAccessProfileNetwork> read(
+    public ResourceSetResponse<NetworkAccessProfileNetwork> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<NetworkAccessProfileNetwork> page = Page.fromJson(
+            "networks",
+            response.getContent(),
+            NetworkAccessProfileNetwork.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<NetworkAccessProfileNetwork> resourceSet =
+            new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<NetworkAccessProfileNetwork> firstPage(
-        final TwilioRestClient client
-    ) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks";
 
@@ -71,11 +84,42 @@ public class NetworkAccessProfileNetworkReader
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<NetworkAccessProfileNetwork> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<NetworkAccessProfileNetwork> firstPage(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<NetworkAccessProfileNetwork> pageForRequest(
+    public TwilioResponse<
+        Page<NetworkAccessProfileNetwork>
+    > firstPageWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<NetworkAccessProfileNetwork> page = Page.fromJson(
+            "networks",
+            response.getContent(),
+            NetworkAccessProfileNetwork.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -98,7 +142,14 @@ public class NetworkAccessProfileNetworkReader
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<NetworkAccessProfileNetwork> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "networks",
             response.getContent(),

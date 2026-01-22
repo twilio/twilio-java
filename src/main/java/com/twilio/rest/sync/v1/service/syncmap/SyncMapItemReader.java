@@ -17,6 +17,8 @@ package com.twilio.rest.sync.v1.service.syncmap;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -70,12 +72,30 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
         return this;
     }
 
-    @Override
-    public ResourceSet<SyncMapItem> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<SyncMapItem> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SyncMapItem> page = Page.fromJson(
+            "items",
+            response.getContent(),
+            SyncMapItem.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<SyncMapItem> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<SyncMapItem> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items";
 
         path =
@@ -91,11 +111,38 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<SyncMapItem> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<SyncMapItem> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<SyncMapItem> pageForRequest(
+    public TwilioResponse<Page<SyncMapItem>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SyncMapItem> page = Page.fromJson(
+            "items",
+            response.getContent(),
+            SyncMapItem.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -118,7 +165,14 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<SyncMapItem> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "items",
             response.getContent(),

@@ -15,6 +15,7 @@
 package com.twilio.rest.iam.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -49,8 +50,7 @@ public class OAuthAppUpdater extends Updater<OAuthApp> {
         return this;
     }
 
-    @Override
-    public OAuthApp update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Account/OAuthApps/{sid}";
 
         path = path.replace("{" + "sid" + "}", this.pathSid.toString());
@@ -82,10 +82,31 @@ public class OAuthAppUpdater extends Updater<OAuthApp> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public OAuthApp update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return OAuthApp.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<OAuthApp> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        OAuthApp content = OAuthApp.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

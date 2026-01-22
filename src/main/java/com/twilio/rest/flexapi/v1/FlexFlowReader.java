@@ -17,6 +17,8 @@ package com.twilio.rest.flexapi.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -46,12 +48,30 @@ public class FlexFlowReader extends Reader<FlexFlow> {
         return this;
     }
 
-    @Override
-    public ResourceSet<FlexFlow> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<FlexFlow> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<FlexFlow> page = Page.fromJson(
+            "flex_flows",
+            response.getContent(),
+            FlexFlow.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<FlexFlow> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<FlexFlow> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/FlexFlows";
 
         Request request = new Request(
@@ -60,11 +80,38 @@ public class FlexFlowReader extends Reader<FlexFlow> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<FlexFlow> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<FlexFlow> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<FlexFlow> pageForRequest(
+    public TwilioResponse<Page<FlexFlow>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<FlexFlow> page = Page.fromJson(
+            "flex_flows",
+            response.getContent(),
+            FlexFlow.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -87,7 +134,14 @@ public class FlexFlowReader extends Reader<FlexFlow> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<FlexFlow> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "flex_flows",
             response.getContent(),

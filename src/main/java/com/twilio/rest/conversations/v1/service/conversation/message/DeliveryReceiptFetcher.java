@@ -15,6 +15,7 @@
 package com.twilio.rest.conversations.v1.service.conversation.message;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -44,8 +45,7 @@ public class DeliveryReceiptFetcher extends Fetcher<DeliveryReceipt> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public DeliveryReceipt fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}";
 
@@ -91,9 +91,31 @@ public class DeliveryReceiptFetcher extends Fetcher<DeliveryReceipt> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public DeliveryReceipt fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return DeliveryReceipt.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<DeliveryReceipt> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        DeliveryReceipt content = DeliveryReceipt.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

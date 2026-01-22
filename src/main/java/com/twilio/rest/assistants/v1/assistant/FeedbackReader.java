@@ -17,6 +17,8 @@ package com.twilio.rest.assistants.v1.assistant;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -43,12 +45,30 @@ public class FeedbackReader extends Reader<Feedback> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Feedback> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Feedback> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Feedback> page = Page.fromJson(
+            "feedbacks",
+            response.getContent(),
+            Feedback.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Feedback> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Feedback> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Assistants/{id}/Feedbacks";
 
         path = path.replace("{" + "id" + "}", this.pathId.toString());
@@ -59,11 +79,38 @@ public class FeedbackReader extends Reader<Feedback> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Feedback> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Feedback> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Feedback> pageForRequest(
+    public TwilioResponse<Page<Feedback>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Feedback> page = Page.fromJson(
+            "feedbacks",
+            response.getContent(),
+            Feedback.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -86,7 +133,14 @@ public class FeedbackReader extends Reader<Feedback> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Feedback> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "feedbacks",
             response.getContent(),

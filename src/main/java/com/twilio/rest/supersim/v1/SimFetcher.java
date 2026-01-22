@@ -15,6 +15,7 @@
 package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class SimFetcher extends Fetcher<Sim> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Sim fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Sims/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,6 +64,28 @@ public class SimFetcher extends Fetcher<Sim> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Sim fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Sim.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Sim> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Sim content = Sim.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

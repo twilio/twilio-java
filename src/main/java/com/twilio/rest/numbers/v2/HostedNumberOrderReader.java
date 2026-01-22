@@ -17,6 +17,8 @@ package com.twilio.rest.numbers.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -83,12 +85,30 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
         return this;
     }
 
-    @Override
-    public ResourceSet<HostedNumberOrder> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<HostedNumberOrder> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<HostedNumberOrder> page = Page.fromJson(
+            "items",
+            response.getContent(),
+            HostedNumberOrder.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<HostedNumberOrder> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<HostedNumberOrder> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/HostedNumber/Orders";
 
         Request request = new Request(
@@ -97,11 +117,38 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<HostedNumberOrder> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<HostedNumberOrder> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<HostedNumberOrder> pageForRequest(
+    public TwilioResponse<Page<HostedNumberOrder>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<HostedNumberOrder> page = Page.fromJson(
+            "items",
+            response.getContent(),
+            HostedNumberOrder.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -124,7 +171,14 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<HostedNumberOrder> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "items",
             response.getContent(),

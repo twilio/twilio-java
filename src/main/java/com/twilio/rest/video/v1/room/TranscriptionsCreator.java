@@ -15,6 +15,7 @@
 package com.twilio.rest.video.v1.room;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -42,8 +43,7 @@ public class TranscriptionsCreator extends Creator<Transcriptions> {
         return this;
     }
 
-    @Override
-    public Transcriptions create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Rooms/{RoomSid}/Transcriptions";
 
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
@@ -75,10 +75,31 @@ public class TranscriptionsCreator extends Creator<Transcriptions> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Transcriptions create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Transcriptions.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Transcriptions> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Transcriptions content = Transcriptions.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

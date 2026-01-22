@@ -15,6 +15,7 @@
 package com.twilio.rest.conversations.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -65,8 +66,7 @@ public class RoleCreator extends Creator<Role> {
         return setPermission(Promoter.listOfOne(permission));
     }
 
-    @Override
-    public Role create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Roles";
 
         Request request = new Request(
@@ -96,8 +96,29 @@ public class RoleCreator extends Creator<Role> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Role create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Role.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Role> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Role content = Role.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

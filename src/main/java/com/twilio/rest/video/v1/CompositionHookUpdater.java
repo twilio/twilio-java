@@ -14,6 +14,7 @@
 
 package com.twilio.rest.video.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -129,8 +130,7 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
         return this;
     }
 
-    @Override
-    public CompositionHook update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/CompositionHooks/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -162,10 +162,31 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public CompositionHook update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return CompositionHook.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<CompositionHook> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        CompositionHook content = CompositionHook.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

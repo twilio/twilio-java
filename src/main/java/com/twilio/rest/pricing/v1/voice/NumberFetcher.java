@@ -15,6 +15,7 @@
 package com.twilio.rest.pricing.v1.voice;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class NumberFetcher extends Fetcher<Number> {
         this.pathNumber = pathNumber;
     }
 
-    @Override
-    public Number fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Voice/Numbers/{Number}";
 
         path = path.replace("{" + "Number" + "}", this.pathNumber.toString());
@@ -64,6 +64,28 @@ public class NumberFetcher extends Fetcher<Number> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Number fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Number.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Number> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Number content = Number.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

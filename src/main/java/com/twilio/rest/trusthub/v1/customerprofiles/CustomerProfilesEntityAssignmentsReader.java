@@ -17,6 +17,8 @@ package com.twilio.rest.trusthub.v1.customerprofiles;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -56,16 +58,27 @@ public class CustomerProfilesEntityAssignmentsReader
         return this;
     }
 
-    @Override
-    public ResourceSet<CustomerProfilesEntityAssignments> read(
-        final TwilioRestClient client
-    ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<
+        CustomerProfilesEntityAssignments
+    > readWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<CustomerProfilesEntityAssignments> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            CustomerProfilesEntityAssignments.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<CustomerProfilesEntityAssignments> resourceSet =
+            new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<CustomerProfilesEntityAssignments> firstPage(
-        final TwilioRestClient client
-    ) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments";
 
@@ -81,11 +94,42 @@ public class CustomerProfilesEntityAssignmentsReader
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<CustomerProfilesEntityAssignments> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<CustomerProfilesEntityAssignments> firstPage(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<CustomerProfilesEntityAssignments> pageForRequest(
+    public TwilioResponse<
+        Page<CustomerProfilesEntityAssignments>
+    > firstPageWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<CustomerProfilesEntityAssignments> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            CustomerProfilesEntityAssignments.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -108,7 +152,14 @@ public class CustomerProfilesEntityAssignmentsReader
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<CustomerProfilesEntityAssignments> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "results",
             response.getContent(),

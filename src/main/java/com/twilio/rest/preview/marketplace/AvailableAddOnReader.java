@@ -17,6 +17,8 @@ package com.twilio.rest.preview.marketplace;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -40,12 +42,30 @@ public class AvailableAddOnReader extends Reader<AvailableAddOn> {
         return this;
     }
 
-    @Override
-    public ResourceSet<AvailableAddOn> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<AvailableAddOn> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AvailableAddOn> page = Page.fromJson(
+            "available_add_ons",
+            response.getContent(),
+            AvailableAddOn.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<AvailableAddOn> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<AvailableAddOn> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/marketplace/AvailableAddOns";
 
         Request request = new Request(
@@ -54,11 +74,38 @@ public class AvailableAddOnReader extends Reader<AvailableAddOn> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<AvailableAddOn> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<AvailableAddOn> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<AvailableAddOn> pageForRequest(
+    public TwilioResponse<Page<AvailableAddOn>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AvailableAddOn> page = Page.fromJson(
+            "available_add_ons",
+            response.getContent(),
+            AvailableAddOn.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -81,7 +128,14 @@ public class AvailableAddOnReader extends Reader<AvailableAddOn> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<AvailableAddOn> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "available_add_ons",
             response.getContent(),

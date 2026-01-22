@@ -15,6 +15,7 @@
 package com.twilio.rest.trusthub.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -69,6 +70,8 @@ public class ComplianceTollfreeInquiriesCreator
     private Boolean ageGatedContent;
     private String externalReferenceId;
     private List<String> optInKeywords;
+    private String vettingId;
+    private String vettingProvider;
 
     public ComplianceTollfreeInquiriesCreator(
         final com.twilio.type.PhoneNumber tollfreePhoneNumber,
@@ -364,8 +367,21 @@ public class ComplianceTollfreeInquiriesCreator
         return setOptInKeywords(Promoter.listOfOne(optInKeywords));
     }
 
-    @Override
-    public ComplianceTollfreeInquiries create(final TwilioRestClient client) {
+    public ComplianceTollfreeInquiriesCreator setVettingId(
+        final String vettingId
+    ) {
+        this.vettingId = vettingId;
+        return this;
+    }
+
+    public ComplianceTollfreeInquiriesCreator setVettingProvider(
+        final String vettingProvider
+    ) {
+        this.vettingProvider = vettingProvider;
+        return this;
+    }
+
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/ComplianceInquiries/Tollfree/Initialize";
 
         Request request = new Request(
@@ -395,10 +411,32 @@ public class ComplianceTollfreeInquiriesCreator
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ComplianceTollfreeInquiries create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ComplianceTollfreeInquiries.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ComplianceTollfreeInquiries> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ComplianceTollfreeInquiries content =
+            ComplianceTollfreeInquiries.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 
@@ -731,6 +769,24 @@ public class ComplianceTollfreeInquiriesCreator
                     ParameterType.URLENCODED
                 );
             }
+        }
+
+        if (vettingId != null) {
+            Serializer.toString(
+                request,
+                "VettingId",
+                vettingId,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (vettingProvider != null) {
+            Serializer.toString(
+                request,
+                "VettingProvider",
+                vettingProvider,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -15,6 +15,7 @@
 package com.twilio.rest.lookups.v2;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -44,8 +45,7 @@ public class RateLimitFetcher extends Fetcher<RateLimit> {
         return setFields(Promoter.listOfOne(fields));
     }
 
-    @Override
-    public RateLimit fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/RateLimits";
 
         Request request = new Request(
@@ -74,9 +74,31 @@ public class RateLimitFetcher extends Fetcher<RateLimit> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public RateLimit fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return RateLimit.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<RateLimit> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        RateLimit content = RateLimit.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

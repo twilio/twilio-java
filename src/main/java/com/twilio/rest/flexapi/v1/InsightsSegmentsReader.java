@@ -17,6 +17,8 @@ package com.twilio.rest.flexapi.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -66,12 +68,30 @@ public class InsightsSegmentsReader extends Reader<InsightsSegments> {
         return this;
     }
 
-    @Override
-    public ResourceSet<InsightsSegments> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<InsightsSegments> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<InsightsSegments> page = Page.fromJson(
+            "segments",
+            response.getContent(),
+            InsightsSegments.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<InsightsSegments> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<InsightsSegments> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Insights/Segments";
 
         Request request = new Request(
@@ -81,11 +101,38 @@ public class InsightsSegmentsReader extends Reader<InsightsSegments> {
         );
         addQueryParams(request);
         addHeaderParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<InsightsSegments> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<InsightsSegments> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<InsightsSegments> pageForRequest(
+    public TwilioResponse<Page<InsightsSegments>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<InsightsSegments> page = Page.fromJson(
+            "segments",
+            response.getContent(),
+            InsightsSegments.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -108,7 +155,14 @@ public class InsightsSegmentsReader extends Reader<InsightsSegments> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<InsightsSegments> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "segments",
             response.getContent(),

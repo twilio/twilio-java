@@ -15,6 +15,7 @@
 package com.twilio.rest.intelligence.v2.transcript;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -46,8 +47,7 @@ public class OperatorResultFetcher extends Fetcher<OperatorResult> {
         return this;
     }
 
-    @Override
-    public OperatorResult fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/Transcripts/{TranscriptSid}/OperatorResults/{OperatorSid}";
 
@@ -88,9 +88,31 @@ public class OperatorResultFetcher extends Fetcher<OperatorResult> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public OperatorResult fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return OperatorResult.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<OperatorResult> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        OperatorResult content = OperatorResult.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

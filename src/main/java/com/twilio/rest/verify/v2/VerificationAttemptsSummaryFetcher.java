@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -80,8 +81,7 @@ public class VerificationAttemptsSummaryFetcher
         return this;
     }
 
-    @Override
-    public VerificationAttemptsSummary fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Attempts/Summary";
 
         Request request = new Request(
@@ -110,9 +110,32 @@ public class VerificationAttemptsSummaryFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public VerificationAttemptsSummary fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return VerificationAttemptsSummary.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<VerificationAttemptsSummary> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        VerificationAttemptsSummary content =
+            VerificationAttemptsSummary.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

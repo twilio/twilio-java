@@ -14,6 +14,7 @@
 
 package com.twilio.rest.verify.v2.service;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -49,8 +50,7 @@ public class VerificationUpdater extends Updater<Verification> {
         return this;
     }
 
-    @Override
-    public Verification update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Verifications/{Sid}";
 
         path =
@@ -87,10 +87,31 @@ public class VerificationUpdater extends Updater<Verification> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Verification update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Verification.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Verification> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Verification content = Verification.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

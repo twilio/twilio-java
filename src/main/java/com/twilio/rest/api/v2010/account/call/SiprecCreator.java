@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -1271,8 +1272,7 @@ public class SiprecCreator extends Creator<Siprec> {
         return this;
     }
 
-    @Override
-    public Siprec create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json";
 
@@ -1314,8 +1314,29 @@ public class SiprecCreator extends Creator<Siprec> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Siprec create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Siprec.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Siprec> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Siprec content = Siprec.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

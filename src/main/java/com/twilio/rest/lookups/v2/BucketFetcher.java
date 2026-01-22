@@ -15,6 +15,7 @@
 package com.twilio.rest.lookups.v2;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -35,8 +36,7 @@ public class BucketFetcher extends Fetcher<Bucket> {
         this.pathBucket = pathBucket;
     }
 
-    @Override
-    public Bucket fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/RateLimits/Fields/{Field}/Bucket/{Bucket}";
 
         path = path.replace("{" + "Field" + "}", this.pathField.toString());
@@ -67,6 +67,28 @@ public class BucketFetcher extends Fetcher<Bucket> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Bucket fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Bucket.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Bucket> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Bucket content = Bucket.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

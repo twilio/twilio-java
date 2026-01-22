@@ -14,6 +14,7 @@
 
 package com.twilio.rest.messaging.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -33,8 +34,7 @@ public class RequestManagedCertUpdater extends Updater<RequestManagedCert> {
         this.pathDomainSid = pathDomainSid;
     }
 
-    @Override
-    public RequestManagedCert update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/LinkShortening/Domains/{DomainSid}/RequestManagedCert";
 
@@ -69,10 +69,31 @@ public class RequestManagedCertUpdater extends Updater<RequestManagedCert> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public RequestManagedCert update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return RequestManagedCert.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<RequestManagedCert> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        RequestManagedCert content = RequestManagedCert.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

@@ -16,6 +16,7 @@ package com.twilio.rest.numbers.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -39,8 +40,7 @@ public class PortingWebhookConfigurationCreator
         return this;
     }
 
-    @Override
-    public PortingWebhookConfiguration create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Porting/Configuration/Webhook";
 
         Request request = new Request(
@@ -70,10 +70,32 @@ public class PortingWebhookConfigurationCreator
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public PortingWebhookConfiguration create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PortingWebhookConfiguration.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<PortingWebhookConfiguration> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PortingWebhookConfiguration content =
+            PortingWebhookConfiguration.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

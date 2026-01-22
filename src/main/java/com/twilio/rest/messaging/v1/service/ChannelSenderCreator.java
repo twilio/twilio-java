@@ -15,6 +15,7 @@
 package com.twilio.rest.messaging.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -46,8 +47,7 @@ public class ChannelSenderCreator extends Creator<ChannelSender> {
         return this;
     }
 
-    @Override
-    public ChannelSender create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{MessagingServiceSid}/ChannelSenders";
 
         path =
@@ -83,10 +83,31 @@ public class ChannelSenderCreator extends Creator<ChannelSender> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ChannelSender create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ChannelSender.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ChannelSender> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ChannelSender content = ChannelSender.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

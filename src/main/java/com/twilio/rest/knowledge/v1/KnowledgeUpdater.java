@@ -15,6 +15,7 @@
 package com.twilio.rest.knowledge.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -44,8 +45,7 @@ public class KnowledgeUpdater extends Updater<Knowledge> {
         return this;
     }
 
-    @Override
-    public Knowledge update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Knowledge/{id}";
 
         path = path.replace("{" + "id" + "}", this.pathId.toString());
@@ -77,10 +77,31 @@ public class KnowledgeUpdater extends Updater<Knowledge> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Knowledge update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Knowledge.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Knowledge> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Knowledge content = Knowledge.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

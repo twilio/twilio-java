@@ -17,6 +17,8 @@ package com.twilio.rest.studio.v1.flow;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -43,12 +45,30 @@ public class EngagementReader extends Reader<Engagement> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Engagement> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Engagement> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Engagement> page = Page.fromJson(
+            "engagements",
+            response.getContent(),
+            Engagement.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Engagement> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Engagement> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Flows/{FlowSid}/Engagements";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
@@ -59,11 +79,38 @@ public class EngagementReader extends Reader<Engagement> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Engagement> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Engagement> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Engagement> pageForRequest(
+    public TwilioResponse<Page<Engagement>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Engagement> page = Page.fromJson(
+            "engagements",
+            response.getContent(),
+            Engagement.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -86,7 +133,14 @@ public class EngagementReader extends Reader<Engagement> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Engagement> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "engagements",
             response.getContent(),

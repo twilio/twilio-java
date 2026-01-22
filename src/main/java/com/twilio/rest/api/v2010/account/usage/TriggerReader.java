@@ -17,6 +17,8 @@ package com.twilio.rest.api.v2010.account.usage;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -63,12 +65,30 @@ public class TriggerReader extends Reader<Trigger> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Trigger> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Trigger> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Trigger> page = Page.fromJson(
+            "usage_triggers",
+            response.getContent(),
+            Trigger.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Trigger> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Trigger> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json";
 
         this.pathAccountSid =
@@ -87,11 +107,38 @@ public class TriggerReader extends Reader<Trigger> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Trigger> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Trigger> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Trigger> pageForRequest(
+    public TwilioResponse<Page<Trigger>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Trigger> page = Page.fromJson(
+            "usage_triggers",
+            response.getContent(),
+            Trigger.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -114,7 +161,14 @@ public class TriggerReader extends Reader<Trigger> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Trigger> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "usage_triggers",
             response.getContent(),

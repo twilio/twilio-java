@@ -17,6 +17,8 @@ package com.twilio.rest.supersim.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -64,12 +66,30 @@ public class IpCommandReader extends Reader<IpCommand> {
         return this;
     }
 
-    @Override
-    public ResourceSet<IpCommand> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<IpCommand> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<IpCommand> page = Page.fromJson(
+            "ip_commands",
+            response.getContent(),
+            IpCommand.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<IpCommand> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<IpCommand> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/IpCommands";
 
         Request request = new Request(
@@ -78,11 +98,38 @@ public class IpCommandReader extends Reader<IpCommand> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<IpCommand> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<IpCommand> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<IpCommand> pageForRequest(
+    public TwilioResponse<Page<IpCommand>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<IpCommand> page = Page.fromJson(
+            "ip_commands",
+            response.getContent(),
+            IpCommand.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -105,7 +152,14 @@ public class IpCommandReader extends Reader<IpCommand> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<IpCommand> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "ip_commands",
             response.getContent(),

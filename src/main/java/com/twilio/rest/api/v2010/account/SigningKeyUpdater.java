@@ -14,6 +14,7 @@
 
 package com.twilio.rest.api.v2010.account;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -51,8 +52,7 @@ public class SigningKeyUpdater extends Updater<SigningKey> {
         return this;
     }
 
-    @Override
-    public SigningKey update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json";
 
@@ -94,10 +94,31 @@ public class SigningKeyUpdater extends Updater<SigningKey> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SigningKey update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SigningKey.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<SigningKey> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SigningKey content = SigningKey.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

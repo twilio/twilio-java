@@ -15,6 +15,7 @@
 package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -85,8 +86,7 @@ public class IpCommandCreator extends Creator<IpCommand> {
         return this;
     }
 
-    @Override
-    public IpCommand create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/IpCommands";
 
         Request request = new Request(
@@ -116,10 +116,31 @@ public class IpCommandCreator extends Creator<IpCommand> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public IpCommand create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return IpCommand.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<IpCommand> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        IpCommand content = IpCommand.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

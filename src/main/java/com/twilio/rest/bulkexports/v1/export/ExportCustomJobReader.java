@@ -17,6 +17,8 @@ package com.twilio.rest.bulkexports.v1.export;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -43,12 +45,30 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
         return this;
     }
 
-    @Override
-    public ResourceSet<ExportCustomJob> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<ExportCustomJob> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<ExportCustomJob> page = Page.fromJson(
+            "jobs",
+            response.getContent(),
+            ExportCustomJob.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<ExportCustomJob> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<ExportCustomJob> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Exports/{ResourceType}/Jobs";
 
         path =
@@ -63,11 +83,38 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<ExportCustomJob> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<ExportCustomJob> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<ExportCustomJob> pageForRequest(
+    public TwilioResponse<Page<ExportCustomJob>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<ExportCustomJob> page = Page.fromJson(
+            "jobs",
+            response.getContent(),
+            ExportCustomJob.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -90,7 +137,14 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<ExportCustomJob> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "jobs",
             response.getContent(),

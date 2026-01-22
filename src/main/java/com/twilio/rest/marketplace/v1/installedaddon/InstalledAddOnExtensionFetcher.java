@@ -15,6 +15,7 @@
 package com.twilio.rest.marketplace.v1.installedaddon;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -39,8 +40,7 @@ public class InstalledAddOnExtensionFetcher
         this.pathSid = pathSid;
     }
 
-    @Override
-    public InstalledAddOnExtension fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}";
 
@@ -76,9 +76,31 @@ public class InstalledAddOnExtensionFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public InstalledAddOnExtension fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return InstalledAddOnExtension.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<InstalledAddOnExtension> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        InstalledAddOnExtension content = InstalledAddOnExtension.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

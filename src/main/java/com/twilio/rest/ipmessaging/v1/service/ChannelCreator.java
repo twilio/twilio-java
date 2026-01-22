@@ -15,6 +15,7 @@
 package com.twilio.rest.ipmessaging.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -60,8 +61,7 @@ public class ChannelCreator extends Creator<Channel> {
         return this;
     }
 
-    @Override
-    public Channel create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Channels";
 
         path =
@@ -97,8 +97,29 @@ public class ChannelCreator extends Creator<Channel> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Channel create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Channel.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Channel> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Channel content = Channel.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {

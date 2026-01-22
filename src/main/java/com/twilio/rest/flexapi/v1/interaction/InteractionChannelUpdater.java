@@ -14,6 +14,7 @@
 
 package com.twilio.rest.flexapi.v1.interaction;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -57,8 +58,7 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel> {
         return this;
     }
 
-    @Override
-    public InteractionChannel update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Interactions/{InteractionSid}/Channels/{Sid}";
 
         path =
@@ -95,10 +95,31 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public InteractionChannel update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return InteractionChannel.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<InteractionChannel> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        InteractionChannel content = InteractionChannel.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

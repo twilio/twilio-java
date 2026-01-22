@@ -15,6 +15,7 @@
 package com.twilio.rest.voice.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -39,8 +40,7 @@ public class ConnectionPolicyCreator extends Creator<ConnectionPolicy> {
         return this;
     }
 
-    @Override
-    public ConnectionPolicy create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/ConnectionPolicies";
 
         Request request = new Request(
@@ -70,10 +70,31 @@ public class ConnectionPolicyCreator extends Creator<ConnectionPolicy> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ConnectionPolicy create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ConnectionPolicy.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ConnectionPolicy> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ConnectionPolicy content = ConnectionPolicy.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

@@ -15,6 +15,7 @@
 package com.twilio.rest.video.v1.room.participant;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -41,8 +42,7 @@ public class SubscribedTrackFetcher extends Fetcher<SubscribedTrack> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public SubscribedTrack fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks/{Sid}";
 
@@ -79,9 +79,31 @@ public class SubscribedTrackFetcher extends Fetcher<SubscribedTrack> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public SubscribedTrack fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SubscribedTrack.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<SubscribedTrack> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SubscribedTrack content = SubscribedTrack.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

@@ -17,6 +17,8 @@ package com.twilio.rest.flexapi.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -48,14 +50,30 @@ public class PluginConfigurationReader extends Reader<PluginConfiguration> {
         return this;
     }
 
-    @Override
-    public ResourceSet<PluginConfiguration> read(
+    public ResourceSetResponse<PluginConfiguration> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<PluginConfiguration> page = Page.fromJson(
+            "configurations",
+            response.getContent(),
+            PluginConfiguration.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<PluginConfiguration> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<PluginConfiguration> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/PluginService/Configurations";
 
         Request request = new Request(
@@ -65,11 +83,40 @@ public class PluginConfigurationReader extends Reader<PluginConfiguration> {
         );
         addQueryParams(request);
         addHeaderParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<PluginConfiguration> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<PluginConfiguration> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<PluginConfiguration> pageForRequest(
+    public TwilioResponse<Page<PluginConfiguration>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<PluginConfiguration> page = Page.fromJson(
+            "configurations",
+            response.getContent(),
+            PluginConfiguration.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -92,7 +139,14 @@ public class PluginConfigurationReader extends Reader<PluginConfiguration> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<PluginConfiguration> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "configurations",
             response.getContent(),

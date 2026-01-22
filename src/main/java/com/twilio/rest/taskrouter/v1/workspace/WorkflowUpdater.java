@@ -14,6 +14,7 @@
 
 package com.twilio.rest.taskrouter.v1.workspace;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -101,8 +102,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
         return this;
     }
 
-    @Override
-    public Workflow update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}";
 
         path =
@@ -139,10 +139,31 @@ public class WorkflowUpdater extends Updater<Workflow> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Workflow update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Workflow.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Workflow> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Workflow content = Workflow.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

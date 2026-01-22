@@ -17,6 +17,8 @@ package com.twilio.rest.marketplace.v1.installedaddon;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -44,16 +46,30 @@ public class InstalledAddOnExtensionReader
         return this;
     }
 
-    @Override
-    public ResourceSet<InstalledAddOnExtension> read(
+    public ResourceSetResponse<InstalledAddOnExtension> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<InstalledAddOnExtension> page = Page.fromJson(
+            "extensions",
+            response.getContent(),
+            InstalledAddOnExtension.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<InstalledAddOnExtension> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<InstalledAddOnExtension> firstPage(
-        final TwilioRestClient client
-    ) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions";
 
         path =
@@ -68,11 +84,42 @@ public class InstalledAddOnExtensionReader
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<InstalledAddOnExtension> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<InstalledAddOnExtension> firstPage(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<InstalledAddOnExtension> pageForRequest(
+    public TwilioResponse<Page<InstalledAddOnExtension>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<InstalledAddOnExtension> page = Page.fromJson(
+            "extensions",
+            response.getContent(),
+            InstalledAddOnExtension.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -95,7 +142,14 @@ public class InstalledAddOnExtensionReader
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<InstalledAddOnExtension> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "extensions",
             response.getContent(),

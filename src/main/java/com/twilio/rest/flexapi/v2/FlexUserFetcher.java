@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v2;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -38,8 +39,7 @@ public class FlexUserFetcher extends Fetcher<FlexUser> {
         this.pathFlexUserSid = pathFlexUserSid;
     }
 
-    @Override
-    public FlexUser fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Instances/{InstanceSid}/Users/{FlexUserSid}";
 
         path =
@@ -78,9 +78,31 @@ public class FlexUserFetcher extends Fetcher<FlexUser> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public FlexUser fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return FlexUser.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<FlexUser> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        FlexUser content = FlexUser.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

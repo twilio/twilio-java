@@ -14,6 +14,7 @@
 
 package com.twilio.rest.insights.v1.call;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -82,8 +83,7 @@ public class AnnotationUpdater extends Updater<Annotation> {
         return this;
     }
 
-    @Override
-    public Annotation update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Voice/{CallSid}/Annotation";
 
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
@@ -115,10 +115,31 @@ public class AnnotationUpdater extends Updater<Annotation> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Annotation update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Annotation.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Annotation> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Annotation content = Annotation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

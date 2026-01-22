@@ -17,6 +17,8 @@ package com.twilio.rest.flexapi.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -67,6 +69,39 @@ public class InsightsQuestionnairesQuestionReader
         return this;
     }
 
+    public ResourceSetResponse<InsightsQuestionnairesQuestion> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<InsightsQuestionnairesQuestion> page = Page.fromJson(
+            "questions",
+            response.getContent(),
+            InsightsQuestionnairesQuestion.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<InsightsQuestionnairesQuestion> resourceSet =
+            new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/Insights/QualityManagement/Questions";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.FLEXAPI.toString(),
+            path
+        );
+        addQueryParams(request);
+        addHeaderParams(request);
+        return request;
+    }
+
     @Override
     public ResourceSet<InsightsQuestionnairesQuestion> read(
         final TwilioRestClient client
@@ -77,20 +112,29 @@ public class InsightsQuestionnairesQuestionReader
     public Page<InsightsQuestionnairesQuestion> firstPage(
         final TwilioRestClient client
     ) {
-        String path = "/v1/Insights/QualityManagement/Questions";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.FLEXAPI.toString(),
-            path
-        );
-        addQueryParams(request);
-        addHeaderParams(request);
-
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<InsightsQuestionnairesQuestion> pageForRequest(
+    public TwilioResponse<
+        Page<InsightsQuestionnairesQuestion>
+    > firstPageWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<InsightsQuestionnairesQuestion> page = Page.fromJson(
+            "questions",
+            response.getContent(),
+            InsightsQuestionnairesQuestion.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -113,7 +157,14 @@ public class InsightsQuestionnairesQuestionReader
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<InsightsQuestionnairesQuestion> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "questions",
             response.getContent(),

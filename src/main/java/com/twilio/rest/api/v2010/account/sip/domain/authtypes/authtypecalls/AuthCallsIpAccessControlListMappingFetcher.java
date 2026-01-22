@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtypecalls;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -50,10 +51,7 @@ public class AuthCallsIpAccessControlListMappingFetcher
         this.pathSid = pathSid;
     }
 
-    @Override
-    public AuthCallsIpAccessControlListMapping fetch(
-        final TwilioRestClient client
-    ) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json";
 
@@ -98,9 +96,34 @@ public class AuthCallsIpAccessControlListMappingFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public AuthCallsIpAccessControlListMapping fetch(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
         return AuthCallsIpAccessControlListMapping.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<
+        AuthCallsIpAccessControlListMapping
+    > fetchWithResponse(final TwilioRestClient client) {
+        Response response = makeRequest(client);
+        AuthCallsIpAccessControlListMapping content =
+            AuthCallsIpAccessControlListMapping.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

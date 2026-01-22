@@ -17,6 +17,8 @@ package com.twilio.rest.messaging.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -40,12 +42,30 @@ public class BrandRegistrationReader extends Reader<BrandRegistration> {
         return this;
     }
 
-    @Override
-    public ResourceSet<BrandRegistration> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<BrandRegistration> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<BrandRegistration> page = Page.fromJson(
+            "data",
+            response.getContent(),
+            BrandRegistration.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<BrandRegistration> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<BrandRegistration> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/a2p/BrandRegistrations";
 
         Request request = new Request(
@@ -54,11 +74,38 @@ public class BrandRegistrationReader extends Reader<BrandRegistration> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<BrandRegistration> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<BrandRegistration> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<BrandRegistration> pageForRequest(
+    public TwilioResponse<Page<BrandRegistration>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<BrandRegistration> page = Page.fromJson(
+            "data",
+            response.getContent(),
+            BrandRegistration.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -81,7 +128,14 @@ public class BrandRegistrationReader extends Reader<BrandRegistration> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<BrandRegistration> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "data",
             response.getContent(),

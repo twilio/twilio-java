@@ -15,6 +15,7 @@
 package com.twilio.rest.wireless.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class CommandFetcher extends Fetcher<Command> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Command fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Commands/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,6 +64,28 @@ public class CommandFetcher extends Fetcher<Command> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Command fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Command.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Command> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Command content = Command.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

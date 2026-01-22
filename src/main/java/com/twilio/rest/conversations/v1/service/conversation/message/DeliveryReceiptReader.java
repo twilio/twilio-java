@@ -17,6 +17,8 @@ package com.twilio.rest.conversations.v1.service.conversation.message;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -51,12 +53,30 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
         return this;
     }
 
-    @Override
-    public ResourceSet<DeliveryReceipt> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<DeliveryReceipt> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<DeliveryReceipt> page = Page.fromJson(
+            "delivery_receipts",
+            response.getContent(),
+            DeliveryReceipt.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<DeliveryReceipt> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<DeliveryReceipt> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts";
 
@@ -82,11 +102,38 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<DeliveryReceipt> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<DeliveryReceipt> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<DeliveryReceipt> pageForRequest(
+    public TwilioResponse<Page<DeliveryReceipt>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<DeliveryReceipt> page = Page.fromJson(
+            "delivery_receipts",
+            response.getContent(),
+            DeliveryReceipt.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -109,7 +156,14 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<DeliveryReceipt> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "delivery_receipts",
             response.getContent(),

@@ -15,6 +15,7 @@
 package com.twilio.rest.conversations.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -147,8 +148,7 @@ public class ConversationWithParticipantsCreator
         return this;
     }
 
-    @Override
-    public ConversationWithParticipants create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/ConversationWithParticipants";
 
         Request request = new Request(
@@ -179,10 +179,32 @@ public class ConversationWithParticipantsCreator
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ConversationWithParticipants create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ConversationWithParticipants.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ConversationWithParticipants> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ConversationWithParticipants content =
+            ConversationWithParticipants.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

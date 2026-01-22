@@ -14,6 +14,7 @@
 
 package com.twilio.rest.flexapi.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -69,8 +70,7 @@ public class AssessmentsUpdater extends Updater<Assessments> {
         return this;
     }
 
-    @Override
-    public Assessments update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Insights/QualityManagement/Assessments/{AssessmentSid}";
 
@@ -108,10 +108,31 @@ public class AssessmentsUpdater extends Updater<Assessments> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Assessments update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Assessments.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Assessments> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Assessments content = Assessments.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

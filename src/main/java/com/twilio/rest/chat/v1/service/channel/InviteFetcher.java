@@ -15,6 +15,7 @@
 package com.twilio.rest.chat.v1.service.channel;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -41,8 +42,7 @@ public class InviteFetcher extends Fetcher<Invite> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Invite fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}";
 
@@ -83,6 +83,28 @@ public class InviteFetcher extends Fetcher<Invite> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Invite fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Invite.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Invite> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Invite content = Invite.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

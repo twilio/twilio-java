@@ -15,6 +15,7 @@
 package com.twilio.rest.events.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class SinkFetcher extends Fetcher<Sink> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Sink fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Sinks/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -64,6 +64,28 @@ public class SinkFetcher extends Fetcher<Sink> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Sink fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Sink.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Sink> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Sink content = Sink.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

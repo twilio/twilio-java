@@ -15,6 +15,7 @@
 package com.twilio.rest.video.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -124,8 +125,7 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
         return this;
     }
 
-    @Override
-    public CompositionHook create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/CompositionHooks";
 
         Request request = new Request(
@@ -155,10 +155,31 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public CompositionHook create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return CompositionHook.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<CompositionHook> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        CompositionHook content = CompositionHook.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

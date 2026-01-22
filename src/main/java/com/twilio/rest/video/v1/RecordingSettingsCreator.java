@@ -15,6 +15,7 @@
 package com.twilio.rest.video.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -85,8 +86,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
         return this;
     }
 
-    @Override
-    public RecordingSettings create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/RecordingSettings/Default";
 
         Request request = new Request(
@@ -116,10 +116,31 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public RecordingSettings create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return RecordingSettings.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<RecordingSettings> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        RecordingSettings content = RecordingSettings.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

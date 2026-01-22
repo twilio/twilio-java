@@ -17,6 +17,8 @@ package com.twilio.rest.api.v2010.account.availablephonenumbercountry;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -173,12 +175,26 @@ public class MobileReader extends Reader<Mobile> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Mobile> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Mobile> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Mobile> page = Page.fromJson(
+            "available_phone_numbers",
+            response.getContent(),
+            Mobile.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Mobile> resourceSet = new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Mobile> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json";
 
@@ -203,11 +219,38 @@ public class MobileReader extends Reader<Mobile> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Mobile> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Mobile> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Mobile> pageForRequest(
+    public TwilioResponse<Page<Mobile>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Mobile> page = Page.fromJson(
+            "available_phone_numbers",
+            response.getContent(),
+            Mobile.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -230,7 +273,14 @@ public class MobileReader extends Reader<Mobile> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Mobile> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "available_phone_numbers",
             response.getContent(),

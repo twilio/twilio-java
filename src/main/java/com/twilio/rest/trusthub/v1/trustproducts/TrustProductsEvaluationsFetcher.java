@@ -15,6 +15,7 @@
 package com.twilio.rest.trusthub.v1.trustproducts;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -39,8 +40,7 @@ public class TrustProductsEvaluationsFetcher
         this.pathSid = pathSid;
     }
 
-    @Override
-    public TrustProductsEvaluations fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid}";
 
         path =
@@ -75,9 +75,31 @@ public class TrustProductsEvaluationsFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public TrustProductsEvaluations fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return TrustProductsEvaluations.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<TrustProductsEvaluations> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        TrustProductsEvaluations content = TrustProductsEvaluations.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

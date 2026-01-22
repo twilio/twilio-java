@@ -15,6 +15,7 @@
 package com.twilio.rest.numbers.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class PortingPortInFetcher extends Fetcher<PortingPortIn> {
         this.pathPortInRequestSid = pathPortInRequestSid;
     }
 
-    @Override
-    public PortingPortIn fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Porting/PortIn/{PortInRequestSid}";
 
         path =
@@ -68,9 +68,31 @@ public class PortingPortInFetcher extends Fetcher<PortingPortIn> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public PortingPortIn fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PortingPortIn.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<PortingPortIn> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PortingPortIn content = PortingPortIn.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

@@ -15,6 +15,7 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -46,8 +47,7 @@ public class ItemAssignmentCreator extends Creator<ItemAssignment> {
         return this;
     }
 
-    @Override
-    public ItemAssignment create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments";
 
@@ -84,10 +84,31 @@ public class ItemAssignmentCreator extends Creator<ItemAssignment> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ItemAssignment create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ItemAssignment.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ItemAssignment> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ItemAssignment content = ItemAssignment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

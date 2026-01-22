@@ -15,6 +15,7 @@
 package com.twilio.rest.taskrouter.v1.workspace.workflow;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -82,8 +83,7 @@ public class WorkflowCumulativeStatisticsFetcher
         return this;
     }
 
-    @Override
-    public WorkflowCumulativeStatistics fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/CumulativeStatistics";
 
@@ -124,9 +124,32 @@ public class WorkflowCumulativeStatisticsFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public WorkflowCumulativeStatistics fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return WorkflowCumulativeStatistics.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<WorkflowCumulativeStatistics> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        WorkflowCumulativeStatistics content =
+            WorkflowCumulativeStatistics.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

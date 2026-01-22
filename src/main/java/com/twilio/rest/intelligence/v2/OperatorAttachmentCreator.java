@@ -15,6 +15,7 @@
 package com.twilio.rest.intelligence.v2;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -38,8 +39,7 @@ public class OperatorAttachmentCreator extends Creator<OperatorAttachment> {
         this.pathOperatorSid = pathOperatorSid;
     }
 
-    @Override
-    public OperatorAttachment create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Operators/{OperatorSid}";
 
         path =
@@ -78,10 +78,31 @@ public class OperatorAttachmentCreator extends Creator<OperatorAttachment> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public OperatorAttachment create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return OperatorAttachment.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<OperatorAttachment> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        OperatorAttachment content = OperatorAttachment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
@@ -88,8 +89,7 @@ public class ChallengeCreator extends Creator<Challenge> {
         return this;
     }
 
-    @Override
-    public Challenge create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges";
 
@@ -128,10 +128,31 @@ public class ChallengeCreator extends Creator<Challenge> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Challenge create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Challenge.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Challenge> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Challenge content = Challenge.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

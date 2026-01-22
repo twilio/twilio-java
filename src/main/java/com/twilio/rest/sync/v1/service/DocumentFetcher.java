@@ -15,6 +15,7 @@
 package com.twilio.rest.sync.v1.service;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -35,8 +36,7 @@ public class DocumentFetcher extends Fetcher<Document> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Document fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Documents/{Sid}";
 
         path =
@@ -71,9 +71,31 @@ public class DocumentFetcher extends Fetcher<Document> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Document fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Document.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Document> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Document content = Document.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

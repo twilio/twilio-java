@@ -17,6 +17,8 @@ package com.twilio.rest.taskrouter.v1.workspace.taskqueue;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -86,14 +88,30 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
         return this;
     }
 
-    @Override
-    public ResourceSet<TaskQueuesStatistics> read(
+    public ResourceSetResponse<TaskQueuesStatistics> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TaskQueuesStatistics> page = Page.fromJson(
+            "task_queues_statistics",
+            response.getContent(),
+            TaskQueuesStatistics.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<TaskQueuesStatistics> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<TaskQueuesStatistics> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics";
 
         path =
@@ -108,11 +126,40 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<TaskQueuesStatistics> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<TaskQueuesStatistics> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<TaskQueuesStatistics> pageForRequest(
+    public TwilioResponse<Page<TaskQueuesStatistics>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TaskQueuesStatistics> page = Page.fromJson(
+            "task_queues_statistics",
+            response.getContent(),
+            TaskQueuesStatistics.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -135,7 +182,14 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<TaskQueuesStatistics> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "task_queues_statistics",
             response.getContent(),

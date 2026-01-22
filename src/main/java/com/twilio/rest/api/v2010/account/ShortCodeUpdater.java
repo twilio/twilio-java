@@ -14,6 +14,7 @@
 
 package com.twilio.rest.api.v2010.account;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -90,8 +91,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
         return this;
     }
 
-    @Override
-    public ShortCode update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json";
 
@@ -133,10 +133,31 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ShortCode update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ShortCode.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ShortCode> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ShortCode content = ShortCode.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

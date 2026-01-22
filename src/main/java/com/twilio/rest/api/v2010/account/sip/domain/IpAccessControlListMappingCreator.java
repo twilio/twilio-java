@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.sip.domain;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
@@ -60,8 +61,7 @@ public class IpAccessControlListMappingCreator
         return this;
     }
 
-    @Override
-    public IpAccessControlListMapping create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json";
 
@@ -107,10 +107,32 @@ public class IpAccessControlListMappingCreator
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public IpAccessControlListMapping create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return IpAccessControlListMapping.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<IpAccessControlListMapping> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        IpAccessControlListMapping content =
+            IpAccessControlListMapping.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

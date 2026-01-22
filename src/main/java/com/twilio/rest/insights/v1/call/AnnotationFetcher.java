@@ -15,6 +15,7 @@
 package com.twilio.rest.insights.v1.call;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,8 +34,7 @@ public class AnnotationFetcher extends Fetcher<Annotation> {
         this.pathCallSid = pathCallSid;
     }
 
-    @Override
-    public Annotation fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Voice/{CallSid}/Annotation";
 
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
@@ -64,9 +64,31 @@ public class AnnotationFetcher extends Fetcher<Annotation> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Annotation fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Annotation.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Annotation> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Annotation content = Annotation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

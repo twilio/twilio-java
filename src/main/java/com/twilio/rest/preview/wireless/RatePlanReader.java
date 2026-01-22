@@ -17,6 +17,8 @@ package com.twilio.rest.preview.wireless;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -40,12 +42,30 @@ public class RatePlanReader extends Reader<RatePlan> {
         return this;
     }
 
-    @Override
-    public ResourceSet<RatePlan> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<RatePlan> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<RatePlan> page = Page.fromJson(
+            "rate_plans",
+            response.getContent(),
+            RatePlan.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<RatePlan> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<RatePlan> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/wireless/RatePlans";
 
         Request request = new Request(
@@ -54,11 +74,38 @@ public class RatePlanReader extends Reader<RatePlan> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<RatePlan> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<RatePlan> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<RatePlan> pageForRequest(
+    public TwilioResponse<Page<RatePlan>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<RatePlan> page = Page.fromJson(
+            "rate_plans",
+            response.getContent(),
+            RatePlan.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -81,7 +128,14 @@ public class RatePlanReader extends Reader<RatePlan> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<RatePlan> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "rate_plans",
             response.getContent(),

@@ -15,6 +15,7 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -43,8 +44,7 @@ public class RegulationFetcher extends Fetcher<Regulation> {
         return this;
     }
 
-    @Override
-    public Regulation fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Regulations/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -75,9 +75,31 @@ public class RegulationFetcher extends Fetcher<Regulation> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
+
+    @Override
+    public Regulation fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Regulation.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Regulation> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Regulation content = Regulation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

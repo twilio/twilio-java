@@ -17,6 +17,8 @@ package com.twilio.rest.verify.v2.service;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -44,16 +46,30 @@ public class MessagingConfigurationReader
         return this;
     }
 
-    @Override
-    public ResourceSet<MessagingConfiguration> read(
+    public ResourceSetResponse<MessagingConfiguration> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<MessagingConfiguration> page = Page.fromJson(
+            "messaging_configurations",
+            response.getContent(),
+            MessagingConfiguration.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<MessagingConfiguration> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<MessagingConfiguration> firstPage(
-        final TwilioRestClient client
-    ) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/MessagingConfigurations";
 
         path =
@@ -68,11 +84,42 @@ public class MessagingConfigurationReader
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<MessagingConfiguration> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<MessagingConfiguration> firstPage(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<MessagingConfiguration> pageForRequest(
+    public TwilioResponse<Page<MessagingConfiguration>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<MessagingConfiguration> page = Page.fromJson(
+            "messaging_configurations",
+            response.getContent(),
+            MessagingConfiguration.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -95,7 +142,14 @@ public class MessagingConfigurationReader
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<MessagingConfiguration> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "messaging_configurations",
             response.getContent(),

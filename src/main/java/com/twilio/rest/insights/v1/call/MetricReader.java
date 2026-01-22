@@ -17,6 +17,8 @@ package com.twilio.rest.insights.v1.call;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -55,12 +57,26 @@ public class MetricReader extends Reader<Metric> {
         return this;
     }
 
-    @Override
-    public ResourceSet<Metric> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Metric> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Metric> page = Page.fromJson(
+            "metrics",
+            response.getContent(),
+            Metric.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Metric> resourceSet = new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Metric> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Voice/{CallSid}/Metrics";
 
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
@@ -71,11 +87,38 @@ public class MetricReader extends Reader<Metric> {
             path
         );
         addQueryParams(request);
+        return request;
+    }
 
+    @Override
+    public ResourceSet<Metric> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Metric> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Metric> pageForRequest(
+    public TwilioResponse<Page<Metric>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Metric> page = Page.fromJson(
+            "metrics",
+            response.getContent(),
+            Metric.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
@@ -98,7 +141,14 @@ public class MetricReader extends Reader<Metric> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Metric> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "metrics",
             response.getContent(),

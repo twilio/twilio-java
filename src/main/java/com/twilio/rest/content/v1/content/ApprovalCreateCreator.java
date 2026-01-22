@@ -16,6 +16,7 @@ package com.twilio.rest.content.v1.content;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -47,8 +48,7 @@ public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
         return this;
     }
 
-    @Override
-    public ApprovalCreate create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Content/{ContentSid}/ApprovalRequests/whatsapp";
 
         path =
@@ -84,10 +84,31 @@ public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ApprovalCreate create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ApprovalCreate.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ApprovalCreate> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ApprovalCreate content = ApprovalCreate.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

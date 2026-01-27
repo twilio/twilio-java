@@ -14,9 +14,12 @@
 
 package com.twilio.rest.api.v2010.account.usage;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,12 +28,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class TriggerUpdater extends Updater<Trigger> {
 
-    private String pathSid;
     private String pathAccountSid;
+    private String pathSid;
     private HttpMethod callbackMethod;
     private URI callbackUrl;
     private String friendlyName;
@@ -63,8 +67,7 @@ public class TriggerUpdater extends Updater<Trigger> {
         return this;
     }
 
-    @Override
-    public Trigger update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json";
 
@@ -86,7 +89,9 @@ public class TriggerUpdater extends Updater<Trigger> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Trigger update failed: Unable to connect to server"
@@ -97,23 +102,64 @@ public class TriggerUpdater extends Updater<Trigger> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Trigger update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Trigger.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Trigger> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Trigger content = Trigger.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (callbackMethod != null) {
-            request.addPostParam("CallbackMethod", callbackMethod.toString());
+            Serializer.toString(
+                request,
+                "CallbackMethod",
+                callbackMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (callbackUrl != null) {
-            request.addPostParam("CallbackUrl", callbackUrl.toString());
+            Serializer.toString(
+                request,
+                "CallbackUrl",
+                callbackUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

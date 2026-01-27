@@ -15,6 +15,7 @@
 package com.twilio.rest.serverless.v1.service.asset;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AssetVersionFetcher extends Fetcher<AssetVersion> {
 
@@ -40,8 +42,7 @@ public class AssetVersionFetcher extends Fetcher<AssetVersion> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public AssetVersion fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions/{Sid}";
 
@@ -59,6 +60,7 @@ public class AssetVersionFetcher extends Fetcher<AssetVersion> {
             Domains.SERVERLESS.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -71,14 +73,38 @@ public class AssetVersionFetcher extends Fetcher<AssetVersion> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public AssetVersion fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return AssetVersion.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<AssetVersion> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        AssetVersion content = AssetVersion.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

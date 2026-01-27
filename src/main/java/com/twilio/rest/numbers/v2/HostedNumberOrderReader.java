@@ -17,7 +17,11 @@ package com.twilio.rest.numbers.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +30,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
 
@@ -34,7 +39,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
     private com.twilio.type.PhoneNumber phoneNumber;
     private String incomingPhoneNumberSid;
     private String friendlyName;
-    private Integer pageSize;
+    private Long pageSize;
 
     public HostedNumberOrderReader() {}
 
@@ -75,9 +80,44 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
         return this;
     }
 
-    public HostedNumberOrderReader setPageSize(final Integer pageSize) {
+    public HostedNumberOrderReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<HostedNumberOrder> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<HostedNumberOrder> page = Page.fromJson(
+            "items",
+            response.getContent(),
+            HostedNumberOrder.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<HostedNumberOrder> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v2/HostedNumber/Orders";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.NUMBERS.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -86,24 +126,33 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
     }
 
     public Page<HostedNumberOrder> firstPage(final TwilioRestClient client) {
-        String path = "/v2/HostedNumber/Orders";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.NUMBERS.toString(),
-            path
-        );
-
-        addQueryParams(request);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<HostedNumberOrder> pageForRequest(
+    public TwilioResponse<Page<HostedNumberOrder>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<HostedNumberOrder> page = Page.fromJson(
+            "items",
+            response.getContent(),
+            HostedNumberOrder.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "HostedNumberOrder read failed: Unable to connect to server"
@@ -113,12 +162,23 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<HostedNumberOrder> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "items",
             response.getContent(),
@@ -134,7 +194,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.NUMBERS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -146,7 +206,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.NUMBERS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -157,31 +217,57 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (status != null) {
-            request.addQueryParam("Status", status.toString());
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
+
         if (smsCapability != null) {
-            request.addQueryParam("SmsCapability", smsCapability.toString());
-        }
-        if (phoneNumber != null) {
-            request.addQueryParam("PhoneNumber", phoneNumber.toString());
-        }
-        if (incomingPhoneNumberSid != null) {
-            request.addQueryParam(
-                "IncomingPhoneNumberSid",
-                incomingPhoneNumberSid
+            Serializer.toString(
+                request,
+                "SmsCapability",
+                smsCapability,
+                ParameterType.QUERY
             );
         }
-        if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
+
+        if (phoneNumber != null) {
+            Serializer.toString(
+                request,
+                "PhoneNumber",
+                phoneNumber,
+                ParameterType.QUERY
+            );
         }
+
+        if (incomingPhoneNumberSid != null) {
+            Serializer.toString(
+                request,
+                "IncomingPhoneNumberSid",
+                incomingPhoneNumberSid,
+                ParameterType.QUERY
+            );
+        }
+
+        if (friendlyName != null) {
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
+        }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

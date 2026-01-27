@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.CurrencyDeserializer;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import com.twilio.type.PhoneNumberPrice;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Currency;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Country extends Resource {
-
-    private static final long serialVersionUID = 141644803807942L;
 
     public static CountryFetcher fetcher(final String pathIsoCountry) {
         return new CountryFetcher(pathIsoCountry);
@@ -92,19 +94,40 @@ public class Country extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String country;
+
+    @Getter
     private final String isoCountry;
+
+    @Getter
     private final List<PhoneNumberPrice> phoneNumberPrices;
+
+    @Getter
     private final Currency priceUnit;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Country(
         @JsonProperty("country") final String country,
         @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty(
-            "phone_number_prices"
-        ) final List<PhoneNumberPrice> phoneNumberPrices,
+        @JsonProperty("phone_number_prices") final List<
+            PhoneNumberPrice
+        > phoneNumberPrices,
         @JsonProperty("price_unit") @JsonDeserialize(
             using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,
@@ -115,26 +138,6 @@ public class Country extends Resource {
         this.phoneNumberPrices = phoneNumberPrices;
         this.priceUnit = priceUnit;
         this.url = url;
-    }
-
-    public final String getCountry() {
-        return this.country;
-    }
-
-    public final String getIsoCountry() {
-        return this.isoCountry;
-    }
-
-    public final List<PhoneNumberPrice> getPhoneNumberPrices() {
-        return this.phoneNumberPrices;
-    }
-
-    public final Currency getPriceUnit() {
-        return this.priceUnit;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -148,7 +151,6 @@ public class Country extends Resource {
         }
 
         Country other = (Country) o;
-
         return (
             Objects.equals(country, other.country) &&
             Objects.equals(isoCountry, other.isoCountry) &&

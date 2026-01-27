@@ -17,6 +17,10 @@ package com.twilio.rest.taskrouter.v1.workspace.worker;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,12 +29,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class WorkerChannelReader extends Reader<WorkerChannel> {
 
     private String pathWorkspaceSid;
     private String pathWorkerSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public WorkerChannelReader(
         final String pathWorkspaceSid,
@@ -40,19 +45,38 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
         this.pathWorkerSid = pathWorkerSid;
     }
 
-    public WorkerChannelReader setPageSize(final Integer pageSize) {
+    public WorkerChannelReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<WorkerChannel> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<WorkerChannel> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<WorkerChannel> page = Page.fromJson(
+            "channels",
+            response.getContent(),
+            WorkerChannel.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<WorkerChannel> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<WorkerChannel> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels";
+
         path =
             path.replace(
                 "{" + "WorkspaceSid" + "}",
@@ -69,17 +93,43 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
             Domains.TASKROUTER.toString(),
             path
         );
-
         addQueryParams(request);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<WorkerChannel> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<WorkerChannel> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<WorkerChannel> pageForRequest(
+    public TwilioResponse<Page<WorkerChannel>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<WorkerChannel> page = Page.fromJson(
+            "channels",
+            response.getContent(),
+            WorkerChannel.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "WorkerChannel read failed: Unable to connect to server"
@@ -89,12 +139,23 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<WorkerChannel> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "channels",
             response.getContent(),
@@ -110,7 +171,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.TASKROUTER.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -122,7 +183,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.TASKROUTER.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -133,13 +194,17 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

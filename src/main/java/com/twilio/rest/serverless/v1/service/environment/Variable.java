@@ -18,25 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Variable extends Resource {
-
-    private static final long serialVersionUID = 240706939520174L;
 
     public static VariableCreator creator(
         final String pathServiceSid,
@@ -126,73 +129,70 @@ public class Variable extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final String environmentSid;
-    private final String key;
-    private final String value;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String environmentSid;
+
+    @Getter
+    private final String key;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final String value;
 
     @JsonCreator
     private Variable(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("environment_sid") final String environmentSid,
         @JsonProperty("key") final String key,
-        @JsonProperty("value") final String value,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("value") final String value
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.environmentSid = environmentSid;
         this.key = key;
-        this.value = value;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.serviceSid = serviceSid;
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getEnvironmentSid() {
-        return this.environmentSid;
-    }
-
-    public final String getKey() {
-        return this.key;
-    }
-
-    public final String getValue() {
-        return this.value;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.value = value;
     }
 
     @Override
@@ -206,32 +206,31 @@ public class Variable extends Resource {
         }
 
         Variable other = (Variable) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(environmentSid, other.environmentSid) &&
-            Objects.equals(key, other.key) &&
-            Objects.equals(value, other.value) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url)
+            Objects.equals(environmentSid, other.environmentSid) &&
+            Objects.equals(key, other.key) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(value, other.value)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            serviceSid,
-            environmentSid,
-            key,
-            value,
             dateCreated,
             dateUpdated,
-            url
+            environmentSid,
+            key,
+            serviceSid,
+            sid,
+            url,
+            value
         );
     }
 }

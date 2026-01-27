@@ -18,25 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsSettingsComment extends Resource {
-
-    private static final long serialVersionUID = 241533672645071L;
 
     public static InsightsSettingsCommentFetcher fetcher() {
         return new InsightsSettingsCommentFetcher();
@@ -85,31 +86,36 @@ public class InsightsSettingsComment extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final Map<String, Object> comments;
+
+    @Getter
+    private final Object comments;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private InsightsSettingsComment(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("comments") final Map<String, Object> comments,
+        @JsonProperty("comments") final Object comments,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.comments = comments;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Map<String, Object> getComments() {
-        return this.comments;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -123,7 +129,6 @@ public class InsightsSettingsComment extends Resource {
         }
 
         InsightsSettingsComment other = (InsightsSettingsComment) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(comments, other.comments) &&

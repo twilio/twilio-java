@@ -18,27 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RateLimit extends Resource {
-
-    private static final long serialVersionUID = 244381337050590L;
 
     public static RateLimitCreator creator(
         final String pathServiceSid,
@@ -115,73 +117,70 @@ public class RateLimit extends Resource {
         }
     }
 
-    private final String sid;
-    private final String serviceSid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String uniqueName;
-    private final String description;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+
+    @Getter
+    private final String description;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String uniqueName;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private RateLimit(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("description") final String description,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
-        this.serviceSid = serviceSid;
         this.accountSid = accountSid;
-        this.uniqueName = uniqueName;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.description = description;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
+        this.uniqueName = uniqueName;
+        this.url = url;
     }
 
     @Override
@@ -195,32 +194,31 @@ public class RateLimit extends Resource {
         }
 
         RateLimit other = (RateLimit) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(description, other.description) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(description, other.description) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            serviceSid,
             accountSid,
-            uniqueName,
-            description,
             dateCreated,
             dateUpdated,
-            url,
-            links
+            description,
+            links,
+            serviceSid,
+            sid,
+            uniqueName,
+            url
         );
     }
 }

@@ -18,28 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
-
-    private static final long serialVersionUID = 201752828404640L;
 
     public static WebhookCreator creator(
         final String pathServiceSid,
@@ -78,6 +79,47 @@ public class Webhook extends Resource {
         final String pathSid
     ) {
         return new WebhookUpdater(pathServiceSid, pathChannelSid, pathSid);
+    }
+
+    public enum Type {
+        WEBHOOK("webhook"),
+        TRIGGER("trigger"),
+        STUDIO("studio");
+
+        private final String value;
+
+        private Type(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
+        }
+    }
+
+    public enum Method {
+        GET("GET"),
+        POST("POST");
+
+        private final String value;
+
+        private Method(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Method forValue(final String value) {
+            return Promoter.enumFromString(value, Method.values());
+        }
     }
 
     /**
@@ -123,114 +165,70 @@ public class Webhook extends Resource {
         }
     }
 
-    public enum Method {
-        GET("GET"),
-        POST("POST");
-
-        private final String value;
-
-        private Method(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Method forValue(final String value) {
-            return Promoter.enumFromString(value, Method.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    public enum Type {
-        WEBHOOK("webhook"),
-        TRIGGER("trigger"),
-        STUDIO("studio");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-    }
-
-    private final String sid;
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
+
+    @Getter
     private final String channelSid;
-    private final String type;
-    private final URI url;
-    private final Map<String, Object> configuration;
+
+    @Getter
+    private final Object configuration;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String type;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Webhook(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("channel_sid") final String channelSid,
+        @JsonProperty("configuration") final Object configuration,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("type") final String type,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("configuration") final Map<String, Object> configuration,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
         this.channelSid = channelSid;
+        this.configuration = configuration;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
         this.type = type;
         this.url = url;
-        this.configuration = configuration;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getChannelSid() {
-        return this.channelSid;
-    }
-
-    public final String getType() {
-        return this.type;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, Object> getConfiguration() {
-        return this.configuration;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
     }
 
     @Override
@@ -244,32 +242,31 @@ public class Webhook extends Resource {
         }
 
         Webhook other = (Webhook) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
             Objects.equals(channelSid, other.channelSid) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(url, other.url) &&
             Objects.equals(configuration, other.configuration) &&
             Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            serviceSid,
             channelSid,
-            type,
-            url,
             configuration,
             dateCreated,
-            dateUpdated
+            dateUpdated,
+            serviceSid,
+            sid,
+            type,
+            url
         );
     }
 }

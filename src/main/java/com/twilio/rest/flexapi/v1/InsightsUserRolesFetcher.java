@@ -15,6 +15,9 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
 
@@ -37,8 +41,7 @@ public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
         return this;
     }
 
-    @Override
-    public InsightsUserRoles fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Insights/UserRoles";
 
         Request request = new Request(
@@ -47,6 +50,7 @@ public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
             path
         );
         addHeaderParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -59,20 +63,49 @@ public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public InsightsUserRoles fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return InsightsUserRoles.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<InsightsUserRoles> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        InsightsUserRoles content = InsightsUserRoles.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addHeaderParams(final Request request) {
         if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
     }
 }

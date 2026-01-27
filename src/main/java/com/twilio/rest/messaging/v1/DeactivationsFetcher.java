@@ -15,7 +15,9 @@
 package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.LocalDate;
 
 public class DeactivationsFetcher extends Fetcher<Deactivations> {
@@ -37,8 +40,7 @@ public class DeactivationsFetcher extends Fetcher<Deactivations> {
         return this;
     }
 
-    @Override
-    public Deactivations fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Deactivations";
 
         Request request = new Request(
@@ -47,6 +49,7 @@ public class DeactivationsFetcher extends Fetcher<Deactivations> {
             path
         );
         addQueryParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -59,23 +62,44 @@ public class DeactivationsFetcher extends Fetcher<Deactivations> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Deactivations fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Deactivations.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Deactivations> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Deactivations content = Deactivations.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addQueryParams(final Request request) {
         if (date != null) {
-            request.addQueryParam(
-                "Date",
-                DateConverter.dateStringFromLocalDate(date)
-            );
+            Serializer.toString(request, "Date", date, ParameterType.QUERY);
         }
     }
 }

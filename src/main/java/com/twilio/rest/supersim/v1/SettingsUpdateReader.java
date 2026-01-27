@@ -17,6 +17,10 @@ package com.twilio.rest.supersim.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,12 +29,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SettingsUpdateReader extends Reader<SettingsUpdate> {
 
     private String sim;
     private SettingsUpdate.Status status;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SettingsUpdateReader() {}
 
@@ -44,9 +49,44 @@ public class SettingsUpdateReader extends Reader<SettingsUpdate> {
         return this;
     }
 
-    public SettingsUpdateReader setPageSize(final Integer pageSize) {
+    public SettingsUpdateReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<SettingsUpdate> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SettingsUpdate> page = Page.fromJson(
+            "settings_updates",
+            response.getContent(),
+            SettingsUpdate.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<SettingsUpdate> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/SettingsUpdates";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.SUPERSIM.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -55,24 +95,33 @@ public class SettingsUpdateReader extends Reader<SettingsUpdate> {
     }
 
     public Page<SettingsUpdate> firstPage(final TwilioRestClient client) {
-        String path = "/v1/SettingsUpdates";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.SUPERSIM.toString(),
-            path
-        );
-
-        addQueryParams(request);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<SettingsUpdate> pageForRequest(
+    public TwilioResponse<Page<SettingsUpdate>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SettingsUpdate> page = Page.fromJson(
+            "settings_updates",
+            response.getContent(),
+            SettingsUpdate.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "SettingsUpdate read failed: Unable to connect to server"
@@ -82,12 +131,23 @@ public class SettingsUpdateReader extends Reader<SettingsUpdate> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<SettingsUpdate> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "settings_updates",
             response.getContent(),
@@ -103,7 +163,7 @@ public class SettingsUpdateReader extends Reader<SettingsUpdate> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.SUPERSIM.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -115,7 +175,7 @@ public class SettingsUpdateReader extends Reader<SettingsUpdate> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.SUPERSIM.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -126,19 +186,25 @@ public class SettingsUpdateReader extends Reader<SettingsUpdate> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (sim != null) {
-            request.addQueryParam("Sim", sim);
+            Serializer.toString(request, "Sim", sim, ParameterType.QUERY);
         }
+
         if (status != null) {
-            request.addQueryParam("Status", status.toString());
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

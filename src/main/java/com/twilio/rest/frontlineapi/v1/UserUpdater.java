@@ -14,8 +14,11 @@
 
 package com.twilio.rest.frontlineapi.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class UserUpdater extends Updater<User> {
 
@@ -57,8 +61,7 @@ public class UserUpdater extends Updater<User> {
         return this;
     }
 
-    @Override
-    public User update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Users/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -70,7 +73,9 @@ public class UserUpdater extends Updater<User> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "User update failed: Unable to connect to server"
@@ -81,26 +86,73 @@ public class UserUpdater extends Updater<User> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public User update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return User.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<User> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        User content = User.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (avatar != null) {
-            request.addPostParam("Avatar", avatar);
+            Serializer.toString(
+                request,
+                "Avatar",
+                avatar,
+                ParameterType.URLENCODED
+            );
         }
+
         if (state != null) {
-            request.addPostParam("State", state.toString());
+            Serializer.toString(
+                request,
+                "State",
+                state,
+                ParameterType.URLENCODED
+            );
         }
+
         if (isAvailable != null) {
-            request.addPostParam("IsAvailable", isAvailable.toString());
+            Serializer.toString(
+                request,
+                "IsAvailable",
+                isAvailable,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

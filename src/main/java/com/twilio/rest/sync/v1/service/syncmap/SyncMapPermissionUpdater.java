@@ -14,8 +14,11 @@
 
 package com.twilio.rest.sync.v1.service.syncmap;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
 
@@ -65,8 +69,7 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
         return this;
     }
 
-    @Override
-    public SyncMapPermission update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}";
 
@@ -78,9 +81,6 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
         path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
         path =
             path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
-        path = path.replace("{" + "Read" + "}", this.read.toString());
-        path = path.replace("{" + "Write" + "}", this.write.toString());
-        path = path.replace("{" + "Manage" + "}", this.manage.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -89,7 +89,9 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "SyncMapPermission update failed: Unable to connect to server"
@@ -100,26 +102,67 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SyncMapPermission update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SyncMapPermission.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<SyncMapPermission> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SyncMapPermission content = SyncMapPermission.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (read != null) {
-            request.addPostParam("Read", read.toString());
+            Serializer.toString(
+                request,
+                "Read",
+                read,
+                ParameterType.URLENCODED
+            );
         }
+
         if (write != null) {
-            request.addPostParam("Write", write.toString());
+            Serializer.toString(
+                request,
+                "Write",
+                write,
+                ParameterType.URLENCODED
+            );
         }
+
         if (manage != null) {
-            request.addPostParam("Manage", manage.toString());
+            Serializer.toString(
+                request,
+                "Manage",
+                manage,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

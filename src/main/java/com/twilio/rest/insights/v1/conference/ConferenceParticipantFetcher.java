@@ -15,6 +15,9 @@
 package com.twilio.rest.insights.v1.conference;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ConferenceParticipantFetcher
     extends Fetcher<ConferenceParticipant> {
@@ -50,8 +54,7 @@ public class ConferenceParticipantFetcher
         return this;
     }
 
-    @Override
-    public ConferenceParticipant fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Conferences/{ConferenceSid}/Participants/{ParticipantSid}";
 
@@ -72,6 +75,7 @@ public class ConferenceParticipantFetcher
             path
         );
         addQueryParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -84,23 +88,53 @@ public class ConferenceParticipantFetcher
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ConferenceParticipant fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ConferenceParticipant.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<ConferenceParticipant> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ConferenceParticipant content = ConferenceParticipant.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addQueryParams(final Request request) {
         if (events != null) {
-            request.addQueryParam("Events", events);
+            Serializer.toString(request, "Events", events, ParameterType.QUERY);
         }
+
         if (metrics != null) {
-            request.addQueryParam("Metrics", metrics);
+            Serializer.toString(
+                request,
+                "Metrics",
+                metrics,
+                ParameterType.QUERY
+            );
         }
     }
 }

@@ -18,23 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Recording extends Resource {
-
-    private static final long serialVersionUID = 230784342010429L;
 
     public static RecordingFetcher fetcher(final String pathTrunkSid) {
         return new RecordingFetcher(pathTrunkSid);
@@ -42,49 +45,6 @@ public class Recording extends Resource {
 
     public static RecordingUpdater updater(final String pathTrunkSid) {
         return new RecordingUpdater(pathTrunkSid);
-    }
-
-    /**
-     * Converts a JSON String into a Recording object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Recording object represented by the provided JSON
-     */
-    public static Recording fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Recording.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Recording object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Recording object represented by the provided JSON
-     */
-    public static Recording fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Recording.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
     }
 
     public enum RecordingMode {
@@ -130,7 +90,65 @@ public class Recording extends Resource {
         }
     }
 
+    /**
+     * Converts a JSON String into a Recording object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Recording object represented by the provided JSON
+     */
+    public static Recording fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Recording.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a Recording object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Recording object represented by the provided JSON
+     */
+    public static Recording fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Recording.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final Recording.RecordingMode mode;
+
+    @Getter
     private final Recording.RecordingTrim trim;
 
     @JsonCreator
@@ -140,14 +158,6 @@ public class Recording extends Resource {
     ) {
         this.mode = mode;
         this.trim = trim;
-    }
-
-    public final Recording.RecordingMode getMode() {
-        return this.mode;
-    }
-
-    public final Recording.RecordingTrim getTrim() {
-        return this.trim;
     }
 
     @Override
@@ -161,7 +171,6 @@ public class Recording extends Resource {
         }
 
         Recording other = (Recording) o;
-
         return (
             Objects.equals(mode, other.mode) && Objects.equals(trim, other.trim)
         );

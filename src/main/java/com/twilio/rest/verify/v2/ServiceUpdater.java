@@ -14,8 +14,11 @@
 
 package com.twilio.rest.verify.v2;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ServiceUpdater extends Updater<Service> {
 
@@ -45,6 +49,15 @@ public class ServiceUpdater extends Updater<Service> {
     private Integer totpCodeLength;
     private Integer totpSkew;
     private String defaultTemplateSid;
+    private String whatsappMsgServiceSid;
+    private String whatsappFrom;
+    private String passkeysRelyingPartyId;
+    private String passkeysRelyingPartyName;
+    private String passkeysRelyingPartyOrigins;
+    private String passkeysAuthenticatorAttachment;
+    private String passkeysDiscoverableCredentials;
+    private String passkeysUserVerification;
+    private Boolean verifyEventSubscriptionEnabled;
 
     public ServiceUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -149,8 +162,68 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
-    @Override
-    public Service update(final TwilioRestClient client) {
+    public ServiceUpdater setWhatsappMsgServiceSid(
+        final String whatsappMsgServiceSid
+    ) {
+        this.whatsappMsgServiceSid = whatsappMsgServiceSid;
+        return this;
+    }
+
+    public ServiceUpdater setWhatsappFrom(final String whatsappFrom) {
+        this.whatsappFrom = whatsappFrom;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysRelyingPartyId(
+        final String passkeysRelyingPartyId
+    ) {
+        this.passkeysRelyingPartyId = passkeysRelyingPartyId;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysRelyingPartyName(
+        final String passkeysRelyingPartyName
+    ) {
+        this.passkeysRelyingPartyName = passkeysRelyingPartyName;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysRelyingPartyOrigins(
+        final String passkeysRelyingPartyOrigins
+    ) {
+        this.passkeysRelyingPartyOrigins = passkeysRelyingPartyOrigins;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysAuthenticatorAttachment(
+        final String passkeysAuthenticatorAttachment
+    ) {
+        this.passkeysAuthenticatorAttachment = passkeysAuthenticatorAttachment;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysDiscoverableCredentials(
+        final String passkeysDiscoverableCredentials
+    ) {
+        this.passkeysDiscoverableCredentials = passkeysDiscoverableCredentials;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysUserVerification(
+        final String passkeysUserVerification
+    ) {
+        this.passkeysUserVerification = passkeysUserVerification;
+        return this;
+    }
+
+    public ServiceUpdater setVerifyEventSubscriptionEnabled(
+        final Boolean verifyEventSubscriptionEnabled
+    ) {
+        this.verifyEventSubscriptionEnabled = verifyEventSubscriptionEnabled;
+        return this;
+    }
+
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -162,7 +235,9 @@ public class ServiceUpdater extends Updater<Service> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Service update failed: Unable to connect to server"
@@ -173,80 +248,271 @@ public class ServiceUpdater extends Updater<Service> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Service update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Service.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Service> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Service content = Service.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (codeLength != null) {
-            request.addPostParam("CodeLength", codeLength.toString());
+            Serializer.toString(
+                request,
+                "CodeLength",
+                codeLength,
+                ParameterType.URLENCODED
+            );
         }
+
         if (lookupEnabled != null) {
-            request.addPostParam("LookupEnabled", lookupEnabled.toString());
+            Serializer.toString(
+                request,
+                "LookupEnabled",
+                lookupEnabled,
+                ParameterType.URLENCODED
+            );
         }
+
         if (skipSmsToLandlines != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "SkipSmsToLandlines",
-                skipSmsToLandlines.toString()
+                skipSmsToLandlines,
+                ParameterType.URLENCODED
             );
         }
+
         if (dtmfInputRequired != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DtmfInputRequired",
-                dtmfInputRequired.toString()
+                dtmfInputRequired,
+                ParameterType.URLENCODED
             );
         }
+
         if (ttsName != null) {
-            request.addPostParam("TtsName", ttsName);
+            Serializer.toString(
+                request,
+                "TtsName",
+                ttsName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (psd2Enabled != null) {
-            request.addPostParam("Psd2Enabled", psd2Enabled.toString());
+            Serializer.toString(
+                request,
+                "Psd2Enabled",
+                psd2Enabled,
+                ParameterType.URLENCODED
+            );
         }
+
         if (doNotShareWarningEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DoNotShareWarningEnabled",
-                doNotShareWarningEnabled.toString()
+                doNotShareWarningEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (customCodeEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "CustomCodeEnabled",
-                customCodeEnabled.toString()
+                customCodeEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (pushIncludeDate != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Push.IncludeDate",
-                pushIncludeDate.toString()
+                pushIncludeDate,
+                ParameterType.URLENCODED
             );
         }
+
         if (pushApnCredentialSid != null) {
-            request.addPostParam("Push.ApnCredentialSid", pushApnCredentialSid);
+            Serializer.toString(
+                request,
+                "Push.ApnCredentialSid",
+                pushApnCredentialSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (pushFcmCredentialSid != null) {
-            request.addPostParam("Push.FcmCredentialSid", pushFcmCredentialSid);
+            Serializer.toString(
+                request,
+                "Push.FcmCredentialSid",
+                pushFcmCredentialSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (totpIssuer != null) {
-            request.addPostParam("Totp.Issuer", totpIssuer);
+            Serializer.toString(
+                request,
+                "Totp.Issuer",
+                totpIssuer,
+                ParameterType.URLENCODED
+            );
         }
+
         if (totpTimeStep != null) {
-            request.addPostParam("Totp.TimeStep", totpTimeStep.toString());
+            Serializer.toString(
+                request,
+                "Totp.TimeStep",
+                totpTimeStep,
+                ParameterType.URLENCODED
+            );
         }
+
         if (totpCodeLength != null) {
-            request.addPostParam("Totp.CodeLength", totpCodeLength.toString());
+            Serializer.toString(
+                request,
+                "Totp.CodeLength",
+                totpCodeLength,
+                ParameterType.URLENCODED
+            );
         }
+
         if (totpSkew != null) {
-            request.addPostParam("Totp.Skew", totpSkew.toString());
+            Serializer.toString(
+                request,
+                "Totp.Skew",
+                totpSkew,
+                ParameterType.URLENCODED
+            );
         }
+
         if (defaultTemplateSid != null) {
-            request.addPostParam("DefaultTemplateSid", defaultTemplateSid);
+            Serializer.toString(
+                request,
+                "DefaultTemplateSid",
+                defaultTemplateSid,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (whatsappMsgServiceSid != null) {
+            Serializer.toString(
+                request,
+                "Whatsapp.MsgServiceSid",
+                whatsappMsgServiceSid,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (whatsappFrom != null) {
+            Serializer.toString(
+                request,
+                "Whatsapp.From",
+                whatsappFrom,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (passkeysRelyingPartyId != null) {
+            Serializer.toString(
+                request,
+                "Passkeys.RelyingParty.Id",
+                passkeysRelyingPartyId,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (passkeysRelyingPartyName != null) {
+            Serializer.toString(
+                request,
+                "Passkeys.RelyingParty.Name",
+                passkeysRelyingPartyName,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (passkeysRelyingPartyOrigins != null) {
+            Serializer.toString(
+                request,
+                "Passkeys.RelyingParty.Origins",
+                passkeysRelyingPartyOrigins,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (passkeysAuthenticatorAttachment != null) {
+            Serializer.toString(
+                request,
+                "Passkeys.AuthenticatorAttachment",
+                passkeysAuthenticatorAttachment,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (passkeysDiscoverableCredentials != null) {
+            Serializer.toString(
+                request,
+                "Passkeys.DiscoverableCredentials",
+                passkeysDiscoverableCredentials,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (passkeysUserVerification != null) {
+            Serializer.toString(
+                request,
+                "Passkeys.UserVerification",
+                passkeysUserVerification,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (verifyEventSubscriptionEnabled != null) {
+            Serializer.toString(
+                request,
+                "VerifyEventSubscriptionEnabled",
+                verifyEventSubscriptionEnabled,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

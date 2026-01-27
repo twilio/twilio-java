@@ -18,26 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TaskQueueRealTimeStatistics extends Resource {
-
-    private static final long serialVersionUID = 59495775727482L;
 
     public static TaskQueueRealTimeStatisticsFetcher fetcher(
         final String pathWorkspaceSid,
@@ -98,46 +99,81 @@ public class TaskQueueRealTimeStatistics extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final List<Map<String, Object>> activityStatistics;
-    private final Integer longestTaskWaitingAge;
-    private final String longestTaskWaitingSid;
+
+    @Getter
+    private final List<Object> activityStatistics;
+
+    @Getter
     private final Integer longestRelativeTaskAgeInQueue;
+
+    @Getter
     private final String longestRelativeTaskSidInQueue;
+
+    @Getter
+    private final Integer longestTaskWaitingAge;
+
+    @Getter
+    private final String longestTaskWaitingSid;
+
+    @Getter
     private final String taskQueueSid;
-    private final Map<String, Object> tasksByPriority;
-    private final Map<String, Object> tasksByStatus;
+
+    @Getter
+    private final Object tasksByPriority;
+
+    @Getter
+    private final Object tasksByStatus;
+
+    @Getter
     private final Integer totalAvailableWorkers;
+
+    @Getter
     private final Integer totalEligibleWorkers;
+
+    @Getter
     private final Integer totalTasks;
-    private final String workspaceSid;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final String workspaceSid;
 
     @JsonCreator
     private TaskQueueRealTimeStatistics(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty(
-            "activity_statistics"
-        ) final List<Map<String, Object>> activityStatistics,
-        @JsonProperty(
-            "longest_task_waiting_age"
-        ) final Integer longestTaskWaitingAge,
-        @JsonProperty(
-            "longest_task_waiting_sid"
-        ) final String longestTaskWaitingSid,
+        @JsonProperty("activity_statistics") final List<
+            Object
+        > activityStatistics,
         @JsonProperty(
             "longest_relative_task_age_in_queue"
         ) final Integer longestRelativeTaskAgeInQueue,
         @JsonProperty(
             "longest_relative_task_sid_in_queue"
         ) final String longestRelativeTaskSidInQueue,
+        @JsonProperty(
+            "longest_task_waiting_age"
+        ) final Integer longestTaskWaitingAge,
+        @JsonProperty(
+            "longest_task_waiting_sid"
+        ) final String longestTaskWaitingSid,
         @JsonProperty("task_queue_sid") final String taskQueueSid,
-        @JsonProperty(
-            "tasks_by_priority"
-        ) final Map<String, Object> tasksByPriority,
-        @JsonProperty(
-            "tasks_by_status"
-        ) final Map<String, Object> tasksByStatus,
+        @JsonProperty("tasks_by_priority") final Object tasksByPriority,
+        @JsonProperty("tasks_by_status") final Object tasksByStatus,
         @JsonProperty(
             "total_available_workers"
         ) final Integer totalAvailableWorkers,
@@ -145,79 +181,23 @@ public class TaskQueueRealTimeStatistics extends Resource {
             "total_eligible_workers"
         ) final Integer totalEligibleWorkers,
         @JsonProperty("total_tasks") final Integer totalTasks,
-        @JsonProperty("workspace_sid") final String workspaceSid,
-        @JsonProperty("url") final URI url
+        @JsonProperty("url") final URI url,
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.activityStatistics = activityStatistics;
-        this.longestTaskWaitingAge = longestTaskWaitingAge;
-        this.longestTaskWaitingSid = longestTaskWaitingSid;
         this.longestRelativeTaskAgeInQueue = longestRelativeTaskAgeInQueue;
         this.longestRelativeTaskSidInQueue = longestRelativeTaskSidInQueue;
+        this.longestTaskWaitingAge = longestTaskWaitingAge;
+        this.longestTaskWaitingSid = longestTaskWaitingSid;
         this.taskQueueSid = taskQueueSid;
         this.tasksByPriority = tasksByPriority;
         this.tasksByStatus = tasksByStatus;
         this.totalAvailableWorkers = totalAvailableWorkers;
         this.totalEligibleWorkers = totalEligibleWorkers;
         this.totalTasks = totalTasks;
-        this.workspaceSid = workspaceSid;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final List<Map<String, Object>> getActivityStatistics() {
-        return this.activityStatistics;
-    }
-
-    public final Integer getLongestTaskWaitingAge() {
-        return this.longestTaskWaitingAge;
-    }
-
-    public final String getLongestTaskWaitingSid() {
-        return this.longestTaskWaitingSid;
-    }
-
-    public final Integer getLongestRelativeTaskAgeInQueue() {
-        return this.longestRelativeTaskAgeInQueue;
-    }
-
-    public final String getLongestRelativeTaskSidInQueue() {
-        return this.longestRelativeTaskSidInQueue;
-    }
-
-    public final String getTaskQueueSid() {
-        return this.taskQueueSid;
-    }
-
-    public final Map<String, Object> getTasksByPriority() {
-        return this.tasksByPriority;
-    }
-
-    public final Map<String, Object> getTasksByStatus() {
-        return this.tasksByStatus;
-    }
-
-    public final Integer getTotalAvailableWorkers() {
-        return this.totalAvailableWorkers;
-    }
-
-    public final Integer getTotalEligibleWorkers() {
-        return this.totalEligibleWorkers;
-    }
-
-    public final Integer getTotalTasks() {
-        return this.totalTasks;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.workspaceSid = workspaceSid;
     }
 
     @Override
@@ -231,18 +211,9 @@ public class TaskQueueRealTimeStatistics extends Resource {
         }
 
         TaskQueueRealTimeStatistics other = (TaskQueueRealTimeStatistics) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(activityStatistics, other.activityStatistics) &&
-            Objects.equals(
-                longestTaskWaitingAge,
-                other.longestTaskWaitingAge
-            ) &&
-            Objects.equals(
-                longestTaskWaitingSid,
-                other.longestTaskWaitingSid
-            ) &&
             Objects.equals(
                 longestRelativeTaskAgeInQueue,
                 other.longestRelativeTaskAgeInQueue
@@ -250,6 +221,14 @@ public class TaskQueueRealTimeStatistics extends Resource {
             Objects.equals(
                 longestRelativeTaskSidInQueue,
                 other.longestRelativeTaskSidInQueue
+            ) &&
+            Objects.equals(
+                longestTaskWaitingAge,
+                other.longestTaskWaitingAge
+            ) &&
+            Objects.equals(
+                longestTaskWaitingSid,
+                other.longestTaskWaitingSid
             ) &&
             Objects.equals(taskQueueSid, other.taskQueueSid) &&
             Objects.equals(tasksByPriority, other.tasksByPriority) &&
@@ -260,8 +239,8 @@ public class TaskQueueRealTimeStatistics extends Resource {
             ) &&
             Objects.equals(totalEligibleWorkers, other.totalEligibleWorkers) &&
             Objects.equals(totalTasks, other.totalTasks) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
-            Objects.equals(url, other.url)
+            Objects.equals(url, other.url) &&
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
@@ -270,18 +249,18 @@ public class TaskQueueRealTimeStatistics extends Resource {
         return Objects.hash(
             accountSid,
             activityStatistics,
-            longestTaskWaitingAge,
-            longestTaskWaitingSid,
             longestRelativeTaskAgeInQueue,
             longestRelativeTaskSidInQueue,
+            longestTaskWaitingAge,
+            longestTaskWaitingSid,
             taskQueueSid,
             tasksByPriority,
             tasksByStatus,
             totalAvailableWorkers,
             totalEligibleWorkers,
             totalTasks,
-            workspaceSid,
-            url
+            url,
+            workspaceSid
         );
     }
 }

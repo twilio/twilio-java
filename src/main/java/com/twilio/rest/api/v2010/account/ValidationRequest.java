@@ -18,22 +18,25 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ValidationRequest extends Resource {
-
-    private static final long serialVersionUID = 159203610764140L;
 
     public static ValidationRequestCreator creator(
         final com.twilio.type.PhoneNumber phoneNumber
@@ -91,10 +94,31 @@ public class ValidationRequest extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String callSid;
+
+    @Getter
     private final String friendlyName;
+
+    @Getter
     private final com.twilio.type.PhoneNumber phoneNumber;
+
+    @Getter
     private final String validationCode;
 
     @JsonCreator
@@ -114,26 +138,6 @@ public class ValidationRequest extends Resource {
         this.validationCode = validationCode;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getCallSid() {
-        return this.callSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final com.twilio.type.PhoneNumber getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public final String getValidationCode() {
-        return this.validationCode;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -145,7 +149,6 @@ public class ValidationRequest extends Resource {
         }
 
         ValidationRequest other = (ValidationRequest) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(callSid, other.callSid) &&

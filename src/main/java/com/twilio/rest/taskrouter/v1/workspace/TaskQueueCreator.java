@@ -15,7 +15,10 @@
 package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class TaskQueueCreator extends Creator<TaskQueue> {
 
@@ -79,19 +83,13 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
         return this;
     }
 
-    @Override
-    public TaskQueue create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues";
 
         path =
             path.replace(
                 "{" + "WorkspaceSid" + "}",
                 this.pathWorkspaceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
             );
 
         Request request = new Request(
@@ -101,7 +99,9 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "TaskQueue creation failed: Unable to connect to server"
@@ -112,43 +112,93 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public TaskQueue create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return TaskQueue.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<TaskQueue> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        TaskQueue content = TaskQueue.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (targetWorkers != null) {
-            request.addPostParam("TargetWorkers", targetWorkers);
+            Serializer.toString(
+                request,
+                "TargetWorkers",
+                targetWorkers,
+                ParameterType.URLENCODED
+            );
         }
+
         if (maxReservedWorkers != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "MaxReservedWorkers",
-                maxReservedWorkers.toString()
+                maxReservedWorkers,
+                ParameterType.URLENCODED
             );
         }
+
         if (taskOrder != null) {
-            request.addPostParam("TaskOrder", taskOrder.toString());
-        }
-        if (reservationActivitySid != null) {
-            request.addPostParam(
-                "ReservationActivitySid",
-                reservationActivitySid
+            Serializer.toString(
+                request,
+                "TaskOrder",
+                taskOrder,
+                ParameterType.URLENCODED
             );
         }
+
+        if (reservationActivitySid != null) {
+            Serializer.toString(
+                request,
+                "ReservationActivitySid",
+                reservationActivitySid,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (assignmentActivitySid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AssignmentActivitySid",
-                assignmentActivitySid
+                assignmentActivitySid,
+                ParameterType.URLENCODED
             );
         }
     }

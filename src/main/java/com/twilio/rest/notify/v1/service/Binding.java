@@ -18,29 +18,31 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Binding extends Resource {
-
-    private static final long serialVersionUID = 204710880064403L;
 
     public static BindingCreator creator(
         final String pathServiceSid,
@@ -72,6 +74,30 @@ public class Binding extends Resource {
 
     public static BindingReader reader(final String pathServiceSid) {
         return new BindingReader(pathServiceSid);
+    }
+
+    public enum BindingType {
+        APN("apn"),
+        GCM("gcm"),
+        SMS("sms"),
+        FCM("fcm"),
+        FACEBOOK_MESSENGER("facebook-messenger"),
+        ALEXA("alexa");
+
+        private final String value;
+
+        private BindingType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static BindingType forValue(final String value) {
+            return Promoter.enumFromString(value, BindingType.values());
+        }
     }
 
     /**
@@ -117,134 +143,97 @@ public class Binding extends Resource {
         }
     }
 
-    public enum BindingType {
-        APN("apn"),
-        GCM("gcm"),
-        SMS("sms"),
-        FCM("fcm"),
-        FACEBOOK_MESSENGER("facebook-messenger"),
-        ALEXA("alexa");
-
-        private final String value;
-
-        private BindingType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BindingType forValue(final String value) {
-            return Promoter.enumFromString(value, BindingType.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    private final String sid;
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final String credentialSid;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final String notificationProtocolVersion;
-    private final String endpoint;
-    private final String identity;
-    private final String bindingType;
+
+    @Getter
     private final String address;
-    private final List<String> tags;
-    private final URI url;
+
+    @Getter
+    private final String bindingType;
+
+    @Getter
+    private final String credentialSid;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String endpoint;
+
+    @Getter
+    private final String identity;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String notificationProtocolVersion;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final List<String> tags;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Binding(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("address") final String address,
+        @JsonProperty("binding_type") final String bindingType,
         @JsonProperty("credential_sid") final String credentialSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("endpoint") final String endpoint,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("links") final Map<String, String> links,
         @JsonProperty(
             "notification_protocol_version"
         ) final String notificationProtocolVersion,
-        @JsonProperty("endpoint") final String endpoint,
-        @JsonProperty("identity") final String identity,
-        @JsonProperty("binding_type") final String bindingType,
-        @JsonProperty("address") final String address,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("tags") final List<String> tags,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
+        this.address = address;
+        this.bindingType = bindingType;
         this.credentialSid = credentialSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.notificationProtocolVersion = notificationProtocolVersion;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.endpoint = endpoint;
         this.identity = identity;
-        this.bindingType = bindingType;
-        this.address = address;
+        this.links = links;
+        this.notificationProtocolVersion = notificationProtocolVersion;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
         this.tags = tags;
         this.url = url;
-        this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getCredentialSid() {
-        return this.credentialSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getNotificationProtocolVersion() {
-        return this.notificationProtocolVersion;
-    }
-
-    public final String getEndpoint() {
-        return this.endpoint;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
-    }
-
-    public final String getBindingType() {
-        return this.bindingType;
-    }
-
-    public final String getAddress() {
-        return this.address;
-    }
-
-    public final List<String> getTags() {
-        return this.tags;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
     }
 
     @Override
@@ -258,45 +247,44 @@ public class Binding extends Resource {
         }
 
         Binding other = (Binding) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(address, other.address) &&
+            Objects.equals(bindingType, other.bindingType) &&
             Objects.equals(credentialSid, other.credentialSid) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(endpoint, other.endpoint) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(links, other.links) &&
             Objects.equals(
                 notificationProtocolVersion,
                 other.notificationProtocolVersion
             ) &&
-            Objects.equals(endpoint, other.endpoint) &&
-            Objects.equals(identity, other.identity) &&
-            Objects.equals(bindingType, other.bindingType) &&
-            Objects.equals(address, other.address) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(tags, other.tags) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            serviceSid,
+            address,
+            bindingType,
             credentialSid,
             dateCreated,
             dateUpdated,
-            notificationProtocolVersion,
             endpoint,
             identity,
-            bindingType,
-            address,
+            links,
+            notificationProtocolVersion,
+            serviceSid,
+            sid,
             tags,
-            url,
-            links
+            url
         );
     }
 }

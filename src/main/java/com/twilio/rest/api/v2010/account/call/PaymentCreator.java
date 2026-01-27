@@ -15,10 +15,11 @@
 package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,26 +28,24 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.math.BigDecimal;
+import com.twilio.type.*;
 import java.math.BigDecimal;
 import java.net.URI;
-import java.net.URI;
-import java.util.Map;
-import java.util.Map;
+import java.util.Currency;
 
 public class PaymentCreator extends Creator<Payment> {
 
+    private String pathAccountSid;
     private String pathCallSid;
     private String idempotencyKey;
     private URI statusCallback;
-    private String pathAccountSid;
     private Payment.BankAccountType bankAccountType;
     private BigDecimal chargeAmount;
     private String currency;
     private String description;
     private String input;
     private Integer minPostalCodeLength;
-    private Map<String, Object> parameter;
+    private Object parameter;
     private String paymentConnector;
     private Payment.PaymentMethod paymentMethod;
     private Boolean postalCode;
@@ -125,7 +124,7 @@ public class PaymentCreator extends Creator<Payment> {
         return this;
     }
 
-    public PaymentCreator setParameter(final Map<String, Object> parameter) {
+    public PaymentCreator setParameter(final Object parameter) {
         this.parameter = parameter;
         return this;
     }
@@ -167,8 +166,7 @@ public class PaymentCreator extends Creator<Payment> {
         return this;
     }
 
-    @Override
-    public Payment create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json";
 
@@ -182,16 +180,6 @@ public class PaymentCreator extends Creator<Payment> {
                 this.pathAccountSid.toString()
             );
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
-        path =
-            path.replace(
-                "{" + "IdempotencyKey" + "}",
-                this.idempotencyKey.toString()
-            );
-        path =
-            path.replace(
-                "{" + "StatusCallback" + "}",
-                this.statusCallback.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -200,7 +188,9 @@ public class PaymentCreator extends Creator<Payment> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Payment creation failed: Unable to connect to server"
@@ -211,65 +201,181 @@ public class PaymentCreator extends Creator<Payment> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Payment create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Payment.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Payment> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Payment content = Payment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (idempotencyKey != null) {
-            request.addPostParam("IdempotencyKey", idempotencyKey);
-        }
-        if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
-        }
-        if (bankAccountType != null) {
-            request.addPostParam("BankAccountType", bankAccountType.toString());
-        }
-        if (chargeAmount != null) {
-            request.addPostParam("ChargeAmount", chargeAmount.toString());
-        }
-        if (currency != null) {
-            request.addPostParam("Currency", currency);
-        }
-        if (description != null) {
-            request.addPostParam("Description", description);
-        }
-        if (input != null) {
-            request.addPostParam("Input", input);
-        }
-        if (minPostalCodeLength != null) {
-            request.addPostParam(
-                "MinPostalCodeLength",
-                minPostalCodeLength.toString()
+            Serializer.toString(
+                request,
+                "IdempotencyKey",
+                idempotencyKey,
+                ParameterType.URLENCODED
             );
         }
+
+        if (statusCallback != null) {
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (bankAccountType != null) {
+            Serializer.toString(
+                request,
+                "BankAccountType",
+                bankAccountType,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (chargeAmount != null) {
+            Serializer.toString(
+                request,
+                "ChargeAmount",
+                chargeAmount,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (currency != null) {
+            Serializer.toString(
+                request,
+                "Currency",
+                currency,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (description != null) {
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (input != null) {
+            Serializer.toString(
+                request,
+                "Input",
+                input,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (minPostalCodeLength != null) {
+            Serializer.toString(
+                request,
+                "MinPostalCodeLength",
+                minPostalCodeLength,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (parameter != null) {
-            request.addPostParam("Parameter", Converter.mapToJson(parameter));
+            Serializer.toString(
+                request,
+                "Parameter",
+                parameter,
+                ParameterType.URLENCODED
+            );
         }
+
         if (paymentConnector != null) {
-            request.addPostParam("PaymentConnector", paymentConnector);
+            Serializer.toString(
+                request,
+                "PaymentConnector",
+                paymentConnector,
+                ParameterType.URLENCODED
+            );
         }
+
         if (paymentMethod != null) {
-            request.addPostParam("PaymentMethod", paymentMethod.toString());
+            Serializer.toString(
+                request,
+                "PaymentMethod",
+                paymentMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (postalCode != null) {
-            request.addPostParam("PostalCode", postalCode.toString());
+            Serializer.toString(
+                request,
+                "PostalCode",
+                postalCode,
+                ParameterType.URLENCODED
+            );
         }
+
         if (securityCode != null) {
-            request.addPostParam("SecurityCode", securityCode.toString());
+            Serializer.toString(
+                request,
+                "SecurityCode",
+                securityCode,
+                ParameterType.URLENCODED
+            );
         }
+
         if (timeout != null) {
-            request.addPostParam("Timeout", timeout.toString());
+            Serializer.toString(
+                request,
+                "Timeout",
+                timeout,
+                ParameterType.URLENCODED
+            );
         }
+
         if (tokenType != null) {
-            request.addPostParam("TokenType", tokenType.toString());
+            Serializer.toString(
+                request,
+                "TokenType",
+                tokenType,
+                ParameterType.URLENCODED
+            );
         }
+
         if (validCardTypes != null) {
-            request.addPostParam("ValidCardTypes", validCardTypes);
+            Serializer.toString(
+                request,
+                "ValidCardTypes",
+                validCardTypes,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

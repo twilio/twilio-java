@@ -18,29 +18,31 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AuthorizationDocument extends Resource {
-
-    private static final long serialVersionUID = 7314983531290L;
 
     public static AuthorizationDocumentCreator creator(
         final String addressSid,
@@ -66,6 +68,29 @@ public class AuthorizationDocument extends Resource {
 
     public static AuthorizationDocumentReader reader() {
         return new AuthorizationDocumentReader();
+    }
+
+    public enum Status {
+        OPENED("opened"),
+        SIGNING("signing"),
+        SIGNED("signed"),
+        CANCELED("canceled"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 
     /**
@@ -111,96 +136,70 @@ public class AuthorizationDocument extends Resource {
         }
     }
 
-    public enum Status {
-        OPENED("opened"),
-        SIGNING("signing"),
-        SIGNED("signed"),
-        CANCELED("canceled"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    private final String sid;
+    @Getter
     private final String addressSid;
-    private final AuthorizationDocument.Status status;
-    private final String email;
+
+    @Getter
     private final List<String> ccEmails;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+
+    @Getter
+    private final String email;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final AuthorizationDocument.Status status;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private AuthorizationDocument(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("address_sid") final String addressSid,
-        @JsonProperty("status") final AuthorizationDocument.Status status,
-        @JsonProperty("email") final String email,
         @JsonProperty("cc_emails") final List<String> ccEmails,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("email") final String email,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final AuthorizationDocument.Status status,
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.addressSid = addressSid;
-        this.status = status;
-        this.email = email;
         this.ccEmails = ccEmails;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.email = email;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAddressSid() {
-        return this.addressSid;
-    }
-
-    public final AuthorizationDocument.Status getStatus() {
-        return this.status;
-    }
-
-    public final String getEmail() {
-        return this.email;
-    }
-
-    public final List<String> getCcEmails() {
-        return this.ccEmails;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.sid = sid;
+        this.status = status;
+        this.url = url;
     }
 
     @Override
@@ -214,32 +213,31 @@ public class AuthorizationDocument extends Resource {
         }
 
         AuthorizationDocument other = (AuthorizationDocument) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(addressSid, other.addressSid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(email, other.email) &&
             Objects.equals(ccEmails, other.ccEmails) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(email, other.email) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             addressSid,
-            status,
-            email,
             ccEmails,
             dateCreated,
             dateUpdated,
-            url,
-            links
+            email,
+            links,
+            sid,
+            status,
+            url
         );
     }
 }

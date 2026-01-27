@@ -18,25 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UsAppToPersonUsecase extends Resource {
-
-    private static final long serialVersionUID = 181251380697241L;
 
     public static UsAppToPersonUsecaseFetcher fetcher(
         final String pathMessagingServiceSid
@@ -87,19 +88,28 @@ public class UsAppToPersonUsecase extends Resource {
         }
     }
 
-    private final List<Map<String, Object>> usAppToPersonUsecases;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
+    private final List<Object> usAppToPersonUsecases;
 
     @JsonCreator
     private UsAppToPersonUsecase(
-        @JsonProperty(
-            "us_app_to_person_usecases"
-        ) final List<Map<String, Object>> usAppToPersonUsecases
+        @JsonProperty("us_app_to_person_usecases") final List<
+            Object
+        > usAppToPersonUsecases
     ) {
         this.usAppToPersonUsecases = usAppToPersonUsecases;
-    }
-
-    public final List<Map<String, Object>> getUsAppToPersonUsecases() {
-        return this.usAppToPersonUsecases;
     }
 
     @Override
@@ -113,10 +123,8 @@ public class UsAppToPersonUsecase extends Resource {
         }
 
         UsAppToPersonUsecase other = (UsAppToPersonUsecase) o;
-
-        return Objects.equals(
-            usAppToPersonUsecases,
-            other.usAppToPersonUsecases
+        return (
+            Objects.equals(usAppToPersonUsecases, other.usAppToPersonUsecases)
         );
     }
 

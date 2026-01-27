@@ -14,9 +14,12 @@
 
 package com.twilio.rest.chat.v2.service;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.util.List;
 
 public class RoleUpdater extends Updater<Role> {
@@ -52,8 +56,7 @@ public class RoleUpdater extends Updater<Role> {
         return setPermission(Promoter.listOfOne(permission));
     }
 
-    @Override
-    public Role update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Roles/{Sid}";
 
         path =
@@ -62,8 +65,6 @@ public class RoleUpdater extends Updater<Role> {
                 this.pathServiceSid.toString()
             );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path =
-            path.replace("{" + "Permission" + "}", this.permission.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -72,7 +73,9 @@ public class RoleUpdater extends Updater<Role> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Role update failed: Unable to connect to server"
@@ -83,18 +86,47 @@ public class RoleUpdater extends Updater<Role> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Role update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Role.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Role> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Role content = Role.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (permission != null) {
-            for (String prop : permission) {
-                request.addPostParam("Permission", prop);
+            for (String param : permission) {
+                Serializer.toString(
+                    request,
+                    "Permission",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
     }

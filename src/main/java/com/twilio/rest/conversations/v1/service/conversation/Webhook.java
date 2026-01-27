@@ -18,28 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
-
-    private static final long serialVersionUID = 228548505277204L;
 
     public static WebhookCreator creator(
         final String pathChatServiceSid,
@@ -96,6 +97,47 @@ public class Webhook extends Resource {
         );
     }
 
+    public enum Target {
+        WEBHOOK("webhook"),
+        TRIGGER("trigger"),
+        STUDIO("studio");
+
+        private final String value;
+
+        private Target(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Target forValue(final String value) {
+            return Promoter.enumFromString(value, Target.values());
+        }
+    }
+
+    public enum Method {
+        GET("get"),
+        POST("post");
+
+        private final String value;
+
+        private Method(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Method forValue(final String value) {
+            return Promoter.enumFromString(value, Method.values());
+        }
+    }
+
     /**
      * Converts a JSON String into a Webhook object using the provided ObjectMapper.
      *
@@ -139,114 +181,70 @@ public class Webhook extends Resource {
         }
     }
 
-    public enum Method {
-        GET("GET"),
-        POST("POST");
-
-        private final String value;
-
-        private Method(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Method forValue(final String value) {
-            return Promoter.enumFromString(value, Method.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    public enum Target {
-        WEBHOOK("webhook"),
-        TRIGGER("trigger"),
-        STUDIO("studio");
-
-        private final String value;
-
-        private Target(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Target forValue(final String value) {
-            return Promoter.enumFromString(value, Target.values());
-        }
-    }
-
-    private final String sid;
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String chatServiceSid;
+
+    @Getter
+    private final Object configuration;
+
+    @Getter
     private final String conversationSid;
-    private final String target;
-    private final URI url;
-    private final Map<String, Object> configuration;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String target;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Webhook(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("chat_service_sid") final String chatServiceSid,
+        @JsonProperty("configuration") final Object configuration,
         @JsonProperty("conversation_sid") final String conversationSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("target") final String target,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("configuration") final Map<String, Object> configuration,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
         this.chatServiceSid = chatServiceSid;
+        this.configuration = configuration;
         this.conversationSid = conversationSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.sid = sid;
         this.target = target;
         this.url = url;
-        this.configuration = configuration;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getChatServiceSid() {
-        return this.chatServiceSid;
-    }
-
-    public final String getConversationSid() {
-        return this.conversationSid;
-    }
-
-    public final String getTarget() {
-        return this.target;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, Object> getConfiguration() {
-        return this.configuration;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
     }
 
     @Override
@@ -260,32 +258,31 @@ public class Webhook extends Resource {
         }
 
         Webhook other = (Webhook) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(chatServiceSid, other.chatServiceSid) &&
-            Objects.equals(conversationSid, other.conversationSid) &&
-            Objects.equals(target, other.target) &&
-            Objects.equals(url, other.url) &&
             Objects.equals(configuration, other.configuration) &&
+            Objects.equals(conversationSid, other.conversationSid) &&
             Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(target, other.target) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
             chatServiceSid,
-            conversationSid,
-            target,
-            url,
             configuration,
+            conversationSid,
             dateCreated,
-            dateUpdated
+            dateUpdated,
+            sid,
+            target,
+            url
         );
     }
 }

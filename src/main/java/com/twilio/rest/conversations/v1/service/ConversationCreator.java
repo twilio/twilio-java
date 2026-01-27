@@ -15,7 +15,10 @@
 package com.twilio.rest.conversations.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class ConversationCreator extends Creator<Conversation> {
@@ -39,16 +43,11 @@ public class ConversationCreator extends Creator<Conversation> {
     private Conversation.State state;
     private String timersInactive;
     private String timersClosed;
+    private String bindingsEmailAddress;
+    private String bindingsEmailName;
 
     public ConversationCreator(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;
-    }
-
-    public ConversationCreator setXTwilioWebhookEnabled(
-        final Conversation.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
-        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-        return this;
     }
 
     public ConversationCreator setFriendlyName(final String friendlyName) {
@@ -98,8 +97,28 @@ public class ConversationCreator extends Creator<Conversation> {
         return this;
     }
 
-    @Override
-    public Conversation create(final TwilioRestClient client) {
+    public ConversationCreator setBindingsEmailAddress(
+        final String bindingsEmailAddress
+    ) {
+        this.bindingsEmailAddress = bindingsEmailAddress;
+        return this;
+    }
+
+    public ConversationCreator setBindingsEmailName(
+        final String bindingsEmailName
+    ) {
+        this.bindingsEmailName = bindingsEmailName;
+        return this;
+    }
+
+    public ConversationCreator setXTwilioWebhookEnabled(
+        final Conversation.WebhookEnabledType xTwilioWebhookEnabled
+    ) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Conversations";
 
         path =
@@ -114,9 +133,11 @@ public class ConversationCreator extends Creator<Conversation> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Conversation creation failed: Unable to connect to server"
@@ -127,58 +148,149 @@ public class ConversationCreator extends Creator<Conversation> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Conversation create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Conversation.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Conversation> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Conversation content = Conversation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
+            Serializer.toString(
+                request,
+                "Attributes",
+                attributes,
+                ParameterType.URLENCODED
+            );
         }
+
         if (messagingServiceSid != null) {
-            request.addPostParam("MessagingServiceSid", messagingServiceSid);
+            Serializer.toString(
+                request,
+                "MessagingServiceSid",
+                messagingServiceSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (dateCreated != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DateCreated",
-                dateCreated.toInstant().toString()
+                dateCreated,
+                ParameterType.URLENCODED
             );
         }
+
         if (dateUpdated != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DateUpdated",
-                dateUpdated.toInstant().toString()
+                dateUpdated,
+                ParameterType.URLENCODED
             );
         }
+
         if (state != null) {
-            request.addPostParam("State", state.toString());
+            Serializer.toString(
+                request,
+                "State",
+                state,
+                ParameterType.URLENCODED
+            );
         }
+
         if (timersInactive != null) {
-            request.addPostParam("Timers.Inactive", timersInactive);
+            Serializer.toString(
+                request,
+                "Timers.Inactive",
+                timersInactive,
+                ParameterType.URLENCODED
+            );
         }
+
         if (timersClosed != null) {
-            request.addPostParam("Timers.Closed", timersClosed);
+            Serializer.toString(
+                request,
+                "Timers.Closed",
+                timersClosed,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (bindingsEmailAddress != null) {
+            Serializer.toString(
+                request,
+                "Bindings.Email.Address",
+                bindingsEmailAddress,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (bindingsEmailName != null) {
+            Serializer.toString(
+                request,
+                "Bindings.Email.Name",
+                bindingsEmailName,
+                ParameterType.URLENCODED
+            );
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (xTwilioWebhookEnabled != null) {
-            request.addHeaderParam(
+            Serializer.toString(
+                request,
                 "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled.toString()
+                xTwilioWebhookEnabled,
+                ParameterType.HEADER
             );
         }
     }

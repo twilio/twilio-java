@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Session extends Resource {
-
-    private static final long serialVersionUID = 86537474068288L;
 
     public static SessionCreator creator(final String pathServiceSid) {
         return new SessionCreator(pathServiceSid);
@@ -68,6 +70,50 @@ public class Session extends Resource {
         final String pathSid
     ) {
         return new SessionUpdater(pathServiceSid, pathSid);
+    }
+
+    public enum Status {
+        OPEN("open"),
+        IN_PROGRESS("in-progress"),
+        CLOSED("closed"),
+        FAILED("failed"),
+        UNKNOWN("unknown");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Mode {
+        MESSAGE_ONLY("message-only"),
+        VOICE_ONLY("voice-only"),
+        VOICE_AND_MESSAGE("voice-and-message");
+
+        private final String value;
+
+        private Mode(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Mode forValue(final String value) {
+            return Promoter.enumFromString(value, Mode.values());
+        }
     }
 
     /**
@@ -113,167 +159,113 @@ public class Session extends Resource {
         }
     }
 
-    public enum Mode {
-        MESSAGE_ONLY("message-only"),
-        VOICE_ONLY("voice-only"),
-        VOICE_AND_MESSAGE("voice-and-message");
-
-        private final String value;
-
-        private Mode(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Mode forValue(final String value) {
-            return Promoter.enumFromString(value, Mode.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    public enum Status {
-        OPEN("open"),
-        IN_PROGRESS("in-progress"),
-        CLOSED("closed"),
-        FAILED("failed"),
-        UNKNOWN("unknown");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    private final String sid;
-    private final String serviceSid;
+    @Getter
     private final String accountSid;
-    private final ZonedDateTime dateStarted;
-    private final ZonedDateTime dateEnded;
-    private final ZonedDateTime dateLastInteraction;
-    private final ZonedDateTime dateExpiry;
-    private final String uniqueName;
-    private final Session.Status status;
+
+    @Getter
     private final String closedReason;
-    private final Integer ttl;
-    private final Session.Mode mode;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateEnded;
+
+    @Getter
+    private final ZonedDateTime dateExpiry;
+
+    @Getter
+    private final ZonedDateTime dateLastInteraction;
+
+    @Getter
+    private final ZonedDateTime dateStarted;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final Session.Mode mode;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Session.Status status;
+
+    @Getter
+    private final Integer ttl;
+
+    @Getter
+    private final String uniqueName;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Session(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("date_started") final String dateStarted,
-        @JsonProperty("date_ended") final String dateEnded,
-        @JsonProperty("date_last_interaction") final String dateLastInteraction,
-        @JsonProperty("date_expiry") final String dateExpiry,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("status") final Session.Status status,
         @JsonProperty("closed_reason") final String closedReason,
-        @JsonProperty("ttl") final Integer ttl,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_ended") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateEnded,
+        @JsonProperty("date_expiry") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateExpiry,
+        @JsonProperty("date_last_interaction") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateLastInteraction,
+        @JsonProperty("date_started") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateStarted,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("mode") final Session.Mode mode,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final Session.Status status,
+        @JsonProperty("ttl") final Integer ttl,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
-        this.serviceSid = serviceSid;
         this.accountSid = accountSid;
-        this.dateStarted = DateConverter.iso8601DateTimeFromString(dateStarted);
-        this.dateEnded = DateConverter.iso8601DateTimeFromString(dateEnded);
-        this.dateLastInteraction =
-            DateConverter.iso8601DateTimeFromString(dateLastInteraction);
-        this.dateExpiry = DateConverter.iso8601DateTimeFromString(dateExpiry);
-        this.uniqueName = uniqueName;
-        this.status = status;
         this.closedReason = closedReason;
-        this.ttl = ttl;
-        this.mode = mode;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
+        this.dateCreated = dateCreated;
+        this.dateEnded = dateEnded;
+        this.dateExpiry = dateExpiry;
+        this.dateLastInteraction = dateLastInteraction;
+        this.dateStarted = dateStarted;
+        this.dateUpdated = dateUpdated;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final ZonedDateTime getDateStarted() {
-        return this.dateStarted;
-    }
-
-    public final ZonedDateTime getDateEnded() {
-        return this.dateEnded;
-    }
-
-    public final ZonedDateTime getDateLastInteraction() {
-        return this.dateLastInteraction;
-    }
-
-    public final ZonedDateTime getDateExpiry() {
-        return this.dateExpiry;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final Session.Status getStatus() {
-        return this.status;
-    }
-
-    public final String getClosedReason() {
-        return this.closedReason;
-    }
-
-    public final Integer getTtl() {
-        return this.ttl;
-    }
-
-    public final Session.Mode getMode() {
-        return this.mode;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.mode = mode;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
+        this.status = status;
+        this.ttl = ttl;
+        this.uniqueName = uniqueName;
+        this.url = url;
     }
 
     @Override
@@ -287,46 +279,45 @@ public class Session extends Resource {
         }
 
         Session other = (Session) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(dateStarted, other.dateStarted) &&
-            Objects.equals(dateEnded, other.dateEnded) &&
-            Objects.equals(dateLastInteraction, other.dateLastInteraction) &&
-            Objects.equals(dateExpiry, other.dateExpiry) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(status, other.status) &&
             Objects.equals(closedReason, other.closedReason) &&
-            Objects.equals(ttl, other.ttl) &&
-            Objects.equals(mode, other.mode) &&
             Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateEnded, other.dateEnded) &&
+            Objects.equals(dateExpiry, other.dateExpiry) &&
+            Objects.equals(dateLastInteraction, other.dateLastInteraction) &&
+            Objects.equals(dateStarted, other.dateStarted) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(links, other.links) &&
+            Objects.equals(mode, other.mode) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(ttl, other.ttl) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            serviceSid,
             accountSid,
-            dateStarted,
-            dateEnded,
-            dateLastInteraction,
-            dateExpiry,
-            uniqueName,
-            status,
             closedReason,
-            ttl,
-            mode,
             dateCreated,
+            dateEnded,
+            dateExpiry,
+            dateLastInteraction,
+            dateStarted,
             dateUpdated,
-            url,
-            links
+            links,
+            mode,
+            serviceSid,
+            sid,
+            status,
+            ttl,
+            uniqueName,
+            url
         );
     }
 }

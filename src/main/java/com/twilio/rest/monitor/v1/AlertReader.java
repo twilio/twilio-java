@@ -17,6 +17,10 @@ package com.twilio.rest.monitor.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +29,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class AlertReader extends Reader<Alert> {
@@ -32,7 +37,7 @@ public class AlertReader extends Reader<Alert> {
     private String logLevel;
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AlertReader() {}
 
@@ -51,9 +56,40 @@ public class AlertReader extends Reader<Alert> {
         return this;
     }
 
-    public AlertReader setPageSize(final Integer pageSize) {
+    public AlertReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<Alert> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Alert> page = Page.fromJson(
+            "alerts",
+            response.getContent(),
+            Alert.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Alert> resourceSet = new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/Alerts";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.MONITOR.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -62,24 +98,33 @@ public class AlertReader extends Reader<Alert> {
     }
 
     public Page<Alert> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Alerts";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.MONITOR.toString(),
-            path
-        );
-
-        addQueryParams(request);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Alert> pageForRequest(
+    public TwilioResponse<Page<Alert>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Alert> page = Page.fromJson(
+            "alerts",
+            response.getContent(),
+            Alert.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Alert read failed: Unable to connect to server"
@@ -89,12 +134,23 @@ public class AlertReader extends Reader<Alert> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Alert> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "alerts",
             response.getContent(),
@@ -110,7 +166,7 @@ public class AlertReader extends Reader<Alert> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.MONITOR.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -122,7 +178,7 @@ public class AlertReader extends Reader<Alert> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.MONITOR.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -133,27 +189,44 @@ public class AlertReader extends Reader<Alert> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (logLevel != null) {
-            request.addQueryParam("LogLevel", logLevel);
+            Serializer.toString(
+                request,
+                "LogLevel",
+                logLevel,
+                ParameterType.QUERY
+            );
         }
+
         if (startDate != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "StartDate",
-                startDate.toInstant().toString()
+                startDate,
+                ParameterType.QUERY
             );
         }
 
         if (endDate != null) {
-            request.addQueryParam("EndDate", endDate.toInstant().toString());
+            Serializer.toString(
+                request,
+                "EndDate",
+                endDate,
+                ParameterType.QUERY
+            );
         }
 
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

@@ -15,7 +15,10 @@
 package com.twilio.rest.proxy.v1.service.session;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ParticipantCreator extends Creator<Participant> {
 
@@ -66,8 +70,7 @@ public class ParticipantCreator extends Creator<Participant> {
         return this;
     }
 
-    @Override
-    public Participant create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants";
 
@@ -81,8 +84,6 @@ public class ParticipantCreator extends Creator<Participant> {
                 "{" + "SessionSid" + "}",
                 this.pathSessionSid.toString()
             );
-        path =
-            path.replace("{" + "Identifier" + "}", this.identifier.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -91,7 +92,9 @@ public class ParticipantCreator extends Creator<Participant> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Participant creation failed: Unable to connect to server"
@@ -102,29 +105,76 @@ public class ParticipantCreator extends Creator<Participant> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Participant create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Participant.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Participant> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Participant content = Participant.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (identifier != null) {
-            request.addPostParam("Identifier", identifier);
+            Serializer.toString(
+                request,
+                "Identifier",
+                identifier,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (proxyIdentifier != null) {
-            request.addPostParam("ProxyIdentifier", proxyIdentifier);
+            Serializer.toString(
+                request,
+                "ProxyIdentifier",
+                proxyIdentifier,
+                ParameterType.URLENCODED
+            );
         }
+
         if (proxyIdentifierSid != null) {
-            request.addPostParam("ProxyIdentifierSid", proxyIdentifierSid);
+            Serializer.toString(
+                request,
+                "ProxyIdentifierSid",
+                proxyIdentifierSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

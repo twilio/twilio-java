@@ -14,8 +14,11 @@
 
 package com.twilio.rest.verify.v2.service;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class MessagingConfigurationUpdater
     extends Updater<MessagingConfiguration> {
@@ -49,8 +53,7 @@ public class MessagingConfigurationUpdater
         return this;
     }
 
-    @Override
-    public MessagingConfiguration update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}";
 
@@ -60,11 +63,6 @@ public class MessagingConfigurationUpdater
                 this.pathServiceSid.toString()
             );
         path = path.replace("{" + "Country" + "}", this.pathCountry.toString());
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.messagingServiceSid.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -73,7 +71,9 @@ public class MessagingConfigurationUpdater
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "MessagingConfiguration update failed: Unable to connect to server"
@@ -84,20 +84,49 @@ public class MessagingConfigurationUpdater
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public MessagingConfiguration update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return MessagingConfiguration.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<MessagingConfiguration> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        MessagingConfiguration content = MessagingConfiguration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (messagingServiceSid != null) {
-            request.addPostParam("MessagingServiceSid", messagingServiceSid);
+            Serializer.toString(
+                request,
+                "MessagingServiceSid",
+                messagingServiceSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

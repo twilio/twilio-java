@@ -15,7 +15,10 @@
 package com.twilio.rest.api.v2010.account.sip.credentiallist;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,13 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CredentialCreator extends Creator<Credential> {
 
+    private String pathAccountSid;
     private String pathCredentialListSid;
     private String username;
     private String password;
-    private String pathAccountSid;
 
     public CredentialCreator(
         final String pathCredentialListSid,
@@ -64,8 +68,7 @@ public class CredentialCreator extends Creator<Credential> {
         return this;
     }
 
-    @Override
-    public Credential create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json";
 
@@ -83,8 +86,6 @@ public class CredentialCreator extends Creator<Credential> {
                 "{" + "CredentialListSid" + "}",
                 this.pathCredentialListSid.toString()
             );
-        path = path.replace("{" + "Username" + "}", this.username.toString());
-        path = path.replace("{" + "Password" + "}", this.password.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -93,7 +94,9 @@ public class CredentialCreator extends Creator<Credential> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Credential creation failed: Unable to connect to server"
@@ -104,23 +107,58 @@ public class CredentialCreator extends Creator<Credential> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Credential create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Credential.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Credential> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Credential content = Credential.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (username != null) {
-            request.addPostParam("Username", username);
+            Serializer.toString(
+                request,
+                "Username",
+                username,
+                ParameterType.URLENCODED
+            );
         }
+
         if (password != null) {
-            request.addPostParam("Password", password);
+            Serializer.toString(
+                request,
+                "Password",
+                password,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -9,18 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Page<T> {
-    private final List<T> records;
-    private final String firstPageUrl;
-    private final String firstPageUri;
-    private final String nextPageUrl;
-    private final String nextPageUri;
-    private final String previousPageUrl;
-    private final String previousPageUri;
-    private final String url;
-    private final String uri;
-    private final int pageSize;
+    protected final List<T> records;
+    protected final String firstPageUrl;
+    protected final String firstPageUri;
+    protected final String nextPageUrl;
+    protected final String nextPageUri;
+    protected final String previousPageUrl;
+    protected final String previousPageUri;
+    protected final String url;
+    protected final String uri;
+    protected final int pageSize;
 
-    private Page(Builder<T> b) {
+    protected Page(Builder<T> b) {
         this.records = b.records;
         this.firstPageUri = b.firstPageUri;
         this.firstPageUrl = b.firstPageUrl;
@@ -33,7 +33,7 @@ public class Page<T> {
         this.pageSize = b.pageSize;
     }
 
-    private String urlFromUri(String domain, String uri) {
+    protected String urlFromUri(String domain, String uri) {
         return "https://" + domain + ".twilio.com" + uri;
     }
 
@@ -99,6 +99,14 @@ public class Page<T> {
         }
 
         return urlFromUri(domain, uri);
+    }
+
+    public String previousQueryString() {
+        return "";
+    }
+
+    public String nextQueryString() {
+        return "";
     }
 
     public boolean hasNextPage() {
@@ -169,8 +177,9 @@ public class Page<T> {
 
     private static <T> Page<T> buildNextGenPage(JsonNode root, List<T> results) {
         JsonNode meta = root.get("meta");
-        Builder<T> builder = new Builder<T>().url(meta.get("url").asText());
-
+        Builder<T> builder = new Builder<>();
+        if(meta != null && meta.get("url") != null) {
+            builder = builder.url(meta.get("url").asText());
         JsonNode nextPageNode = meta.get("next_page_url");
         if (!nextPageNode.isNull()) {
             builder.nextPageUrl(nextPageNode.asText());
@@ -192,11 +201,12 @@ public class Page<T> {
         } else {
             builder.pageSize(results.size());
         }
+        }
 
         return builder.records(results).build();
     }
 
-    private static class Builder<T> {
+    protected static class Builder<T> {
         private List<T> records;
         private String firstPageUrl;
         private String firstPageUri;

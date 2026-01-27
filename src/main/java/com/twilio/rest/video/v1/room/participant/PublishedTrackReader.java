@@ -17,6 +17,10 @@ package com.twilio.rest.video.v1.room.participant;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,12 +29,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PublishedTrackReader extends Reader<PublishedTrack> {
 
     private String pathRoomSid;
     private String pathParticipantSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public PublishedTrackReader(
         final String pathRoomSid,
@@ -40,19 +45,38 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
         this.pathParticipantSid = pathParticipantSid;
     }
 
-    public PublishedTrackReader setPageSize(final Integer pageSize) {
+    public PublishedTrackReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<PublishedTrack> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<PublishedTrack> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<PublishedTrack> page = Page.fromJson(
+            "published_tracks",
+            response.getContent(),
+            PublishedTrack.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<PublishedTrack> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<PublishedTrack> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks";
+
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
         path =
             path.replace(
@@ -65,17 +89,43 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
             Domains.VIDEO.toString(),
             path
         );
-
         addQueryParams(request);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<PublishedTrack> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<PublishedTrack> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<PublishedTrack> pageForRequest(
+    public TwilioResponse<Page<PublishedTrack>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<PublishedTrack> page = Page.fromJson(
+            "published_tracks",
+            response.getContent(),
+            PublishedTrack.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "PublishedTrack read failed: Unable to connect to server"
@@ -85,12 +135,23 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<PublishedTrack> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "published_tracks",
             response.getContent(),
@@ -106,7 +167,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.VIDEO.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -118,7 +179,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.VIDEO.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -129,13 +190,17 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

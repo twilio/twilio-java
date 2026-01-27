@@ -14,9 +14,12 @@
 
 package com.twilio.rest.messaging.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.util.List;
 
 public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
@@ -50,6 +54,21 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
     private String businessContactLastName;
     private String businessContactEmail;
     private com.twilio.type.PhoneNumber businessContactPhone;
+    private String editReason;
+    private String businessRegistrationNumber;
+    private String businessRegistrationAuthority;
+    private String businessRegistrationCountry;
+    private String businessType;
+    private String businessRegistrationPhoneNumber;
+    private String doingBusinessAs;
+    private String optInConfirmationMessage;
+    private String helpMessageSample;
+    private String privacyPolicyUrl;
+    private String termsAndConditionsUrl;
+    private Boolean ageGatedContent;
+    private List<String> optInKeywords;
+    private TollfreeVerification.VettingProvider vettingProvider;
+    private String vettingId;
 
     public TollfreeVerificationUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -215,8 +234,114 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
         );
     }
 
-    @Override
-    public TollfreeVerification update(final TwilioRestClient client) {
+    public TollfreeVerificationUpdater setEditReason(final String editReason) {
+        this.editReason = editReason;
+        return this;
+    }
+
+    public TollfreeVerificationUpdater setBusinessRegistrationNumber(
+        final String businessRegistrationNumber
+    ) {
+        this.businessRegistrationNumber = businessRegistrationNumber;
+        return this;
+    }
+
+    public TollfreeVerificationUpdater setBusinessRegistrationAuthority(
+        final String businessRegistrationAuthority
+    ) {
+        this.businessRegistrationAuthority = businessRegistrationAuthority;
+        return this;
+    }
+
+    public TollfreeVerificationUpdater setBusinessRegistrationCountry(
+        final String businessRegistrationCountry
+    ) {
+        this.businessRegistrationCountry = businessRegistrationCountry;
+        return this;
+    }
+
+    public TollfreeVerificationUpdater setBusinessType(
+        final String businessType
+    ) {
+        this.businessType = businessType;
+        return this;
+    }
+
+    public TollfreeVerificationUpdater setBusinessRegistrationPhoneNumber(
+        final String businessRegistrationPhoneNumber
+    ) {
+        this.businessRegistrationPhoneNumber = businessRegistrationPhoneNumber;
+        return this;
+    }
+
+    public TollfreeVerificationUpdater setDoingBusinessAs(
+        final String doingBusinessAs
+    ) {
+        this.doingBusinessAs = doingBusinessAs;
+        return this;
+    }
+
+    public TollfreeVerificationUpdater setOptInConfirmationMessage(
+        final String optInConfirmationMessage
+    ) {
+        this.optInConfirmationMessage = optInConfirmationMessage;
+        return this;
+    }
+
+    public TollfreeVerificationUpdater setHelpMessageSample(
+        final String helpMessageSample
+    ) {
+        this.helpMessageSample = helpMessageSample;
+        return this;
+    }
+
+    public TollfreeVerificationUpdater setPrivacyPolicyUrl(
+        final String privacyPolicyUrl
+    ) {
+        this.privacyPolicyUrl = privacyPolicyUrl;
+        return this;
+    }
+
+    public TollfreeVerificationUpdater setTermsAndConditionsUrl(
+        final String termsAndConditionsUrl
+    ) {
+        this.termsAndConditionsUrl = termsAndConditionsUrl;
+        return this;
+    }
+
+    public TollfreeVerificationUpdater setAgeGatedContent(
+        final Boolean ageGatedContent
+    ) {
+        this.ageGatedContent = ageGatedContent;
+        return this;
+    }
+
+    public TollfreeVerificationUpdater setOptInKeywords(
+        final List<String> optInKeywords
+    ) {
+        this.optInKeywords = optInKeywords;
+        return this;
+    }
+
+    public TollfreeVerificationUpdater setOptInKeywords(
+        final String optInKeywords
+    ) {
+        return setOptInKeywords(Promoter.listOfOne(optInKeywords));
+    }
+
+    public TollfreeVerificationUpdater setVettingProvider(
+        final TollfreeVerification.VettingProvider vettingProvider
+    ) {
+        this.vettingProvider = vettingProvider;
+        return this;
+    }
+
+    public TollfreeVerificationUpdater setVettingId(final String vettingId) {
+        this.vettingId = vettingId;
+        return this;
+    }
+
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Tollfree/Verifications/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -228,7 +353,9 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "TollfreeVerification update failed: Unable to connect to server"
@@ -239,104 +366,360 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public TollfreeVerification update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return TollfreeVerification.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<TollfreeVerification> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        TollfreeVerification content = TollfreeVerification.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (businessName != null) {
-            request.addPostParam("BusinessName", businessName);
+            Serializer.toString(
+                request,
+                "BusinessName",
+                businessName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (businessWebsite != null) {
-            request.addPostParam("BusinessWebsite", businessWebsite);
+            Serializer.toString(
+                request,
+                "BusinessWebsite",
+                businessWebsite,
+                ParameterType.URLENCODED
+            );
         }
+
         if (notificationEmail != null) {
-            request.addPostParam("NotificationEmail", notificationEmail);
+            Serializer.toString(
+                request,
+                "NotificationEmail",
+                notificationEmail,
+                ParameterType.URLENCODED
+            );
         }
+
         if (useCaseCategories != null) {
-            for (String prop : useCaseCategories) {
-                request.addPostParam("UseCaseCategories", prop);
+            for (String param : useCaseCategories) {
+                Serializer.toString(
+                    request,
+                    "UseCaseCategories",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (useCaseSummary != null) {
-            request.addPostParam("UseCaseSummary", useCaseSummary);
-        }
-        if (productionMessageSample != null) {
-            request.addPostParam(
-                "ProductionMessageSample",
-                productionMessageSample
+            Serializer.toString(
+                request,
+                "UseCaseSummary",
+                useCaseSummary,
+                ParameterType.URLENCODED
             );
         }
+
+        if (productionMessageSample != null) {
+            Serializer.toString(
+                request,
+                "ProductionMessageSample",
+                productionMessageSample,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (optInImageUrls != null) {
-            for (String prop : optInImageUrls) {
-                request.addPostParam("OptInImageUrls", prop);
+            for (String param : optInImageUrls) {
+                Serializer.toString(
+                    request,
+                    "OptInImageUrls",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (optInType != null) {
-            request.addPostParam("OptInType", optInType.toString());
+            Serializer.toString(
+                request,
+                "OptInType",
+                optInType,
+                ParameterType.URLENCODED
+            );
         }
+
         if (messageVolume != null) {
-            request.addPostParam("MessageVolume", messageVolume);
+            Serializer.toString(
+                request,
+                "MessageVolume",
+                messageVolume,
+                ParameterType.URLENCODED
+            );
         }
+
         if (businessStreetAddress != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "BusinessStreetAddress",
-                businessStreetAddress
+                businessStreetAddress,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessStreetAddress2 != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "BusinessStreetAddress2",
-                businessStreetAddress2
+                businessStreetAddress2,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessCity != null) {
-            request.addPostParam("BusinessCity", businessCity);
+            Serializer.toString(
+                request,
+                "BusinessCity",
+                businessCity,
+                ParameterType.URLENCODED
+            );
         }
+
         if (businessStateProvinceRegion != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "BusinessStateProvinceRegion",
-                businessStateProvinceRegion
+                businessStateProvinceRegion,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessPostalCode != null) {
-            request.addPostParam("BusinessPostalCode", businessPostalCode);
+            Serializer.toString(
+                request,
+                "BusinessPostalCode",
+                businessPostalCode,
+                ParameterType.URLENCODED
+            );
         }
+
         if (businessCountry != null) {
-            request.addPostParam("BusinessCountry", businessCountry);
+            Serializer.toString(
+                request,
+                "BusinessCountry",
+                businessCountry,
+                ParameterType.URLENCODED
+            );
         }
+
         if (additionalInformation != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AdditionalInformation",
-                additionalInformation
+                additionalInformation,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessContactFirstName != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "BusinessContactFirstName",
-                businessContactFirstName
+                businessContactFirstName,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessContactLastName != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "BusinessContactLastName",
-                businessContactLastName
+                businessContactLastName,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessContactEmail != null) {
-            request.addPostParam("BusinessContactEmail", businessContactEmail);
+            Serializer.toString(
+                request,
+                "BusinessContactEmail",
+                businessContactEmail,
+                ParameterType.URLENCODED
+            );
         }
+
         if (businessContactPhone != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "BusinessContactPhone",
-                businessContactPhone.toString()
+                businessContactPhone,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (editReason != null) {
+            Serializer.toString(
+                request,
+                "EditReason",
+                editReason,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (businessRegistrationNumber != null) {
+            Serializer.toString(
+                request,
+                "BusinessRegistrationNumber",
+                businessRegistrationNumber,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (businessRegistrationAuthority != null) {
+            Serializer.toString(
+                request,
+                "BusinessRegistrationAuthority",
+                businessRegistrationAuthority,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (businessRegistrationCountry != null) {
+            Serializer.toString(
+                request,
+                "BusinessRegistrationCountry",
+                businessRegistrationCountry,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (businessType != null) {
+            Serializer.toString(
+                request,
+                "BusinessType",
+                businessType,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (businessRegistrationPhoneNumber != null) {
+            Serializer.toString(
+                request,
+                "BusinessRegistrationPhoneNumber",
+                businessRegistrationPhoneNumber,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (doingBusinessAs != null) {
+            Serializer.toString(
+                request,
+                "DoingBusinessAs",
+                doingBusinessAs,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (optInConfirmationMessage != null) {
+            Serializer.toString(
+                request,
+                "OptInConfirmationMessage",
+                optInConfirmationMessage,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (helpMessageSample != null) {
+            Serializer.toString(
+                request,
+                "HelpMessageSample",
+                helpMessageSample,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (privacyPolicyUrl != null) {
+            Serializer.toString(
+                request,
+                "PrivacyPolicyUrl",
+                privacyPolicyUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (termsAndConditionsUrl != null) {
+            Serializer.toString(
+                request,
+                "TermsAndConditionsUrl",
+                termsAndConditionsUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (ageGatedContent != null) {
+            Serializer.toString(
+                request,
+                "AgeGatedContent",
+                ageGatedContent,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (optInKeywords != null) {
+            for (String param : optInKeywords) {
+                Serializer.toString(
+                    request,
+                    "OptInKeywords",
+                    param,
+                    ParameterType.URLENCODED
+                );
+            }
+        }
+
+        if (vettingProvider != null) {
+            Serializer.toString(
+                request,
+                "VettingProvider",
+                vettingProvider,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (vettingId != null) {
+            Serializer.toString(
+                request,
+                "VettingId",
+                vettingId,
+                ParameterType.URLENCODED
             );
         }
     }

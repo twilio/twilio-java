@@ -14,8 +14,11 @@
 
 package com.twilio.rest.notify.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CredentialUpdater extends Updater<Credential> {
 
@@ -69,8 +73,7 @@ public class CredentialUpdater extends Updater<Credential> {
         return this;
     }
 
-    @Override
-    public Credential update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Credentials/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -82,7 +85,9 @@ public class CredentialUpdater extends Updater<Credential> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Credential update failed: Unable to connect to server"
@@ -93,35 +98,94 @@ public class CredentialUpdater extends Updater<Credential> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Credential update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Credential.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Credential> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Credential content = Credential.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (certificate != null) {
-            request.addPostParam("Certificate", certificate);
+            Serializer.toString(
+                request,
+                "Certificate",
+                certificate,
+                ParameterType.URLENCODED
+            );
         }
+
         if (privateKey != null) {
-            request.addPostParam("PrivateKey", privateKey);
+            Serializer.toString(
+                request,
+                "PrivateKey",
+                privateKey,
+                ParameterType.URLENCODED
+            );
         }
+
         if (sandbox != null) {
-            request.addPostParam("Sandbox", sandbox.toString());
+            Serializer.toString(
+                request,
+                "Sandbox",
+                sandbox,
+                ParameterType.URLENCODED
+            );
         }
+
         if (apiKey != null) {
-            request.addPostParam("ApiKey", apiKey);
+            Serializer.toString(
+                request,
+                "ApiKey",
+                apiKey,
+                ParameterType.URLENCODED
+            );
         }
+
         if (secret != null) {
-            request.addPostParam("Secret", secret);
+            Serializer.toString(
+                request,
+                "Secret",
+                secret,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -17,6 +17,10 @@ package com.twilio.rest.conversations.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,11 +29,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AddressConfigurationReader extends Reader<AddressConfiguration> {
 
     private String type;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AddressConfigurationReader() {}
 
@@ -38,9 +43,44 @@ public class AddressConfigurationReader extends Reader<AddressConfiguration> {
         return this;
     }
 
-    public AddressConfigurationReader setPageSize(final Integer pageSize) {
+    public AddressConfigurationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<AddressConfiguration> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AddressConfiguration> page = Page.fromJson(
+            "address_configurations",
+            response.getContent(),
+            AddressConfiguration.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<AddressConfiguration> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/Configuration/Addresses";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.CONVERSATIONS.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -51,24 +91,33 @@ public class AddressConfigurationReader extends Reader<AddressConfiguration> {
     }
 
     public Page<AddressConfiguration> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Configuration/Addresses";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.CONVERSATIONS.toString(),
-            path
-        );
-
-        addQueryParams(request);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<AddressConfiguration> pageForRequest(
+    public TwilioResponse<Page<AddressConfiguration>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AddressConfiguration> page = Page.fromJson(
+            "address_configurations",
+            response.getContent(),
+            AddressConfiguration.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "AddressConfiguration read failed: Unable to connect to server"
@@ -78,12 +127,23 @@ public class AddressConfigurationReader extends Reader<AddressConfiguration> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<AddressConfiguration> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "address_configurations",
             response.getContent(),
@@ -99,7 +159,7 @@ public class AddressConfigurationReader extends Reader<AddressConfiguration> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.CONVERSATIONS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -111,7 +171,7 @@ public class AddressConfigurationReader extends Reader<AddressConfiguration> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.CONVERSATIONS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -122,16 +182,21 @@ public class AddressConfigurationReader extends Reader<AddressConfiguration> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (type != null) {
-            request.addQueryParam("Type", type);
+            Serializer.toString(request, "Type", type, ParameterType.QUERY);
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

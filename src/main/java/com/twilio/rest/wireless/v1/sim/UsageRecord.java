@@ -18,28 +18,50 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UsageRecord extends Resource {
 
-    private static final long serialVersionUID = 100589345047771L;
-
     public static UsageRecordReader reader(final String pathSimSid) {
         return new UsageRecordReader(pathSimSid);
+    }
+
+    public enum Granularity {
+        HOURLY("hourly"),
+        DAILY("daily"),
+        ALL("all");
+
+        private final String value;
+
+        private Granularity(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Granularity forValue(final String value) {
+            return Promoter.enumFromString(value, Granularity.values());
+        }
     }
 
     /**
@@ -85,66 +107,46 @@ public class UsageRecord extends Resource {
         }
     }
 
-    public enum Granularity {
-        HOURLY("hourly"),
-        DAILY("daily"),
-        ALL("all");
-
-        private final String value;
-
-        private Granularity(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Granularity forValue(final String value) {
-            return Promoter.enumFromString(value, Granularity.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    private final String simSid;
+    @Getter
     private final String accountSid;
-    private final Map<String, Object> period;
-    private final Map<String, Object> commands;
-    private final Map<String, Object> data;
+
+    @Getter
+    private final Object commands;
+
+    @Getter
+    private final Object data;
+
+    @Getter
+    private final Object period;
+
+    @Getter
+    private final String simSid;
 
     @JsonCreator
     private UsageRecord(
-        @JsonProperty("sim_sid") final String simSid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("period") final Map<String, Object> period,
-        @JsonProperty("commands") final Map<String, Object> commands,
-        @JsonProperty("data") final Map<String, Object> data
+        @JsonProperty("commands") final Object commands,
+        @JsonProperty("data") final Object data,
+        @JsonProperty("period") final Object period,
+        @JsonProperty("sim_sid") final String simSid
     ) {
-        this.simSid = simSid;
         this.accountSid = accountSid;
-        this.period = period;
         this.commands = commands;
         this.data = data;
-    }
-
-    public final String getSimSid() {
-        return this.simSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Map<String, Object> getPeriod() {
-        return this.period;
-    }
-
-    public final Map<String, Object> getCommands() {
-        return this.commands;
-    }
-
-    public final Map<String, Object> getData() {
-        return this.data;
+        this.period = period;
+        this.simSid = simSid;
     }
 
     @Override
@@ -158,18 +160,17 @@ public class UsageRecord extends Resource {
         }
 
         UsageRecord other = (UsageRecord) o;
-
         return (
-            Objects.equals(simSid, other.simSid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(period, other.period) &&
             Objects.equals(commands, other.commands) &&
-            Objects.equals(data, other.data)
+            Objects.equals(data, other.data) &&
+            Objects.equals(period, other.period) &&
+            Objects.equals(simSid, other.simSid)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(simSid, accountSid, period, commands, data);
+        return Objects.hash(accountSid, commands, data, period, simSid);
     }
 }

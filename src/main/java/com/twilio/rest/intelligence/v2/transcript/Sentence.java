@@ -18,23 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Sentence extends Resource {
-
-    private static final long serialVersionUID = 210633055908555L;
 
     public static SentenceReader reader(final String pathTranscriptSid) {
         return new SentenceReader(pathTranscriptSid);
@@ -83,59 +86,61 @@ public class Sentence extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
+    private final String confidence;
+
+    @Getter
+    private final String endTime;
+
+    @Getter
     private final Integer mediaChannel;
+
+    @Getter
     private final Integer sentenceIndex;
-    private final BigDecimal startTime;
-    private final BigDecimal endTime;
-    private final String transcript;
+
+    @Getter
     private final String sid;
-    private final BigDecimal confidence;
+
+    @Getter
+    private final String startTime;
+
+    @Getter
+    private final String transcript;
+
+    @Getter
+    private final List<Object> words;
 
     @JsonCreator
     private Sentence(
+        @JsonProperty("confidence") final String confidence,
+        @JsonProperty("end_time") final String endTime,
         @JsonProperty("media_channel") final Integer mediaChannel,
         @JsonProperty("sentence_index") final Integer sentenceIndex,
-        @JsonProperty("start_time") final BigDecimal startTime,
-        @JsonProperty("end_time") final BigDecimal endTime,
-        @JsonProperty("transcript") final String transcript,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("confidence") final BigDecimal confidence
+        @JsonProperty("start_time") final String startTime,
+        @JsonProperty("transcript") final String transcript,
+        @JsonProperty("words") final List<Object> words
     ) {
+        this.confidence = confidence;
+        this.endTime = endTime;
         this.mediaChannel = mediaChannel;
         this.sentenceIndex = sentenceIndex;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.transcript = transcript;
         this.sid = sid;
-        this.confidence = confidence;
-    }
-
-    public final Integer getMediaChannel() {
-        return this.mediaChannel;
-    }
-
-    public final Integer getSentenceIndex() {
-        return this.sentenceIndex;
-    }
-
-    public final BigDecimal getStartTime() {
-        return this.startTime;
-    }
-
-    public final BigDecimal getEndTime() {
-        return this.endTime;
-    }
-
-    public final String getTranscript() {
-        return this.transcript;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final BigDecimal getConfidence() {
-        return this.confidence;
+        this.startTime = startTime;
+        this.transcript = transcript;
+        this.words = words;
     }
 
     @Override
@@ -149,28 +154,29 @@ public class Sentence extends Resource {
         }
 
         Sentence other = (Sentence) o;
-
         return (
+            Objects.equals(confidence, other.confidence) &&
+            Objects.equals(endTime, other.endTime) &&
             Objects.equals(mediaChannel, other.mediaChannel) &&
             Objects.equals(sentenceIndex, other.sentenceIndex) &&
-            Objects.equals(startTime, other.startTime) &&
-            Objects.equals(endTime, other.endTime) &&
-            Objects.equals(transcript, other.transcript) &&
             Objects.equals(sid, other.sid) &&
-            Objects.equals(confidence, other.confidence)
+            Objects.equals(startTime, other.startTime) &&
+            Objects.equals(transcript, other.transcript) &&
+            Objects.equals(words, other.words)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+            confidence,
+            endTime,
             mediaChannel,
             sentenceIndex,
-            startTime,
-            endTime,
-            transcript,
             sid,
-            confidence
+            startTime,
+            transcript,
+            words
         );
     }
 }

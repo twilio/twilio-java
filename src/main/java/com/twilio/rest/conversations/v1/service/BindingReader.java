@@ -17,7 +17,11 @@ package com.twilio.rest.conversations.v1.service;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +30,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.util.List;
 
 public class BindingReader extends Reader<Binding> {
@@ -33,7 +38,7 @@ public class BindingReader extends Reader<Binding> {
     private String pathChatServiceSid;
     private List<Binding.BindingType> bindingType;
     private List<String> identity;
-    private Integer pageSize;
+    private Long pageSize;
 
     public BindingReader(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;
@@ -59,18 +64,37 @@ public class BindingReader extends Reader<Binding> {
         return setIdentity(Promoter.listOfOne(identity));
     }
 
-    public BindingReader setPageSize(final Integer pageSize) {
+    public BindingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<Binding> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Binding> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Binding> page = Page.fromJson(
+            "bindings",
+            response.getContent(),
+            Binding.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Binding> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Binding> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Bindings";
+
         path =
             path.replace(
                 "{" + "ChatServiceSid" + "}",
@@ -82,17 +106,43 @@ public class BindingReader extends Reader<Binding> {
             Domains.CONVERSATIONS.toString(),
             path
         );
-
         addQueryParams(request);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<Binding> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Binding> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Binding> pageForRequest(
+    public TwilioResponse<Page<Binding>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Binding> page = Page.fromJson(
+            "bindings",
+            response.getContent(),
+            Binding.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Binding read failed: Unable to connect to server"
@@ -102,12 +152,23 @@ public class BindingReader extends Reader<Binding> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Binding> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "bindings",
             response.getContent(),
@@ -123,7 +184,7 @@ public class BindingReader extends Reader<Binding> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.CONVERSATIONS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -135,7 +196,7 @@ public class BindingReader extends Reader<Binding> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.CONVERSATIONS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -146,23 +207,39 @@ public class BindingReader extends Reader<Binding> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (bindingType != null) {
-            for (Binding.BindingType prop : bindingType) {
-                request.addQueryParam("BindingType", prop.toString());
+            for (Binding.BindingType param : bindingType) {
+                Serializer.toString(
+                    request,
+                    "BindingType",
+                    param,
+                    ParameterType.QUERY
+                );
             }
         }
+
         if (identity != null) {
-            for (String prop : identity) {
-                request.addQueryParam("Identity", prop);
+            for (String param : identity) {
+                Serializer.toString(
+                    request,
+                    "Identity",
+                    param,
+                    ParameterType.QUERY
+                );
             }
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

@@ -14,8 +14,11 @@
 
 package com.twilio.rest.notify.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ServiceUpdater extends Updater<Service> {
 
@@ -137,8 +141,7 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
-    @Override
-    public Service update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -150,7 +153,9 @@ public class ServiceUpdater extends Updater<Service> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Service update failed: Unable to connect to server"
@@ -161,73 +166,162 @@ public class ServiceUpdater extends Updater<Service> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Service update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Service.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Service> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Service content = Service.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (apnCredentialSid != null) {
-            request.addPostParam("ApnCredentialSid", apnCredentialSid);
+            Serializer.toString(
+                request,
+                "ApnCredentialSid",
+                apnCredentialSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (gcmCredentialSid != null) {
-            request.addPostParam("GcmCredentialSid", gcmCredentialSid);
+            Serializer.toString(
+                request,
+                "GcmCredentialSid",
+                gcmCredentialSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (messagingServiceSid != null) {
-            request.addPostParam("MessagingServiceSid", messagingServiceSid);
+            Serializer.toString(
+                request,
+                "MessagingServiceSid",
+                messagingServiceSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (facebookMessengerPageId != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "FacebookMessengerPageId",
-                facebookMessengerPageId
+                facebookMessengerPageId,
+                ParameterType.URLENCODED
             );
         }
+
         if (defaultApnNotificationProtocolVersion != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DefaultApnNotificationProtocolVersion",
-                defaultApnNotificationProtocolVersion
+                defaultApnNotificationProtocolVersion,
+                ParameterType.URLENCODED
             );
         }
+
         if (defaultGcmNotificationProtocolVersion != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DefaultGcmNotificationProtocolVersion",
-                defaultGcmNotificationProtocolVersion
+                defaultGcmNotificationProtocolVersion,
+                ParameterType.URLENCODED
             );
         }
+
         if (fcmCredentialSid != null) {
-            request.addPostParam("FcmCredentialSid", fcmCredentialSid);
+            Serializer.toString(
+                request,
+                "FcmCredentialSid",
+                fcmCredentialSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (defaultFcmNotificationProtocolVersion != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DefaultFcmNotificationProtocolVersion",
-                defaultFcmNotificationProtocolVersion
+                defaultFcmNotificationProtocolVersion,
+                ParameterType.URLENCODED
             );
         }
+
         if (logEnabled != null) {
-            request.addPostParam("LogEnabled", logEnabled.toString());
-        }
-        if (alexaSkillId != null) {
-            request.addPostParam("AlexaSkillId", alexaSkillId);
-        }
-        if (defaultAlexaNotificationProtocolVersion != null) {
-            request.addPostParam(
-                "DefaultAlexaNotificationProtocolVersion",
-                defaultAlexaNotificationProtocolVersion
+            Serializer.toString(
+                request,
+                "LogEnabled",
+                logEnabled,
+                ParameterType.URLENCODED
             );
         }
-        if (deliveryCallbackUrl != null) {
-            request.addPostParam("DeliveryCallbackUrl", deliveryCallbackUrl);
+
+        if (alexaSkillId != null) {
+            Serializer.toString(
+                request,
+                "AlexaSkillId",
+                alexaSkillId,
+                ParameterType.URLENCODED
+            );
         }
+
+        if (defaultAlexaNotificationProtocolVersion != null) {
+            Serializer.toString(
+                request,
+                "DefaultAlexaNotificationProtocolVersion",
+                defaultAlexaNotificationProtocolVersion,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (deliveryCallbackUrl != null) {
+            Serializer.toString(
+                request,
+                "DeliveryCallbackUrl",
+                deliveryCallbackUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (deliveryCallbackEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DeliveryCallbackEnabled",
-                deliveryCallbackEnabled.toString()
+                deliveryCallbackEnabled,
+                ParameterType.URLENCODED
             );
         }
     }

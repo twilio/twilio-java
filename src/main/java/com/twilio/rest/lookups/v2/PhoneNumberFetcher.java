@@ -15,6 +15,9 @@
 package com.twilio.rest.lookups.v2;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
@@ -40,6 +44,8 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     private String nationalId;
     private String dateOfBirth;
     private String lastVerifiedDate;
+    private String verificationSid;
+    private String partnerSubId;
 
     public PhoneNumberFetcher(final String pathPhoneNumber) {
         this.pathPhoneNumber = pathPhoneNumber;
@@ -114,8 +120,17 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         return this;
     }
 
-    @Override
-    public PhoneNumber fetch(final TwilioRestClient client) {
+    public PhoneNumberFetcher setVerificationSid(final String verificationSid) {
+        this.verificationSid = verificationSid;
+        return this;
+    }
+
+    public PhoneNumberFetcher setPartnerSubId(final String partnerSubId) {
+        this.partnerSubId = partnerSubId;
+        return this;
+    }
+
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/PhoneNumbers/{PhoneNumber}";
 
         path =
@@ -130,6 +145,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             path
         );
         addQueryParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -142,56 +158,160 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public PhoneNumber fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PhoneNumber.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<PhoneNumber> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PhoneNumber content = PhoneNumber.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addQueryParams(final Request request) {
         if (fields != null) {
-            request.addQueryParam("Fields", fields);
+            Serializer.toString(request, "Fields", fields, ParameterType.QUERY);
         }
+
         if (countryCode != null) {
-            request.addQueryParam("CountryCode", countryCode);
+            Serializer.toString(
+                request,
+                "CountryCode",
+                countryCode,
+                ParameterType.QUERY
+            );
         }
+
         if (firstName != null) {
-            request.addQueryParam("FirstName", firstName);
+            Serializer.toString(
+                request,
+                "FirstName",
+                firstName,
+                ParameterType.QUERY
+            );
         }
+
         if (lastName != null) {
-            request.addQueryParam("LastName", lastName);
+            Serializer.toString(
+                request,
+                "LastName",
+                lastName,
+                ParameterType.QUERY
+            );
         }
+
         if (addressLine1 != null) {
-            request.addQueryParam("AddressLine1", addressLine1);
+            Serializer.toString(
+                request,
+                "AddressLine1",
+                addressLine1,
+                ParameterType.QUERY
+            );
         }
+
         if (addressLine2 != null) {
-            request.addQueryParam("AddressLine2", addressLine2);
+            Serializer.toString(
+                request,
+                "AddressLine2",
+                addressLine2,
+                ParameterType.QUERY
+            );
         }
+
         if (city != null) {
-            request.addQueryParam("City", city);
+            Serializer.toString(request, "City", city, ParameterType.QUERY);
         }
+
         if (state != null) {
-            request.addQueryParam("State", state);
+            Serializer.toString(request, "State", state, ParameterType.QUERY);
         }
+
         if (postalCode != null) {
-            request.addQueryParam("PostalCode", postalCode);
+            Serializer.toString(
+                request,
+                "PostalCode",
+                postalCode,
+                ParameterType.QUERY
+            );
         }
+
         if (addressCountryCode != null) {
-            request.addQueryParam("AddressCountryCode", addressCountryCode);
+            Serializer.toString(
+                request,
+                "AddressCountryCode",
+                addressCountryCode,
+                ParameterType.QUERY
+            );
         }
+
         if (nationalId != null) {
-            request.addQueryParam("NationalId", nationalId);
+            Serializer.toString(
+                request,
+                "NationalId",
+                nationalId,
+                ParameterType.QUERY
+            );
         }
+
         if (dateOfBirth != null) {
-            request.addQueryParam("DateOfBirth", dateOfBirth);
+            Serializer.toString(
+                request,
+                "DateOfBirth",
+                dateOfBirth,
+                ParameterType.QUERY
+            );
         }
+
         if (lastVerifiedDate != null) {
-            request.addQueryParam("LastVerifiedDate", lastVerifiedDate);
+            Serializer.toString(
+                request,
+                "LastVerifiedDate",
+                lastVerifiedDate,
+                ParameterType.QUERY
+            );
+        }
+
+        if (verificationSid != null) {
+            Serializer.toString(
+                request,
+                "VerificationSid",
+                verificationSid,
+                ParameterType.QUERY
+            );
+        }
+
+        if (partnerSubId != null) {
+            Serializer.toString(
+                request,
+                "PartnerSubId",
+                partnerSubId,
+                ParameterType.QUERY
+            );
         }
     }
 }

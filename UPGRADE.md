@@ -2,6 +2,40 @@
 
 _`MAJOR` version bumps will have upgrade notes posted here._
 
+[2025-09-30] 10.x.x to 11.x.x
+-----------------------------
+### Overview
+##### Twilio Java Helper Library’s major version 11.0.0 is now available. 11.0.0 version contains breaking changes
+
+##### Breaking Changes
+###### 1. NetworkHttpClient upgraded from HttpClient4 → HttpClient5
+Who are impacted: 
+Users who override NetworkHttpClient.
+
+###### 2. Bug Fix: Enum suffix removed (StatusEnum → Status)
+This was a bug in Account resource in Organisation API
+
+###### 3. Organisation API — Organisation API init authentication mechanism has been changed.
+Who are impacted:
+Users calling the Organisation API. Refer Examples
+Organisation API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/OrgsAPIExample.md)
+
+###### 4. Bug Fix: Using Object data type for [anyType](https://swagger.io/docs/specification/v3_0/data-models/data-types/#any-type) fields in open-api specifications
+Who are impacted:
+Properties/Parameters defined as [anyType](https://swagger.io/docs/specification/v3_0/data-models/data-types/#any-type) in open-api specifications will be represented using `Object` now.
+Previous data type: `Map<String,Object>`
+New data type: `Object`
+
+
+[2024-02-08] 9.x.x to 10.x.x
+-----------------------------
+### Overview
+
+##### Twilio Java Helper Library’s major version 10.0.0 is now available. We ensured that you can upgrade to Java helper Library 10.0.0 version without any breaking changes of existing apis
+
+Behind the scenes Java Helper is now auto-generated via OpenAPI with this release. This  enables us to rapidly add new features and enhance consistency across versions and languages.
+We're pleased to inform you that version 10.0.0 adds support for the application/json content type in the request body.
+
 [2022-09-21] 8.x.x to 9.x.x
 -----------------------------
 ### Overview

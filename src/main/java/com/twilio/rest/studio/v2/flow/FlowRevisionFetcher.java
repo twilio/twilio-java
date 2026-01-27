@@ -15,6 +15,7 @@
 package com.twilio.rest.studio.v2.flow;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class FlowRevisionFetcher extends Fetcher<FlowRevision> {
 
@@ -37,8 +39,7 @@ public class FlowRevisionFetcher extends Fetcher<FlowRevision> {
         this.pathRevision = pathRevision;
     }
 
-    @Override
-    public FlowRevision fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Flows/{Sid}/Revisions/{Revision}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -50,6 +51,7 @@ public class FlowRevisionFetcher extends Fetcher<FlowRevision> {
             Domains.STUDIO.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -62,14 +64,38 @@ public class FlowRevisionFetcher extends Fetcher<FlowRevision> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public FlowRevision fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return FlowRevision.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<FlowRevision> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        FlowRevision content = FlowRevision.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

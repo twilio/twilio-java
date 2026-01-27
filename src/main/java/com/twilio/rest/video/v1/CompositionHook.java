@@ -18,30 +18,31 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CompositionHook extends Resource {
-
-    private static final long serialVersionUID = 233336557322533L;
 
     public static CompositionHookCreator creator(final String friendlyName) {
         return new CompositionHookCreator(friendlyName);
@@ -64,6 +65,26 @@ public class CompositionHook extends Resource {
         final String friendlyName
     ) {
         return new CompositionHookUpdater(pathSid, friendlyName);
+    }
+
+    public enum Format {
+        MP4("mp4"),
+        WEBM("webm");
+
+        private final String value;
+
+        private Format(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Format forValue(final String value) {
+            return Promoter.enumFromString(value, Format.values());
+        }
     }
 
     /**
@@ -109,139 +130,104 @@ public class CompositionHook extends Resource {
         }
     }
 
-    public enum Format {
-        MP4("mp4"),
-        WEBM("webm");
-
-        private final String value;
-
-        private Format(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Format forValue(final String value) {
-            return Promoter.enumFromString(value, Format.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
+    @Getter
     private final String accountSid;
-    private final String friendlyName;
-    private final Boolean enabled;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final String sid;
+
+    @Getter
     private final List<String> audioSources;
+
+    @Getter
     private final List<String> audioSourcesExcluded;
-    private final Map<String, Object> videoLayout;
-    private final String resolution;
-    private final Boolean trim;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final Boolean enabled;
+
+    @Getter
     private final CompositionHook.Format format;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final String resolution;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final URI statusCallback;
+
+    @Getter
     private final HttpMethod statusCallbackMethod;
+
+    @Getter
+    private final Boolean trim;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final Object videoLayout;
 
     @JsonCreator
     private CompositionHook(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("enabled") final Boolean enabled,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("sid") final String sid,
         @JsonProperty("audio_sources") final List<String> audioSources,
-        @JsonProperty(
-            "audio_sources_excluded"
-        ) final List<String> audioSourcesExcluded,
-        @JsonProperty("video_layout") final Map<String, Object> videoLayout,
-        @JsonProperty("resolution") final String resolution,
-        @JsonProperty("trim") final Boolean trim,
+        @JsonProperty("audio_sources_excluded") final List<
+            String
+        > audioSourcesExcluded,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("enabled") final Boolean enabled,
         @JsonProperty("format") final CompositionHook.Format format,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("resolution") final String resolution,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("status_callback") final URI statusCallback,
         @JsonProperty(
             "status_callback_method"
         ) final HttpMethod statusCallbackMethod,
-        @JsonProperty("url") final URI url
+        @JsonProperty("trim") final Boolean trim,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("video_layout") final Object videoLayout
     ) {
         this.accountSid = accountSid;
-        this.friendlyName = friendlyName;
-        this.enabled = enabled;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.sid = sid;
         this.audioSources = audioSources;
         this.audioSourcesExcluded = audioSourcesExcluded;
-        this.videoLayout = videoLayout;
-        this.resolution = resolution;
-        this.trim = trim;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.enabled = enabled;
         this.format = format;
+        this.friendlyName = friendlyName;
+        this.resolution = resolution;
+        this.sid = sid;
         this.statusCallback = statusCallback;
         this.statusCallbackMethod = statusCallbackMethod;
+        this.trim = trim;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Boolean getEnabled() {
-        return this.enabled;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final List<String> getAudioSources() {
-        return this.audioSources;
-    }
-
-    public final List<String> getAudioSourcesExcluded() {
-        return this.audioSourcesExcluded;
-    }
-
-    public final Map<String, Object> getVideoLayout() {
-        return this.videoLayout;
-    }
-
-    public final String getResolution() {
-        return this.resolution;
-    }
-
-    public final Boolean getTrim() {
-        return this.trim;
-    }
-
-    public final CompositionHook.Format getFormat() {
-        return this.format;
-    }
-
-    public final URI getStatusCallback() {
-        return this.statusCallback;
-    }
-
-    public final HttpMethod getStatusCallbackMethod() {
-        return this.statusCallbackMethod;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.videoLayout = videoLayout;
     }
 
     @Override
@@ -255,23 +241,22 @@ public class CompositionHook extends Resource {
         }
 
         CompositionHook other = (CompositionHook) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(enabled, other.enabled) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(sid, other.sid) &&
             Objects.equals(audioSources, other.audioSources) &&
             Objects.equals(audioSourcesExcluded, other.audioSourcesExcluded) &&
-            Objects.equals(videoLayout, other.videoLayout) &&
-            Objects.equals(resolution, other.resolution) &&
-            Objects.equals(trim, other.trim) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(enabled, other.enabled) &&
             Objects.equals(format, other.format) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(resolution, other.resolution) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(statusCallback, other.statusCallback) &&
             Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
-            Objects.equals(url, other.url)
+            Objects.equals(trim, other.trim) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(videoLayout, other.videoLayout)
         );
     }
 
@@ -279,20 +264,20 @@ public class CompositionHook extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
-            friendlyName,
-            enabled,
-            dateCreated,
-            dateUpdated,
-            sid,
             audioSources,
             audioSourcesExcluded,
-            videoLayout,
-            resolution,
-            trim,
+            dateCreated,
+            dateUpdated,
+            enabled,
             format,
+            friendlyName,
+            resolution,
+            sid,
             statusCallback,
             statusCallbackMethod,
-            url
+            trim,
+            url,
+            videoLayout
         );
     }
 }

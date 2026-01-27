@@ -15,7 +15,10 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class InsightsQuestionnairesCategoryCreator
     extends Creator<InsightsQuestionnairesCategory> {
 
-    private String name;
     private String authorization;
+    private String name;
 
     public InsightsQuestionnairesCategoryCreator(final String name) {
         this.name = name;
@@ -47,13 +51,8 @@ public class InsightsQuestionnairesCategoryCreator
         return this;
     }
 
-    @Override
-    public InsightsQuestionnairesCategory create(
-        final TwilioRestClient client
-    ) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Insights/QualityManagement/Categories";
-
-        path = path.replace("{" + "Name" + "}", this.name.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -61,9 +60,11 @@ public class InsightsQuestionnairesCategoryCreator
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "InsightsQuestionnairesCategory creation failed: Unable to connect to server"
@@ -74,26 +75,63 @@ public class InsightsQuestionnairesCategoryCreator
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public InsightsQuestionnairesCategory create(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
         return InsightsQuestionnairesCategory.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<InsightsQuestionnairesCategory> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        InsightsQuestionnairesCategory content =
+            InsightsQuestionnairesCategory.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (name != null) {
-            request.addPostParam("Name", name);
+            Serializer.toString(
+                request,
+                "Name",
+                name,
+                ParameterType.URLENCODED
+            );
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
     }
 }

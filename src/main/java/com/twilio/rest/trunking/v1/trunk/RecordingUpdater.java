@@ -14,8 +14,11 @@
 
 package com.twilio.rest.trunking.v1.trunk;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class RecordingUpdater extends Updater<Recording> {
 
@@ -45,8 +49,7 @@ public class RecordingUpdater extends Updater<Recording> {
         return this;
     }
 
-    @Override
-    public Recording update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/Recording";
 
         path =
@@ -59,7 +62,9 @@ public class RecordingUpdater extends Updater<Recording> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Recording update failed: Unable to connect to server"
@@ -70,23 +75,58 @@ public class RecordingUpdater extends Updater<Recording> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Recording update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Recording.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Recording> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Recording content = Recording.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (mode != null) {
-            request.addPostParam("Mode", mode.toString());
+            Serializer.toString(
+                request,
+                "Mode",
+                mode,
+                ParameterType.URLENCODED
+            );
         }
+
         if (trim != null) {
-            request.addPostParam("Trim", trim.toString());
+            Serializer.toString(
+                request,
+                "Trim",
+                trim,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

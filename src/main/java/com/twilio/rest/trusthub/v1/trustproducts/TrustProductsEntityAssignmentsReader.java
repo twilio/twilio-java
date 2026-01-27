@@ -17,6 +17,10 @@ package com.twilio.rest.trusthub.v1.trustproducts;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,12 +29,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class TrustProductsEntityAssignmentsReader
     extends Reader<TrustProductsEntityAssignments> {
 
     private String pathTrustProductSid;
-    private Integer pageSize;
+    private String objectType;
+    private Long pageSize;
 
     public TrustProductsEntityAssignmentsReader(
         final String pathTrustProductSid
@@ -38,11 +44,56 @@ public class TrustProductsEntityAssignmentsReader
         this.pathTrustProductSid = pathTrustProductSid;
     }
 
+    public TrustProductsEntityAssignmentsReader setObjectType(
+        final String objectType
+    ) {
+        this.objectType = objectType;
+        return this;
+    }
+
     public TrustProductsEntityAssignmentsReader setPageSize(
-        final Integer pageSize
+        final Long pageSize
     ) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<TrustProductsEntityAssignments> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TrustProductsEntityAssignments> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            TrustProductsEntityAssignments.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<TrustProductsEntityAssignments> resourceSet =
+            new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/TrustProducts/{TrustProductSid}/EntityAssignments";
+
+        path =
+            path.replace(
+                "{" + "TrustProductSid" + "}",
+                this.pathTrustProductSid.toString()
+            );
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.TRUSTHUB.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -55,29 +106,33 @@ public class TrustProductsEntityAssignmentsReader
     public Page<TrustProductsEntityAssignments> firstPage(
         final TwilioRestClient client
     ) {
-        String path = "/v1/TrustProducts/{TrustProductSid}/EntityAssignments";
-        path =
-            path.replace(
-                "{" + "TrustProductSid" + "}",
-                this.pathTrustProductSid.toString()
-            );
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.TRUSTHUB.toString(),
-            path
-        );
-
-        addQueryParams(request);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<TrustProductsEntityAssignments> pageForRequest(
+    public TwilioResponse<
+        Page<TrustProductsEntityAssignments>
+    > firstPageWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TrustProductsEntityAssignments> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            TrustProductsEntityAssignments.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "TrustProductsEntityAssignments read failed: Unable to connect to server"
@@ -87,12 +142,23 @@ public class TrustProductsEntityAssignmentsReader
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<TrustProductsEntityAssignments> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "results",
             response.getContent(),
@@ -108,7 +174,7 @@ public class TrustProductsEntityAssignmentsReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.TRUSTHUB.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -120,7 +186,7 @@ public class TrustProductsEntityAssignmentsReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.TRUSTHUB.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -131,13 +197,26 @@ public class TrustProductsEntityAssignmentsReader
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+        if (objectType != null) {
+            Serializer.toString(
+                request,
+                "ObjectType",
+                objectType,
+                ParameterType.QUERY
+            );
+        }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

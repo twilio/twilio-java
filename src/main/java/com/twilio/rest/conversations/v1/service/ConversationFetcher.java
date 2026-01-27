@@ -15,6 +15,7 @@
 package com.twilio.rest.conversations.v1.service;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ConversationFetcher extends Fetcher<Conversation> {
 
@@ -37,8 +39,7 @@ public class ConversationFetcher extends Fetcher<Conversation> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Conversation fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Conversations/{Sid}";
 
         path =
@@ -53,6 +54,7 @@ public class ConversationFetcher extends Fetcher<Conversation> {
             Domains.CONVERSATIONS.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -65,14 +67,38 @@ public class ConversationFetcher extends Fetcher<Conversation> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Conversation fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Conversation.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Conversation> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Conversation content = Conversation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

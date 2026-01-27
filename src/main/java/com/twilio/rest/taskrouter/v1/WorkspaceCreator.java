@@ -15,8 +15,11 @@
 package com.twilio.rest.taskrouter.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class WorkspaceCreator extends Creator<Workspace> {
@@ -79,15 +82,8 @@ public class WorkspaceCreator extends Creator<Workspace> {
         return this;
     }
 
-    @Override
-    public Workspace create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces";
-
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -96,7 +92,9 @@ public class WorkspaceCreator extends Creator<Workspace> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Workspace creation failed: Unable to connect to server"
@@ -107,43 +105,93 @@ public class WorkspaceCreator extends Creator<Workspace> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Workspace create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Workspace.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Workspace> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Workspace content = Workspace.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (eventCallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "EventCallbackUrl",
-                eventCallbackUrl.toString()
+                eventCallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (eventsFilter != null) {
-            request.addPostParam("EventsFilter", eventsFilter);
-        }
-        if (multiTaskEnabled != null) {
-            request.addPostParam(
-                "MultiTaskEnabled",
-                multiTaskEnabled.toString()
+            Serializer.toString(
+                request,
+                "EventsFilter",
+                eventsFilter,
+                ParameterType.URLENCODED
             );
         }
-        if (template != null) {
-            request.addPostParam("Template", template);
+
+        if (multiTaskEnabled != null) {
+            Serializer.toString(
+                request,
+                "MultiTaskEnabled",
+                multiTaskEnabled,
+                ParameterType.URLENCODED
+            );
         }
+
+        if (template != null) {
+            Serializer.toString(
+                request,
+                "Template",
+                template,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (prioritizeQueueOrder != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "PrioritizeQueueOrder",
-                prioritizeQueueOrder.toString()
+                prioritizeQueueOrder,
+                ParameterType.URLENCODED
             );
         }
     }

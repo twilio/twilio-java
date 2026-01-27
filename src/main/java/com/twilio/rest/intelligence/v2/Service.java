@@ -18,27 +18,31 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
-
-    private static final long serialVersionUID = 160239821590245L;
 
     public static ServiceCreator creator(final String uniqueName) {
         return new ServiceCreator(uniqueName);
@@ -58,6 +62,27 @@ public class Service extends Resource {
 
     public static ServiceUpdater updater(final String pathSid) {
         return new ServiceUpdater(pathSid);
+    }
+
+    public enum HttpMethod {
+        GET("GET"),
+        POST("POST"),
+        NULL("NULL");
+
+        private final String value;
+
+        private HttpMethod(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static HttpMethod forValue(final String value) {
+            return Promoter.enumFromString(value, HttpMethod.values());
+        }
     }
 
     /**
@@ -103,138 +128,116 @@ public class Service extends Resource {
         }
     }
 
-    public enum HttpMethod {
-        GET("GET"),
-        POST("POST"),
-        NULL("NULL");
-
-        private final String value;
-
-        private HttpMethod(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static HttpMethod forValue(final String value) {
-            return Promoter.enumFromString(value, HttpMethod.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final Boolean autoRedaction;
-    private final Boolean mediaRedaction;
+
+    @Getter
     private final Boolean autoTranscribe;
+
+    @Getter
     private final Boolean dataLogging;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String encryptionCredentialSid;
+
+    @Getter
     private final String friendlyName;
+
+    @Getter
     private final String languageCode;
+
+    @Getter
+    private final Boolean mediaRedaction;
+
+    @Getter
+    private final List<String> readOnlyAttachedOperatorSids;
+
+    @Getter
     private final String sid;
+
+    @Getter
     private final String uniqueName;
+
+    @Getter
     private final URI url;
-    private final String webhookUrl;
-    private final Service.HttpMethod webhookHttpMethod;
+
+    @Getter
     private final Integer version;
+
+    @Getter
+    private final Service.HttpMethod webhookHttpMethod;
+
+    @Getter
+    private final String webhookUrl;
 
     @JsonCreator
     private Service(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("auto_redaction") final Boolean autoRedaction,
-        @JsonProperty("media_redaction") final Boolean mediaRedaction,
         @JsonProperty("auto_transcribe") final Boolean autoTranscribe,
         @JsonProperty("data_logging") final Boolean dataLogging,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty(
+            "encryption_credential_sid"
+        ) final String encryptionCredentialSid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("language_code") final String languageCode,
+        @JsonProperty("media_redaction") final Boolean mediaRedaction,
+        @JsonProperty("read_only_attached_operator_sids") final List<
+            String
+        > readOnlyAttachedOperatorSids,
         @JsonProperty("sid") final String sid,
         @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("url") final URI url,
-        @JsonProperty("webhook_url") final String webhookUrl,
+        @JsonProperty("version") final Integer version,
         @JsonProperty(
             "webhook_http_method"
         ) final Service.HttpMethod webhookHttpMethod,
-        @JsonProperty("version") final Integer version
+        @JsonProperty("webhook_url") final String webhookUrl
     ) {
         this.accountSid = accountSid;
         this.autoRedaction = autoRedaction;
-        this.mediaRedaction = mediaRedaction;
         this.autoTranscribe = autoTranscribe;
         this.dataLogging = dataLogging;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.encryptionCredentialSid = encryptionCredentialSid;
         this.friendlyName = friendlyName;
         this.languageCode = languageCode;
+        this.mediaRedaction = mediaRedaction;
+        this.readOnlyAttachedOperatorSids = readOnlyAttachedOperatorSids;
         this.sid = sid;
         this.uniqueName = uniqueName;
         this.url = url;
-        this.webhookUrl = webhookUrl;
-        this.webhookHttpMethod = webhookHttpMethod;
         this.version = version;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Boolean getAutoRedaction() {
-        return this.autoRedaction;
-    }
-
-    public final Boolean getMediaRedaction() {
-        return this.mediaRedaction;
-    }
-
-    public final Boolean getAutoTranscribe() {
-        return this.autoTranscribe;
-    }
-
-    public final Boolean getDataLogging() {
-        return this.dataLogging;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getLanguageCode() {
-        return this.languageCode;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getWebhookUrl() {
-        return this.webhookUrl;
-    }
-
-    public final Service.HttpMethod getWebhookHttpMethod() {
-        return this.webhookHttpMethod;
-    }
-
-    public final Integer getVersion() {
-        return this.version;
+        this.webhookHttpMethod = webhookHttpMethod;
+        this.webhookUrl = webhookUrl;
     }
 
     @Override
@@ -248,23 +251,30 @@ public class Service extends Resource {
         }
 
         Service other = (Service) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(autoRedaction, other.autoRedaction) &&
-            Objects.equals(mediaRedaction, other.mediaRedaction) &&
             Objects.equals(autoTranscribe, other.autoTranscribe) &&
             Objects.equals(dataLogging, other.dataLogging) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(
+                encryptionCredentialSid,
+                other.encryptionCredentialSid
+            ) &&
             Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(languageCode, other.languageCode) &&
+            Objects.equals(mediaRedaction, other.mediaRedaction) &&
+            Objects.equals(
+                readOnlyAttachedOperatorSids,
+                other.readOnlyAttachedOperatorSids
+            ) &&
             Objects.equals(sid, other.sid) &&
             Objects.equals(uniqueName, other.uniqueName) &&
             Objects.equals(url, other.url) &&
-            Objects.equals(webhookUrl, other.webhookUrl) &&
+            Objects.equals(version, other.version) &&
             Objects.equals(webhookHttpMethod, other.webhookHttpMethod) &&
-            Objects.equals(version, other.version)
+            Objects.equals(webhookUrl, other.webhookUrl)
         );
     }
 
@@ -273,19 +283,21 @@ public class Service extends Resource {
         return Objects.hash(
             accountSid,
             autoRedaction,
-            mediaRedaction,
             autoTranscribe,
             dataLogging,
             dateCreated,
             dateUpdated,
+            encryptionCredentialSid,
             friendlyName,
             languageCode,
+            mediaRedaction,
+            readOnlyAttachedOperatorSids,
             sid,
             uniqueName,
             url,
-            webhookUrl,
+            version,
             webhookHttpMethod,
-            version
+            webhookUrl
         );
     }
 }

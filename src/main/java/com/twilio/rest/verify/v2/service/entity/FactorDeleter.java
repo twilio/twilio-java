@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Deleter;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.util.function.Predicate;
 
 public class FactorDeleter extends Deleter<Factor> {
 
@@ -40,8 +43,7 @@ public class FactorDeleter extends Deleter<Factor> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public boolean delete(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}";
 
@@ -54,11 +56,14 @@ public class FactorDeleter extends Deleter<Factor> {
             path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VERIFY.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -71,10 +76,36 @@ public class FactorDeleter extends Deleter<Factor> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return response;
+    }
+
+    @Override
+    public boolean delete(final TwilioRestClient client) {
+        Response response = makeRequest(client);
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
+        return deleteStatuses.test(response.getStatusCode());
+    }
+
+    @Override
+    public TwilioResponse<Boolean> deleteWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
+        Boolean deleted = deleteStatuses.test(response.getStatusCode());
+        return new TwilioResponse<>(
+            deleted,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

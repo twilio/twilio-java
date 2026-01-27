@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Task extends Resource {
-
-    private static final long serialVersionUID = 66438798069009L;
 
     public static TaskCreator creator(final String pathWorkspaceSid) {
         return new TaskCreator(pathWorkspaceSid);
@@ -68,6 +70,30 @@ public class Task extends Resource {
         final String pathSid
     ) {
         return new TaskUpdater(pathWorkspaceSid, pathSid);
+    }
+
+    public enum Status {
+        PENDING("pending"),
+        RESERVED("reserved"),
+        ASSIGNED("assigned"),
+        CANCELED("canceled"),
+        COMPLETED("completed"),
+        WRAPPING("wrapping");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 
     /**
@@ -113,190 +139,155 @@ public class Task extends Resource {
         }
     }
 
-    public enum Status {
-        PENDING("pending"),
-        RESERVED("reserved"),
-        ASSIGNED("assigned"),
-        CANCELED("canceled"),
-        COMPLETED("completed"),
-        WRAPPING("wrapping");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
+    @Getter
     private final String accountSid;
-    private final Integer age;
-    private final Task.Status assignmentStatus;
-    private final String attributes;
+
+    @Getter
     private final String addons;
+
+    @Getter
+    private final Integer age;
+
+    @Getter
+    private final Task.Status assignmentStatus;
+
+    @Getter
+    private final String attributes;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final ZonedDateTime taskQueueEnteredDate;
-    private final Integer priority;
-    private final String reason;
-    private final String sid;
-    private final String taskQueueSid;
-    private final String taskQueueFriendlyName;
-    private final String taskChannelSid;
-    private final String taskChannelUniqueName;
-    private final Integer timeout;
-    private final String workflowSid;
-    private final String workflowFriendlyName;
-    private final String workspaceSid;
-    private final URI url;
+
+    @Getter
+    private final Boolean ignoreCapacity;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final Integer priority;
+
+    @Getter
+    private final String reason;
+
+    @Getter
+    private final String routingTarget;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String taskChannelSid;
+
+    @Getter
+    private final String taskChannelUniqueName;
+
+    @Getter
+    private final ZonedDateTime taskQueueEnteredDate;
+
+    @Getter
+    private final String taskQueueFriendlyName;
+
+    @Getter
+    private final String taskQueueSid;
+
+    @Getter
+    private final Integer timeout;
+
+    @Getter
+    private final URI url;
+
+    @Getter
+    private final ZonedDateTime virtualStartTime;
+
+    @Getter
+    private final String workflowFriendlyName;
+
+    @Getter
+    private final String workflowSid;
+
+    @Getter
+    private final String workspaceSid;
 
     @JsonCreator
     private Task(
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("addons") final String addons,
         @JsonProperty("age") final Integer age,
         @JsonProperty("assignment_status") final Task.Status assignmentStatus,
         @JsonProperty("attributes") final String attributes,
-        @JsonProperty("addons") final String addons,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty(
-            "task_queue_entered_date"
-        ) final String taskQueueEnteredDate,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("ignore_capacity") final Boolean ignoreCapacity,
+        @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("priority") final Integer priority,
         @JsonProperty("reason") final String reason,
+        @JsonProperty("routing_target") final String routingTarget,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("task_queue_sid") final String taskQueueSid,
-        @JsonProperty(
-            "task_queue_friendly_name"
-        ) final String taskQueueFriendlyName,
         @JsonProperty("task_channel_sid") final String taskChannelSid,
         @JsonProperty(
             "task_channel_unique_name"
         ) final String taskChannelUniqueName,
+        @JsonProperty("task_queue_entered_date") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime taskQueueEnteredDate,
+        @JsonProperty(
+            "task_queue_friendly_name"
+        ) final String taskQueueFriendlyName,
+        @JsonProperty("task_queue_sid") final String taskQueueSid,
         @JsonProperty("timeout") final Integer timeout,
-        @JsonProperty("workflow_sid") final String workflowSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("virtual_start_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime virtualStartTime,
         @JsonProperty(
             "workflow_friendly_name"
         ) final String workflowFriendlyName,
-        @JsonProperty("workspace_sid") final String workspaceSid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("workflow_sid") final String workflowSid,
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
+        this.addons = addons;
         this.age = age;
         this.assignmentStatus = assignmentStatus;
         this.attributes = attributes;
-        this.addons = addons;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.taskQueueEnteredDate =
-            DateConverter.iso8601DateTimeFromString(taskQueueEnteredDate);
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.ignoreCapacity = ignoreCapacity;
+        this.links = links;
         this.priority = priority;
         this.reason = reason;
+        this.routingTarget = routingTarget;
         this.sid = sid;
-        this.taskQueueSid = taskQueueSid;
-        this.taskQueueFriendlyName = taskQueueFriendlyName;
         this.taskChannelSid = taskChannelSid;
         this.taskChannelUniqueName = taskChannelUniqueName;
+        this.taskQueueEnteredDate = taskQueueEnteredDate;
+        this.taskQueueFriendlyName = taskQueueFriendlyName;
+        this.taskQueueSid = taskQueueSid;
         this.timeout = timeout;
-        this.workflowSid = workflowSid;
-        this.workflowFriendlyName = workflowFriendlyName;
-        this.workspaceSid = workspaceSid;
         this.url = url;
-        this.links = links;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Integer getAge() {
-        return this.age;
-    }
-
-    public final Task.Status getAssignmentStatus() {
-        return this.assignmentStatus;
-    }
-
-    public final String getAttributes() {
-        return this.attributes;
-    }
-
-    public final String getAddons() {
-        return this.addons;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final ZonedDateTime getTaskQueueEnteredDate() {
-        return this.taskQueueEnteredDate;
-    }
-
-    public final Integer getPriority() {
-        return this.priority;
-    }
-
-    public final String getReason() {
-        return this.reason;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getTaskQueueSid() {
-        return this.taskQueueSid;
-    }
-
-    public final String getTaskQueueFriendlyName() {
-        return this.taskQueueFriendlyName;
-    }
-
-    public final String getTaskChannelSid() {
-        return this.taskChannelSid;
-    }
-
-    public final String getTaskChannelUniqueName() {
-        return this.taskChannelUniqueName;
-    }
-
-    public final Integer getTimeout() {
-        return this.timeout;
-    }
-
-    public final String getWorkflowSid() {
-        return this.workflowSid;
-    }
-
-    public final String getWorkflowFriendlyName() {
-        return this.workflowFriendlyName;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.virtualStartTime = virtualStartTime;
+        this.workflowFriendlyName = workflowFriendlyName;
+        this.workflowSid = workflowSid;
+        this.workspaceSid = workspaceSid;
     }
 
     @Override
@@ -310,35 +301,37 @@ public class Task extends Resource {
         }
 
         Task other = (Task) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(addons, other.addons) &&
             Objects.equals(age, other.age) &&
             Objects.equals(assignmentStatus, other.assignmentStatus) &&
             Objects.equals(attributes, other.attributes) &&
-            Objects.equals(addons, other.addons) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(taskQueueEnteredDate, other.taskQueueEnteredDate) &&
+            Objects.equals(ignoreCapacity, other.ignoreCapacity) &&
+            Objects.equals(links, other.links) &&
             Objects.equals(priority, other.priority) &&
             Objects.equals(reason, other.reason) &&
+            Objects.equals(routingTarget, other.routingTarget) &&
             Objects.equals(sid, other.sid) &&
-            Objects.equals(taskQueueSid, other.taskQueueSid) &&
-            Objects.equals(
-                taskQueueFriendlyName,
-                other.taskQueueFriendlyName
-            ) &&
             Objects.equals(taskChannelSid, other.taskChannelSid) &&
             Objects.equals(
                 taskChannelUniqueName,
                 other.taskChannelUniqueName
             ) &&
+            Objects.equals(taskQueueEnteredDate, other.taskQueueEnteredDate) &&
+            Objects.equals(
+                taskQueueFriendlyName,
+                other.taskQueueFriendlyName
+            ) &&
+            Objects.equals(taskQueueSid, other.taskQueueSid) &&
             Objects.equals(timeout, other.timeout) &&
-            Objects.equals(workflowSid, other.workflowSid) &&
-            Objects.equals(workflowFriendlyName, other.workflowFriendlyName) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
             Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(virtualStartTime, other.virtualStartTime) &&
+            Objects.equals(workflowFriendlyName, other.workflowFriendlyName) &&
+            Objects.equals(workflowSid, other.workflowSid) &&
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
@@ -346,26 +339,29 @@ public class Task extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
+            addons,
             age,
             assignmentStatus,
             attributes,
-            addons,
             dateCreated,
             dateUpdated,
-            taskQueueEnteredDate,
+            ignoreCapacity,
+            links,
             priority,
             reason,
+            routingTarget,
             sid,
-            taskQueueSid,
-            taskQueueFriendlyName,
             taskChannelSid,
             taskChannelUniqueName,
+            taskQueueEnteredDate,
+            taskQueueFriendlyName,
+            taskQueueSid,
             timeout,
-            workflowSid,
-            workflowFriendlyName,
-            workspaceSid,
             url,
-            links
+            virtualStartTime,
+            workflowFriendlyName,
+            workflowSid,
+            workspaceSid
         );
     }
 }

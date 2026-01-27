@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Sim extends Resource {
-
-    private static final long serialVersionUID = 220976187959759L;
 
     public static SimFetcher fetcher(final String pathSid) {
         return new SimFetcher(pathSid);
@@ -96,168 +98,139 @@ public class Sim extends Resource {
         }
     }
 
-    private final String sid;
-    private final String uniqueName;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String ratePlanSid;
-    private final String friendlyName;
-    private final String iccid;
-    private final String eId;
-    private final String status;
-    private final URI commandsCallbackUrl;
+
+    @Getter
     private final String commandsCallbackMethod;
-    private final HttpMethod smsFallbackMethod;
-    private final URI smsFallbackUrl;
-    private final HttpMethod smsMethod;
-    private final URI smsUrl;
-    private final HttpMethod voiceFallbackMethod;
-    private final URI voiceFallbackUrl;
-    private final HttpMethod voiceMethod;
-    private final URI voiceUrl;
+
+    @Getter
+    private final URI commandsCallbackUrl;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+
+    @Getter
+    private final String eId;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final String iccid;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String ratePlanSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final HttpMethod smsFallbackMethod;
+
+    @Getter
+    private final URI smsFallbackUrl;
+
+    @Getter
+    private final HttpMethod smsMethod;
+
+    @Getter
+    private final URI smsUrl;
+
+    @Getter
+    private final String status;
+
+    @Getter
+    private final String uniqueName;
+
+    @Getter
+    private final URI url;
+
+    @Getter
+    private final HttpMethod voiceFallbackMethod;
+
+    @Getter
+    private final URI voiceFallbackUrl;
+
+    @Getter
+    private final HttpMethod voiceMethod;
+
+    @Getter
+    private final URI voiceUrl;
 
     @JsonCreator
     private Sim(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("rate_plan_sid") final String ratePlanSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("iccid") final String iccid,
-        @JsonProperty("e_id") final String eId,
-        @JsonProperty("status") final String status,
-        @JsonProperty("commands_callback_url") final URI commandsCallbackUrl,
         @JsonProperty(
             "commands_callback_method"
         ) final String commandsCallbackMethod,
+        @JsonProperty("commands_callback_url") final URI commandsCallbackUrl,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("e_id") final String eId,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("iccid") final String iccid,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("rate_plan_sid") final String ratePlanSid,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("sms_fallback_method") final HttpMethod smsFallbackMethod,
         @JsonProperty("sms_fallback_url") final URI smsFallbackUrl,
         @JsonProperty("sms_method") final HttpMethod smsMethod,
         @JsonProperty("sms_url") final URI smsUrl,
+        @JsonProperty("status") final String status,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url,
         @JsonProperty(
             "voice_fallback_method"
         ) final HttpMethod voiceFallbackMethod,
         @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
         @JsonProperty("voice_method") final HttpMethod voiceMethod,
-        @JsonProperty("voice_url") final URI voiceUrl,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("voice_url") final URI voiceUrl
     ) {
-        this.sid = sid;
-        this.uniqueName = uniqueName;
         this.accountSid = accountSid;
-        this.ratePlanSid = ratePlanSid;
+        this.commandsCallbackMethod = commandsCallbackMethod;
+        this.commandsCallbackUrl = commandsCallbackUrl;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.eId = eId;
         this.friendlyName = friendlyName;
         this.iccid = iccid;
-        this.eId = eId;
-        this.status = status;
-        this.commandsCallbackUrl = commandsCallbackUrl;
-        this.commandsCallbackMethod = commandsCallbackMethod;
+        this.links = links;
+        this.ratePlanSid = ratePlanSid;
+        this.sid = sid;
         this.smsFallbackMethod = smsFallbackMethod;
         this.smsFallbackUrl = smsFallbackUrl;
         this.smsMethod = smsMethod;
         this.smsUrl = smsUrl;
+        this.status = status;
+        this.uniqueName = uniqueName;
+        this.url = url;
         this.voiceFallbackMethod = voiceFallbackMethod;
         this.voiceFallbackUrl = voiceFallbackUrl;
         this.voiceMethod = voiceMethod;
         this.voiceUrl = voiceUrl;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
-        this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getRatePlanSid() {
-        return this.ratePlanSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getIccid() {
-        return this.iccid;
-    }
-
-    public final String getEId() {
-        return this.eId;
-    }
-
-    public final String getStatus() {
-        return this.status;
-    }
-
-    public final URI getCommandsCallbackUrl() {
-        return this.commandsCallbackUrl;
-    }
-
-    public final String getCommandsCallbackMethod() {
-        return this.commandsCallbackMethod;
-    }
-
-    public final HttpMethod getSmsFallbackMethod() {
-        return this.smsFallbackMethod;
-    }
-
-    public final URI getSmsFallbackUrl() {
-        return this.smsFallbackUrl;
-    }
-
-    public final HttpMethod getSmsMethod() {
-        return this.smsMethod;
-    }
-
-    public final URI getSmsUrl() {
-        return this.smsUrl;
-    }
-
-    public final HttpMethod getVoiceFallbackMethod() {
-        return this.voiceFallbackMethod;
-    }
-
-    public final URI getVoiceFallbackUrl() {
-        return this.voiceFallbackUrl;
-    }
-
-    public final HttpMethod getVoiceMethod() {
-        return this.voiceMethod;
-    }
-
-    public final URI getVoiceUrl() {
-        return this.voiceUrl;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
     }
 
     @Override
@@ -271,61 +244,60 @@ public class Sim extends Resource {
         }
 
         Sim other = (Sim) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(ratePlanSid, other.ratePlanSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(iccid, other.iccid) &&
-            Objects.equals(eId, other.eId) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(commandsCallbackUrl, other.commandsCallbackUrl) &&
             Objects.equals(
                 commandsCallbackMethod,
                 other.commandsCallbackMethod
             ) &&
+            Objects.equals(commandsCallbackUrl, other.commandsCallbackUrl) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(eId, other.eId) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(iccid, other.iccid) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(ratePlanSid, other.ratePlanSid) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(smsFallbackMethod, other.smsFallbackMethod) &&
             Objects.equals(smsFallbackUrl, other.smsFallbackUrl) &&
             Objects.equals(smsMethod, other.smsMethod) &&
             Objects.equals(smsUrl, other.smsUrl) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url) &&
             Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
             Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
             Objects.equals(voiceMethod, other.voiceMethod) &&
-            Objects.equals(voiceUrl, other.voiceUrl) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(voiceUrl, other.voiceUrl)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            uniqueName,
             accountSid,
-            ratePlanSid,
+            commandsCallbackMethod,
+            commandsCallbackUrl,
+            dateCreated,
+            dateUpdated,
+            eId,
             friendlyName,
             iccid,
-            eId,
-            status,
-            commandsCallbackUrl,
-            commandsCallbackMethod,
+            links,
+            ratePlanSid,
+            sid,
             smsFallbackMethod,
             smsFallbackUrl,
             smsMethod,
             smsUrl,
+            status,
+            uniqueName,
+            url,
             voiceFallbackMethod,
             voiceFallbackUrl,
             voiceMethod,
-            voiceUrl,
-            dateCreated,
-            dateUpdated,
-            url,
-            links
+            voiceUrl
         );
     }
 }

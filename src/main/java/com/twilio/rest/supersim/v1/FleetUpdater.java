@@ -14,9 +14,12 @@
 
 package com.twilio.rest.supersim.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class FleetUpdater extends Updater<Fleet> {
@@ -89,8 +93,7 @@ public class FleetUpdater extends Updater<Fleet> {
         return this;
     }
 
-    @Override
-    public Fleet update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Fleets/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -102,7 +105,9 @@ public class FleetUpdater extends Updater<Fleet> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Fleet update failed: Unable to connect to server"
@@ -113,41 +118,100 @@ public class FleetUpdater extends Updater<Fleet> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Fleet update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Fleet.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Fleet> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Fleet content = Fleet.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (networkAccessProfile != null) {
-            request.addPostParam("NetworkAccessProfile", networkAccessProfile);
+            Serializer.toString(
+                request,
+                "NetworkAccessProfile",
+                networkAccessProfile,
+                ParameterType.URLENCODED
+            );
         }
+
         if (ipCommandsUrl != null) {
-            request.addPostParam("IpCommandsUrl", ipCommandsUrl.toString());
+            Serializer.toString(
+                request,
+                "IpCommandsUrl",
+                ipCommandsUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (ipCommandsMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "IpCommandsMethod",
-                ipCommandsMethod.toString()
+                ipCommandsMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (smsCommandsUrl != null) {
-            request.addPostParam("SmsCommandsUrl", smsCommandsUrl.toString());
-        }
-        if (smsCommandsMethod != null) {
-            request.addPostParam(
-                "SmsCommandsMethod",
-                smsCommandsMethod.toString()
+            Serializer.toString(
+                request,
+                "SmsCommandsUrl",
+                smsCommandsUrl,
+                ParameterType.URLENCODED
             );
         }
+
+        if (smsCommandsMethod != null) {
+            Serializer.toString(
+                request,
+                "SmsCommandsMethod",
+                smsCommandsMethod,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (dataLimit != null) {
-            request.addPostParam("DataLimit", dataLimit.toString());
+            Serializer.toString(
+                request,
+                "DataLimit",
+                dataLimit,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -15,6 +15,7 @@
 package com.twilio.rest.sync.v1.service;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class DocumentFetcher extends Fetcher<Document> {
 
@@ -34,8 +36,7 @@ public class DocumentFetcher extends Fetcher<Document> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Document fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Documents/{Sid}";
 
         path =
@@ -50,6 +51,7 @@ public class DocumentFetcher extends Fetcher<Document> {
             Domains.SYNC.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -62,14 +64,38 @@ public class DocumentFetcher extends Fetcher<Document> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Document fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Document.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Document> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Document content = Document.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

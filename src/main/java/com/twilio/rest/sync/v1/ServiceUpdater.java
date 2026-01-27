@@ -14,9 +14,12 @@
 
 package com.twilio.rest.sync.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class ServiceUpdater extends Updater<Service> {
@@ -89,8 +93,7 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
-    @Override
-    public Service update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -102,7 +105,9 @@ public class ServiceUpdater extends Updater<Service> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Service update failed: Unable to connect to server"
@@ -113,46 +118,99 @@ public class ServiceUpdater extends Updater<Service> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Service update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Service.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Service> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Service content = Service.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (webhookUrl != null) {
-            request.addPostParam("WebhookUrl", webhookUrl.toString());
+            Serializer.toString(
+                request,
+                "WebhookUrl",
+                webhookUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (reachabilityWebhooksEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "ReachabilityWebhooksEnabled",
-                reachabilityWebhooksEnabled.toString()
+                reachabilityWebhooksEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (aclEnabled != null) {
-            request.addPostParam("AclEnabled", aclEnabled.toString());
+            Serializer.toString(
+                request,
+                "AclEnabled",
+                aclEnabled,
+                ParameterType.URLENCODED
+            );
         }
+
         if (reachabilityDebouncingEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "ReachabilityDebouncingEnabled",
-                reachabilityDebouncingEnabled.toString()
+                reachabilityDebouncingEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (reachabilityDebouncingWindow != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "ReachabilityDebouncingWindow",
-                reachabilityDebouncingWindow.toString()
+                reachabilityDebouncingWindow,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksFromRestEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "WebhooksFromRestEnabled",
-                webhooksFromRestEnabled.toString()
+                webhooksFromRestEnabled,
+                ParameterType.URLENCODED
             );
         }
     }

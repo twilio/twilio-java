@@ -14,8 +14,11 @@
 
 package com.twilio.rest.ipmessaging.v1.service.channel;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class MemberUpdater extends Updater<Member> {
 
@@ -55,8 +59,7 @@ public class MemberUpdater extends Updater<Member> {
         return this;
     }
 
-    @Override
-    public Member update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}";
 
@@ -79,7 +82,9 @@ public class MemberUpdater extends Updater<Member> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Member update failed: Unable to connect to server"
@@ -90,22 +95,54 @@ public class MemberUpdater extends Updater<Member> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Member update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Member.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Member> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Member content = Member.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (roleSid != null) {
-            request.addPostParam("RoleSid", roleSid);
+            Serializer.toString(
+                request,
+                "RoleSid",
+                roleSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (lastConsumedMessageIndex != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "LastConsumedMessageIndex",
-                lastConsumedMessageIndex.toString()
+                lastConsumedMessageIndex,
+                ParameterType.URLENCODED
             );
         }
     }

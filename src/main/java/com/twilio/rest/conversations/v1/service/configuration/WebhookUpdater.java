@@ -14,9 +14,12 @@
 
 package com.twilio.rest.conversations.v1.service.configuration;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 import java.util.List;
 
@@ -72,8 +76,7 @@ public class WebhookUpdater extends Updater<Webhook> {
         return this;
     }
 
-    @Override
-    public Webhook update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Configuration/Webhooks";
 
         path =
@@ -89,7 +92,9 @@ public class WebhookUpdater extends Updater<Webhook> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Webhook update failed: Unable to connect to server"
@@ -100,28 +105,75 @@ public class WebhookUpdater extends Updater<Webhook> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Webhook update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Webhook> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Webhook content = Webhook.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (preWebhookUrl != null) {
-            request.addPostParam("PreWebhookUrl", preWebhookUrl.toString());
+            Serializer.toString(
+                request,
+                "PreWebhookUrl",
+                preWebhookUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (postWebhookUrl != null) {
-            request.addPostParam("PostWebhookUrl", postWebhookUrl.toString());
+            Serializer.toString(
+                request,
+                "PostWebhookUrl",
+                postWebhookUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (filters != null) {
-            for (String prop : filters) {
-                request.addPostParam("Filters", prop);
+            for (String param : filters) {
+                Serializer.toString(
+                    request,
+                    "Filters",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (method != null) {
-            request.addPostParam("Method", method);
+            Serializer.toString(
+                request,
+                "Method",
+                method,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

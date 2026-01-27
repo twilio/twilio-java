@@ -15,6 +15,9 @@
 package com.twilio.rest.taskrouter.v1.workspace.taskqueue;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class TaskQueueCumulativeStatisticsFetcher
@@ -79,8 +83,7 @@ public class TaskQueueCumulativeStatisticsFetcher
         return this;
     }
 
-    @Override
-    public TaskQueueCumulativeStatistics fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/CumulativeStatistics";
 
@@ -101,6 +104,7 @@ public class TaskQueueCumulativeStatisticsFetcher
             path
         );
         addQueryParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -113,37 +117,86 @@ public class TaskQueueCumulativeStatisticsFetcher
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public TaskQueueCumulativeStatistics fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return TaskQueueCumulativeStatistics.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<TaskQueueCumulativeStatistics> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        TaskQueueCumulativeStatistics content =
+            TaskQueueCumulativeStatistics.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addQueryParams(final Request request) {
         if (endDate != null) {
-            request.addQueryParam("EndDate", endDate.toInstant().toString());
+            Serializer.toString(
+                request,
+                "EndDate",
+                endDate,
+                ParameterType.QUERY
+            );
         }
 
         if (minutes != null) {
-            request.addQueryParam("Minutes", minutes.toString());
+            Serializer.toString(
+                request,
+                "Minutes",
+                minutes,
+                ParameterType.QUERY
+            );
         }
+
         if (startDate != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "StartDate",
-                startDate.toInstant().toString()
+                startDate,
+                ParameterType.QUERY
             );
         }
 
         if (taskChannel != null) {
-            request.addQueryParam("TaskChannel", taskChannel);
+            Serializer.toString(
+                request,
+                "TaskChannel",
+                taskChannel,
+                ParameterType.QUERY
+            );
         }
+
         if (splitByWaitTime != null) {
-            request.addQueryParam("SplitByWaitTime", splitByWaitTime);
+            Serializer.toString(
+                request,
+                "SplitByWaitTime",
+                splitByWaitTime,
+                ParameterType.QUERY
+            );
         }
     }
 }

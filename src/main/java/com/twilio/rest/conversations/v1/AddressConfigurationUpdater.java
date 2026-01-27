@@ -14,9 +14,12 @@
 
 package com.twilio.rest.conversations.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.util.List;
 
 public class AddressConfigurationUpdater extends Updater<AddressConfiguration> {
@@ -116,8 +120,7 @@ public class AddressConfigurationUpdater extends Updater<AddressConfiguration> {
         return this;
     }
 
-    @Override
-    public AddressConfiguration update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Configuration/Addresses/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -129,7 +132,9 @@ public class AddressConfigurationUpdater extends Updater<AddressConfiguration> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "AddressConfiguration update failed: Unable to connect to server"
@@ -140,66 +145,122 @@ public class AddressConfigurationUpdater extends Updater<AddressConfiguration> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public AddressConfiguration update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return AddressConfiguration.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<AddressConfiguration> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        AddressConfiguration content = AddressConfiguration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (autoCreationEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCreation.Enabled",
-                autoCreationEnabled.toString()
+                autoCreationEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (autoCreationType != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCreation.Type",
-                autoCreationType.toString()
+                autoCreationType,
+                ParameterType.URLENCODED
             );
         }
+
         if (autoCreationConversationServiceSid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCreation.ConversationServiceSid",
-                autoCreationConversationServiceSid
+                autoCreationConversationServiceSid,
+                ParameterType.URLENCODED
             );
         }
+
         if (autoCreationWebhookUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCreation.WebhookUrl",
-                autoCreationWebhookUrl
+                autoCreationWebhookUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (autoCreationWebhookMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCreation.WebhookMethod",
-                autoCreationWebhookMethod.toString()
+                autoCreationWebhookMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (autoCreationWebhookFilters != null) {
-            for (String prop : autoCreationWebhookFilters) {
-                request.addPostParam("AutoCreation.WebhookFilters", prop);
+            for (String param : autoCreationWebhookFilters) {
+                Serializer.toString(
+                    request,
+                    "AutoCreation.WebhookFilters",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (autoCreationStudioFlowSid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCreation.StudioFlowSid",
-                autoCreationStudioFlowSid
+                autoCreationStudioFlowSid,
+                ParameterType.URLENCODED
             );
         }
+
         if (autoCreationStudioRetryCount != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCreation.StudioRetryCount",
-                autoCreationStudioRetryCount.toString()
+                autoCreationStudioRetryCount,
+                ParameterType.URLENCODED
             );
         }
     }

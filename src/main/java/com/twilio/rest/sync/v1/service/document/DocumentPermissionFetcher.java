@@ -15,6 +15,7 @@
 package com.twilio.rest.sync.v1.service.document;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
 
@@ -40,8 +42,7 @@ public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
         this.pathIdentity = pathIdentity;
     }
 
-    @Override
-    public DocumentPermission fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
 
@@ -63,6 +64,7 @@ public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
             Domains.SYNC.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -75,14 +77,38 @@ public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public DocumentPermission fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return DocumentPermission.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<DocumentPermission> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        DocumentPermission content = DocumentPermission.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

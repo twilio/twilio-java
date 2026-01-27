@@ -14,8 +14,11 @@
 
 package com.twilio.rest.chat.v3;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ChannelUpdater extends Updater<Channel> {
 
@@ -38,13 +42,6 @@ public class ChannelUpdater extends Updater<Channel> {
         this.pathSid = pathSid;
     }
 
-    public ChannelUpdater setXTwilioWebhookEnabled(
-        final Channel.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
-        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-        return this;
-    }
-
     public ChannelUpdater setType(final Channel.ChannelType type) {
         this.type = type;
         return this;
@@ -57,8 +54,14 @@ public class ChannelUpdater extends Updater<Channel> {
         return this;
     }
 
-    @Override
-    public Channel update(final TwilioRestClient client) {
+    public ChannelUpdater setXTwilioWebhookEnabled(
+        final Channel.WebhookEnabledType xTwilioWebhookEnabled
+    ) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v3/Services/{ServiceSid}/Channels/{Sid}";
 
         path =
@@ -74,9 +77,11 @@ public class ChannelUpdater extends Updater<Channel> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Channel update failed: Unable to connect to server"
@@ -87,28 +92,65 @@ public class ChannelUpdater extends Updater<Channel> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Channel update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Channel.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Channel> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Channel content = Channel.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (type != null) {
-            request.addPostParam("Type", type.toString());
+            Serializer.toString(
+                request,
+                "Type",
+                type,
+                ParameterType.URLENCODED
+            );
         }
+
         if (messagingServiceSid != null) {
-            request.addPostParam("MessagingServiceSid", messagingServiceSid);
+            Serializer.toString(
+                request,
+                "MessagingServiceSid",
+                messagingServiceSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (xTwilioWebhookEnabled != null) {
-            request.addHeaderParam(
+            Serializer.toString(
+                request,
                 "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled.toString()
+                xTwilioWebhookEnabled,
+                ParameterType.HEADER
             );
         }
     }

@@ -15,10 +15,11 @@
 package com.twilio.rest.notify.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,10 +28,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.util.List;
-import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class NotificationCreator extends Creator<Notification> {
 
@@ -41,14 +40,14 @@ public class NotificationCreator extends Creator<Notification> {
     private String title;
     private String sound;
     private String action;
-    private Map<String, Object> data;
-    private Map<String, Object> apn;
-    private Map<String, Object> gcm;
-    private Map<String, Object> sms;
-    private Map<String, Object> facebookMessenger;
-    private Map<String, Object> fcm;
+    private Object data;
+    private Object apn;
+    private Object gcm;
+    private Object sms;
+    private Object facebookMessenger;
+    private Object fcm;
     private List<String> segment;
-    private Map<String, Object> alexa;
+    private Object alexa;
     private List<String> toBinding;
     private String deliveryCallbackUrl;
     private List<String> identity;
@@ -90,34 +89,34 @@ public class NotificationCreator extends Creator<Notification> {
         return this;
     }
 
-    public NotificationCreator setData(final Map<String, Object> data) {
+    public NotificationCreator setData(final Object data) {
         this.data = data;
         return this;
     }
 
-    public NotificationCreator setApn(final Map<String, Object> apn) {
+    public NotificationCreator setApn(final Object apn) {
         this.apn = apn;
         return this;
     }
 
-    public NotificationCreator setGcm(final Map<String, Object> gcm) {
+    public NotificationCreator setGcm(final Object gcm) {
         this.gcm = gcm;
         return this;
     }
 
-    public NotificationCreator setSms(final Map<String, Object> sms) {
+    public NotificationCreator setSms(final Object sms) {
         this.sms = sms;
         return this;
     }
 
     public NotificationCreator setFacebookMessenger(
-        final Map<String, Object> facebookMessenger
+        final Object facebookMessenger
     ) {
         this.facebookMessenger = facebookMessenger;
         return this;
     }
 
-    public NotificationCreator setFcm(final Map<String, Object> fcm) {
+    public NotificationCreator setFcm(final Object fcm) {
         this.fcm = fcm;
         return this;
     }
@@ -131,7 +130,7 @@ public class NotificationCreator extends Creator<Notification> {
         return setSegment(Promoter.listOfOne(segment));
     }
 
-    public NotificationCreator setAlexa(final Map<String, Object> alexa) {
+    public NotificationCreator setAlexa(final Object alexa) {
         this.alexa = alexa;
         return this;
     }
@@ -170,8 +169,7 @@ public class NotificationCreator extends Creator<Notification> {
         return setTag(Promoter.listOfOne(tag));
     }
 
-    @Override
-    public Notification create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Notifications";
 
         path =
@@ -187,7 +185,9 @@ public class NotificationCreator extends Creator<Notification> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Notification creation failed: Unable to connect to server"
@@ -198,81 +198,184 @@ public class NotificationCreator extends Creator<Notification> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Notification create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Notification.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Notification> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Notification content = Notification.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (body != null) {
-            request.addPostParam("Body", body);
-        }
-        if (priority != null) {
-            request.addPostParam("Priority", priority.toString());
-        }
-        if (ttl != null) {
-            request.addPostParam("Ttl", ttl.toString());
-        }
-        if (title != null) {
-            request.addPostParam("Title", title);
-        }
-        if (sound != null) {
-            request.addPostParam("Sound", sound);
-        }
-        if (action != null) {
-            request.addPostParam("Action", action);
-        }
-        if (data != null) {
-            request.addPostParam("Data", Converter.mapToJson(data));
-        }
-        if (apn != null) {
-            request.addPostParam("Apn", Converter.mapToJson(apn));
-        }
-        if (gcm != null) {
-            request.addPostParam("Gcm", Converter.mapToJson(gcm));
-        }
-        if (sms != null) {
-            request.addPostParam("Sms", Converter.mapToJson(sms));
-        }
-        if (facebookMessenger != null) {
-            request.addPostParam(
-                "FacebookMessenger",
-                Converter.mapToJson(facebookMessenger)
+            Serializer.toString(
+                request,
+                "Body",
+                body,
+                ParameterType.URLENCODED
             );
         }
+
+        if (priority != null) {
+            Serializer.toString(
+                request,
+                "Priority",
+                priority,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (ttl != null) {
+            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
+        }
+
+        if (title != null) {
+            Serializer.toString(
+                request,
+                "Title",
+                title,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (sound != null) {
+            Serializer.toString(
+                request,
+                "Sound",
+                sound,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (action != null) {
+            Serializer.toString(
+                request,
+                "Action",
+                action,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (data != null) {
+            Serializer.toString(
+                request,
+                "Data",
+                data,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (apn != null) {
+            Serializer.toString(request, "Apn", apn, ParameterType.URLENCODED);
+        }
+
+        if (gcm != null) {
+            Serializer.toString(request, "Gcm", gcm, ParameterType.URLENCODED);
+        }
+
+        if (sms != null) {
+            Serializer.toString(request, "Sms", sms, ParameterType.URLENCODED);
+        }
+
+        if (facebookMessenger != null) {
+            Serializer.toString(
+                request,
+                "FacebookMessenger",
+                facebookMessenger,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (fcm != null) {
-            request.addPostParam("Fcm", Converter.mapToJson(fcm));
+            Serializer.toString(request, "Fcm", fcm, ParameterType.URLENCODED);
         }
+
         if (segment != null) {
-            for (String prop : segment) {
-                request.addPostParam("Segment", prop);
+            for (String param : segment) {
+                Serializer.toString(
+                    request,
+                    "Segment",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (alexa != null) {
-            request.addPostParam("Alexa", Converter.mapToJson(alexa));
+            Serializer.toString(
+                request,
+                "Alexa",
+                alexa,
+                ParameterType.URLENCODED
+            );
         }
+
         if (toBinding != null) {
-            for (String prop : toBinding) {
-                request.addPostParam("ToBinding", prop);
+            for (String param : toBinding) {
+                Serializer.toString(
+                    request,
+                    "ToBinding",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (deliveryCallbackUrl != null) {
-            request.addPostParam("DeliveryCallbackUrl", deliveryCallbackUrl);
+            Serializer.toString(
+                request,
+                "DeliveryCallbackUrl",
+                deliveryCallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (identity != null) {
-            for (String prop : identity) {
-                request.addPostParam("Identity", prop);
+            for (String param : identity) {
+                Serializer.toString(
+                    request,
+                    "Identity",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (tag != null) {
-            for (String prop : tag) {
-                request.addPostParam("Tag", prop);
+            for (String param : tag) {
+                Serializer.toString(
+                    request,
+                    "Tag",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
     }

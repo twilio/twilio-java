@@ -18,25 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class OriginationUrl extends Resource {
-
-    private static final long serialVersionUID = 133388691973992L;
 
     public static OriginationUrlCreator creator(
         final String pathTrunkSid,
@@ -124,87 +127,80 @@ public class OriginationUrl extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String sid;
-    private final String trunkSid;
-    private final Integer weight;
-    private final Boolean enabled;
-    private final URI sipUrl;
-    private final String friendlyName;
-    private final Integer priority;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final Boolean enabled;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final Integer priority;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final URI sipUrl;
+
+    @Getter
+    private final String trunkSid;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final Integer weight;
 
     @JsonCreator
     private OriginationUrl(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("trunk_sid") final String trunkSid,
-        @JsonProperty("weight") final Integer weight,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("enabled") final Boolean enabled,
-        @JsonProperty("sip_url") final URI sipUrl,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("priority") final Integer priority,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("sip_url") final URI sipUrl,
+        @JsonProperty("trunk_sid") final String trunkSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("weight") final Integer weight
     ) {
         this.accountSid = accountSid;
-        this.sid = sid;
-        this.trunkSid = trunkSid;
-        this.weight = weight;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.enabled = enabled;
-        this.sipUrl = sipUrl;
         this.friendlyName = friendlyName;
         this.priority = priority;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.sid = sid;
+        this.sipUrl = sipUrl;
+        this.trunkSid = trunkSid;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getTrunkSid() {
-        return this.trunkSid;
-    }
-
-    public final Integer getWeight() {
-        return this.weight;
-    }
-
-    public final Boolean getEnabled() {
-        return this.enabled;
-    }
-
-    public final URI getSipUrl() {
-        return this.sipUrl;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Integer getPriority() {
-        return this.priority;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.weight = weight;
     }
 
     @Override
@@ -218,19 +214,18 @@ public class OriginationUrl extends Resource {
         }
 
         OriginationUrl other = (OriginationUrl) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(trunkSid, other.trunkSid) &&
-            Objects.equals(weight, other.weight) &&
-            Objects.equals(enabled, other.enabled) &&
-            Objects.equals(sipUrl, other.sipUrl) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(priority, other.priority) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url)
+            Objects.equals(enabled, other.enabled) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(priority, other.priority) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(sipUrl, other.sipUrl) &&
+            Objects.equals(trunkSid, other.trunkSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(weight, other.weight)
         );
     }
 
@@ -238,16 +233,16 @@ public class OriginationUrl extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
-            sid,
-            trunkSid,
-            weight,
-            enabled,
-            sipUrl,
-            friendlyName,
-            priority,
             dateCreated,
             dateUpdated,
-            url
+            enabled,
+            friendlyName,
+            priority,
+            sid,
+            sipUrl,
+            trunkSid,
+            url,
+            weight
         );
     }
 }

@@ -66,7 +66,7 @@ public class TaskRouterCapability extends Jwt {
     public static class Builder {
 
         private String accountSid;
-        private String authToken;
+        private byte[] authToken;
         private String workspaceSid;
         private String channelId;
         private String friendlyName;
@@ -81,7 +81,7 @@ public class TaskRouterCapability extends Jwt {
          * @param workspaceSid workspace sid to use
          * @param channelId    channel ID to use
          */
-        public Builder(String accountSid, String authToken, String workspaceSid, String channelId) {
+        public Builder(String accountSid, byte[] authToken, String workspaceSid, String channelId) {
             this.accountSid = accountSid;
             this.authToken = authToken;
             this.workspaceSid = workspaceSid;

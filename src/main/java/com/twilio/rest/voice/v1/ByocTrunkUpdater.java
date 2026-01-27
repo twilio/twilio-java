@@ -14,9 +14,12 @@
 
 package com.twilio.rest.voice.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class ByocTrunkUpdater extends Updater<ByocTrunk> {
@@ -117,8 +121,7 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
         return this;
     }
 
-    @Override
-    public ByocTrunk update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/ByocTrunks/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -130,7 +133,9 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ByocTrunk update failed: Unable to connect to server"
@@ -141,62 +146,130 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ByocTrunk update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ByocTrunk.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<ByocTrunk> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ByocTrunk content = ByocTrunk.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (voiceUrl != null) {
-            request.addPostParam("VoiceUrl", voiceUrl.toString());
+            Serializer.toString(
+                request,
+                "VoiceUrl",
+                voiceUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (voiceMethod != null) {
-            request.addPostParam("VoiceMethod", voiceMethod.toString());
+            Serializer.toString(
+                request,
+                "VoiceMethod",
+                voiceMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (voiceFallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VoiceFallbackUrl",
-                voiceFallbackUrl.toString()
+                voiceFallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceFallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VoiceFallbackMethod",
-                voiceFallbackMethod.toString()
+                voiceFallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (statusCallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "StatusCallbackUrl",
-                statusCallbackUrl.toString()
+                statusCallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (statusCallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "StatusCallbackMethod",
-                statusCallbackMethod.toString()
+                statusCallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (cnamLookupEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "CnamLookupEnabled",
-                cnamLookupEnabled.toString()
+                cnamLookupEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (connectionPolicySid != null) {
-            request.addPostParam("ConnectionPolicySid", connectionPolicySid);
+            Serializer.toString(
+                request,
+                "ConnectionPolicySid",
+                connectionPolicySid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (fromDomainSid != null) {
-            request.addPostParam("FromDomainSid", fromDomainSid);
+            Serializer.toString(
+                request,
+                "FromDomainSid",
+                fromDomainSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

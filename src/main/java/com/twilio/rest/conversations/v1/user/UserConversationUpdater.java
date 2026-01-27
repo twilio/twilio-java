@@ -14,8 +14,11 @@
 
 package com.twilio.rest.conversations.v1.user;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class UserConversationUpdater extends Updater<UserConversation> {
@@ -63,8 +67,7 @@ public class UserConversationUpdater extends Updater<UserConversation> {
         return this;
     }
 
-    @Override
-    public UserConversation update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Users/{UserSid}/Conversations/{ConversationSid}";
 
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
@@ -81,7 +84,9 @@ public class UserConversationUpdater extends Updater<UserConversation> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "UserConversation update failed: Unable to connect to server"
@@ -92,34 +97,66 @@ public class UserConversationUpdater extends Updater<UserConversation> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public UserConversation update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return UserConversation.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<UserConversation> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        UserConversation content = UserConversation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (notificationLevel != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "NotificationLevel",
-                notificationLevel.toString()
+                notificationLevel,
+                ParameterType.URLENCODED
             );
         }
+
         if (lastReadTimestamp != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "LastReadTimestamp",
-                lastReadTimestamp.toInstant().toString()
+                lastReadTimestamp,
+                ParameterType.URLENCODED
             );
         }
+
         if (lastReadMessageIndex != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "LastReadMessageIndex",
-                lastReadMessageIndex.toString()
+                lastReadMessageIndex,
+                ParameterType.URLENCODED
             );
         }
     }

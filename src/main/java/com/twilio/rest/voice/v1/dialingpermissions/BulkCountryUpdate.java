@@ -18,22 +18,25 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BulkCountryUpdate extends Resource {
-
-    private static final long serialVersionUID = 163351854930638L;
 
     public static BulkCountryUpdateCreator creator(final String updateRequest) {
         return new BulkCountryUpdateCreator(updateRequest);
@@ -82,7 +85,22 @@ public class BulkCountryUpdate extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final Integer updateCount;
+
+    @Getter
     private final String updateRequest;
 
     @JsonCreator
@@ -92,14 +110,6 @@ public class BulkCountryUpdate extends Resource {
     ) {
         this.updateCount = updateCount;
         this.updateRequest = updateRequest;
-    }
-
-    public final Integer getUpdateCount() {
-        return this.updateCount;
-    }
-
-    public final String getUpdateRequest() {
-        return this.updateRequest;
     }
 
     @Override
@@ -113,7 +123,6 @@ public class BulkCountryUpdate extends Resource {
         }
 
         BulkCountryUpdate other = (BulkCountryUpdate) o;
-
         return (
             Objects.equals(updateCount, other.updateCount) &&
             Objects.equals(updateRequest, other.updateRequest)

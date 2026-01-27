@@ -15,7 +15,10 @@
 package com.twilio.rest.verify.v2.service.ratelimit;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class BucketCreator extends Creator<Bucket> {
 
@@ -54,8 +58,7 @@ public class BucketCreator extends Creator<Bucket> {
         return this;
     }
 
-    @Override
-    public Bucket create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets";
 
@@ -69,8 +72,6 @@ public class BucketCreator extends Creator<Bucket> {
                 "{" + "RateLimitSid" + "}",
                 this.pathRateLimitSid.toString()
             );
-        path = path.replace("{" + "Max" + "}", this.max.toString());
-        path = path.replace("{" + "Interval" + "}", this.interval.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -79,7 +80,9 @@ public class BucketCreator extends Creator<Bucket> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Bucket creation failed: Unable to connect to server"
@@ -90,20 +93,50 @@ public class BucketCreator extends Creator<Bucket> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Bucket create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Bucket.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Bucket> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Bucket content = Bucket.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (max != null) {
-            request.addPostParam("Max", max.toString());
+            Serializer.toString(request, "Max", max, ParameterType.URLENCODED);
         }
+
         if (interval != null) {
-            request.addPostParam("Interval", interval.toString());
+            Serializer.toString(
+                request,
+                "Interval",
+                interval,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

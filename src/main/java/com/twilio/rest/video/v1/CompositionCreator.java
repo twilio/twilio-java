@@ -15,10 +15,11 @@
 package com.twilio.rest.video.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,17 +28,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 import java.util.List;
-import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class CompositionCreator extends Creator<Composition> {
 
     private String roomSid;
-    private Map<String, Object> videoLayout;
+    private Object videoLayout;
     private List<String> audioSources;
     private List<String> audioSourcesExcluded;
     private String resolution;
@@ -55,9 +53,7 @@ public class CompositionCreator extends Creator<Composition> {
         return this;
     }
 
-    public CompositionCreator setVideoLayout(
-        final Map<String, Object> videoLayout
-    ) {
+    public CompositionCreator setVideoLayout(final Object videoLayout) {
         this.videoLayout = videoLayout;
         return this;
     }
@@ -117,11 +113,8 @@ public class CompositionCreator extends Creator<Composition> {
         return this;
     }
 
-    @Override
-    public Composition create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Compositions";
-
-        path = path.replace("{" + "RoomSid" + "}", this.roomSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -130,7 +123,9 @@ public class CompositionCreator extends Creator<Composition> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Composition creation failed: Unable to connect to server"
@@ -141,54 +136,125 @@ public class CompositionCreator extends Creator<Composition> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Composition create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Composition.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Composition> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Composition content = Composition.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (roomSid != null) {
-            request.addPostParam("RoomSid", roomSid);
+            Serializer.toString(
+                request,
+                "RoomSid",
+                roomSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (videoLayout != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VideoLayout",
-                Converter.mapToJson(videoLayout)
+                videoLayout,
+                ParameterType.URLENCODED
             );
         }
+
         if (audioSources != null) {
-            for (String prop : audioSources) {
-                request.addPostParam("AudioSources", prop);
+            for (String param : audioSources) {
+                Serializer.toString(
+                    request,
+                    "AudioSources",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (audioSourcesExcluded != null) {
-            for (String prop : audioSourcesExcluded) {
-                request.addPostParam("AudioSourcesExcluded", prop);
+            for (String param : audioSourcesExcluded) {
+                Serializer.toString(
+                    request,
+                    "AudioSourcesExcluded",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (resolution != null) {
-            request.addPostParam("Resolution", resolution);
-        }
-        if (format != null) {
-            request.addPostParam("Format", format.toString());
-        }
-        if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
-        }
-        if (statusCallbackMethod != null) {
-            request.addPostParam(
-                "StatusCallbackMethod",
-                statusCallbackMethod.toString()
+            Serializer.toString(
+                request,
+                "Resolution",
+                resolution,
+                ParameterType.URLENCODED
             );
         }
+
+        if (format != null) {
+            Serializer.toString(
+                request,
+                "Format",
+                format,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (statusCallback != null) {
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (statusCallbackMethod != null) {
+            Serializer.toString(
+                request,
+                "StatusCallbackMethod",
+                statusCallbackMethod,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (trim != null) {
-            request.addPostParam("Trim", trim.toString());
+            Serializer.toString(
+                request,
+                "Trim",
+                trim,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -15,7 +15,10 @@
 package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class EsimProfileCreator extends Creator<EsimProfile> {
 
@@ -58,8 +62,7 @@ public class EsimProfileCreator extends Creator<EsimProfile> {
         return this;
     }
 
-    @Override
-    public EsimProfile create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/ESimProfiles";
 
         Request request = new Request(
@@ -69,7 +72,9 @@ public class EsimProfileCreator extends Creator<EsimProfile> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "EsimProfile creation failed: Unable to connect to server"
@@ -80,32 +85,71 @@ public class EsimProfileCreator extends Creator<EsimProfile> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public EsimProfile create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return EsimProfile.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<EsimProfile> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        EsimProfile content = EsimProfile.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (callbackUrl != null) {
-            request.addPostParam("CallbackUrl", callbackUrl);
-        }
-        if (callbackMethod != null) {
-            request.addPostParam("CallbackMethod", callbackMethod.toString());
-        }
-        if (generateMatchingId != null) {
-            request.addPostParam(
-                "GenerateMatchingId",
-                generateMatchingId.toString()
+            Serializer.toString(
+                request,
+                "CallbackUrl",
+                callbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
+        if (callbackMethod != null) {
+            Serializer.toString(
+                request,
+                "CallbackMethod",
+                callbackMethod,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (generateMatchingId != null) {
+            Serializer.toString(
+                request,
+                "GenerateMatchingId",
+                generateMatchingId,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (eid != null) {
-            request.addPostParam("Eid", eid);
+            Serializer.toString(request, "Eid", eid, ParameterType.URLENCODED);
         }
     }
 }

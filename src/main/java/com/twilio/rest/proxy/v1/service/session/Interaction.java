@@ -18,26 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Interaction extends Resource {
-
-    private static final long serialVersionUID = 104550389018086L;
 
     public static InteractionDeleter deleter(
         final String pathServiceSid,
@@ -60,6 +63,66 @@ public class Interaction extends Resource {
         final String pathSessionSid
     ) {
         return new InteractionReader(pathServiceSid, pathSessionSid);
+    }
+
+    public enum Type {
+        MESSAGE("message"),
+        VOICE("voice"),
+        UNKNOWN("unknown");
+
+        private final String value;
+
+        private Type(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
+        }
+    }
+
+    public enum ResourceStatus {
+        ACCEPTED("accepted"),
+        ANSWERED("answered"),
+        BUSY("busy"),
+        CANCELED("canceled"),
+        COMPLETED("completed"),
+        DELETED("deleted"),
+        DELIVERED("delivered"),
+        DELIVERY_UNKNOWN("delivery-unknown"),
+        FAILED("failed"),
+        IN_PROGRESS("in-progress"),
+        INITIATED("initiated"),
+        NO_ANSWER("no-answer"),
+        QUEUED("queued"),
+        RECEIVED("received"),
+        RECEIVING("receiving"),
+        RINGING("ringing"),
+        SCHEDULED("scheduled"),
+        SENDING("sending"),
+        SENT("sent"),
+        UNDELIVERED("undelivered"),
+        UNKNOWN("unknown");
+
+        private final String value;
+
+        private ResourceStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ResourceStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ResourceStatus.values());
+        }
     }
 
     /**
@@ -105,94 +168,85 @@ public class Interaction extends Resource {
         }
     }
 
-    public enum ResourceStatus {
-        ACCEPTED("accepted"),
-        ANSWERED("answered"),
-        BUSY("busy"),
-        CANCELED("canceled"),
-        COMPLETED("completed"),
-        DELETED("deleted"),
-        DELIVERED("delivered"),
-        DELIVERY_UNKNOWN("delivery-unknown"),
-        FAILED("failed"),
-        IN_PROGRESS("in-progress"),
-        INITIATED("initiated"),
-        NO_ANSWER("no-answer"),
-        QUEUED("queued"),
-        RECEIVED("received"),
-        RECEIVING("receiving"),
-        RINGING("ringing"),
-        SCHEDULED("scheduled"),
-        SENDING("sending"),
-        SENT("sent"),
-        UNDELIVERED("undelivered"),
-        UNKNOWN("unknown");
-
-        private final String value;
-
-        private ResourceStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ResourceStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ResourceStatus.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    public enum Type {
-        MESSAGE("message"),
-        VOICE("voice"),
-        UNKNOWN("unknown");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-    }
-
-    private final String sid;
-    private final String sessionSid;
-    private final String serviceSid;
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String data;
-    private final Interaction.Type type;
-    private final String inboundParticipantSid;
-    private final String inboundResourceSid;
-    private final Interaction.ResourceStatus inboundResourceStatus;
-    private final String inboundResourceType;
-    private final URI inboundResourceUrl;
-    private final String outboundParticipantSid;
-    private final String outboundResourceSid;
-    private final Interaction.ResourceStatus outboundResourceStatus;
-    private final String outboundResourceType;
-    private final URI outboundResourceUrl;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String inboundParticipantSid;
+
+    @Getter
+    private final String inboundResourceSid;
+
+    @Getter
+    private final Interaction.ResourceStatus inboundResourceStatus;
+
+    @Getter
+    private final String inboundResourceType;
+
+    @Getter
+    private final URI inboundResourceUrl;
+
+    @Getter
+    private final String outboundParticipantSid;
+
+    @Getter
+    private final String outboundResourceSid;
+
+    @Getter
+    private final Interaction.ResourceStatus outboundResourceStatus;
+
+    @Getter
+    private final String outboundResourceType;
+
+    @Getter
+    private final URI outboundResourceUrl;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sessionSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Interaction.Type type;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Interaction(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("session_sid") final String sessionSid,
-        @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("data") final String data,
-        @JsonProperty("type") final Interaction.Type type,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty(
             "inbound_participant_sid"
         ) final String inboundParticipantSid,
@@ -213,16 +267,16 @@ public class Interaction extends Resource {
             "outbound_resource_type"
         ) final String outboundResourceType,
         @JsonProperty("outbound_resource_url") final URI outboundResourceUrl,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("session_sid") final String sessionSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("type") final Interaction.Type type,
         @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
-        this.sessionSid = sessionSid;
-        this.serviceSid = serviceSid;
         this.accountSid = accountSid;
         this.data = data;
-        this.type = type;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.inboundParticipantSid = inboundParticipantSid;
         this.inboundResourceSid = inboundResourceSid;
         this.inboundResourceStatus = inboundResourceStatus;
@@ -233,85 +287,11 @@ public class Interaction extends Resource {
         this.outboundResourceStatus = outboundResourceStatus;
         this.outboundResourceType = outboundResourceType;
         this.outboundResourceUrl = outboundResourceUrl;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.serviceSid = serviceSid;
+        this.sessionSid = sessionSid;
+        this.sid = sid;
+        this.type = type;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getSessionSid() {
-        return this.sessionSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getData() {
-        return this.data;
-    }
-
-    public final Interaction.Type getType() {
-        return this.type;
-    }
-
-    public final String getInboundParticipantSid() {
-        return this.inboundParticipantSid;
-    }
-
-    public final String getInboundResourceSid() {
-        return this.inboundResourceSid;
-    }
-
-    public final Interaction.ResourceStatus getInboundResourceStatus() {
-        return this.inboundResourceStatus;
-    }
-
-    public final String getInboundResourceType() {
-        return this.inboundResourceType;
-    }
-
-    public final URI getInboundResourceUrl() {
-        return this.inboundResourceUrl;
-    }
-
-    public final String getOutboundParticipantSid() {
-        return this.outboundParticipantSid;
-    }
-
-    public final String getOutboundResourceSid() {
-        return this.outboundResourceSid;
-    }
-
-    public final Interaction.ResourceStatus getOutboundResourceStatus() {
-        return this.outboundResourceStatus;
-    }
-
-    public final String getOutboundResourceType() {
-        return this.outboundResourceType;
-    }
-
-    public final URI getOutboundResourceUrl() {
-        return this.outboundResourceUrl;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -325,14 +305,11 @@ public class Interaction extends Resource {
         }
 
         Interaction other = (Interaction) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(sessionSid, other.sessionSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(data, other.data) &&
-            Objects.equals(type, other.type) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(
                 inboundParticipantSid,
                 other.inboundParticipantSid
@@ -355,8 +332,10 @@ public class Interaction extends Resource {
             ) &&
             Objects.equals(outboundResourceType, other.outboundResourceType) &&
             Objects.equals(outboundResourceUrl, other.outboundResourceUrl) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sessionSid, other.sessionSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(type, other.type) &&
             Objects.equals(url, other.url)
         );
     }
@@ -364,12 +343,10 @@ public class Interaction extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            sessionSid,
-            serviceSid,
             accountSid,
             data,
-            type,
+            dateCreated,
+            dateUpdated,
             inboundParticipantSid,
             inboundResourceSid,
             inboundResourceStatus,
@@ -380,8 +357,10 @@ public class Interaction extends Resource {
             outboundResourceStatus,
             outboundResourceType,
             outboundResourceUrl,
-            dateCreated,
-            dateUpdated,
+            serviceSid,
+            sessionSid,
+            sid,
+            type,
             url
         );
     }

@@ -47,4 +47,12 @@ public abstract class Creator<T extends Resource> {
      * @return Requested object
      */
     public abstract T create(final TwilioRestClient client);
+
+    public TwilioResponse<T> createWithResponse(final TwilioRestClient client) {
+        throw new UnsupportedOperationException("createWithResponse is not supported for this resource.");
+    }
+
+    public TwilioResponse<T> createWithResponse() {
+        return createWithResponse(Twilio.getRestClient());
+    }
 }

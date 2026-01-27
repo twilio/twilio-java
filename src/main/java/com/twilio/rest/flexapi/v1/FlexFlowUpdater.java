@@ -14,9 +14,12 @@
 
 package com.twilio.rest.flexapi.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class FlexFlowUpdater extends Updater<FlexFlow> {
@@ -161,8 +165,7 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
         return this;
     }
 
-    @Override
-    public FlexFlow update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/FlexFlows/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -174,7 +177,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "FlexFlow update failed: Unable to connect to server"
@@ -185,85 +190,192 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public FlexFlow update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return FlexFlow.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<FlexFlow> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        FlexFlow content = FlexFlow.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (chatServiceSid != null) {
-            request.addPostParam("ChatServiceSid", chatServiceSid);
+            Serializer.toString(
+                request,
+                "ChatServiceSid",
+                chatServiceSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (channelType != null) {
-            request.addPostParam("ChannelType", channelType.toString());
+            Serializer.toString(
+                request,
+                "ChannelType",
+                channelType,
+                ParameterType.URLENCODED
+            );
         }
+
         if (contactIdentity != null) {
-            request.addPostParam("ContactIdentity", contactIdentity);
+            Serializer.toString(
+                request,
+                "ContactIdentity",
+                contactIdentity,
+                ParameterType.URLENCODED
+            );
         }
+
         if (enabled != null) {
-            request.addPostParam("Enabled", enabled.toString());
+            Serializer.toString(
+                request,
+                "Enabled",
+                enabled,
+                ParameterType.URLENCODED
+            );
         }
+
         if (integrationType != null) {
-            request.addPostParam("IntegrationType", integrationType.toString());
+            Serializer.toString(
+                request,
+                "IntegrationType",
+                integrationType,
+                ParameterType.URLENCODED
+            );
         }
+
         if (integrationFlowSid != null) {
-            request.addPostParam("Integration.FlowSid", integrationFlowSid);
+            Serializer.toString(
+                request,
+                "Integration.FlowSid",
+                integrationFlowSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (integrationUrl != null) {
-            request.addPostParam("Integration.Url", integrationUrl.toString());
+            Serializer.toString(
+                request,
+                "Integration.Url",
+                integrationUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (integrationWorkspaceSid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Integration.WorkspaceSid",
-                integrationWorkspaceSid
+                integrationWorkspaceSid,
+                ParameterType.URLENCODED
             );
         }
+
         if (integrationWorkflowSid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Integration.WorkflowSid",
-                integrationWorkflowSid
+                integrationWorkflowSid,
+                ParameterType.URLENCODED
             );
         }
+
         if (integrationChannel != null) {
-            request.addPostParam("Integration.Channel", integrationChannel);
+            Serializer.toString(
+                request,
+                "Integration.Channel",
+                integrationChannel,
+                ParameterType.URLENCODED
+            );
         }
+
         if (integrationTimeout != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Integration.Timeout",
-                integrationTimeout.toString()
+                integrationTimeout,
+                ParameterType.URLENCODED
             );
         }
+
         if (integrationPriority != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Integration.Priority",
-                integrationPriority.toString()
+                integrationPriority,
+                ParameterType.URLENCODED
             );
         }
+
         if (integrationCreationOnMessage != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Integration.CreationOnMessage",
-                integrationCreationOnMessage.toString()
+                integrationCreationOnMessage,
+                ParameterType.URLENCODED
             );
         }
+
         if (longLived != null) {
-            request.addPostParam("LongLived", longLived.toString());
+            Serializer.toString(
+                request,
+                "LongLived",
+                longLived,
+                ParameterType.URLENCODED
+            );
         }
+
         if (janitorEnabled != null) {
-            request.addPostParam("JanitorEnabled", janitorEnabled.toString());
+            Serializer.toString(
+                request,
+                "JanitorEnabled",
+                janitorEnabled,
+                ParameterType.URLENCODED
+            );
         }
+
         if (integrationRetryCount != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Integration.RetryCount",
-                integrationRetryCount.toString()
+                integrationRetryCount,
+                ParameterType.URLENCODED
             );
         }
     }

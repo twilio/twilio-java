@@ -18,29 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
-
-    private static final long serialVersionUID = 21473393957377L;
 
     public static ParticipantFetcher fetcher(
         final String pathRoomSid,
@@ -53,53 +54,11 @@ public class Participant extends Resource {
         return new ParticipantReader(pathRoomSid);
     }
 
-    /**
-     * Converts a JSON String into a Participant object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Participant object represented by the provided JSON
-     */
-    public static Participant fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Participant.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Participant object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Participant object represented by the provided JSON
-     */
-    public static Participant fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Participant.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
     public enum Codec {
         VP8("VP8"),
         H264("H264"),
-        VP9("VP9");
+        VP9("VP9"),
+        OPUS("opus");
 
         private final String value;
 
@@ -117,36 +76,11 @@ public class Participant extends Resource {
         }
     }
 
-    public enum EdgeLocation {
-        ASHBURN("ashburn"),
-        DUBLIN("dublin"),
-        FRANKFURT("frankfurt"),
-        SINGAPORE("singapore"),
-        SYDNEY("sydney"),
-        SAO_PAULO("sao_paulo"),
-        ROAMING("roaming"),
-        UMATILLA("umatilla"),
-        TOKYO("tokyo");
-
-        private final String value;
-
-        private EdgeLocation(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static EdgeLocation forValue(final String value) {
-            return Promoter.enumFromString(value, EdgeLocation.values());
-        }
-    }
-
     public enum RoomStatus {
         IN_PROGRESS("in_progress"),
-        COMPLETED("completed");
+        CONNECTED("connected"),
+        COMPLETED("completed"),
+        DISCONNECTED("disconnected");
 
         private final String value;
 
@@ -192,131 +126,204 @@ public class Participant extends Resource {
         }
     }
 
-    private final String participantSid;
-    private final String participantIdentity;
-    private final ZonedDateTime joinTime;
-    private final ZonedDateTime leaveTime;
-    private final Long durationSec;
+    public enum ParticipantCodec {
+        VP8("VP8"),
+        H264("H264"),
+        VP9("VP9"),
+        OPUS("opus");
+
+        private final String value;
+
+        private ParticipantCodec(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ParticipantCodec forValue(final String value) {
+            return Promoter.enumFromString(value, ParticipantCodec.values());
+        }
+    }
+
+    public enum EdgeLocation {
+        ASHBURN("ashburn"),
+        DUBLIN("dublin"),
+        FRANKFURT("frankfurt"),
+        SINGAPORE("singapore"),
+        SYDNEY("sydney"),
+        SAO_PAULO("sao_paulo"),
+        ROAMING("roaming"),
+        UMATILLA("umatilla"),
+        TOKYO("tokyo");
+
+        private final String value;
+
+        private EdgeLocation(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static EdgeLocation forValue(final String value) {
+            return Promoter.enumFromString(value, EdgeLocation.values());
+        }
+    }
+
+    /**
+     * Converts a JSON String into a Participant object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Participant object represented by the provided JSON
+     */
+    public static Participant fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Participant.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a Participant object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Participant object represented by the provided JSON
+     */
+    public static Participant fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Participant.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String roomSid;
-    private final Participant.RoomStatus status;
+
+    @Getter
     private final List<Participant.Codec> codecs;
-    private final String endReason;
-    private final Integer errorCode;
-    private final String errorCodeUrl;
-    private final Participant.TwilioRealm mediaRegion;
-    private final Map<String, Object> properties;
+
+    @Getter
+    private final Long durationSec;
+
+    @Getter
     private final Participant.EdgeLocation edgeLocation;
-    private final Map<String, Object> publisherInfo;
+
+    @Getter
+    private final String endReason;
+
+    @Getter
+    private final Integer errorCode;
+
+    @Getter
+    private final String errorCodeUrl;
+
+    @Getter
+    private final ZonedDateTime joinTime;
+
+    @Getter
+    private final ZonedDateTime leaveTime;
+
+    @Getter
+    private final Participant.TwilioRealm mediaRegion;
+
+    @Getter
+    private final String participantIdentity;
+
+    @Getter
+    private final String participantSid;
+
+    @Getter
+    private final Object properties;
+
+    @Getter
+    private final Object publisherInfo;
+
+    @Getter
+    private final String roomSid;
+
+    @Getter
+    private final Participant.RoomStatus status;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Participant(
-        @JsonProperty("participant_sid") final String participantSid,
-        @JsonProperty("participant_identity") final String participantIdentity,
-        @JsonProperty("join_time") final String joinTime,
-        @JsonProperty("leave_time") final String leaveTime,
-        @JsonProperty("duration_sec") final Long durationSec,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("room_sid") final String roomSid,
-        @JsonProperty("status") final Participant.RoomStatus status,
         @JsonProperty("codecs") final List<Participant.Codec> codecs,
-        @JsonProperty("end_reason") final String endReason,
-        @JsonProperty("error_code") final Integer errorCode,
-        @JsonProperty("error_code_url") final String errorCodeUrl,
-        @JsonProperty("media_region") final Participant.TwilioRealm mediaRegion,
-        @JsonProperty("properties") final Map<String, Object> properties,
+        @JsonProperty("duration_sec") final Long durationSec,
         @JsonProperty(
             "edge_location"
         ) final Participant.EdgeLocation edgeLocation,
-        @JsonProperty("publisher_info") final Map<String, Object> publisherInfo,
+        @JsonProperty("end_reason") final String endReason,
+        @JsonProperty("error_code") final Integer errorCode,
+        @JsonProperty("error_code_url") final String errorCodeUrl,
+        @JsonProperty("join_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime joinTime,
+        @JsonProperty("leave_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime leaveTime,
+        @JsonProperty("media_region") final Participant.TwilioRealm mediaRegion,
+        @JsonProperty("participant_identity") final String participantIdentity,
+        @JsonProperty("participant_sid") final String participantSid,
+        @JsonProperty("properties") final Object properties,
+        @JsonProperty("publisher_info") final Object publisherInfo,
+        @JsonProperty("room_sid") final String roomSid,
+        @JsonProperty("status") final Participant.RoomStatus status,
         @JsonProperty("url") final URI url
     ) {
-        this.participantSid = participantSid;
-        this.participantIdentity = participantIdentity;
-        this.joinTime = DateConverter.iso8601DateTimeFromString(joinTime);
-        this.leaveTime = DateConverter.iso8601DateTimeFromString(leaveTime);
-        this.durationSec = durationSec;
         this.accountSid = accountSid;
-        this.roomSid = roomSid;
-        this.status = status;
         this.codecs = codecs;
+        this.durationSec = durationSec;
+        this.edgeLocation = edgeLocation;
         this.endReason = endReason;
         this.errorCode = errorCode;
         this.errorCodeUrl = errorCodeUrl;
+        this.joinTime = joinTime;
+        this.leaveTime = leaveTime;
         this.mediaRegion = mediaRegion;
+        this.participantIdentity = participantIdentity;
+        this.participantSid = participantSid;
         this.properties = properties;
-        this.edgeLocation = edgeLocation;
         this.publisherInfo = publisherInfo;
+        this.roomSid = roomSid;
+        this.status = status;
         this.url = url;
-    }
-
-    public final String getParticipantSid() {
-        return this.participantSid;
-    }
-
-    public final String getParticipantIdentity() {
-        return this.participantIdentity;
-    }
-
-    public final ZonedDateTime getJoinTime() {
-        return this.joinTime;
-    }
-
-    public final ZonedDateTime getLeaveTime() {
-        return this.leaveTime;
-    }
-
-    public final Long getDurationSec() {
-        return this.durationSec;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getRoomSid() {
-        return this.roomSid;
-    }
-
-    public final Participant.RoomStatus getStatus() {
-        return this.status;
-    }
-
-    public final List<Participant.Codec> getCodecs() {
-        return this.codecs;
-    }
-
-    public final String getEndReason() {
-        return this.endReason;
-    }
-
-    public final Integer getErrorCode() {
-        return this.errorCode;
-    }
-
-    public final String getErrorCodeUrl() {
-        return this.errorCodeUrl;
-    }
-
-    public final Participant.TwilioRealm getMediaRegion() {
-        return this.mediaRegion;
-    }
-
-    public final Map<String, Object> getProperties() {
-        return this.properties;
-    }
-
-    public final Participant.EdgeLocation getEdgeLocation() {
-        return this.edgeLocation;
-    }
-
-    public final Map<String, Object> getPublisherInfo() {
-        return this.publisherInfo;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -330,24 +337,23 @@ public class Participant extends Resource {
         }
 
         Participant other = (Participant) o;
-
         return (
-            Objects.equals(participantSid, other.participantSid) &&
-            Objects.equals(participantIdentity, other.participantIdentity) &&
-            Objects.equals(joinTime, other.joinTime) &&
-            Objects.equals(leaveTime, other.leaveTime) &&
-            Objects.equals(durationSec, other.durationSec) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(roomSid, other.roomSid) &&
-            Objects.equals(status, other.status) &&
             Objects.equals(codecs, other.codecs) &&
+            Objects.equals(durationSec, other.durationSec) &&
+            Objects.equals(edgeLocation, other.edgeLocation) &&
             Objects.equals(endReason, other.endReason) &&
             Objects.equals(errorCode, other.errorCode) &&
             Objects.equals(errorCodeUrl, other.errorCodeUrl) &&
+            Objects.equals(joinTime, other.joinTime) &&
+            Objects.equals(leaveTime, other.leaveTime) &&
             Objects.equals(mediaRegion, other.mediaRegion) &&
+            Objects.equals(participantIdentity, other.participantIdentity) &&
+            Objects.equals(participantSid, other.participantSid) &&
             Objects.equals(properties, other.properties) &&
-            Objects.equals(edgeLocation, other.edgeLocation) &&
             Objects.equals(publisherInfo, other.publisherInfo) &&
+            Objects.equals(roomSid, other.roomSid) &&
+            Objects.equals(status, other.status) &&
             Objects.equals(url, other.url)
         );
     }
@@ -355,22 +361,22 @@ public class Participant extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            participantSid,
-            participantIdentity,
-            joinTime,
-            leaveTime,
-            durationSec,
             accountSid,
-            roomSid,
-            status,
             codecs,
+            durationSec,
+            edgeLocation,
             endReason,
             errorCode,
             errorCodeUrl,
+            joinTime,
+            leaveTime,
             mediaRegion,
+            participantIdentity,
+            participantSid,
             properties,
-            edgeLocation,
             publisherInfo,
+            roomSid,
+            status,
             url
         );
     }

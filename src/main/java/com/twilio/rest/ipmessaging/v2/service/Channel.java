@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Channel extends Resource {
-
-    private static final long serialVersionUID = 188288773259274L;
 
     public static ChannelCreator creator(final String pathServiceSid) {
         return new ChannelCreator(pathServiceSid);
@@ -68,6 +70,46 @@ public class Channel extends Resource {
         final String pathSid
     ) {
         return new ChannelUpdater(pathServiceSid, pathSid);
+    }
+
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
+    }
+
+    public enum ChannelType {
+        PUBLIC("public"),
+        PRIVATE("private");
+
+        private final String value;
+
+        private ChannelType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChannelType forValue(final String value) {
+            return Promoter.enumFromString(value, ChannelType.values());
+        }
     }
 
     /**
@@ -113,148 +155,95 @@ public class Channel extends Resource {
         }
     }
 
-    public enum ChannelType {
-        PUBLIC("public"),
-        PRIVATE("private");
-
-        private final String value;
-
-        private ChannelType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChannelType forValue(final String value) {
-            return Promoter.enumFromString(value, ChannelType.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    public enum WebhookEnabledType {
-        TRUE("true"),
-        FALSE("false");
-
-        private final String value;
-
-        private WebhookEnabledType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static WebhookEnabledType forValue(final String value) {
-            return Promoter.enumFromString(value, WebhookEnabledType.values());
-        }
-    }
-
-    private final String sid;
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final String friendlyName;
-    private final String uniqueName;
+
+    @Getter
     private final String attributes;
-    private final Channel.ChannelType type;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final String createdBy;
-    private final Integer membersCount;
-    private final Integer messagesCount;
-    private final URI url;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final Integer membersCount;
+
+    @Getter
+    private final Integer messagesCount;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Channel.ChannelType type;
+
+    @Getter
+    private final String uniqueName;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Channel(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("attributes") final String attributes,
-        @JsonProperty("type") final Channel.ChannelType type,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("created_by") final String createdBy,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("members_count") final Integer membersCount,
         @JsonProperty("messages_count") final Integer messagesCount,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("type") final Channel.ChannelType type,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
-        this.friendlyName = friendlyName;
-        this.uniqueName = uniqueName;
         this.attributes = attributes;
-        this.type = type;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.createdBy = createdBy;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.friendlyName = friendlyName;
+        this.links = links;
         this.membersCount = membersCount;
         this.messagesCount = messagesCount;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
+        this.type = type;
+        this.uniqueName = uniqueName;
         this.url = url;
-        this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final String getAttributes() {
-        return this.attributes;
-    }
-
-    public final Channel.ChannelType getType() {
-        return this.type;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getCreatedBy() {
-        return this.createdBy;
-    }
-
-    public final Integer getMembersCount() {
-        return this.membersCount;
-    }
-
-    public final Integer getMessagesCount() {
-        return this.messagesCount;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
     }
 
     @Override
@@ -268,42 +257,41 @@ public class Channel extends Resource {
         }
 
         Channel other = (Channel) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
             Objects.equals(attributes, other.attributes) &&
-            Objects.equals(type, other.type) &&
+            Objects.equals(createdBy, other.createdBy) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(createdBy, other.createdBy) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
             Objects.equals(membersCount, other.membersCount) &&
             Objects.equals(messagesCount, other.messagesCount) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            serviceSid,
-            friendlyName,
-            uniqueName,
             attributes,
-            type,
+            createdBy,
             dateCreated,
             dateUpdated,
-            createdBy,
+            friendlyName,
+            links,
             membersCount,
             messagesCount,
-            url,
-            links
+            serviceSid,
+            sid,
+            type,
+            uniqueName,
+            url
         );
     }
 }

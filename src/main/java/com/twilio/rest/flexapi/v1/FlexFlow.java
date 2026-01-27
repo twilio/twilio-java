@@ -18,28 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FlexFlow extends Resource {
-
-    private static final long serialVersionUID = 232454907869065L;
 
     public static FlexFlowCreator creator(
         final String friendlyName,
@@ -63,49 +64,6 @@ public class FlexFlow extends Resource {
 
     public static FlexFlowUpdater updater(final String pathSid) {
         return new FlexFlowUpdater(pathSid);
-    }
-
-    /**
-     * Converts a JSON String into a FlexFlow object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return FlexFlow object represented by the provided JSON
-     */
-    public static FlexFlow fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, FlexFlow.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a FlexFlow object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return FlexFlow object represented by the provided JSON
-     */
-    public static FlexFlow fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, FlexFlow.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
     }
 
     public enum ChannelType {
@@ -153,110 +111,140 @@ public class FlexFlow extends Resource {
         }
     }
 
+    /**
+     * Converts a JSON String into a FlexFlow object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return FlexFlow object represented by the provided JSON
+     */
+    public static FlexFlow fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, FlexFlow.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a FlexFlow object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return FlexFlow object represented by the provided JSON
+     */
+    public static FlexFlow fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, FlexFlow.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final String sid;
-    private final String friendlyName;
-    private final String chatServiceSid;
+
+    @Getter
     private final FlexFlow.ChannelType channelType;
+
+    @Getter
+    private final String chatServiceSid;
+
+    @Getter
     private final String contactIdentity;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final Boolean enabled;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final Object integration;
+
+    @Getter
     private final FlexFlow.IntegrationType integrationType;
-    private final Map<String, Object> integration;
-    private final Boolean longLived;
+
+    @Getter
     private final Boolean janitorEnabled;
+
+    @Getter
+    private final Boolean longLived;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private FlexFlow(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("chat_service_sid") final String chatServiceSid,
         @JsonProperty("channel_type") final FlexFlow.ChannelType channelType,
+        @JsonProperty("chat_service_sid") final String chatServiceSid,
         @JsonProperty("contact_identity") final String contactIdentity,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("enabled") final Boolean enabled,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("integration") final Object integration,
         @JsonProperty(
             "integration_type"
         ) final FlexFlow.IntegrationType integrationType,
-        @JsonProperty("integration") final Map<String, Object> integration,
-        @JsonProperty("long_lived") final Boolean longLived,
         @JsonProperty("janitor_enabled") final Boolean janitorEnabled,
+        @JsonProperty("long_lived") final Boolean longLived,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.sid = sid;
-        this.friendlyName = friendlyName;
-        this.chatServiceSid = chatServiceSid;
         this.channelType = channelType;
+        this.chatServiceSid = chatServiceSid;
         this.contactIdentity = contactIdentity;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.enabled = enabled;
-        this.integrationType = integrationType;
+        this.friendlyName = friendlyName;
         this.integration = integration;
-        this.longLived = longLived;
+        this.integrationType = integrationType;
         this.janitorEnabled = janitorEnabled;
+        this.longLived = longLived;
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getChatServiceSid() {
-        return this.chatServiceSid;
-    }
-
-    public final FlexFlow.ChannelType getChannelType() {
-        return this.channelType;
-    }
-
-    public final String getContactIdentity() {
-        return this.contactIdentity;
-    }
-
-    public final Boolean getEnabled() {
-        return this.enabled;
-    }
-
-    public final FlexFlow.IntegrationType getIntegrationType() {
-        return this.integrationType;
-    }
-
-    public final Map<String, Object> getIntegration() {
-        return this.integration;
-    }
-
-    public final Boolean getLongLived() {
-        return this.longLived;
-    }
-
-    public final Boolean getJanitorEnabled() {
-        return this.janitorEnabled;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -270,21 +258,20 @@ public class FlexFlow extends Resource {
         }
 
         FlexFlow other = (FlexFlow) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(channelType, other.channelType) &&
+            Objects.equals(chatServiceSid, other.chatServiceSid) &&
+            Objects.equals(contactIdentity, other.contactIdentity) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(chatServiceSid, other.chatServiceSid) &&
-            Objects.equals(channelType, other.channelType) &&
-            Objects.equals(contactIdentity, other.contactIdentity) &&
             Objects.equals(enabled, other.enabled) &&
-            Objects.equals(integrationType, other.integrationType) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(integration, other.integration) &&
-            Objects.equals(longLived, other.longLived) &&
+            Objects.equals(integrationType, other.integrationType) &&
             Objects.equals(janitorEnabled, other.janitorEnabled) &&
+            Objects.equals(longLived, other.longLived) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(url, other.url)
         );
     }
@@ -293,18 +280,18 @@ public class FlexFlow extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
+            channelType,
+            chatServiceSid,
+            contactIdentity,
             dateCreated,
             dateUpdated,
-            sid,
-            friendlyName,
-            chatServiceSid,
-            channelType,
-            contactIdentity,
             enabled,
-            integrationType,
+            friendlyName,
             integration,
-            longLived,
+            integrationType,
             janitorEnabled,
+            longLived,
+            sid,
             url
         );
     }

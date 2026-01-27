@@ -18,25 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
-
-    private static final long serialVersionUID = 64791700237770L;
 
     public static WebhookFetcher fetcher() {
         return new WebhookFetcher();
@@ -44,6 +47,46 @@ public class Webhook extends Resource {
 
     public static WebhookUpdater updater() {
         return new WebhookUpdater();
+    }
+
+    public enum Target {
+        WEBHOOK("webhook"),
+        FLEX("flex");
+
+        private final String value;
+
+        private Target(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Target forValue(final String value) {
+            return Promoter.enumFromString(value, Target.values());
+        }
+    }
+
+    public enum Method {
+        GET("GET"),
+        POST("POST");
+
+        private final String value;
+
+        private Method(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Method forValue(final String value) {
+            return Promoter.enumFromString(value, Method.values());
+        }
     }
 
     /**
@@ -89,99 +132,56 @@ public class Webhook extends Resource {
         }
     }
 
-    public enum Method {
-        GET("GET"),
-        POST("POST");
-
-        private final String value;
-
-        private Method(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Method forValue(final String value) {
-            return Promoter.enumFromString(value, Method.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    public enum Target {
-        WEBHOOK("webhook"),
-        FLEX("flex");
-
-        private final String value;
-
-        private Target(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Target forValue(final String value) {
-            return Promoter.enumFromString(value, Target.values());
-        }
-    }
-
+    @Getter
     private final String accountSid;
-    private final Webhook.Method method;
+
+    @Getter
     private final List<String> filters;
-    private final String preWebhookUrl;
+
+    @Getter
+    private final Webhook.Method method;
+
+    @Getter
     private final String postWebhookUrl;
+
+    @Getter
+    private final String preWebhookUrl;
+
+    @Getter
     private final Webhook.Target target;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Webhook(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("method") final Webhook.Method method,
         @JsonProperty("filters") final List<String> filters,
-        @JsonProperty("pre_webhook_url") final String preWebhookUrl,
+        @JsonProperty("method") final Webhook.Method method,
         @JsonProperty("post_webhook_url") final String postWebhookUrl,
+        @JsonProperty("pre_webhook_url") final String preWebhookUrl,
         @JsonProperty("target") final Webhook.Target target,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
-        this.method = method;
         this.filters = filters;
-        this.preWebhookUrl = preWebhookUrl;
+        this.method = method;
         this.postWebhookUrl = postWebhookUrl;
+        this.preWebhookUrl = preWebhookUrl;
         this.target = target;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Webhook.Method getMethod() {
-        return this.method;
-    }
-
-    public final List<String> getFilters() {
-        return this.filters;
-    }
-
-    public final String getPreWebhookUrl() {
-        return this.preWebhookUrl;
-    }
-
-    public final String getPostWebhookUrl() {
-        return this.postWebhookUrl;
-    }
-
-    public final Webhook.Target getTarget() {
-        return this.target;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -195,13 +195,12 @@ public class Webhook extends Resource {
         }
 
         Webhook other = (Webhook) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(method, other.method) &&
             Objects.equals(filters, other.filters) &&
-            Objects.equals(preWebhookUrl, other.preWebhookUrl) &&
+            Objects.equals(method, other.method) &&
             Objects.equals(postWebhookUrl, other.postWebhookUrl) &&
+            Objects.equals(preWebhookUrl, other.preWebhookUrl) &&
             Objects.equals(target, other.target) &&
             Objects.equals(url, other.url)
         );
@@ -211,10 +210,10 @@ public class Webhook extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
-            method,
             filters,
-            preWebhookUrl,
+            method,
             postWebhookUrl,
+            preWebhookUrl,
             target,
             url
         );

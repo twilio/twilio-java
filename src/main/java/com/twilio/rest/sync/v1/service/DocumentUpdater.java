@@ -14,9 +14,11 @@
 
 package com.twilio.rest.sync.v1.service;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,14 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
+import com.twilio.type.*;
 
 public class DocumentUpdater extends Updater<Document> {
 
     private String pathServiceSid;
     private String pathSid;
     private String ifMatch;
-    private Map<String, Object> data;
+    private Object data;
     private Integer ttl;
 
     public DocumentUpdater(final String pathServiceSid, final String pathSid) {
@@ -40,12 +42,7 @@ public class DocumentUpdater extends Updater<Document> {
         this.pathSid = pathSid;
     }
 
-    public DocumentUpdater setIfMatch(final String ifMatch) {
-        this.ifMatch = ifMatch;
-        return this;
-    }
-
-    public DocumentUpdater setData(final Map<String, Object> data) {
+    public DocumentUpdater setData(final Object data) {
         this.data = data;
         return this;
     }
@@ -55,8 +52,12 @@ public class DocumentUpdater extends Updater<Document> {
         return this;
     }
 
-    @Override
-    public Document update(final TwilioRestClient client) {
+    public DocumentUpdater setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
+    }
+
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Documents/{Sid}";
 
         path =
@@ -72,9 +73,11 @@ public class DocumentUpdater extends Updater<Document> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Document update failed: Unable to connect to server"
@@ -85,29 +88,64 @@ public class DocumentUpdater extends Updater<Document> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Document update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Document.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Document> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Document content = Document.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (data != null) {
-            request.addPostParam("Data", Converter.mapToJson(data));
+            Serializer.toString(
+                request,
+                "Data",
+                data,
+                ParameterType.URLENCODED
+            );
         }
+
         if (ttl != null) {
-            request.addPostParam("Ttl", ttl.toString());
+            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (ifMatch != null) {
-            request.addHeaderParam("If-Match", ifMatch);
+            Serializer.toString(
+                request,
+                "If-Match",
+                ifMatch,
+                ParameterType.HEADER
+            );
         }
     }
 }

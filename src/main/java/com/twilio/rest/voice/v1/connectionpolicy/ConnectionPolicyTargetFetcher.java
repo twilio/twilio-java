@@ -15,6 +15,7 @@
 package com.twilio.rest.voice.v1.connectionpolicy;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ConnectionPolicyTargetFetcher
     extends Fetcher<ConnectionPolicyTarget> {
@@ -38,8 +40,7 @@ public class ConnectionPolicyTargetFetcher
         this.pathSid = pathSid;
     }
 
-    @Override
-    public ConnectionPolicyTarget fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
@@ -55,6 +56,7 @@ public class ConnectionPolicyTargetFetcher
             Domains.VOICE.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -67,14 +69,38 @@ public class ConnectionPolicyTargetFetcher
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ConnectionPolicyTarget fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ConnectionPolicyTarget.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ConnectionPolicyTarget> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ConnectionPolicyTarget content = ConnectionPolicyTarget.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

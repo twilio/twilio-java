@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class User extends Resource {
-
-    private static final long serialVersionUID = 270629422616663L;
 
     public static UserCreator creator(final String identity) {
         return new UserCreator(identity);
@@ -59,6 +61,26 @@ public class User extends Resource {
 
     public static UserUpdater updater(final String pathSid) {
         return new UserUpdater(pathSid);
+    }
+
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
     }
 
     /**
@@ -104,121 +126,90 @@ public class User extends Resource {
         }
     }
 
-    public enum WebhookEnabledType {
-        TRUE("true"),
-        FALSE("false");
-
-        private final String value;
-
-        private WebhookEnabledType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static WebhookEnabledType forValue(final String value) {
-            return Promoter.enumFromString(value, WebhookEnabledType.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    private final String sid;
+    @Getter
     private final String accountSid;
-    private final String chatServiceSid;
-    private final String roleSid;
-    private final String identity;
-    private final String friendlyName;
+
+    @Getter
     private final String attributes;
-    private final Boolean isOnline;
-    private final Boolean isNotifiable;
+
+    @Getter
+    private final String chatServiceSid;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final String identity;
+
+    @Getter
+    private final Boolean isNotifiable;
+
+    @Getter
+    private final Boolean isOnline;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String roleSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private User(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("chat_service_sid") final String chatServiceSid,
-        @JsonProperty("role_sid") final String roleSid,
-        @JsonProperty("identity") final String identity,
-        @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("attributes") final String attributes,
-        @JsonProperty("is_online") final Boolean isOnline,
+        @JsonProperty("chat_service_sid") final String chatServiceSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("identity") final String identity,
         @JsonProperty("is_notifiable") final Boolean isNotifiable,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("is_online") final Boolean isOnline,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("role_sid") final String roleSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.chatServiceSid = chatServiceSid;
-        this.roleSid = roleSid;
-        this.identity = identity;
-        this.friendlyName = friendlyName;
         this.attributes = attributes;
-        this.isOnline = isOnline;
+        this.chatServiceSid = chatServiceSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.friendlyName = friendlyName;
+        this.identity = identity;
         this.isNotifiable = isNotifiable;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
+        this.isOnline = isOnline;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getChatServiceSid() {
-        return this.chatServiceSid;
-    }
-
-    public final String getRoleSid() {
-        return this.roleSid;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getAttributes() {
-        return this.attributes;
-    }
-
-    public final Boolean getIsOnline() {
-        return this.isOnline;
-    }
-
-    public final Boolean getIsNotifiable() {
-        return this.isNotifiable;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.roleSid = roleSid;
+        this.sid = sid;
+        this.url = url;
     }
 
     @Override
@@ -232,40 +223,39 @@ public class User extends Resource {
         }
 
         User other = (User) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(chatServiceSid, other.chatServiceSid) &&
-            Objects.equals(roleSid, other.roleSid) &&
-            Objects.equals(identity, other.identity) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(attributes, other.attributes) &&
-            Objects.equals(isOnline, other.isOnline) &&
-            Objects.equals(isNotifiable, other.isNotifiable) &&
+            Objects.equals(chatServiceSid, other.chatServiceSid) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(isNotifiable, other.isNotifiable) &&
+            Objects.equals(isOnline, other.isOnline) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(roleSid, other.roleSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            chatServiceSid,
-            roleSid,
-            identity,
-            friendlyName,
             attributes,
-            isOnline,
-            isNotifiable,
+            chatServiceSid,
             dateCreated,
             dateUpdated,
-            url,
-            links
+            friendlyName,
+            identity,
+            isNotifiable,
+            isOnline,
+            links,
+            roleSid,
+            sid,
+            url
         );
     }
 }

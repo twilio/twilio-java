@@ -1,13 +1,18 @@
 package com.twilio;
 
+import com.twilio.annotations.Beta;
+import com.twilio.auth_strategy.AuthStrategy;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
 import com.twilio.exception.CertificateValidationException;
+import com.twilio.credential.CredentialProvider;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.type.RegionEndpoints;
+import java.util.Map;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -15,13 +20,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Singleton class to initialize Twilio environment.
  */
 public class Twilio {
 
-    public static final String VERSION = "9.10.0";
+    public static final String VERSION = "11.3.2";
     public static final String JAVA_VERSION = System.getProperty("java.version");
     public static final String OS_NAME = System.getProperty("os.name");
     public static final String OS_ARCH = System.getProperty("os.arch");
@@ -34,6 +41,13 @@ public class Twilio {
     private static String edge = System.getenv("TWILIO_EDGE");
     private static volatile TwilioRestClient restClient;
     private static volatile ExecutorService executorService;
+
+    private static CredentialProvider credentialProvider;
+
+    private static Map<String, String> regionMap = RegionEndpoints.getRegions();
+    private static final Logger logger = LoggerFactory.getLogger(Twilio.class);
+
+
 
     private Twilio() {
     }
@@ -64,6 +78,31 @@ public class Twilio {
         Twilio.setAccountSid(null);
     }
 
+    @Beta
+    public static synchronized void init(final CredentialProvider credentialProvider) {
+        Twilio.setCredentialProvider(credentialProvider);
+        Twilio.setAccountSid(null);
+    }
+
+    @Beta
+    public static synchronized void init(final CredentialProvider credentialProvider, String accountSid) {
+        Twilio.setCredentialProvider(credentialProvider);
+        Twilio.setAccountSid(accountSid);
+    }
+
+    private static void setCredentialProvider(final CredentialProvider credentialProvider) {
+        if (credentialProvider == null) {
+            throw new AuthenticationException("Credential Provider can not be null");
+        }
+
+        if (!credentialProvider.equals(Twilio.credentialProvider)) {
+            Twilio.invalidate();
+        }
+        // Invalidate Basic Creds as they might be initialized via environment variables.
+        invalidateBasicCreds();
+        Twilio.credentialProvider = credentialProvider;
+    }
+
     /**
      * Initialize the Twilio environment.
      *
@@ -91,6 +130,7 @@ public class Twilio {
         if (!username.equals(Twilio.username)) {
             Twilio.invalidate();
         }
+        Twilio.invalidateOAuthCreds();
 
         Twilio.username = username;
     }
@@ -109,6 +149,7 @@ public class Twilio {
         if (!password.equals(Twilio.password)) {
             Twilio.invalidate();
         }
+        Twilio.invalidateOAuthCreds();
 
         Twilio.password = password;
     }
@@ -181,12 +222,19 @@ public class Twilio {
 
     private static TwilioRestClient buildRestClient() {
         if (Twilio.username == null || Twilio.password == null) {
-            throw new AuthenticationException(
-                "TwilioRestClient was used before AccountSid and AuthToken were set, please call Twilio.init()"
-            );
+            if (credentialProvider == null) {
+                throw new AuthenticationException(
+                        "Credentials have not been initialized or changed, please call Twilio.init()"
+                );
+            }
         }
-
-        TwilioRestClient.Builder builder = new TwilioRestClient.Builder(Twilio.username, Twilio.password);
+        TwilioRestClient.Builder builder;
+        if (credentialProvider != null) {
+            AuthStrategy authStrategy = credentialProvider.toAuthStrategy();
+            builder = new TwilioRestClient.Builder(authStrategy);
+        } else {
+            builder = new TwilioRestClient.Builder(Twilio.username, Twilio.password);
+        }
 
         if (Twilio.accountSid != null) {
             builder.accountSid(Twilio.accountSid);
@@ -195,7 +243,12 @@ public class Twilio {
         if (userAgentExtensions != null) {
             builder.userAgentExtensions(Twilio.userAgentExtensions);
         }
-
+        if (Twilio.edge == null && Twilio.region != null) {
+            logger.warn(
+                "Setting default `Edge` for the provided `region`. For regional processing, DNS is of format product.<city>.<region>.twilio.com; otherwise use product.twilio.com."
+            );
+            Twilio.edge = regionMap.get(Twilio.region);
+        }
         builder.region(Twilio.region);
         builder.edge(Twilio.edge);
 
@@ -241,7 +294,7 @@ public class Twilio {
     }
 
     /**
-     * Validate that we can connect to the new SSL certificate posted on api.twilio.com.
+     * Validate that we can connect to the new SSL certificate posted on tls-test.twilio.com
      *
      * @throws CertificateValidationException if the connection fails
      */
@@ -252,7 +305,7 @@ public class Twilio {
 
 
     public static void validateSslCertificate(NetworkHttpClient client) {
-        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+        final Request request = new Request(HttpMethod.GET, "https://tls-test.twilio.com:443");
         try {
             final Response response = client.makeRequest(request);
 
@@ -271,6 +324,15 @@ public class Twilio {
      */
     private static void invalidate() {
         Twilio.restClient = null;
+    }
+
+    private static void invalidateOAuthCreds() {
+        Twilio.credentialProvider = null;
+    }
+
+    private static void invalidateBasicCreds() {
+        Twilio.username = null;
+        Twilio.password = null;
     }
 
     /**

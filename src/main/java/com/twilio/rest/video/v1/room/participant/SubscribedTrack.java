@@ -18,26 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SubscribedTrack extends Resource {
-
-    private static final long serialVersionUID = 247433416593630L;
 
     public static SubscribedTrackFetcher fetcher(
         final String pathRoomSid,
@@ -56,6 +59,27 @@ public class SubscribedTrack extends Resource {
         final String pathParticipantSid
     ) {
         return new SubscribedTrackReader(pathRoomSid, pathParticipantSid);
+    }
+
+    public enum Kind {
+        AUDIO("audio"),
+        VIDEO("video"),
+        DATA("data");
+
+        private final String value;
+
+        private Kind(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Kind forValue(final String value) {
+            return Promoter.enumFromString(value, Kind.values());
+        }
     }
 
     /**
@@ -101,101 +125,75 @@ public class SubscribedTrack extends Resource {
         }
     }
 
-    public enum Kind {
-        AUDIO("audio"),
-        VIDEO("video"),
-        DATA("data");
-
-        private final String value;
-
-        private Kind(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Kind forValue(final String value) {
-            return Promoter.enumFromString(value, Kind.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    private final String sid;
-    private final String participantSid;
-    private final String publisherSid;
-    private final String roomSid;
-    private final String name;
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final Boolean enabled;
+
+    @Getter
     private final SubscribedTrack.Kind kind;
+
+    @Getter
+    private final String name;
+
+    @Getter
+    private final String participantSid;
+
+    @Getter
+    private final String publisherSid;
+
+    @Getter
+    private final String roomSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private SubscribedTrack(
-        @JsonProperty("sid") final String sid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("enabled") final Boolean enabled,
+        @JsonProperty("kind") final SubscribedTrack.Kind kind,
+        @JsonProperty("name") final String name,
         @JsonProperty("participant_sid") final String participantSid,
         @JsonProperty("publisher_sid") final String publisherSid,
         @JsonProperty("room_sid") final String roomSid,
-        @JsonProperty("name") final String name,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("enabled") final Boolean enabled,
-        @JsonProperty("kind") final SubscribedTrack.Kind kind,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.enabled = enabled;
+        this.kind = kind;
+        this.name = name;
         this.participantSid = participantSid;
         this.publisherSid = publisherSid;
         this.roomSid = roomSid;
-        this.name = name;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.enabled = enabled;
-        this.kind = kind;
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getParticipantSid() {
-        return this.participantSid;
-    }
-
-    public final String getPublisherSid() {
-        return this.publisherSid;
-    }
-
-    public final String getRoomSid() {
-        return this.roomSid;
-    }
-
-    public final String getName() {
-        return this.name;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final Boolean getEnabled() {
-        return this.enabled;
-    }
-
-    public final SubscribedTrack.Kind getKind() {
-        return this.kind;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -209,17 +207,16 @@ public class SubscribedTrack extends Resource {
         }
 
         SubscribedTrack other = (SubscribedTrack) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(participantSid, other.participantSid) &&
-            Objects.equals(publisherSid, other.publisherSid) &&
-            Objects.equals(roomSid, other.roomSid) &&
-            Objects.equals(name, other.name) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(enabled, other.enabled) &&
             Objects.equals(kind, other.kind) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(participantSid, other.participantSid) &&
+            Objects.equals(publisherSid, other.publisherSid) &&
+            Objects.equals(roomSid, other.roomSid) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(url, other.url)
         );
     }
@@ -227,15 +224,15 @@ public class SubscribedTrack extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            participantSid,
-            publisherSid,
-            roomSid,
-            name,
             dateCreated,
             dateUpdated,
             enabled,
             kind,
+            name,
+            participantSid,
+            publisherSid,
+            roomSid,
+            sid,
             url
         );
     }

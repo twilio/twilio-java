@@ -15,9 +15,10 @@
 package com.twilio.rest.sync.v1.service.syncstream;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,32 +27,30 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
+import com.twilio.type.*;
 
 public class StreamMessageCreator extends Creator<StreamMessage> {
 
     private String pathServiceSid;
     private String pathStreamSid;
-    private Map<String, Object> data;
+    private Object data;
 
     public StreamMessageCreator(
         final String pathServiceSid,
         final String pathStreamSid,
-        final Map<String, Object> data
+        final Object data
     ) {
         this.pathServiceSid = pathServiceSid;
         this.pathStreamSid = pathStreamSid;
         this.data = data;
     }
 
-    public StreamMessageCreator setData(final Map<String, Object> data) {
+    public StreamMessageCreator setData(final Object data) {
         this.data = data;
         return this;
     }
 
-    @Override
-    public StreamMessage create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages";
 
         path =
@@ -64,7 +63,6 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
                 "{" + "StreamSid" + "}",
                 this.pathStreamSid.toString()
             );
-        path = path.replace("{" + "Data" + "}", this.data.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -73,7 +71,9 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "StreamMessage creation failed: Unable to connect to server"
@@ -84,20 +84,49 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public StreamMessage create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return StreamMessage.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<StreamMessage> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        StreamMessage content = StreamMessage.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (data != null) {
-            request.addPostParam("Data", Converter.mapToJson(data));
+            Serializer.toString(
+                request,
+                "Data",
+                data,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

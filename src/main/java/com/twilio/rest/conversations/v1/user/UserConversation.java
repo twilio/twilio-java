@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UserConversation extends Resource {
-
-    private static final long serialVersionUID = 269317644556189L;
 
     public static UserConversationDeleter deleter(
         final String pathUserSid,
@@ -64,6 +66,47 @@ public class UserConversation extends Resource {
         final String pathConversationSid
     ) {
         return new UserConversationUpdater(pathUserSid, pathConversationSid);
+    }
+
+    public enum State {
+        INACTIVE("inactive"),
+        ACTIVE("active"),
+        CLOSED("closed");
+
+        private final String value;
+
+        private State(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static State forValue(final String value) {
+            return Promoter.enumFromString(value, State.values());
+        }
+    }
+
+    public enum NotificationLevel {
+        DEFAULT("default"),
+        MUTED("muted");
+
+        private final String value;
+
+        private NotificationLevel(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static NotificationLevel forValue(final String value) {
+            return Promoter.enumFromString(value, NotificationLevel.values());
+        }
     }
 
     /**
@@ -109,185 +152,123 @@ public class UserConversation extends Resource {
         }
     }
 
-    public enum NotificationLevel {
-        DEFAULT("default"),
-        MUTED("muted");
-
-        private final String value;
-
-        private NotificationLevel(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static NotificationLevel forValue(final String value) {
-            return Promoter.enumFromString(value, NotificationLevel.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    public enum State {
-        INACTIVE("inactive"),
-        ACTIVE("active"),
-        CLOSED("closed");
-
-        private final String value;
-
-        private State(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static State forValue(final String value) {
-            return Promoter.enumFromString(value, State.values());
-        }
-    }
-
+    @Getter
     private final String accountSid;
-    private final String chatServiceSid;
-    private final String conversationSid;
-    private final Integer unreadMessagesCount;
-    private final Integer lastReadMessageIndex;
-    private final String participantSid;
-    private final String userSid;
-    private final String friendlyName;
-    private final UserConversation.State conversationState;
-    private final Map<String, Object> timers;
+
+    @Getter
     private final String attributes;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String chatServiceSid;
+
+    @Getter
+    private final String conversationSid;
+
+    @Getter
+    private final UserConversation.State conversationState;
+
+    @Getter
     private final String createdBy;
-    private final UserConversation.NotificationLevel notificationLevel;
-    private final String uniqueName;
-    private final URI url;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final Integer lastReadMessageIndex;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final UserConversation.NotificationLevel notificationLevel;
+
+    @Getter
+    private final String participantSid;
+
+    @Getter
+    private final Object timers;
+
+    @Getter
+    private final String uniqueName;
+
+    @Getter
+    private final Integer unreadMessagesCount;
+
+    @Getter
+    private final URI url;
+
+    @Getter
+    private final String userSid;
 
     @JsonCreator
     private UserConversation(
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("attributes") final String attributes,
         @JsonProperty("chat_service_sid") final String chatServiceSid,
         @JsonProperty("conversation_sid") final String conversationSid,
         @JsonProperty(
-            "unread_messages_count"
-        ) final Integer unreadMessagesCount,
+            "conversation_state"
+        ) final UserConversation.State conversationState,
+        @JsonProperty("created_by") final String createdBy,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty(
             "last_read_message_index"
         ) final Integer lastReadMessageIndex,
-        @JsonProperty("participant_sid") final String participantSid,
-        @JsonProperty("user_sid") final String userSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty(
-            "conversation_state"
-        ) final UserConversation.State conversationState,
-        @JsonProperty("timers") final Map<String, Object> timers,
-        @JsonProperty("attributes") final String attributes,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("created_by") final String createdBy,
+        @JsonProperty("links") final Map<String, String> links,
         @JsonProperty(
             "notification_level"
         ) final UserConversation.NotificationLevel notificationLevel,
+        @JsonProperty("participant_sid") final String participantSid,
+        @JsonProperty("timers") final Object timers,
         @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty(
+            "unread_messages_count"
+        ) final Integer unreadMessagesCount,
         @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("user_sid") final String userSid
     ) {
         this.accountSid = accountSid;
+        this.attributes = attributes;
         this.chatServiceSid = chatServiceSid;
         this.conversationSid = conversationSid;
-        this.unreadMessagesCount = unreadMessagesCount;
-        this.lastReadMessageIndex = lastReadMessageIndex;
-        this.participantSid = participantSid;
-        this.userSid = userSid;
-        this.friendlyName = friendlyName;
         this.conversationState = conversationState;
-        this.timers = timers;
-        this.attributes = attributes;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.createdBy = createdBy;
-        this.notificationLevel = notificationLevel;
-        this.uniqueName = uniqueName;
-        this.url = url;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.friendlyName = friendlyName;
+        this.lastReadMessageIndex = lastReadMessageIndex;
         this.links = links;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getChatServiceSid() {
-        return this.chatServiceSid;
-    }
-
-    public final String getConversationSid() {
-        return this.conversationSid;
-    }
-
-    public final Integer getUnreadMessagesCount() {
-        return this.unreadMessagesCount;
-    }
-
-    public final Integer getLastReadMessageIndex() {
-        return this.lastReadMessageIndex;
-    }
-
-    public final String getParticipantSid() {
-        return this.participantSid;
-    }
-
-    public final String getUserSid() {
-        return this.userSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final UserConversation.State getConversationState() {
-        return this.conversationState;
-    }
-
-    public final Map<String, Object> getTimers() {
-        return this.timers;
-    }
-
-    public final String getAttributes() {
-        return this.attributes;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getCreatedBy() {
-        return this.createdBy;
-    }
-
-    public final UserConversation.NotificationLevel getNotificationLevel() {
-        return this.notificationLevel;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.notificationLevel = notificationLevel;
+        this.participantSid = participantSid;
+        this.timers = timers;
+        this.uniqueName = uniqueName;
+        this.unreadMessagesCount = unreadMessagesCount;
+        this.url = url;
+        this.userSid = userSid;
     }
 
     @Override
@@ -301,26 +282,25 @@ public class UserConversation extends Resource {
         }
 
         UserConversation other = (UserConversation) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(attributes, other.attributes) &&
             Objects.equals(chatServiceSid, other.chatServiceSid) &&
             Objects.equals(conversationSid, other.conversationSid) &&
-            Objects.equals(unreadMessagesCount, other.unreadMessagesCount) &&
-            Objects.equals(lastReadMessageIndex, other.lastReadMessageIndex) &&
-            Objects.equals(participantSid, other.participantSid) &&
-            Objects.equals(userSid, other.userSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(conversationState, other.conversationState) &&
-            Objects.equals(timers, other.timers) &&
-            Objects.equals(attributes, other.attributes) &&
+            Objects.equals(createdBy, other.createdBy) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(createdBy, other.createdBy) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(lastReadMessageIndex, other.lastReadMessageIndex) &&
+            Objects.equals(links, other.links) &&
             Objects.equals(notificationLevel, other.notificationLevel) &&
+            Objects.equals(participantSid, other.participantSid) &&
+            Objects.equals(timers, other.timers) &&
             Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(unreadMessagesCount, other.unreadMessagesCount) &&
             Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(userSid, other.userSid)
         );
     }
 
@@ -328,23 +308,23 @@ public class UserConversation extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
+            attributes,
             chatServiceSid,
             conversationSid,
-            unreadMessagesCount,
-            lastReadMessageIndex,
-            participantSid,
-            userSid,
-            friendlyName,
             conversationState,
-            timers,
-            attributes,
+            createdBy,
             dateCreated,
             dateUpdated,
-            createdBy,
+            friendlyName,
+            lastReadMessageIndex,
+            links,
             notificationLevel,
+            participantSid,
+            timers,
             uniqueName,
+            unreadMessagesCount,
             url,
-            links
+            userSid
         );
     }
 }

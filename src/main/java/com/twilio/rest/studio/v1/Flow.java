@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Flow extends Resource {
-
-    private static final long serialVersionUID = 8879052558661L;
 
     public static FlowDeleter deleter(final String pathSid) {
         return new FlowDeleter(pathSid);
@@ -51,6 +53,26 @@ public class Flow extends Resource {
 
     public static FlowReader reader() {
         return new FlowReader();
+    }
+
+    public enum Status {
+        DRAFT("draft"),
+        PUBLISHED("published");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 
     /**
@@ -96,93 +118,70 @@ public class Flow extends Resource {
         }
     }
 
-    public enum Status {
-        DRAFT("draft"),
-        PUBLISHED("published");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    private final String sid;
+    @Getter
     private final String accountSid;
-    private final String friendlyName;
-    private final Flow.Status status;
-    private final Integer version;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Flow.Status status;
+
+    @Getter
+    private final URI url;
+
+    @Getter
+    private final Integer version;
 
     @JsonCreator
     private Flow(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("status") final Flow.Status status,
-        @JsonProperty("version") final Integer version,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("version") final Integer version
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
-        this.status = status;
-        this.version = version;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Flow.Status getStatus() {
-        return this.status;
-    }
-
-    public final Integer getVersion() {
-        return this.version;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.sid = sid;
+        this.status = status;
+        this.url = url;
+        this.version = version;
     }
 
     @Override
@@ -196,32 +195,31 @@ public class Flow extends Resource {
         }
 
         Flow other = (Flow) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(version, other.version) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
             Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(version, other.version)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            friendlyName,
-            status,
-            version,
             dateCreated,
             dateUpdated,
+            friendlyName,
+            links,
+            sid,
+            status,
             url,
-            links
+            version
         );
     }
 }

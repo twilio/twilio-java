@@ -34,6 +34,16 @@ public class ApiException extends TwilioException {
      * Create a new API Exception.
      *
      * @param message exception message
+     * @param status status code
+     */
+    public ApiException(final String message, final Integer status) {
+        this(message, null, null, status, null);
+    }
+
+    /**
+     * Create a new API Exception.
+     *
+     * @param message exception message
      * @param code exception code
      * @param moreInfo more information if available
      * @param status status code

@@ -14,8 +14,11 @@
 
 package com.twilio.rest.taskrouter.v1.workspace;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class TaskQueueUpdater extends Updater<TaskQueue> {
 
@@ -80,8 +84,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
         return this;
     }
 
-    @Override
-    public TaskQueue update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}";
 
         path =
@@ -98,7 +101,9 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "TaskQueue update failed: Unable to connect to server"
@@ -109,44 +114,94 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public TaskQueue update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return TaskQueue.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<TaskQueue> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        TaskQueue content = TaskQueue.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (targetWorkers != null) {
-            request.addPostParam("TargetWorkers", targetWorkers);
+            Serializer.toString(
+                request,
+                "TargetWorkers",
+                targetWorkers,
+                ParameterType.URLENCODED
+            );
         }
+
         if (reservationActivitySid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "ReservationActivitySid",
-                reservationActivitySid
+                reservationActivitySid,
+                ParameterType.URLENCODED
             );
         }
+
         if (assignmentActivitySid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AssignmentActivitySid",
-                assignmentActivitySid
+                assignmentActivitySid,
+                ParameterType.URLENCODED
             );
         }
+
         if (maxReservedWorkers != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "MaxReservedWorkers",
-                maxReservedWorkers.toString()
+                maxReservedWorkers,
+                ParameterType.URLENCODED
             );
         }
+
         if (taskOrder != null) {
-            request.addPostParam("TaskOrder", taskOrder.toString());
+            Serializer.toString(
+                request,
+                "TaskOrder",
+                taskOrder,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

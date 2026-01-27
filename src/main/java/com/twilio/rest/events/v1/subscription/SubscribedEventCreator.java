@@ -15,7 +15,10 @@
 package com.twilio.rest.events.v1.subscription;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SubscribedEventCreator extends Creator<SubscribedEvent> {
 
@@ -51,8 +55,7 @@ public class SubscribedEventCreator extends Creator<SubscribedEvent> {
         return this;
     }
 
-    @Override
-    public SubscribedEvent create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents";
 
         path =
@@ -60,7 +63,6 @@ public class SubscribedEventCreator extends Creator<SubscribedEvent> {
                 "{" + "SubscriptionSid" + "}",
                 this.pathSubscriptionSid.toString()
             );
-        path = path.replace("{" + "Type" + "}", this.type.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -69,7 +71,9 @@ public class SubscribedEventCreator extends Creator<SubscribedEvent> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "SubscribedEvent creation failed: Unable to connect to server"
@@ -80,23 +84,58 @@ public class SubscribedEventCreator extends Creator<SubscribedEvent> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SubscribedEvent create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SubscribedEvent.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<SubscribedEvent> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SubscribedEvent content = SubscribedEvent.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (type != null) {
-            request.addPostParam("Type", type);
+            Serializer.toString(
+                request,
+                "Type",
+                type,
+                ParameterType.URLENCODED
+            );
         }
+
         if (schemaVersion != null) {
-            request.addPostParam("SchemaVersion", schemaVersion.toString());
+            Serializer.toString(
+                request,
+                "SchemaVersion",
+                schemaVersion,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

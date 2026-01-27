@@ -17,7 +17,11 @@ package com.twilio.rest.api.v2010.account.incomingphonenumber;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +30,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class TollFreeReader extends Reader<TollFree> {
 
@@ -34,7 +39,7 @@ public class TollFreeReader extends Reader<TollFree> {
     private String friendlyName;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String origin;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TollFreeReader() {}
 
@@ -68,19 +73,38 @@ public class TollFreeReader extends Reader<TollFree> {
         return this;
     }
 
-    public TollFreeReader setPageSize(final Integer pageSize) {
+    public TollFreeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<TollFree> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<TollFree> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TollFree> page = Page.fromJson(
+            "incoming_phone_numbers",
+            response.getContent(),
+            TollFree.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<TollFree> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<TollFree> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -96,17 +120,43 @@ public class TollFreeReader extends Reader<TollFree> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<TollFree> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<TollFree> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<TollFree> pageForRequest(
+    public TwilioResponse<Page<TollFree>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TollFree> page = Page.fromJson(
+            "incoming_phone_numbers",
+            response.getContent(),
+            TollFree.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "TollFree read failed: Unable to connect to server"
@@ -116,12 +166,23 @@ public class TollFreeReader extends Reader<TollFree> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<TollFree> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "incoming_phone_numbers",
             response.getContent(),
@@ -160,25 +221,43 @@ public class TollFreeReader extends Reader<TollFree> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (beta != null) {
-            request.addQueryParam("Beta", beta.toString());
+            Serializer.toString(request, "Beta", beta, ParameterType.QUERY);
         }
+
         if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
         }
+
         if (phoneNumber != null) {
-            request.addQueryParam("PhoneNumber", phoneNumber.toString());
+            Serializer.toString(
+                request,
+                "PhoneNumber",
+                phoneNumber,
+                ParameterType.QUERY
+            );
         }
+
         if (origin != null) {
-            request.addQueryParam("Origin", origin);
+            Serializer.toString(request, "Origin", origin, ParameterType.QUERY);
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

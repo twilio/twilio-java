@@ -17,6 +17,10 @@ package com.twilio.rest.verify.v2.service.entity;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +29,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ChallengeReader extends Reader<Challenge> {
 
@@ -33,7 +38,7 @@ public class ChallengeReader extends Reader<Challenge> {
     private String factorSid;
     private Challenge.ChallengeStatuses status;
     private Challenge.ListOrders order;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ChallengeReader(
         final String pathServiceSid,
@@ -58,19 +63,38 @@ public class ChallengeReader extends Reader<Challenge> {
         return this;
     }
 
-    public ChallengeReader setPageSize(final Integer pageSize) {
+    public ChallengeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<Challenge> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Challenge> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Challenge> page = Page.fromJson(
+            "challenges",
+            response.getContent(),
+            Challenge.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Challenge> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Challenge> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges";
+
         path =
             path.replace(
                 "{" + "ServiceSid" + "}",
@@ -84,17 +108,43 @@ public class ChallengeReader extends Reader<Challenge> {
             Domains.VERIFY.toString(),
             path
         );
-
         addQueryParams(request);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<Challenge> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Challenge> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Challenge> pageForRequest(
+    public TwilioResponse<Page<Challenge>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Challenge> page = Page.fromJson(
+            "challenges",
+            response.getContent(),
+            Challenge.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Challenge read failed: Unable to connect to server"
@@ -104,12 +154,23 @@ public class ChallengeReader extends Reader<Challenge> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Challenge> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "challenges",
             response.getContent(),
@@ -125,7 +186,7 @@ public class ChallengeReader extends Reader<Challenge> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.VERIFY.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -137,7 +198,7 @@ public class ChallengeReader extends Reader<Challenge> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.VERIFY.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -148,22 +209,34 @@ public class ChallengeReader extends Reader<Challenge> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (factorSid != null) {
-            request.addQueryParam("FactorSid", factorSid);
+            Serializer.toString(
+                request,
+                "FactorSid",
+                factorSid,
+                ParameterType.QUERY
+            );
         }
+
         if (status != null) {
-            request.addQueryParam("Status", status.toString());
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
+
         if (order != null) {
-            request.addQueryParam("Order", order.toString());
+            Serializer.toString(request, "Order", order, ParameterType.QUERY);
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

@@ -15,6 +15,7 @@
 package com.twilio.rest.serverless.v1.service.function;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
 
@@ -40,8 +42,7 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public FunctionVersion fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}";
 
@@ -62,6 +63,7 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
             Domains.SERVERLESS.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -74,14 +76,38 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public FunctionVersion fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return FunctionVersion.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<FunctionVersion> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        FunctionVersion content = FunctionVersion.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

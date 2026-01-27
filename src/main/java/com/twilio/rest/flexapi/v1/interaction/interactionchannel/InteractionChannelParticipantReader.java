@@ -17,6 +17,10 @@ package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +29,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class InteractionChannelParticipantReader
     extends Reader<InteractionChannelParticipant> {
 
     private String pathInteractionSid;
     private String pathChannelSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public InteractionChannelParticipantReader(
         final String pathInteractionSid,
@@ -42,24 +47,36 @@ public class InteractionChannelParticipantReader
     }
 
     public InteractionChannelParticipantReader setPageSize(
-        final Integer pageSize
+        final Long pageSize
     ) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<InteractionChannelParticipant> read(
+    public ResourceSetResponse<InteractionChannelParticipant> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<InteractionChannelParticipant> page = Page.fromJson(
+            "participants",
+            response.getContent(),
+            InteractionChannelParticipant.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<InteractionChannelParticipant> resourceSet =
+            new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<InteractionChannelParticipant> firstPage(
-        final TwilioRestClient client
-    ) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants";
+
         path =
             path.replace(
                 "{" + "InteractionSid" + "}",
@@ -76,17 +93,47 @@ public class InteractionChannelParticipantReader
             Domains.FLEXAPI.toString(),
             path
         );
-
         addQueryParams(request);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<InteractionChannelParticipant> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<InteractionChannelParticipant> firstPage(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<InteractionChannelParticipant> pageForRequest(
+    public TwilioResponse<
+        Page<InteractionChannelParticipant>
+    > firstPageWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<InteractionChannelParticipant> page = Page.fromJson(
+            "participants",
+            response.getContent(),
+            InteractionChannelParticipant.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "InteractionChannelParticipant read failed: Unable to connect to server"
@@ -96,12 +143,23 @@ public class InteractionChannelParticipantReader
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<InteractionChannelParticipant> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "participants",
             response.getContent(),
@@ -117,7 +175,7 @@ public class InteractionChannelParticipantReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.FLEXAPI.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -129,7 +187,7 @@ public class InteractionChannelParticipantReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.FLEXAPI.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -140,13 +198,17 @@ public class InteractionChannelParticipantReader
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

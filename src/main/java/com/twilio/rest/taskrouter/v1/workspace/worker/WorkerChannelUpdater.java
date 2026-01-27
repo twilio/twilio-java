@@ -14,8 +14,11 @@
 
 package com.twilio.rest.taskrouter.v1.workspace.worker;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class WorkerChannelUpdater extends Updater<WorkerChannel> {
 
@@ -53,8 +57,7 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
         return this;
     }
 
-    @Override
-    public WorkerChannel update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}";
 
@@ -77,7 +80,9 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "WorkerChannel update failed: Unable to connect to server"
@@ -88,23 +93,58 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public WorkerChannel update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return WorkerChannel.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<WorkerChannel> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        WorkerChannel content = WorkerChannel.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (capacity != null) {
-            request.addPostParam("Capacity", capacity.toString());
+            Serializer.toString(
+                request,
+                "Capacity",
+                capacity,
+                ParameterType.URLENCODED
+            );
         }
+
         if (available != null) {
-            request.addPostParam("Available", available.toString());
+            Serializer.toString(
+                request,
+                "Available",
+                available,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

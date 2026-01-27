@@ -17,6 +17,10 @@ package com.twilio.rest.sync.v1.service.synclist;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,12 +29,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SyncListPermissionReader extends Reader<SyncListPermission> {
 
     private String pathServiceSid;
     private String pathListSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SyncListPermissionReader(
         final String pathServiceSid,
@@ -40,18 +45,37 @@ public class SyncListPermissionReader extends Reader<SyncListPermission> {
         this.pathListSid = pathListSid;
     }
 
-    public SyncListPermissionReader setPageSize(final Integer pageSize) {
+    public SyncListPermissionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<SyncListPermission> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<SyncListPermission> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SyncListPermission> page = Page.fromJson(
+            "permissions",
+            response.getContent(),
+            SyncListPermission.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<SyncListPermission> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<SyncListPermission> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions";
+
         path =
             path.replace(
                 "{" + "ServiceSid" + "}",
@@ -64,17 +88,43 @@ public class SyncListPermissionReader extends Reader<SyncListPermission> {
             Domains.SYNC.toString(),
             path
         );
-
         addQueryParams(request);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<SyncListPermission> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<SyncListPermission> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<SyncListPermission> pageForRequest(
+    public TwilioResponse<Page<SyncListPermission>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SyncListPermission> page = Page.fromJson(
+            "permissions",
+            response.getContent(),
+            SyncListPermission.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "SyncListPermission read failed: Unable to connect to server"
@@ -84,12 +134,23 @@ public class SyncListPermissionReader extends Reader<SyncListPermission> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<SyncListPermission> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "permissions",
             response.getContent(),
@@ -105,7 +166,7 @@ public class SyncListPermissionReader extends Reader<SyncListPermission> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.SYNC.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -117,7 +178,7 @@ public class SyncListPermissionReader extends Reader<SyncListPermission> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.SYNC.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -128,13 +189,17 @@ public class SyncListPermissionReader extends Reader<SyncListPermission> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

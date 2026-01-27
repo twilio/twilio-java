@@ -18,27 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class EndUser extends Resource {
-
-    private static final long serialVersionUID = 90504447987573L;
 
     public static EndUserCreator creator(
         final String friendlyName,
@@ -106,66 +107,65 @@ public class EndUser extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String friendlyName;
-    private final String type;
-    private final Map<String, Object> attributes;
+
+    @Getter
+    private final Object attributes;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String type;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private EndUser(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("attributes") final Object attributes,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("type") final String type,
-        @JsonProperty("attributes") final Map<String, Object> attributes,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.friendlyName = friendlyName;
-        this.type = type;
         this.attributes = attributes;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.friendlyName = friendlyName;
+        this.sid = sid;
+        this.type = type;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getType() {
-        return this.type;
-    }
-
-    public final Map<String, Object> getAttributes() {
-        return this.attributes;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -179,15 +179,14 @@ public class EndUser extends Resource {
         }
 
         EndUser other = (EndUser) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(type, other.type) &&
             Objects.equals(attributes, other.attributes) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(type, other.type) &&
             Objects.equals(url, other.url)
         );
     }
@@ -195,13 +194,13 @@ public class EndUser extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            friendlyName,
-            type,
             attributes,
             dateCreated,
             dateUpdated,
+            friendlyName,
+            sid,
+            type,
             url
         );
     }

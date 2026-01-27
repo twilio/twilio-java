@@ -15,7 +15,10 @@
 package com.twilio.rest.serverless.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class EnvironmentCreator extends Creator<Environment> {
 
@@ -49,8 +53,7 @@ public class EnvironmentCreator extends Creator<Environment> {
         return this;
     }
 
-    @Override
-    public Environment create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Environments";
 
         path =
@@ -58,8 +61,6 @@ public class EnvironmentCreator extends Creator<Environment> {
                 "{" + "ServiceSid" + "}",
                 this.pathServiceSid.toString()
             );
-        path =
-            path.replace("{" + "UniqueName" + "}", this.uniqueName.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -68,7 +69,9 @@ public class EnvironmentCreator extends Creator<Environment> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Environment creation failed: Unable to connect to server"
@@ -79,23 +82,58 @@ public class EnvironmentCreator extends Creator<Environment> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Environment create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Environment.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Environment> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Environment content = Environment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (domainSuffix != null) {
-            request.addPostParam("DomainSuffix", domainSuffix);
+            Serializer.toString(
+                request,
+                "DomainSuffix",
+                domainSuffix,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

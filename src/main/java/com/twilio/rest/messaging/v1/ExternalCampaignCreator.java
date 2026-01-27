@@ -15,7 +15,10 @@
 package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
 
     private String campaignId;
     private String messagingServiceSid;
+    private Boolean cnpMigration;
 
     public ExternalCampaignCreator(
         final String campaignId,
@@ -50,17 +55,13 @@ public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
         return this;
     }
 
-    @Override
-    public ExternalCampaign create(final TwilioRestClient client) {
-        String path = "/v1/Services/PreregisteredUsa2p";
+    public ExternalCampaignCreator setCnpMigration(final Boolean cnpMigration) {
+        this.cnpMigration = cnpMigration;
+        return this;
+    }
 
-        path =
-            path.replace("{" + "CampaignId" + "}", this.campaignId.toString());
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.messagingServiceSid.toString()
-            );
+    private Response makeRequest(final TwilioRestClient client) {
+        String path = "/v1/Services/PreregisteredUsa2p";
 
         Request request = new Request(
             HttpMethod.POST,
@@ -69,7 +70,9 @@ public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ExternalCampaign creation failed: Unable to connect to server"
@@ -80,23 +83,67 @@ public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ExternalCampaign create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ExternalCampaign.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<ExternalCampaign> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ExternalCampaign content = ExternalCampaign.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (campaignId != null) {
-            request.addPostParam("CampaignId", campaignId);
+            Serializer.toString(
+                request,
+                "CampaignId",
+                campaignId,
+                ParameterType.URLENCODED
+            );
         }
+
         if (messagingServiceSid != null) {
-            request.addPostParam("MessagingServiceSid", messagingServiceSid);
+            Serializer.toString(
+                request,
+                "MessagingServiceSid",
+                messagingServiceSid,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (cnpMigration != null) {
+            Serializer.toString(
+                request,
+                "CnpMigration",
+                cnpMigration,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -17,7 +17,11 @@ package com.twilio.rest.api.v2010.account.availablephonenumbercountry;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,11 +30,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class TollFreeReader extends Reader<TollFree> {
 
-    private String pathCountryCode;
     private String pathAccountSid;
+    private String pathCountryCode;
     private Integer areaCode;
     private String contains;
     private Boolean smsEnabled;
@@ -49,7 +54,7 @@ public class TollFreeReader extends Reader<TollFree> {
     private String inLata;
     private String inLocality;
     private Boolean faxEnabled;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TollFreeReader(final String pathCountryCode) {
         this.pathCountryCode = pathCountryCode;
@@ -165,19 +170,38 @@ public class TollFreeReader extends Reader<TollFree> {
         return this;
     }
 
-    public TollFreeReader setPageSize(final Integer pageSize) {
+    public TollFreeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<TollFree> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<TollFree> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TollFree> page = Page.fromJson(
+            "available_phone_numbers",
+            response.getContent(),
+            TollFree.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<TollFree> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<TollFree> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -198,17 +222,43 @@ public class TollFreeReader extends Reader<TollFree> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<TollFree> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<TollFree> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<TollFree> pageForRequest(
+    public TwilioResponse<Page<TollFree>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TollFree> page = Page.fromJson(
+            "available_phone_numbers",
+            response.getContent(),
+            TollFree.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "TollFree read failed: Unable to connect to server"
@@ -218,12 +268,23 @@ public class TollFreeReader extends Reader<TollFree> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<TollFree> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "available_phone_numbers",
             response.getContent(),
@@ -262,76 +323,169 @@ public class TollFreeReader extends Reader<TollFree> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (areaCode != null) {
-            request.addQueryParam("AreaCode", areaCode.toString());
+            Serializer.toString(
+                request,
+                "AreaCode",
+                areaCode,
+                ParameterType.QUERY
+            );
         }
+
         if (contains != null) {
-            request.addQueryParam("Contains", contains);
+            Serializer.toString(
+                request,
+                "Contains",
+                contains,
+                ParameterType.QUERY
+            );
         }
+
         if (smsEnabled != null) {
-            request.addQueryParam("SmsEnabled", smsEnabled.toString());
+            Serializer.toString(
+                request,
+                "SmsEnabled",
+                smsEnabled,
+                ParameterType.QUERY
+            );
         }
+
         if (mmsEnabled != null) {
-            request.addQueryParam("MmsEnabled", mmsEnabled.toString());
+            Serializer.toString(
+                request,
+                "MmsEnabled",
+                mmsEnabled,
+                ParameterType.QUERY
+            );
         }
+
         if (voiceEnabled != null) {
-            request.addQueryParam("VoiceEnabled", voiceEnabled.toString());
+            Serializer.toString(
+                request,
+                "VoiceEnabled",
+                voiceEnabled,
+                ParameterType.QUERY
+            );
         }
+
         if (excludeAllAddressRequired != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "ExcludeAllAddressRequired",
-                excludeAllAddressRequired.toString()
+                excludeAllAddressRequired,
+                ParameterType.QUERY
             );
         }
+
         if (excludeLocalAddressRequired != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "ExcludeLocalAddressRequired",
-                excludeLocalAddressRequired.toString()
+                excludeLocalAddressRequired,
+                ParameterType.QUERY
             );
         }
+
         if (excludeForeignAddressRequired != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "ExcludeForeignAddressRequired",
-                excludeForeignAddressRequired.toString()
+                excludeForeignAddressRequired,
+                ParameterType.QUERY
             );
         }
+
         if (beta != null) {
-            request.addQueryParam("Beta", beta.toString());
+            Serializer.toString(request, "Beta", beta, ParameterType.QUERY);
         }
+
         if (nearNumber != null) {
-            request.addQueryParam("NearNumber", nearNumber.toString());
+            Serializer.toString(
+                request,
+                "NearNumber",
+                nearNumber,
+                ParameterType.QUERY
+            );
         }
+
         if (nearLatLong != null) {
-            request.addQueryParam("NearLatLong", nearLatLong);
+            Serializer.toString(
+                request,
+                "NearLatLong",
+                nearLatLong,
+                ParameterType.QUERY
+            );
         }
+
         if (distance != null) {
-            request.addQueryParam("Distance", distance.toString());
+            Serializer.toString(
+                request,
+                "Distance",
+                distance,
+                ParameterType.QUERY
+            );
         }
+
         if (inPostalCode != null) {
-            request.addQueryParam("InPostalCode", inPostalCode);
+            Serializer.toString(
+                request,
+                "InPostalCode",
+                inPostalCode,
+                ParameterType.QUERY
+            );
         }
+
         if (inRegion != null) {
-            request.addQueryParam("InRegion", inRegion);
+            Serializer.toString(
+                request,
+                "InRegion",
+                inRegion,
+                ParameterType.QUERY
+            );
         }
+
         if (inRateCenter != null) {
-            request.addQueryParam("InRateCenter", inRateCenter);
+            Serializer.toString(
+                request,
+                "InRateCenter",
+                inRateCenter,
+                ParameterType.QUERY
+            );
         }
+
         if (inLata != null) {
-            request.addQueryParam("InLata", inLata);
+            Serializer.toString(request, "InLata", inLata, ParameterType.QUERY);
         }
+
         if (inLocality != null) {
-            request.addQueryParam("InLocality", inLocality);
+            Serializer.toString(
+                request,
+                "InLocality",
+                inLocality,
+                ParameterType.QUERY
+            );
         }
+
         if (faxEnabled != null) {
-            request.addQueryParam("FaxEnabled", faxEnabled.toString());
+            Serializer.toString(
+                request,
+                "FaxEnabled",
+                faxEnabled,
+                ParameterType.QUERY
+            );
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

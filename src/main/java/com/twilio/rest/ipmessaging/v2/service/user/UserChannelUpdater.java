@@ -14,8 +14,11 @@
 
 package com.twilio.rest.ipmessaging.v2.service.user;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class UserChannelUpdater extends Updater<UserChannel> {
@@ -66,8 +70,7 @@ public class UserChannelUpdater extends Updater<UserChannel> {
         return this;
     }
 
-    @Override
-    public UserChannel update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}";
 
@@ -90,7 +93,9 @@ public class UserChannelUpdater extends Updater<UserChannel> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "UserChannel update failed: Unable to connect to server"
@@ -101,34 +106,66 @@ public class UserChannelUpdater extends Updater<UserChannel> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public UserChannel update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return UserChannel.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<UserChannel> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        UserChannel content = UserChannel.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (notificationLevel != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "NotificationLevel",
-                notificationLevel.toString()
+                notificationLevel,
+                ParameterType.URLENCODED
             );
         }
+
         if (lastConsumedMessageIndex != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "LastConsumedMessageIndex",
-                lastConsumedMessageIndex.toString()
+                lastConsumedMessageIndex,
+                ParameterType.URLENCODED
             );
         }
+
         if (lastConsumptionTimestamp != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "LastConsumptionTimestamp",
-                lastConsumptionTimestamp.toInstant().toString()
+                lastConsumptionTimestamp,
+                ParameterType.URLENCODED
             );
         }
     }

@@ -18,26 +18,49 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SimIpAddress extends Resource {
 
-    private static final long serialVersionUID = 180616107351268L;
-
     public static SimIpAddressReader reader(final String pathSimSid) {
         return new SimIpAddressReader(pathSimSid);
+    }
+
+    public enum IpAddressVersion {
+        I_PV4("IPv4"),
+        I_PV6("IPv6");
+
+        private final String value;
+
+        private IpAddressVersion(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static IpAddressVersion forValue(final String value) {
+            return Promoter.enumFromString(value, IpAddressVersion.values());
+        }
     }
 
     /**
@@ -83,27 +106,22 @@ public class SimIpAddress extends Resource {
         }
     }
 
-    public enum IpAddressVersion {
-        IPV4("IPv4"),
-        IPV6("IPv6");
-
-        private final String value;
-
-        private IpAddressVersion(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static IpAddressVersion forValue(final String value) {
-            return Promoter.enumFromString(value, IpAddressVersion.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
+    @Getter
     private final String ipAddress;
+
+    @Getter
     private final SimIpAddress.IpAddressVersion ipAddressVersion;
 
     @JsonCreator
@@ -117,14 +135,6 @@ public class SimIpAddress extends Resource {
         this.ipAddressVersion = ipAddressVersion;
     }
 
-    public final String getIpAddress() {
-        return this.ipAddress;
-    }
-
-    public final SimIpAddress.IpAddressVersion getIpAddressVersion() {
-        return this.ipAddressVersion;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -136,7 +146,6 @@ public class SimIpAddress extends Resource {
         }
 
         SimIpAddress other = (SimIpAddress) o;
-
         return (
             Objects.equals(ipAddress, other.ipAddress) &&
             Objects.equals(ipAddressVersion, other.ipAddressVersion)

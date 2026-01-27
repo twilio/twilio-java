@@ -18,26 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DataSession extends Resource {
-
-    private static final long serialVersionUID = 124844690346008L;
 
     public static DataSessionReader reader(final String pathSimSid) {
         return new DataSessionReader(pathSimSid);
@@ -86,124 +87,109 @@ public class DataSession extends Resource {
         }
     }
 
-    private final String sid;
-    private final String simSid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String radioLink;
-    private final String operatorMcc;
-    private final String operatorMnc;
-    private final String operatorCountry;
-    private final String operatorName;
+
+    @Getter
     private final String cellId;
-    private final Map<String, Object> cellLocationEstimate;
-    private final Integer packetsUploaded;
-    private final Integer packetsDownloaded;
-    private final ZonedDateTime lastUpdated;
-    private final ZonedDateTime start;
+
+    @Getter
+    private final Object cellLocationEstimate;
+
+    @Getter
     private final ZonedDateTime end;
+
+    @Getter
     private final String imei;
+
+    @Getter
+    private final ZonedDateTime lastUpdated;
+
+    @Getter
+    private final String operatorCountry;
+
+    @Getter
+    private final String operatorMcc;
+
+    @Getter
+    private final String operatorMnc;
+
+    @Getter
+    private final String operatorName;
+
+    @Getter
+    private final Integer packetsDownloaded;
+
+    @Getter
+    private final Integer packetsUploaded;
+
+    @Getter
+    private final String radioLink;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String simSid;
+
+    @Getter
+    private final ZonedDateTime start;
 
     @JsonCreator
     private DataSession(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("sim_sid") final String simSid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("radio_link") final String radioLink,
-        @JsonProperty("operator_mcc") final String operatorMcc,
-        @JsonProperty("operator_mnc") final String operatorMnc,
-        @JsonProperty("operator_country") final String operatorCountry,
-        @JsonProperty("operator_name") final String operatorName,
         @JsonProperty("cell_id") final String cellId,
         @JsonProperty(
             "cell_location_estimate"
-        ) final Map<String, Object> cellLocationEstimate,
-        @JsonProperty("packets_uploaded") final Integer packetsUploaded,
+        ) final Object cellLocationEstimate,
+        @JsonProperty("end") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime end,
+        @JsonProperty("imei") final String imei,
+        @JsonProperty("last_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime lastUpdated,
+        @JsonProperty("operator_country") final String operatorCountry,
+        @JsonProperty("operator_mcc") final String operatorMcc,
+        @JsonProperty("operator_mnc") final String operatorMnc,
+        @JsonProperty("operator_name") final String operatorName,
         @JsonProperty("packets_downloaded") final Integer packetsDownloaded,
-        @JsonProperty("last_updated") final String lastUpdated,
-        @JsonProperty("start") final String start,
-        @JsonProperty("end") final String end,
-        @JsonProperty("imei") final String imei
+        @JsonProperty("packets_uploaded") final Integer packetsUploaded,
+        @JsonProperty("radio_link") final String radioLink,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("sim_sid") final String simSid,
+        @JsonProperty("start") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime start
     ) {
-        this.sid = sid;
-        this.simSid = simSid;
         this.accountSid = accountSid;
-        this.radioLink = radioLink;
-        this.operatorMcc = operatorMcc;
-        this.operatorMnc = operatorMnc;
-        this.operatorCountry = operatorCountry;
-        this.operatorName = operatorName;
         this.cellId = cellId;
         this.cellLocationEstimate = cellLocationEstimate;
-        this.packetsUploaded = packetsUploaded;
-        this.packetsDownloaded = packetsDownloaded;
-        this.lastUpdated = DateConverter.iso8601DateTimeFromString(lastUpdated);
-        this.start = DateConverter.iso8601DateTimeFromString(start);
-        this.end = DateConverter.iso8601DateTimeFromString(end);
+        this.end = end;
         this.imei = imei;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getSimSid() {
-        return this.simSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getRadioLink() {
-        return this.radioLink;
-    }
-
-    public final String getOperatorMcc() {
-        return this.operatorMcc;
-    }
-
-    public final String getOperatorMnc() {
-        return this.operatorMnc;
-    }
-
-    public final String getOperatorCountry() {
-        return this.operatorCountry;
-    }
-
-    public final String getOperatorName() {
-        return this.operatorName;
-    }
-
-    public final String getCellId() {
-        return this.cellId;
-    }
-
-    public final Map<String, Object> getCellLocationEstimate() {
-        return this.cellLocationEstimate;
-    }
-
-    public final Integer getPacketsUploaded() {
-        return this.packetsUploaded;
-    }
-
-    public final Integer getPacketsDownloaded() {
-        return this.packetsDownloaded;
-    }
-
-    public final ZonedDateTime getLastUpdated() {
-        return this.lastUpdated;
-    }
-
-    public final ZonedDateTime getStart() {
-        return this.start;
-    }
-
-    public final ZonedDateTime getEnd() {
-        return this.end;
-    }
-
-    public final String getImei() {
-        return this.imei;
+        this.lastUpdated = lastUpdated;
+        this.operatorCountry = operatorCountry;
+        this.operatorMcc = operatorMcc;
+        this.operatorMnc = operatorMnc;
+        this.operatorName = operatorName;
+        this.packetsDownloaded = packetsDownloaded;
+        this.packetsUploaded = packetsUploaded;
+        this.radioLink = radioLink;
+        this.sid = sid;
+        this.simSid = simSid;
+        this.start = start;
     }
 
     @Override
@@ -217,46 +203,45 @@ public class DataSession extends Resource {
         }
 
         DataSession other = (DataSession) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(simSid, other.simSid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(radioLink, other.radioLink) &&
-            Objects.equals(operatorMcc, other.operatorMcc) &&
-            Objects.equals(operatorMnc, other.operatorMnc) &&
-            Objects.equals(operatorCountry, other.operatorCountry) &&
-            Objects.equals(operatorName, other.operatorName) &&
             Objects.equals(cellId, other.cellId) &&
             Objects.equals(cellLocationEstimate, other.cellLocationEstimate) &&
-            Objects.equals(packetsUploaded, other.packetsUploaded) &&
-            Objects.equals(packetsDownloaded, other.packetsDownloaded) &&
-            Objects.equals(lastUpdated, other.lastUpdated) &&
-            Objects.equals(start, other.start) &&
             Objects.equals(end, other.end) &&
-            Objects.equals(imei, other.imei)
+            Objects.equals(imei, other.imei) &&
+            Objects.equals(lastUpdated, other.lastUpdated) &&
+            Objects.equals(operatorCountry, other.operatorCountry) &&
+            Objects.equals(operatorMcc, other.operatorMcc) &&
+            Objects.equals(operatorMnc, other.operatorMnc) &&
+            Objects.equals(operatorName, other.operatorName) &&
+            Objects.equals(packetsDownloaded, other.packetsDownloaded) &&
+            Objects.equals(packetsUploaded, other.packetsUploaded) &&
+            Objects.equals(radioLink, other.radioLink) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(simSid, other.simSid) &&
+            Objects.equals(start, other.start)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            simSid,
             accountSid,
-            radioLink,
-            operatorMcc,
-            operatorMnc,
-            operatorCountry,
-            operatorName,
             cellId,
             cellLocationEstimate,
-            packetsUploaded,
-            packetsDownloaded,
-            lastUpdated,
-            start,
             end,
-            imei
+            imei,
+            lastUpdated,
+            operatorCountry,
+            operatorMcc,
+            operatorMnc,
+            operatorName,
+            packetsDownloaded,
+            packetsUploaded,
+            radioLink,
+            sid,
+            simSid,
+            start
         );
     }
 }

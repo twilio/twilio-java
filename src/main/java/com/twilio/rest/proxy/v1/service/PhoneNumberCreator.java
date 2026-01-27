@@ -15,8 +15,11 @@
 package com.twilio.rest.proxy.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
@@ -58,8 +62,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
         return this;
     }
 
-    @Override
-    public PhoneNumber create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/PhoneNumbers";
 
         path =
@@ -75,7 +78,9 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "PhoneNumber creation failed: Unable to connect to server"
@@ -86,26 +91,62 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public PhoneNumber create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PhoneNumber.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<PhoneNumber> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PhoneNumber content = PhoneNumber.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (sid != null) {
-            request.addPostParam("Sid", sid);
+            Serializer.toString(request, "Sid", sid, ParameterType.URLENCODED);
         }
+
         if (phoneNumber != null) {
-            request.addPostParam("PhoneNumber", phoneNumber.toString());
+            Serializer.toString(
+                request,
+                "PhoneNumber",
+                phoneNumber,
+                ParameterType.URLENCODED
+            );
         }
+
         if (isReserved != null) {
-            request.addPostParam("IsReserved", isReserved.toString());
+            Serializer.toString(
+                request,
+                "IsReserved",
+                isReserved,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

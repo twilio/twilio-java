@@ -15,6 +15,7 @@
 package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class WorkerFetcher extends Fetcher<Worker> {
 
@@ -34,8 +36,7 @@ public class WorkerFetcher extends Fetcher<Worker> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Worker fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}";
 
         path =
@@ -50,6 +51,7 @@ public class WorkerFetcher extends Fetcher<Worker> {
             Domains.TASKROUTER.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -62,11 +64,35 @@ public class WorkerFetcher extends Fetcher<Worker> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Worker fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Worker.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Worker> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Worker content = Worker.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

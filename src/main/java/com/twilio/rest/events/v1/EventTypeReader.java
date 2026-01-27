@@ -17,6 +17,10 @@ package com.twilio.rest.events.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,11 +29,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class EventTypeReader extends Reader<EventType> {
 
     private String schemaId;
-    private Integer pageSize;
+    private Long pageSize;
 
     public EventTypeReader() {}
 
@@ -38,9 +43,44 @@ public class EventTypeReader extends Reader<EventType> {
         return this;
     }
 
-    public EventTypeReader setPageSize(final Integer pageSize) {
+    public EventTypeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<EventType> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<EventType> page = Page.fromJson(
+            "types",
+            response.getContent(),
+            EventType.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<EventType> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/Types";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.EVENTS.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -49,24 +89,33 @@ public class EventTypeReader extends Reader<EventType> {
     }
 
     public Page<EventType> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Types";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.EVENTS.toString(),
-            path
-        );
-
-        addQueryParams(request);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<EventType> pageForRequest(
+    public TwilioResponse<Page<EventType>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<EventType> page = Page.fromJson(
+            "types",
+            response.getContent(),
+            EventType.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "EventType read failed: Unable to connect to server"
@@ -76,12 +125,23 @@ public class EventTypeReader extends Reader<EventType> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<EventType> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "types",
             response.getContent(),
@@ -97,7 +157,7 @@ public class EventTypeReader extends Reader<EventType> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.EVENTS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -109,7 +169,7 @@ public class EventTypeReader extends Reader<EventType> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.EVENTS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -120,16 +180,26 @@ public class EventTypeReader extends Reader<EventType> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (schemaId != null) {
-            request.addQueryParam("SchemaId", schemaId);
+            Serializer.toString(
+                request,
+                "SchemaId",
+                schemaId,
+                ParameterType.QUERY
+            );
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

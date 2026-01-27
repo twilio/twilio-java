@@ -18,23 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncMapPermission extends Resource {
-
-    private static final long serialVersionUID = 55149075645678L;
 
     public static SyncMapPermissionDeleter deleter(
         final String pathServiceSid,
@@ -128,66 +131,61 @@ public class SyncMapPermission extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final String mapSid;
+
+    @Getter
     private final String identity;
-    private final Boolean read;
-    private final Boolean write;
+
+    @Getter
     private final Boolean manage;
+
+    @Getter
+    private final String mapSid;
+
+    @Getter
+    private final Boolean read;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final Boolean write;
 
     @JsonCreator
     private SyncMapPermission(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("map_sid") final String mapSid,
         @JsonProperty("identity") final String identity,
-        @JsonProperty("read") final Boolean read,
-        @JsonProperty("write") final Boolean write,
         @JsonProperty("manage") final Boolean manage,
-        @JsonProperty("url") final URI url
+        @JsonProperty("map_sid") final String mapSid,
+        @JsonProperty("read") final Boolean read,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("write") final Boolean write
     ) {
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
-        this.mapSid = mapSid;
         this.identity = identity;
-        this.read = read;
-        this.write = write;
         this.manage = manage;
+        this.mapSid = mapSid;
+        this.read = read;
+        this.serviceSid = serviceSid;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getMapSid() {
-        return this.mapSid;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
-    }
-
-    public final Boolean getRead() {
-        return this.read;
-    }
-
-    public final Boolean getWrite() {
-        return this.write;
-    }
-
-    public final Boolean getManage() {
-        return this.manage;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.write = write;
     }
 
     @Override
@@ -201,16 +199,15 @@ public class SyncMapPermission extends Resource {
         }
 
         SyncMapPermission other = (SyncMapPermission) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(mapSid, other.mapSid) &&
             Objects.equals(identity, other.identity) &&
-            Objects.equals(read, other.read) &&
-            Objects.equals(write, other.write) &&
             Objects.equals(manage, other.manage) &&
-            Objects.equals(url, other.url)
+            Objects.equals(mapSid, other.mapSid) &&
+            Objects.equals(read, other.read) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(write, other.write)
         );
     }
 
@@ -218,13 +215,13 @@ public class SyncMapPermission extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
-            serviceSid,
-            mapSid,
             identity,
-            read,
-            write,
             manage,
-            url
+            mapSid,
+            read,
+            serviceSid,
+            url,
+            write
         );
     }
 }

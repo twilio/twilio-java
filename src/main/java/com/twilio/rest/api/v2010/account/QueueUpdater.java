@@ -14,8 +14,11 @@
 
 package com.twilio.rest.api.v2010.account;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +27,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class QueueUpdater extends Updater<Queue> {
 
-    private String pathSid;
     private String pathAccountSid;
+    private String pathSid;
     private String friendlyName;
     private Integer maxSize;
 
@@ -51,8 +55,7 @@ public class QueueUpdater extends Updater<Queue> {
         return this;
     }
 
-    @Override
-    public Queue update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json";
 
         this.pathAccountSid =
@@ -73,7 +76,9 @@ public class QueueUpdater extends Updater<Queue> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Queue update failed: Unable to connect to server"
@@ -84,20 +89,55 @@ public class QueueUpdater extends Updater<Queue> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Queue update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Queue.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Queue> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Queue content = Queue.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (maxSize != null) {
-            request.addPostParam("MaxSize", maxSize.toString());
+            Serializer.toString(
+                request,
+                "MaxSize",
+                maxSize,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

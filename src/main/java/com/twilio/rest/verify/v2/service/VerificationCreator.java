@@ -15,9 +15,10 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,8 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
+import com.twilio.type.*;
 
 public class VerificationCreator extends Creator<Verification> {
 
@@ -41,13 +41,15 @@ public class VerificationCreator extends Creator<Verification> {
     private String customCode;
     private String amount;
     private String payee;
-    private Map<String, Object> rateLimits;
-    private Map<String, Object> channelConfiguration;
+    private Object rateLimits;
+    private Object channelConfiguration;
     private String appHash;
     private String templateSid;
     private String templateCustomSubstitutions;
     private String deviceIp;
+    private Boolean enableSnaClientToken;
     private Verification.RiskCheck riskCheck;
+    private String tags;
 
     public VerificationCreator(
         final String pathServiceSid,
@@ -106,15 +108,13 @@ public class VerificationCreator extends Creator<Verification> {
         return this;
     }
 
-    public VerificationCreator setRateLimits(
-        final Map<String, Object> rateLimits
-    ) {
+    public VerificationCreator setRateLimits(final Object rateLimits) {
         this.rateLimits = rateLimits;
         return this;
     }
 
     public VerificationCreator setChannelConfiguration(
-        final Map<String, Object> channelConfiguration
+        final Object channelConfiguration
     ) {
         this.channelConfiguration = channelConfiguration;
         return this;
@@ -142,6 +142,13 @@ public class VerificationCreator extends Creator<Verification> {
         return this;
     }
 
+    public VerificationCreator setEnableSnaClientToken(
+        final Boolean enableSnaClientToken
+    ) {
+        this.enableSnaClientToken = enableSnaClientToken;
+        return this;
+    }
+
     public VerificationCreator setRiskCheck(
         final Verification.RiskCheck riskCheck
     ) {
@@ -149,8 +156,12 @@ public class VerificationCreator extends Creator<Verification> {
         return this;
     }
 
-    @Override
-    public Verification create(final TwilioRestClient client) {
+    public VerificationCreator setTags(final String tags) {
+        this.tags = tags;
+        return this;
+    }
+
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Verifications";
 
         path =
@@ -158,8 +169,6 @@ public class VerificationCreator extends Creator<Verification> {
                 "{" + "ServiceSid" + "}",
                 this.pathServiceSid.toString()
             );
-        path = path.replace("{" + "To" + "}", this.to.toString());
-        path = path.replace("{" + "Channel" + "}", this.channel.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -168,7 +177,9 @@ public class VerificationCreator extends Creator<Verification> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Verification creation failed: Unable to connect to server"
@@ -179,71 +190,197 @@ public class VerificationCreator extends Creator<Verification> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Verification create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Verification.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Verification> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Verification content = Verification.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (to != null) {
-            request.addPostParam("To", to);
+            Serializer.toString(request, "To", to, ParameterType.URLENCODED);
         }
+
         if (channel != null) {
-            request.addPostParam("Channel", channel);
+            Serializer.toString(
+                request,
+                "Channel",
+                channel,
+                ParameterType.URLENCODED
+            );
         }
+
         if (customFriendlyName != null) {
-            request.addPostParam("CustomFriendlyName", customFriendlyName);
+            Serializer.toString(
+                request,
+                "CustomFriendlyName",
+                customFriendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (customMessage != null) {
-            request.addPostParam("CustomMessage", customMessage);
+            Serializer.toString(
+                request,
+                "CustomMessage",
+                customMessage,
+                ParameterType.URLENCODED
+            );
         }
+
         if (sendDigits != null) {
-            request.addPostParam("SendDigits", sendDigits);
+            Serializer.toString(
+                request,
+                "SendDigits",
+                sendDigits,
+                ParameterType.URLENCODED
+            );
         }
+
         if (locale != null) {
-            request.addPostParam("Locale", locale);
+            Serializer.toString(
+                request,
+                "Locale",
+                locale,
+                ParameterType.URLENCODED
+            );
         }
+
         if (customCode != null) {
-            request.addPostParam("CustomCode", customCode);
+            Serializer.toString(
+                request,
+                "CustomCode",
+                customCode,
+                ParameterType.URLENCODED
+            );
         }
+
         if (amount != null) {
-            request.addPostParam("Amount", amount);
+            Serializer.toString(
+                request,
+                "Amount",
+                amount,
+                ParameterType.URLENCODED
+            );
         }
+
         if (payee != null) {
-            request.addPostParam("Payee", payee);
+            Serializer.toString(
+                request,
+                "Payee",
+                payee,
+                ParameterType.URLENCODED
+            );
         }
+
         if (rateLimits != null) {
-            request.addPostParam("RateLimits", Converter.mapToJson(rateLimits));
+            Serializer.toString(
+                request,
+                "RateLimits",
+                rateLimits,
+                ParameterType.URLENCODED
+            );
         }
+
         if (channelConfiguration != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "ChannelConfiguration",
-                Converter.mapToJson(channelConfiguration)
+                channelConfiguration,
+                ParameterType.URLENCODED
             );
         }
+
         if (appHash != null) {
-            request.addPostParam("AppHash", appHash);
-        }
-        if (templateSid != null) {
-            request.addPostParam("TemplateSid", templateSid);
-        }
-        if (templateCustomSubstitutions != null) {
-            request.addPostParam(
-                "TemplateCustomSubstitutions",
-                templateCustomSubstitutions
+            Serializer.toString(
+                request,
+                "AppHash",
+                appHash,
+                ParameterType.URLENCODED
             );
         }
-        if (deviceIp != null) {
-            request.addPostParam("DeviceIp", deviceIp);
+
+        if (templateSid != null) {
+            Serializer.toString(
+                request,
+                "TemplateSid",
+                templateSid,
+                ParameterType.URLENCODED
+            );
         }
+
+        if (templateCustomSubstitutions != null) {
+            Serializer.toString(
+                request,
+                "TemplateCustomSubstitutions",
+                templateCustomSubstitutions,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (deviceIp != null) {
+            Serializer.toString(
+                request,
+                "DeviceIp",
+                deviceIp,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (enableSnaClientToken != null) {
+            Serializer.toString(
+                request,
+                "EnableSnaClientToken",
+                enableSnaClientToken,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (riskCheck != null) {
-            request.addPostParam("RiskCheck", riskCheck.toString());
+            Serializer.toString(
+                request,
+                "RiskCheck",
+                riskCheck,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (tags != null) {
+            Serializer.toString(
+                request,
+                "Tags",
+                tags,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

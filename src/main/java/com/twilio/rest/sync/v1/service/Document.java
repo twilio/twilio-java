@@ -18,27 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Document extends Resource {
-
-    private static final long serialVersionUID = 221157207950751L;
 
     public static DocumentCreator creator(final String pathServiceSid) {
         return new DocumentCreator(pathServiceSid);
@@ -112,94 +114,87 @@ public class Document extends Resource {
         }
     }
 
-    private final String sid;
-    private final String uniqueName;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final URI url;
-    private final Map<String, String> links;
-    private final String revision;
-    private final Map<String, Object> data;
-    private final ZonedDateTime dateExpires;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final String createdBy;
+
+    @Getter
+    private final Object data;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateExpires;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final Map<String, String> links;
+
+    @Getter
+    private final String revision;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String uniqueName;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Document(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("url") final URI url,
+        @JsonProperty("created_by") final String createdBy,
+        @JsonProperty("data") final Object data,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_expires") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateExpires,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("revision") final String revision,
-        @JsonProperty("data") final Map<String, Object> data,
-        @JsonProperty("date_expires") final String dateExpires,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("created_by") final String createdBy
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
-        this.uniqueName = uniqueName;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
-        this.url = url;
+        this.createdBy = createdBy;
+        this.data = data;
+        this.dateCreated = dateCreated;
+        this.dateExpires = dateExpires;
+        this.dateUpdated = dateUpdated;
         this.links = links;
         this.revision = revision;
-        this.data = data;
-        this.dateExpires = DateConverter.iso8601DateTimeFromString(dateExpires);
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.createdBy = createdBy;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
-    public final String getRevision() {
-        return this.revision;
-    }
-
-    public final Map<String, Object> getData() {
-        return this.data;
-    }
-
-    public final ZonedDateTime getDateExpires() {
-        return this.dateExpires;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getCreatedBy() {
-        return this.createdBy;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
+        this.uniqueName = uniqueName;
+        this.url = url;
     }
 
     @Override
@@ -213,38 +208,37 @@ public class Document extends Resource {
         }
 
         Document other = (Document) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(url, other.url) &&
+            Objects.equals(createdBy, other.createdBy) &&
+            Objects.equals(data, other.data) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateExpires, other.dateExpires) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(links, other.links) &&
             Objects.equals(revision, other.revision) &&
-            Objects.equals(data, other.data) &&
-            Objects.equals(dateExpires, other.dateExpires) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(createdBy, other.createdBy)
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            uniqueName,
             accountSid,
-            serviceSid,
-            url,
+            createdBy,
+            data,
+            dateCreated,
+            dateExpires,
+            dateUpdated,
             links,
             revision,
-            data,
-            dateExpires,
-            dateCreated,
-            dateUpdated,
-            createdBy
+            serviceSid,
+            sid,
+            uniqueName,
+            url
         );
     }
 }

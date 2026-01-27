@@ -14,9 +14,12 @@
 
 package com.twilio.rest.api.v2010.account;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,12 +28,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class ShortCodeUpdater extends Updater<ShortCode> {
 
-    private String pathSid;
     private String pathAccountSid;
+    private String pathSid;
     private String friendlyName;
     private String apiVersion;
     private URI smsUrl;
@@ -87,8 +91,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
         return this;
     }
 
-    @Override
-    public ShortCode update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json";
 
@@ -110,7 +113,9 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ShortCode update failed: Unable to connect to server"
@@ -121,37 +126,93 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ShortCode update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ShortCode.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<ShortCode> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ShortCode content = ShortCode.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (apiVersion != null) {
-            request.addPostParam("ApiVersion", apiVersion);
+            Serializer.toString(
+                request,
+                "ApiVersion",
+                apiVersion,
+                ParameterType.URLENCODED
+            );
         }
+
         if (smsUrl != null) {
-            request.addPostParam("SmsUrl", smsUrl.toString());
+            Serializer.toString(
+                request,
+                "SmsUrl",
+                smsUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (smsMethod != null) {
-            request.addPostParam("SmsMethod", smsMethod.toString());
+            Serializer.toString(
+                request,
+                "SmsMethod",
+                smsMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (smsFallbackUrl != null) {
-            request.addPostParam("SmsFallbackUrl", smsFallbackUrl.toString());
+            Serializer.toString(
+                request,
+                "SmsFallbackUrl",
+                smsFallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (smsFallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "SmsFallbackMethod",
-                smsFallbackMethod.toString()
+                smsFallbackMethod,
+                ParameterType.URLENCODED
             );
         }
     }

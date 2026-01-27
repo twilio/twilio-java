@@ -15,8 +15,11 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,16 +28,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
-import java.net.URI;
-import java.util.List;
 import java.util.List;
 
 public class CallCreator extends Creator<Call> {
 
+    private String pathAccountSid;
     private com.twilio.type.Endpoint to;
     private com.twilio.type.Endpoint from;
-    private String pathAccountSid;
     private HttpMethod method;
     private URI fallbackUrl;
     private HttpMethod fallbackMethod;
@@ -65,6 +67,7 @@ public class CallCreator extends Creator<Call> {
     private String callToken;
     private String recordingTrack;
     private Integer timeLimit;
+    private URI clientNotificationUrl;
     private URI url;
     private com.twilio.type.Twiml twiml;
     private String applicationSid;
@@ -348,6 +351,21 @@ public class CallCreator extends Creator<Call> {
         return this;
     }
 
+    public CallCreator setClientNotificationUrl(
+        final URI clientNotificationUrl
+    ) {
+        this.clientNotificationUrl = clientNotificationUrl;
+        return this;
+    }
+
+    public CallCreator setClientNotificationUrl(
+        final String clientNotificationUrl
+    ) {
+        return setClientNotificationUrl(
+            Promoter.uriFromString(clientNotificationUrl)
+        );
+    }
+
     public CallCreator setUrl(final URI url) {
         this.url = url;
         return this;
@@ -371,8 +389,7 @@ public class CallCreator extends Creator<Call> {
         return this;
     }
 
-    @Override
-    public Call create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls.json";
 
         this.pathAccountSid =
@@ -384,8 +401,6 @@ public class CallCreator extends Creator<Call> {
                 "{" + "AccountSid" + "}",
                 this.pathAccountSid.toString()
             );
-        path = path.replace("{" + "To" + "}", this.to.toString());
-        path = path.replace("{" + "From" + "}", this.from.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -394,7 +409,9 @@ public class CallCreator extends Creator<Call> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Call creation failed: Unable to connect to server"
@@ -405,150 +422,355 @@ public class CallCreator extends Creator<Call> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Call create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Call.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Call> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Call content = Call.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (to != null) {
-            request.addPostParam("To", to.toString());
+            Serializer.toString(request, "To", to, ParameterType.URLENCODED);
         }
+
         if (from != null) {
-            request.addPostParam("From", from.toString());
+            Serializer.toString(
+                request,
+                "From",
+                from,
+                ParameterType.URLENCODED
+            );
         }
+
         if (method != null) {
-            request.addPostParam("Method", method.toString());
+            Serializer.toString(
+                request,
+                "Method",
+                method,
+                ParameterType.URLENCODED
+            );
         }
+
         if (fallbackUrl != null) {
-            request.addPostParam("FallbackUrl", fallbackUrl.toString());
+            Serializer.toString(
+                request,
+                "FallbackUrl",
+                fallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (fallbackMethod != null) {
-            request.addPostParam("FallbackMethod", fallbackMethod.toString());
+            Serializer.toString(
+                request,
+                "FallbackMethod",
+                fallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
+
         if (statusCallbackEvent != null) {
-            for (String prop : statusCallbackEvent) {
-                request.addPostParam("StatusCallbackEvent", prop);
+            for (String param : statusCallbackEvent) {
+                Serializer.toString(
+                    request,
+                    "StatusCallbackEvent",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (statusCallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "StatusCallbackMethod",
-                statusCallbackMethod.toString()
+                statusCallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (sendDigits != null) {
-            request.addPostParam("SendDigits", sendDigits);
+            Serializer.toString(
+                request,
+                "SendDigits",
+                sendDigits,
+                ParameterType.URLENCODED
+            );
         }
+
         if (timeout != null) {
-            request.addPostParam("Timeout", timeout.toString());
+            Serializer.toString(
+                request,
+                "Timeout",
+                timeout,
+                ParameterType.URLENCODED
+            );
         }
+
         if (record != null) {
-            request.addPostParam("Record", record.toString());
+            Serializer.toString(
+                request,
+                "Record",
+                record,
+                ParameterType.URLENCODED
+            );
         }
+
         if (recordingChannels != null) {
-            request.addPostParam("RecordingChannels", recordingChannels);
+            Serializer.toString(
+                request,
+                "RecordingChannels",
+                recordingChannels,
+                ParameterType.URLENCODED
+            );
         }
+
         if (recordingStatusCallback != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "RecordingStatusCallback",
-                recordingStatusCallback
+                recordingStatusCallback,
+                ParameterType.URLENCODED
             );
         }
+
         if (recordingStatusCallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "RecordingStatusCallbackMethod",
-                recordingStatusCallbackMethod.toString()
+                recordingStatusCallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (sipAuthUsername != null) {
-            request.addPostParam("SipAuthUsername", sipAuthUsername);
-        }
-        if (sipAuthPassword != null) {
-            request.addPostParam("SipAuthPassword", sipAuthPassword);
-        }
-        if (machineDetection != null) {
-            request.addPostParam("MachineDetection", machineDetection);
-        }
-        if (machineDetectionTimeout != null) {
-            request.addPostParam(
-                "MachineDetectionTimeout",
-                machineDetectionTimeout.toString()
+            Serializer.toString(
+                request,
+                "SipAuthUsername",
+                sipAuthUsername,
+                ParameterType.URLENCODED
             );
         }
+
+        if (sipAuthPassword != null) {
+            Serializer.toString(
+                request,
+                "SipAuthPassword",
+                sipAuthPassword,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (machineDetection != null) {
+            Serializer.toString(
+                request,
+                "MachineDetection",
+                machineDetection,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (machineDetectionTimeout != null) {
+            Serializer.toString(
+                request,
+                "MachineDetectionTimeout",
+                machineDetectionTimeout,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (recordingStatusCallbackEvent != null) {
-            for (String prop : recordingStatusCallbackEvent) {
-                request.addPostParam("RecordingStatusCallbackEvent", prop);
+            for (String param : recordingStatusCallbackEvent) {
+                Serializer.toString(
+                    request,
+                    "RecordingStatusCallbackEvent",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (trim != null) {
-            request.addPostParam("Trim", trim);
+            Serializer.toString(
+                request,
+                "Trim",
+                trim,
+                ParameterType.URLENCODED
+            );
         }
+
         if (callerId != null) {
-            request.addPostParam("CallerId", callerId);
+            Serializer.toString(
+                request,
+                "CallerId",
+                callerId,
+                ParameterType.URLENCODED
+            );
         }
+
         if (machineDetectionSpeechThreshold != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "MachineDetectionSpeechThreshold",
-                machineDetectionSpeechThreshold.toString()
+                machineDetectionSpeechThreshold,
+                ParameterType.URLENCODED
             );
         }
+
         if (machineDetectionSpeechEndThreshold != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "MachineDetectionSpeechEndThreshold",
-                machineDetectionSpeechEndThreshold.toString()
+                machineDetectionSpeechEndThreshold,
+                ParameterType.URLENCODED
             );
         }
+
         if (machineDetectionSilenceTimeout != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "MachineDetectionSilenceTimeout",
-                machineDetectionSilenceTimeout.toString()
+                machineDetectionSilenceTimeout,
+                ParameterType.URLENCODED
             );
         }
+
         if (asyncAmd != null) {
-            request.addPostParam("AsyncAmd", asyncAmd);
+            Serializer.toString(
+                request,
+                "AsyncAmd",
+                asyncAmd,
+                ParameterType.URLENCODED
+            );
         }
+
         if (asyncAmdStatusCallback != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AsyncAmdStatusCallback",
-                asyncAmdStatusCallback.toString()
+                asyncAmdStatusCallback,
+                ParameterType.URLENCODED
             );
         }
+
         if (asyncAmdStatusCallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AsyncAmdStatusCallbackMethod",
-                asyncAmdStatusCallbackMethod.toString()
+                asyncAmdStatusCallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (byoc != null) {
-            request.addPostParam("Byoc", byoc);
+            Serializer.toString(
+                request,
+                "Byoc",
+                byoc,
+                ParameterType.URLENCODED
+            );
         }
+
         if (callReason != null) {
-            request.addPostParam("CallReason", callReason);
+            Serializer.toString(
+                request,
+                "CallReason",
+                callReason,
+                ParameterType.URLENCODED
+            );
         }
+
         if (callToken != null) {
-            request.addPostParam("CallToken", callToken);
+            Serializer.toString(
+                request,
+                "CallToken",
+                callToken,
+                ParameterType.URLENCODED
+            );
         }
+
         if (recordingTrack != null) {
-            request.addPostParam("RecordingTrack", recordingTrack);
+            Serializer.toString(
+                request,
+                "RecordingTrack",
+                recordingTrack,
+                ParameterType.URLENCODED
+            );
         }
+
         if (timeLimit != null) {
-            request.addPostParam("TimeLimit", timeLimit.toString());
+            Serializer.toString(
+                request,
+                "TimeLimit",
+                timeLimit,
+                ParameterType.URLENCODED
+            );
         }
+
+        if (clientNotificationUrl != null) {
+            Serializer.toString(
+                request,
+                "ClientNotificationUrl",
+                clientNotificationUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (url != null) {
-            request.addPostParam("Url", url.toString());
+            Serializer.toString(request, "Url", url, ParameterType.URLENCODED);
         }
+
         if (twiml != null) {
-            request.addPostParam("Twiml", twiml.toString());
+            Serializer.toString(
+                request,
+                "Twiml",
+                twiml,
+                ParameterType.URLENCODED
+            );
         }
+
         if (applicationSid != null) {
-            request.addPostParam("ApplicationSid", applicationSid);
+            Serializer.toString(
+                request,
+                "ApplicationSid",
+                applicationSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

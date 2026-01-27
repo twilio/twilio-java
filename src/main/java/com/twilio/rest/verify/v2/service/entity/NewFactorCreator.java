@@ -15,9 +15,10 @@
 package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,8 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
+import com.twilio.type.*;
 
 public class NewFactorCreator extends Creator<NewFactor> {
 
@@ -46,7 +46,7 @@ public class NewFactorCreator extends Creator<NewFactor> {
     private Integer configSkew;
     private Integer configCodeLength;
     private NewFactor.TotpAlgorithms configAlg;
-    private Map<String, Object> metadata;
+    private Object metadata;
 
     public NewFactorCreator(
         final String pathServiceSid,
@@ -135,13 +135,12 @@ public class NewFactorCreator extends Creator<NewFactor> {
         return this;
     }
 
-    public NewFactorCreator setMetadata(final Map<String, Object> metadata) {
+    public NewFactorCreator setMetadata(final Object metadata) {
         this.metadata = metadata;
         return this;
     }
 
-    @Override
-    public NewFactor create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors";
 
         path =
@@ -151,13 +150,6 @@ public class NewFactorCreator extends Creator<NewFactor> {
             );
         path =
             path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path =
-            path.replace("{" + "FactorType" + "}", this.factorType.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -166,7 +158,9 @@ public class NewFactorCreator extends Creator<NewFactor> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "NewFactor creation failed: Unable to connect to server"
@@ -177,68 +171,166 @@ public class NewFactorCreator extends Creator<NewFactor> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public NewFactor create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return NewFactor.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<NewFactor> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        NewFactor content = NewFactor.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (factorType != null) {
-            request.addPostParam("FactorType", factorType.toString());
+            Serializer.toString(
+                request,
+                "FactorType",
+                factorType,
+                ParameterType.URLENCODED
+            );
         }
+
         if (bindingAlg != null) {
-            request.addPostParam("Binding.Alg", bindingAlg);
+            Serializer.toString(
+                request,
+                "Binding.Alg",
+                bindingAlg,
+                ParameterType.URLENCODED
+            );
         }
+
         if (bindingPublicKey != null) {
-            request.addPostParam("Binding.PublicKey", bindingPublicKey);
+            Serializer.toString(
+                request,
+                "Binding.PublicKey",
+                bindingPublicKey,
+                ParameterType.URLENCODED
+            );
         }
+
         if (configAppId != null) {
-            request.addPostParam("Config.AppId", configAppId);
+            Serializer.toString(
+                request,
+                "Config.AppId",
+                configAppId,
+                ParameterType.URLENCODED
+            );
         }
+
         if (configNotificationPlatform != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Config.NotificationPlatform",
-                configNotificationPlatform.toString()
+                configNotificationPlatform,
+                ParameterType.URLENCODED
             );
         }
+
         if (configNotificationToken != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Config.NotificationToken",
-                configNotificationToken
+                configNotificationToken,
+                ParameterType.URLENCODED
             );
         }
+
         if (configSdkVersion != null) {
-            request.addPostParam("Config.SdkVersion", configSdkVersion);
-        }
-        if (bindingSecret != null) {
-            request.addPostParam("Binding.Secret", bindingSecret);
-        }
-        if (configTimeStep != null) {
-            request.addPostParam("Config.TimeStep", configTimeStep.toString());
-        }
-        if (configSkew != null) {
-            request.addPostParam("Config.Skew", configSkew.toString());
-        }
-        if (configCodeLength != null) {
-            request.addPostParam(
-                "Config.CodeLength",
-                configCodeLength.toString()
+            Serializer.toString(
+                request,
+                "Config.SdkVersion",
+                configSdkVersion,
+                ParameterType.URLENCODED
             );
         }
-        if (configAlg != null) {
-            request.addPostParam("Config.Alg", configAlg.toString());
+
+        if (bindingSecret != null) {
+            Serializer.toString(
+                request,
+                "Binding.Secret",
+                bindingSecret,
+                ParameterType.URLENCODED
+            );
         }
+
+        if (configTimeStep != null) {
+            Serializer.toString(
+                request,
+                "Config.TimeStep",
+                configTimeStep,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (configSkew != null) {
+            Serializer.toString(
+                request,
+                "Config.Skew",
+                configSkew,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (configCodeLength != null) {
+            Serializer.toString(
+                request,
+                "Config.CodeLength",
+                configCodeLength,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (configAlg != null) {
+            Serializer.toString(
+                request,
+                "Config.Alg",
+                configAlg,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (metadata != null) {
-            request.addPostParam("Metadata", Converter.mapToJson(metadata));
+            Serializer.toString(
+                request,
+                "Metadata",
+                metadata,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

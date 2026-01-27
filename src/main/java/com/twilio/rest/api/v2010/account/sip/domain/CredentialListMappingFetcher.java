@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.sip.domain;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,13 +24,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CredentialListMappingFetcher
     extends Fetcher<CredentialListMapping> {
 
+    private String pathAccountSid;
     private String pathDomainSid;
     private String pathSid;
-    private String pathAccountSid;
 
     public CredentialListMappingFetcher(
         final String pathDomainSid,
@@ -49,8 +51,7 @@ public class CredentialListMappingFetcher
         this.pathSid = pathSid;
     }
 
-    @Override
-    public CredentialListMapping fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json";
 
@@ -75,6 +76,7 @@ public class CredentialListMappingFetcher
             Domains.API.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -87,14 +89,38 @@ public class CredentialListMappingFetcher
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public CredentialListMapping fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return CredentialListMapping.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<CredentialListMapping> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        CredentialListMapping content = CredentialListMapping.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

@@ -15,8 +15,11 @@
 package com.twilio.rest.preview.wireless;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
+import com.twilio.type.*;
 import java.util.List;
 
 public class RatePlanCreator extends Creator<RatePlan> {
@@ -105,8 +108,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
         );
     }
 
-    @Override
-    public RatePlan create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/wireless/RatePlans";
 
         Request request = new Request(
@@ -116,7 +118,9 @@ public class RatePlanCreator extends Creator<RatePlan> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "RatePlan creation failed: Unable to connect to server"
@@ -127,54 +131,131 @@ public class RatePlanCreator extends Creator<RatePlan> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public RatePlan create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return RatePlan.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<RatePlan> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        RatePlan content = RatePlan.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (dataEnabled != null) {
-            request.addPostParam("DataEnabled", dataEnabled.toString());
+            Serializer.toString(
+                request,
+                "DataEnabled",
+                dataEnabled,
+                ParameterType.URLENCODED
+            );
         }
+
         if (dataLimit != null) {
-            request.addPostParam("DataLimit", dataLimit.toString());
+            Serializer.toString(
+                request,
+                "DataLimit",
+                dataLimit,
+                ParameterType.URLENCODED
+            );
         }
+
         if (dataMetering != null) {
-            request.addPostParam("DataMetering", dataMetering);
+            Serializer.toString(
+                request,
+                "DataMetering",
+                dataMetering,
+                ParameterType.URLENCODED
+            );
         }
+
         if (messagingEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "MessagingEnabled",
-                messagingEnabled.toString()
+                messagingEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceEnabled != null) {
-            request.addPostParam("VoiceEnabled", voiceEnabled.toString());
-        }
-        if (commandsEnabled != null) {
-            request.addPostParam("CommandsEnabled", commandsEnabled.toString());
-        }
-        if (nationalRoamingEnabled != null) {
-            request.addPostParam(
-                "NationalRoamingEnabled",
-                nationalRoamingEnabled.toString()
+            Serializer.toString(
+                request,
+                "VoiceEnabled",
+                voiceEnabled,
+                ParameterType.URLENCODED
             );
         }
+
+        if (commandsEnabled != null) {
+            Serializer.toString(
+                request,
+                "CommandsEnabled",
+                commandsEnabled,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (nationalRoamingEnabled != null) {
+            Serializer.toString(
+                request,
+                "NationalRoamingEnabled",
+                nationalRoamingEnabled,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (internationalRoaming != null) {
-            for (String prop : internationalRoaming) {
-                request.addPostParam("InternationalRoaming", prop);
+            for (String param : internationalRoaming) {
+                Serializer.toString(
+                    request,
+                    "InternationalRoaming",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
     }

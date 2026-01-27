@@ -15,8 +15,11 @@
 package com.twilio.rest.serverless.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
+import com.twilio.type.*;
 import java.util.List;
 
 public class BuildCreator extends Creator<Build> {
@@ -70,8 +73,7 @@ public class BuildCreator extends Creator<Build> {
         return this;
     }
 
-    @Override
-    public Build create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Builds";
 
         path =
@@ -87,7 +89,9 @@ public class BuildCreator extends Creator<Build> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Build creation failed: Unable to connect to server"
@@ -98,30 +102,77 @@ public class BuildCreator extends Creator<Build> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Build create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Build.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Build> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Build content = Build.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (assetVersions != null) {
-            for (String prop : assetVersions) {
-                request.addPostParam("AssetVersions", prop);
+            for (String param : assetVersions) {
+                Serializer.toString(
+                    request,
+                    "AssetVersions",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (functionVersions != null) {
-            for (String prop : functionVersions) {
-                request.addPostParam("FunctionVersions", prop);
+            for (String param : functionVersions) {
+                Serializer.toString(
+                    request,
+                    "FunctionVersions",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (dependencies != null) {
-            request.addPostParam("Dependencies", dependencies);
+            Serializer.toString(
+                request,
+                "Dependencies",
+                dependencies,
+                ParameterType.URLENCODED
+            );
         }
+
         if (runtime != null) {
-            request.addPostParam("Runtime", runtime);
+            Serializer.toString(
+                request,
+                "Runtime",
+                runtime,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

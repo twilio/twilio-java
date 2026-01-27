@@ -14,8 +14,12 @@
 
 package com.twilio.rest.oauth.v1;
 
+import com.twilio.auth_strategy.NoAuthStrategy;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,21 +28,22 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class TokenCreator extends Creator<Token> {
 
     private String grantType;
-    private String clientSid;
+    private String clientId;
     private String clientSecret;
     private String code;
-    private String codeVerifier;
-    private String deviceCode;
+    private String redirectUri;
+    private String audience;
     private String refreshToken;
-    private String deviceId;
+    private String scope;
 
-    public TokenCreator(final String grantType, final String clientSid) {
+    public TokenCreator(final String grantType, final String clientId) {
         this.grantType = grantType;
-        this.clientSid = clientSid;
+        this.clientId = clientId;
     }
 
     public TokenCreator setGrantType(final String grantType) {
@@ -46,8 +51,8 @@ public class TokenCreator extends Creator<Token> {
         return this;
     }
 
-    public TokenCreator setClientSid(final String clientSid) {
-        this.clientSid = clientSid;
+    public TokenCreator setClientId(final String clientId) {
+        this.clientId = clientId;
         return this;
     }
 
@@ -61,13 +66,13 @@ public class TokenCreator extends Creator<Token> {
         return this;
     }
 
-    public TokenCreator setCodeVerifier(final String codeVerifier) {
-        this.codeVerifier = codeVerifier;
+    public TokenCreator setRedirectUri(final String redirectUri) {
+        this.redirectUri = redirectUri;
         return this;
     }
 
-    public TokenCreator setDeviceCode(final String deviceCode) {
-        this.deviceCode = deviceCode;
+    public TokenCreator setAudience(final String audience) {
+        this.audience = audience;
         return this;
     }
 
@@ -76,17 +81,13 @@ public class TokenCreator extends Creator<Token> {
         return this;
     }
 
-    public TokenCreator setDeviceId(final String deviceId) {
-        this.deviceId = deviceId;
+    public TokenCreator setScope(final String scope) {
+        this.scope = scope;
         return this;
     }
 
-    @Override
-    public Token create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/token";
-
-        path = path.replace("{" + "GrantType" + "}", this.grantType.toString());
-        path = path.replace("{" + "ClientSid" + "}", this.clientSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -94,8 +95,11 @@ public class TokenCreator extends Creator<Token> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        request.setAuth(NoAuthStrategy.getInstance());
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Token creation failed: Unable to connect to server"
@@ -106,38 +110,109 @@ public class TokenCreator extends Creator<Token> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Token create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Token.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Token> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Token content = Token.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (grantType != null) {
-            request.addPostParam("GrantType", grantType);
+            Serializer.toString(
+                request,
+                "GrantType",
+                grantType,
+                ParameterType.URLENCODED
+            );
         }
-        if (clientSid != null) {
-            request.addPostParam("ClientSid", clientSid);
+
+        if (clientId != null) {
+            Serializer.toString(
+                request,
+                "ClientId",
+                clientId,
+                ParameterType.URLENCODED
+            );
         }
+
         if (clientSecret != null) {
-            request.addPostParam("ClientSecret", clientSecret);
+            Serializer.toString(
+                request,
+                "ClientSecret",
+                clientSecret,
+                ParameterType.URLENCODED
+            );
         }
+
         if (code != null) {
-            request.addPostParam("Code", code);
+            Serializer.toString(
+                request,
+                "Code",
+                code,
+                ParameterType.URLENCODED
+            );
         }
-        if (codeVerifier != null) {
-            request.addPostParam("CodeVerifier", codeVerifier);
+
+        if (redirectUri != null) {
+            Serializer.toString(
+                request,
+                "RedirectUri",
+                redirectUri,
+                ParameterType.URLENCODED
+            );
         }
-        if (deviceCode != null) {
-            request.addPostParam("DeviceCode", deviceCode);
+
+        if (audience != null) {
+            Serializer.toString(
+                request,
+                "Audience",
+                audience,
+                ParameterType.URLENCODED
+            );
         }
+
         if (refreshToken != null) {
-            request.addPostParam("RefreshToken", refreshToken);
+            Serializer.toString(
+                request,
+                "RefreshToken",
+                refreshToken,
+                ParameterType.URLENCODED
+            );
         }
-        if (deviceId != null) {
-            request.addPostParam("DeviceId", deviceId);
+
+        if (scope != null) {
+            Serializer.toString(
+                request,
+                "Scope",
+                scope,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

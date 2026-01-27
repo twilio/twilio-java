@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,12 +24,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class NotificationFetcher extends Fetcher<Notification> {
 
+    private String pathAccountSid;
     private String pathCallSid;
     private String pathSid;
-    private String pathAccountSid;
 
     public NotificationFetcher(final String pathCallSid, final String pathSid) {
         this.pathCallSid = pathCallSid;
@@ -45,8 +47,7 @@ public class NotificationFetcher extends Fetcher<Notification> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Notification fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json";
 
@@ -67,6 +68,7 @@ public class NotificationFetcher extends Fetcher<Notification> {
             Domains.API.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -79,14 +81,38 @@ public class NotificationFetcher extends Fetcher<Notification> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Notification fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Notification.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Notification> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Notification content = Notification.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

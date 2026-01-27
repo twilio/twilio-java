@@ -18,27 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
-
-    private static final long serialVersionUID = 178052740611913L;
 
     public static WebhookCreator creator(
         final String pathServiceSid,
@@ -77,6 +80,66 @@ public class Webhook extends Resource {
         final String pathSid
     ) {
         return new WebhookUpdater(pathServiceSid, pathSid);
+    }
+
+    public enum Status {
+        ENABLED("enabled"),
+        DISABLED("disabled");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Version {
+        V1("v1"),
+        V2("v2");
+
+        private final String value;
+
+        private Version(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Version forValue(final String value) {
+            return Promoter.enumFromString(value, Version.values());
+        }
+    }
+
+    public enum Methods {
+        GET("GET"),
+        POST("POST");
+
+        private final String value;
+
+        private Methods(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Methods forValue(final String value) {
+            return Promoter.enumFromString(value, Methods.values());
+        }
     }
 
     /**
@@ -122,154 +185,85 @@ public class Webhook extends Resource {
         }
     }
 
-    public enum Methods {
-        GET("GET"),
-        POST("POST");
-
-        private final String value;
-
-        private Methods(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Methods forValue(final String value) {
-            return Promoter.enumFromString(value, Methods.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    public enum Status {
-        ENABLED("enabled"),
-        DISABLED("disabled");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum Version {
-        V1("v1"),
-        V2("v2");
-
-        private final String value;
-
-        private Version(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Version forValue(final String value) {
-            return Promoter.enumFromString(value, Version.values());
-        }
-    }
-
-    private final String sid;
-    private final String serviceSid;
+    @Getter
     private final String accountSid;
-    private final String friendlyName;
-    private final List<String> eventTypes;
-    private final Webhook.Status status;
-    private final Webhook.Version version;
-    private final URI webhookUrl;
-    private final Webhook.Methods webhookMethod;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final List<String> eventTypes;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Webhook.Status status;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final Webhook.Version version;
+
+    @Getter
+    private final Webhook.Methods webhookMethod;
+
+    @Getter
+    private final URI webhookUrl;
 
     @JsonCreator
     private Webhook(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("event_types") final List<String> eventTypes,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("status") final Webhook.Status status,
+        @JsonProperty("url") final URI url,
         @JsonProperty("version") final Webhook.Version version,
-        @JsonProperty("webhook_url") final URI webhookUrl,
         @JsonProperty("webhook_method") final Webhook.Methods webhookMethod,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url
+        @JsonProperty("webhook_url") final URI webhookUrl
     ) {
-        this.sid = sid;
-        this.serviceSid = serviceSid;
         this.accountSid = accountSid;
-        this.friendlyName = friendlyName;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.eventTypes = eventTypes;
+        this.friendlyName = friendlyName;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
         this.status = status;
-        this.version = version;
-        this.webhookUrl = webhookUrl;
-        this.webhookMethod = webhookMethod;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final List<String> getEventTypes() {
-        return this.eventTypes;
-    }
-
-    public final Webhook.Status getStatus() {
-        return this.status;
-    }
-
-    public final Webhook.Version getVersion() {
-        return this.version;
-    }
-
-    public final URI getWebhookUrl() {
-        return this.webhookUrl;
-    }
-
-    public final Webhook.Methods getWebhookMethod() {
-        return this.webhookMethod;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.version = version;
+        this.webhookMethod = webhookMethod;
+        this.webhookUrl = webhookUrl;
     }
 
     @Override
@@ -283,38 +277,37 @@ public class Webhook extends Resource {
         }
 
         Webhook other = (Webhook) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(eventTypes, other.eventTypes) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(version, other.version) &&
-            Objects.equals(webhookUrl, other.webhookUrl) &&
-            Objects.equals(webhookMethod, other.webhookMethod) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url)
+            Objects.equals(eventTypes, other.eventTypes) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(version, other.version) &&
+            Objects.equals(webhookMethod, other.webhookMethod) &&
+            Objects.equals(webhookUrl, other.webhookUrl)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            serviceSid,
             accountSid,
-            friendlyName,
-            eventTypes,
-            status,
-            version,
-            webhookUrl,
-            webhookMethod,
             dateCreated,
             dateUpdated,
-            url
+            eventTypes,
+            friendlyName,
+            serviceSid,
+            sid,
+            status,
+            url,
+            version,
+            webhookMethod,
+            webhookUrl
         );
     }
 }

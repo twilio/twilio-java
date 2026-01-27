@@ -7,12 +7,14 @@
 
 package com.twilio.twiml.voice;
 
+import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * Test class for {@link Start}
@@ -79,6 +81,32 @@ public class StartTest {
                     .statusCallbackMethod(Siprec.StatusCallbackMethod.GET)
                     .build());
 
+        builder.transcription(new Transcription.Builder()
+                    .name("name")
+                    .track(Transcription.Track.INBOUND_TRACK)
+                    .statusCallbackUrl("status_callback_url")
+                    .statusCallbackMethod(Transcription.StatusCallbackMethod.GET)
+                    .inboundTrackLabel("inbound_track_label")
+                    .outboundTrackLabel("outbound_track_label")
+                    .partialResults(true)
+                    .languageCode("language_code")
+                    .transcriptionEngine("transcription_engine")
+                    .profanityFilter(true)
+                    .speechModel("speech_model")
+                    .hints("hints")
+                    .enableAutomaticPunctuation(true)
+                    .intelligenceService("intelligence_service")
+                    .build());
+
+        builder.recording(new Recording.Builder()
+                    .recordingStatusCallback("recording_status_callback")
+                    .recordingStatusCallbackMethod(Recording.RecordingStatusCallbackMethod.GET)
+                    .recordingStatusCallbackEvents(Promoter.listOfOne(Recording.Event.IN_PROGRESS))
+                    .trim(Recording.Trim.TRIM_SILENCE)
+                    .track(Recording.Track.INBOUND)
+                    .channels(Recording.Channels.MONO)
+                    .build());
+
         Start elem = builder.build();
 
         Assert.assertEquals(
@@ -86,6 +114,8 @@ public class StartTest {
             "<Start>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>" +
+                "<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" intelligenceService=\"intelligence_service\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>" +
+                "<Recording channels=\"mono\" recordingStatusCallback=\"recording_status_callback\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" track=\"inbound\" trim=\"trim-silence\"/>" +
             "</Start>",
             elem.toXml()
         );
@@ -200,12 +230,40 @@ public class StartTest {
                     .statusCallbackMethod(Siprec.StatusCallbackMethod.GET)
                     .build());
 
+        builder.transcription(new Transcription.Builder()
+                    .name("name")
+                    .track(Transcription.Track.INBOUND_TRACK)
+                    .statusCallbackUrl("status_callback_url")
+                    .statusCallbackMethod(Transcription.StatusCallbackMethod.GET)
+                    .inboundTrackLabel("inbound_track_label")
+                    .outboundTrackLabel("outbound_track_label")
+                    .partialResults(true)
+                    .languageCode("language_code")
+                    .transcriptionEngine("transcription_engine")
+                    .profanityFilter(true)
+                    .speechModel("speech_model")
+                    .hints("hints")
+                    .enableAutomaticPunctuation(true)
+                    .intelligenceService("intelligence_service")
+                    .build());
+
+        builder.recording(new Recording.Builder()
+                    .recordingStatusCallback("recording_status_callback")
+                    .recordingStatusCallbackMethod(Recording.RecordingStatusCallbackMethod.GET)
+                    .recordingStatusCallbackEvents(Promoter.listOfOne(Recording.Event.IN_PROGRESS))
+                    .trim(Recording.Trim.TRIM_SILENCE)
+                    .track(Recording.Track.INBOUND)
+                    .channels(Recording.Channels.MONO)
+                    .build());
+
         final Start elem = builder.build();
 
         Assert.assertEquals(
             Start.Builder.fromXml("<Start>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>" +
+                "<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" intelligenceService=\"intelligence_service\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>" +
+                "<Recording channels=\"mono\" recordingStatusCallback=\"recording_status_callback\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" track=\"inbound\" trim=\"trim-silence\"/>" +
             "</Start>").build().toXml(),
             elem.toXml()
         );
@@ -219,12 +277,18 @@ public class StartTest {
 
         builder.siprec(new Siprec.Builder().build());
 
+        builder.transcription(new Transcription.Builder().build());
+
+        builder.recording(new Recording.Builder().build());
+
         final Start elem = builder.build();
 
         Assert.assertEquals(
             Start.Builder.fromXml("<Start>" +
                 "<Stream/>" +
                 "<Siprec/>" +
+                "<Transcription/>" +
+                "<Recording/>" +
             "</Start>").build().toXml(),
             elem.toXml()
         );

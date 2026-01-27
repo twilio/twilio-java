@@ -18,27 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Event extends Resource {
-
-    private static final long serialVersionUID = 206221188315695L;
 
     public static EventFetcher fetcher(final String pathSid) {
         return new EventFetcher(pathSid);
@@ -91,20 +93,59 @@ public class Event extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String actorSid;
+
+    @Getter
     private final String actorType;
+
+    @Getter
     private final String description;
-    private final Map<String, Object> eventData;
+
+    @Getter
+    private final Object eventData;
+
+    @Getter
     private final ZonedDateTime eventDate;
+
+    @Getter
     private final String eventType;
-    private final String resourceSid;
-    private final String resourceType;
-    private final String sid;
-    private final String source;
-    private final String sourceIpAddress;
-    private final URI url;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String resourceSid;
+
+    @Getter
+    private final String resourceType;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String source;
+
+    @Getter
+    private final String sourceIpAddress;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Event(
@@ -112,87 +153,33 @@ public class Event extends Resource {
         @JsonProperty("actor_sid") final String actorSid,
         @JsonProperty("actor_type") final String actorType,
         @JsonProperty("description") final String description,
-        @JsonProperty("event_data") final Map<String, Object> eventData,
-        @JsonProperty("event_date") final String eventDate,
+        @JsonProperty("event_data") final Object eventData,
+        @JsonProperty("event_date") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime eventDate,
         @JsonProperty("event_type") final String eventType,
+        @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("resource_sid") final String resourceSid,
         @JsonProperty("resource_type") final String resourceType,
         @JsonProperty("sid") final String sid,
         @JsonProperty("source") final String source,
         @JsonProperty("source_ip_address") final String sourceIpAddress,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.actorSid = actorSid;
         this.actorType = actorType;
         this.description = description;
         this.eventData = eventData;
-        this.eventDate = DateConverter.iso8601DateTimeFromString(eventDate);
+        this.eventDate = eventDate;
         this.eventType = eventType;
+        this.links = links;
         this.resourceSid = resourceSid;
         this.resourceType = resourceType;
         this.sid = sid;
         this.source = source;
         this.sourceIpAddress = sourceIpAddress;
         this.url = url;
-        this.links = links;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getActorSid() {
-        return this.actorSid;
-    }
-
-    public final String getActorType() {
-        return this.actorType;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final Map<String, Object> getEventData() {
-        return this.eventData;
-    }
-
-    public final ZonedDateTime getEventDate() {
-        return this.eventDate;
-    }
-
-    public final String getEventType() {
-        return this.eventType;
-    }
-
-    public final String getResourceSid() {
-        return this.resourceSid;
-    }
-
-    public final String getResourceType() {
-        return this.resourceType;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getSource() {
-        return this.source;
-    }
-
-    public final String getSourceIpAddress() {
-        return this.sourceIpAddress;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
     }
 
     @Override
@@ -206,7 +193,6 @@ public class Event extends Resource {
         }
 
         Event other = (Event) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(actorSid, other.actorSid) &&
@@ -215,13 +201,13 @@ public class Event extends Resource {
             Objects.equals(eventData, other.eventData) &&
             Objects.equals(eventDate, other.eventDate) &&
             Objects.equals(eventType, other.eventType) &&
+            Objects.equals(links, other.links) &&
             Objects.equals(resourceSid, other.resourceSid) &&
             Objects.equals(resourceType, other.resourceType) &&
             Objects.equals(sid, other.sid) &&
             Objects.equals(source, other.source) &&
             Objects.equals(sourceIpAddress, other.sourceIpAddress) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(url, other.url)
         );
     }
 
@@ -235,13 +221,13 @@ public class Event extends Resource {
             eventData,
             eventDate,
             eventType,
+            links,
             resourceSid,
             resourceType,
             sid,
             source,
             sourceIpAddress,
-            url,
-            links
+            url
         );
     }
 }

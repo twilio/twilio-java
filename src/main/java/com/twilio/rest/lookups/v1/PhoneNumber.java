@@ -18,29 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PhoneNumber extends Resource {
 
-    private static final long serialVersionUID = 141589309941045L;
-
-    public static PhoneNumberFetcher fetcher(
-        final com.twilio.type.PhoneNumber pathPhoneNumber
-    ) {
+    public static PhoneNumberFetcher fetcher(final String pathPhoneNumber) {
         return new PhoneNumberFetcher(pathPhoneNumber);
     }
 
@@ -87,61 +86,58 @@ public class PhoneNumber extends Resource {
         }
     }
 
-    private final Map<String, Object> callerName;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
+    private final Object addOns;
+
+    @Getter
+    private final Object callerName;
+
+    @Getter
+    private final Object carrier;
+
+    @Getter
     private final String countryCode;
-    private final com.twilio.type.PhoneNumber phoneNumber;
+
+    @Getter
     private final String nationalFormat;
-    private final Map<String, Object> carrier;
-    private final Map<String, Object> addOns;
+
+    @Getter
+    private final com.twilio.type.PhoneNumber phoneNumber;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private PhoneNumber(
-        @JsonProperty("caller_name") final Map<String, Object> callerName,
+        @JsonProperty("add_ons") final Object addOns,
+        @JsonProperty("caller_name") final Object callerName,
+        @JsonProperty("carrier") final Object carrier,
         @JsonProperty("country_code") final String countryCode,
+        @JsonProperty("national_format") final String nationalFormat,
         @JsonProperty(
             "phone_number"
         ) final com.twilio.type.PhoneNumber phoneNumber,
-        @JsonProperty("national_format") final String nationalFormat,
-        @JsonProperty("carrier") final Map<String, Object> carrier,
-        @JsonProperty("add_ons") final Map<String, Object> addOns,
         @JsonProperty("url") final URI url
     ) {
-        this.callerName = callerName;
-        this.countryCode = countryCode;
-        this.phoneNumber = phoneNumber;
-        this.nationalFormat = nationalFormat;
-        this.carrier = carrier;
         this.addOns = addOns;
+        this.callerName = callerName;
+        this.carrier = carrier;
+        this.countryCode = countryCode;
+        this.nationalFormat = nationalFormat;
+        this.phoneNumber = phoneNumber;
         this.url = url;
-    }
-
-    public final Map<String, Object> getCallerName() {
-        return this.callerName;
-    }
-
-    public final String getCountryCode() {
-        return this.countryCode;
-    }
-
-    public final com.twilio.type.PhoneNumber getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public final String getNationalFormat() {
-        return this.nationalFormat;
-    }
-
-    public final Map<String, Object> getCarrier() {
-        return this.carrier;
-    }
-
-    public final Map<String, Object> getAddOns() {
-        return this.addOns;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -155,14 +151,13 @@ public class PhoneNumber extends Resource {
         }
 
         PhoneNumber other = (PhoneNumber) o;
-
         return (
-            Objects.equals(callerName, other.callerName) &&
-            Objects.equals(countryCode, other.countryCode) &&
-            Objects.equals(phoneNumber, other.phoneNumber) &&
-            Objects.equals(nationalFormat, other.nationalFormat) &&
-            Objects.equals(carrier, other.carrier) &&
             Objects.equals(addOns, other.addOns) &&
+            Objects.equals(callerName, other.callerName) &&
+            Objects.equals(carrier, other.carrier) &&
+            Objects.equals(countryCode, other.countryCode) &&
+            Objects.equals(nationalFormat, other.nationalFormat) &&
+            Objects.equals(phoneNumber, other.phoneNumber) &&
             Objects.equals(url, other.url)
         );
     }
@@ -170,12 +165,12 @@ public class PhoneNumber extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            callerName,
-            countryCode,
-            phoneNumber,
-            nationalFormat,
-            carrier,
             addOns,
+            callerName,
+            carrier,
+            countryCode,
+            nationalFormat,
+            phoneNumber,
             url
         );
     }

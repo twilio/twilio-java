@@ -15,8 +15,11 @@
 package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,15 +28,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
-import java.net.URI;
-import java.util.List;
 import java.util.List;
 
 public class RecordingCreator extends Creator<Recording> {
 
-    private String pathCallSid;
     private String pathAccountSid;
+    private String pathCallSid;
     private List<String> recordingStatusCallbackEvent;
     private URI recordingStatusCallback;
     private HttpMethod recordingStatusCallbackMethod;
@@ -107,8 +109,7 @@ public class RecordingCreator extends Creator<Recording> {
         return this;
     }
 
-    @Override
-    public Recording create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json";
 
@@ -130,7 +131,9 @@ public class RecordingCreator extends Creator<Recording> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Recording creation failed: Unable to connect to server"
@@ -141,43 +144,96 @@ public class RecordingCreator extends Creator<Recording> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Recording create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Recording.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Recording> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Recording content = Recording.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (recordingStatusCallbackEvent != null) {
-            for (String prop : recordingStatusCallbackEvent) {
-                request.addPostParam("RecordingStatusCallbackEvent", prop);
+            for (String param : recordingStatusCallbackEvent) {
+                Serializer.toString(
+                    request,
+                    "RecordingStatusCallbackEvent",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (recordingStatusCallback != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "RecordingStatusCallback",
-                recordingStatusCallback.toString()
+                recordingStatusCallback,
+                ParameterType.URLENCODED
             );
         }
+
         if (recordingStatusCallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "RecordingStatusCallbackMethod",
-                recordingStatusCallbackMethod.toString()
+                recordingStatusCallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (trim != null) {
-            request.addPostParam("Trim", trim);
+            Serializer.toString(
+                request,
+                "Trim",
+                trim,
+                ParameterType.URLENCODED
+            );
         }
+
         if (recordingChannels != null) {
-            request.addPostParam("RecordingChannels", recordingChannels);
+            Serializer.toString(
+                request,
+                "RecordingChannels",
+                recordingChannels,
+                ParameterType.URLENCODED
+            );
         }
+
         if (recordingTrack != null) {
-            request.addPostParam("RecordingTrack", recordingTrack);
+            Serializer.toString(
+                request,
+                "RecordingTrack",
+                recordingTrack,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

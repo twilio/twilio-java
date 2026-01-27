@@ -17,6 +17,10 @@ package com.twilio.rest.insights.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +29,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CallSummariesReader extends Reader<CallSummaries> {
 
@@ -34,7 +39,6 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     private String toCarrier;
     private String fromCountryCode;
     private String toCountryCode;
-    private Boolean branded;
     private Boolean verifiedCaller;
     private Boolean hasTag;
     private String startTime;
@@ -52,7 +56,20 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     private String qualityIssueAnnotation;
     private Boolean spamAnnotation;
     private String callScoreAnnotation;
-    private Integer pageSize;
+    private Boolean brandedEnabled;
+    private Boolean voiceIntegrityEnabled;
+    private String brandedBundleSid;
+    private Boolean brandedLogo;
+    private String brandedType;
+    private String brandedUseCase;
+    private String brandedCallReason;
+    private String voiceIntegrityBundleSid;
+    private String voiceIntegrityUseCase;
+    private String businessProfileIdentity;
+    private String businessProfileIndustry;
+    private String businessProfileBundleSid;
+    private String businessProfileType;
+    private Long pageSize;
 
     public CallSummariesReader() {}
 
@@ -85,11 +102,6 @@ public class CallSummariesReader extends Reader<CallSummaries> {
 
     public CallSummariesReader setToCountryCode(final String toCountryCode) {
         this.toCountryCode = toCountryCode;
-        return this;
-    }
-
-    public CallSummariesReader setBranded(final Boolean branded) {
-        this.branded = branded;
         return this;
     }
 
@@ -192,9 +204,127 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         return this;
     }
 
-    public CallSummariesReader setPageSize(final Integer pageSize) {
+    public CallSummariesReader setBrandedEnabled(final Boolean brandedEnabled) {
+        this.brandedEnabled = brandedEnabled;
+        return this;
+    }
+
+    public CallSummariesReader setVoiceIntegrityEnabled(
+        final Boolean voiceIntegrityEnabled
+    ) {
+        this.voiceIntegrityEnabled = voiceIntegrityEnabled;
+        return this;
+    }
+
+    public CallSummariesReader setBrandedBundleSid(
+        final String brandedBundleSid
+    ) {
+        this.brandedBundleSid = brandedBundleSid;
+        return this;
+    }
+
+    public CallSummariesReader setBrandedLogo(final Boolean brandedLogo) {
+        this.brandedLogo = brandedLogo;
+        return this;
+    }
+
+    public CallSummariesReader setBrandedType(final String brandedType) {
+        this.brandedType = brandedType;
+        return this;
+    }
+
+    public CallSummariesReader setBrandedUseCase(final String brandedUseCase) {
+        this.brandedUseCase = brandedUseCase;
+        return this;
+    }
+
+    public CallSummariesReader setBrandedCallReason(
+        final String brandedCallReason
+    ) {
+        this.brandedCallReason = brandedCallReason;
+        return this;
+    }
+
+    public CallSummariesReader setVoiceIntegrityBundleSid(
+        final String voiceIntegrityBundleSid
+    ) {
+        this.voiceIntegrityBundleSid = voiceIntegrityBundleSid;
+        return this;
+    }
+
+    public CallSummariesReader setVoiceIntegrityUseCase(
+        final String voiceIntegrityUseCase
+    ) {
+        this.voiceIntegrityUseCase = voiceIntegrityUseCase;
+        return this;
+    }
+
+    public CallSummariesReader setBusinessProfileIdentity(
+        final String businessProfileIdentity
+    ) {
+        this.businessProfileIdentity = businessProfileIdentity;
+        return this;
+    }
+
+    public CallSummariesReader setBusinessProfileIndustry(
+        final String businessProfileIndustry
+    ) {
+        this.businessProfileIndustry = businessProfileIndustry;
+        return this;
+    }
+
+    public CallSummariesReader setBusinessProfileBundleSid(
+        final String businessProfileBundleSid
+    ) {
+        this.businessProfileBundleSid = businessProfileBundleSid;
+        return this;
+    }
+
+    public CallSummariesReader setBusinessProfileType(
+        final String businessProfileType
+    ) {
+        this.businessProfileType = businessProfileType;
+        return this;
+    }
+
+    public CallSummariesReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<CallSummaries> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<CallSummaries> page = Page.fromJson(
+            "call_summaries",
+            response.getContent(),
+            CallSummaries.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<CallSummaries> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/Voice/Summaries";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.INSIGHTS.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -203,24 +333,33 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     }
 
     public Page<CallSummaries> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Voice/Summaries";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.INSIGHTS.toString(),
-            path
-        );
-
-        addQueryParams(request);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<CallSummaries> pageForRequest(
+    public TwilioResponse<Page<CallSummaries>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<CallSummaries> page = Page.fromJson(
+            "call_summaries",
+            response.getContent(),
+            CallSummaries.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "CallSummaries read failed: Unable to connect to server"
@@ -230,12 +369,23 @@ public class CallSummariesReader extends Reader<CallSummaries> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<CallSummaries> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "call_summaries",
             response.getContent(),
@@ -251,7 +401,7 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.INSIGHTS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -263,7 +413,7 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.INSIGHTS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -274,97 +424,321 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (from != null) {
-            request.addQueryParam("From", from);
+            Serializer.toString(request, "From", from, ParameterType.QUERY);
         }
+
         if (to != null) {
-            request.addQueryParam("To", to);
+            Serializer.toString(request, "To", to, ParameterType.QUERY);
         }
+
         if (fromCarrier != null) {
-            request.addQueryParam("FromCarrier", fromCarrier);
+            Serializer.toString(
+                request,
+                "FromCarrier",
+                fromCarrier,
+                ParameterType.QUERY
+            );
         }
+
         if (toCarrier != null) {
-            request.addQueryParam("ToCarrier", toCarrier);
+            Serializer.toString(
+                request,
+                "ToCarrier",
+                toCarrier,
+                ParameterType.QUERY
+            );
         }
+
         if (fromCountryCode != null) {
-            request.addQueryParam("FromCountryCode", fromCountryCode);
+            Serializer.toString(
+                request,
+                "FromCountryCode",
+                fromCountryCode,
+                ParameterType.QUERY
+            );
         }
+
         if (toCountryCode != null) {
-            request.addQueryParam("ToCountryCode", toCountryCode);
+            Serializer.toString(
+                request,
+                "ToCountryCode",
+                toCountryCode,
+                ParameterType.QUERY
+            );
         }
-        if (branded != null) {
-            request.addQueryParam("Branded", branded.toString());
-        }
+
         if (verifiedCaller != null) {
-            request.addQueryParam("VerifiedCaller", verifiedCaller.toString());
+            Serializer.toString(
+                request,
+                "VerifiedCaller",
+                verifiedCaller,
+                ParameterType.QUERY
+            );
         }
+
         if (hasTag != null) {
-            request.addQueryParam("HasTag", hasTag.toString());
+            Serializer.toString(request, "HasTag", hasTag, ParameterType.QUERY);
         }
+
         if (startTime != null) {
-            request.addQueryParam("StartTime", startTime);
+            Serializer.toString(
+                request,
+                "StartTime",
+                startTime,
+                ParameterType.QUERY
+            );
         }
+
         if (endTime != null) {
-            request.addQueryParam("EndTime", endTime);
+            Serializer.toString(
+                request,
+                "EndTime",
+                endTime,
+                ParameterType.QUERY
+            );
         }
+
         if (callType != null) {
-            request.addQueryParam("CallType", callType);
+            Serializer.toString(
+                request,
+                "CallType",
+                callType,
+                ParameterType.QUERY
+            );
         }
+
         if (callState != null) {
-            request.addQueryParam("CallState", callState);
+            Serializer.toString(
+                request,
+                "CallState",
+                callState,
+                ParameterType.QUERY
+            );
         }
+
         if (direction != null) {
-            request.addQueryParam("Direction", direction);
+            Serializer.toString(
+                request,
+                "Direction",
+                direction,
+                ParameterType.QUERY
+            );
         }
+
         if (processingState != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "ProcessingState",
-                processingState.toString()
+                processingState,
+                ParameterType.QUERY
             );
         }
+
         if (sortBy != null) {
-            request.addQueryParam("SortBy", sortBy.toString());
+            Serializer.toString(request, "SortBy", sortBy, ParameterType.QUERY);
         }
+
         if (subaccount != null) {
-            request.addQueryParam("Subaccount", subaccount);
+            Serializer.toString(
+                request,
+                "Subaccount",
+                subaccount,
+                ParameterType.QUERY
+            );
         }
+
         if (abnormalSession != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "AbnormalSession",
-                abnormalSession.toString()
+                abnormalSession,
+                ParameterType.QUERY
             );
         }
+
         if (answeredBy != null) {
-            request.addQueryParam("AnsweredBy", answeredBy.toString());
+            Serializer.toString(
+                request,
+                "AnsweredBy",
+                answeredBy,
+                ParameterType.QUERY
+            );
         }
+
         if (answeredByAnnotation != null) {
-            request.addQueryParam("AnsweredByAnnotation", answeredByAnnotation);
+            Serializer.toString(
+                request,
+                "AnsweredByAnnotation",
+                answeredByAnnotation,
+                ParameterType.QUERY
+            );
         }
+
         if (connectivityIssueAnnotation != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "ConnectivityIssueAnnotation",
-                connectivityIssueAnnotation
+                connectivityIssueAnnotation,
+                ParameterType.QUERY
             );
         }
+
         if (qualityIssueAnnotation != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "QualityIssueAnnotation",
-                qualityIssueAnnotation
+                qualityIssueAnnotation,
+                ParameterType.QUERY
             );
         }
+
         if (spamAnnotation != null) {
-            request.addQueryParam("SpamAnnotation", spamAnnotation.toString());
+            Serializer.toString(
+                request,
+                "SpamAnnotation",
+                spamAnnotation,
+                ParameterType.QUERY
+            );
         }
+
         if (callScoreAnnotation != null) {
-            request.addQueryParam("CallScoreAnnotation", callScoreAnnotation);
+            Serializer.toString(
+                request,
+                "CallScoreAnnotation",
+                callScoreAnnotation,
+                ParameterType.QUERY
+            );
         }
+
+        if (brandedEnabled != null) {
+            Serializer.toString(
+                request,
+                "BrandedEnabled",
+                brandedEnabled,
+                ParameterType.QUERY
+            );
+        }
+
+        if (voiceIntegrityEnabled != null) {
+            Serializer.toString(
+                request,
+                "VoiceIntegrityEnabled",
+                voiceIntegrityEnabled,
+                ParameterType.QUERY
+            );
+        }
+
+        if (brandedBundleSid != null) {
+            Serializer.toString(
+                request,
+                "BrandedBundleSid",
+                brandedBundleSid,
+                ParameterType.QUERY
+            );
+        }
+
+        if (brandedLogo != null) {
+            Serializer.toString(
+                request,
+                "BrandedLogo",
+                brandedLogo,
+                ParameterType.QUERY
+            );
+        }
+
+        if (brandedType != null) {
+            Serializer.toString(
+                request,
+                "BrandedType",
+                brandedType,
+                ParameterType.QUERY
+            );
+        }
+
+        if (brandedUseCase != null) {
+            Serializer.toString(
+                request,
+                "BrandedUseCase",
+                brandedUseCase,
+                ParameterType.QUERY
+            );
+        }
+
+        if (brandedCallReason != null) {
+            Serializer.toString(
+                request,
+                "BrandedCallReason",
+                brandedCallReason,
+                ParameterType.QUERY
+            );
+        }
+
+        if (voiceIntegrityBundleSid != null) {
+            Serializer.toString(
+                request,
+                "VoiceIntegrityBundleSid",
+                voiceIntegrityBundleSid,
+                ParameterType.QUERY
+            );
+        }
+
+        if (voiceIntegrityUseCase != null) {
+            Serializer.toString(
+                request,
+                "VoiceIntegrityUseCase",
+                voiceIntegrityUseCase,
+                ParameterType.QUERY
+            );
+        }
+
+        if (businessProfileIdentity != null) {
+            Serializer.toString(
+                request,
+                "BusinessProfileIdentity",
+                businessProfileIdentity,
+                ParameterType.QUERY
+            );
+        }
+
+        if (businessProfileIndustry != null) {
+            Serializer.toString(
+                request,
+                "BusinessProfileIndustry",
+                businessProfileIndustry,
+                ParameterType.QUERY
+            );
+        }
+
+        if (businessProfileBundleSid != null) {
+            Serializer.toString(
+                request,
+                "BusinessProfileBundleSid",
+                businessProfileBundleSid,
+                ParameterType.QUERY
+            );
+        }
+
+        if (businessProfileType != null) {
+            Serializer.toString(
+                request,
+                "BusinessProfileType",
+                businessProfileType,
+                ParameterType.QUERY
+            );
+        }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

@@ -15,10 +15,11 @@
 package com.twilio.rest.video.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,12 +28,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 import java.util.List;
-import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class RoomCreator extends Creator<Room> {
 
@@ -43,9 +41,11 @@ public class RoomCreator extends Creator<Room> {
     private HttpMethod statusCallbackMethod;
     private Integer maxParticipants;
     private Boolean recordParticipantsOnConnect;
+    private Boolean transcribeParticipantsOnConnect;
     private List<Room.VideoCodec> videoCodecs;
     private String mediaRegion;
-    private Map<String, Object> recordingRules;
+    private Object recordingRules;
+    private Object transcriptionsConfiguration;
     private Boolean audioOnly;
     private Integer maxParticipantDuration;
     private Integer emptyRoomTimeout;
@@ -97,6 +97,13 @@ public class RoomCreator extends Creator<Room> {
         return this;
     }
 
+    public RoomCreator setTranscribeParticipantsOnConnect(
+        final Boolean transcribeParticipantsOnConnect
+    ) {
+        this.transcribeParticipantsOnConnect = transcribeParticipantsOnConnect;
+        return this;
+    }
+
     public RoomCreator setVideoCodecs(final List<Room.VideoCodec> videoCodecs) {
         this.videoCodecs = videoCodecs;
         return this;
@@ -111,10 +118,15 @@ public class RoomCreator extends Creator<Room> {
         return this;
     }
 
-    public RoomCreator setRecordingRules(
-        final Map<String, Object> recordingRules
-    ) {
+    public RoomCreator setRecordingRules(final Object recordingRules) {
         this.recordingRules = recordingRules;
+        return this;
+    }
+
+    public RoomCreator setTranscriptionsConfiguration(
+        final Object transcriptionsConfiguration
+    ) {
+        this.transcriptionsConfiguration = transcriptionsConfiguration;
         return this;
     }
 
@@ -145,8 +157,7 @@ public class RoomCreator extends Creator<Room> {
         return this;
     }
 
-    @Override
-    public Room create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Rooms";
 
         Request request = new Request(
@@ -156,7 +167,9 @@ public class RoomCreator extends Creator<Room> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Room creation failed: Unable to connect to server"
@@ -167,79 +180,192 @@ public class RoomCreator extends Creator<Room> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Room create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Room.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Room> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Room content = Room.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (enableTurn != null) {
-            request.addPostParam("EnableTurn", enableTurn.toString());
+            Serializer.toString(
+                request,
+                "EnableTurn",
+                enableTurn,
+                ParameterType.URLENCODED
+            );
         }
+
         if (type != null) {
-            request.addPostParam("Type", type.toString());
+            Serializer.toString(
+                request,
+                "Type",
+                type,
+                ParameterType.URLENCODED
+            );
         }
+
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
+
         if (statusCallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "StatusCallbackMethod",
-                statusCallbackMethod.toString()
+                statusCallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (maxParticipants != null) {
-            request.addPostParam("MaxParticipants", maxParticipants.toString());
-        }
-        if (recordParticipantsOnConnect != null) {
-            request.addPostParam(
-                "RecordParticipantsOnConnect",
-                recordParticipantsOnConnect.toString()
+            Serializer.toString(
+                request,
+                "MaxParticipants",
+                maxParticipants,
+                ParameterType.URLENCODED
             );
         }
+
+        if (recordParticipantsOnConnect != null) {
+            Serializer.toString(
+                request,
+                "RecordParticipantsOnConnect",
+                recordParticipantsOnConnect,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (transcribeParticipantsOnConnect != null) {
+            Serializer.toString(
+                request,
+                "TranscribeParticipantsOnConnect",
+                transcribeParticipantsOnConnect,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (videoCodecs != null) {
-            for (Room.VideoCodec prop : videoCodecs) {
-                request.addPostParam("VideoCodecs", prop.toString());
+            for (Room.VideoCodec param : videoCodecs) {
+                Serializer.toString(
+                    request,
+                    "VideoCodecs",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (mediaRegion != null) {
-            request.addPostParam("MediaRegion", mediaRegion);
+            Serializer.toString(
+                request,
+                "MediaRegion",
+                mediaRegion,
+                ParameterType.URLENCODED
+            );
         }
+
         if (recordingRules != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "RecordingRules",
-                Converter.mapToJson(recordingRules)
+                recordingRules,
+                ParameterType.URLENCODED
             );
         }
+
+        if (transcriptionsConfiguration != null) {
+            Serializer.toString(
+                request,
+                "TranscriptionsConfiguration",
+                transcriptionsConfiguration,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (audioOnly != null) {
-            request.addPostParam("AudioOnly", audioOnly.toString());
+            Serializer.toString(
+                request,
+                "AudioOnly",
+                audioOnly,
+                ParameterType.URLENCODED
+            );
         }
+
         if (maxParticipantDuration != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "MaxParticipantDuration",
-                maxParticipantDuration.toString()
+                maxParticipantDuration,
+                ParameterType.URLENCODED
             );
         }
+
         if (emptyRoomTimeout != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "EmptyRoomTimeout",
-                emptyRoomTimeout.toString()
+                emptyRoomTimeout,
+                ParameterType.URLENCODED
             );
         }
+
         if (unusedRoomTimeout != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "UnusedRoomTimeout",
-                unusedRoomTimeout.toString()
+                unusedRoomTimeout,
+                ParameterType.URLENCODED
             );
         }
+
         if (largeRoom != null) {
-            request.addPostParam("LargeRoom", largeRoom.toString());
+            Serializer.toString(
+                request,
+                "LargeRoom",
+                largeRoom,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

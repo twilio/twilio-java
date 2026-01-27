@@ -15,8 +15,10 @@
 package com.twilio.rest.lookups.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.converter.PrefixedCollapsibleMap;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,20 +27,19 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.util.List;
 import java.util.Map;
 
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
-    private com.twilio.type.PhoneNumber pathPhoneNumber;
+    private String pathPhoneNumber;
     private String countryCode;
     private List<String> type;
     private List<String> addOns;
     private Map<String, Object> addOnsData;
 
-    public PhoneNumberFetcher(
-        final com.twilio.type.PhoneNumber pathPhoneNumber
-    ) {
+    public PhoneNumberFetcher(final String pathPhoneNumber) {
         this.pathPhoneNumber = pathPhoneNumber;
     }
 
@@ -72,14 +73,13 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         return this;
     }
 
-    @Override
-    public PhoneNumber fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/PhoneNumbers/{PhoneNumber}";
 
         path =
             path.replace(
                 "{" + "PhoneNumber" + "}",
-                this.pathPhoneNumber.encode("utf-8")
+                this.pathPhoneNumber.toString()
             );
 
         Request request = new Request(
@@ -88,6 +88,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             path
         );
         addQueryParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -100,39 +101,80 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public PhoneNumber fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PhoneNumber.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<PhoneNumber> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PhoneNumber content = PhoneNumber.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addQueryParams(final Request request) {
         if (countryCode != null) {
-            request.addQueryParam("CountryCode", countryCode);
-        }
-        if (type != null) {
-            for (String prop : type) {
-                request.addQueryParam("Type", prop);
-            }
-        }
-        if (addOns != null) {
-            for (String prop : addOns) {
-                request.addQueryParam("AddOns", prop);
-            }
-        }
-        if (addOnsData != null) {
-            Map<String, String> params = PrefixedCollapsibleMap.serialize(
-                addOnsData,
-                "AddOns"
+            Serializer.toString(
+                request,
+                "CountryCode",
+                countryCode,
+                ParameterType.QUERY
             );
-            for (Map.Entry<String, String> entry : params.entrySet()) {
-                request.addQueryParam(entry.getKey(), entry.getValue());
+        }
+
+        if (type != null) {
+            for (String param : type) {
+                Serializer.toString(
+                    request,
+                    "Type",
+                    param,
+                    ParameterType.QUERY
+                );
             }
+        }
+
+        if (addOns != null) {
+            for (String param : addOns) {
+                Serializer.toString(
+                    request,
+                    "AddOns",
+                    param,
+                    ParameterType.QUERY
+                );
+            }
+        }
+
+        if (addOnsData != null) {
+            Serializer.toString(
+                request,
+                "AddOnsData",
+                addOnsData,
+                ParameterType.QUERY
+            );
         }
     }
 }

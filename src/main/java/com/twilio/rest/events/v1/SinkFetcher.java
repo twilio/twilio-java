@@ -15,6 +15,7 @@
 package com.twilio.rest.events.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SinkFetcher extends Fetcher<Sink> {
 
@@ -32,8 +34,7 @@ public class SinkFetcher extends Fetcher<Sink> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Sink fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Sinks/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -43,6 +44,7 @@ public class SinkFetcher extends Fetcher<Sink> {
             Domains.EVENTS.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -55,11 +57,35 @@ public class SinkFetcher extends Fetcher<Sink> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Sink fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Sink.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Sink> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Sink content = Sink.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

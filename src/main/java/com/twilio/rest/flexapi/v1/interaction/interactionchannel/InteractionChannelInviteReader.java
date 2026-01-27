@@ -17,6 +17,10 @@ package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +29,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class InteractionChannelInviteReader
     extends Reader<InteractionChannelInvite> {
 
     private String pathInteractionSid;
     private String pathChannelSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public InteractionChannelInviteReader(
         final String pathInteractionSid,
@@ -41,23 +46,38 @@ public class InteractionChannelInviteReader
         this.pathChannelSid = pathChannelSid;
     }
 
-    public InteractionChannelInviteReader setPageSize(final Integer pageSize) {
+    public InteractionChannelInviteReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<InteractionChannelInvite> read(
+    public ResourceSetResponse<InteractionChannelInvite> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<InteractionChannelInvite> page = Page.fromJson(
+            "invites",
+            response.getContent(),
+            InteractionChannelInvite.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<InteractionChannelInvite> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<InteractionChannelInvite> firstPage(
-        final TwilioRestClient client
-    ) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites";
+
         path =
             path.replace(
                 "{" + "InteractionSid" + "}",
@@ -74,17 +94,47 @@ public class InteractionChannelInviteReader
             Domains.FLEXAPI.toString(),
             path
         );
-
         addQueryParams(request);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<InteractionChannelInvite> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<InteractionChannelInvite> firstPage(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<InteractionChannelInvite> pageForRequest(
+    public TwilioResponse<Page<InteractionChannelInvite>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<InteractionChannelInvite> page = Page.fromJson(
+            "invites",
+            response.getContent(),
+            InteractionChannelInvite.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "InteractionChannelInvite read failed: Unable to connect to server"
@@ -94,12 +144,23 @@ public class InteractionChannelInviteReader
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<InteractionChannelInvite> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "invites",
             response.getContent(),
@@ -115,7 +176,7 @@ public class InteractionChannelInviteReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.FLEXAPI.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -127,7 +188,7 @@ public class InteractionChannelInviteReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.FLEXAPI.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -138,13 +199,17 @@ public class InteractionChannelInviteReader
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

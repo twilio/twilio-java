@@ -17,6 +17,10 @@ package com.twilio.rest.events.v1.schema;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,19 +29,57 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SchemaVersionReader extends Reader<SchemaVersion> {
 
     private String pathId;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SchemaVersionReader(final String pathId) {
         this.pathId = pathId;
     }
 
-    public SchemaVersionReader setPageSize(final Integer pageSize) {
+    public SchemaVersionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<SchemaVersion> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SchemaVersion> page = Page.fromJson(
+            "schema_versions",
+            response.getContent(),
+            SchemaVersion.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<SchemaVersion> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/Schemas/{Id}/Versions";
+
+        path = path.replace("{" + "Id" + "}", this.pathId.toString());
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.EVENTS.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -46,25 +88,33 @@ public class SchemaVersionReader extends Reader<SchemaVersion> {
     }
 
     public Page<SchemaVersion> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Schemas/{Id}/Versions";
-        path = path.replace("{" + "Id" + "}", this.pathId.toString());
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.EVENTS.toString(),
-            path
-        );
-
-        addQueryParams(request);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<SchemaVersion> pageForRequest(
+    public TwilioResponse<Page<SchemaVersion>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SchemaVersion> page = Page.fromJson(
+            "schema_versions",
+            response.getContent(),
+            SchemaVersion.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "SchemaVersion read failed: Unable to connect to server"
@@ -74,12 +124,23 @@ public class SchemaVersionReader extends Reader<SchemaVersion> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<SchemaVersion> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "schema_versions",
             response.getContent(),
@@ -95,7 +156,7 @@ public class SchemaVersionReader extends Reader<SchemaVersion> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.EVENTS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -107,7 +168,7 @@ public class SchemaVersionReader extends Reader<SchemaVersion> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.EVENTS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -118,13 +179,17 @@ public class SchemaVersionReader extends Reader<SchemaVersion> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

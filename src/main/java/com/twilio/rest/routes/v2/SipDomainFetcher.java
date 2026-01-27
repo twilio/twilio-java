@@ -15,6 +15,7 @@
 package com.twilio.rest.routes.v2;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SipDomainFetcher extends Fetcher<SipDomain> {
 
@@ -32,8 +34,7 @@ public class SipDomainFetcher extends Fetcher<SipDomain> {
         this.pathSipDomain = pathSipDomain;
     }
 
-    @Override
-    public SipDomain fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/SipDomains/{SipDomain}";
 
         path =
@@ -47,6 +48,7 @@ public class SipDomainFetcher extends Fetcher<SipDomain> {
             Domains.ROUTES.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -59,14 +61,38 @@ public class SipDomainFetcher extends Fetcher<SipDomain> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SipDomain fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SipDomain.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<SipDomain> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SipDomain content = SipDomain.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

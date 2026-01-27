@@ -15,7 +15,10 @@
 package com.twilio.rest.api.v2010.account.message;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +27,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class FeedbackCreator extends Creator<Feedback> {
 
-    private String pathMessageSid;
     private String pathAccountSid;
+    private String pathMessageSid;
     private Feedback.Outcome outcome;
 
     public FeedbackCreator(final String pathMessageSid) {
@@ -48,8 +52,7 @@ public class FeedbackCreator extends Creator<Feedback> {
         return this;
     }
 
-    @Override
-    public Feedback create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json";
 
@@ -75,7 +78,9 @@ public class FeedbackCreator extends Creator<Feedback> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Feedback creation failed: Unable to connect to server"
@@ -86,20 +91,49 @@ public class FeedbackCreator extends Creator<Feedback> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Feedback create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Feedback.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Feedback> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Feedback content = Feedback.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (outcome != null) {
-            request.addPostParam("Outcome", outcome.toString());
+            Serializer.toString(
+                request,
+                "Outcome",
+                outcome,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

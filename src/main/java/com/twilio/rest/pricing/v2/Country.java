@@ -18,29 +18,31 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.CurrencyDeserializer;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import com.twilio.type.InboundCallPrice;
 import com.twilio.type.OutboundPrefixPriceWithOrigin;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Currency;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Country extends Resource {
-
-    private static final long serialVersionUID = 141644803807942L;
 
     public static CountryFetcher fetcher(final String pathIsoCountry) {
         return new CountryFetcher(pathIsoCountry);
@@ -93,58 +95,57 @@ public class Country extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String country;
+
+    @Getter
     private final String isoCountry;
-    private final List<OutboundPrefixPriceWithOrigin> terminatingPrefixPrices;
+
+    @Getter
     private final List<InboundCallPrice> originatingCallPrices;
+
+    @Getter
     private final Currency priceUnit;
+
+    @Getter
+    private final List<OutboundPrefixPriceWithOrigin> terminatingPrefixPrices;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Country(
         @JsonProperty("country") final String country,
         @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty(
-            "terminating_prefix_prices"
-        ) final List<OutboundPrefixPriceWithOrigin> terminatingPrefixPrices,
-        @JsonProperty(
-            "originating_call_prices"
-        ) final List<InboundCallPrice> originatingCallPrices,
+        @JsonProperty("originating_call_prices") final List<
+            InboundCallPrice
+        > originatingCallPrices,
         @JsonProperty("price_unit") @JsonDeserialize(
             using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,
+        @JsonProperty("terminating_prefix_prices") final List<
+            OutboundPrefixPriceWithOrigin
+        > terminatingPrefixPrices,
         @JsonProperty("url") final URI url
     ) {
         this.country = country;
         this.isoCountry = isoCountry;
-        this.terminatingPrefixPrices = terminatingPrefixPrices;
         this.originatingCallPrices = originatingCallPrices;
         this.priceUnit = priceUnit;
+        this.terminatingPrefixPrices = terminatingPrefixPrices;
         this.url = url;
-    }
-
-    public final String getCountry() {
-        return this.country;
-    }
-
-    public final String getIsoCountry() {
-        return this.isoCountry;
-    }
-
-    public final List<OutboundPrefixPriceWithOrigin> getTerminatingPrefixPrices() {
-        return this.terminatingPrefixPrices;
-    }
-
-    public final List<InboundCallPrice> getOriginatingCallPrices() {
-        return this.originatingCallPrices;
-    }
-
-    public final Currency getPriceUnit() {
-        return this.priceUnit;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -158,19 +159,18 @@ public class Country extends Resource {
         }
 
         Country other = (Country) o;
-
         return (
             Objects.equals(country, other.country) &&
             Objects.equals(isoCountry, other.isoCountry) &&
-            Objects.equals(
-                terminatingPrefixPrices,
-                other.terminatingPrefixPrices
-            ) &&
             Objects.equals(
                 originatingCallPrices,
                 other.originatingCallPrices
             ) &&
             Objects.equals(priceUnit, other.priceUnit) &&
+            Objects.equals(
+                terminatingPrefixPrices,
+                other.terminatingPrefixPrices
+            ) &&
             Objects.equals(url, other.url)
         );
     }
@@ -180,9 +180,9 @@ public class Country extends Resource {
         return Objects.hash(
             country,
             isoCountry,
-            terminatingPrefixPrices,
             originatingCallPrices,
             priceUnit,
+            terminatingPrefixPrices,
             url
         );
     }

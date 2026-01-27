@@ -18,26 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Member extends Resource {
-
-    private static final long serialVersionUID = 220317594144302L;
 
     public static MemberCreator creator(
         final String pathServiceSid,
@@ -76,6 +79,26 @@ public class Member extends Resource {
         final String pathSid
     ) {
         return new MemberUpdater(pathServiceSid, pathChannelSid, pathSid);
+    }
+
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
     }
 
     /**
@@ -121,119 +144,89 @@ public class Member extends Resource {
         }
     }
 
-    public enum WebhookEnabledType {
-        TRUE("true"),
-        FALSE("false");
-
-        private final String value;
-
-        private WebhookEnabledType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static WebhookEnabledType forValue(final String value) {
-            return Promoter.enumFromString(value, WebhookEnabledType.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    private final String sid;
+    @Getter
     private final String accountSid;
-    private final String channelSid;
-    private final String serviceSid;
-    private final String identity;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final String roleSid;
-    private final Integer lastConsumedMessageIndex;
-    private final ZonedDateTime lastConsumptionTimestamp;
-    private final URI url;
+
+    @Getter
     private final String attributes;
+
+    @Getter
+    private final String channelSid;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String identity;
+
+    @Getter
+    private final Integer lastConsumedMessageIndex;
+
+    @Getter
+    private final ZonedDateTime lastConsumptionTimestamp;
+
+    @Getter
+    private final String roleSid;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Member(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("attributes") final String attributes,
         @JsonProperty("channel_sid") final String channelSid,
-        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("identity") final String identity,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("role_sid") final String roleSid,
         @JsonProperty(
             "last_consumed_message_index"
         ) final Integer lastConsumedMessageIndex,
-        @JsonProperty(
-            "last_consumption_timestamp"
-        ) final String lastConsumptionTimestamp,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("attributes") final String attributes
+        @JsonProperty("last_consumption_timestamp") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime lastConsumptionTimestamp,
+        @JsonProperty("role_sid") final String roleSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.channelSid = channelSid;
-        this.serviceSid = serviceSid;
-        this.identity = identity;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.roleSid = roleSid;
-        this.lastConsumedMessageIndex = lastConsumedMessageIndex;
-        this.lastConsumptionTimestamp =
-            DateConverter.iso8601DateTimeFromString(lastConsumptionTimestamp);
-        this.url = url;
         this.attributes = attributes;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getChannelSid() {
-        return this.channelSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getRoleSid() {
-        return this.roleSid;
-    }
-
-    public final Integer getLastConsumedMessageIndex() {
-        return this.lastConsumedMessageIndex;
-    }
-
-    public final ZonedDateTime getLastConsumptionTimestamp() {
-        return this.lastConsumptionTimestamp;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getAttributes() {
-        return this.attributes;
+        this.channelSid = channelSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.identity = identity;
+        this.lastConsumedMessageIndex = lastConsumedMessageIndex;
+        this.lastConsumptionTimestamp = lastConsumptionTimestamp;
+        this.roleSid = roleSid;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
+        this.url = url;
     }
 
     @Override
@@ -247,16 +240,13 @@ public class Member extends Resource {
         }
 
         Member other = (Member) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(attributes, other.attributes) &&
             Objects.equals(channelSid, other.channelSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(identity, other.identity) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(roleSid, other.roleSid) &&
+            Objects.equals(identity, other.identity) &&
             Objects.equals(
                 lastConsumedMessageIndex,
                 other.lastConsumedMessageIndex
@@ -265,26 +255,28 @@ public class Member extends Resource {
                 lastConsumptionTimestamp,
                 other.lastConsumptionTimestamp
             ) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(attributes, other.attributes)
+            Objects.equals(roleSid, other.roleSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
+            attributes,
             channelSid,
-            serviceSid,
-            identity,
             dateCreated,
             dateUpdated,
-            roleSid,
+            identity,
             lastConsumedMessageIndex,
             lastConsumptionTimestamp,
-            url,
-            attributes
+            roleSid,
+            serviceSid,
+            sid,
+            url
         );
     }
 }

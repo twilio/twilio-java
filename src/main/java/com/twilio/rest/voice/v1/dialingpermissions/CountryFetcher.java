@@ -15,6 +15,7 @@
 package com.twilio.rest.voice.v1.dialingpermissions;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CountryFetcher extends Fetcher<Country> {
 
@@ -32,8 +34,7 @@ public class CountryFetcher extends Fetcher<Country> {
         this.pathIsoCode = pathIsoCode;
     }
 
-    @Override
-    public Country fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/DialingPermissions/Countries/{IsoCode}";
 
         path = path.replace("{" + "IsoCode" + "}", this.pathIsoCode.toString());
@@ -43,6 +44,7 @@ public class CountryFetcher extends Fetcher<Country> {
             Domains.VOICE.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -55,11 +57,35 @@ public class CountryFetcher extends Fetcher<Country> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Country fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Country.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Country> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Country content = Country.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

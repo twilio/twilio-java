@@ -18,27 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Workflow extends Resource {
-
-    private static final long serialVersionUID = 204168447451968L;
 
     public static WorkflowCreator creator(
         final String pathWorkspaceSid,
@@ -120,19 +122,56 @@ public class Workflow extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final URI assignmentCallbackUrl;
+
+    @Getter
     private final String configuration;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final String documentContentType;
+
+    @Getter
     private final URI fallbackAssignmentCallbackUrl;
+
+    @Getter
     private final String friendlyName;
-    private final String sid;
-    private final Integer taskReservationTimeout;
-    private final String workspaceSid;
-    private final URI url;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Integer taskReservationTimeout;
+
+    @Getter
+    private final URI url;
+
+    @Getter
+    private final String workspaceSid;
 
     @JsonCreator
     private Workflow(
@@ -141,86 +180,38 @@ public class Workflow extends Resource {
             "assignment_callback_url"
         ) final URI assignmentCallbackUrl,
         @JsonProperty("configuration") final String configuration,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("document_content_type") final String documentContentType,
         @JsonProperty(
             "fallback_assignment_callback_url"
         ) final URI fallbackAssignmentCallbackUrl,
         @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("sid") final String sid,
         @JsonProperty(
             "task_reservation_timeout"
         ) final Integer taskReservationTimeout,
-        @JsonProperty("workspace_sid") final String workspaceSid,
         @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.assignmentCallbackUrl = assignmentCallbackUrl;
         this.configuration = configuration;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.documentContentType = documentContentType;
         this.fallbackAssignmentCallbackUrl = fallbackAssignmentCallbackUrl;
         this.friendlyName = friendlyName;
+        this.links = links;
         this.sid = sid;
         this.taskReservationTimeout = taskReservationTimeout;
-        this.workspaceSid = workspaceSid;
         this.url = url;
-        this.links = links;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final URI getAssignmentCallbackUrl() {
-        return this.assignmentCallbackUrl;
-    }
-
-    public final String getConfiguration() {
-        return this.configuration;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getDocumentContentType() {
-        return this.documentContentType;
-    }
-
-    public final URI getFallbackAssignmentCallbackUrl() {
-        return this.fallbackAssignmentCallbackUrl;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final Integer getTaskReservationTimeout() {
-        return this.taskReservationTimeout;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.workspaceSid = workspaceSid;
     }
 
     @Override
@@ -234,7 +225,6 @@ public class Workflow extends Resource {
         }
 
         Workflow other = (Workflow) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(
@@ -250,14 +240,14 @@ public class Workflow extends Resource {
                 other.fallbackAssignmentCallbackUrl
             ) &&
             Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
             Objects.equals(sid, other.sid) &&
             Objects.equals(
                 taskReservationTimeout,
                 other.taskReservationTimeout
             ) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
             Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
@@ -272,11 +262,11 @@ public class Workflow extends Resource {
             documentContentType,
             fallbackAssignmentCallbackUrl,
             friendlyName,
+            links,
             sid,
             taskReservationTimeout,
-            workspaceSid,
             url,
-            links
+            workspaceSid
         );
     }
 }

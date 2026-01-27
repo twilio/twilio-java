@@ -15,6 +15,7 @@
 package com.twilio.rest.video.v1.room.participant;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
 
@@ -40,8 +42,7 @@ public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public PublishedTrack fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid}";
 
@@ -58,6 +59,7 @@ public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
             Domains.VIDEO.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -70,14 +72,38 @@ public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public PublishedTrack fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PublishedTrack.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<PublishedTrack> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PublishedTrack content = PublishedTrack.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

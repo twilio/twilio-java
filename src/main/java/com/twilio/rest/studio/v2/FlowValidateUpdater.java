@@ -14,9 +14,11 @@
 
 package com.twilio.rest.studio.v2;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,19 +27,19 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
+import com.twilio.type.*;
 
 public class FlowValidateUpdater extends Updater<FlowValidate> {
 
     private String friendlyName;
     private FlowValidate.Status status;
-    private Map<String, Object> definition;
+    private Object definition;
     private String commitMessage;
 
     public FlowValidateUpdater(
         final String friendlyName,
         final FlowValidate.Status status,
-        final Map<String, Object> definition
+        final Object definition
     ) {
         this.friendlyName = friendlyName;
         this.status = status;
@@ -54,9 +56,7 @@ public class FlowValidateUpdater extends Updater<FlowValidate> {
         return this;
     }
 
-    public FlowValidateUpdater setDefinition(
-        final Map<String, Object> definition
-    ) {
+    public FlowValidateUpdater setDefinition(final Object definition) {
         this.definition = definition;
         return this;
     }
@@ -66,18 +66,8 @@ public class FlowValidateUpdater extends Updater<FlowValidate> {
         return this;
     }
 
-    @Override
-    public FlowValidate update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Flows/Validate";
-
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path = path.replace("{" + "Status" + "}", this.status.toString());
-        path =
-            path.replace("{" + "Definition" + "}", this.definition.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -86,7 +76,9 @@ public class FlowValidateUpdater extends Updater<FlowValidate> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "FlowValidate update failed: Unable to connect to server"
@@ -97,29 +89,76 @@ public class FlowValidateUpdater extends Updater<FlowValidate> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public FlowValidate update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return FlowValidate.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<FlowValidate> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        FlowValidate content = FlowValidate.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
+
         if (definition != null) {
-            request.addPostParam("Definition", Converter.mapToJson(definition));
+            Serializer.toString(
+                request,
+                "Definition",
+                definition,
+                ParameterType.URLENCODED
+            );
         }
+
         if (commitMessage != null) {
-            request.addPostParam("CommitMessage", commitMessage);
+            Serializer.toString(
+                request,
+                "CommitMessage",
+                commitMessage,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

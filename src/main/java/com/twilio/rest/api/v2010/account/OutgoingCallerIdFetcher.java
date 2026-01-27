@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,11 +24,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class OutgoingCallerIdFetcher extends Fetcher<OutgoingCallerId> {
 
-    private String pathSid;
     private String pathAccountSid;
+    private String pathSid;
 
     public OutgoingCallerIdFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -41,8 +43,7 @@ public class OutgoingCallerIdFetcher extends Fetcher<OutgoingCallerId> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public OutgoingCallerId fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json";
 
@@ -62,6 +63,7 @@ public class OutgoingCallerIdFetcher extends Fetcher<OutgoingCallerId> {
             Domains.API.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -74,14 +76,38 @@ public class OutgoingCallerIdFetcher extends Fetcher<OutgoingCallerId> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public OutgoingCallerId fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return OutgoingCallerId.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<OutgoingCallerId> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        OutgoingCallerId content = OutgoingCallerId.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

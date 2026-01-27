@@ -58,11 +58,12 @@ public class DialTest {
             .sequential(true)
             .referUrl(URI.create("https://example.com"))
             .referMethod(HttpMethod.GET)
+            .events(Dial.Events.CALL_PROGRESS_EVENT)
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>",
+            "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>",
             elem.toXml()
         );
     }
@@ -166,6 +167,14 @@ public class DialTest {
                     .copyParentTo(true)
                     .build());
 
+        builder.whatsApp(new WhatsApp.Builder(new com.twilio.type.PhoneNumber("+15017122661"))
+                    .url(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .statusCallbackEvents(Promoter.listOfOne(WhatsApp.Event.INITIATED))
+                    .statusCallback(URI.create("https://example.com"))
+                    .statusCallbackMethod(HttpMethod.GET)
+                    .build());
+
         Dial elem = builder.build();
 
         Assert.assertEquals(
@@ -178,6 +187,7 @@ public class DialTest {
                 "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>" +
                 "<Sip amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>" +
                 "<Application copyParentTo=\"true\" customerId=\"customer_id\" method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">application_sid</Application>" +
+                "<WhatsApp method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</WhatsApp>" +
             "</Dial>",
             elem.toXml()
         );
@@ -281,10 +291,11 @@ public class DialTest {
             .sequential(true)
             .referUrl(URI.create("https://example.com"))
             .referMethod(HttpMethod.GET)
+            .events(Dial.Events.CALL_PROGRESS_EVENT)
             .build();
 
         Assert.assertEquals(
-            Dial.Builder.fromXml("<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>").build().toXml(),
+            Dial.Builder.fromXml("<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>").build().toXml(),
             elem.toXml()
         );
     }
@@ -377,6 +388,14 @@ public class DialTest {
                     .copyParentTo(true)
                     .build());
 
+        builder.whatsApp(new WhatsApp.Builder(new com.twilio.type.PhoneNumber("+15017122661"))
+                    .url(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .statusCallbackEvents(Promoter.listOfOne(WhatsApp.Event.INITIATED))
+                    .statusCallback(URI.create("https://example.com"))
+                    .statusCallbackMethod(HttpMethod.GET)
+                    .build());
+
         final Dial elem = builder.build();
 
         Assert.assertEquals(
@@ -388,6 +407,7 @@ public class DialTest {
                 "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>" +
                 "<Sip amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>" +
                 "<Application copyParentTo=\"true\" customerId=\"customer_id\" method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">application_sid</Application>" +
+                "<WhatsApp method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</WhatsApp>" +
             "</Dial>").build().toXml(),
             elem.toXml()
         );
@@ -399,6 +419,8 @@ public class DialTest {
 
         builder.client(new Client.Builder().build());
 
+        builder.sip(new Sip.Builder().build());
+
         builder.application(new Application.Builder().build());
 
         final Dial elem = builder.build();
@@ -406,6 +428,7 @@ public class DialTest {
         Assert.assertEquals(
             Dial.Builder.fromXml("<Dial>" +
                 "<Client/>" +
+                "<Sip/>" +
                 "<Application/>" +
             "</Dial>").build().toXml(),
             elem.toXml()

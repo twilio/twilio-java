@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,11 +24,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
 
-    private String pathConnectAppSid;
     private String pathAccountSid;
+    private String pathConnectAppSid;
 
     public AuthorizedConnectAppFetcher(final String pathConnectAppSid) {
         this.pathConnectAppSid = pathConnectAppSid;
@@ -41,8 +43,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
         this.pathConnectAppSid = pathConnectAppSid;
     }
 
-    @Override
-    public AuthorizedConnectApp fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json";
 
@@ -66,6 +67,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
             Domains.API.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -78,14 +80,38 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public AuthorizedConnectApp fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return AuthorizedConnectApp.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<AuthorizedConnectApp> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        AuthorizedConnectApp content = AuthorizedConnectApp.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

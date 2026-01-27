@@ -18,26 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WebChannel extends Resource {
-
-    private static final long serialVersionUID = 55535071818984L;
 
     public static WebChannelCreator creator(
         final String flexFlowSid,
@@ -67,6 +70,25 @@ public class WebChannel extends Resource {
 
     public static WebChannelUpdater updater(final String pathSid) {
         return new WebChannelUpdater(pathSid);
+    }
+
+    public enum ChatStatus {
+        INACTIVE("inactive");
+
+        private final String value;
+
+        private ChatStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChatStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ChatStatus.values());
+        }
     }
 
     /**
@@ -112,71 +134,55 @@ public class WebChannel extends Resource {
         }
     }
 
-    public enum ChatStatus {
-        INACTIVE("inactive");
-
-        private final String value;
-
-        private ChatStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChatStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ChatStatus.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
+    @Getter
     private final String accountSid;
-    private final String flexFlowSid;
-    private final String sid;
-    private final URI url;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String flexFlowSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private WebChannel(
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("flex_flow_sid") final String flexFlowSid,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.flexFlowSid = flexFlowSid;
         this.sid = sid;
         this.url = url;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFlexFlowSid() {
-        return this.flexFlowSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
     }
 
     @Override
@@ -190,14 +196,13 @@ public class WebChannel extends Resource {
         }
 
         WebChannel other = (WebChannel) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(flexFlowSid, other.flexFlowSid) &&
             Objects.equals(sid, other.sid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+            Objects.equals(url, other.url)
         );
     }
 
@@ -205,11 +210,11 @@ public class WebChannel extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
+            dateCreated,
+            dateUpdated,
             flexFlowSid,
             sid,
-            url,
-            dateCreated,
-            dateUpdated
+            url
         );
     }
 }

@@ -17,6 +17,10 @@ package com.twilio.rest.insights.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +29,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ConferenceReader extends Reader<Conference> {
 
@@ -38,7 +43,7 @@ public class ConferenceReader extends Reader<Conference> {
     private String subaccount;
     private String detectedIssues;
     private String endReason;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ConferenceReader() {}
 
@@ -92,9 +97,44 @@ public class ConferenceReader extends Reader<Conference> {
         return this;
     }
 
-    public ConferenceReader setPageSize(final Integer pageSize) {
+    public ConferenceReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<Conference> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Conference> page = Page.fromJson(
+            "conferences",
+            response.getContent(),
+            Conference.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Conference> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/Conferences";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.INSIGHTS.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -103,24 +143,33 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     public Page<Conference> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Conferences";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.INSIGHTS.toString(),
-            path
-        );
-
-        addQueryParams(request);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Conference> pageForRequest(
+    public TwilioResponse<Page<Conference>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Conference> page = Page.fromJson(
+            "conferences",
+            response.getContent(),
+            Conference.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Conference read failed: Unable to connect to server"
@@ -130,12 +179,23 @@ public class ConferenceReader extends Reader<Conference> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Conference> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "conferences",
             response.getContent(),
@@ -151,7 +211,7 @@ public class ConferenceReader extends Reader<Conference> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.INSIGHTS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -163,7 +223,7 @@ public class ConferenceReader extends Reader<Conference> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.INSIGHTS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -174,43 +234,97 @@ public class ConferenceReader extends Reader<Conference> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (conferenceSid != null) {
-            request.addQueryParam("ConferenceSid", conferenceSid);
+            Serializer.toString(
+                request,
+                "ConferenceSid",
+                conferenceSid,
+                ParameterType.QUERY
+            );
         }
+
         if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
         }
+
         if (status != null) {
-            request.addQueryParam("Status", status);
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
+
         if (createdAfter != null) {
-            request.addQueryParam("CreatedAfter", createdAfter);
+            Serializer.toString(
+                request,
+                "CreatedAfter",
+                createdAfter,
+                ParameterType.QUERY
+            );
         }
+
         if (createdBefore != null) {
-            request.addQueryParam("CreatedBefore", createdBefore);
+            Serializer.toString(
+                request,
+                "CreatedBefore",
+                createdBefore,
+                ParameterType.QUERY
+            );
         }
+
         if (mixerRegion != null) {
-            request.addQueryParam("MixerRegion", mixerRegion);
+            Serializer.toString(
+                request,
+                "MixerRegion",
+                mixerRegion,
+                ParameterType.QUERY
+            );
         }
+
         if (tags != null) {
-            request.addQueryParam("Tags", tags);
+            Serializer.toString(request, "Tags", tags, ParameterType.QUERY);
         }
+
         if (subaccount != null) {
-            request.addQueryParam("Subaccount", subaccount);
+            Serializer.toString(
+                request,
+                "Subaccount",
+                subaccount,
+                ParameterType.QUERY
+            );
         }
+
         if (detectedIssues != null) {
-            request.addQueryParam("DetectedIssues", detectedIssues);
+            Serializer.toString(
+                request,
+                "DetectedIssues",
+                detectedIssues,
+                ParameterType.QUERY
+            );
         }
+
         if (endReason != null) {
-            request.addQueryParam("EndReason", endReason);
+            Serializer.toString(
+                request,
+                "EndReason",
+                endReason,
+                ParameterType.QUERY
+            );
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

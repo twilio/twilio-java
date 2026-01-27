@@ -18,25 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ExecutionContext extends Resource {
-
-    private static final long serialVersionUID = 48761390116247L;
 
     public static ExecutionContextFetcher fetcher(
         final String pathFlowSid,
@@ -88,45 +89,46 @@ public class ExecutionContext extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final Map<String, Object> context;
-    private final String flowSid;
+
+    @Getter
+    private final Object context;
+
+    @Getter
     private final String executionSid;
+
+    @Getter
+    private final String flowSid;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private ExecutionContext(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("context") final Map<String, Object> context,
-        @JsonProperty("flow_sid") final String flowSid,
+        @JsonProperty("context") final Object context,
         @JsonProperty("execution_sid") final String executionSid,
+        @JsonProperty("flow_sid") final String flowSid,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.context = context;
-        this.flowSid = flowSid;
         this.executionSid = executionSid;
+        this.flowSid = flowSid;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Map<String, Object> getContext() {
-        return this.context;
-    }
-
-    public final String getFlowSid() {
-        return this.flowSid;
-    }
-
-    public final String getExecutionSid() {
-        return this.executionSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -140,18 +142,17 @@ public class ExecutionContext extends Resource {
         }
 
         ExecutionContext other = (ExecutionContext) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(context, other.context) &&
-            Objects.equals(flowSid, other.flowSid) &&
             Objects.equals(executionSid, other.executionSid) &&
+            Objects.equals(flowSid, other.flowSid) &&
             Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, context, flowSid, executionSid, url);
+        return Objects.hash(accountSid, context, executionSid, flowSid, url);
     }
 }

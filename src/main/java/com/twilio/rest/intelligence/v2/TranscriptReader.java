@@ -17,6 +17,10 @@ package com.twilio.rest.intelligence.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +29,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class TranscriptReader extends Reader<Transcript> {
 
@@ -36,7 +41,7 @@ public class TranscriptReader extends Reader<Transcript> {
     private String status;
     private String languageCode;
     private String sourceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TranscriptReader() {}
 
@@ -82,9 +87,44 @@ public class TranscriptReader extends Reader<Transcript> {
         return this;
     }
 
-    public TranscriptReader setPageSize(final Integer pageSize) {
+    public TranscriptReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<Transcript> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Transcript> page = Page.fromJson(
+            "transcripts",
+            response.getContent(),
+            Transcript.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Transcript> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v2/Transcripts";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.INTELLIGENCE.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -93,24 +133,33 @@ public class TranscriptReader extends Reader<Transcript> {
     }
 
     public Page<Transcript> firstPage(final TwilioRestClient client) {
-        String path = "/v2/Transcripts";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.INTELLIGENCE.toString(),
-            path
-        );
-
-        addQueryParams(request);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Transcript> pageForRequest(
+    public TwilioResponse<Page<Transcript>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Transcript> page = Page.fromJson(
+            "transcripts",
+            response.getContent(),
+            Transcript.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Transcript read failed: Unable to connect to server"
@@ -120,12 +169,23 @@ public class TranscriptReader extends Reader<Transcript> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Transcript> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "transcripts",
             response.getContent(),
@@ -141,7 +201,7 @@ public class TranscriptReader extends Reader<Transcript> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.INTELLIGENCE.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -153,7 +213,7 @@ public class TranscriptReader extends Reader<Transcript> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.INTELLIGENCE.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -164,37 +224,84 @@ public class TranscriptReader extends Reader<Transcript> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (serviceSid != null) {
-            request.addQueryParam("ServiceSid", serviceSid);
+            Serializer.toString(
+                request,
+                "ServiceSid",
+                serviceSid,
+                ParameterType.QUERY
+            );
         }
+
         if (beforeStartTime != null) {
-            request.addQueryParam("BeforeStartTime", beforeStartTime);
+            Serializer.toString(
+                request,
+                "BeforeStartTime",
+                beforeStartTime,
+                ParameterType.QUERY
+            );
         }
+
         if (afterStartTime != null) {
-            request.addQueryParam("AfterStartTime", afterStartTime);
+            Serializer.toString(
+                request,
+                "AfterStartTime",
+                afterStartTime,
+                ParameterType.QUERY
+            );
         }
+
         if (beforeDateCreated != null) {
-            request.addQueryParam("BeforeDateCreated", beforeDateCreated);
+            Serializer.toString(
+                request,
+                "BeforeDateCreated",
+                beforeDateCreated,
+                ParameterType.QUERY
+            );
         }
+
         if (afterDateCreated != null) {
-            request.addQueryParam("AfterDateCreated", afterDateCreated);
+            Serializer.toString(
+                request,
+                "AfterDateCreated",
+                afterDateCreated,
+                ParameterType.QUERY
+            );
         }
+
         if (status != null) {
-            request.addQueryParam("Status", status);
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
+
         if (languageCode != null) {
-            request.addQueryParam("LanguageCode", languageCode);
+            Serializer.toString(
+                request,
+                "LanguageCode",
+                languageCode,
+                ParameterType.QUERY
+            );
         }
+
         if (sourceSid != null) {
-            request.addQueryParam("SourceSid", sourceSid);
+            Serializer.toString(
+                request,
+                "SourceSid",
+                sourceSid,
+                ParameterType.QUERY
+            );
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

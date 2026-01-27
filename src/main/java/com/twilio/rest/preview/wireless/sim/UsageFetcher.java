@@ -15,6 +15,9 @@
 package com.twilio.rest.preview.wireless.sim;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class UsageFetcher extends Fetcher<Usage> {
 
@@ -44,8 +48,7 @@ public class UsageFetcher extends Fetcher<Usage> {
         return this;
     }
 
-    @Override
-    public Usage fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/wireless/Sims/{SimSid}/Usage";
 
         path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
@@ -56,6 +59,7 @@ public class UsageFetcher extends Fetcher<Usage> {
             path
         );
         addQueryParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -68,20 +72,45 @@ public class UsageFetcher extends Fetcher<Usage> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Usage fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Usage.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Usage> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Usage content = Usage.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addQueryParams(final Request request) {
         if (end != null) {
-            request.addQueryParam("End", end);
+            Serializer.toString(request, "End", end, ParameterType.QUERY);
         }
+
         if (start != null) {
-            request.addQueryParam("Start", start);
+            Serializer.toString(request, "Start", start, ParameterType.QUERY);
         }
     }
 }

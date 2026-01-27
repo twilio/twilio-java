@@ -15,6 +15,7 @@
 package com.twilio.rest.intelligence.v2;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,23 +24,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class TranscriptFetcher extends Fetcher<Transcript> {
 
     private String pathSid;
-    private Boolean redacted;
 
     public TranscriptFetcher(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public TranscriptFetcher setRedacted(final Boolean redacted) {
-        this.redacted = redacted;
-        return this;
-    }
-
-    @Override
-    public Transcript fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Transcripts/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -49,7 +44,7 @@ public class TranscriptFetcher extends Fetcher<Transcript> {
             Domains.INTELLIGENCE.toString(),
             path
         );
-        addQueryParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -62,20 +57,38 @@ public class TranscriptFetcher extends Fetcher<Transcript> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Transcript fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Transcript.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
-    private void addQueryParams(final Request request) {
-        if (redacted != null) {
-            request.addQueryParam("Redacted", redacted.toString());
-        }
+    @Override
+    public TwilioResponse<Transcript> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Transcript content = Transcript.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

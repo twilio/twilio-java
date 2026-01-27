@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
-
-    private static final long serialVersionUID = 258386577185944L;
 
     public static ServiceCreator creator(final String friendlyName) {
         return new ServiceCreator(friendlyName);
@@ -104,167 +106,140 @@ public class Service extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String friendlyName;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final String defaultServiceRoleSid;
-    private final String defaultChannelRoleSid;
-    private final String defaultChannelCreatorRoleSid;
-    private final Boolean readStatusEnabled;
-    private final Boolean reachabilityEnabled;
-    private final Integer typingIndicatorTimeout;
+
+    @Getter
     private final Integer consumptionReportInterval;
-    private final Map<String, Object> limits;
-    private final Map<String, Object> webhooks;
-    private final String preWebhookUrl;
-    private final String postWebhookUrl;
-    private final String webhookMethod;
-    private final List<String> webhookFilters;
-    private final Map<String, Object> notifications;
-    private final URI url;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String defaultChannelCreatorRoleSid;
+
+    @Getter
+    private final String defaultChannelRoleSid;
+
+    @Getter
+    private final String defaultServiceRoleSid;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final Object limits;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final Object notifications;
+
+    @Getter
+    private final String postWebhookUrl;
+
+    @Getter
+    private final String preWebhookUrl;
+
+    @Getter
+    private final Boolean reachabilityEnabled;
+
+    @Getter
+    private final Boolean readStatusEnabled;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Integer typingIndicatorTimeout;
+
+    @Getter
+    private final URI url;
+
+    @Getter
+    private final List<String> webhookFilters;
+
+    @Getter
+    private final String webhookMethod;
+
+    @Getter
+    private final Object webhooks;
 
     @JsonCreator
     private Service(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty(
-            "default_service_role_sid"
-        ) final String defaultServiceRoleSid,
+            "consumption_report_interval"
+        ) final Integer consumptionReportInterval,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty(
+            "default_channel_creator_role_sid"
+        ) final String defaultChannelCreatorRoleSid,
         @JsonProperty(
             "default_channel_role_sid"
         ) final String defaultChannelRoleSid,
         @JsonProperty(
-            "default_channel_creator_role_sid"
-        ) final String defaultChannelCreatorRoleSid,
-        @JsonProperty("read_status_enabled") final Boolean readStatusEnabled,
+            "default_service_role_sid"
+        ) final String defaultServiceRoleSid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("limits") final Object limits,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("notifications") final Object notifications,
+        @JsonProperty("post_webhook_url") final String postWebhookUrl,
+        @JsonProperty("pre_webhook_url") final String preWebhookUrl,
         @JsonProperty("reachability_enabled") final Boolean reachabilityEnabled,
+        @JsonProperty("read_status_enabled") final Boolean readStatusEnabled,
+        @JsonProperty("sid") final String sid,
         @JsonProperty(
             "typing_indicator_timeout"
         ) final Integer typingIndicatorTimeout,
-        @JsonProperty(
-            "consumption_report_interval"
-        ) final Integer consumptionReportInterval,
-        @JsonProperty("limits") final Map<String, Object> limits,
-        @JsonProperty("webhooks") final Map<String, Object> webhooks,
-        @JsonProperty("pre_webhook_url") final String preWebhookUrl,
-        @JsonProperty("post_webhook_url") final String postWebhookUrl,
-        @JsonProperty("webhook_method") final String webhookMethod,
-        @JsonProperty("webhook_filters") final List<String> webhookFilters,
-        @JsonProperty("notifications") final Map<String, Object> notifications,
         @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("webhook_filters") final List<String> webhookFilters,
+        @JsonProperty("webhook_method") final String webhookMethod,
+        @JsonProperty("webhooks") final Object webhooks
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.friendlyName = friendlyName;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.defaultServiceRoleSid = defaultServiceRoleSid;
-        this.defaultChannelRoleSid = defaultChannelRoleSid;
-        this.defaultChannelCreatorRoleSid = defaultChannelCreatorRoleSid;
-        this.readStatusEnabled = readStatusEnabled;
-        this.reachabilityEnabled = reachabilityEnabled;
-        this.typingIndicatorTimeout = typingIndicatorTimeout;
         this.consumptionReportInterval = consumptionReportInterval;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.defaultChannelCreatorRoleSid = defaultChannelCreatorRoleSid;
+        this.defaultChannelRoleSid = defaultChannelRoleSid;
+        this.defaultServiceRoleSid = defaultServiceRoleSid;
+        this.friendlyName = friendlyName;
         this.limits = limits;
-        this.webhooks = webhooks;
-        this.preWebhookUrl = preWebhookUrl;
-        this.postWebhookUrl = postWebhookUrl;
-        this.webhookMethod = webhookMethod;
-        this.webhookFilters = webhookFilters;
-        this.notifications = notifications;
-        this.url = url;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getDefaultServiceRoleSid() {
-        return this.defaultServiceRoleSid;
-    }
-
-    public final String getDefaultChannelRoleSid() {
-        return this.defaultChannelRoleSid;
-    }
-
-    public final String getDefaultChannelCreatorRoleSid() {
-        return this.defaultChannelCreatorRoleSid;
-    }
-
-    public final Boolean getReadStatusEnabled() {
-        return this.readStatusEnabled;
-    }
-
-    public final Boolean getReachabilityEnabled() {
-        return this.reachabilityEnabled;
-    }
-
-    public final Integer getTypingIndicatorTimeout() {
-        return this.typingIndicatorTimeout;
-    }
-
-    public final Integer getConsumptionReportInterval() {
-        return this.consumptionReportInterval;
-    }
-
-    public final Map<String, Object> getLimits() {
-        return this.limits;
-    }
-
-    public final Map<String, Object> getWebhooks() {
-        return this.webhooks;
-    }
-
-    public final String getPreWebhookUrl() {
-        return this.preWebhookUrl;
-    }
-
-    public final String getPostWebhookUrl() {
-        return this.postWebhookUrl;
-    }
-
-    public final String getWebhookMethod() {
-        return this.webhookMethod;
-    }
-
-    public final List<String> getWebhookFilters() {
-        return this.webhookFilters;
-    }
-
-    public final Map<String, Object> getNotifications() {
-        return this.notifications;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.notifications = notifications;
+        this.postWebhookUrl = postWebhookUrl;
+        this.preWebhookUrl = preWebhookUrl;
+        this.reachabilityEnabled = reachabilityEnabled;
+        this.readStatusEnabled = readStatusEnabled;
+        this.sid = sid;
+        this.typingIndicatorTimeout = typingIndicatorTimeout;
+        this.url = url;
+        this.webhookFilters = webhookFilters;
+        this.webhookMethod = webhookMethod;
+        this.webhooks = webhooks;
     }
 
     @Override
@@ -278,71 +253,70 @@ public class Service extends Resource {
         }
 
         Service other = (Service) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(
+                consumptionReportInterval,
+                other.consumptionReportInterval
+            ) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(
-                defaultServiceRoleSid,
-                other.defaultServiceRoleSid
+                defaultChannelCreatorRoleSid,
+                other.defaultChannelCreatorRoleSid
             ) &&
             Objects.equals(
                 defaultChannelRoleSid,
                 other.defaultChannelRoleSid
             ) &&
             Objects.equals(
-                defaultChannelCreatorRoleSid,
-                other.defaultChannelCreatorRoleSid
+                defaultServiceRoleSid,
+                other.defaultServiceRoleSid
             ) &&
-            Objects.equals(readStatusEnabled, other.readStatusEnabled) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(limits, other.limits) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(notifications, other.notifications) &&
+            Objects.equals(postWebhookUrl, other.postWebhookUrl) &&
+            Objects.equals(preWebhookUrl, other.preWebhookUrl) &&
             Objects.equals(reachabilityEnabled, other.reachabilityEnabled) &&
+            Objects.equals(readStatusEnabled, other.readStatusEnabled) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(
                 typingIndicatorTimeout,
                 other.typingIndicatorTimeout
             ) &&
-            Objects.equals(
-                consumptionReportInterval,
-                other.consumptionReportInterval
-            ) &&
-            Objects.equals(limits, other.limits) &&
-            Objects.equals(webhooks, other.webhooks) &&
-            Objects.equals(preWebhookUrl, other.preWebhookUrl) &&
-            Objects.equals(postWebhookUrl, other.postWebhookUrl) &&
-            Objects.equals(webhookMethod, other.webhookMethod) &&
-            Objects.equals(webhookFilters, other.webhookFilters) &&
-            Objects.equals(notifications, other.notifications) &&
             Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(webhookFilters, other.webhookFilters) &&
+            Objects.equals(webhookMethod, other.webhookMethod) &&
+            Objects.equals(webhooks, other.webhooks)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            friendlyName,
+            consumptionReportInterval,
             dateCreated,
             dateUpdated,
-            defaultServiceRoleSid,
-            defaultChannelRoleSid,
             defaultChannelCreatorRoleSid,
-            readStatusEnabled,
-            reachabilityEnabled,
-            typingIndicatorTimeout,
-            consumptionReportInterval,
+            defaultChannelRoleSid,
+            defaultServiceRoleSid,
+            friendlyName,
             limits,
-            webhooks,
-            preWebhookUrl,
-            postWebhookUrl,
-            webhookMethod,
-            webhookFilters,
+            links,
             notifications,
+            postWebhookUrl,
+            preWebhookUrl,
+            reachabilityEnabled,
+            readStatusEnabled,
+            sid,
+            typingIndicatorTimeout,
             url,
-            links
+            webhookFilters,
+            webhookMethod,
+            webhooks
         );
     }
 }

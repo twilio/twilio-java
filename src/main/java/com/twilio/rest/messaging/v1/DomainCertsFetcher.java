@@ -15,6 +15,7 @@
 package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class DomainCertsFetcher extends Fetcher<DomainCerts> {
 
@@ -32,8 +34,7 @@ public class DomainCertsFetcher extends Fetcher<DomainCerts> {
         this.pathDomainSid = pathDomainSid;
     }
 
-    @Override
-    public DomainCerts fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/LinkShortening/Domains/{DomainSid}/Certificate";
 
         path =
@@ -47,6 +48,7 @@ public class DomainCertsFetcher extends Fetcher<DomainCerts> {
             Domains.MESSAGING.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -59,14 +61,38 @@ public class DomainCertsFetcher extends Fetcher<DomainCerts> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public DomainCerts fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return DomainCerts.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<DomainCerts> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        DomainCerts content = DomainCerts.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

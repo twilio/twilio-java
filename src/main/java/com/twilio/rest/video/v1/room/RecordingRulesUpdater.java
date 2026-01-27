@@ -14,9 +14,11 @@
 
 package com.twilio.rest.video.v1.room;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,24 +27,23 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
+import com.twilio.type.*;
 
 public class RecordingRulesUpdater extends Updater<RecordingRules> {
 
     private String pathRoomSid;
-    private Map<String, Object> rules;
+    private Object rules;
 
     public RecordingRulesUpdater(final String pathRoomSid) {
         this.pathRoomSid = pathRoomSid;
     }
 
-    public RecordingRulesUpdater setRules(final Map<String, Object> rules) {
+    public RecordingRulesUpdater setRules(final Object rules) {
         this.rules = rules;
         return this;
     }
 
-    @Override
-    public RecordingRules update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Rooms/{RoomSid}/RecordingRules";
 
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
@@ -54,7 +55,9 @@ public class RecordingRulesUpdater extends Updater<RecordingRules> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "RecordingRules update failed: Unable to connect to server"
@@ -65,20 +68,49 @@ public class RecordingRulesUpdater extends Updater<RecordingRules> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public RecordingRules update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return RecordingRules.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<RecordingRules> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        RecordingRules content = RecordingRules.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (rules != null) {
-            request.addPostParam("Rules", Converter.mapToJson(rules));
+            Serializer.toString(
+                request,
+                "Rules",
+                rules,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

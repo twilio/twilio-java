@@ -18,27 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AuthorizedConnectApp extends Resource {
-
-    private static final long serialVersionUID = 15094155294983L;
 
     public static AuthorizedConnectAppFetcher fetcher(
         final String pathConnectAppSid
@@ -64,6 +65,51 @@ public class AuthorizedConnectApp extends Resource {
         final String pathAccountSid
     ) {
         return new AuthorizedConnectAppReader(pathAccountSid);
+    }
+
+    public enum Permission {
+        GET_ALL("get-all"),
+        POST_ALL("post-all");
+
+        private final String value;
+
+        private Permission(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Permission forValue(final String value) {
+            return Promoter.enumFromString(value, Permission.values());
+        }
+    }
+
+    public enum AuthorizedConnectAppPermission {
+        GET_ALL("get-all"),
+        POST_ALL("post-all");
+
+        private final String value;
+
+        private AuthorizedConnectAppPermission(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static AuthorizedConnectAppPermission forValue(
+            final String value
+        ) {
+            return Promoter.enumFromString(
+                value,
+                AuthorizedConnectAppPermission.values()
+            );
+        }
     }
 
     /**
@@ -109,35 +155,40 @@ public class AuthorizedConnectApp extends Resource {
         }
     }
 
-    public enum Permission {
-        GET_ALL("get-all"),
-        POST_ALL("post-all");
-
-        private final String value;
-
-        private Permission(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Permission forValue(final String value) {
-            return Promoter.enumFromString(value, Permission.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String connectAppCompanyName;
+
+    @Getter
     private final String connectAppDescription;
+
+    @Getter
     private final String connectAppFriendlyName;
+
+    @Getter
     private final URI connectAppHomepageUrl;
+
+    @Getter
     private final String connectAppSid;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final List<AuthorizedConnectApp.Permission> permissions;
+
+    @Getter
     private final String uri;
 
     @JsonCreator
@@ -156,11 +207,9 @@ public class AuthorizedConnectApp extends Resource {
             "connect_app_homepage_url"
         ) final URI connectAppHomepageUrl,
         @JsonProperty("connect_app_sid") final String connectAppSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty(
-            "permissions"
-        ) final List<AuthorizedConnectApp.Permission> permissions,
+        @JsonProperty("permissions") final List<
+            AuthorizedConnectApp.Permission
+        > permissions,
         @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;
@@ -169,50 +218,8 @@ public class AuthorizedConnectApp extends Resource {
         this.connectAppFriendlyName = connectAppFriendlyName;
         this.connectAppHomepageUrl = connectAppHomepageUrl;
         this.connectAppSid = connectAppSid;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
         this.permissions = permissions;
         this.uri = uri;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getConnectAppCompanyName() {
-        return this.connectAppCompanyName;
-    }
-
-    public final String getConnectAppDescription() {
-        return this.connectAppDescription;
-    }
-
-    public final String getConnectAppFriendlyName() {
-        return this.connectAppFriendlyName;
-    }
-
-    public final URI getConnectAppHomepageUrl() {
-        return this.connectAppHomepageUrl;
-    }
-
-    public final String getConnectAppSid() {
-        return this.connectAppSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final List<AuthorizedConnectApp.Permission> getPermissions() {
-        return this.permissions;
-    }
-
-    public final String getUri() {
-        return this.uri;
     }
 
     @Override
@@ -226,7 +233,6 @@ public class AuthorizedConnectApp extends Resource {
         }
 
         AuthorizedConnectApp other = (AuthorizedConnectApp) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(
@@ -246,8 +252,6 @@ public class AuthorizedConnectApp extends Resource {
                 other.connectAppHomepageUrl
             ) &&
             Objects.equals(connectAppSid, other.connectAppSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(permissions, other.permissions) &&
             Objects.equals(uri, other.uri)
         );
@@ -262,8 +266,6 @@ public class AuthorizedConnectApp extends Resource {
             connectAppFriendlyName,
             connectAppHomepageUrl,
             connectAppSid,
-            dateCreated,
-            dateUpdated,
             permissions,
             uri
         );

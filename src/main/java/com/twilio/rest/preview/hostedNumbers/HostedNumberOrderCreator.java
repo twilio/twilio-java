@@ -15,8 +15,11 @@
 package com.twilio.rest.preview.hostedNumbers;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,9 +28,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
-import java.net.URI;
-import java.util.List;
 import java.util.List;
 
 public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
@@ -185,20 +187,8 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
         return this;
     }
 
-    @Override
-    public HostedNumberOrder create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/HostedNumbers/HostedNumberOrders";
-
-        path =
-            path.replace(
-                "{" + "PhoneNumber" + "}",
-                this.phoneNumber.encode("utf-8")
-            );
-        path =
-            path.replace(
-                "{" + "SmsCapability" + "}",
-                this.smsCapability.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -207,7 +197,9 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "HostedNumberOrder creation failed: Unable to connect to server"
@@ -218,84 +210,194 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public HostedNumberOrder create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return HostedNumberOrder.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<HostedNumberOrder> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        HostedNumberOrder content = HostedNumberOrder.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (phoneNumber != null) {
-            request.addPostParam("PhoneNumber", phoneNumber.toString());
+            Serializer.toString(
+                request,
+                "PhoneNumber",
+                phoneNumber,
+                ParameterType.URLENCODED
+            );
         }
+
         if (smsCapability != null) {
-            request.addPostParam("SmsCapability", smsCapability.toString());
+            Serializer.toString(
+                request,
+                "SmsCapability",
+                smsCapability,
+                ParameterType.URLENCODED
+            );
         }
+
         if (accountSid != null) {
-            request.addPostParam("AccountSid", accountSid);
+            Serializer.toString(
+                request,
+                "AccountSid",
+                accountSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (ccEmails != null) {
-            for (String prop : ccEmails) {
-                request.addPostParam("CcEmails", prop);
+            for (String param : ccEmails) {
+                Serializer.toString(
+                    request,
+                    "CcEmails",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (smsUrl != null) {
-            request.addPostParam("SmsUrl", smsUrl.toString());
+            Serializer.toString(
+                request,
+                "SmsUrl",
+                smsUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (smsMethod != null) {
-            request.addPostParam("SmsMethod", smsMethod.toString());
+            Serializer.toString(
+                request,
+                "SmsMethod",
+                smsMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (smsFallbackUrl != null) {
-            request.addPostParam("SmsFallbackUrl", smsFallbackUrl.toString());
+            Serializer.toString(
+                request,
+                "SmsFallbackUrl",
+                smsFallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (smsFallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "SmsFallbackMethod",
-                smsFallbackMethod.toString()
+                smsFallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (statusCallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "StatusCallbackUrl",
-                statusCallbackUrl.toString()
+                statusCallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (statusCallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "StatusCallbackMethod",
-                statusCallbackMethod.toString()
+                statusCallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (smsApplicationSid != null) {
-            request.addPostParam("SmsApplicationSid", smsApplicationSid);
-        }
-        if (addressSid != null) {
-            request.addPostParam("AddressSid", addressSid);
-        }
-        if (email != null) {
-            request.addPostParam("Email", email);
-        }
-        if (verificationType != null) {
-            request.addPostParam(
-                "VerificationType",
-                verificationType.toString()
+            Serializer.toString(
+                request,
+                "SmsApplicationSid",
+                smsApplicationSid,
+                ParameterType.URLENCODED
             );
         }
+
+        if (addressSid != null) {
+            Serializer.toString(
+                request,
+                "AddressSid",
+                addressSid,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (email != null) {
+            Serializer.toString(
+                request,
+                "Email",
+                email,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (verificationType != null) {
+            Serializer.toString(
+                request,
+                "VerificationType",
+                verificationType,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (verificationDocumentSid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VerificationDocumentSid",
-                verificationDocumentSid
+                verificationDocumentSid,
+                ParameterType.URLENCODED
             );
         }
     }

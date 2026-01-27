@@ -14,6 +14,7 @@
 
 package com.twilio.rest.video.v1.room.participant;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AnonymizeUpdater extends Updater<Anonymize> {
 
@@ -34,8 +36,7 @@ public class AnonymizeUpdater extends Updater<Anonymize> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Anonymize update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Rooms/{RoomSid}/Participants/{Sid}/Anonymize";
 
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
@@ -46,7 +47,9 @@ public class AnonymizeUpdater extends Updater<Anonymize> {
             Domains.VIDEO.toString(),
             path
         );
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Anonymize update failed: Unable to connect to server"
@@ -57,14 +60,38 @@ public class AnonymizeUpdater extends Updater<Anonymize> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Anonymize update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Anonymize.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Anonymize> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Anonymize content = Anonymize.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

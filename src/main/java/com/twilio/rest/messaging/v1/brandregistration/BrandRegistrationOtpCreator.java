@@ -15,6 +15,7 @@
 package com.twilio.rest.messaging.v1.brandregistration;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class BrandRegistrationOtpCreator extends Creator<BrandRegistrationOtp> {
 
@@ -32,8 +34,7 @@ public class BrandRegistrationOtpCreator extends Creator<BrandRegistrationOtp> {
         this.pathBrandRegistrationSid = pathBrandRegistrationSid;
     }
 
-    @Override
-    public BrandRegistrationOtp create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/a2p/BrandRegistrations/{BrandRegistrationSid}/SmsOtp";
 
@@ -48,7 +49,9 @@ public class BrandRegistrationOtpCreator extends Creator<BrandRegistrationOtp> {
             Domains.MESSAGING.toString(),
             path
         );
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "BrandRegistrationOtp creation failed: Unable to connect to server"
@@ -59,14 +62,38 @@ public class BrandRegistrationOtpCreator extends Creator<BrandRegistrationOtp> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public BrandRegistrationOtp create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return BrandRegistrationOtp.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<BrandRegistrationOtp> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        BrandRegistrationOtp content = BrandRegistrationOtp.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

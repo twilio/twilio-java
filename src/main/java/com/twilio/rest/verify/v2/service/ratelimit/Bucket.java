@@ -18,25 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Bucket extends Resource {
-
-    private static final long serialVersionUID = 268114856070086L;
 
     public static BucketCreator creator(
         final String pathServiceSid,
@@ -126,73 +129,70 @@ public class Bucket extends Resource {
         }
     }
 
-    private final String sid;
-    private final String rateLimitSid;
-    private final String serviceSid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final Integer max;
-    private final Integer interval;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final Integer interval;
+
+    @Getter
+    private final Integer max;
+
+    @Getter
+    private final String rateLimitSid;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Bucket(
-        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("interval") final Integer interval,
+        @JsonProperty("max") final Integer max,
         @JsonProperty("rate_limit_sid") final String rateLimitSid,
         @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("max") final Integer max,
-        @JsonProperty("interval") final Integer interval,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
+        this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.interval = interval;
+        this.max = max;
         this.rateLimitSid = rateLimitSid;
         this.serviceSid = serviceSid;
-        this.accountSid = accountSid;
-        this.max = max;
-        this.interval = interval;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getRateLimitSid() {
-        return this.rateLimitSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Integer getMax() {
-        return this.max;
-    }
-
-    public final Integer getInterval() {
-        return this.interval;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -206,16 +206,15 @@ public class Bucket extends Resource {
         }
 
         Bucket other = (Bucket) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(rateLimitSid, other.rateLimitSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(max, other.max) &&
-            Objects.equals(interval, other.interval) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(interval, other.interval) &&
+            Objects.equals(max, other.max) &&
+            Objects.equals(rateLimitSid, other.rateLimitSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(url, other.url)
         );
     }
@@ -223,14 +222,14 @@ public class Bucket extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            rateLimitSid,
-            serviceSid,
             accountSid,
-            max,
-            interval,
             dateCreated,
             dateUpdated,
+            interval,
+            max,
+            rateLimitSid,
+            serviceSid,
+            sid,
             url
         );
     }

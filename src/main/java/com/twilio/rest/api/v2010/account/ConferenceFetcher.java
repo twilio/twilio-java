@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,11 +24,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ConferenceFetcher extends Fetcher<Conference> {
 
-    private String pathSid;
     private String pathAccountSid;
+    private String pathSid;
 
     public ConferenceFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -41,8 +43,7 @@ public class ConferenceFetcher extends Fetcher<Conference> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Conference fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json";
 
@@ -62,6 +63,7 @@ public class ConferenceFetcher extends Fetcher<Conference> {
             Domains.API.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -74,14 +76,38 @@ public class ConferenceFetcher extends Fetcher<Conference> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Conference fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Conference.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Conference> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Conference content = Conference.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

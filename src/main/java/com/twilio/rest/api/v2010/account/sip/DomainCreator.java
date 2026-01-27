@@ -15,8 +15,11 @@
 package com.twilio.rest.api.v2010.account.sip;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +28,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class DomainCreator extends Creator<Domain> {
 
-    private String domainName;
     private String pathAccountSid;
+    private String domainName;
     private String friendlyName;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
@@ -145,8 +148,7 @@ public class DomainCreator extends Creator<Domain> {
         return this;
     }
 
-    @Override
-    public Domain create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json";
 
         this.pathAccountSid =
@@ -158,8 +160,6 @@ public class DomainCreator extends Creator<Domain> {
                 "{" + "AccountSid" + "}",
                 this.pathAccountSid.toString()
             );
-        path =
-            path.replace("{" + "DomainName" + "}", this.domainName.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -168,7 +168,9 @@ public class DomainCreator extends Creator<Domain> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Domain creation failed: Unable to connect to server"
@@ -179,68 +181,154 @@ public class DomainCreator extends Creator<Domain> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Domain create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Domain.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Domain> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Domain content = Domain.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (domainName != null) {
-            request.addPostParam("DomainName", domainName);
+            Serializer.toString(
+                request,
+                "DomainName",
+                domainName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (voiceUrl != null) {
-            request.addPostParam("VoiceUrl", voiceUrl.toString());
+            Serializer.toString(
+                request,
+                "VoiceUrl",
+                voiceUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (voiceMethod != null) {
-            request.addPostParam("VoiceMethod", voiceMethod.toString());
+            Serializer.toString(
+                request,
+                "VoiceMethod",
+                voiceMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (voiceFallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VoiceFallbackUrl",
-                voiceFallbackUrl.toString()
+                voiceFallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceFallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VoiceFallbackMethod",
-                voiceFallbackMethod.toString()
+                voiceFallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceStatusCallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VoiceStatusCallbackUrl",
-                voiceStatusCallbackUrl.toString()
+                voiceStatusCallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceStatusCallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VoiceStatusCallbackMethod",
-                voiceStatusCallbackMethod.toString()
+                voiceStatusCallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (sipRegistration != null) {
-            request.addPostParam("SipRegistration", sipRegistration.toString());
-        }
-        if (emergencyCallingEnabled != null) {
-            request.addPostParam(
-                "EmergencyCallingEnabled",
-                emergencyCallingEnabled.toString()
+            Serializer.toString(
+                request,
+                "SipRegistration",
+                sipRegistration,
+                ParameterType.URLENCODED
             );
         }
+
+        if (emergencyCallingEnabled != null) {
+            Serializer.toString(
+                request,
+                "EmergencyCallingEnabled",
+                emergencyCallingEnabled,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (secure != null) {
-            request.addPostParam("Secure", secure.toString());
+            Serializer.toString(
+                request,
+                "Secure",
+                secure,
+                ParameterType.URLENCODED
+            );
         }
+
         if (byocTrunkSid != null) {
-            request.addPostParam("ByocTrunkSid", byocTrunkSid);
+            Serializer.toString(
+                request,
+                "ByocTrunkSid",
+                byocTrunkSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (emergencyCallerSid != null) {
-            request.addPostParam("EmergencyCallerSid", emergencyCallerSid);
+            Serializer.toString(
+                request,
+                "EmergencyCallerSid",
+                emergencyCallerSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

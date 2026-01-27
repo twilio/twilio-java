@@ -17,7 +17,11 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,8 +30,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class MessageReader extends Reader<Message> {
 
@@ -37,7 +41,7 @@ public class MessageReader extends Reader<Message> {
     private ZonedDateTime dateSent;
     private ZonedDateTime dateSentBefore;
     private ZonedDateTime dateSentAfter;
-    private Integer pageSize;
+    private Long pageSize;
 
     public MessageReader() {}
 
@@ -78,18 +82,37 @@ public class MessageReader extends Reader<Message> {
         return this;
     }
 
-    public MessageReader setPageSize(final Integer pageSize) {
+    public MessageReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<Message> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Message> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Message> page = Page.fromJson(
+            "messages",
+            response.getContent(),
+            Message.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Message> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Message> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Messages.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -105,17 +128,43 @@ public class MessageReader extends Reader<Message> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<Message> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Message> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Message> pageForRequest(
+    public TwilioResponse<Page<Message>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Message> page = Page.fromJson(
+            "messages",
+            response.getContent(),
+            Message.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Message read failed: Unable to connect to server"
@@ -125,12 +174,23 @@ public class MessageReader extends Reader<Message> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Message> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "messages",
             response.getContent(),
@@ -169,35 +229,33 @@ public class MessageReader extends Reader<Message> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (to != null) {
-            request.addQueryParam("To", to.toString());
+            Serializer.toString(request, "To", to, ParameterType.QUERY);
         }
+
         if (from != null) {
-            request.addQueryParam("From", from.toString());
+            Serializer.toString(request, "From", from, ParameterType.QUERY);
         }
-        if (dateSent != null) {
-            request.addQueryParam(
-                "DateSent",
-                dateSent.format(
-                    DateTimeFormatter.ofPattern(
-                        Request.QUERY_STRING_DATE_TIME_FORMAT
-                    )
-                )
-            );
-        } else if (dateSentAfter != null || dateSentBefore != null) {
-            request.addQueryDateTimeRange(
-                "DateSent",
-                dateSentAfter,
-                dateSentBefore
-            );
-        }
+
+        Serializer.toString(
+            request,
+            "DateSent",
+            dateSent,
+            dateSentBefore,
+            dateSentAfter
+        );
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

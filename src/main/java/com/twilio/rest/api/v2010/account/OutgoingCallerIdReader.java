@@ -17,7 +17,11 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,13 +30,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     private String pathAccountSid;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String friendlyName;
-    private Integer pageSize;
+    private Long pageSize;
 
     public OutgoingCallerIdReader() {}
 
@@ -56,19 +61,38 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
         return this;
     }
 
-    public OutgoingCallerIdReader setPageSize(final Integer pageSize) {
+    public OutgoingCallerIdReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<OutgoingCallerId> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<OutgoingCallerId> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<OutgoingCallerId> page = Page.fromJson(
+            "outgoing_caller_ids",
+            response.getContent(),
+            OutgoingCallerId.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<OutgoingCallerId> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<OutgoingCallerId> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -84,17 +108,43 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<OutgoingCallerId> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<OutgoingCallerId> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<OutgoingCallerId> pageForRequest(
+    public TwilioResponse<Page<OutgoingCallerId>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<OutgoingCallerId> page = Page.fromJson(
+            "outgoing_caller_ids",
+            response.getContent(),
+            OutgoingCallerId.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "OutgoingCallerId read failed: Unable to connect to server"
@@ -104,12 +154,23 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<OutgoingCallerId> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "outgoing_caller_ids",
             response.getContent(),
@@ -148,19 +209,35 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (phoneNumber != null) {
-            request.addQueryParam("PhoneNumber", phoneNumber.toString());
+            Serializer.toString(
+                request,
+                "PhoneNumber",
+                phoneNumber,
+                ParameterType.QUERY
+            );
         }
+
         if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

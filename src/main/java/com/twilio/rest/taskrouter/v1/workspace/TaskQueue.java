@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TaskQueue extends Resource {
-
-    private static final long serialVersionUID = 234230912116687L;
 
     public static TaskQueueCreator creator(
         final String pathWorkspaceSid,
@@ -71,6 +73,26 @@ public class TaskQueue extends Resource {
         final String pathSid
     ) {
         return new TaskQueueUpdater(pathWorkspaceSid, pathSid);
+    }
+
+    public enum TaskOrder {
+        FIFO("FIFO"),
+        LIFO("LIFO");
+
+        private final String value;
+
+        private TaskOrder(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TaskOrder forValue(final String value) {
+            return Promoter.enumFromString(value, TaskOrder.values());
+        }
     }
 
     /**
@@ -116,143 +138,108 @@ public class TaskQueue extends Resource {
         }
     }
 
-    public enum TaskOrder {
-        FIFO("FIFO"),
-        LIFO("LIFO");
-
-        private final String value;
-
-        private TaskOrder(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TaskOrder forValue(final String value) {
-            return Promoter.enumFromString(value, TaskOrder.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
+    @Getter
     private final String accountSid;
-    private final String assignmentActivitySid;
+
+    @Getter
     private final String assignmentActivityName;
+
+    @Getter
+    private final String assignmentActivitySid;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final String friendlyName;
-    private final Integer maxReservedWorkers;
-    private final String reservationActivitySid;
-    private final String reservationActivityName;
-    private final String sid;
-    private final String targetWorkers;
-    private final TaskQueue.TaskOrder taskOrder;
-    private final URI url;
-    private final String workspaceSid;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final Integer maxReservedWorkers;
+
+    @Getter
+    private final String reservationActivityName;
+
+    @Getter
+    private final String reservationActivitySid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String targetWorkers;
+
+    @Getter
+    private final TaskQueue.TaskOrder taskOrder;
+
+    @Getter
+    private final URI url;
+
+    @Getter
+    private final String workspaceSid;
 
     @JsonCreator
     private TaskQueue(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty(
-            "assignment_activity_sid"
-        ) final String assignmentActivitySid,
-        @JsonProperty(
             "assignment_activity_name"
         ) final String assignmentActivityName,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("max_reserved_workers") final Integer maxReservedWorkers,
         @JsonProperty(
-            "reservation_activity_sid"
-        ) final String reservationActivitySid,
+            "assignment_activity_sid"
+        ) final String assignmentActivitySid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("max_reserved_workers") final Integer maxReservedWorkers,
         @JsonProperty(
             "reservation_activity_name"
         ) final String reservationActivityName,
+        @JsonProperty(
+            "reservation_activity_sid"
+        ) final String reservationActivitySid,
         @JsonProperty("sid") final String sid,
         @JsonProperty("target_workers") final String targetWorkers,
         @JsonProperty("task_order") final TaskQueue.TaskOrder taskOrder,
         @JsonProperty("url") final URI url,
-        @JsonProperty("workspace_sid") final String workspaceSid,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
-        this.assignmentActivitySid = assignmentActivitySid;
         this.assignmentActivityName = assignmentActivityName;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.assignmentActivitySid = assignmentActivitySid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
+        this.links = links;
         this.maxReservedWorkers = maxReservedWorkers;
-        this.reservationActivitySid = reservationActivitySid;
         this.reservationActivityName = reservationActivityName;
+        this.reservationActivitySid = reservationActivitySid;
         this.sid = sid;
         this.targetWorkers = targetWorkers;
         this.taskOrder = taskOrder;
         this.url = url;
         this.workspaceSid = workspaceSid;
-        this.links = links;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getAssignmentActivitySid() {
-        return this.assignmentActivitySid;
-    }
-
-    public final String getAssignmentActivityName() {
-        return this.assignmentActivityName;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Integer getMaxReservedWorkers() {
-        return this.maxReservedWorkers;
-    }
-
-    public final String getReservationActivitySid() {
-        return this.reservationActivitySid;
-    }
-
-    public final String getReservationActivityName() {
-        return this.reservationActivityName;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getTargetWorkers() {
-        return this.targetWorkers;
-    }
-
-    public final TaskQueue.TaskOrder getTaskOrder() {
-        return this.taskOrder;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
     }
 
     @Override
@@ -266,35 +253,34 @@ public class TaskQueue extends Resource {
         }
 
         TaskQueue other = (TaskQueue) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(
-                assignmentActivitySid,
-                other.assignmentActivitySid
-            ) &&
             Objects.equals(
                 assignmentActivityName,
                 other.assignmentActivityName
             ) &&
+            Objects.equals(
+                assignmentActivitySid,
+                other.assignmentActivitySid
+            ) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
             Objects.equals(maxReservedWorkers, other.maxReservedWorkers) &&
-            Objects.equals(
-                reservationActivitySid,
-                other.reservationActivitySid
-            ) &&
             Objects.equals(
                 reservationActivityName,
                 other.reservationActivityName
+            ) &&
+            Objects.equals(
+                reservationActivitySid,
+                other.reservationActivitySid
             ) &&
             Objects.equals(sid, other.sid) &&
             Objects.equals(targetWorkers, other.targetWorkers) &&
             Objects.equals(taskOrder, other.taskOrder) &&
             Objects.equals(url, other.url) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
-            Objects.equals(links, other.links)
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
@@ -302,20 +288,20 @@ public class TaskQueue extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
-            assignmentActivitySid,
             assignmentActivityName,
+            assignmentActivitySid,
             dateCreated,
             dateUpdated,
             friendlyName,
+            links,
             maxReservedWorkers,
-            reservationActivitySid,
             reservationActivityName,
+            reservationActivitySid,
             sid,
             targetWorkers,
             taskOrder,
             url,
-            workspaceSid,
-            links
+            workspaceSid
         );
     }
 }

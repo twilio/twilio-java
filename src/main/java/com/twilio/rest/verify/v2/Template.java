@@ -18,25 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Template extends Resource {
-
-    private static final long serialVersionUID = 229000530855919L;
 
     public static TemplateReader reader() {
         return new TemplateReader();
@@ -85,45 +86,46 @@ public class Template extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String friendlyName;
+
+    @Getter
     private final List<String> channels;
-    private final Map<String, Object> translations;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Object translations;
 
     @JsonCreator
     private Template(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("channels") final List<String> channels,
-        @JsonProperty("translations") final Map<String, Object> translations
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("translations") final Object translations
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.friendlyName = friendlyName;
         this.channels = channels;
+        this.friendlyName = friendlyName;
+        this.sid = sid;
         this.translations = translations;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final List<String> getChannels() {
-        return this.channels;
-    }
-
-    public final Map<String, Object> getTranslations() {
-        return this.translations;
     }
 
     @Override
@@ -137,12 +139,11 @@ public class Template extends Resource {
         }
 
         Template other = (Template) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(channels, other.channels) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(translations, other.translations)
         );
     }
@@ -150,10 +151,10 @@ public class Template extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            friendlyName,
             channels,
+            friendlyName,
+            sid,
             translations
         );
     }

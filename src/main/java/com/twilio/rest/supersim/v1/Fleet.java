@@ -18,27 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Fleet extends Resource {
-
-    private static final long serialVersionUID = 74063802547191L;
 
     public static FleetCreator creator(final String networkAccessProfile) {
         return new FleetCreator(networkAccessProfile);
@@ -54,6 +57,25 @@ public class Fleet extends Resource {
 
     public static FleetUpdater updater(final String pathSid) {
         return new FleetUpdater(pathSid);
+    }
+
+    public enum DataMetering {
+        PAYG("payg");
+
+        private final String value;
+
+        private DataMetering(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static DataMetering forValue(final String value) {
+            return Promoter.enumFromString(value, DataMetering.values());
+        }
     }
 
     /**
@@ -99,136 +121,102 @@ public class Fleet extends Resource {
         }
     }
 
-    public enum DataMetering {
-        PAYG("payg");
-
-        private final String value;
-
-        private DataMetering(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static DataMetering forValue(final String value) {
-            return Promoter.enumFromString(value, DataMetering.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
+    @Getter
     private final String accountSid;
-    private final String sid;
-    private final String uniqueName;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final URI url;
+
+    @Getter
     private final Boolean dataEnabled;
+
+    @Getter
     private final Integer dataLimit;
+
+    @Getter
     private final Fleet.DataMetering dataMetering;
-    private final Boolean smsCommandsEnabled;
-    private final URI smsCommandsUrl;
-    private final HttpMethod smsCommandsMethod;
-    private final String networkAccessProfileSid;
-    private final URI ipCommandsUrl;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final HttpMethod ipCommandsMethod;
+
+    @Getter
+    private final URI ipCommandsUrl;
+
+    @Getter
+    private final String networkAccessProfileSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Boolean smsCommandsEnabled;
+
+    @Getter
+    private final HttpMethod smsCommandsMethod;
+
+    @Getter
+    private final URI smsCommandsUrl;
+
+    @Getter
+    private final String uniqueName;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Fleet(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
         @JsonProperty("data_enabled") final Boolean dataEnabled,
         @JsonProperty("data_limit") final Integer dataLimit,
         @JsonProperty("data_metering") final Fleet.DataMetering dataMetering,
-        @JsonProperty("sms_commands_enabled") final Boolean smsCommandsEnabled,
-        @JsonProperty("sms_commands_url") final URI smsCommandsUrl,
-        @JsonProperty("sms_commands_method") final HttpMethod smsCommandsMethod,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("ip_commands_method") final HttpMethod ipCommandsMethod,
+        @JsonProperty("ip_commands_url") final URI ipCommandsUrl,
         @JsonProperty(
             "network_access_profile_sid"
         ) final String networkAccessProfileSid,
-        @JsonProperty("ip_commands_url") final URI ipCommandsUrl,
-        @JsonProperty("ip_commands_method") final HttpMethod ipCommandsMethod
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("sms_commands_enabled") final Boolean smsCommandsEnabled,
+        @JsonProperty("sms_commands_method") final HttpMethod smsCommandsMethod,
+        @JsonProperty("sms_commands_url") final URI smsCommandsUrl,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
-        this.sid = sid;
-        this.uniqueName = uniqueName;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
         this.dataEnabled = dataEnabled;
         this.dataLimit = dataLimit;
         this.dataMetering = dataMetering;
-        this.smsCommandsEnabled = smsCommandsEnabled;
-        this.smsCommandsUrl = smsCommandsUrl;
-        this.smsCommandsMethod = smsCommandsMethod;
-        this.networkAccessProfileSid = networkAccessProfileSid;
-        this.ipCommandsUrl = ipCommandsUrl;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.ipCommandsMethod = ipCommandsMethod;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Boolean getDataEnabled() {
-        return this.dataEnabled;
-    }
-
-    public final Integer getDataLimit() {
-        return this.dataLimit;
-    }
-
-    public final Fleet.DataMetering getDataMetering() {
-        return this.dataMetering;
-    }
-
-    public final Boolean getSmsCommandsEnabled() {
-        return this.smsCommandsEnabled;
-    }
-
-    public final URI getSmsCommandsUrl() {
-        return this.smsCommandsUrl;
-    }
-
-    public final HttpMethod getSmsCommandsMethod() {
-        return this.smsCommandsMethod;
-    }
-
-    public final String getNetworkAccessProfileSid() {
-        return this.networkAccessProfileSid;
-    }
-
-    public final URI getIpCommandsUrl() {
-        return this.ipCommandsUrl;
-    }
-
-    public final HttpMethod getIpCommandsMethod() {
-        return this.ipCommandsMethod;
+        this.ipCommandsUrl = ipCommandsUrl;
+        this.networkAccessProfileSid = networkAccessProfileSid;
+        this.sid = sid;
+        this.smsCommandsEnabled = smsCommandsEnabled;
+        this.smsCommandsMethod = smsCommandsMethod;
+        this.smsCommandsUrl = smsCommandsUrl;
+        this.uniqueName = uniqueName;
+        this.url = url;
     }
 
     @Override
@@ -242,26 +230,25 @@ public class Fleet extends Resource {
         }
 
         Fleet other = (Fleet) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
             Objects.equals(dataEnabled, other.dataEnabled) &&
             Objects.equals(dataLimit, other.dataLimit) &&
             Objects.equals(dataMetering, other.dataMetering) &&
-            Objects.equals(smsCommandsEnabled, other.smsCommandsEnabled) &&
-            Objects.equals(smsCommandsUrl, other.smsCommandsUrl) &&
-            Objects.equals(smsCommandsMethod, other.smsCommandsMethod) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(ipCommandsMethod, other.ipCommandsMethod) &&
+            Objects.equals(ipCommandsUrl, other.ipCommandsUrl) &&
             Objects.equals(
                 networkAccessProfileSid,
                 other.networkAccessProfileSid
             ) &&
-            Objects.equals(ipCommandsUrl, other.ipCommandsUrl) &&
-            Objects.equals(ipCommandsMethod, other.ipCommandsMethod)
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(smsCommandsEnabled, other.smsCommandsEnabled) &&
+            Objects.equals(smsCommandsMethod, other.smsCommandsMethod) &&
+            Objects.equals(smsCommandsUrl, other.smsCommandsUrl) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url)
         );
     }
 
@@ -269,20 +256,20 @@ public class Fleet extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
-            sid,
-            uniqueName,
-            dateCreated,
-            dateUpdated,
-            url,
             dataEnabled,
             dataLimit,
             dataMetering,
-            smsCommandsEnabled,
-            smsCommandsUrl,
-            smsCommandsMethod,
-            networkAccessProfileSid,
+            dateCreated,
+            dateUpdated,
+            ipCommandsMethod,
             ipCommandsUrl,
-            ipCommandsMethod
+            networkAccessProfileSid,
+            sid,
+            smsCommandsEnabled,
+            smsCommandsMethod,
+            smsCommandsUrl,
+            uniqueName,
+            url
         );
     }
 }

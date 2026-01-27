@@ -145,6 +145,20 @@ public class Dial extends TwiML {
         }
     }
 
+    public enum Events {
+        CALL_PROGRESS_EVENT("call-progress-event");
+
+        private final String value;
+
+        private Events(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+    }
+
     private final URI action;
     private final HttpMethod method;
     private final Integer timeout;
@@ -162,6 +176,7 @@ public class Dial extends TwiML {
     private final Boolean sequential;
     private final URI referUrl;
     private final HttpMethod referMethod;
+    private final Dial.Events events;
     private final String number;
 
     /**
@@ -193,6 +208,7 @@ public class Dial extends TwiML {
         this.sequential = b.sequential;
         this.referUrl = b.referUrl;
         this.referMethod = b.referMethod;
+        this.events = b.events;
         this.number = b.number;
     }
 
@@ -264,6 +280,9 @@ public class Dial extends TwiML {
         }
         if (this.getReferMethod() != null) {
             attrs.put("referMethod", this.getReferMethod().toString());
+        }
+        if (this.getEvents() != null) {
+            attrs.put("events", this.getEvents().toString());
         }
 
         return attrs;
@@ -443,6 +462,15 @@ public class Dial extends TwiML {
     }
 
     /**
+     * Subscription to events
+     *
+     * @return Subscription to events
+     */
+    public Dial.Events getEvents() {
+        return events;
+    }
+
+    /**
      * Phone number to dial
      *
      * @return Phone number to dial
@@ -487,6 +515,7 @@ public class Dial extends TwiML {
         private Boolean sequential;
         private URI referUrl;
         private HttpMethod referMethod;
+        private Dial.Events events;
         private String number;
 
         /**
@@ -692,6 +721,15 @@ public class Dial extends TwiML {
         }
 
         /**
+         * Subscription to events
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "events")
+        public Builder events(Dial.Events events) {
+            this.events = events;
+            return this;
+        }
+
+        /**
          * Phone number to dial
          */
         @JacksonXmlProperty(isAttribute = true, localName = "number")
@@ -760,6 +798,15 @@ public class Dial extends TwiML {
         @JacksonXmlProperty(isAttribute = false, localName = "Application")
         public Builder application(Application application) {
             this.children.add(application);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <WhatsApp>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "WhatsApp")
+        public Builder whatsApp(WhatsApp whatsApp) {
+            this.children.add(whatsApp);
             return this;
         }
 

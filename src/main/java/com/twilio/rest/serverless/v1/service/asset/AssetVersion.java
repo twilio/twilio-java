@@ -18,26 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssetVersion extends Resource {
-
-    private static final long serialVersionUID = 215359401104297L;
 
     public static AssetVersionFetcher fetcher(
         final String pathServiceSid,
@@ -52,6 +55,27 @@ public class AssetVersion extends Resource {
         final String pathAssetSid
     ) {
         return new AssetVersionReader(pathServiceSid, pathAssetSid);
+    }
+
+    public enum Visibility {
+        PUBLIC("public"),
+        PRIVATE("private"),
+        PROTECTED("protected");
+
+        private final String value;
+
+        private Visibility(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Visibility forValue(final String value) {
+            return Promoter.enumFromString(value, Visibility.values());
+        }
     }
 
     /**
@@ -97,87 +121,63 @@ public class AssetVersion extends Resource {
         }
     }
 
-    public enum Visibility {
-        PUBLIC("public"),
-        PRIVATE("private"),
-        PROTECTED("protected");
-
-        private final String value;
-
-        private Visibility(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Visibility forValue(final String value) {
-            return Promoter.enumFromString(value, Visibility.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    private final String sid;
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
+
+    @Getter
     private final String assetSid;
-    private final String path;
-    private final AssetVersion.Visibility visibility;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final String path;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final AssetVersion.Visibility visibility;
 
     @JsonCreator
     private AssetVersion(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("asset_sid") final String assetSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
         @JsonProperty("path") final String path,
-        @JsonProperty("visibility") final AssetVersion.Visibility visibility,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("url") final URI url
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("visibility") final AssetVersion.Visibility visibility
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
         this.assetSid = assetSid;
+        this.dateCreated = dateCreated;
         this.path = path;
-        this.visibility = visibility;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
+        this.serviceSid = serviceSid;
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getAssetSid() {
-        return this.assetSid;
-    }
-
-    public final String getPath() {
-        return this.path;
-    }
-
-    public final AssetVersion.Visibility getVisibility() {
-        return this.visibility;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.visibility = visibility;
     }
 
     @Override
@@ -191,30 +191,29 @@ public class AssetVersion extends Resource {
         }
 
         AssetVersion other = (AssetVersion) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
             Objects.equals(assetSid, other.assetSid) &&
-            Objects.equals(path, other.path) &&
-            Objects.equals(visibility, other.visibility) &&
             Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(url, other.url)
+            Objects.equals(path, other.path) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(visibility, other.visibility)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            serviceSid,
             assetSid,
-            path,
-            visibility,
             dateCreated,
-            url
+            path,
+            serviceSid,
+            sid,
+            url,
+            visibility
         );
     }
 }

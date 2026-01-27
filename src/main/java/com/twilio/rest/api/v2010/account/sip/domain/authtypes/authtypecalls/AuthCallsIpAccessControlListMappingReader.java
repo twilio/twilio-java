@@ -17,6 +17,10 @@ package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtypecalls;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +29,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AuthCallsIpAccessControlListMappingReader
     extends Reader<AuthCallsIpAccessControlListMapping> {
 
-    private String pathDomainSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private String pathDomainSid;
+    private Long pageSize;
 
     public AuthCallsIpAccessControlListMappingReader(
         final String pathDomainSid
@@ -48,24 +53,36 @@ public class AuthCallsIpAccessControlListMappingReader
     }
 
     public AuthCallsIpAccessControlListMappingReader setPageSize(
-        final Integer pageSize
+        final Long pageSize
     ) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<AuthCallsIpAccessControlListMapping> read(
-        final TwilioRestClient client
-    ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<
+        AuthCallsIpAccessControlListMapping
+    > readWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AuthCallsIpAccessControlListMapping> page = Page.fromJson(
+            "contents",
+            response.getContent(),
+            AuthCallsIpAccessControlListMapping.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<AuthCallsIpAccessControlListMapping> resourceSet =
+            new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<AuthCallsIpAccessControlListMapping> firstPage(
-        final TwilioRestClient client
-    ) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -86,17 +103,47 @@ public class AuthCallsIpAccessControlListMappingReader
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<AuthCallsIpAccessControlListMapping> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<AuthCallsIpAccessControlListMapping> firstPage(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<AuthCallsIpAccessControlListMapping> pageForRequest(
+    public TwilioResponse<
+        Page<AuthCallsIpAccessControlListMapping>
+    > firstPageWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AuthCallsIpAccessControlListMapping> page = Page.fromJson(
+            "contents",
+            response.getContent(),
+            AuthCallsIpAccessControlListMapping.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "AuthCallsIpAccessControlListMapping read failed: Unable to connect to server"
@@ -106,12 +153,23 @@ public class AuthCallsIpAccessControlListMappingReader
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<AuthCallsIpAccessControlListMapping> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "contents",
             response.getContent(),
@@ -150,13 +208,17 @@ public class AuthCallsIpAccessControlListMappingReader
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

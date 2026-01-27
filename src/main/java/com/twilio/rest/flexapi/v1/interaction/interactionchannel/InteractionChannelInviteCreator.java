@@ -15,9 +15,10 @@
 package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,35 +27,31 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
+import com.twilio.type.*;
 
 public class InteractionChannelInviteCreator
     extends Creator<InteractionChannelInvite> {
 
     private String pathInteractionSid;
     private String pathChannelSid;
-    private Map<String, Object> routing;
+    private Object routing;
 
     public InteractionChannelInviteCreator(
         final String pathInteractionSid,
         final String pathChannelSid,
-        final Map<String, Object> routing
+        final Object routing
     ) {
         this.pathInteractionSid = pathInteractionSid;
         this.pathChannelSid = pathChannelSid;
         this.routing = routing;
     }
 
-    public InteractionChannelInviteCreator setRouting(
-        final Map<String, Object> routing
-    ) {
+    public InteractionChannelInviteCreator setRouting(final Object routing) {
         this.routing = routing;
         return this;
     }
 
-    @Override
-    public InteractionChannelInvite create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites";
 
@@ -68,7 +65,6 @@ public class InteractionChannelInviteCreator
                 "{" + "ChannelSid" + "}",
                 this.pathChannelSid.toString()
             );
-        path = path.replace("{" + "Routing" + "}", this.routing.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -77,7 +73,9 @@ public class InteractionChannelInviteCreator
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "InteractionChannelInvite creation failed: Unable to connect to server"
@@ -88,20 +86,49 @@ public class InteractionChannelInviteCreator
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public InteractionChannelInvite create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return InteractionChannelInvite.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<InteractionChannelInvite> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        InteractionChannelInvite content = InteractionChannelInvite.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (routing != null) {
-            request.addPostParam("Routing", Converter.mapToJson(routing));
+            Serializer.toString(
+                request,
+                "Routing",
+                routing,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

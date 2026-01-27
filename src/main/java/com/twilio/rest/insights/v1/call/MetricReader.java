@@ -17,6 +17,10 @@ package com.twilio.rest.insights.v1.call;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +29,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class MetricReader extends Reader<Metric> {
 
     private String pathCallSid;
     private Metric.TwilioEdge edge;
     private Metric.StreamDirection direction;
-    private Integer pageSize;
+    private Long pageSize;
 
     public MetricReader(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -47,9 +52,42 @@ public class MetricReader extends Reader<Metric> {
         return this;
     }
 
-    public MetricReader setPageSize(final Integer pageSize) {
+    public MetricReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<Metric> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Metric> page = Page.fromJson(
+            "metrics",
+            response.getContent(),
+            Metric.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Metric> resourceSet = new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/Voice/{CallSid}/Metrics";
+
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.INSIGHTS.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -58,25 +96,33 @@ public class MetricReader extends Reader<Metric> {
     }
 
     public Page<Metric> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Voice/{CallSid}/Metrics";
-        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.INSIGHTS.toString(),
-            path
-        );
-
-        addQueryParams(request);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Metric> pageForRequest(
+    public TwilioResponse<Page<Metric>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Metric> page = Page.fromJson(
+            "metrics",
+            response.getContent(),
+            Metric.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Metric read failed: Unable to connect to server"
@@ -86,12 +132,23 @@ public class MetricReader extends Reader<Metric> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Metric> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "metrics",
             response.getContent(),
@@ -107,7 +164,7 @@ public class MetricReader extends Reader<Metric> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.INSIGHTS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -119,7 +176,7 @@ public class MetricReader extends Reader<Metric> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.INSIGHTS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -130,19 +187,30 @@ public class MetricReader extends Reader<Metric> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (edge != null) {
-            request.addQueryParam("Edge", edge.toString());
+            Serializer.toString(request, "Edge", edge, ParameterType.QUERY);
         }
+
         if (direction != null) {
-            request.addQueryParam("Direction", direction.toString());
+            Serializer.toString(
+                request,
+                "Direction",
+                direction,
+                ParameterType.QUERY
+            );
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

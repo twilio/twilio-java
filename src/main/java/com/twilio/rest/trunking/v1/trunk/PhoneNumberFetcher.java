@@ -15,6 +15,7 @@
 package com.twilio.rest.trunking.v1.trunk;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
@@ -34,8 +36,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public PhoneNumber fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}";
 
         path =
@@ -47,6 +48,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             Domains.TRUNKING.toString(),
             path
         );
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -59,14 +61,38 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public PhoneNumber fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PhoneNumber.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<PhoneNumber> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PhoneNumber content = PhoneNumber.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

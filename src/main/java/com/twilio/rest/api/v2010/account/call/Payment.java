@@ -18,26 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Payment extends Resource {
-
-    private static final long serialVersionUID = 75287507384907L;
 
     public static PaymentCreator creator(
         final String pathCallSid,
@@ -91,6 +94,112 @@ public class Payment extends Resource {
         );
     }
 
+    public enum Status {
+        COMPLETE("complete"),
+        CANCEL("cancel");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum TokenType {
+        ONE_TIME("one-time"),
+        REUSABLE("reusable"),
+        PAYMENT_METHOD("payment-method");
+
+        private final String value;
+
+        private TokenType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TokenType forValue(final String value) {
+            return Promoter.enumFromString(value, TokenType.values());
+        }
+    }
+
+    public enum BankAccountType {
+        CONSUMER_CHECKING("consumer-checking"),
+        CONSUMER_SAVINGS("consumer-savings"),
+        COMMERCIAL_CHECKING("commercial-checking");
+
+        private final String value;
+
+        private BankAccountType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static BankAccountType forValue(final String value) {
+            return Promoter.enumFromString(value, BankAccountType.values());
+        }
+    }
+
+    public enum PaymentMethod {
+        CREDIT_CARD("credit-card"),
+        ACH_DEBIT("ach-debit");
+
+        private final String value;
+
+        private PaymentMethod(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static PaymentMethod forValue(final String value) {
+            return Promoter.enumFromString(value, PaymentMethod.values());
+        }
+    }
+
+    public enum Capture {
+        PAYMENT_CARD_NUMBER("payment-card-number"),
+        EXPIRATION_DATE("expiration-date"),
+        SECURITY_CODE("security-code"),
+        POSTAL_CODE("postal-code"),
+        BANK_ROUTING_NUMBER("bank-routing-number"),
+        BANK_ACCOUNT_NUMBER("bank-account-number");
+
+        private final String value;
+
+        private Capture(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Capture forValue(final String value) {
+            return Promoter.enumFromString(value, Capture.values());
+        }
+    }
+
     /**
      * Converts a JSON String into a Payment object using the provided ObjectMapper.
      *
@@ -134,157 +243,55 @@ public class Payment extends Resource {
         }
     }
 
-    public enum BankAccountType {
-        CONSUMER_CHECKING("consumer-checking"),
-        CONSUMER_SAVINGS("consumer-savings"),
-        COMMERCIAL_CHECKING("commercial-checking");
-
-        private final String value;
-
-        private BankAccountType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BankAccountType forValue(final String value) {
-            return Promoter.enumFromString(value, BankAccountType.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    public enum Capture {
-        PAYMENT_CARD_NUMBER("payment-card-number"),
-        EXPIRATION_DATE("expiration-date"),
-        SECURITY_CODE("security-code"),
-        POSTAL_CODE("postal-code"),
-        BANK_ROUTING_NUMBER("bank-routing-number"),
-        BANK_ACCOUNT_NUMBER("bank-account-number");
-
-        private final String value;
-
-        private Capture(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Capture forValue(final String value) {
-            return Promoter.enumFromString(value, Capture.values());
-        }
-    }
-
-    public enum PaymentMethod {
-        CREDIT_CARD("credit-card"),
-        ACH_DEBIT("ach-debit");
-
-        private final String value;
-
-        private PaymentMethod(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static PaymentMethod forValue(final String value) {
-            return Promoter.enumFromString(value, PaymentMethod.values());
-        }
-    }
-
-    public enum Status {
-        COMPLETE("complete"),
-        CANCEL("cancel");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum TokenType {
-        ONE_TIME("one-time"),
-        REUSABLE("reusable");
-
-        private final String value;
-
-        private TokenType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TokenType forValue(final String value) {
-            return Promoter.enumFromString(value, TokenType.values());
-        }
-    }
-
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String callSid;
-    private final String sid;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final String uri;
 
     @JsonCreator
     private Payment(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("call_sid") final String callSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;
         this.callSid = callSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.sid = sid;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
         this.uri = uri;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getCallSid() {
-        return this.callSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getUri() {
-        return this.uri;
     }
 
     @Override
@@ -298,13 +305,12 @@ public class Payment extends Resource {
         }
 
         Payment other = (Payment) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(callSid, other.callSid) &&
-            Objects.equals(sid, other.sid) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(uri, other.uri)
         );
     }
@@ -314,9 +320,9 @@ public class Payment extends Resource {
         return Objects.hash(
             accountSid,
             callSid,
-            sid,
             dateCreated,
             dateUpdated,
+            sid,
             uri
         );
     }

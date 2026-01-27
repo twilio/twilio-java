@@ -18,23 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ExportConfiguration extends Resource {
-
-    private static final long serialVersionUID = 268277535772365L;
 
     public static ExportConfigurationFetcher fetcher(
         final String pathResourceType
@@ -91,45 +94,46 @@ public class ExportConfiguration extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final Boolean enabled;
-    private final URI webhookUrl;
-    private final String webhookMethod;
+
+    @Getter
     private final String resourceType;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final String webhookMethod;
+
+    @Getter
+    private final URI webhookUrl;
 
     @JsonCreator
     private ExportConfiguration(
         @JsonProperty("enabled") final Boolean enabled,
-        @JsonProperty("webhook_url") final URI webhookUrl,
-        @JsonProperty("webhook_method") final String webhookMethod,
         @JsonProperty("resource_type") final String resourceType,
-        @JsonProperty("url") final URI url
+        @JsonProperty("url") final URI url,
+        @JsonProperty("webhook_method") final String webhookMethod,
+        @JsonProperty("webhook_url") final URI webhookUrl
     ) {
         this.enabled = enabled;
-        this.webhookUrl = webhookUrl;
-        this.webhookMethod = webhookMethod;
         this.resourceType = resourceType;
         this.url = url;
-    }
-
-    public final Boolean getEnabled() {
-        return this.enabled;
-    }
-
-    public final URI getWebhookUrl() {
-        return this.webhookUrl;
-    }
-
-    public final String getWebhookMethod() {
-        return this.webhookMethod;
-    }
-
-    public final String getResourceType() {
-        return this.resourceType;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.webhookMethod = webhookMethod;
+        this.webhookUrl = webhookUrl;
     }
 
     @Override
@@ -143,13 +147,12 @@ public class ExportConfiguration extends Resource {
         }
 
         ExportConfiguration other = (ExportConfiguration) o;
-
         return (
             Objects.equals(enabled, other.enabled) &&
-            Objects.equals(webhookUrl, other.webhookUrl) &&
-            Objects.equals(webhookMethod, other.webhookMethod) &&
             Objects.equals(resourceType, other.resourceType) &&
-            Objects.equals(url, other.url)
+            Objects.equals(url, other.url) &&
+            Objects.equals(webhookMethod, other.webhookMethod) &&
+            Objects.equals(webhookUrl, other.webhookUrl)
         );
     }
 
@@ -157,10 +160,10 @@ public class ExportConfiguration extends Resource {
     public int hashCode() {
         return Objects.hash(
             enabled,
-            webhookUrl,
-            webhookMethod,
             resourceType,
-            url
+            url,
+            webhookMethod,
+            webhookUrl
         );
     }
 }

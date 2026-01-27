@@ -18,25 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsSettingsAnswerSets extends Resource {
-
-    private static final long serialVersionUID = 252326702169213L;
 
     public static InsightsSettingsAnswerSetsFetcher fetcher() {
         return new InsightsSettingsAnswerSetsFetcher();
@@ -91,47 +92,46 @@ public class InsightsSettingsAnswerSets extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final Map<String, Object> answerSets;
-    private final Map<String, Object> answerSetCategories;
-    private final Map<String, Object> notApplicable;
+
+    @Getter
+    private final Object answerSetCategories;
+
+    @Getter
+    private final Object answerSets;
+
+    @Getter
+    private final Object notApplicable;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private InsightsSettingsAnswerSets(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("answer_sets") final Map<String, Object> answerSets,
-        @JsonProperty(
-            "answer_set_categories"
-        ) final Map<String, Object> answerSetCategories,
-        @JsonProperty("not_applicable") final Map<String, Object> notApplicable,
+        @JsonProperty("answer_set_categories") final Object answerSetCategories,
+        @JsonProperty("answer_sets") final Object answerSets,
+        @JsonProperty("not_applicable") final Object notApplicable,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
-        this.answerSets = answerSets;
         this.answerSetCategories = answerSetCategories;
+        this.answerSets = answerSets;
         this.notApplicable = notApplicable;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Map<String, Object> getAnswerSets() {
-        return this.answerSets;
-    }
-
-    public final Map<String, Object> getAnswerSetCategories() {
-        return this.answerSetCategories;
-    }
-
-    public final Map<String, Object> getNotApplicable() {
-        return this.notApplicable;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -145,11 +145,10 @@ public class InsightsSettingsAnswerSets extends Resource {
         }
 
         InsightsSettingsAnswerSets other = (InsightsSettingsAnswerSets) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(answerSets, other.answerSets) &&
             Objects.equals(answerSetCategories, other.answerSetCategories) &&
+            Objects.equals(answerSets, other.answerSets) &&
             Objects.equals(notApplicable, other.notApplicable) &&
             Objects.equals(url, other.url)
         );
@@ -159,8 +158,8 @@ public class InsightsSettingsAnswerSets extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
-            answerSets,
             answerSetCategories,
+            answerSets,
             notApplicable,
             url
         );

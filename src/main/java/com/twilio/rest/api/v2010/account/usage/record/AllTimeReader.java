@@ -17,7 +17,10 @@ package com.twilio.rest.api.v2010.account.usage.record;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,16 +29,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.LocalDate;
 
 public class AllTimeReader extends Reader<AllTime> {
 
     private String pathAccountSid;
-    private AllTime.Category category;
+    private String category;
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AllTimeReader() {}
 
@@ -43,7 +47,7 @@ public class AllTimeReader extends Reader<AllTime> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public AllTimeReader setCategory(final AllTime.Category category) {
+    public AllTimeReader setCategory(final String category) {
         this.category = category;
         return this;
     }
@@ -65,19 +69,38 @@ public class AllTimeReader extends Reader<AllTime> {
         return this;
     }
 
-    public AllTimeReader setPageSize(final Integer pageSize) {
+    public AllTimeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<AllTime> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<AllTime> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AllTime> page = Page.fromJson(
+            "usage_records",
+            response.getContent(),
+            AllTime.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<AllTime> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<AllTime> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -93,17 +116,43 @@ public class AllTimeReader extends Reader<AllTime> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<AllTime> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<AllTime> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<AllTime> pageForRequest(
+    public TwilioResponse<Page<AllTime>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AllTime> page = Page.fromJson(
+            "usage_records",
+            response.getContent(),
+            AllTime.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "AllTime read failed: Unable to connect to server"
@@ -113,12 +162,23 @@ public class AllTimeReader extends Reader<AllTime> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<AllTime> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "usage_records",
             response.getContent(),
@@ -157,36 +217,53 @@ public class AllTimeReader extends Reader<AllTime> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (category != null) {
-            request.addQueryParam("Category", category.toString());
+            Serializer.toString(
+                request,
+                "Category",
+                category,
+                ParameterType.QUERY
+            );
         }
+
         if (startDate != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "StartDate",
-                DateConverter.dateStringFromLocalDate(startDate)
+                startDate,
+                ParameterType.QUERY
             );
         }
 
         if (endDate != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "EndDate",
-                DateConverter.dateStringFromLocalDate(endDate)
+                endDate,
+                ParameterType.QUERY
             );
         }
 
         if (includeSubaccounts != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "IncludeSubaccounts",
-                includeSubaccounts.toString()
+                includeSubaccounts,
+                ParameterType.QUERY
             );
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

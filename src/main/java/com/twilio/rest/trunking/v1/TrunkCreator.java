@@ -15,8 +15,11 @@
 package com.twilio.rest.trunking.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class TrunkCreator extends Creator<Trunk> {
@@ -95,8 +98,7 @@ public class TrunkCreator extends Creator<Trunk> {
         return this;
     }
 
-    @Override
-    public Trunk create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks";
 
         Request request = new Request(
@@ -106,7 +108,9 @@ public class TrunkCreator extends Creator<Trunk> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Trunk creation failed: Unable to connect to server"
@@ -117,49 +121,108 @@ public class TrunkCreator extends Creator<Trunk> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Trunk create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Trunk.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Trunk> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Trunk content = Trunk.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (domainName != null) {
-            request.addPostParam("DomainName", domainName);
+            Serializer.toString(
+                request,
+                "DomainName",
+                domainName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (disasterRecoveryUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DisasterRecoveryUrl",
-                disasterRecoveryUrl.toString()
+                disasterRecoveryUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (disasterRecoveryMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DisasterRecoveryMethod",
-                disasterRecoveryMethod.toString()
+                disasterRecoveryMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (transferMode != null) {
-            request.addPostParam("TransferMode", transferMode.toString());
-        }
-        if (secure != null) {
-            request.addPostParam("Secure", secure.toString());
-        }
-        if (cnamLookupEnabled != null) {
-            request.addPostParam(
-                "CnamLookupEnabled",
-                cnamLookupEnabled.toString()
+            Serializer.toString(
+                request,
+                "TransferMode",
+                transferMode,
+                ParameterType.URLENCODED
             );
         }
+
+        if (secure != null) {
+            Serializer.toString(
+                request,
+                "Secure",
+                secure,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (cnamLookupEnabled != null) {
+            Serializer.toString(
+                request,
+                "CnamLookupEnabled",
+                cnamLookupEnabled,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (transferCallerId != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "TransferCallerId",
-                transferCallerId.toString()
+                transferCallerId,
+                ParameterType.URLENCODED
             );
         }
     }

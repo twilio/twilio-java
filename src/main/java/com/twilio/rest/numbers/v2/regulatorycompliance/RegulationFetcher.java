@@ -15,6 +15,9 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,17 +26,25 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class RegulationFetcher extends Fetcher<Regulation> {
 
     private String pathSid;
+    private Boolean includeConstraints;
 
     public RegulationFetcher(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Regulation fetch(final TwilioRestClient client) {
+    public RegulationFetcher setIncludeConstraints(
+        final Boolean includeConstraints
+    ) {
+        this.includeConstraints = includeConstraints;
+        return this;
+    }
+
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Regulations/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -43,6 +54,8 @@ public class RegulationFetcher extends Fetcher<Regulation> {
             Domains.NUMBERS.toString(),
             path
         );
+        addQueryParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -55,14 +68,49 @@ public class RegulationFetcher extends Fetcher<Regulation> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Regulation fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Regulation.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
+    }
+
+    @Override
+    public TwilioResponse<Regulation> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Regulation content = Regulation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private void addQueryParams(final Request request) {
+        if (includeConstraints != null) {
+            Serializer.toString(
+                request,
+                "IncludeConstraints",
+                includeConstraints,
+                ParameterType.QUERY
+            );
+        }
     }
 }

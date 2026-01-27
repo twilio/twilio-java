@@ -14,8 +14,11 @@
 
 package com.twilio.rest.api.v2010.account;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +27,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AddressUpdater extends Updater<Address> {
 
-    private String pathSid;
     private String pathAccountSid;
+    private String pathSid;
     private String friendlyName;
     private String customerName;
     private String street;
@@ -95,8 +99,7 @@ public class AddressUpdater extends Updater<Address> {
         return this;
     }
 
-    @Override
-    public Address update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json";
 
         this.pathAccountSid =
@@ -117,7 +120,9 @@ public class AddressUpdater extends Updater<Address> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Address update failed: Unable to connect to server"
@@ -128,47 +133,118 @@ public class AddressUpdater extends Updater<Address> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Address update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Address.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Address> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Address content = Address.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (customerName != null) {
-            request.addPostParam("CustomerName", customerName);
+            Serializer.toString(
+                request,
+                "CustomerName",
+                customerName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (street != null) {
-            request.addPostParam("Street", street);
+            Serializer.toString(
+                request,
+                "Street",
+                street,
+                ParameterType.URLENCODED
+            );
         }
+
         if (city != null) {
-            request.addPostParam("City", city);
+            Serializer.toString(
+                request,
+                "City",
+                city,
+                ParameterType.URLENCODED
+            );
         }
+
         if (region != null) {
-            request.addPostParam("Region", region);
+            Serializer.toString(
+                request,
+                "Region",
+                region,
+                ParameterType.URLENCODED
+            );
         }
+
         if (postalCode != null) {
-            request.addPostParam("PostalCode", postalCode);
+            Serializer.toString(
+                request,
+                "PostalCode",
+                postalCode,
+                ParameterType.URLENCODED
+            );
         }
+
         if (emergencyEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "EmergencyEnabled",
-                emergencyEnabled.toString()
+                emergencyEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (autoCorrectAddress != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCorrectAddress",
-                autoCorrectAddress.toString()
+                autoCorrectAddress,
+                ParameterType.URLENCODED
             );
         }
+
         if (streetSecondary != null) {
-            request.addPostParam("StreetSecondary", streetSecondary);
+            Serializer.toString(
+                request,
+                "StreetSecondary",
+                streetSecondary,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

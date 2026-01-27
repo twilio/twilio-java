@@ -17,6 +17,10 @@ package com.twilio.rest.taskrouter.v1.workspace.taskqueue;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +29,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
@@ -36,7 +41,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     private ZonedDateTime startDate;
     private String taskChannel;
     private String splitByWaitTime;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TaskQueuesStatisticsReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
@@ -78,20 +83,37 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
         return this;
     }
 
-    public TaskQueuesStatisticsReader setPageSize(final Integer pageSize) {
+    public TaskQueuesStatisticsReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<TaskQueuesStatistics> read(
+    public ResourceSetResponse<TaskQueuesStatistics> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TaskQueuesStatistics> page = Page.fromJson(
+            "task_queues_statistics",
+            response.getContent(),
+            TaskQueuesStatistics.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<TaskQueuesStatistics> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<TaskQueuesStatistics> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics";
+
         path =
             path.replace(
                 "{" + "WorkspaceSid" + "}",
@@ -103,17 +125,45 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
             Domains.TASKROUTER.toString(),
             path
         );
-
         addQueryParams(request);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<TaskQueuesStatistics> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<TaskQueuesStatistics> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<TaskQueuesStatistics> pageForRequest(
+    public TwilioResponse<Page<TaskQueuesStatistics>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<TaskQueuesStatistics> page = Page.fromJson(
+            "task_queues_statistics",
+            response.getContent(),
+            TaskQueuesStatistics.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "TaskQueuesStatistics read failed: Unable to connect to server"
@@ -123,12 +173,23 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<TaskQueuesStatistics> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "task_queues_statistics",
             response.getContent(),
@@ -144,7 +205,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.TASKROUTER.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -156,7 +217,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.TASKROUTER.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -167,36 +228,71 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (endDate != null) {
-            request.addQueryParam("EndDate", endDate.toInstant().toString());
+            Serializer.toString(
+                request,
+                "EndDate",
+                endDate,
+                ParameterType.QUERY
+            );
         }
 
         if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
         }
+
         if (minutes != null) {
-            request.addQueryParam("Minutes", minutes.toString());
+            Serializer.toString(
+                request,
+                "Minutes",
+                minutes,
+                ParameterType.QUERY
+            );
         }
+
         if (startDate != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "StartDate",
-                startDate.toInstant().toString()
+                startDate,
+                ParameterType.QUERY
             );
         }
 
         if (taskChannel != null) {
-            request.addQueryParam("TaskChannel", taskChannel);
+            Serializer.toString(
+                request,
+                "TaskChannel",
+                taskChannel,
+                ParameterType.QUERY
+            );
         }
+
         if (splitByWaitTime != null) {
-            request.addQueryParam("SplitByWaitTime", splitByWaitTime);
+            Serializer.toString(
+                request,
+                "SplitByWaitTime",
+                splitByWaitTime,
+                ParameterType.QUERY
+            );
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

@@ -14,8 +14,11 @@
 
 package com.twilio.rest.conversations.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ConfigurationUpdater extends Updater<Configuration> {
 
@@ -62,8 +66,7 @@ public class ConfigurationUpdater extends Updater<Configuration> {
         return this;
     }
 
-    @Override
-    public Configuration update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Configuration";
 
         Request request = new Request(
@@ -73,7 +76,9 @@ public class ConfigurationUpdater extends Updater<Configuration> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Configuration update failed: Unable to connect to server"
@@ -84,35 +89,76 @@ public class ConfigurationUpdater extends Updater<Configuration> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Configuration update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Configuration.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Configuration> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Configuration content = Configuration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (defaultChatServiceSid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DefaultChatServiceSid",
-                defaultChatServiceSid
+                defaultChatServiceSid,
+                ParameterType.URLENCODED
             );
         }
+
         if (defaultMessagingServiceSid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DefaultMessagingServiceSid",
-                defaultMessagingServiceSid
+                defaultMessagingServiceSid,
+                ParameterType.URLENCODED
             );
         }
+
         if (defaultInactiveTimer != null) {
-            request.addPostParam("DefaultInactiveTimer", defaultInactiveTimer);
+            Serializer.toString(
+                request,
+                "DefaultInactiveTimer",
+                defaultInactiveTimer,
+                ParameterType.URLENCODED
+            );
         }
+
         if (defaultClosedTimer != null) {
-            request.addPostParam("DefaultClosedTimer", defaultClosedTimer);
+            Serializer.toString(
+                request,
+                "DefaultClosedTimer",
+                defaultClosedTimer,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

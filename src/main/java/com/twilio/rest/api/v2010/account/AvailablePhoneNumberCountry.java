@@ -18,25 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AvailablePhoneNumberCountry extends Resource {
-
-    private static final long serialVersionUID = 173167903952303L;
 
     public static AvailablePhoneNumberCountryFetcher fetcher(
         final String pathCountryCode
@@ -113,47 +115,49 @@ public class AvailablePhoneNumberCountry extends Resource {
         }
     }
 
-    private final String countryCode;
-    private final String country;
-    private final URI uri;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final Boolean beta;
+
+    @Getter
+    private final String country;
+
+    @Getter
+    private final String countryCode;
+
+    @Getter
     private final Map<String, String> subresourceUris;
+
+    @Getter
+    private final URI uri;
 
     @JsonCreator
     private AvailablePhoneNumberCountry(
-        @JsonProperty("country_code") final String countryCode,
-        @JsonProperty("country") final String country,
-        @JsonProperty("uri") final URI uri,
         @JsonProperty("beta") final Boolean beta,
-        @JsonProperty(
-            "subresource_uris"
-        ) final Map<String, String> subresourceUris
+        @JsonProperty("country") final String country,
+        @JsonProperty("country_code") final String countryCode,
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris,
+        @JsonProperty("uri") final URI uri
     ) {
-        this.countryCode = countryCode;
-        this.country = country;
-        this.uri = uri;
         this.beta = beta;
+        this.country = country;
+        this.countryCode = countryCode;
         this.subresourceUris = subresourceUris;
-    }
-
-    public final String getCountryCode() {
-        return this.countryCode;
-    }
-
-    public final String getCountry() {
-        return this.country;
-    }
-
-    public final URI getUri() {
-        return this.uri;
-    }
-
-    public final Boolean getBeta() {
-        return this.beta;
-    }
-
-    public final Map<String, String> getSubresourceUris() {
-        return this.subresourceUris;
+        this.uri = uri;
     }
 
     @Override
@@ -167,18 +171,17 @@ public class AvailablePhoneNumberCountry extends Resource {
         }
 
         AvailablePhoneNumberCountry other = (AvailablePhoneNumberCountry) o;
-
         return (
-            Objects.equals(countryCode, other.countryCode) &&
-            Objects.equals(country, other.country) &&
-            Objects.equals(uri, other.uri) &&
             Objects.equals(beta, other.beta) &&
-            Objects.equals(subresourceUris, other.subresourceUris)
+            Objects.equals(country, other.country) &&
+            Objects.equals(countryCode, other.countryCode) &&
+            Objects.equals(subresourceUris, other.subresourceUris) &&
+            Objects.equals(uri, other.uri)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(countryCode, country, uri, beta, subresourceUris);
+        return Objects.hash(beta, country, countryCode, subresourceUris, uri);
     }
 }

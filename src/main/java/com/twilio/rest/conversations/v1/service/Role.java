@@ -18,27 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Role extends Resource {
-
-    private static final long serialVersionUID = 223283830784079L;
 
     public static RoleCreator creator(
         final String pathChatServiceSid,
@@ -78,6 +81,26 @@ public class Role extends Resource {
         final List<String> permission
     ) {
         return new RoleUpdater(pathChatServiceSid, pathSid, permission);
+    }
+
+    public enum RoleType {
+        CONVERSATION("conversation"),
+        SERVICE("service");
+
+        private final String value;
+
+        private RoleType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static RoleType forValue(final String value) {
+            return Promoter.enumFromString(value, RoleType.values());
+        }
     }
 
     /**
@@ -123,93 +146,70 @@ public class Role extends Resource {
         }
     }
 
-    public enum RoleType {
-        CONVERSATION("conversation"),
-        SERVICE("service");
-
-        private final String value;
-
-        private RoleType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoleType forValue(final String value) {
-            return Promoter.enumFromString(value, RoleType.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    private final String sid;
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String chatServiceSid;
-    private final String friendlyName;
-    private final Role.RoleType type;
-    private final List<String> permissions;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final List<String> permissions;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Role.RoleType type;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Role(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("chat_service_sid") final String chatServiceSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("type") final Role.RoleType type,
         @JsonProperty("permissions") final List<String> permissions,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("type") final Role.RoleType type,
         @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
         this.chatServiceSid = chatServiceSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
-        this.type = type;
         this.permissions = permissions;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.sid = sid;
+        this.type = type;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getChatServiceSid() {
-        return this.chatServiceSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Role.RoleType getType() {
-        return this.type;
-    }
-
-    public final List<String> getPermissions() {
-        return this.permissions;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -223,16 +223,15 @@ public class Role extends Resource {
         }
 
         Role other = (Role) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(chatServiceSid, other.chatServiceSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(permissions, other.permissions) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(permissions, other.permissions) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(type, other.type) &&
             Objects.equals(url, other.url)
         );
     }
@@ -240,14 +239,14 @@ public class Role extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
             chatServiceSid,
-            friendlyName,
-            type,
-            permissions,
             dateCreated,
             dateUpdated,
+            friendlyName,
+            permissions,
+            sid,
+            type,
             url
         );
     }

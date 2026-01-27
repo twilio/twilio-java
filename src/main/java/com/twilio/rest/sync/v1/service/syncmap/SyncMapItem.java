@@ -18,34 +18,35 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncMapItem extends Resource {
 
-    private static final long serialVersionUID = 156890229646336L;
-
     public static SyncMapItemCreator creator(
         final String pathServiceSid,
         final String pathMapSid,
         final String key,
-        final Map<String, Object> data
+        final Object data
     ) {
         return new SyncMapItemCreator(pathServiceSid, pathMapSid, key, data);
     }
@@ -79,6 +80,46 @@ public class SyncMapItem extends Resource {
         final String pathKey
     ) {
         return new SyncMapItemUpdater(pathServiceSid, pathMapSid, pathKey);
+    }
+
+    public enum QueryResultOrder {
+        ASC("asc"),
+        DESC("desc");
+
+        private final String value;
+
+        private QueryResultOrder(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static QueryResultOrder forValue(final String value) {
+            return Promoter.enumFromString(value, QueryResultOrder.values());
+        }
+    }
+
+    public enum QueryFromBoundType {
+        INCLUSIVE("inclusive"),
+        EXCLUSIVE("exclusive");
+
+        private final String value;
+
+        private QueryFromBoundType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static QueryFromBoundType forValue(final String value) {
+            return Promoter.enumFromString(value, QueryFromBoundType.values());
+        }
     }
 
     /**
@@ -124,127 +165,82 @@ public class SyncMapItem extends Resource {
         }
     }
 
-    public enum QueryFromBoundType {
-        INCLUSIVE("inclusive"),
-        EXCLUSIVE("exclusive");
-
-        private final String value;
-
-        private QueryFromBoundType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static QueryFromBoundType forValue(final String value) {
-            return Promoter.enumFromString(value, QueryFromBoundType.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    public enum QueryResultOrder {
-        ASC("asc"),
-        DESC("desc");
-
-        private final String value;
-
-        private QueryResultOrder(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static QueryResultOrder forValue(final String value) {
-            return Promoter.enumFromString(value, QueryResultOrder.values());
-        }
-    }
-
-    private final String key;
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final String mapSid;
-    private final URI url;
-    private final String revision;
-    private final Map<String, Object> data;
-    private final ZonedDateTime dateExpires;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final String createdBy;
+
+    @Getter
+    private final Object data;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateExpires;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String key;
+
+    @Getter
+    private final String mapSid;
+
+    @Getter
+    private final String revision;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private SyncMapItem(
-        @JsonProperty("key") final String key,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("created_by") final String createdBy,
+        @JsonProperty("data") final Object data,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_expires") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateExpires,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("key") final String key,
         @JsonProperty("map_sid") final String mapSid,
-        @JsonProperty("url") final URI url,
         @JsonProperty("revision") final String revision,
-        @JsonProperty("data") final Map<String, Object> data,
-        @JsonProperty("date_expires") final String dateExpires,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("created_by") final String createdBy
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("url") final URI url
     ) {
-        this.key = key;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
-        this.mapSid = mapSid;
-        this.url = url;
-        this.revision = revision;
-        this.data = data;
-        this.dateExpires = DateConverter.iso8601DateTimeFromString(dateExpires);
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.createdBy = createdBy;
-    }
-
-    public final String getKey() {
-        return this.key;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getMapSid() {
-        return this.mapSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getRevision() {
-        return this.revision;
-    }
-
-    public final Map<String, Object> getData() {
-        return this.data;
-    }
-
-    public final ZonedDateTime getDateExpires() {
-        return this.dateExpires;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getCreatedBy() {
-        return this.createdBy;
+        this.data = data;
+        this.dateCreated = dateCreated;
+        this.dateExpires = dateExpires;
+        this.dateUpdated = dateUpdated;
+        this.key = key;
+        this.mapSid = mapSid;
+        this.revision = revision;
+        this.serviceSid = serviceSid;
+        this.url = url;
     }
 
     @Override
@@ -258,36 +254,35 @@ public class SyncMapItem extends Resource {
         }
 
         SyncMapItem other = (SyncMapItem) o;
-
         return (
-            Objects.equals(key, other.key) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(mapSid, other.mapSid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(revision, other.revision) &&
+            Objects.equals(createdBy, other.createdBy) &&
             Objects.equals(data, other.data) &&
-            Objects.equals(dateExpires, other.dateExpires) &&
             Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateExpires, other.dateExpires) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(createdBy, other.createdBy)
+            Objects.equals(key, other.key) &&
+            Objects.equals(mapSid, other.mapSid) &&
+            Objects.equals(revision, other.revision) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            key,
             accountSid,
-            serviceSid,
-            mapSid,
-            url,
-            revision,
+            createdBy,
             data,
-            dateExpires,
             dateCreated,
+            dateExpires,
             dateUpdated,
-            createdBy
+            key,
+            mapSid,
+            revision,
+            serviceSid,
+            url
         );
     }
 }

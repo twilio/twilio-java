@@ -15,7 +15,10 @@
 package com.twilio.rest.ipmessaging.v1.service.channel;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class MemberCreator extends Creator<Member> {
 
@@ -52,8 +56,7 @@ public class MemberCreator extends Creator<Member> {
         return this;
     }
 
-    @Override
-    public Member create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members";
 
         path =
@@ -66,7 +69,6 @@ public class MemberCreator extends Creator<Member> {
                 "{" + "ChannelSid" + "}",
                 this.pathChannelSid.toString()
             );
-        path = path.replace("{" + "Identity" + "}", this.identity.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -75,7 +77,9 @@ public class MemberCreator extends Creator<Member> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Member creation failed: Unable to connect to server"
@@ -86,20 +90,55 @@ public class MemberCreator extends Creator<Member> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Member create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Member.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Member> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Member content = Member.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (identity != null) {
-            request.addPostParam("Identity", identity);
+            Serializer.toString(
+                request,
+                "Identity",
+                identity,
+                ParameterType.URLENCODED
+            );
         }
+
         if (roleSid != null) {
-            request.addPostParam("RoleSid", roleSid);
+            Serializer.toString(
+                request,
+                "RoleSid",
+                roleSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

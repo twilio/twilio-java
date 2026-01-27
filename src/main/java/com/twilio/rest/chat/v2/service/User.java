@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class User extends Resource {
-
-    private static final long serialVersionUID = 136391609300437L;
 
     public static UserCreator creator(
         final String pathServiceSid,
@@ -71,6 +73,26 @@ public class User extends Resource {
         final String pathSid
     ) {
         return new UserUpdater(pathServiceSid, pathSid);
+    }
+
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
     }
 
     /**
@@ -116,130 +138,97 @@ public class User extends Resource {
         }
     }
 
-    public enum WebhookEnabledType {
-        TRUE("true"),
-        FALSE("false");
-
-        private final String value;
-
-        private WebhookEnabledType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static WebhookEnabledType forValue(final String value) {
-            return Promoter.enumFromString(value, WebhookEnabledType.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    private final String sid;
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
+
+    @Getter
     private final String attributes;
-    private final String friendlyName;
-    private final String roleSid;
-    private final String identity;
-    private final Boolean isOnline;
-    private final Boolean isNotifiable;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final String identity;
+
+    @Getter
+    private final Boolean isNotifiable;
+
+    @Getter
+    private final Boolean isOnline;
+
+    @Getter
     private final Integer joinedChannelsCount;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String roleSid;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private User(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("attributes") final String attributes,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("role_sid") final String roleSid,
         @JsonProperty("identity") final String identity,
-        @JsonProperty("is_online") final Boolean isOnline,
         @JsonProperty("is_notifiable") final Boolean isNotifiable,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("is_online") final Boolean isOnline,
         @JsonProperty(
             "joined_channels_count"
         ) final Integer joinedChannelsCount,
         @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("role_sid") final String roleSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
         this.attributes = attributes;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
-        this.roleSid = roleSid;
         this.identity = identity;
-        this.isOnline = isOnline;
         this.isNotifiable = isNotifiable;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.isOnline = isOnline;
         this.joinedChannelsCount = joinedChannelsCount;
         this.links = links;
+        this.roleSid = roleSid;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getAttributes() {
-        return this.attributes;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getRoleSid() {
-        return this.roleSid;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
-    }
-
-    public final Boolean getIsOnline() {
-        return this.isOnline;
-    }
-
-    public final Boolean getIsNotifiable() {
-        return this.isNotifiable;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final Integer getJoinedChannelsCount() {
-        return this.joinedChannelsCount;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -253,21 +242,20 @@ public class User extends Resource {
         }
 
         User other = (User) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
             Objects.equals(attributes, other.attributes) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(roleSid, other.roleSid) &&
-            Objects.equals(identity, other.identity) &&
-            Objects.equals(isOnline, other.isOnline) &&
-            Objects.equals(isNotifiable, other.isNotifiable) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(isNotifiable, other.isNotifiable) &&
+            Objects.equals(isOnline, other.isOnline) &&
             Objects.equals(joinedChannelsCount, other.joinedChannelsCount) &&
             Objects.equals(links, other.links) &&
+            Objects.equals(roleSid, other.roleSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(url, other.url)
         );
     }
@@ -275,19 +263,19 @@ public class User extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            serviceSid,
             attributes,
-            friendlyName,
-            roleSid,
-            identity,
-            isOnline,
-            isNotifiable,
             dateCreated,
             dateUpdated,
+            friendlyName,
+            identity,
+            isNotifiable,
+            isOnline,
             joinedChannelsCount,
             links,
+            roleSid,
+            serviceSid,
+            sid,
             url
         );
     }

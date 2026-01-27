@@ -15,8 +15,11 @@
 package com.twilio.rest.ipmessaging.v2.service.channel;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
+import com.twilio.type.*;
 import java.util.List;
 
 public class WebhookCreator extends Creator<Webhook> {
@@ -111,8 +114,7 @@ public class WebhookCreator extends Creator<Webhook> {
         return this;
     }
 
-    @Override
-    public Webhook create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks";
 
@@ -126,7 +128,6 @@ public class WebhookCreator extends Creator<Webhook> {
                 "{" + "ChannelSid" + "}",
                 this.pathChannelSid.toString()
             );
-        path = path.replace("{" + "Type" + "}", this.type.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -135,7 +136,9 @@ public class WebhookCreator extends Creator<Webhook> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Webhook creation failed: Unable to connect to server"
@@ -146,44 +149,103 @@ public class WebhookCreator extends Creator<Webhook> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Webhook create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Webhook> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Webhook content = Webhook.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (type != null) {
-            request.addPostParam("Type", type.toString());
-        }
-        if (configurationUrl != null) {
-            request.addPostParam("Configuration.Url", configurationUrl);
-        }
-        if (configurationMethod != null) {
-            request.addPostParam(
-                "Configuration.Method",
-                configurationMethod.toString()
+            Serializer.toString(
+                request,
+                "Type",
+                type,
+                ParameterType.URLENCODED
             );
         }
+
+        if (configurationUrl != null) {
+            Serializer.toString(
+                request,
+                "Configuration.Url",
+                configurationUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (configurationMethod != null) {
+            Serializer.toString(
+                request,
+                "Configuration.Method",
+                configurationMethod,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (configurationFilters != null) {
-            for (String prop : configurationFilters) {
-                request.addPostParam("Configuration.Filters", prop);
+            for (String param : configurationFilters) {
+                Serializer.toString(
+                    request,
+                    "Configuration.Filters",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (configurationTriggers != null) {
-            for (String prop : configurationTriggers) {
-                request.addPostParam("Configuration.Triggers", prop);
+            for (String param : configurationTriggers) {
+                Serializer.toString(
+                    request,
+                    "Configuration.Triggers",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (configurationFlowSid != null) {
-            request.addPostParam("Configuration.FlowSid", configurationFlowSid);
+            Serializer.toString(
+                request,
+                "Configuration.FlowSid",
+                configurationFlowSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (configurationRetryCount != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Configuration.RetryCount",
-                configurationRetryCount.toString()
+                configurationRetryCount,
+                ParameterType.URLENCODED
             );
         }
     }

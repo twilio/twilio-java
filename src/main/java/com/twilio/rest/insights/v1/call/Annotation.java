@@ -18,25 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Annotation extends Resource {
-
-    private static final long serialVersionUID = 9735005754677L;
 
     public static AnnotationFetcher fetcher(final String pathCallSid) {
         return new AnnotationFetcher(pathCallSid);
@@ -44,49 +47,6 @@ public class Annotation extends Resource {
 
     public static AnnotationUpdater updater(final String pathCallSid) {
         return new AnnotationUpdater(pathCallSid);
-    }
-
-    /**
-     * Converts a JSON String into a Annotation object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Annotation object represented by the provided JSON
-     */
-    public static Annotation fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Annotation.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Annotation object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Annotation object represented by the provided JSON
-     */
-    public static Annotation fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Annotation.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
     }
 
     public enum AnsweredBy {
@@ -134,82 +94,116 @@ public class Annotation extends Resource {
         }
     }
 
-    private final String callSid;
+    /**
+     * Converts a JSON String into a Annotation object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Annotation object represented by the provided JSON
+     */
+    public static Annotation fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Annotation.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a Annotation object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Annotation object represented by the provided JSON
+     */
+    public static Annotation fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Annotation.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final Annotation.AnsweredBy answeredBy;
-    private final Annotation.ConnectivityIssue connectivityIssue;
-    private final List<String> qualityIssues;
-    private final Boolean spam;
+
+    @Getter
     private final Integer callScore;
+
+    @Getter
+    private final String callSid;
+
+    @Getter
     private final String comment;
+
+    @Getter
+    private final Annotation.ConnectivityIssue connectivityIssue;
+
+    @Getter
     private final String incident;
+
+    @Getter
+    private final List<String> qualityIssues;
+
+    @Getter
+    private final Boolean spam;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Annotation(
-        @JsonProperty("call_sid") final String callSid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("answered_by") final Annotation.AnsweredBy answeredBy,
+        @JsonProperty("call_score") final Integer callScore,
+        @JsonProperty("call_sid") final String callSid,
+        @JsonProperty("comment") final String comment,
         @JsonProperty(
             "connectivity_issue"
         ) final Annotation.ConnectivityIssue connectivityIssue,
+        @JsonProperty("incident") final String incident,
         @JsonProperty("quality_issues") final List<String> qualityIssues,
         @JsonProperty("spam") final Boolean spam,
-        @JsonProperty("call_score") final Integer callScore,
-        @JsonProperty("comment") final String comment,
-        @JsonProperty("incident") final String incident,
         @JsonProperty("url") final URI url
     ) {
-        this.callSid = callSid;
         this.accountSid = accountSid;
         this.answeredBy = answeredBy;
+        this.callScore = callScore;
+        this.callSid = callSid;
+        this.comment = comment;
         this.connectivityIssue = connectivityIssue;
+        this.incident = incident;
         this.qualityIssues = qualityIssues;
         this.spam = spam;
-        this.callScore = callScore;
-        this.comment = comment;
-        this.incident = incident;
         this.url = url;
-    }
-
-    public final String getCallSid() {
-        return this.callSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Annotation.AnsweredBy getAnsweredBy() {
-        return this.answeredBy;
-    }
-
-    public final Annotation.ConnectivityIssue getConnectivityIssue() {
-        return this.connectivityIssue;
-    }
-
-    public final List<String> getQualityIssues() {
-        return this.qualityIssues;
-    }
-
-    public final Boolean getSpam() {
-        return this.spam;
-    }
-
-    public final Integer getCallScore() {
-        return this.callScore;
-    }
-
-    public final String getComment() {
-        return this.comment;
-    }
-
-    public final String getIncident() {
-        return this.incident;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -223,17 +217,16 @@ public class Annotation extends Resource {
         }
 
         Annotation other = (Annotation) o;
-
         return (
-            Objects.equals(callSid, other.callSid) &&
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(answeredBy, other.answeredBy) &&
+            Objects.equals(callScore, other.callScore) &&
+            Objects.equals(callSid, other.callSid) &&
+            Objects.equals(comment, other.comment) &&
             Objects.equals(connectivityIssue, other.connectivityIssue) &&
+            Objects.equals(incident, other.incident) &&
             Objects.equals(qualityIssues, other.qualityIssues) &&
             Objects.equals(spam, other.spam) &&
-            Objects.equals(callScore, other.callScore) &&
-            Objects.equals(comment, other.comment) &&
-            Objects.equals(incident, other.incident) &&
             Objects.equals(url, other.url)
         );
     }
@@ -241,15 +234,15 @@ public class Annotation extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            callSid,
             accountSid,
             answeredBy,
+            callScore,
+            callSid,
+            comment,
             connectivityIssue,
+            incident,
             qualityIssues,
             spam,
-            callScore,
-            comment,
-            incident,
             url
         );
     }

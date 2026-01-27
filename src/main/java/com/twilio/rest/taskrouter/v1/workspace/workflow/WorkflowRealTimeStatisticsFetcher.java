@@ -15,6 +15,9 @@
 package com.twilio.rest.taskrouter.v1.workspace.workflow;
 
 import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class WorkflowRealTimeStatisticsFetcher
     extends Fetcher<WorkflowRealTimeStatistics> {
@@ -46,8 +50,7 @@ public class WorkflowRealTimeStatisticsFetcher
         return this;
     }
 
-    @Override
-    public WorkflowRealTimeStatistics fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/RealTimeStatistics";
 
@@ -68,6 +71,7 @@ public class WorkflowRealTimeStatisticsFetcher
             path
         );
         addQueryParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -80,20 +84,50 @@ public class WorkflowRealTimeStatisticsFetcher
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public WorkflowRealTimeStatistics fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return WorkflowRealTimeStatistics.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<WorkflowRealTimeStatistics> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        WorkflowRealTimeStatistics content =
+            WorkflowRealTimeStatistics.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addQueryParams(final Request request) {
         if (taskChannel != null) {
-            request.addQueryParam("TaskChannel", taskChannel);
+            Serializer.toString(
+                request,
+                "TaskChannel",
+                taskChannel,
+                ParameterType.QUERY
+            );
         }
     }
 }

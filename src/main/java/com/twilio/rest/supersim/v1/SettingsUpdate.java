@@ -18,31 +18,54 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SettingsUpdate extends Resource {
 
-    private static final long serialVersionUID = 126256874693410L;
-
     public static SettingsUpdateReader reader() {
         return new SettingsUpdateReader();
+    }
+
+    public enum Status {
+        SCHEDULED("scheduled"),
+        IN_PROGRESS("in-progress"),
+        SUCCESSFUL("successful"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 
     /**
@@ -88,89 +111,67 @@ public class SettingsUpdate extends Resource {
         }
     }
 
-    public enum Status {
-        SCHEDULED("scheduled"),
-        IN_PROGRESS("in-progress"),
-        SUCCESSFUL("successful"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
-    private final String sid;
-    private final String iccid;
-    private final String simSid;
-    private final SettingsUpdate.Status status;
-    private final List<Map<String, Object>> packages;
+    @Getter
     private final ZonedDateTime dateCompleted;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String iccid;
+
+    @Getter
+    private final List<Object> packages;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String simSid;
+
+    @Getter
+    private final SettingsUpdate.Status status;
 
     @JsonCreator
     private SettingsUpdate(
-        @JsonProperty("sid") final String sid,
+        @JsonProperty("date_completed") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCompleted,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("iccid") final String iccid,
+        @JsonProperty("packages") final List<Object> packages,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("sim_sid") final String simSid,
-        @JsonProperty("status") final SettingsUpdate.Status status,
-        @JsonProperty("packages") final List<Map<String, Object>> packages,
-        @JsonProperty("date_completed") final String dateCompleted,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+        @JsonProperty("status") final SettingsUpdate.Status status
     ) {
-        this.sid = sid;
+        this.dateCompleted = dateCompleted;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.iccid = iccid;
+        this.packages = packages;
+        this.sid = sid;
         this.simSid = simSid;
         this.status = status;
-        this.packages = packages;
-        this.dateCompleted =
-            DateConverter.iso8601DateTimeFromString(dateCompleted);
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getIccid() {
-        return this.iccid;
-    }
-
-    public final String getSimSid() {
-        return this.simSid;
-    }
-
-    public final SettingsUpdate.Status getStatus() {
-        return this.status;
-    }
-
-    public final List<Map<String, Object>> getPackages() {
-        return this.packages;
-    }
-
-    public final ZonedDateTime getDateCompleted() {
-        return this.dateCompleted;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
     }
 
     @Override
@@ -184,30 +185,29 @@ public class SettingsUpdate extends Resource {
         }
 
         SettingsUpdate other = (SettingsUpdate) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(iccid, other.iccid) &&
-            Objects.equals(simSid, other.simSid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(packages, other.packages) &&
             Objects.equals(dateCompleted, other.dateCompleted) &&
             Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(iccid, other.iccid) &&
+            Objects.equals(packages, other.packages) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(simSid, other.simSid) &&
+            Objects.equals(status, other.status)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            iccid,
-            simSid,
-            status,
-            packages,
             dateCompleted,
             dateCreated,
-            dateUpdated
+            dateUpdated,
+            iccid,
+            packages,
+            sid,
+            simSid,
+            status
         );
     }
 }

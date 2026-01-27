@@ -14,8 +14,11 @@
 
 package com.twilio.rest.preview.marketplace.installedaddon;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class InstalledAddOnExtensionUpdater
     extends Updater<InstalledAddOnExtension> {
@@ -47,8 +51,7 @@ public class InstalledAddOnExtensionUpdater
         return this;
     }
 
-    @Override
-    public InstalledAddOnExtension update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}";
 
@@ -58,7 +61,6 @@ public class InstalledAddOnExtensionUpdater
                 this.pathInstalledAddOnSid.toString()
             );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path = path.replace("{" + "Enabled" + "}", this.enabled.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -67,7 +69,9 @@ public class InstalledAddOnExtensionUpdater
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "InstalledAddOnExtension update failed: Unable to connect to server"
@@ -78,20 +82,49 @@ public class InstalledAddOnExtensionUpdater
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public InstalledAddOnExtension update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return InstalledAddOnExtension.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<InstalledAddOnExtension> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        InstalledAddOnExtension content = InstalledAddOnExtension.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (enabled != null) {
-            request.addPostParam("Enabled", enabled.toString());
+            Serializer.toString(
+                request,
+                "Enabled",
+                enabled,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

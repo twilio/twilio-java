@@ -14,8 +14,11 @@
 
 package com.twilio.rest.conversations.v1.conversation;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class ParticipantUpdater extends Updater<Participant> {
@@ -47,13 +51,6 @@ public class ParticipantUpdater extends Updater<Participant> {
     ) {
         this.pathConversationSid = pathConversationSid;
         this.pathSid = pathSid;
-    }
-
-    public ParticipantUpdater setXTwilioWebhookEnabled(
-        final Participant.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
-        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-        return this;
     }
 
     public ParticipantUpdater setDateCreated(final ZonedDateTime dateCreated) {
@@ -110,8 +107,14 @@ public class ParticipantUpdater extends Updater<Participant> {
         return this;
     }
 
-    @Override
-    public Participant update(final TwilioRestClient client) {
+    public ParticipantUpdater setXTwilioWebhookEnabled(
+        final Participant.WebhookEnabledType xTwilioWebhookEnabled
+    ) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Conversations/{ConversationSid}/Participants/{Sid}";
 
         path =
@@ -127,9 +130,11 @@ public class ParticipantUpdater extends Updater<Participant> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Participant update failed: Unable to connect to server"
@@ -140,67 +145,131 @@ public class ParticipantUpdater extends Updater<Participant> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Participant update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Participant.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Participant> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Participant content = Participant.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (dateCreated != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DateCreated",
-                dateCreated.toInstant().toString()
+                dateCreated,
+                ParameterType.URLENCODED
             );
         }
+
         if (dateUpdated != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DateUpdated",
-                dateUpdated.toInstant().toString()
+                dateUpdated,
+                ParameterType.URLENCODED
             );
         }
+
         if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
+            Serializer.toString(
+                request,
+                "Attributes",
+                attributes,
+                ParameterType.URLENCODED
+            );
         }
+
         if (roleSid != null) {
-            request.addPostParam("RoleSid", roleSid);
+            Serializer.toString(
+                request,
+                "RoleSid",
+                roleSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (messagingBindingProxyAddress != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "MessagingBinding.ProxyAddress",
-                messagingBindingProxyAddress
+                messagingBindingProxyAddress,
+                ParameterType.URLENCODED
             );
         }
+
         if (messagingBindingProjectedAddress != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "MessagingBinding.ProjectedAddress",
-                messagingBindingProjectedAddress
+                messagingBindingProjectedAddress,
+                ParameterType.URLENCODED
             );
         }
+
         if (identity != null) {
-            request.addPostParam("Identity", identity);
-        }
-        if (lastReadMessageIndex != null) {
-            request.addPostParam(
-                "LastReadMessageIndex",
-                lastReadMessageIndex.toString()
+            Serializer.toString(
+                request,
+                "Identity",
+                identity,
+                ParameterType.URLENCODED
             );
         }
+
+        if (lastReadMessageIndex != null) {
+            Serializer.toString(
+                request,
+                "LastReadMessageIndex",
+                lastReadMessageIndex,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (lastReadTimestamp != null) {
-            request.addPostParam("LastReadTimestamp", lastReadTimestamp);
+            Serializer.toString(
+                request,
+                "LastReadTimestamp",
+                lastReadTimestamp,
+                ParameterType.URLENCODED
+            );
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (xTwilioWebhookEnabled != null) {
-            request.addHeaderParam(
+            Serializer.toString(
+                request,
                 "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled.toString()
+                xTwilioWebhookEnabled,
+                ParameterType.HEADER
             );
         }
     }

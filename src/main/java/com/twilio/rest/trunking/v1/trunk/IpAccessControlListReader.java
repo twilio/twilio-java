@@ -17,6 +17,10 @@ package com.twilio.rest.trunking.v1.trunk;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,19 +29,58 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
     private String pathTrunkSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public IpAccessControlListReader(final String pathTrunkSid) {
         this.pathTrunkSid = pathTrunkSid;
     }
 
-    public IpAccessControlListReader setPageSize(final Integer pageSize) {
+    public IpAccessControlListReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<IpAccessControlList> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<IpAccessControlList> page = Page.fromJson(
+            "ip_access_control_lists",
+            response.getContent(),
+            IpAccessControlList.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<IpAccessControlList> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists";
+
+        path =
+            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.TRUNKING.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -48,26 +91,33 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
     }
 
     public Page<IpAccessControlList> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists";
-        path =
-            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.TRUNKING.toString(),
-            path
-        );
-
-        addQueryParams(request);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<IpAccessControlList> pageForRequest(
+    public TwilioResponse<Page<IpAccessControlList>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<IpAccessControlList> page = Page.fromJson(
+            "ip_access_control_lists",
+            response.getContent(),
+            IpAccessControlList.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "IpAccessControlList read failed: Unable to connect to server"
@@ -77,12 +127,23 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<IpAccessControlList> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "ip_access_control_lists",
             response.getContent(),
@@ -98,7 +159,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.TRUNKING.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -110,7 +171,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.TRUNKING.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -121,13 +182,17 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

@@ -14,9 +14,12 @@
 
 package com.twilio.rest.flexapi.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,14 +28,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.util.List;
 
 public class InsightsQuestionnairesUpdater
     extends Updater<InsightsQuestionnaires> {
 
     private String pathQuestionnaireSid;
-    private Boolean active;
     private String authorization;
+    private Boolean active;
     private String name;
     private String description;
     private List<String> questionSids;
@@ -47,13 +51,6 @@ public class InsightsQuestionnairesUpdater
 
     public InsightsQuestionnairesUpdater setActive(final Boolean active) {
         this.active = active;
-        return this;
-    }
-
-    public InsightsQuestionnairesUpdater setAuthorization(
-        final String authorization
-    ) {
-        this.authorization = authorization;
         return this;
     }
 
@@ -82,8 +79,14 @@ public class InsightsQuestionnairesUpdater
         return setQuestionSids(Promoter.listOfOne(questionSids));
     }
 
-    @Override
-    public InsightsQuestionnaires update(final TwilioRestClient client) {
+    public InsightsQuestionnairesUpdater setAuthorization(
+        final String authorization
+    ) {
+        this.authorization = authorization;
+        return this;
+    }
+
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
 
@@ -92,7 +95,6 @@ public class InsightsQuestionnairesUpdater
                 "{" + "QuestionnaireSid" + "}",
                 this.pathQuestionnaireSid.toString()
             );
-        path = path.replace("{" + "Active" + "}", this.active.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -100,9 +102,11 @@ public class InsightsQuestionnairesUpdater
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "InsightsQuestionnaires update failed: Unable to connect to server"
@@ -113,37 +117,89 @@ public class InsightsQuestionnairesUpdater
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public InsightsQuestionnaires update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return InsightsQuestionnaires.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<InsightsQuestionnaires> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        InsightsQuestionnaires content = InsightsQuestionnaires.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (active != null) {
-            request.addPostParam("Active", active.toString());
+            Serializer.toString(
+                request,
+                "Active",
+                active,
+                ParameterType.URLENCODED
+            );
         }
+
         if (name != null) {
-            request.addPostParam("Name", name);
+            Serializer.toString(
+                request,
+                "Name",
+                name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
+
         if (questionSids != null) {
-            for (String prop : questionSids) {
-                request.addPostParam("QuestionSids", prop);
+            for (String param : questionSids) {
+                Serializer.toString(
+                    request,
+                    "QuestionSids",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
     }
 }

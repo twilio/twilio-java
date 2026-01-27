@@ -18,26 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Network extends Resource {
-
-    private static final long serialVersionUID = 225839080791216L;
 
     public static NetworkFetcher fetcher(final String pathSid) {
         return new NetworkFetcher(pathSid);
@@ -90,45 +91,46 @@ public class Network extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String friendlyName;
-    private final URI url;
+
+    @Getter
+    private final List<Object> identifiers;
+
+    @Getter
     private final String isoCountry;
-    private final List<Map<String, Object>> identifiers;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Network(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("url") final URI url,
+        @JsonProperty("identifiers") final List<Object> identifiers,
         @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty("identifiers") final List<Map<String, Object>> identifiers
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.friendlyName = friendlyName;
-        this.url = url;
-        this.isoCountry = isoCountry;
         this.identifiers = identifiers;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getIsoCountry() {
-        return this.isoCountry;
-    }
-
-    public final List<Map<String, Object>> getIdentifiers() {
-        return this.identifiers;
+        this.isoCountry = isoCountry;
+        this.sid = sid;
+        this.url = url;
     }
 
     @Override
@@ -142,18 +144,17 @@ public class Network extends Resource {
         }
 
         Network other = (Network) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(url, other.url) &&
+            Objects.equals(identifiers, other.identifiers) &&
             Objects.equals(isoCountry, other.isoCountry) &&
-            Objects.equals(identifiers, other.identifiers)
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, friendlyName, url, isoCountry, identifiers);
+        return Objects.hash(friendlyName, identifiers, isoCountry, sid, url);
     }
 }

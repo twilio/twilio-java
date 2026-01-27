@@ -15,7 +15,10 @@
 package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class BrandRegistrationCreator extends Creator<BrandRegistration> {
 
@@ -72,20 +76,8 @@ public class BrandRegistrationCreator extends Creator<BrandRegistration> {
         return this;
     }
 
-    @Override
-    public BrandRegistration create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/a2p/BrandRegistrations";
-
-        path =
-            path.replace(
-                "{" + "CustomerProfileBundleSid" + "}",
-                this.customerProfileBundleSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "A2PProfileBundleSid" + "}",
-                this.a2PProfileBundleSid.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -94,7 +86,9 @@ public class BrandRegistrationCreator extends Creator<BrandRegistration> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "BrandRegistration creation failed: Unable to connect to server"
@@ -105,37 +99,84 @@ public class BrandRegistrationCreator extends Creator<BrandRegistration> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public BrandRegistration create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return BrandRegistration.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<BrandRegistration> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        BrandRegistration content = BrandRegistration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (customerProfileBundleSid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "CustomerProfileBundleSid",
-                customerProfileBundleSid
+                customerProfileBundleSid,
+                ParameterType.URLENCODED
             );
         }
+
         if (a2PProfileBundleSid != null) {
-            request.addPostParam("A2PProfileBundleSid", a2PProfileBundleSid);
+            Serializer.toString(
+                request,
+                "A2PProfileBundleSid",
+                a2PProfileBundleSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (brandType != null) {
-            request.addPostParam("BrandType", brandType);
+            Serializer.toString(
+                request,
+                "BrandType",
+                brandType,
+                ParameterType.URLENCODED
+            );
         }
+
         if (mock != null) {
-            request.addPostParam("Mock", mock.toString());
+            Serializer.toString(
+                request,
+                "Mock",
+                mock,
+                ParameterType.URLENCODED
+            );
         }
+
         if (skipAutomaticSecVet != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "SkipAutomaticSecVet",
-                skipAutomaticSecVet.toString()
+                skipAutomaticSecVet,
+                ParameterType.URLENCODED
             );
         }
     }

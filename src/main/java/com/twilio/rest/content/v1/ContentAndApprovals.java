@@ -18,26 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ContentAndApprovals extends Resource {
-
-    private static final long serialVersionUID = 67575038421166L;
 
     public static ContentAndApprovalsReader reader() {
         return new ContentAndApprovalsReader();
@@ -86,75 +87,70 @@ public class ContentAndApprovals extends Resource {
         }
     }
 
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
+    private final Object approvalRequests;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final String friendlyName;
+
+    @Getter
     private final String language;
-    private final Map<String, Object> variables;
-    private final Map<String, Object> types;
-    private final Map<String, Object> approvalRequests;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Object types;
+
+    @Getter
+    private final Object variables;
 
     @JsonCreator
     private ContentAndApprovals(
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("approval_requests") final Object approvalRequests,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("language") final String language,
-        @JsonProperty("variables") final Map<String, Object> variables,
-        @JsonProperty("types") final Map<String, Object> types,
-        @JsonProperty(
-            "approval_requests"
-        ) final Map<String, Object> approvalRequests
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("types") final Object types,
+        @JsonProperty("variables") final Object variables
     ) {
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.sid = sid;
         this.accountSid = accountSid;
+        this.approvalRequests = approvalRequests;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
         this.language = language;
-        this.variables = variables;
+        this.sid = sid;
         this.types = types;
-        this.approvalRequests = approvalRequests;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getLanguage() {
-        return this.language;
-    }
-
-    public final Map<String, Object> getVariables() {
-        return this.variables;
-    }
-
-    public final Map<String, Object> getTypes() {
-        return this.types;
-    }
-
-    public final Map<String, Object> getApprovalRequests() {
-        return this.approvalRequests;
+        this.variables = variables;
     }
 
     @Override
@@ -168,32 +164,31 @@ public class ContentAndApprovals extends Resource {
         }
 
         ContentAndApprovals other = (ContentAndApprovals) o;
-
         return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(approvalRequests, other.approvalRequests) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(language, other.language) &&
-            Objects.equals(variables, other.variables) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(types, other.types) &&
-            Objects.equals(approvalRequests, other.approvalRequests)
+            Objects.equals(variables, other.variables)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+            accountSid,
+            approvalRequests,
             dateCreated,
             dateUpdated,
-            sid,
-            accountSid,
             friendlyName,
             language,
-            variables,
+            sid,
             types,
-            approvalRequests
+            variables
         );
     }
 }

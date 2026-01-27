@@ -18,27 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
-
-    private static final long serialVersionUID = 60847550969739L;
 
     public static ServiceCreator creator(
         final String uniqueName,
@@ -106,87 +108,80 @@ public class Service extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String friendlyName;
-    private final String uniqueName;
-    private final Boolean includeCredentials;
-    private final Boolean uiEditable;
-    private final String domainBase;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+
+    @Getter
+    private final String domainBase;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final Boolean includeCredentials;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Boolean uiEditable;
+
+    @Getter
+    private final String uniqueName;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Service(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("include_credentials") final Boolean includeCredentials,
-        @JsonProperty("ui_editable") final Boolean uiEditable,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("domain_base") final String domainBase,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("include_credentials") final Boolean includeCredentials,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("ui_editable") final Boolean uiEditable,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.friendlyName = friendlyName;
-        this.uniqueName = uniqueName;
-        this.includeCredentials = includeCredentials;
-        this.uiEditable = uiEditable;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.domainBase = domainBase;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
+        this.friendlyName = friendlyName;
+        this.includeCredentials = includeCredentials;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final Boolean getIncludeCredentials() {
-        return this.includeCredentials;
-    }
-
-    public final Boolean getUiEditable() {
-        return this.uiEditable;
-    }
-
-    public final String getDomainBase() {
-        return this.domainBase;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.sid = sid;
+        this.uiEditable = uiEditable;
+        this.uniqueName = uniqueName;
+        this.url = url;
     }
 
     @Override
@@ -200,36 +195,35 @@ public class Service extends Resource {
         }
 
         Service other = (Service) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(includeCredentials, other.includeCredentials) &&
-            Objects.equals(uiEditable, other.uiEditable) &&
-            Objects.equals(domainBase, other.domainBase) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(domainBase, other.domainBase) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(includeCredentials, other.includeCredentials) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uiEditable, other.uiEditable) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            friendlyName,
-            uniqueName,
-            includeCredentials,
-            uiEditable,
-            domainBase,
             dateCreated,
             dateUpdated,
-            url,
-            links
+            domainBase,
+            friendlyName,
+            includeCredentials,
+            links,
+            sid,
+            uiEditable,
+            uniqueName,
+            url
         );
     }
 }

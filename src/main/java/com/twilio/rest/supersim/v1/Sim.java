@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Sim extends Resource {
-
-    private static final long serialVersionUID = 28875728882839L;
 
     public static SimCreator creator(
         final String iccid,
@@ -58,49 +60,6 @@ public class Sim extends Resource {
 
     public static SimUpdater updater(final String pathSid) {
         return new SimUpdater(pathSid);
-    }
-
-    /**
-     * Converts a JSON String into a Sim object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Sim object represented by the provided JSON
-     */
-    public static Sim fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Sim.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Sim object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Sim object represented by the provided JSON
-     */
-    public static Sim fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Sim.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
     }
 
     public enum Status {
@@ -147,80 +106,118 @@ public class Sim extends Resource {
         }
     }
 
-    private final String sid;
-    private final String uniqueName;
+    /**
+     * Converts a JSON String into a Sim object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Sim object represented by the provided JSON
+     */
+    public static Sim fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Sim.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a Sim object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Sim object represented by the provided JSON
+     */
+    public static Sim fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Sim.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String iccid;
-    private final Sim.Status status;
-    private final String fleetSid;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+
+    @Getter
+    private final String fleetSid;
+
+    @Getter
+    private final String iccid;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Sim.Status status;
+
+    @Getter
+    private final String uniqueName;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Sim(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("iccid") final String iccid,
-        @JsonProperty("status") final Sim.Status status,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("fleet_sid") final String fleetSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("iccid") final String iccid,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final Sim.Status status,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
-        this.uniqueName = uniqueName;
         this.accountSid = accountSid;
-        this.iccid = iccid;
-        this.status = status;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.fleetSid = fleetSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
+        this.iccid = iccid;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getIccid() {
-        return this.iccid;
-    }
-
-    public final Sim.Status getStatus() {
-        return this.status;
-    }
-
-    public final String getFleetSid() {
-        return this.fleetSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.sid = sid;
+        this.status = status;
+        this.uniqueName = uniqueName;
+        this.url = url;
     }
 
     @Override
@@ -234,34 +231,33 @@ public class Sim extends Resource {
         }
 
         Sim other = (Sim) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(iccid, other.iccid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(fleetSid, other.fleetSid) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(fleetSid, other.fleetSid) &&
+            Objects.equals(iccid, other.iccid) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            uniqueName,
             accountSid,
-            iccid,
-            status,
-            fleetSid,
             dateCreated,
             dateUpdated,
-            url,
-            links
+            fleetSid,
+            iccid,
+            links,
+            sid,
+            status,
+            uniqueName,
+            url
         );
     }
 }

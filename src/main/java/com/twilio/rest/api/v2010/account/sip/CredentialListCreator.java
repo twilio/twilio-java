@@ -15,7 +15,10 @@
 package com.twilio.rest.api.v2010.account.sip;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +27,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CredentialListCreator extends Creator<CredentialList> {
 
-    private String friendlyName;
     private String pathAccountSid;
+    private String friendlyName;
 
     public CredentialListCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
@@ -47,8 +51,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
         return this;
     }
 
-    @Override
-    public CredentialList create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json";
 
@@ -61,11 +64,6 @@ public class CredentialListCreator extends Creator<CredentialList> {
                 "{" + "AccountSid" + "}",
                 this.pathAccountSid.toString()
             );
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -74,7 +72,9 @@ public class CredentialListCreator extends Creator<CredentialList> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "CredentialList creation failed: Unable to connect to server"
@@ -85,20 +85,49 @@ public class CredentialListCreator extends Creator<CredentialList> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public CredentialList create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return CredentialList.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<CredentialList> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        CredentialList content = CredentialList.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

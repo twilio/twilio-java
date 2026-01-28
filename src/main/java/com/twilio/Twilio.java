@@ -257,7 +257,7 @@ public class Twilio {
             builder.userAgentExtensions(Twilio.userAgentExtensions);
         }
         if (Twilio.edge == null && Twilio.region != null) {
-            logger.error(
+            logger.warn(
                 "When only `region` is set, data processing is done is `us1` region. Setting default `Edge` for the provided `region`. For regional processing, DNS is of format product.<city>.<region>.twilio.com; otherwise use product.twilio.com."
             );
         }

@@ -23,7 +23,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Singleton class to initialize Twilio environment.
+ * The {@code Twilio} class is a thread-safe singleton that manages the global configuration and initialization
+ * of the Twilio Java SDK environment. It provides static methods to set credentials, region, edge, and other
+ * runtime options, as well as to initialize and retrieve the shared {@link TwilioRestClient} instance.
+ * <p>
+ * Usage of this class is required before making API requests. Credentials can be set via environment variables,
+ * system properties, or explicitly using the {@code init} methods. The class also manages a shared
+ * {@link ExecutorService} for asynchronous operations and provides utility methods for SSL certificate validation.
+ * <p>
+ * Example usage:
+ * <pre>
+ *     Twilio.init("ACCOUNT_SID", "AUTH_TOKEN");
+ *     // or with a CredentialProvider
+ *     Twilio.init(new MyCredentialProvider());
+ * </pre>
+ * <p>
+ * This class is not intended to be instantiated directly.
  */
 public class Twilio {
 
@@ -242,7 +257,7 @@ public class Twilio {
             builder.userAgentExtensions(Twilio.userAgentExtensions);
         }
         if (Twilio.edge == null && Twilio.region != null) {
-            logger.warn(
+            logger.error(
                 "When only `region` is set, data processing is done is `us1` region. Setting default `Edge` for the provided `region`. For regional processing, DNS is of format product.<city>.<region>.twilio.com; otherwise use product.twilio.com."
             );
         }

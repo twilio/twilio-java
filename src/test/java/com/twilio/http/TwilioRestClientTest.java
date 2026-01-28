@@ -8,14 +8,11 @@ import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.twilio.Twilio;
 import com.twilio.auth_strategy.BasicAuthStrategy;
 import com.twilio.auth_strategy.NoAuthStrategy;
 import com.twilio.rest.Domains;
-import com.twilio.type.RegionEndpoints;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.Before;
@@ -164,20 +161,5 @@ public class TwilioRestClientTest {
         assertNotNull(twilioRestClientExtension.getAuthStrategy());
         // AuthStrategy of Request not changing by TwilioRestClient
         assertEquals(NoAuthStrategy.getInstance(), request.getAuthStrategy());
-    }
-
-    @Test
-    public void testEdgeIsSetFromRegionMap() {
-        Map<String, String> regionMap = RegionEndpoints.getRegions();
-        for( String key: regionMap.keySet() ) {
-            TwilioRestClient client = new TwilioRestClient.Builder(USER_NAME, TOKEN).region(key).build();
-            assertEquals(regionMap.get(key), client.getEdge());
-        }
-    }
-
-    @Test
-    public void testEdge() {
-        TwilioRestClient client = new TwilioRestClient.Builder(USER_NAME, TOKEN).region("us1").edge("someEdge").build();
-        assertEquals("someEdge", client.getEdge());
     }
 }

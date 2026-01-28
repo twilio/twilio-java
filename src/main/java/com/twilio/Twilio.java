@@ -38,7 +38,6 @@ import org.slf4j.LoggerFactory;
  *     Twilio.init(new MyCredentialProvider());
  * </pre>
  * <p>
- * This class is not intended to be instantiated directly.
  */
 public class Twilio {
 

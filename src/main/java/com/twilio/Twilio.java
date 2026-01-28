@@ -65,7 +65,7 @@ public class Twilio {
     private Twilio() {
     }
 
-    /*
+    /**
      * Ensures that the ExecutorService is shutdown when the JVM exits.
      */
     static {

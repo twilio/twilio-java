@@ -11,7 +11,6 @@ import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
-import com.twilio.type.RegionEndpoints;
 import java.util.Map;
 import lombok.Getter;
 
@@ -24,7 +23,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Singleton class to initialize Twilio environment.
+ * The {@code Twilio} class is a thread-safe singleton that manages the global configuration and initialization
+ * of the Twilio Java SDK environment. It provides static methods to set credentials, region, edge, and other
+ * runtime options, as well as to initialize and retrieve the shared {@link TwilioRestClient} instance.
+ * <p>
+ * Usage of this class is required before making API requests. Credentials can be set via environment variables,
+ * system properties, or explicitly using the {@code init} methods. The class also manages a shared
+ * {@link ExecutorService} for asynchronous operations and provides utility methods for SSL certificate validation.
+ * <p>
+ * Example usage:
+ * <pre>
+ *     Twilio.init("ACCOUNT_SID", "AUTH_TOKEN");
+ *     // or with a CredentialProvider
+ *     Twilio.init(new MyCredentialProvider());
+ * </pre>
+ * <p>
  */
 public class Twilio {
 
@@ -44,7 +57,6 @@ public class Twilio {
 
     private static CredentialProvider credentialProvider;
 
-    private static Map<String, String> regionMap = RegionEndpoints.getRegions();
     private static final Logger logger = LoggerFactory.getLogger(Twilio.class);
 
 
@@ -52,7 +64,7 @@ public class Twilio {
     private Twilio() {
     }
 
-    /*
+    /**
      * Ensures that the ExecutorService is shutdown when the JVM exits.
      */
     static {
@@ -242,12 +254,6 @@ public class Twilio {
 
         if (userAgentExtensions != null) {
             builder.userAgentExtensions(Twilio.userAgentExtensions);
-        }
-        if (Twilio.edge == null && Twilio.region != null) {
-            logger.warn(
-                "Setting default `Edge` for the provided `region`. For regional processing, DNS is of format product.<city>.<region>.twilio.com; otherwise use product.twilio.com."
-            );
-            Twilio.edge = regionMap.get(Twilio.region);
         }
         builder.region(Twilio.region);
         builder.edge(Twilio.edge);

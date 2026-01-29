@@ -78,11 +78,6 @@ public class TwilioRestClient {
         this.accountSid = b.accountSid;
         this.region = b.region;
         this.edge = b.edge;
-        if(b.edge == null && b.region != null) {
-            logger.warn(
-                "When only `region` is set, data processing is done is `us1` region. For regional processing, DNS is of format product.<city>.<region>.twilio.com; otherwise use product.twilio.com."
-            );
-        }
         this.httpClient = b.httpClient;
         this.objectMapper = b.objectMapper;
         this.userAgentExtensions = b.userAgentExtensions;

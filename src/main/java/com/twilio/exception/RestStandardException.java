@@ -65,29 +65,7 @@ public class RestStandardException {
     }
 
     /**
-     * Initialize a RFC-9457 Problem Details Exception with required fields
-     *
-     * @param type     URI reference identifying the problem type
-     * @param title    short, human-readable summary of the problem type
-     * @param status   HTTP status code
-     * @param code     Twilio-specific error code
-     */
-    private RestStandardException(
-            @JsonProperty("code") final Integer code,
-            @JsonProperty("status") final Integer status,
-            @JsonProperty("type") final String type,
-            @JsonProperty("title") final String title) {
-        this.type = type;
-        this.title = title;
-        this.status = status;
-        this.code = code;
-        this.detail = "";
-        this.instance = "";
-        this.errors = Collections.emptyList();
-    }
-
-    /**
-     * Initialize a RFC-9457 Problem Details Exception.
+     * Initialize an RFC-9457 Problem Details Exception.
      *
      * @param type     URI reference identifying the problem type
      * @param title    short, human-readable summary of the problem type
@@ -106,14 +84,13 @@ public class RestStandardException {
             @JsonProperty("detail") final String detail,
             @JsonProperty("instance") final String instance,
             @JsonProperty("errors") final List<ValidationError> errors) {
-        super();
         this.type = type;
         this.title = title;
         this.status = status;
         this.code = code;
         this.detail = detail == null ? "" : detail;
         this.instance = instance == null ? "" : instance;
-        this.errors = errors == null ? Collections.emptyList(): errors;
+        this.errors = errors == null ? Collections.emptyList() : errors;
     }
 
     /**
@@ -190,7 +167,7 @@ public class RestStandardException {
     /**
      * Get the array of validation errors for HTTP 400/422 responses.
      *
-     * @return list of validation errors, or null if not present
+     * @return non-null list of validation errors (empty if none are present)
      */
     public List<ValidationError> getErrors() {
         return errors;

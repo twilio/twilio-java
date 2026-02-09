@@ -1,6 +1,28 @@
 twilio-java changelog
 =====================
 
+[2026-02-05] Version 11.3.3
+---------------------------
+**Library - Fix**
+- [PR #936](https://github.com/twilio/twilio-java/pull/936): java regional endpoint processing. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Twiml**
+- Add `recording_configuration` attribute to `<Recording>` noun
+
+**Api**
+- Clarify the behavior of date filters with the Calls API
+- Added Phone Number `type` property to `/IncomingPhoneNumbers` resource
+
+**Memory**
+- ## 2026-01-23
+- No path changes (updated metadata only)
+- ## 2026-01-22
+- No path changes (updated metadata only)
+- ## 2026-01-22
+- **Modified 1 path(s)**:
+- `/v1/Stores/{storeId}/Profiles/{profileId}` (added delete)
+
+
 [2026-01-22] Version 11.3.2
 ---------------------------
 **Library - Chore**

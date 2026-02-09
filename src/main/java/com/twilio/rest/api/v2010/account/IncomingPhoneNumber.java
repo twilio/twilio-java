@@ -334,6 +334,9 @@ public class IncomingPhoneNumber extends Resource {
     private final String trunkSid;
 
     @Getter
+    private final String type;
+
+    @Getter
     private final String uri;
 
     @Getter
@@ -401,6 +404,7 @@ public class IncomingPhoneNumber extends Resource {
             "status_callback_method"
         ) final HttpMethod statusCallbackMethod,
         @JsonProperty("trunk_sid") final String trunkSid,
+        @JsonProperty("type") final String type,
         @JsonProperty("uri") final String uri,
         @JsonProperty("voice_application_sid") final String voiceApplicationSid,
         @JsonProperty(
@@ -442,6 +446,7 @@ public class IncomingPhoneNumber extends Resource {
         this.statusCallback = statusCallback;
         this.statusCallbackMethod = statusCallbackMethod;
         this.trunkSid = trunkSid;
+        this.type = type;
         this.uri = uri;
         this.voiceApplicationSid = voiceApplicationSid;
         this.voiceCallerIdLookup = voiceCallerIdLookup;
@@ -493,6 +498,7 @@ public class IncomingPhoneNumber extends Resource {
             Objects.equals(statusCallback, other.statusCallback) &&
             Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
             Objects.equals(trunkSid, other.trunkSid) &&
+            Objects.equals(type, other.type) &&
             Objects.equals(uri, other.uri) &&
             Objects.equals(voiceApplicationSid, other.voiceApplicationSid) &&
             Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) &&
@@ -533,6 +539,7 @@ public class IncomingPhoneNumber extends Resource {
             statusCallback,
             statusCallbackMethod,
             trunkSid,
+            type,
             uri,
             voiceApplicationSid,
             voiceCallerIdLookup,

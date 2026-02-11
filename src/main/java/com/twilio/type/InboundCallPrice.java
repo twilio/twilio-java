@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.twilio.converter.Promoter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -41,8 +42,8 @@ public class InboundCallPrice {
         }
     }
 
-    private final double basePrice;
-    private final double currentPrice;
+    private final BigDecimal basePrice;
+    private final BigDecimal currentPrice;
     private final Type type;
 
     /**
@@ -53,19 +54,57 @@ public class InboundCallPrice {
      * @param type         type of phone number
      */
     @JsonCreator
-    public InboundCallPrice(@JsonProperty("base_price") final double basePrice,
-                            @JsonProperty("current_price") final double currentPrice,
+    public InboundCallPrice(@JsonProperty("base_price") final BigDecimal basePrice,
+                            @JsonProperty("current_price") final BigDecimal currentPrice,
                             @JsonProperty("number_type") final Type type) {
         this.basePrice = basePrice;
         this.currentPrice = currentPrice;
         this.type = type;
     }
 
+    /**
+     * Returns the retail price per minute to receive a call to this phone number type. The value returned by this
+     * method is represented as a {@code double}, which may result in loss of precision.
+     *
+     * @return the retail price per minute to receive a call to this phone number type
+     *
+     * @deprecated please use {{@link #getBasePriceDecimal()}} instead for a lossless representation of the price
+     */
+    @Deprecated
     public double getBasePrice() {
+        return basePrice.doubleValue();
+    }
+
+    /**
+     * Returns the retail price per minute to receive a call to this phone number type.
+     *
+     * @return the retail price per minute to receive a call to this phone number type
+     */
+    public BigDecimal getBasePriceDecimal() {
         return basePrice;
     }
 
+    /**
+     * Returns the current price per minute (which accounts for any volume or custom price discounts) to receive a call
+     * to this phone number type. The value returned by this method is represented as a {@code double}, which may result
+     * in loss of precision.
+     *
+     * @return the current price per minute to receive a call to this phone number type
+     *
+     * @deprecated please use {{@link #getCurrentPriceDecimal()} instead for a lossless representation of the price
+     */
+    @Deprecated
     public double getCurrentPrice() {
+        return currentPrice.doubleValue();
+    }
+
+    /**
+     * Returns the current price per minute (which accounts for any volume or custom price discounts) to receive a call
+     * to this phone number type.
+     *
+     * @return the current price per minute to receive a call to this phone number type
+     */
+    public BigDecimal getCurrentPriceDecimal() {
         return currentPrice;
     }
 

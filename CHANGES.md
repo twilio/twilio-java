@@ -1,6 +1,37 @@
 twilio-java changelog
 =====================
 
+[2026-02-18] Version 11.3.4
+---------------------------
+**Library - Chore**
+- [PR #937](https://github.com/twilio/twilio-java/pull/937): added exception as per rfc-9457 standards. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- Remove inequality examples from Calls StartTime and EndTime filter descriptions
+
+**Memory**
+- ## 2026-02-06
+- Minor updates (formatting, metadata)
+- ## 2026-02-06
+- Minor updates (formatting, metadata)
+- ## 2026-02-06
+- ## 2026-01-23
+- ## 2026-01-23
+- **Added 3 new path(s)**:
+- `/v1/Stores/{storeId}/Profiles/Imports` (ListProfileImportsV2, CreateProfilesImportV2)
+- `/v1/Stores/{storeId}/Profiles/Imports/{importId}` (FetchProfileImportV2)
+- **Removed 6 path(s)**:
+- `/v1/KnowledgeBases/{kbId}/Knowledge` (ListKnowledge, CreateKnowledge)
+- `/v1/KnowledgeBases/{kbId}/Search` (KnowledgeSearch)
+- `/v1/KnowledgeBases/{kbId}/Knowledge/{knowledgeId}` (RetrieveKnowledge, PatchKnowledge, DeleteKnowledge)
+- `/v1/KnowledgeBases/{kbId}/Knowledge/{knowledgeId}/Chunks` (ListKnowledgeChunks)
+- `/v1/ControlPlane/KnowledgeBases` (ListKnowledgeBases, CreateKnowledgeBase)
+- `/v1/ControlPlane/KnowledgeBases/{kbId}` (GetKnowledgeBase, UpdateKnowledgeBase, DeleteKnowledgeBase)
+- ## 2026-01-05
+- ## 2026-01-05
+- Initial release with 26 paths and 48 operations
+
+
 [2026-02-05] Version 11.3.3
 ---------------------------
 **Library - Fix**

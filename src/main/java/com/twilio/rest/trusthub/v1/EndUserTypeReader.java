@@ -30,6 +30,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.io.InputStream;
 
 public class EndUserTypeReader extends Reader<EndUserType> {
 
@@ -115,8 +116,9 @@ public class EndUserTypeReader extends Reader<EndUserType> {
                 "EndUserType read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
 

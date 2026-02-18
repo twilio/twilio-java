@@ -25,6 +25,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.io.InputStream;
 
 public class InteractionFetcher extends Fetcher<Interaction> {
 
@@ -71,8 +72,9 @@ public class InteractionFetcher extends Fetcher<Interaction> {
                 "Interaction fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {

@@ -1,6 +1,7 @@
 package com.twilio.base;
 
 import tools.jackson.databind.JsonNode;
+import tools.jackson.core.JacksonException;
 import tools.jackson.databind.ObjectMapper;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -86,19 +87,25 @@ public class TokenPaginationPage<T> extends Page<T> {
      * @return a page of records of type T
      */
     public static <T> TokenPaginationPage<T> fromJson(String recordKey, String json, Class<T> recordType, ObjectMapper mapper) {
-        List<T> results = new ArrayList<>();
-        JsonNode root = mapper.readTree(json);
         try {
-            JsonNode meta = root.get("meta");
-            String key = meta.get("key").asText();
-            JsonNode records = root.get(key);
-            for (final JsonNode record : records) {
-                results.add(mapper.readValue(record.toString(), recordType));
-            }
+            List<T> results = new ArrayList<>();
+            JsonNode root = mapper.readTree(json);
+            try {
+                JsonNode meta = root.get("meta");
+                String key = meta.get("key").asText();
+                JsonNode records = root.get(key);
+                for (final JsonNode record : records) {
+                    results.add(mapper.readValue(record.toString(), recordType));
+                }
 
-            return buildPage(meta, results);
-        } catch (NullPointerException e) {
-            throw new ApiException("Key not found", e);
+                return buildPage(meta, results);
+            } catch (NullPointerException e) {
+                throw new ApiException("Key not found", e);
+            }
+        } catch (JacksonException e) {
+            throw new ApiConnectionException(
+                "Unable to deserialize response: " + e.getMessage() + "\nJSON: " + json, e
+            );
         }
     }
 

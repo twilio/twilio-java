@@ -1,8 +1,10 @@
 package com.twilio.base;
 
 import tools.jackson.databind.JsonNode;
+import tools.jackson.core.JacksonException;
 import tools.jackson.databind.ObjectMapper;
 import com.twilio.exception.ApiConnectionException;
+import com.twilio.exception.ApiException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -124,18 +126,22 @@ public class Page<T> {
      * @return a page of records of type T
      */
     public static <T> Page<T> fromJson(String recordKey, String json, Class<T> recordType, ObjectMapper mapper) {
-        List<T> results = new ArrayList<>();
-        JsonNode root = mapper.readTree(json);
-        JsonNode records = root.get(recordKey);
-        for (final JsonNode record : records) {
-            results.add(mapper.readValue(record.toString(), recordType));
-        }
+        try {
+            List<T> results = new ArrayList<>();
+            JsonNode root = mapper.readTree(json);
+            JsonNode records = root.get(recordKey);
+            for (final JsonNode record : records) {
+                results.add(mapper.readValue(record.toString(), recordType));
+            }
 
-        JsonNode uriNode = root.get("uri");
-        if (uriNode != null) {
-            return buildPage(root, results);
-        } else {
-            return buildNextGenPage(root, results);
+            JsonNode uriNode = root.get("uri");
+            if (uriNode != null) {
+                return buildPage(root, results);
+            } else {
+                return buildNextGenPage(root, results);
+            }
+        } catch (JacksonException e) {
+            throw new ApiException("Unable to deserialize response: " + e.getMessage() + "\nJSON: " + json, e);
         }
     }
 

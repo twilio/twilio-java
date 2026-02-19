@@ -81,7 +81,11 @@ public class Converter {
      * @return HashMap read
      */
     public static Map<String, Object> jsonToMap(final String json) {
-        return MAPPER.readValue(json, HashMap.class);
+        try {
+            return MAPPER.readValue(json, HashMap.class);
+        } catch (JacksonException e) {
+            return null;
+        }
     }
 
 }

@@ -94,8 +94,6 @@ public class SigningKey extends Resource {
             return objectMapper.readValue(json, SigningKey.class);
         } catch (final DatabindException | StreamReadException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
@@ -116,8 +114,6 @@ public class SigningKey extends Resource {
             return objectMapper.readValue(json, SigningKey.class);
         } catch (final DatabindException | StreamReadException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
@@ -128,8 +124,6 @@ public class SigningKey extends Resource {
             throw new ApiException(e.getMessage(), e);
         } catch (JacksonException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 

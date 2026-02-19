@@ -105,8 +105,6 @@ public class RestStandardException {
             return objectMapper.readValue(json, RestStandardException.class);
         } catch (final DatabindException | StreamReadException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 

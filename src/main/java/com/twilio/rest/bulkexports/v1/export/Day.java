@@ -63,8 +63,6 @@ public class Day extends Resource {
             return objectMapper.readValue(json, Day.class);
         } catch (final DatabindException | StreamReadException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
@@ -85,8 +83,6 @@ public class Day extends Resource {
             return objectMapper.readValue(json, Day.class);
         } catch (final DatabindException | StreamReadException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
@@ -97,8 +93,6 @@ public class Day extends Resource {
             throw new ApiException(e.getMessage(), e);
         } catch (JacksonException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 

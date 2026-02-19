@@ -97,8 +97,6 @@ public class OriginationUrl extends Resource {
             return objectMapper.readValue(json, OriginationUrl.class);
         } catch (final DatabindException | StreamReadException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
@@ -119,8 +117,6 @@ public class OriginationUrl extends Resource {
             return objectMapper.readValue(json, OriginationUrl.class);
         } catch (final DatabindException | StreamReadException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
@@ -131,8 +127,6 @@ public class OriginationUrl extends Resource {
             throw new ApiException(e.getMessage(), e);
         } catch (JacksonException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 

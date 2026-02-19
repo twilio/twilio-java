@@ -62,8 +62,6 @@ public class Event extends Resource {
             return objectMapper.readValue(json, Event.class);
         } catch (final DatabindException | StreamReadException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
@@ -84,8 +82,6 @@ public class Event extends Resource {
             return objectMapper.readValue(json, Event.class);
         } catch (final DatabindException | StreamReadException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
@@ -96,8 +92,6 @@ public class Event extends Resource {
             throw new ApiException(e.getMessage(), e);
         } catch (JacksonException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 

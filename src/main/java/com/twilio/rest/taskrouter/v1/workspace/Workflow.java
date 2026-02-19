@@ -92,8 +92,6 @@ public class Workflow extends Resource {
             return objectMapper.readValue(json, Workflow.class);
         } catch (final DatabindException | StreamReadException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
@@ -114,8 +112,6 @@ public class Workflow extends Resource {
             return objectMapper.readValue(json, Workflow.class);
         } catch (final DatabindException | StreamReadException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
@@ -126,8 +122,6 @@ public class Workflow extends Resource {
             throw new ApiException(e.getMessage(), e);
         } catch (JacksonException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 

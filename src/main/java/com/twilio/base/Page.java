@@ -124,25 +124,18 @@ public class Page<T> {
      * @return a page of records of type T
      */
     public static <T> Page<T> fromJson(String recordKey, String json, Class<T> recordType, ObjectMapper mapper) {
-        try {
-            List<T> results = new ArrayList<>();
-            JsonNode root = mapper.readTree(json);
-            JsonNode records = root.get(recordKey);
-            for (final JsonNode record : records) {
-                results.add(mapper.readValue(record.toString(), recordType));
-            }
+        List<T> results = new ArrayList<>();
+        JsonNode root = mapper.readTree(json);
+        JsonNode records = root.get(recordKey);
+        for (final JsonNode record : records) {
+            results.add(mapper.readValue(record.toString(), recordType));
+        }
 
-            JsonNode uriNode = root.get("uri");
-            if (uriNode != null) {
-                return buildPage(root, results);
-            } else {
-                return buildNextGenPage(root, results);
-            }
-
-        } catch (final IOException e) {
-            throw new ApiConnectionException(
-                "Unable to deserialize response: " + e.getMessage() + "\nJSON: " + json, e
-            );
+        JsonNode uriNode = root.get("uri");
+        if (uriNode != null) {
+            return buildPage(root, results);
+        } else {
+            return buildNextGenPage(root, results);
         }
     }
 

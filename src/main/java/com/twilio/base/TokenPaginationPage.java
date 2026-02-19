@@ -86,26 +86,19 @@ public class TokenPaginationPage<T> extends Page<T> {
      * @return a page of records of type T
      */
     public static <T> TokenPaginationPage<T> fromJson(String recordKey, String json, Class<T> recordType, ObjectMapper mapper) {
+        List<T> results = new ArrayList<>();
+        JsonNode root = mapper.readTree(json);
         try {
-            List<T> results = new ArrayList<>();
-            JsonNode root = mapper.readTree(json);
-            try {
-                JsonNode meta = root.get("meta");
-                String key = meta.get("key").asText();
-                JsonNode records = root.get(key);
-                for (final JsonNode record : records) {
-                    results.add(mapper.readValue(record.toString(), recordType));
-                }
-
-                return buildPage(meta, results);
-            } catch (NullPointerException e) {
-                throw new ApiException("Key not found", e);
+            JsonNode meta = root.get("meta");
+            String key = meta.get("key").asText();
+            JsonNode records = root.get(key);
+            for (final JsonNode record : records) {
+                results.add(mapper.readValue(record.toString(), recordType));
             }
 
-        } catch (final IOException e) {
-            throw new ApiConnectionException(
-                "Unable to deserialize response: " + e.getMessage() + "\nJSON: " + json, e
-            );
+            return buildPage(meta, results);
+        } catch (NullPointerException e) {
+            throw new ApiException("Key not found", e);
         }
     }
 

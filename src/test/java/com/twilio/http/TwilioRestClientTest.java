@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import tools.jackson.databind.ObjectMapper;
-import tools.jackson.datatype.jsr310.JavaTimeModule;
 import com.twilio.auth_strategy.BasicAuthStrategy;
 import com.twilio.auth_strategy.NoAuthStrategy;
 import com.twilio.rest.Domains;
@@ -62,7 +61,7 @@ public class TwilioRestClientTest {
                 URI
         );
         TwilioRestClient client = new TwilioRestClient.Builder(USER_NAME, TOKEN)
-                .objectMapper(new ObjectMapper().registerModule(new JavaTimeModule()))
+                .objectMapper(new ObjectMapper())
                 .httpClient(httpClient)
                 .build();
 

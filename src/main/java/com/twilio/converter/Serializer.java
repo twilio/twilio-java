@@ -1,8 +1,8 @@
 package com.twilio.converter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.DatabindException;
+import tools.jackson.databind.ObjectMapper;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -38,12 +38,8 @@ public class Serializer {
     public static String toJson(Object object, ObjectMapper mapper) {
         try {
             return mapper.writeValueAsString(object);
-        } catch (final JsonMappingException e) {
+        } catch (JacksonException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (JsonProcessingException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 

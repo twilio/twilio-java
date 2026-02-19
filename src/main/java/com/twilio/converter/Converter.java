@@ -1,8 +1,8 @@
 package com.twilio.converter;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -48,14 +48,14 @@ public class Converter {
         if (value instanceof Collection || value instanceof Map) {
             try {
                 return MAPPER.writeValueAsString(value);
-            } catch (JsonProcessingException e) {
+            } catch (JacksonException e) {
                 return value.toString();
             }
         }
         // Fallback: Try JSON, else toString
         try {
             return MAPPER.writeValueAsString(value);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             return value.toString();
         }
     }
@@ -69,7 +69,7 @@ public class Converter {
     public static String mapToJson(final Map<String, ? extends Object> map) {
         try {
             return MAPPER.writeValueAsString(map);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             return null;
         }
     }
@@ -83,7 +83,7 @@ public class Converter {
     public static Map<String, Object> jsonToMap(final String json) {
         try {
             return MAPPER.readValue(json, HashMap.class);
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             return null;
         }
     }

@@ -2,11 +2,11 @@ package com.twilio.twiml;
 
 import com.ctc.wstx.stax.WstxInputFactory;
 import com.ctc.wstx.stax.WstxOutputFactory;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlFactory;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.dataformat.xml.XmlFactory;
+import tools.jackson.dataformat.xml.XmlMapper;
+import tools.jackson.dataformat.xml.annotation.JacksonXmlText;
 import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -213,10 +213,10 @@ public abstract class TwiML {
             XML_INPUT_FACTORY.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
             XML_INPUT_FACTORY.setProperty(XMLInputFactory.SUPPORT_DTD, false);
         }
-        protected static final ObjectMapper OBJECT_MAPPER = new XmlMapper(
+        protected static final ObjectMapper OBJECT_MAPPER = XmlMapper.builder(
             new XmlFactory(XML_INPUT_FACTORY, new WstxOutputFactory()))
-                .configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true)
-                .configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+                .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+                .build();
 
         protected Map<String, String> options = new HashMap<>();
         protected List<TwiML> children = new ArrayList<>();

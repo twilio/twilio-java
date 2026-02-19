@@ -7,10 +7,10 @@
 
 package com.twilio.twiml;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonPOJOBuilder;
+import tools.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.twiml.TwiMLException;
 import com.twilio.twiml.fax.Receive;
 
@@ -44,7 +44,7 @@ public class FaxResponse extends TwiML {
         public static Builder fromXml(final String xml) throws TwiMLException {
             try {
                 return OBJECT_MAPPER.readValue(xml, Builder.class);
-            } catch (final JsonProcessingException jpe) {
+            } catch (final JacksonException jpe) {
                 throw new TwiMLException(
                     "Failed to deserialize a FaxResponse.Builder from the provided XML string: " + jpe.getMessage());
             } catch (final Exception e) {

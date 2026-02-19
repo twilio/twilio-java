@@ -14,7 +14,7 @@
 
 package com.twilio.rest.assistants.v1.assistant;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
 import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;

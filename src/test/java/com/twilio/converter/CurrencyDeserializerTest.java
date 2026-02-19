@@ -1,9 +1,9 @@
 package com.twilio.converter;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.DatabindException;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.annotation.JsonDeserialize;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -24,7 +24,7 @@ public class CurrencyDeserializerTest {
         Assert.assertEquals("USD", c.currency.getCurrencyCode());
     }
 
-    @Test(expected = JsonMappingException.class)
+    @Test(expected = DatabindException.class)
     public void testInvalidCurrency() throws IOException {
         String json = "{ \"currency\": \"poo\" }";
         ObjectMapper mapper = new ObjectMapper();

@@ -1,16 +1,16 @@
 package com.twilio.converter;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.ValueDeserializer;
 
-import java.io.IOException;
+
 import java.time.LocalDate;
 
 // open-api spec "format: date"
-public class LocalDateDeserializer extends JsonDeserializer<LocalDate> {
+public class LocalDateDeserializer extends ValueDeserializer<LocalDate> {
     @Override
-    public LocalDate deserialize(JsonParser parser, DeserializationContext context) throws IOException {
+    public LocalDate deserialize(JsonParser parser, DeserializationContext context)  {
         String dateString = parser.getText();
         return DateConverter.localDateFromString(dateString);
     }

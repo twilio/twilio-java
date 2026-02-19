@@ -6,8 +6,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.datatype.jsr310.JavaTimeModule;
 import com.twilio.auth_strategy.BasicAuthStrategy;
 import com.twilio.auth_strategy.NoAuthStrategy;
 import com.twilio.rest.Domains;

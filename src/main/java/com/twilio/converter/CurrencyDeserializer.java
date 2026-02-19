@@ -1,17 +1,17 @@
 package com.twilio.converter;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.ValueDeserializer;
 
-import java.io.IOException;
+
 import java.util.Currency;
 
-public class CurrencyDeserializer extends JsonDeserializer<Currency> {
+public class CurrencyDeserializer extends ValueDeserializer<Currency> {
 
     @Override
     public Currency deserialize(JsonParser jsonParser,
-                                DeserializationContext deserializationContext) throws IOException {
+                                DeserializationContext deserializationContext)  {
 
         String currencyCode = jsonParser.readValueAs(String.class);
         return Currency.getInstance(currencyCode.toUpperCase());

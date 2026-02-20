@@ -28,12 +28,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.io.InputStream;
 
 public class TranscriptionsUpdater extends Updater<Transcriptions> {
 
     private String pathRoomSid;
     private String pathTtid;
     private Transcriptions.Status status;
+    private Object configuration;
 
     public TranscriptionsUpdater(
         final String pathRoomSid,
@@ -45,6 +47,11 @@ public class TranscriptionsUpdater extends Updater<Transcriptions> {
 
     public TranscriptionsUpdater setStatus(final Transcriptions.Status status) {
         this.status = status;
+        return this;
+    }
+
+    public TranscriptionsUpdater setConfiguration(final Object configuration) {
+        this.configuration = configuration;
         return this;
     }
 
@@ -69,8 +76,9 @@ public class TranscriptionsUpdater extends Updater<Transcriptions> {
                 "Transcriptions update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -115,6 +123,15 @@ public class TranscriptionsUpdater extends Updater<Transcriptions> {
                 request,
                 "Status",
                 status,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (configuration != null) {
+            Serializer.toString(
+                request,
+                "Configuration",
+                configuration,
                 ParameterType.URLENCODED
             );
         }

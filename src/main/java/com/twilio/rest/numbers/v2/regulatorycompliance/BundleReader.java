@@ -30,15 +30,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.io.InputStream;
 import java.time.ZonedDateTime;
 
 public class BundleReader extends Reader<Bundle> {
 
     private Bundle.Status status;
+    private String bundleSids;
     private String friendlyName;
     private String regulationSid;
     private String isoCountry;
     private String numberType;
+    private Bundle.EndUserType endUserType;
     private Boolean hasValidUntilDate;
     private Bundle.SortBy sortBy;
     private Bundle.SortDirection sortDirection;
@@ -51,6 +54,11 @@ public class BundleReader extends Reader<Bundle> {
 
     public BundleReader setStatus(final Bundle.Status status) {
         this.status = status;
+        return this;
+    }
+
+    public BundleReader setBundleSids(final String bundleSids) {
+        this.bundleSids = bundleSids;
         return this;
     }
 
@@ -71,6 +79,11 @@ public class BundleReader extends Reader<Bundle> {
 
     public BundleReader setNumberType(final String numberType) {
         this.numberType = numberType;
+        return this;
+    }
+
+    public BundleReader setEndUserType(final Bundle.EndUserType endUserType) {
+        this.endUserType = endUserType;
         return this;
     }
 
@@ -184,8 +197,9 @@ public class BundleReader extends Reader<Bundle> {
                 "Bundle read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
 
@@ -251,6 +265,15 @@ public class BundleReader extends Reader<Bundle> {
             Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
 
+        if (bundleSids != null) {
+            Serializer.toString(
+                request,
+                "BundleSids",
+                bundleSids,
+                ParameterType.QUERY
+            );
+        }
+
         if (friendlyName != null) {
             Serializer.toString(
                 request,
@@ -283,6 +306,15 @@ public class BundleReader extends Reader<Bundle> {
                 request,
                 "NumberType",
                 numberType,
+                ParameterType.QUERY
+            );
+        }
+
+        if (endUserType != null) {
+            Serializer.toString(
+                request,
+                "EndUserType",
+                endUserType,
                 ParameterType.QUERY
             );
         }

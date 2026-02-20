@@ -71,6 +71,19 @@ public class ApiException extends TwilioException {
         this.details = restException.getDetails();
     }
 
+    /**
+     * Create a new API Exception from RFC-9457 Problem Details.
+     *
+     * @param restStandardException  the rest standard exception
+     */
+    public ApiException(final RestStandardException restStandardException) {
+        super(restStandardException.getTitle() + ": " + restStandardException.getDetail(), null);
+        this.code = restStandardException.getCode();
+        this.moreInfo = restStandardException.getType();
+        this.status = restStandardException.getStatus();
+        this.details = null;
+    }
+
     public Integer getCode() {
         return code;
     }

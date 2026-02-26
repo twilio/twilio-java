@@ -135,4 +135,12 @@ public class IRequestTest {
         assertNotNull("FormParameters should be initialized", params);
         assertTrue("FormParameters should be empty initially", params.isEmpty());
     }
+
+    @Test
+    public void testUrlPathSpaceEncoding() {
+        IRequest request = new IRequest(HttpMethod.GET, "https://api.twilio.com/2010-04-01/Accounts/test account/Messages.json");
+        String builtUrl = request.buildURL();
+
+        assertEquals("https://api.twilio.com/2010-04-01/Accounts/test%20account/Messages.json", builtUrl);
+    }
 }

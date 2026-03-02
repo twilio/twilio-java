@@ -166,7 +166,7 @@
     </profile>
   </profiles>
   <properties>
-    <jackson.version>2.15.0</jackson.version>
+    <jackson.version>2.18.6</jackson.version>
     <javadoc.plugin.version>3.3.1</javadoc.plugin.version>
     <jjwt.version>0.12.6</jjwt.version>
     <skip.tests>false</skip.tests>

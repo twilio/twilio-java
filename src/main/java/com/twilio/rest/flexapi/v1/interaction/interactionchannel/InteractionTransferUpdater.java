@@ -14,7 +14,7 @@
 
 package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;

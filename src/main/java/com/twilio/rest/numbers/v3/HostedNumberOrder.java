@@ -17,20 +17,17 @@ package com.twilio.rest.numbers.v3;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+import tools.jackson.core.exc.StreamReadException;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.DatabindException;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.type.*;
 import com.twilio.type.PhoneNumberCapabilities;
-import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -141,10 +138,8 @@ public class HostedNumberOrder extends Resource {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, HostedNumberOrder.class);
-        } catch (final JsonMappingException | JsonParseException e) {
+        } catch (final DatabindException | StreamReadException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
@@ -163,22 +158,18 @@ public class HostedNumberOrder extends Resource {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, HostedNumberOrder.class);
-        } catch (final JsonMappingException | JsonParseException e) {
+        } catch (final DatabindException | StreamReadException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
     public static String toJson(Object object, ObjectMapper mapper) {
         try {
             return mapper.writeValueAsString(object);
-        } catch (final JsonMappingException e) {
+        } catch (final DatabindException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 

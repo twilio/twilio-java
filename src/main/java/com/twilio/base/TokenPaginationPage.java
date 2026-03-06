@@ -1,7 +1,8 @@
 package com.twilio.base;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
@@ -101,8 +102,7 @@ public class TokenPaginationPage<T> extends Page<T> {
             } catch (NullPointerException e) {
                 throw new ApiException("Key not found", e);
             }
-
-        } catch (final IOException e) {
+        } catch (JacksonException e) {
             throw new ApiConnectionException(
                 "Unable to deserialize response: " + e.getMessage() + "\nJSON: " + json, e
             );

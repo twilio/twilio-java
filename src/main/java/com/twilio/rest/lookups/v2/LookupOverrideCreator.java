@@ -14,7 +14,7 @@
 
 package com.twilio.rest.lookups.v2;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
 import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;

@@ -1,8 +1,8 @@
 package com.twilio.type;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ public abstract class TypeTest {
         return mapper.readValue(json, clazz);
     }
 
-    public String toJson(Object object) throws JsonProcessingException {
+    public String toJson(Object object) throws JacksonException {
         return mapper.writeValueAsString(object);
     }
 

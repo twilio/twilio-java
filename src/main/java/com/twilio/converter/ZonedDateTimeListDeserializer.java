@@ -1,19 +1,19 @@
 package com.twilio.converter;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
+import tools.jackson.core.JsonParser;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.ValueDeserializer;
 
-import java.io.IOException;
+
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ZonedDateTimeListDeserializer extends JsonDeserializer<List<ZonedDateTime>> {
+public class ZonedDateTimeListDeserializer extends ValueDeserializer<List<ZonedDateTime>> {
 
     @Override
-    public List<ZonedDateTime> deserialize(JsonParser parser, DeserializationContext context) throws IOException {
+    public List<ZonedDateTime> deserialize(JsonParser parser, DeserializationContext context)  {
         List<String> dateStrings = parser.readValueAs(new TypeReference<List<String>>() {
         });
         List<ZonedDateTime> dates = new ArrayList<>();

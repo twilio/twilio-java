@@ -1,7 +1,6 @@
 package com.twilio.http;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import tools.jackson.databind.ObjectMapper;
 import com.twilio.auth_strategy.AuthStrategy;
 import com.twilio.auth_strategy.NoAuthStrategy;
 import com.twilio.constant.EnumConstants;
@@ -138,12 +137,8 @@ public class TwilioRestClient {
     }
 
     public static class Builder {
-        // This module configures the ObjectMapper to use
-        // public API methods for manipulating java.time.*
-        // classes. The alternative is to use reflection which
-        // generates warnings from the module system on Java 9+
-        private static final ObjectMapper DEFAULT_OBJECT_MAPPER = new ObjectMapper()
-            .registerModule(new JavaTimeModule());
+        // Java 8 time support is now built into Jackson 3 databind
+        private static final ObjectMapper DEFAULT_OBJECT_MAPPER = new ObjectMapper();
 
         private String username;
         private String password;

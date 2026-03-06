@@ -3,7 +3,7 @@ package com.twilio.exception;
 import java.io.ByteArrayInputStream;
 import java.util.Collections;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

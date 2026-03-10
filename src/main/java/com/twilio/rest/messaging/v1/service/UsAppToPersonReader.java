@@ -25,6 +25,7 @@ import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
@@ -36,6 +37,7 @@ public class UsAppToPersonReader extends Reader<UsAppToPerson> {
 
     private String pathMessagingServiceSid;
     private Long pageSize;
+    private String xTwilioApiVersion;
 
     public UsAppToPersonReader(final String pathMessagingServiceSid) {
         this.pathMessagingServiceSid = pathMessagingServiceSid;
@@ -43,6 +45,13 @@ public class UsAppToPersonReader extends Reader<UsAppToPerson> {
 
     public UsAppToPersonReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
+        return this;
+    }
+
+    public UsAppToPersonReader setXTwilioApiVersion(
+        final String xTwilioApiVersion
+    ) {
+        this.xTwilioApiVersion = xTwilioApiVersion;
         return this;
     }
 
@@ -84,6 +93,7 @@ public class UsAppToPersonReader extends Reader<UsAppToPerson> {
             path
         );
         addQueryParams(request);
+        addHeaderParams(request);
         return request;
     }
 
@@ -184,6 +194,11 @@ public class UsAppToPersonReader extends Reader<UsAppToPerson> {
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
@@ -200,6 +215,17 @@ public class UsAppToPersonReader extends Reader<UsAppToPerson> {
 
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
+    }
+
+    private void addHeaderParams(final Request request) {
+        if (xTwilioApiVersion != null) {
+            Serializer.toString(
+                request,
+                "X-Twilio-Api-Version",
+                xTwilioApiVersion,
+                ParameterType.HEADER
+            );
         }
     }
 }

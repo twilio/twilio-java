@@ -30,6 +30,7 @@ public enum Domains {
     LOOKUPS("lookups"),
     MARKETPLACE("marketplace"),
     MESSAGING("messaging"),
+    MEMORY("memory"),
     MONITOR("monitor"),
     NOTIFY("notify"),
     NUMBERS("numbers"),

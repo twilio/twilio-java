@@ -180,27 +180,28 @@ public class Page<T> {
         Builder<T> builder = new Builder<>();
         if(meta != null && meta.get("url") != null) {
             builder = builder.url(meta.get("url").asText());
-        JsonNode nextPageNode = meta.get("next_page_url");
-        if (!nextPageNode.isNull()) {
-            builder.nextPageUrl(nextPageNode.asText());
-        }
 
-        JsonNode previousPageNode = meta.get("previous_page_url");
-        if (!previousPageNode.isNull()) {
-            builder.previousPageUrl(previousPageNode.asText());
-        }
+            JsonNode nextPageNode = meta.get("next_page_url");
+            if (nextPageNode != null && !nextPageNode.isNull()) {
+                builder.nextPageUrl(nextPageNode.asText());
+            }
 
-        JsonNode firstPageNode = meta.get("first_page_url");
-        if (!firstPageNode.isNull()) {
-            builder.firstPageUrl(firstPageNode.asText());
-        }
+            JsonNode previousPageNode = meta.get("previous_page_url");
+            if (previousPageNode != null && !previousPageNode.isNull()) {
+                builder.previousPageUrl(previousPageNode.asText());
+            }
 
-        JsonNode pageSizeNode = meta.get("page_size");
-        if (!pageSizeNode.isNull()) {
-            builder.pageSize(pageSizeNode.asInt());
-        } else {
-            builder.pageSize(results.size());
-        }
+            JsonNode firstPageNode = meta.get("first_page_url");
+            if (firstPageNode != null && !firstPageNode.isNull()) {
+                builder.firstPageUrl(firstPageNode.asText());
+            }
+
+            JsonNode pageSizeNode = meta.get("page_size");
+            if (pageSizeNode != null && !pageSizeNode.isNull()) {
+                builder.pageSize(pageSizeNode.asInt());
+            } else {
+                builder.pageSize(results.size());
+            }
         }
 
         return builder.records(results).build();

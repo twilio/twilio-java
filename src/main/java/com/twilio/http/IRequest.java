@@ -224,7 +224,7 @@ public class IRequest {
             String protocol = parsedUrl.getProtocol() + "://";
             String[] pathPieces = parsedUrl.getPath().split("/");
             for (int i = 0; i < pathPieces.length; i++) {
-                pathPieces[i] = URLEncoder.encode(pathPieces[i], "UTF-8");
+                pathPieces[i] = URLEncoder.encode(pathPieces[i], "UTF-8").replace("+", "%20");
             }
             String encodedPath = String.join("/", pathPieces);
             String query = parsedUrl.getQuery() != null ? "?" + parsedUrl.getQuery() : null;

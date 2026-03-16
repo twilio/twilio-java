@@ -30,11 +30,13 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.List;
 
 public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
 
     private String pathMessagingServiceSid;
+    private String xTwilioApiVersion;
     private String brandRegistrationSid;
     private String description;
     private String messageFlow;
@@ -51,6 +53,8 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
     private Boolean subscriberOptIn;
     private Boolean ageGated;
     private Boolean directLending;
+    private URI privacyPolicyUrl;
+    private URI termsAndConditionsUrl;
 
     public UsAppToPersonCreator(
         final String pathMessagingServiceSid,
@@ -186,6 +190,41 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
         return this;
     }
 
+    public UsAppToPersonCreator setPrivacyPolicyUrl(
+        final URI privacyPolicyUrl
+    ) {
+        this.privacyPolicyUrl = privacyPolicyUrl;
+        return this;
+    }
+
+    public UsAppToPersonCreator setPrivacyPolicyUrl(
+        final String privacyPolicyUrl
+    ) {
+        return setPrivacyPolicyUrl(Promoter.uriFromString(privacyPolicyUrl));
+    }
+
+    public UsAppToPersonCreator setTermsAndConditionsUrl(
+        final URI termsAndConditionsUrl
+    ) {
+        this.termsAndConditionsUrl = termsAndConditionsUrl;
+        return this;
+    }
+
+    public UsAppToPersonCreator setTermsAndConditionsUrl(
+        final String termsAndConditionsUrl
+    ) {
+        return setTermsAndConditionsUrl(
+            Promoter.uriFromString(termsAndConditionsUrl)
+        );
+    }
+
+    public UsAppToPersonCreator setXTwilioApiVersion(
+        final String xTwilioApiVersion
+    ) {
+        this.xTwilioApiVersion = xTwilioApiVersion;
+        return this;
+    }
+
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p";
 
@@ -201,6 +240,7 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        addHeaderParams(request);
         addPostParams(request);
 
         Response response = client.request(request);
@@ -401,6 +441,35 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
                 "DirectLending",
                 directLending,
                 ParameterType.URLENCODED
+            );
+        }
+
+        if (privacyPolicyUrl != null) {
+            Serializer.toString(
+                request,
+                "PrivacyPolicyUrl",
+                privacyPolicyUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (termsAndConditionsUrl != null) {
+            Serializer.toString(
+                request,
+                "TermsAndConditionsUrl",
+                termsAndConditionsUrl,
+                ParameterType.URLENCODED
+            );
+        }
+    }
+
+    private void addHeaderParams(final Request request) {
+        if (xTwilioApiVersion != null) {
+            Serializer.toString(
+                request,
+                "X-Twilio-Api-Version",
+                xTwilioApiVersion,
+                ParameterType.HEADER
             );
         }
     }

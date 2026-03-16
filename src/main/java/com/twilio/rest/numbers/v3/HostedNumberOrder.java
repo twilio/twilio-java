@@ -16,30 +16,194 @@ package com.twilio.rest.numbers.v3;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import tools.jackson.core.exc.StreamReadException;
-import tools.jackson.core.JacksonException;
-import tools.jackson.databind.DatabindException;
-import tools.jackson.databind.ObjectMapper;
-import tools.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.type.*;
-import com.twilio.type.PhoneNumberCapabilities;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
-import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Objects;
-import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class HostedNumberOrder extends Resource {
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    static class CreateHostedNumberOrderResponse extends Resource {
+
+        @JsonCreator
+        private CreateHostedNumberOrderResponse() {}
+
+        public static CreateHostedNumberOrderResponse fromJson(
+            final InputStream json,
+            final ObjectMapper objectMapper
+        ) {
+            // Convert all checked exceptions to Runtime
+            try {
+                return objectMapper.readValue(
+                    json,
+                    CreateHostedNumberOrderResponse.class
+                );
+            } catch (final JsonMappingException | JsonParseException e) {
+                throw new ApiException(e.getMessage(), e);
+            } catch (final IOException e) {
+                throw new ApiConnectionException(e.getMessage(), e);
+            }
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj != null && obj.getClass() == this.getClass();
+        }
+
+        @Override
+        public int hashCode() {
+            return 1;
+        }
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    static class UpdateHostedNumberOrderResponse extends Resource {
+
+        @JsonCreator
+        private UpdateHostedNumberOrderResponse() {}
+
+        public static UpdateHostedNumberOrderResponse fromJson(
+            final InputStream json,
+            final ObjectMapper objectMapper
+        ) {
+            // Convert all checked exceptions to Runtime
+            try {
+                return objectMapper.readValue(
+                    json,
+                    UpdateHostedNumberOrderResponse.class
+                );
+            } catch (final JsonMappingException | JsonParseException e) {
+                throw new ApiException(e.getMessage(), e);
+            } catch (final IOException e) {
+                throw new ApiConnectionException(e.getMessage(), e);
+            }
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj != null && obj.getClass() == this.getClass();
+        }
+
+        @Override
+        public int hashCode() {
+            return 1;
+        }
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    static class ListHostedNumberOrderResponse extends Resource {
+
+        @JsonCreator
+        private ListHostedNumberOrderResponse() {}
+
+        public static ListHostedNumberOrderResponse fromJson(
+            final InputStream json,
+            final ObjectMapper objectMapper
+        ) {
+            // Convert all checked exceptions to Runtime
+            try {
+                return objectMapper.readValue(
+                    json,
+                    ListHostedNumberOrderResponse.class
+                );
+            } catch (final JsonMappingException | JsonParseException e) {
+                throw new ApiException(e.getMessage(), e);
+            } catch (final IOException e) {
+                throw new ApiConnectionException(e.getMessage(), e);
+            }
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj != null && obj.getClass() == this.getClass();
+        }
+
+        @Override
+        public int hashCode() {
+            return 1;
+        }
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    static class PatchHostedNumberOrderResponse extends Resource {
+
+        @JsonCreator
+        private PatchHostedNumberOrderResponse() {}
+
+        public static PatchHostedNumberOrderResponse fromJson(
+            final InputStream json,
+            final ObjectMapper objectMapper
+        ) {
+            // Convert all checked exceptions to Runtime
+            try {
+                return objectMapper.readValue(
+                    json,
+                    PatchHostedNumberOrderResponse.class
+                );
+            } catch (final JsonMappingException | JsonParseException e) {
+                throw new ApiException(e.getMessage(), e);
+            } catch (final IOException e) {
+                throw new ApiConnectionException(e.getMessage(), e);
+            }
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj != null && obj.getClass() == this.getClass();
+        }
+
+        @Override
+        public int hashCode() {
+            return 1;
+        }
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    static class FetchHostedNumberOrderResponse extends Resource {
+
+        @JsonCreator
+        private FetchHostedNumberOrderResponse() {}
+
+        public static FetchHostedNumberOrderResponse fromJson(
+            final InputStream json,
+            final ObjectMapper objectMapper
+        ) {
+            // Convert all checked exceptions to Runtime
+            try {
+                return objectMapper.readValue(
+                    json,
+                    FetchHostedNumberOrderResponse.class
+                );
+            } catch (final JsonMappingException | JsonParseException e) {
+                throw new ApiException(e.getMessage(), e);
+            } catch (final IOException e) {
+                throw new ApiConnectionException(e.getMessage(), e);
+            }
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj != null && obj.getClass() == this.getClass();
+        }
+
+        @Override
+        public int hashCode() {
+            return 1;
+        }
+    }
 
     public static HostedNumberOrderCreator creator(
         final com.twilio.type.PhoneNumber phoneNumber,
@@ -173,216 +337,16 @@ public class HostedNumberOrder extends Resource {
         }
     }
 
-    @Getter
-    private final String accountSid;
-
-    @Getter
-    private final String addressSid;
-
-    @Getter
-    private final Integer callDelay;
-
-    @Getter
-    private final PhoneNumberCapabilities capabilities;
-
-    @Getter
-    private final List<String> ccEmails;
-
-    @Getter
-    private final ZonedDateTime dateCreated;
-
-    @Getter
-    private final ZonedDateTime dateUpdated;
-
-    @Getter
-    private final String email;
-
-    @Getter
-    private final String extension;
-
-    @Getter
-    private final String failureReason;
-
-    @Getter
-    private final String friendlyName;
-
-    @Getter
-    private final String incomingPhoneNumberSid;
-
-    @Getter
-    private final com.twilio.type.PhoneNumber phoneNumber;
-
-    @Getter
-    private final String sid;
-
-    @Getter
-    private final String signingDocumentSid;
-
-    @Getter
-    private final HostedNumberOrder.HostedNumberOrderEnumStatus status;
-
-    @Getter
-    private final String uniqueName;
-
-    @Getter
-    private final URI url;
-
-    @Getter
-    private final Integer verificationAttempts;
-
-    @Getter
-    private final List<String> verificationCallSids;
-
-    @Getter
-    private final String verificationCode;
-
-    @Getter
-    private final String verificationDocumentSid;
-
-    @Getter
-    private final HostedNumberOrder.HostedNumberOrderEnumVerificationType verificationType;
-
     @JsonCreator
-    private HostedNumberOrder(
-        @JsonProperty("accountSid") final String accountSid,
-        @JsonProperty("addressSid") final String addressSid,
-        @JsonProperty("callDelay") final Integer callDelay,
-        @JsonProperty(
-            "capabilities"
-        ) final PhoneNumberCapabilities capabilities,
-        @JsonProperty("ccEmails") final List<String> ccEmails,
-        @JsonProperty("dateCreated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("dateUpdated") @JsonDeserialize(
-            using = com.twilio.converter.ISO8601Deserializer.class
-        ) final ZonedDateTime dateUpdated,
-        @JsonProperty("email") final String email,
-        @JsonProperty("extension") final String extension,
-        @JsonProperty("failureReason") final String failureReason,
-        @JsonProperty("friendlyName") final String friendlyName,
-        @JsonProperty(
-            "incomingPhoneNumberSid"
-        ) final String incomingPhoneNumberSid,
-        @JsonProperty(
-            "phoneNumber"
-        ) final com.twilio.type.PhoneNumber phoneNumber,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("signingDocumentSid") final String signingDocumentSid,
-        @JsonProperty(
-            "status"
-        ) final HostedNumberOrder.HostedNumberOrderEnumStatus status,
-        @JsonProperty("uniqueName") final String uniqueName,
-        @JsonProperty("url") final URI url,
-        @JsonProperty(
-            "verificationAttempts"
-        ) final Integer verificationAttempts,
-        @JsonProperty("verificationCallSids") final List<
-            String
-        > verificationCallSids,
-        @JsonProperty("verificationCode") final String verificationCode,
-        @JsonProperty(
-            "verificationDocumentSid"
-        ) final String verificationDocumentSid,
-        @JsonProperty(
-            "verificationType"
-        ) final HostedNumberOrder.HostedNumberOrderEnumVerificationType verificationType
-    ) {
-        this.accountSid = accountSid;
-        this.addressSid = addressSid;
-        this.callDelay = callDelay;
-        this.capabilities = capabilities;
-        this.ccEmails = ccEmails;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.email = email;
-        this.extension = extension;
-        this.failureReason = failureReason;
-        this.friendlyName = friendlyName;
-        this.incomingPhoneNumberSid = incomingPhoneNumberSid;
-        this.phoneNumber = phoneNumber;
-        this.sid = sid;
-        this.signingDocumentSid = signingDocumentSid;
-        this.status = status;
-        this.uniqueName = uniqueName;
-        this.url = url;
-        this.verificationAttempts = verificationAttempts;
-        this.verificationCallSids = verificationCallSids;
-        this.verificationCode = verificationCode;
-        this.verificationDocumentSid = verificationDocumentSid;
-        this.verificationType = verificationType;
-    }
+    private HostedNumberOrder() {}
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        HostedNumberOrder other = (HostedNumberOrder) o;
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(addressSid, other.addressSid) &&
-            Objects.equals(callDelay, other.callDelay) &&
-            Objects.equals(capabilities, other.capabilities) &&
-            Objects.equals(ccEmails, other.ccEmails) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(email, other.email) &&
-            Objects.equals(extension, other.extension) &&
-            Objects.equals(failureReason, other.failureReason) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(
-                incomingPhoneNumberSid,
-                other.incomingPhoneNumberSid
-            ) &&
-            Objects.equals(phoneNumber, other.phoneNumber) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(signingDocumentSid, other.signingDocumentSid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(verificationAttempts, other.verificationAttempts) &&
-            Objects.equals(verificationCallSids, other.verificationCallSids) &&
-            Objects.equals(verificationCode, other.verificationCode) &&
-            Objects.equals(
-                verificationDocumentSid,
-                other.verificationDocumentSid
-            ) &&
-            Objects.equals(verificationType, other.verificationType)
-        );
+    public boolean equals(Object obj) {
+        return obj != null && obj.getClass() == this.getClass();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            addressSid,
-            callDelay,
-            capabilities,
-            ccEmails,
-            dateCreated,
-            dateUpdated,
-            email,
-            extension,
-            failureReason,
-            friendlyName,
-            incomingPhoneNumberSid,
-            phoneNumber,
-            sid,
-            signingDocumentSid,
-            status,
-            uniqueName,
-            url,
-            verificationAttempts,
-            verificationCallSids,
-            verificationCode,
-            verificationDocumentSid,
-            verificationType
-        );
+        return 1;
     }
 }

@@ -38,7 +38,7 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
     private String businessName;
     private String businessWebsite;
     private String notificationEmail;
-    private List<String> useCaseCategories;
+    private List<TollfreeVerification.UseCaseCategories> useCaseCategories;
     private String useCaseSummary;
     private String productionMessageSample;
     private List<String> optInImageUrls;
@@ -57,9 +57,9 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
     private com.twilio.type.PhoneNumber businessContactPhone;
     private String editReason;
     private String businessRegistrationNumber;
-    private String businessRegistrationAuthority;
+    private TollfreeVerification.BusinessRegistrationAuthority businessRegistrationAuthority;
     private String businessRegistrationCountry;
-    private String businessType;
+    private TollfreeVerification.BusinessType businessType;
     private String businessRegistrationPhoneNumber;
     private String doingBusinessAs;
     private String optInConfirmationMessage;
@@ -97,14 +97,14 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
     }
 
     public TollfreeVerificationUpdater setUseCaseCategories(
-        final List<String> useCaseCategories
+        final List<TollfreeVerification.UseCaseCategories> useCaseCategories
     ) {
         this.useCaseCategories = useCaseCategories;
         return this;
     }
 
     public TollfreeVerificationUpdater setUseCaseCategories(
-        final String useCaseCategories
+        final TollfreeVerification.UseCaseCategories useCaseCategories
     ) {
         return setUseCaseCategories(Promoter.listOfOne(useCaseCategories));
     }
@@ -248,7 +248,7 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
     }
 
     public TollfreeVerificationUpdater setBusinessRegistrationAuthority(
-        final String businessRegistrationAuthority
+        final TollfreeVerification.BusinessRegistrationAuthority businessRegistrationAuthority
     ) {
         this.businessRegistrationAuthority = businessRegistrationAuthority;
         return this;
@@ -262,7 +262,7 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
     }
 
     public TollfreeVerificationUpdater setBusinessType(
-        final String businessType
+        final TollfreeVerification.BusinessType businessType
     ) {
         this.businessType = businessType;
         return this;
@@ -432,7 +432,7 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
         }
 
         if (useCaseCategories != null) {
-            for (String param : useCaseCategories) {
+            for (TollfreeVerification.UseCaseCategories param : useCaseCategories) {
                 Serializer.toString(
                     request,
                     "UseCaseCategories",

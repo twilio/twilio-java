@@ -1,6 +1,38 @@
 twilio-java changelog
 =====================
 
+[2026-03-10] Version 11.3.5
+---------------------------
+**Library - Chore**
+- [PR #943](https://github.com/twilio/twilio-java/pull/943): bump com.fasterxml.jackson.core:jackson-core from 2.15.0 to 2.18.6. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #945](https://github.com/twilio/twilio-java/pull/945): added memory domain. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #941](https://github.com/twilio/twilio-java/pull/941): add validTwilioUrl utility check. Thanks to [@kridai](https://github.com/kridai)!
+
+**Library - Fix**
+- [PR #942](https://github.com/twilio/twilio-java/pull/942): encode URL path spaces as %20 instead of +. Thanks to [@hubert-ren](https://github.com/hubert-ren)!
+
+**Twiml**
+- Rename `recording_configuration` to `recording_configuration_id` attribute in `<Conference>`, `<Dial>`, `<Record>` verbs and `<Recording>` noun
+
+**Ace**
+- # ACE Signals API Changes
+- ## 2026-02-18
+- Initial release: POST /signals, GET/POST /signals/{signal_id}/results, GET /health
+- Enables OneAdmin integration for synchronous signal ingestion and policy result polling
+- Supports permission-based authorization for signal operations
+- Health endpoint available for monitoring without authentication
+
+**Api**
+- Added optional parameter `Confirmation` to Payments create endpoint to enable payment confirmation prompt before gateway submission
+- Added optional parameter `RequireMatchingInputs` to Payments create endpoint for input confirmation in agent-assisted payment flows
+- Added matcher capture types (`payment-card-number-matcher`, `expiration-date-matcher`, `security-code-matcher`, `postal-code-matcher`) to Payments update endpoint
+
+**Memory**
+- ## 2026-03-06
+- **Modified 1 path(s)**:
+- `/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries/{summaryId}` (added patch, get)
+
+
 [2026-02-18] Version 11.3.4
 ---------------------------
 **Library - Chore**

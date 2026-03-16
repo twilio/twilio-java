@@ -25,6 +25,7 @@ import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
@@ -35,11 +36,17 @@ import java.io.InputStream;
 public class OperatorTypeReader extends Reader<OperatorType> {
 
     private Long pageSize;
+    private String languageCode;
 
     public OperatorTypeReader() {}
 
     public OperatorTypeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
+        return this;
+    }
+
+    public OperatorTypeReader setLanguageCode(final String languageCode) {
+        this.languageCode = languageCode;
         return this;
     }
 
@@ -175,6 +182,11 @@ public class OperatorTypeReader extends Reader<OperatorType> {
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
@@ -185,6 +197,15 @@ public class OperatorTypeReader extends Reader<OperatorType> {
                 request,
                 "PageSize",
                 pageSize,
+                ParameterType.QUERY
+            );
+        }
+
+        if (languageCode != null) {
+            Serializer.toString(
+                request,
+                "LanguageCode",
+                languageCode,
                 ParameterType.QUERY
             );
         }

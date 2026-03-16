@@ -54,6 +54,8 @@ public class PaymentCreator extends Creator<Payment> {
     private Integer timeout;
     private Payment.TokenType tokenType;
     private String validCardTypes;
+    private String requireMatchingInputs;
+    private Payment.Confirmation confirmation;
 
     public PaymentCreator(
         final String pathCallSid,
@@ -164,6 +166,20 @@ public class PaymentCreator extends Creator<Payment> {
 
     public PaymentCreator setValidCardTypes(final String validCardTypes) {
         this.validCardTypes = validCardTypes;
+        return this;
+    }
+
+    public PaymentCreator setRequireMatchingInputs(
+        final String requireMatchingInputs
+    ) {
+        this.requireMatchingInputs = requireMatchingInputs;
+        return this;
+    }
+
+    public PaymentCreator setConfirmation(
+        final Payment.Confirmation confirmation
+    ) {
+        this.confirmation = confirmation;
         return this;
     }
 
@@ -376,6 +392,24 @@ public class PaymentCreator extends Creator<Payment> {
                 request,
                 "ValidCardTypes",
                 validCardTypes,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (requireMatchingInputs != null) {
+            Serializer.toString(
+                request,
+                "RequireMatchingInputs",
+                requireMatchingInputs,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (confirmation != null) {
+            Serializer.toString(
+                request,
+                "Confirmation",
+                confirmation,
                 ParameterType.URLENCODED
             );
         }

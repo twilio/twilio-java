@@ -47,7 +47,7 @@ public class TollfreeVerification extends Resource {
         final String businessName,
         final String businessWebsite,
         final String notificationEmail,
-        final List<String> useCaseCategories,
+        final List<TollfreeVerification.UseCaseCategories> useCaseCategories,
         final String useCaseSummary,
         final String productionMessageSample,
         final List<String> optInImageUrls,
@@ -107,6 +107,38 @@ public class TollfreeVerification extends Resource {
         }
     }
 
+    public enum UseCaseCategories {
+        TWO_FACTOR_AUTHENTICATION("TWO_FACTOR_AUTHENTICATION"),
+        ACCOUNT_NOTIFICATIONS("ACCOUNT_NOTIFICATIONS"),
+        CUSTOMER_CARE("CUSTOMER_CARE"),
+        CHARITY_NONPROFIT("CHARITY_NONPROFIT"),
+        DELIVERY_NOTIFICATIONS("DELIVERY_NOTIFICATIONS"),
+        FRAUD_ALERT_MESSAGING("FRAUD_ALERT_MESSAGING"),
+        EVENTS("EVENTS"),
+        HIGHER_EDUCATION("HIGHER_EDUCATION"),
+        K12("K12"),
+        MARKETING("MARKETING"),
+        POLLING_AND_VOTING_NON_POLITICAL("POLLING_AND_VOTING_NON_POLITICAL"),
+        POLITICAL_ELECTION_CAMPAIGNS("POLITICAL_ELECTION_CAMPAIGNS"),
+        PUBLIC_SERVICE_ANNOUNCEMENT("PUBLIC_SERVICE_ANNOUNCEMENT"),
+        SECURITY_ALERT("SECURITY_ALERT");
+
+        private final String value;
+
+        private UseCaseCategories(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static UseCaseCategories forValue(final String value) {
+            return Promoter.enumFromString(value, UseCaseCategories.values());
+        }
+    }
+
     public enum VettingProvider {
         CAMPAIGN_VERIFY("CAMPAIGN_VERIFY");
 
@@ -146,6 +178,47 @@ public class TollfreeVerification extends Resource {
         @JsonCreator
         public static BusinessType forValue(final String value) {
             return Promoter.enumFromString(value, BusinessType.values());
+        }
+    }
+
+    public enum BusinessRegistrationAuthority {
+        EIN("EIN"),
+        CBN("CBN"),
+        CRN("CRN"),
+        PROVINCIAL_NUMBER("PROVINCIAL_NUMBER"),
+        VAT("VAT"),
+        ACN("ACN"),
+        ABN("ABN"),
+        BRN("BRN"),
+        SIREN("SIREN"),
+        SIRET("SIRET"),
+        NZBN("NZBN"),
+        UST_ID_NR("USt-IdNr"),
+        CIF("CIF"),
+        NIF("NIF"),
+        CNPJ("CNPJ"),
+        UID("UID"),
+        NEQ("NEQ"),
+        OTHER("OTHER");
+
+        private final String value;
+
+        private BusinessRegistrationAuthority(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static BusinessRegistrationAuthority forValue(
+            final String value
+        ) {
+            return Promoter.enumFromString(
+                value,
+                BusinessRegistrationAuthority.values()
+            );
         }
     }
 
@@ -263,7 +336,7 @@ public class TollfreeVerification extends Resource {
     private final String businessPostalCode;
 
     @Getter
-    private final String businessRegistrationAuthority;
+    private final TollfreeVerification.BusinessRegistrationAuthority businessRegistrationAuthority;
 
     @Getter
     private final String businessRegistrationCountry;
@@ -374,7 +447,9 @@ public class TollfreeVerification extends Resource {
     private final URI url;
 
     @Getter
-    private final List<String> useCaseCategories;
+    private final List<
+        TollfreeVerification.UseCaseCategories
+    > useCaseCategories;
 
     @Getter
     private final String useCaseSummary;
@@ -413,7 +488,7 @@ public class TollfreeVerification extends Resource {
         @JsonProperty("business_postal_code") final String businessPostalCode,
         @JsonProperty(
             "business_registration_authority"
-        ) final String businessRegistrationAuthority,
+        ) final TollfreeVerification.BusinessRegistrationAuthority businessRegistrationAuthority,
         @JsonProperty(
             "business_registration_country"
         ) final String businessRegistrationCountry,
@@ -483,7 +558,7 @@ public class TollfreeVerification extends Resource {
         @JsonProperty("trust_product_sid") final String trustProductSid,
         @JsonProperty("url") final URI url,
         @JsonProperty("use_case_categories") final List<
-            String
+            TollfreeVerification.UseCaseCategories
         > useCaseCategories,
         @JsonProperty("use_case_summary") final String useCaseSummary,
         @JsonProperty("vetting_id") final String vettingId,

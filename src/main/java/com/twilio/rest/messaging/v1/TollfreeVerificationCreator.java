@@ -37,7 +37,7 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification> {
     private String businessName;
     private String businessWebsite;
     private String notificationEmail;
-    private List<String> useCaseCategories;
+    private List<TollfreeVerification.UseCaseCategories> useCaseCategories;
     private String useCaseSummary;
     private String productionMessageSample;
     private List<String> optInImageUrls;
@@ -58,9 +58,9 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification> {
     private com.twilio.type.PhoneNumber businessContactPhone;
     private String externalReferenceId;
     private String businessRegistrationNumber;
-    private String businessRegistrationAuthority;
+    private TollfreeVerification.BusinessRegistrationAuthority businessRegistrationAuthority;
     private String businessRegistrationCountry;
-    private String businessType;
+    private TollfreeVerification.BusinessType businessType;
     private String businessRegistrationPhoneNumber;
     private String doingBusinessAs;
     private String optInConfirmationMessage;
@@ -76,7 +76,7 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification> {
         final String businessName,
         final String businessWebsite,
         final String notificationEmail,
-        final List<String> useCaseCategories,
+        final List<TollfreeVerification.UseCaseCategories> useCaseCategories,
         final String useCaseSummary,
         final String productionMessageSample,
         final List<String> optInImageUrls,
@@ -118,14 +118,14 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification> {
     }
 
     public TollfreeVerificationCreator setUseCaseCategories(
-        final List<String> useCaseCategories
+        final List<TollfreeVerification.UseCaseCategories> useCaseCategories
     ) {
         this.useCaseCategories = useCaseCategories;
         return this;
     }
 
     public TollfreeVerificationCreator setUseCaseCategories(
-        final String useCaseCategories
+        final TollfreeVerification.UseCaseCategories useCaseCategories
     ) {
         return setUseCaseCategories(Promoter.listOfOne(useCaseCategories));
     }
@@ -285,7 +285,7 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification> {
     }
 
     public TollfreeVerificationCreator setBusinessRegistrationAuthority(
-        final String businessRegistrationAuthority
+        final TollfreeVerification.BusinessRegistrationAuthority businessRegistrationAuthority
     ) {
         this.businessRegistrationAuthority = businessRegistrationAuthority;
         return this;
@@ -299,7 +299,7 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification> {
     }
 
     public TollfreeVerificationCreator setBusinessType(
-        final String businessType
+        final TollfreeVerification.BusinessType businessType
     ) {
         this.businessType = businessType;
         return this;
@@ -467,7 +467,7 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification> {
         }
 
         if (useCaseCategories != null) {
-            for (String param : useCaseCategories) {
+            for (TollfreeVerification.UseCaseCategories param : useCaseCategories) {
                 Serializer.toString(
                     request,
                     "UseCaseCategories",

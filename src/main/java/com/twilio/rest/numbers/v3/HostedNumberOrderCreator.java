@@ -34,7 +34,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 
-public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
+public class HostedNumberOrderCreator
+    extends Creator<HostedNumberOrder.CreateHostedNumberOrderResponse> {
 
     private com.twilio.type.PhoneNumber phoneNumber;
     private Boolean smsCapability;
@@ -234,23 +235,26 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     @Override
-    public HostedNumberOrder create(final TwilioRestClient client) {
+    public HostedNumberOrder.CreateHostedNumberOrderResponse create(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
-        return HostedNumberOrder.fromJson(
+        return HostedNumberOrder.CreateHostedNumberOrderResponse.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
     @Override
-    public TwilioResponse<HostedNumberOrder> createWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        HostedNumberOrder.CreateHostedNumberOrderResponse
+    > createWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
-        HostedNumberOrder content = HostedNumberOrder.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        HostedNumberOrder.CreateHostedNumberOrderResponse content =
+            HostedNumberOrder.CreateHostedNumberOrderResponse.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
         return new TwilioResponse<>(
             content,
             response.getStatusCode(),

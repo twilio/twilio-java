@@ -16,6 +16,8 @@ package com.twilio.rest.messaging.v1.service;
 
 import com.twilio.base.Fetcher;
 import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -31,6 +33,7 @@ public class UsAppToPersonFetcher extends Fetcher<UsAppToPerson> {
 
     private String pathMessagingServiceSid;
     private String pathSid;
+    private String xTwilioApiVersion;
 
     public UsAppToPersonFetcher(
         final String pathMessagingServiceSid,
@@ -38,6 +41,13 @@ public class UsAppToPersonFetcher extends Fetcher<UsAppToPerson> {
     ) {
         this.pathMessagingServiceSid = pathMessagingServiceSid;
         this.pathSid = pathSid;
+    }
+
+    public UsAppToPersonFetcher setXTwilioApiVersion(
+        final String xTwilioApiVersion
+    ) {
+        this.xTwilioApiVersion = xTwilioApiVersion;
+        return this;
     }
 
     private Response makeRequest(final TwilioRestClient client) {
@@ -56,6 +66,7 @@ public class UsAppToPersonFetcher extends Fetcher<UsAppToPerson> {
             Domains.MESSAGING.toString(),
             path
         );
+        addHeaderParams(request);
 
         Response response = client.request(request);
 
@@ -103,5 +114,16 @@ public class UsAppToPersonFetcher extends Fetcher<UsAppToPerson> {
             response.getStatusCode(),
             response.getHeaders()
         );
+    }
+
+    private void addHeaderParams(final Request request) {
+        if (xTwilioApiVersion != null) {
+            Serializer.toString(
+                request,
+                "X-Twilio-Api-Version",
+                xTwilioApiVersion,
+                ParameterType.HEADER
+            );
+        }
     }
 }

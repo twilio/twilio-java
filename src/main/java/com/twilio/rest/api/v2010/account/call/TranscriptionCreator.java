@@ -50,6 +50,8 @@ public class TranscriptionCreator extends Creator<Transcription> {
     private String hints;
     private Boolean enableAutomaticPunctuation;
     private String intelligenceService;
+    private String conversationConfiguration;
+    private String conversationId;
     private Boolean enableProviderData;
 
     public TranscriptionCreator(final String pathCallSid) {
@@ -155,6 +157,18 @@ public class TranscriptionCreator extends Creator<Transcription> {
         final String intelligenceService
     ) {
         this.intelligenceService = intelligenceService;
+        return this;
+    }
+
+    public TranscriptionCreator setConversationConfiguration(
+        final String conversationConfiguration
+    ) {
+        this.conversationConfiguration = conversationConfiguration;
+        return this;
+    }
+
+    public TranscriptionCreator setConversationId(final String conversationId) {
+        this.conversationId = conversationId;
         return this;
     }
 
@@ -359,6 +373,24 @@ public class TranscriptionCreator extends Creator<Transcription> {
                 request,
                 "IntelligenceService",
                 intelligenceService,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (conversationConfiguration != null) {
+            Serializer.toString(
+                request,
+                "ConversationConfiguration",
+                conversationConfiguration,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (conversationId != null) {
+            Serializer.toString(
+                request,
+                "ConversationId",
+                conversationId,
                 ParameterType.URLENCODED
             );
         }

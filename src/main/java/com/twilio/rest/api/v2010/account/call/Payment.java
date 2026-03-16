@@ -176,13 +176,37 @@ public class Payment extends Resource {
         }
     }
 
+    public enum Confirmation {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private Confirmation(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Confirmation forValue(final String value) {
+            return Promoter.enumFromString(value, Confirmation.values());
+        }
+    }
+
     public enum Capture {
         PAYMENT_CARD_NUMBER("payment-card-number"),
         EXPIRATION_DATE("expiration-date"),
         SECURITY_CODE("security-code"),
         POSTAL_CODE("postal-code"),
         BANK_ROUTING_NUMBER("bank-routing-number"),
-        BANK_ACCOUNT_NUMBER("bank-account-number");
+        BANK_ACCOUNT_NUMBER("bank-account-number"),
+        PAYMENT_CARD_NUMBER_MATCHER("payment-card-number-matcher"),
+        EXPIRATION_DATE_MATCHER("expiration-date-matcher"),
+        SECURITY_CODE_MATCHER("security-code-matcher"),
+        POSTAL_CODE_MATCHER("postal-code-matcher");
 
         private final String value;
 

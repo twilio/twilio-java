@@ -233,6 +233,9 @@ public class UsAppToPerson extends Resource {
     private final String optOutMessage;
 
     @Getter
+    private final URI privacyPolicyUrl;
+
+    @Getter
     private final Object rateLimits;
 
     @Getter
@@ -240,6 +243,9 @@ public class UsAppToPerson extends Resource {
 
     @Getter
     private final Boolean subscriberOptIn;
+
+    @Getter
+    private final URI termsAndConditionsUrl;
 
     @Getter
     private final URI url;
@@ -280,9 +286,13 @@ public class UsAppToPerson extends Resource {
         @JsonProperty("opt_in_message") final String optInMessage,
         @JsonProperty("opt_out_keywords") final List<String> optOutKeywords,
         @JsonProperty("opt_out_message") final String optOutMessage,
+        @JsonProperty("privacy_policy_url") final URI privacyPolicyUrl,
         @JsonProperty("rate_limits") final Object rateLimits,
         @JsonProperty("sid") final String sid,
         @JsonProperty("subscriber_opt_in") final Boolean subscriberOptIn,
+        @JsonProperty(
+            "terms_and_conditions_url"
+        ) final URI termsAndConditionsUrl,
         @JsonProperty("url") final URI url,
         @JsonProperty(
             "us_app_to_person_usecase"
@@ -311,9 +321,11 @@ public class UsAppToPerson extends Resource {
         this.optInMessage = optInMessage;
         this.optOutKeywords = optOutKeywords;
         this.optOutMessage = optOutMessage;
+        this.privacyPolicyUrl = privacyPolicyUrl;
         this.rateLimits = rateLimits;
         this.sid = sid;
         this.subscriberOptIn = subscriberOptIn;
+        this.termsAndConditionsUrl = termsAndConditionsUrl;
         this.url = url;
         this.usAppToPersonUsecase = usAppToPersonUsecase;
     }
@@ -356,9 +368,14 @@ public class UsAppToPerson extends Resource {
             Objects.equals(optInMessage, other.optInMessage) &&
             Objects.equals(optOutKeywords, other.optOutKeywords) &&
             Objects.equals(optOutMessage, other.optOutMessage) &&
+            Objects.equals(privacyPolicyUrl, other.privacyPolicyUrl) &&
             Objects.equals(rateLimits, other.rateLimits) &&
             Objects.equals(sid, other.sid) &&
             Objects.equals(subscriberOptIn, other.subscriberOptIn) &&
+            Objects.equals(
+                termsAndConditionsUrl,
+                other.termsAndConditionsUrl
+            ) &&
             Objects.equals(url, other.url) &&
             Objects.equals(usAppToPersonUsecase, other.usAppToPersonUsecase)
         );
@@ -390,9 +407,11 @@ public class UsAppToPerson extends Resource {
             optInMessage,
             optOutKeywords,
             optOutMessage,
+            privacyPolicyUrl,
             rateLimits,
             sid,
             subscriberOptIn,
+            termsAndConditionsUrl,
             url,
             usAppToPersonUsecase
         );

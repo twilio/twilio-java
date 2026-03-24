@@ -627,6 +627,187 @@ public class User extends Resource {
         }
     }
 
+    @JsonDeserialize(builder = ScimPatchOperation.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class ScimPatchOperation {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("op")
+        @Getter
+        private final String op;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("path")
+        @Getter
+        private final String path;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("value")
+        @Getter
+        private final Object value;
+
+        private ScimPatchOperation(Builder builder) {
+            this.op = builder.op;
+            this.path = builder.path;
+            this.value = builder.value;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static ScimPatchOperation fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, ScimPatchOperation.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("op")
+            private String op;
+
+            @JsonProperty("path")
+            private String path;
+
+            @JsonProperty("value")
+            private Object value;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("op")
+            public Builder op(String op) {
+                this.op = op;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("path")
+            public Builder path(String path) {
+                this.path = path;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("value")
+            public Builder value(Object value) {
+                this.value = value;
+                return this;
+            }
+
+            public ScimPatchOperation build() {
+                return new ScimPatchOperation(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ScimPatchOperation other = (ScimPatchOperation) o;
+            return (
+                Objects.equals(op, other.op) &&
+                Objects.equals(path, other.path) &&
+                Objects.equals(value, other.value)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(op, path, value);
+        }
+    }
+
+    @JsonDeserialize(builder = ScimPatchRequest.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class ScimPatchRequest {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("schemas")
+        @Getter
+        private final List<String> schemas;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("Operations")
+        @Getter
+        private final List<ScimPatchOperation> operations;
+
+        private ScimPatchRequest(Builder builder) {
+            this.schemas = builder.schemas;
+            this.operations = builder.operations;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static ScimPatchRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, ScimPatchRequest.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("schemas")
+            private List<String> schemas;
+
+            @JsonProperty("Operations")
+            private List<ScimPatchOperation> operations;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("schemas")
+            public Builder schemas(List<String> schemas) {
+                this.schemas = schemas;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("Operations")
+            public Builder operations(List<ScimPatchOperation> operations) {
+                this.operations = operations;
+                return this;
+            }
+
+            public ScimPatchRequest build() {
+                return new ScimPatchRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ScimPatchRequest other = (ScimPatchRequest) o;
+            return (
+                Objects.equals(schemas, other.schemas) &&
+                Objects.equals(operations, other.operations)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(schemas, operations);
+        }
+    }
+
     /**
      * Converts a JSON String into a User object using the provided ObjectMapper.
      *

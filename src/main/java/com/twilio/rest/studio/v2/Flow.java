@@ -150,6 +150,9 @@ public class Flow extends Resource {
     private final String accountSid;
 
     @Getter
+    private final String authorSid;
+
+    @Getter
     private final String commitMessage;
 
     @Getter
@@ -194,6 +197,7 @@ public class Flow extends Resource {
     @JsonCreator
     private Flow(
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("author_sid") final String authorSid,
         @JsonProperty("commit_message") final String commitMessage,
         @JsonProperty("date_created") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
@@ -214,6 +218,7 @@ public class Flow extends Resource {
         @JsonProperty("webhook_url") final URI webhookUrl
     ) {
         this.accountSid = accountSid;
+        this.authorSid = authorSid;
         this.commitMessage = commitMessage;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
@@ -243,6 +248,7 @@ public class Flow extends Resource {
         Flow other = (Flow) o;
         return (
             Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(authorSid, other.authorSid) &&
             Objects.equals(commitMessage, other.commitMessage) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
@@ -264,6 +270,7 @@ public class Flow extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
+            authorSid,
             commitMessage,
             dateCreated,
             dateUpdated,

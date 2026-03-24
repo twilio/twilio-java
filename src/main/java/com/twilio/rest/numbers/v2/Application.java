@@ -34,6 +34,8 @@ import com.twilio.type.*;
 import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
@@ -55,6 +57,62 @@ public class Application extends Resource {
 
     public static ApplicationReader reader() {
         return new ApplicationReader();
+    }
+
+    public enum SignUpOptions {
+        ONLINE_WEB_FORM("ONLINE_WEB_FORM"),
+        IVR("IVR"),
+        VERBALLY("VERBALLY"),
+        MOBILE_APP_OR_DIGITAL_KIOSK("MOBILE_APP_OR_DIGITAL_KIOSK"),
+        PAPER_FORM("PAPER_FORM"),
+        SHORTCODE_KEYWORD("SHORTCODE_KEYWORD"),
+        OTHER_FORM("OTHER_FORM");
+
+        private final String value;
+
+        private SignUpOptions(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static SignUpOptions forValue(final String value) {
+            return Promoter.enumFromString(value, SignUpOptions.values());
+        }
+    }
+
+    public enum CampaignFrequency {
+        ONE_MESSAGE_PER_SIGNUP("ONE_MESSAGE_PER_SIGNUP"),
+        LIMITED_NUMBER_OF_MESSAGES_PER_SIGNUP(
+            "LIMITED_NUMBER_OF_MESSAGES_PER_SIGNUP"
+        ),
+        LIMITED_NUMBER_OF_MESSAGES_AT_RECURRING_INTERVALS(
+            "LIMITED_NUMBER_OF_MESSAGES_AT_RECURRING_INTERVALS"
+        ),
+        VARIABLE_NUMBER_OF_MESSAGES_AT_UNPREDICTABLE_INTERVALS(
+            "VARIABLE_NUMBER_OF_MESSAGES_AT_UNPREDICTABLE_INTERVALS"
+        ),
+        LIMITED_NUMBER_OF_MESSAGES_IN_RESPONSE_TO_KEYWORDS(
+            "LIMITED_NUMBER_OF_MESSAGES_IN_RESPONSE_TO_KEYWORDS"
+        );
+
+        private final String value;
+
+        private CampaignFrequency(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CampaignFrequency forValue(final String value) {
+            return Promoter.enumFromString(value, CampaignFrequency.values());
+        }
     }
 
     public enum State {
@@ -82,6 +140,374 @@ public class Application extends Resource {
         @JsonCreator
         public static State forValue(final String value) {
             return Promoter.enumFromString(value, State.values());
+        }
+    }
+
+    public enum PaymentFrequency {
+        QUARTERLY("QUARTERLY"),
+        YEARLY("YEARLY");
+
+        private final String value;
+
+        private PaymentFrequency(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static PaymentFrequency forValue(final String value) {
+            return Promoter.enumFromString(value, PaymentFrequency.values());
+        }
+    }
+
+    public enum CustomerCareChannel {
+        TOLL_FREE_NUMBER("TOLL_FREE_NUMBER"),
+        EMAIL("EMAIL");
+
+        private final String value;
+
+        private CustomerCareChannel(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CustomerCareChannel forValue(final String value) {
+            return Promoter.enumFromString(value, CustomerCareChannel.values());
+        }
+    }
+
+    public enum ScUseCaseCategories {
+        TWO_FACTOR_AUTHENTICATION("TWO_FACTOR_AUTHENTICATION"),
+        ACCOUNT_NOTIFICATIONS("ACCOUNT_NOTIFICATIONS"),
+        CUSTOMER_CARE("CUSTOMER_CARE"),
+        CHARITY_NONPROFIT("CHARITY_NONPROFIT"),
+        DELIVERY_NOTIFICATIONS("DELIVERY_NOTIFICATIONS"),
+        FRAUD_ALERT_MESSAGING("FRAUD_ALERT_MESSAGING"),
+        EVENTS("EVENTS"),
+        HIGHER_EDUCATION("HIGHER_EDUCATION"),
+        K12("K12"),
+        MARKETING("MARKETING"),
+        POLLING_AND_VOTING_NON_POLITICAL("POLLING_AND_VOTING_NON_POLITICAL"),
+        POLITICAL_ELECTION_CAMPAIGNS("POLITICAL_ELECTION_CAMPAIGNS"),
+        PUBLIC_SERVICE_ANNOUNCEMENT("PUBLIC_SERVICE_ANNOUNCEMENT"),
+        SECURITY_ALERT("SECURITY_ALERT");
+
+        private final String value;
+
+        private ScUseCaseCategories(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ScUseCaseCategories forValue(final String value) {
+            return Promoter.enumFromString(value, ScUseCaseCategories.values());
+        }
+    }
+
+    public enum LeaseType {
+        RANDOM("RANDOM"),
+        VANITY("VANITY"),
+        SELF_LEASED("SELF_LEASED");
+
+        private final String value;
+
+        private LeaseType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static LeaseType forValue(final String value) {
+            return Promoter.enumFromString(value, LeaseType.values());
+        }
+    }
+
+    public enum RequestType {
+        NEW("NEW"),
+        MIGRATION("MIGRATION"),
+        LEASE("LEASE");
+
+        private final String value;
+
+        private RequestType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static RequestType forValue(final String value) {
+            return Promoter.enumFromString(value, RequestType.values());
+        }
+    }
+
+    public enum TrafficType {
+        TRANSACTIONAL("TRANSACTIONAL"),
+        PROMOTIONAL("PROMOTIONAL"),
+        BOTH("BOTH");
+
+        private final String value;
+
+        private TrafficType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TrafficType forValue(final String value) {
+            return Promoter.enumFromString(value, TrafficType.values());
+        }
+    }
+
+    @JsonDeserialize(
+        builder = CreateShortCodeApplicationResponseUserSignUp.Builder.class
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CreateShortCodeApplicationResponseUserSignUp {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sign_up_options")
+        @Getter
+        private final List<Application.SignUpOptions> signUpOptions;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("double_opt_in_process")
+        @Getter
+        private final Boolean doubleOptInProcess;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("double_opt_in_message")
+        @Getter
+        private final String doubleOptInMessage;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sign_up_confirmation_message")
+        @Getter
+        private final String signUpConfirmationMessage;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("double_opt_in_response_message")
+        @Getter
+        private final String doubleOptInResponseMessage;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("online_web_form_message")
+        @Getter
+        private final String onlineWebFormMessage;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("keyword_message")
+        @Getter
+        private final String keywordMessage;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("ivr_message")
+        @Getter
+        private final String ivrMessage;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("other_form_message")
+        @Getter
+        private final String otherFormMessage;
+
+        private CreateShortCodeApplicationResponseUserSignUp(Builder builder) {
+            this.signUpOptions = builder.signUpOptions;
+            this.doubleOptInProcess = builder.doubleOptInProcess;
+            this.doubleOptInMessage = builder.doubleOptInMessage;
+            this.signUpConfirmationMessage = builder.signUpConfirmationMessage;
+            this.doubleOptInResponseMessage =
+                builder.doubleOptInResponseMessage;
+            this.onlineWebFormMessage = builder.onlineWebFormMessage;
+            this.keywordMessage = builder.keywordMessage;
+            this.ivrMessage = builder.ivrMessage;
+            this.otherFormMessage = builder.otherFormMessage;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CreateShortCodeApplicationResponseUserSignUp fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CreateShortCodeApplicationResponseUserSignUp.class
+            );
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("sign_up_options")
+            private List<Application.SignUpOptions> signUpOptions;
+
+            @JsonProperty("double_opt_in_process")
+            private Boolean doubleOptInProcess;
+
+            @JsonProperty("double_opt_in_message")
+            private String doubleOptInMessage;
+
+            @JsonProperty("sign_up_confirmation_message")
+            private String signUpConfirmationMessage;
+
+            @JsonProperty("double_opt_in_response_message")
+            private String doubleOptInResponseMessage;
+
+            @JsonProperty("online_web_form_message")
+            private String onlineWebFormMessage;
+
+            @JsonProperty("keyword_message")
+            private String keywordMessage;
+
+            @JsonProperty("ivr_message")
+            private String ivrMessage;
+
+            @JsonProperty("other_form_message")
+            private String otherFormMessage;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("sign_up_options")
+            public Builder signUpOptions(
+                List<Application.SignUpOptions> signUpOptions
+            ) {
+                this.signUpOptions = signUpOptions;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("double_opt_in_process")
+            public Builder doubleOptInProcess(Boolean doubleOptInProcess) {
+                this.doubleOptInProcess = doubleOptInProcess;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("double_opt_in_message")
+            public Builder doubleOptInMessage(String doubleOptInMessage) {
+                this.doubleOptInMessage = doubleOptInMessage;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("sign_up_confirmation_message")
+            public Builder signUpConfirmationMessage(
+                String signUpConfirmationMessage
+            ) {
+                this.signUpConfirmationMessage = signUpConfirmationMessage;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("double_opt_in_response_message")
+            public Builder doubleOptInResponseMessage(
+                String doubleOptInResponseMessage
+            ) {
+                this.doubleOptInResponseMessage = doubleOptInResponseMessage;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("online_web_form_message")
+            public Builder onlineWebFormMessage(String onlineWebFormMessage) {
+                this.onlineWebFormMessage = onlineWebFormMessage;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("keyword_message")
+            public Builder keywordMessage(String keywordMessage) {
+                this.keywordMessage = keywordMessage;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("ivr_message")
+            public Builder ivrMessage(String ivrMessage) {
+                this.ivrMessage = ivrMessage;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("other_form_message")
+            public Builder otherFormMessage(String otherFormMessage) {
+                this.otherFormMessage = otherFormMessage;
+                return this;
+            }
+
+            public CreateShortCodeApplicationResponseUserSignUp build() {
+                return new CreateShortCodeApplicationResponseUserSignUp(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateShortCodeApplicationResponseUserSignUp other =
+                (CreateShortCodeApplicationResponseUserSignUp) o;
+            return (
+                Objects.equals(signUpOptions, other.signUpOptions) &&
+                Objects.equals(doubleOptInProcess, other.doubleOptInProcess) &&
+                Objects.equals(doubleOptInMessage, other.doubleOptInMessage) &&
+                Objects.equals(
+                    signUpConfirmationMessage,
+                    other.signUpConfirmationMessage
+                ) &&
+                Objects.equals(
+                    doubleOptInResponseMessage,
+                    other.doubleOptInResponseMessage
+                ) &&
+                Objects.equals(
+                    onlineWebFormMessage,
+                    other.onlineWebFormMessage
+                ) &&
+                Objects.equals(keywordMessage, other.keywordMessage) &&
+                Objects.equals(ivrMessage, other.ivrMessage) &&
+                Objects.equals(otherFormMessage, other.otherFormMessage)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                signUpOptions,
+                doubleOptInProcess,
+                doubleOptInMessage,
+                signUpConfirmationMessage,
+                doubleOptInResponseMessage,
+                onlineWebFormMessage,
+                keywordMessage,
+                ivrMessage,
+                otherFormMessage
+            );
         }
     }
 
@@ -213,6 +639,264 @@ public class Application extends Resource {
     }
 
     @JsonDeserialize(
+        builder = CreateShortCodeApplicationResponseSetup.Builder.class
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CreateShortCodeApplicationResponseSetup {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("request_type")
+        @Getter
+        private final Application.RequestType requestType;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("traffic_type")
+        @Getter
+        private final Application.TrafficType trafficType;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("lease_type")
+        @Getter
+        private final Application.LeaseType leaseType;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("payment_frequency")
+        @Getter
+        private final Application.PaymentFrequency paymentFrequency;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("short_code_preference")
+        @Getter
+        private final String shortCodePreference;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mms_enabled")
+        @Getter
+        private final Boolean mmsEnabled;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("free_to_end_user")
+        @Getter
+        private final Boolean freeToEndUser;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("charges_apply")
+        @Getter
+        private final Boolean chargesApply;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("current_provider")
+        @Getter
+        private final String currentProvider;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("migrated_mms_enabled")
+        @Getter
+        private final Boolean migratedMmsEnabled;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("migrated_live_traffic")
+        @Getter
+        private final Boolean migratedLiveTraffic;
+
+        private CreateShortCodeApplicationResponseSetup(Builder builder) {
+            this.requestType = builder.requestType;
+            this.trafficType = builder.trafficType;
+            this.leaseType = builder.leaseType;
+            this.paymentFrequency = builder.paymentFrequency;
+            this.shortCodePreference = builder.shortCodePreference;
+            this.mmsEnabled = builder.mmsEnabled;
+            this.freeToEndUser = builder.freeToEndUser;
+            this.chargesApply = builder.chargesApply;
+            this.currentProvider = builder.currentProvider;
+            this.migratedMmsEnabled = builder.migratedMmsEnabled;
+            this.migratedLiveTraffic = builder.migratedLiveTraffic;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CreateShortCodeApplicationResponseSetup fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CreateShortCodeApplicationResponseSetup.class
+            );
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("request_type")
+            private Application.RequestType requestType;
+
+            @JsonProperty("traffic_type")
+            private Application.TrafficType trafficType;
+
+            @JsonProperty("lease_type")
+            private Application.LeaseType leaseType;
+
+            @JsonProperty("payment_frequency")
+            private Application.PaymentFrequency paymentFrequency;
+
+            @JsonProperty("short_code_preference")
+            private String shortCodePreference;
+
+            @JsonProperty("mms_enabled")
+            private Boolean mmsEnabled;
+
+            @JsonProperty("free_to_end_user")
+            private Boolean freeToEndUser;
+
+            @JsonProperty("charges_apply")
+            private Boolean chargesApply;
+
+            @JsonProperty("current_provider")
+            private String currentProvider;
+
+            @JsonProperty("migrated_mms_enabled")
+            private Boolean migratedMmsEnabled;
+
+            @JsonProperty("migrated_live_traffic")
+            private Boolean migratedLiveTraffic;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("request_type")
+            public Builder requestType(Application.RequestType requestType) {
+                this.requestType = requestType;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("traffic_type")
+            public Builder trafficType(Application.TrafficType trafficType) {
+                this.trafficType = trafficType;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("lease_type")
+            public Builder leaseType(Application.LeaseType leaseType) {
+                this.leaseType = leaseType;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("payment_frequency")
+            public Builder paymentFrequency(
+                Application.PaymentFrequency paymentFrequency
+            ) {
+                this.paymentFrequency = paymentFrequency;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("short_code_preference")
+            public Builder shortCodePreference(String shortCodePreference) {
+                this.shortCodePreference = shortCodePreference;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("mms_enabled")
+            public Builder mmsEnabled(Boolean mmsEnabled) {
+                this.mmsEnabled = mmsEnabled;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("free_to_end_user")
+            public Builder freeToEndUser(Boolean freeToEndUser) {
+                this.freeToEndUser = freeToEndUser;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("charges_apply")
+            public Builder chargesApply(Boolean chargesApply) {
+                this.chargesApply = chargesApply;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("current_provider")
+            public Builder currentProvider(String currentProvider) {
+                this.currentProvider = currentProvider;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("migrated_mms_enabled")
+            public Builder migratedMmsEnabled(Boolean migratedMmsEnabled) {
+                this.migratedMmsEnabled = migratedMmsEnabled;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("migrated_live_traffic")
+            public Builder migratedLiveTraffic(Boolean migratedLiveTraffic) {
+                this.migratedLiveTraffic = migratedLiveTraffic;
+                return this;
+            }
+
+            public CreateShortCodeApplicationResponseSetup build() {
+                return new CreateShortCodeApplicationResponseSetup(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateShortCodeApplicationResponseSetup other =
+                (CreateShortCodeApplicationResponseSetup) o;
+            return (
+                Objects.equals(requestType, other.requestType) &&
+                Objects.equals(trafficType, other.trafficType) &&
+                Objects.equals(leaseType, other.leaseType) &&
+                Objects.equals(paymentFrequency, other.paymentFrequency) &&
+                Objects.equals(
+                    shortCodePreference,
+                    other.shortCodePreference
+                ) &&
+                Objects.equals(mmsEnabled, other.mmsEnabled) &&
+                Objects.equals(freeToEndUser, other.freeToEndUser) &&
+                Objects.equals(chargesApply, other.chargesApply) &&
+                Objects.equals(currentProvider, other.currentProvider) &&
+                Objects.equals(migratedMmsEnabled, other.migratedMmsEnabled) &&
+                Objects.equals(migratedLiveTraffic, other.migratedLiveTraffic)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                requestType,
+                trafficType,
+                leaseType,
+                paymentFrequency,
+                shortCodePreference,
+                mmsEnabled,
+                freeToEndUser,
+                chargesApply,
+                currentProvider,
+                migratedMmsEnabled,
+                migratedLiveTraffic
+            );
+        }
+    }
+
+    @JsonDeserialize(
         builder = CreateShortCodeApplicationRequestSetup.Builder.class
     )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -278,6 +962,836 @@ public class Application extends Resource {
         @Override
         public int hashCode() {
             return Objects.hash(chargesApply);
+        }
+    }
+
+    @JsonDeserialize(
+        builder = CreateShortCodeApplicationResponseComplianceKeywords.Builder.class
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CreateShortCodeApplicationResponseComplianceKeywords {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("help")
+        @Getter
+        private final String help;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("stop")
+        @Getter
+        private final String stop;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("info")
+        @Getter
+        private final String info;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("aide")
+        @Getter
+        private final String aide;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("arret")
+        @Getter
+        private final String arret;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("opt_out_filtering")
+        @Getter
+        private final Boolean optOutFiltering;
+
+        private CreateShortCodeApplicationResponseComplianceKeywords(
+            Builder builder
+        ) {
+            this.help = builder.help;
+            this.stop = builder.stop;
+            this.info = builder.info;
+            this.aide = builder.aide;
+            this.arret = builder.arret;
+            this.optOutFiltering = builder.optOutFiltering;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CreateShortCodeApplicationResponseComplianceKeywords fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CreateShortCodeApplicationResponseComplianceKeywords.class
+            );
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("help")
+            private String help;
+
+            @JsonProperty("stop")
+            private String stop;
+
+            @JsonProperty("info")
+            private String info;
+
+            @JsonProperty("aide")
+            private String aide;
+
+            @JsonProperty("arret")
+            private String arret;
+
+            @JsonProperty("opt_out_filtering")
+            private Boolean optOutFiltering;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("help")
+            public Builder help(String help) {
+                this.help = help;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("stop")
+            public Builder stop(String stop) {
+                this.stop = stop;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("info")
+            public Builder info(String info) {
+                this.info = info;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("aide")
+            public Builder aide(String aide) {
+                this.aide = aide;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("arret")
+            public Builder arret(String arret) {
+                this.arret = arret;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("opt_out_filtering")
+            public Builder optOutFiltering(Boolean optOutFiltering) {
+                this.optOutFiltering = optOutFiltering;
+                return this;
+            }
+
+            public CreateShortCodeApplicationResponseComplianceKeywords build() {
+                return new CreateShortCodeApplicationResponseComplianceKeywords(
+                    this
+                );
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateShortCodeApplicationResponseComplianceKeywords other =
+                (CreateShortCodeApplicationResponseComplianceKeywords) o;
+            return (
+                Objects.equals(help, other.help) &&
+                Objects.equals(stop, other.stop) &&
+                Objects.equals(info, other.info) &&
+                Objects.equals(aide, other.aide) &&
+                Objects.equals(arret, other.arret) &&
+                Objects.equals(optOutFiltering, other.optOutFiltering)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(help, stop, info, aide, arret, optOutFiltering);
+        }
+    }
+
+    @JsonDeserialize(
+        builder = CreateShortCodeApplicationResponseBusinessInformation.Builder.class
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CreateShortCodeApplicationResponseBusinessInformation {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("managing_company_profile")
+        @Getter
+        private final String managingCompanyProfile;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("customer_facing_profile")
+        @Getter
+        private final String customerFacingProfile;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("business_website")
+        @Getter
+        private final String businessWebsite;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("ein_managing_company_profile")
+        @Getter
+        private final String einManagingCompanyProfile;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("ein_customer_facing_profile")
+        @Getter
+        private final String einCustomerFacingProfile;
+
+        private CreateShortCodeApplicationResponseBusinessInformation(
+            Builder builder
+        ) {
+            this.managingCompanyProfile = builder.managingCompanyProfile;
+            this.customerFacingProfile = builder.customerFacingProfile;
+            this.businessWebsite = builder.businessWebsite;
+            this.einManagingCompanyProfile = builder.einManagingCompanyProfile;
+            this.einCustomerFacingProfile = builder.einCustomerFacingProfile;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CreateShortCodeApplicationResponseBusinessInformation fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CreateShortCodeApplicationResponseBusinessInformation.class
+            );
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("managing_company_profile")
+            private String managingCompanyProfile;
+
+            @JsonProperty("customer_facing_profile")
+            private String customerFacingProfile;
+
+            @JsonProperty("business_website")
+            private String businessWebsite;
+
+            @JsonProperty("ein_managing_company_profile")
+            private String einManagingCompanyProfile;
+
+            @JsonProperty("ein_customer_facing_profile")
+            private String einCustomerFacingProfile;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("managing_company_profile")
+            public Builder managingCompanyProfile(
+                String managingCompanyProfile
+            ) {
+                this.managingCompanyProfile = managingCompanyProfile;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("customer_facing_profile")
+            public Builder customerFacingProfile(String customerFacingProfile) {
+                this.customerFacingProfile = customerFacingProfile;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("business_website")
+            public Builder businessWebsite(String businessWebsite) {
+                this.businessWebsite = businessWebsite;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("ein_managing_company_profile")
+            public Builder einManagingCompanyProfile(
+                String einManagingCompanyProfile
+            ) {
+                this.einManagingCompanyProfile = einManagingCompanyProfile;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("ein_customer_facing_profile")
+            public Builder einCustomerFacingProfile(
+                String einCustomerFacingProfile
+            ) {
+                this.einCustomerFacingProfile = einCustomerFacingProfile;
+                return this;
+            }
+
+            public CreateShortCodeApplicationResponseBusinessInformation build() {
+                return new CreateShortCodeApplicationResponseBusinessInformation(
+                    this
+                );
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateShortCodeApplicationResponseBusinessInformation other =
+                (CreateShortCodeApplicationResponseBusinessInformation) o;
+            return (
+                Objects.equals(
+                    managingCompanyProfile,
+                    other.managingCompanyProfile
+                ) &&
+                Objects.equals(
+                    customerFacingProfile,
+                    other.customerFacingProfile
+                ) &&
+                Objects.equals(businessWebsite, other.businessWebsite) &&
+                Objects.equals(
+                    einManagingCompanyProfile,
+                    other.einManagingCompanyProfile
+                ) &&
+                Objects.equals(
+                    einCustomerFacingProfile,
+                    other.einCustomerFacingProfile
+                )
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                managingCompanyProfile,
+                customerFacingProfile,
+                businessWebsite,
+                einManagingCompanyProfile,
+                einCustomerFacingProfile
+            );
+        }
+    }
+
+    @JsonDeserialize(
+        builder = CreateShortCodeApplicationResponseContentExamples.Builder.class
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CreateShortCodeApplicationResponseContentExamples {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("examples")
+        @Getter
+        private final List<String> examples;
+
+        private CreateShortCodeApplicationResponseContentExamples(
+            Builder builder
+        ) {
+            this.examples = builder.examples;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CreateShortCodeApplicationResponseContentExamples fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CreateShortCodeApplicationResponseContentExamples.class
+            );
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("examples")
+            private List<String> examples;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("examples")
+            public Builder examples(List<String> examples) {
+                this.examples = examples;
+                return this;
+            }
+
+            public CreateShortCodeApplicationResponseContentExamples build() {
+                return new CreateShortCodeApplicationResponseContentExamples(
+                    this
+                );
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateShortCodeApplicationResponseContentExamples other =
+                (CreateShortCodeApplicationResponseContentExamples) o;
+            return (Objects.equals(examples, other.examples));
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(examples);
+        }
+    }
+
+    @JsonDeserialize(
+        builder = CreateShortCodeApplicationResponseSmsCampaignDetails.Builder.class
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CreateShortCodeApplicationResponseSmsCampaignDetails {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("campaign_name")
+        @Getter
+        private final String campaignName;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("campaign_brand_website")
+        @Getter
+        private final String campaignBrandWebsite;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("customer_care_channel")
+        @Getter
+        private final Application.CustomerCareChannel customerCareChannel;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("customer_care_value")
+        @Getter
+        private final String customerCareValue;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("campaign_frequency")
+        @Getter
+        private final List<Application.CampaignFrequency> campaignFrequency;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sc_use_case_categories")
+        @Getter
+        private final List<Application.ScUseCaseCategories> scUseCaseCategories;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sms_terms_of_service_url")
+        @Getter
+        private final String smsTermsOfServiceUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sms_privacy_policy_url")
+        @Getter
+        private final String smsPrivacyPolicyUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("monthly_outbound_volume_expected")
+        @Getter
+        private final String monthlyOutboundVolumeExpected;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("monthly_inbound_volume_expected")
+        @Getter
+        private final String monthlyInboundVolumeExpected;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("avg_monthly_messages_sent_to_each_subscriber")
+        @Getter
+        private final String avgMonthlyMessagesSentToEachSubscriber;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("avg_monthly_messages_received_from_subscribers")
+        @Getter
+        private final String avgMonthlyMessagesReceivedFromSubscribers;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("estimated_total_subscribers")
+        @Getter
+        private final String estimatedTotalSubscribers;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("duration_of_the_campaign")
+        @Getter
+        private final String durationOfTheCampaign;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("planned_traffic_spikes")
+        @Getter
+        private final String plannedTrafficSpikes;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("spike_details")
+        @Getter
+        private final String spikeDetails;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("expected_traffic_start_date")
+        @Getter
+        private final String expectedTrafficStartDate;
+
+        private CreateShortCodeApplicationResponseSmsCampaignDetails(
+            Builder builder
+        ) {
+            this.campaignName = builder.campaignName;
+            this.campaignBrandWebsite = builder.campaignBrandWebsite;
+            this.customerCareChannel = builder.customerCareChannel;
+            this.customerCareValue = builder.customerCareValue;
+            this.campaignFrequency = builder.campaignFrequency;
+            this.scUseCaseCategories = builder.scUseCaseCategories;
+            this.smsTermsOfServiceUrl = builder.smsTermsOfServiceUrl;
+            this.smsPrivacyPolicyUrl = builder.smsPrivacyPolicyUrl;
+            this.monthlyOutboundVolumeExpected =
+                builder.monthlyOutboundVolumeExpected;
+            this.monthlyInboundVolumeExpected =
+                builder.monthlyInboundVolumeExpected;
+            this.avgMonthlyMessagesSentToEachSubscriber =
+                builder.avgMonthlyMessagesSentToEachSubscriber;
+            this.avgMonthlyMessagesReceivedFromSubscribers =
+                builder.avgMonthlyMessagesReceivedFromSubscribers;
+            this.estimatedTotalSubscribers = builder.estimatedTotalSubscribers;
+            this.durationOfTheCampaign = builder.durationOfTheCampaign;
+            this.plannedTrafficSpikes = builder.plannedTrafficSpikes;
+            this.spikeDetails = builder.spikeDetails;
+            this.expectedTrafficStartDate = builder.expectedTrafficStartDate;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CreateShortCodeApplicationResponseSmsCampaignDetails fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CreateShortCodeApplicationResponseSmsCampaignDetails.class
+            );
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("campaign_name")
+            private String campaignName;
+
+            @JsonProperty("campaign_brand_website")
+            private String campaignBrandWebsite;
+
+            @JsonProperty("customer_care_channel")
+            private Application.CustomerCareChannel customerCareChannel;
+
+            @JsonProperty("customer_care_value")
+            private String customerCareValue;
+
+            @JsonProperty("campaign_frequency")
+            private List<Application.CampaignFrequency> campaignFrequency;
+
+            @JsonProperty("sc_use_case_categories")
+            private List<Application.ScUseCaseCategories> scUseCaseCategories;
+
+            @JsonProperty("sms_terms_of_service_url")
+            private String smsTermsOfServiceUrl;
+
+            @JsonProperty("sms_privacy_policy_url")
+            private String smsPrivacyPolicyUrl;
+
+            @JsonProperty("monthly_outbound_volume_expected")
+            private String monthlyOutboundVolumeExpected;
+
+            @JsonProperty("monthly_inbound_volume_expected")
+            private String monthlyInboundVolumeExpected;
+
+            @JsonProperty("avg_monthly_messages_sent_to_each_subscriber")
+            private String avgMonthlyMessagesSentToEachSubscriber;
+
+            @JsonProperty("avg_monthly_messages_received_from_subscribers")
+            private String avgMonthlyMessagesReceivedFromSubscribers;
+
+            @JsonProperty("estimated_total_subscribers")
+            private String estimatedTotalSubscribers;
+
+            @JsonProperty("duration_of_the_campaign")
+            private String durationOfTheCampaign;
+
+            @JsonProperty("planned_traffic_spikes")
+            private String plannedTrafficSpikes;
+
+            @JsonProperty("spike_details")
+            private String spikeDetails;
+
+            @JsonProperty("expected_traffic_start_date")
+            private String expectedTrafficStartDate;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("campaign_name")
+            public Builder campaignName(String campaignName) {
+                this.campaignName = campaignName;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("campaign_brand_website")
+            public Builder campaignBrandWebsite(String campaignBrandWebsite) {
+                this.campaignBrandWebsite = campaignBrandWebsite;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("customer_care_channel")
+            public Builder customerCareChannel(
+                Application.CustomerCareChannel customerCareChannel
+            ) {
+                this.customerCareChannel = customerCareChannel;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("customer_care_value")
+            public Builder customerCareValue(String customerCareValue) {
+                this.customerCareValue = customerCareValue;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("campaign_frequency")
+            public Builder campaignFrequency(
+                List<Application.CampaignFrequency> campaignFrequency
+            ) {
+                this.campaignFrequency = campaignFrequency;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("sc_use_case_categories")
+            public Builder scUseCaseCategories(
+                List<Application.ScUseCaseCategories> scUseCaseCategories
+            ) {
+                this.scUseCaseCategories = scUseCaseCategories;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("sms_terms_of_service_url")
+            public Builder smsTermsOfServiceUrl(String smsTermsOfServiceUrl) {
+                this.smsTermsOfServiceUrl = smsTermsOfServiceUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("sms_privacy_policy_url")
+            public Builder smsPrivacyPolicyUrl(String smsPrivacyPolicyUrl) {
+                this.smsPrivacyPolicyUrl = smsPrivacyPolicyUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("monthly_outbound_volume_expected")
+            public Builder monthlyOutboundVolumeExpected(
+                String monthlyOutboundVolumeExpected
+            ) {
+                this.monthlyOutboundVolumeExpected =
+                    monthlyOutboundVolumeExpected;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("monthly_inbound_volume_expected")
+            public Builder monthlyInboundVolumeExpected(
+                String monthlyInboundVolumeExpected
+            ) {
+                this.monthlyInboundVolumeExpected =
+                    monthlyInboundVolumeExpected;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("avg_monthly_messages_sent_to_each_subscriber")
+            public Builder avgMonthlyMessagesSentToEachSubscriber(
+                String avgMonthlyMessagesSentToEachSubscriber
+            ) {
+                this.avgMonthlyMessagesSentToEachSubscriber =
+                    avgMonthlyMessagesSentToEachSubscriber;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("avg_monthly_messages_received_from_subscribers")
+            public Builder avgMonthlyMessagesReceivedFromSubscribers(
+                String avgMonthlyMessagesReceivedFromSubscribers
+            ) {
+                this.avgMonthlyMessagesReceivedFromSubscribers =
+                    avgMonthlyMessagesReceivedFromSubscribers;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("estimated_total_subscribers")
+            public Builder estimatedTotalSubscribers(
+                String estimatedTotalSubscribers
+            ) {
+                this.estimatedTotalSubscribers = estimatedTotalSubscribers;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("duration_of_the_campaign")
+            public Builder durationOfTheCampaign(String durationOfTheCampaign) {
+                this.durationOfTheCampaign = durationOfTheCampaign;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("planned_traffic_spikes")
+            public Builder plannedTrafficSpikes(String plannedTrafficSpikes) {
+                this.plannedTrafficSpikes = plannedTrafficSpikes;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("spike_details")
+            public Builder spikeDetails(String spikeDetails) {
+                this.spikeDetails = spikeDetails;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("expected_traffic_start_date")
+            public Builder expectedTrafficStartDate(
+                String expectedTrafficStartDate
+            ) {
+                this.expectedTrafficStartDate = expectedTrafficStartDate;
+                return this;
+            }
+
+            public CreateShortCodeApplicationResponseSmsCampaignDetails build() {
+                return new CreateShortCodeApplicationResponseSmsCampaignDetails(
+                    this
+                );
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateShortCodeApplicationResponseSmsCampaignDetails other =
+                (CreateShortCodeApplicationResponseSmsCampaignDetails) o;
+            return (
+                Objects.equals(campaignName, other.campaignName) &&
+                Objects.equals(
+                    campaignBrandWebsite,
+                    other.campaignBrandWebsite
+                ) &&
+                Objects.equals(
+                    customerCareChannel,
+                    other.customerCareChannel
+                ) &&
+                Objects.equals(customerCareValue, other.customerCareValue) &&
+                Objects.equals(campaignFrequency, other.campaignFrequency) &&
+                Objects.equals(
+                    scUseCaseCategories,
+                    other.scUseCaseCategories
+                ) &&
+                Objects.equals(
+                    smsTermsOfServiceUrl,
+                    other.smsTermsOfServiceUrl
+                ) &&
+                Objects.equals(
+                    smsPrivacyPolicyUrl,
+                    other.smsPrivacyPolicyUrl
+                ) &&
+                Objects.equals(
+                    monthlyOutboundVolumeExpected,
+                    other.monthlyOutboundVolumeExpected
+                ) &&
+                Objects.equals(
+                    monthlyInboundVolumeExpected,
+                    other.monthlyInboundVolumeExpected
+                ) &&
+                Objects.equals(
+                    avgMonthlyMessagesSentToEachSubscriber,
+                    other.avgMonthlyMessagesSentToEachSubscriber
+                ) &&
+                Objects.equals(
+                    avgMonthlyMessagesReceivedFromSubscribers,
+                    other.avgMonthlyMessagesReceivedFromSubscribers
+                ) &&
+                Objects.equals(
+                    estimatedTotalSubscribers,
+                    other.estimatedTotalSubscribers
+                ) &&
+                Objects.equals(
+                    durationOfTheCampaign,
+                    other.durationOfTheCampaign
+                ) &&
+                Objects.equals(
+                    plannedTrafficSpikes,
+                    other.plannedTrafficSpikes
+                ) &&
+                Objects.equals(spikeDetails, other.spikeDetails) &&
+                Objects.equals(
+                    expectedTrafficStartDate,
+                    other.expectedTrafficStartDate
+                )
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                campaignName,
+                campaignBrandWebsite,
+                customerCareChannel,
+                customerCareValue,
+                campaignFrequency,
+                scUseCaseCategories,
+                smsTermsOfServiceUrl,
+                smsPrivacyPolicyUrl,
+                monthlyOutboundVolumeExpected,
+                monthlyInboundVolumeExpected,
+                avgMonthlyMessagesSentToEachSubscriber,
+                avgMonthlyMessagesReceivedFromSubscribers,
+                estimatedTotalSubscribers,
+                durationOfTheCampaign,
+                plannedTrafficSpikes,
+                spikeDetails,
+                expectedTrafficStartDate
+            );
         }
     }
 
@@ -417,10 +1931,34 @@ public class Application extends Resource {
     }
 
     @Getter
+    private final String accountSid;
+
+    @Getter
     private final String applicationRequirementsSid;
 
     @Getter
+    private final Integer applicationRequirementsVersion;
+
+    @Getter
     private final String bundleSid;
+
+    @Getter
+    private final CreateShortCodeApplicationResponseBusinessInformation businessInformation;
+
+    @Getter
+    private final CreateShortCodeApplicationResponseComplianceKeywords complianceKeywords;
+
+    @Getter
+    private final CreateShortCodeApplicationResponseContentExamples contentExamples;
+
+    @Getter
+    private final String createdBy;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
 
     @Getter
     private final String friendlyName;
@@ -429,28 +1967,99 @@ public class Application extends Resource {
     private final String isoCountry;
 
     @Getter
+    private final List<String> notificationEmails;
+
+    @Getter
+    private final String reviewer;
+
+    @Getter
+    private final CreateShortCodeApplicationResponseSetup setup;
+
+    @Getter
     private final String sid;
+
+    @Getter
+    private final CreateShortCodeApplicationResponseSmsCampaignDetails smsCampaignDetails;
 
     @Getter
     private final Application.State state;
 
+    @Getter
+    private final String updatedBy;
+
+    @Getter
+    private final CreateShortCodeApplicationResponseUserSignUp userSignUp;
+
+    @Getter
+    private final String zendeskTicketId;
+
     @JsonCreator
     private Application(
+        @JsonProperty("account_sid") final String accountSid,
         @JsonProperty(
             "application_requirements_sid"
         ) final String applicationRequirementsSid,
+        @JsonProperty(
+            "application_requirements_version"
+        ) final Integer applicationRequirementsVersion,
         @JsonProperty("bundle_sid") final String bundleSid,
+        @JsonProperty(
+            "business_information"
+        ) final CreateShortCodeApplicationResponseBusinessInformation businessInformation,
+        @JsonProperty(
+            "compliance_keywords"
+        ) final CreateShortCodeApplicationResponseComplianceKeywords complianceKeywords,
+        @JsonProperty(
+            "content_examples"
+        ) final CreateShortCodeApplicationResponseContentExamples contentExamples,
+        @JsonProperty("created_by") final String createdBy,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("iso_country") final String isoCountry,
+        @JsonProperty("notification_emails") final List<
+            String
+        > notificationEmails,
+        @JsonProperty("reviewer") final String reviewer,
+        @JsonProperty(
+            "setup"
+        ) final CreateShortCodeApplicationResponseSetup setup,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("state") final Application.State state
+        @JsonProperty(
+            "sms_campaign_details"
+        ) final CreateShortCodeApplicationResponseSmsCampaignDetails smsCampaignDetails,
+        @JsonProperty("state") final Application.State state,
+        @JsonProperty("updated_by") final String updatedBy,
+        @JsonProperty(
+            "user_sign_up"
+        ) final CreateShortCodeApplicationResponseUserSignUp userSignUp,
+        @JsonProperty("zendesk_ticket_id") final String zendeskTicketId
     ) {
+        this.accountSid = accountSid;
         this.applicationRequirementsSid = applicationRequirementsSid;
+        this.applicationRequirementsVersion = applicationRequirementsVersion;
         this.bundleSid = bundleSid;
+        this.businessInformation = businessInformation;
+        this.complianceKeywords = complianceKeywords;
+        this.contentExamples = contentExamples;
+        this.createdBy = createdBy;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
         this.isoCountry = isoCountry;
+        this.notificationEmails = notificationEmails;
+        this.reviewer = reviewer;
+        this.setup = setup;
         this.sid = sid;
+        this.smsCampaignDetails = smsCampaignDetails;
         this.state = state;
+        this.updatedBy = updatedBy;
+        this.userSignUp = userSignUp;
+        this.zendeskTicketId = zendeskTicketId;
     }
 
     @Override
@@ -465,27 +2074,60 @@ public class Application extends Resource {
 
         Application other = (Application) o;
         return (
+            Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(
                 applicationRequirementsSid,
                 other.applicationRequirementsSid
             ) &&
+            Objects.equals(
+                applicationRequirementsVersion,
+                other.applicationRequirementsVersion
+            ) &&
             Objects.equals(bundleSid, other.bundleSid) &&
+            Objects.equals(businessInformation, other.businessInformation) &&
+            Objects.equals(complianceKeywords, other.complianceKeywords) &&
+            Objects.equals(contentExamples, other.contentExamples) &&
+            Objects.equals(createdBy, other.createdBy) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(isoCountry, other.isoCountry) &&
+            Objects.equals(notificationEmails, other.notificationEmails) &&
+            Objects.equals(reviewer, other.reviewer) &&
+            Objects.equals(setup, other.setup) &&
             Objects.equals(sid, other.sid) &&
-            Objects.equals(state, other.state)
+            Objects.equals(smsCampaignDetails, other.smsCampaignDetails) &&
+            Objects.equals(state, other.state) &&
+            Objects.equals(updatedBy, other.updatedBy) &&
+            Objects.equals(userSignUp, other.userSignUp) &&
+            Objects.equals(zendeskTicketId, other.zendeskTicketId)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+            accountSid,
             applicationRequirementsSid,
+            applicationRequirementsVersion,
             bundleSid,
+            businessInformation,
+            complianceKeywords,
+            contentExamples,
+            createdBy,
+            dateCreated,
+            dateUpdated,
             friendlyName,
             isoCountry,
+            notificationEmails,
+            reviewer,
+            setup,
             sid,
-            state
+            smsCampaignDetails,
+            state,
+            updatedBy,
+            userSignUp,
+            zendeskTicketId
         );
     }
 }

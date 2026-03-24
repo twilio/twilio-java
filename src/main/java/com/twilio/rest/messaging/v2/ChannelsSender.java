@@ -188,6 +188,26 @@ public class ChannelsSender extends Resource {
         }
     }
 
+    public enum AccountType {
+        ISV("ISV"),
+        ISV_SUB_ACCOUNT("ISVSubAccount");
+
+        private final String value;
+
+        private AccountType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static AccountType forValue(final String value) {
+            return Promoter.enumFromString(value, AccountType.values());
+        }
+    }
+
     public enum FallbackMethod {
         POST("POST"),
         PUT("PUT");
@@ -1996,11 +2016,17 @@ public class ChannelsSender extends Resource {
         @Getter
         private final String voiceApplicationSid;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("account_type")
+        @Getter
+        private final ChannelsSender.AccountType accountType;
+
         private MessagingV2ChannelsSenderConfiguration(Builder builder) {
             this.wabaId = builder.wabaId;
             this.verificationMethod = builder.verificationMethod;
             this.verificationCode = builder.verificationCode;
             this.voiceApplicationSid = builder.voiceApplicationSid;
+            this.accountType = builder.accountType;
         }
 
         public static Builder builder() {
@@ -2032,6 +2058,9 @@ public class ChannelsSender extends Resource {
             @JsonProperty("voice_application_sid")
             private String voiceApplicationSid;
 
+            @JsonProperty("account_type")
+            private ChannelsSender.AccountType accountType;
+
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("waba_id")
             public Builder wabaId(String wabaId) {
@@ -2062,6 +2091,13 @@ public class ChannelsSender extends Resource {
                 return this;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("account_type")
+            public Builder accountType(ChannelsSender.AccountType accountType) {
+                this.accountType = accountType;
+                return this;
+            }
+
             public MessagingV2ChannelsSenderConfiguration build() {
                 return new MessagingV2ChannelsSenderConfiguration(this);
             }
@@ -2083,7 +2119,11 @@ public class ChannelsSender extends Resource {
                 Objects.equals(wabaId, other.wabaId) &&
                 Objects.equals(verificationMethod, other.verificationMethod) &&
                 Objects.equals(verificationCode, other.verificationCode) &&
-                Objects.equals(voiceApplicationSid, other.voiceApplicationSid)
+                Objects.equals(
+                    voiceApplicationSid,
+                    other.voiceApplicationSid
+                ) &&
+                Objects.equals(accountType, other.accountType)
             );
         }
 
@@ -2093,7 +2133,8 @@ public class ChannelsSender extends Resource {
                 wabaId,
                 verificationMethod,
                 verificationCode,
-                voiceApplicationSid
+                voiceApplicationSid,
+                accountType
             );
         }
     }

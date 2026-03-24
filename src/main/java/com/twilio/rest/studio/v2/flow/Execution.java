@@ -159,6 +159,9 @@ public class Execution extends Resource {
     private final String contactChannelAddress;
 
     @Getter
+    private final String contactSid;
+
+    @Getter
     private final Object context;
 
     @Getter
@@ -169,6 +172,9 @@ public class Execution extends Resource {
 
     @Getter
     private final String flowSid;
+
+    @Getter
+    private final Integer flowVersion;
 
     @Getter
     private final Map<String, String> links;
@@ -188,6 +194,7 @@ public class Execution extends Resource {
         @JsonProperty(
             "contact_channel_address"
         ) final String contactChannelAddress,
+        @JsonProperty("contact_sid") final String contactSid,
         @JsonProperty("context") final Object context,
         @JsonProperty("date_created") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
@@ -196,6 +203,7 @@ public class Execution extends Resource {
             using = com.twilio.converter.ISO8601Deserializer.class
         ) final ZonedDateTime dateUpdated,
         @JsonProperty("flow_sid") final String flowSid,
+        @JsonProperty("flow_version") final Integer flowVersion,
         @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("sid") final String sid,
         @JsonProperty("status") final Execution.Status status,
@@ -203,10 +211,12 @@ public class Execution extends Resource {
     ) {
         this.accountSid = accountSid;
         this.contactChannelAddress = contactChannelAddress;
+        this.contactSid = contactSid;
         this.context = context;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
         this.flowSid = flowSid;
+        this.flowVersion = flowVersion;
         this.links = links;
         this.sid = sid;
         this.status = status;
@@ -230,10 +240,12 @@ public class Execution extends Resource {
                 contactChannelAddress,
                 other.contactChannelAddress
             ) &&
+            Objects.equals(contactSid, other.contactSid) &&
             Objects.equals(context, other.context) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(flowSid, other.flowSid) &&
+            Objects.equals(flowVersion, other.flowVersion) &&
             Objects.equals(links, other.links) &&
             Objects.equals(sid, other.sid) &&
             Objects.equals(status, other.status) &&
@@ -246,10 +258,12 @@ public class Execution extends Resource {
         return Objects.hash(
             accountSid,
             contactChannelAddress,
+            contactSid,
             context,
             dateCreated,
             dateUpdated,
             flowSid,
+            flowVersion,
             links,
             sid,
             status,

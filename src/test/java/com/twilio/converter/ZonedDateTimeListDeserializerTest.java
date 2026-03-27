@@ -1,8 +1,8 @@
 package com.twilio.converter;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationContext;
+import tools.jackson.core.JsonParser;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.DeserializationContext;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;

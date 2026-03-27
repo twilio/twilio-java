@@ -28,7 +28,6 @@ import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.type.*;
 import java.io.IOException;
-import java.io.IOException;
 import java.io.InputStream;
 import lombok.ToString;
 
@@ -303,10 +302,8 @@ public class HostedNumberOrder extends Resource {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, HostedNumberOrder.class);
-        } catch (final JsonMappingException | JsonParseException e) {
+        } catch (final DatabindException | StreamReadException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
@@ -325,22 +322,18 @@ public class HostedNumberOrder extends Resource {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, HostedNumberOrder.class);
-        } catch (final JsonMappingException | JsonParseException e) {
+        } catch (final DatabindException | StreamReadException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
     public static String toJson(Object object, ObjectMapper mapper) {
         try {
             return mapper.writeValueAsString(object);
-        } catch (final JsonMappingException e) {
+        } catch (final DatabindException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 

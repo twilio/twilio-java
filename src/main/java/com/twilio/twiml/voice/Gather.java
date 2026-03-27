@@ -7,10 +7,10 @@
 
 package com.twilio.twiml.voice;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonPOJOBuilder;
+import tools.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
@@ -490,7 +490,7 @@ public class Gather extends TwiML {
         public static Builder fromXml(final String xml) throws TwiMLException {
             try {
                 return OBJECT_MAPPER.readValue(xml, Builder.class);
-            } catch (final JsonProcessingException jpe) {
+            } catch (final JacksonException jpe) {
                 throw new TwiMLException(
                     "Failed to deserialize a Gather.Builder from the provided XML string: " + jpe.getMessage());
             } catch (final Exception e) {

@@ -30,6 +30,7 @@ import com.twilio.type.*;
 import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -101,6 +102,47 @@ public class HostedNumberOrder extends Resource {
         @Override
         public int hashCode() {
             return 1;
+        }
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    static class DeleteHostedNumberOrderResponse extends Resource {
+
+        @JsonCreator
+        private DeleteHostedNumberOrderResponse() {}
+
+        public static DeleteHostedNumberOrderResponse fromJson(
+            final InputStream json,
+            final ObjectMapper objectMapper
+        ) {
+            // Convert all checked exceptions to Runtime
+            try {
+                return objectMapper.readValue(
+                    json,
+                    DeleteHostedNumberOrderResponse.class
+                );
+            } catch (final JsonMappingException | JsonParseException e) {
+                throw new ApiException(e.getMessage(), e);
+            } catch (final IOException e) {
+                throw new ApiConnectionException(e.getMessage(), e);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash();
         }
     }
 

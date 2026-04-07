@@ -128,9 +128,9 @@ public class Page<T> {
             List<T> results = new ArrayList<>();
             JsonNode root = mapper.readTree(json);
             JsonNode records = root.get(recordKey);
-           for (final JsonNode record : records) {
-               results.add(mapper.readValue(record.toString(), recordType));
-           }
+            for (final JsonNode record : records) {
+                results.add(mapper.readValue(record.toString(), recordType));
+            }
 
             JsonNode uriNode = root.get("uri");
             if (uriNode != null) {

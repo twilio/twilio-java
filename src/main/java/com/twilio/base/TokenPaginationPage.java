@@ -94,6 +94,9 @@ public class TokenPaginationPage<T> extends Page<T> {
                 String key = meta.get("key").asText();
                 JsonNode records = root.get(key);
 
+                if ( records == null  )
+                    throw new NullPointerException("records not found in response");
+
                 if (records != null && records.isArray() && records.size() > 0 && !records.get(0).isObject()) {
                     // Records are primitives (e.g., strings/IDs); treat the entire
                     // response envelope as a single record of type T.

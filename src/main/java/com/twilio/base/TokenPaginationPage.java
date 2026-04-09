@@ -93,8 +93,18 @@ public class TokenPaginationPage<T> extends Page<T> {
                 JsonNode meta = root.get("meta");
                 String key = meta.get("key").asText();
                 JsonNode records = root.get(key);
-                for (final JsonNode record : records) {
-                    results.add(mapper.readValue(record.toString(), recordType));
+
+                if ( records == null  )
+                    throw new NullPointerException("records not found in response");
+
+                if (records != null && records.isArray() && records.size() > 0 && !records.get(0).isObject()) {
+                    // Records are primitives (e.g., strings/IDs); treat the entire
+                    // response envelope as a single record of type T.
+                    results.add(mapper.readValue(json, recordType));
+                } else if (records != null) {
+                    for (final JsonNode record : records) {
+                        results.add(mapper.readValue(record.toString(), recordType));
+                    }
                 }
 
                 return buildPage(meta, results);

@@ -37,12 +37,18 @@ import java.time.ZonedDateTime;
 public class ExecutionReader extends Reader<Execution> {
 
     private String pathFlowSid;
+    private Execution.Status status;
     private ZonedDateTime dateCreatedFrom;
     private ZonedDateTime dateCreatedTo;
     private Long pageSize;
 
     public ExecutionReader(final String pathFlowSid) {
         this.pathFlowSid = pathFlowSid;
+    }
+
+    public ExecutionReader setStatus(final Execution.Status status) {
+        this.status = status;
+        return this;
     }
 
     public ExecutionReader setDateCreatedFrom(
@@ -206,6 +212,10 @@ public class ExecutionReader extends Reader<Execution> {
     }
 
     private void addQueryParams(final Request request) {
+        if (status != null) {
+            Serializer.toString(request, "status", status, ParameterType.QUERY);
+        }
+
         if (dateCreatedFrom != null) {
             Serializer.toString(
                 request,

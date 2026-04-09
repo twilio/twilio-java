@@ -458,6 +458,45 @@ public class TokenPaginationPageTest {
     }
 
     /**
+     * Test fromJson() with primitive (non-object) records array.
+     * Covers the branch: records.isArray() && records.size() > 0 && !records.get(0).isObject()
+     */
+    @Test
+    public void testFromJsonWithPrimitiveRecords() throws Exception {
+        ObjectNode rootNode = factory.objectNode();
+
+        ObjectNode metaNode = factory.objectNode();
+        metaNode.put("key", "identifiers");
+        metaNode.put("nextToken", "next_token_123");
+        metaNode.put("previousToken", "prev_token_456");
+        metaNode.put("pageSize", 3);
+        rootNode.set("meta", metaNode);
+
+        // Array of primitive strings instead of objects
+        ArrayNode recordsNode = factory.arrayNode();
+        recordsNode.add("SID001");
+        recordsNode.add("SID002");
+        recordsNode.add("SID003");
+        rootNode.set("identifiers", recordsNode);
+
+        String json = mapper.writeValueAsString(rootNode);
+
+        // PrimitiveEnvelopeRecord can deserialize from the full JSON envelope
+        TokenPaginationPage<PrimitiveEnvelopeRecord> page = TokenPaginationPage.fromJson(
+            "identifiers", json, PrimitiveEnvelopeRecord.class, mapper);
+
+        Assert.assertEquals("identifiers", page.getKey());
+        Assert.assertEquals("next_token_123", page.getNextToken());
+        Assert.assertEquals("prev_token_456", page.getPreviousToken());
+        Assert.assertEquals(3, page.getPageSize());
+        // Primitive path wraps the entire envelope as a single record
+        Assert.assertEquals(1, page.getRecords().size());
+        PrimitiveEnvelopeRecord record = page.getRecords().get(0);
+        Assert.assertEquals(3, record.getIdentifiers().size());
+        Assert.assertEquals("SID001", record.getIdentifiers().get(0));
+    }
+
+    /**
      * Helper method to create a sample TokenPaginationPage
      */
     private <T> TokenPaginationPage<T> createSamplePage(
@@ -491,5 +530,18 @@ public class TokenPaginationPageTest {
             this.id = id;
             this.friendlyName = friendlyName;
         }
+    }
+
+    /**
+     * Helper class representing a response envelope with primitive records.
+     * Used to test the branch where records are non-object primitives.
+     */
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)
+    public static class PrimitiveEnvelopeRecord extends Resource {
+        @Getter
+        @Setter
+        private List<String> identifiers;
+
+        public PrimitiveEnvelopeRecord() {}
     }
 }

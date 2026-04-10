@@ -458,6 +458,94 @@ public class TokenPaginationPageTest {
     }
 
     /**
+     * Test fromJson() method with no meta structure (non-paginated response)
+     */
+    @Test
+    public void testFromJsonWithoutMeta() throws Exception {
+        // Create mock JSON without meta structure
+        ObjectNode rootNode = factory.objectNode();
+
+        // Add sample records without meta
+        ArrayNode recordsNode = factory.arrayNode();
+        ObjectNode record1 = factory.objectNode();
+        record1.put("id", "id1");
+        record1.put("friendlyName", "Test Service 1");
+        recordsNode.add(record1);
+
+        ObjectNode record2 = factory.objectNode();
+        record2.put("id", "id2");
+        record2.put("friendlyName", "Test Service 2");
+        recordsNode.add(record2);
+
+        rootNode.set("imports", recordsNode);
+
+        String json = mapper.writeValueAsString(rootNode);
+
+        // Parse JSON using fromJson
+        TokenPaginationPage<TestRecord> page = TokenPaginationPage.fromJson(
+            "imports", json, TestRecord.class, mapper);
+
+        // Verify the page handles missing meta gracefully
+        Assert.assertEquals("imports", page.getKey());
+        Assert.assertNull(page.getNextToken());
+        Assert.assertNull(page.getPreviousToken());
+        Assert.assertEquals(2, page.getPageSize());
+        Assert.assertEquals(2, page.getRecords().size());
+        Assert.assertEquals("id1", page.getRecords().get(0).getId());
+        Assert.assertEquals("Test Service 1", page.getRecords().get(0).getFriendlyName());
+        Assert.assertFalse(page.hasNextPage());
+    }
+
+    /**
+     * Test fromJson() method with no meta and primitive records
+     */
+    @Test
+    public void testFromJsonWithoutMetaAndPrimitiveRecords() throws Exception {
+        ObjectNode rootNode = factory.objectNode();
+
+        // Array of primitive strings without meta
+        ArrayNode recordsNode = factory.arrayNode();
+        recordsNode.add("import_001");
+        recordsNode.add("import_002");
+        recordsNode.add("import_003");
+        rootNode.set("imports", recordsNode);
+
+        String json = mapper.writeValueAsString(rootNode);
+
+        // PrimitiveImportRecord can deserialize from the full JSON envelope
+        TokenPaginationPage<PrimitiveImportRecord> page = TokenPaginationPage.fromJson(
+            "imports", json, PrimitiveImportRecord.class, mapper);
+
+        Assert.assertEquals("imports", page.getKey());
+        Assert.assertNull(page.getNextToken());
+        Assert.assertNull(page.getPreviousToken());
+        // Primitive path wraps the entire envelope as a single record
+        Assert.assertEquals(1, page.getRecords().size());
+        PrimitiveImportRecord record = page.getRecords().get(0);
+        Assert.assertEquals(3, record.getImports().size());
+        Assert.assertEquals("import_001", record.getImports().get(0));
+        Assert.assertFalse(page.hasNextPage());
+    }
+
+    /**
+     * Test fromJson() method with no meta and missing record key
+     */
+    @Test(expected = ApiException.class)
+    public void testFromJsonWithoutMetaAndMissingRecordKey() throws Exception {
+        ObjectNode rootNode = factory.objectNode();
+
+        // Add records under a different key
+        ArrayNode recordsNode = factory.arrayNode();
+        recordsNode.add(factory.objectNode().put("id", "id1"));
+        rootNode.set("other_key", recordsNode);
+
+        String json = mapper.writeValueAsString(rootNode);
+
+        // Try to parse with wrong record key - should throw exception
+        TokenPaginationPage.fromJson("imports", json, TestRecord.class, mapper);
+    }
+
+    /**
      * Test fromJson() with primitive (non-object) records array.
      * Covers the branch: records.isArray() && records.size() > 0 && !records.get(0).isObject()
      */
@@ -543,5 +631,18 @@ public class TokenPaginationPageTest {
         private List<String> identifiers;
 
         public PrimitiveEnvelopeRecord() {}
+    }
+
+    /**
+     * Helper class representing an imports response envelope with primitive records.
+     * Used to test the branch where meta is absent and records are primitives.
+     */
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)
+    public static class PrimitiveImportRecord extends Resource {
+        @Getter
+        @Setter
+        private List<String> imports;
+
+        public PrimitiveImportRecord() {}
     }
 }

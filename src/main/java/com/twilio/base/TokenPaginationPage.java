@@ -91,6 +91,10 @@ public class TokenPaginationPage<T> extends Page<T> {
             JsonNode root = mapper.readTree(json);
             try {
                 JsonNode meta = root.get("meta");
+
+                if (meta == null) {
+                    return buildPageWithoutMeta(recordKey, root, results, recordType, mapper);
+                }
                 String key = meta.get("key").asText();
                 JsonNode records = root.get(key);
 
@@ -117,6 +121,31 @@ public class TokenPaginationPage<T> extends Page<T> {
                 "Unable to deserialize response: " + e.getMessage() + "\nJSON: " + json, e
             );
         }
+    }
+
+    private static <T> TokenPaginationPage<T> buildPageWithoutMeta(
+        String recordKey, JsonNode root, List<T> results, Class<T> recordType, ObjectMapper mapper) throws IOException {
+        JsonNode records = root.get(recordKey);
+
+        if (records == null) {
+            throw new NullPointerException("records not found in response");
+        }
+
+        if (records.isArray() && records.size() > 0 && !records.get(0).isObject()) {
+            // Records are primitives; treat the entire response as a single record
+            results.add(mapper.readValue(root.toString(), recordType));
+        } else {
+            for (final JsonNode record : records) {
+                results.add(mapper.readValue(record.toString(), recordType));
+            }
+        }
+
+        // Build a non-paginated page using the recordKey
+        return new Builder<T>()
+            .key(recordKey)
+            .records(results)
+            .pageSize(results.size())
+            .build();
     }
 
     private static <T> TokenPaginationPage<T> buildPage(JsonNode meta, List<T> results) {

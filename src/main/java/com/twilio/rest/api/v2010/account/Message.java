@@ -334,6 +334,35 @@ public class Message extends Resource {
         }
     }
 
+    public enum MessageIntent {
+        OTP("otp"),
+        NOTIFICATIONS("notifications"),
+        FRAUD("fraud"),
+        SECURITY("security"),
+        CUSTOMERCARE("customercare"),
+        DELIVERY("delivery"),
+        EDUCATION("education"),
+        EVENTS("events"),
+        POLLING("polling"),
+        ANNOUNCEMENTS("announcements"),
+        MARKETING("marketing");
+
+        private final String value;
+
+        private MessageIntent(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static MessageIntent forValue(final String value) {
+            return Promoter.enumFromString(value, MessageIntent.values());
+        }
+    }
+
     /**
      * Converts a JSON String into a Message object using the provided ObjectMapper.
      *

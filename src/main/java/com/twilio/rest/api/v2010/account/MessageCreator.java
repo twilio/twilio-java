@@ -62,6 +62,7 @@ public class MessageCreator extends Creator<Message> {
     private String body;
     private List<URI> mediaUrl;
     private String contentSid;
+    private Message.MessageIntent messageIntent;
 
     public MessageCreator(
         final com.twilio.type.PhoneNumber to,
@@ -304,6 +305,13 @@ public class MessageCreator extends Creator<Message> {
 
     public MessageCreator setContentSid(final String contentSid) {
         this.contentSid = contentSid;
+        return this;
+    }
+
+    public MessageCreator setMessageIntent(
+        final Message.MessageIntent messageIntent
+    ) {
+        this.messageIntent = messageIntent;
         return this;
     }
 
@@ -585,6 +593,15 @@ public class MessageCreator extends Creator<Message> {
                 request,
                 "ContentSid",
                 contentSid,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (messageIntent != null) {
+            Serializer.toString(
+                request,
+                "MessageIntent",
+                messageIntent,
                 ParameterType.URLENCODED
             );
         }

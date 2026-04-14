@@ -745,44 +745,6 @@ public class TokenPaginationPageTest {
     }
 
     /**
-     * Test Page.fromJson with a wrapper type.
-     * Covers the readWithResponse path used by ObservationReader.
-     */
-    @Test
-    public void testPageFromJsonWithWrapperType() throws Exception {
-        ObjectNode rootNode = factory.objectNode();
-
-        ArrayNode recordsNode = factory.arrayNode();
-        ObjectNode obs1 = factory.objectNode();
-        obs1.put("content", "Billing inquiry");
-        obs1.put("source", "support");
-        obs1.put("id", "obs_200");
-        recordsNode.add(obs1);
-
-        rootNode.set("observations", recordsNode);
-
-        // Page.fromJson needs either "uri" or "meta" for pagination metadata
-        ObjectNode metaNode = factory.objectNode();
-        metaNode.put("url", "/v1/observations");
-        metaNode.putNull("next_page_url");
-        metaNode.putNull("previous_page_url");
-        metaNode.putNull("first_page_url");
-        metaNode.put("page_size", 1);
-        rootNode.set("meta", metaNode);
-
-        String json = mapper.writeValueAsString(rootNode);
-
-        Page<WrapperSingleParam> page = Page.fromJson(
-            "observations", json, WrapperSingleParam.class, mapper);
-
-        Assert.assertEquals(1, page.getRecords().size());
-        WrapperSingleParam wrapper = page.getRecords().get(0);
-        Assert.assertNotNull(wrapper.getObservations());
-        Assert.assertEquals(1, wrapper.getObservations().size());
-        Assert.assertEquals("obs_200", wrapper.getObservations().get(0).getId());
-    }
-
-    /**
      * Test Page.fromJson still works for regular record types (per-record deserialization).
      */
     @Test

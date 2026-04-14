@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.TwilioRestClient;
@@ -599,6 +602,242 @@ public class TokenPaginationPageTest {
     }
 
     /**
+     * Test TokenPaginationPage.fromJson with a wrapper type (single @JsonCreator param matching key).
+     * Simulates ListObservationResponse: recordType has @JsonCreator with @JsonProperty("observations").
+     */
+    @Test
+    public void testFromJsonWithWrapperTypeSingleParam() throws Exception {
+        ObjectNode rootNode = factory.objectNode();
+
+        ObjectNode metaNode = factory.objectNode();
+        metaNode.put("key", "observations");
+        metaNode.put("nextToken", "token_abc");
+        metaNode.put("pageSize", 2);
+        rootNode.set("meta", metaNode);
+
+        ArrayNode recordsNode = factory.arrayNode();
+        ObjectNode obs1 = factory.objectNode();
+        obs1.put("content", "Customer expressed frustration");
+        obs1.put("source", "customer_service");
+        obs1.put("id", "obs_001");
+        recordsNode.add(obs1);
+
+        ObjectNode obs2 = factory.objectNode();
+        obs2.put("content", "Follow-up scheduled");
+        obs2.put("source", "agent_notes");
+        obs2.put("id", "obs_002");
+        recordsNode.add(obs2);
+
+        rootNode.set("observations", recordsNode);
+
+        String json = mapper.writeValueAsString(rootNode);
+
+        TokenPaginationPage<WrapperSingleParam> page = TokenPaginationPage.fromJson(
+            "observations", json, WrapperSingleParam.class, mapper);
+
+        Assert.assertEquals(1, page.getRecords().size());
+        WrapperSingleParam wrapper = page.getRecords().get(0);
+        Assert.assertNotNull(wrapper.getObservations());
+        Assert.assertEquals(2, wrapper.getObservations().size());
+        Assert.assertEquals("obs_001", wrapper.getObservations().get(0).getId());
+        Assert.assertEquals("Customer expressed frustration", wrapper.getObservations().get(0).getContent());
+        Assert.assertEquals("obs_002", wrapper.getObservations().get(1).getId());
+    }
+
+    /**
+     * Test TokenPaginationPage.fromJson with a wrapper type having multiple @JsonCreator params.
+     * Simulates ListTraitGroupResponse with both meta and traitGroups params.
+     */
+    @Test
+    public void testFromJsonWithWrapperTypeMultipleParams() throws Exception {
+        ObjectNode rootNode = factory.objectNode();
+
+        ObjectNode metaNode = factory.objectNode();
+        metaNode.put("key", "traitGroups");
+        metaNode.put("nextToken", "tg_next");
+        metaNode.put("pageSize", 2);
+        rootNode.set("meta", metaNode);
+
+        ArrayNode recordsNode = factory.arrayNode();
+        ObjectNode tg1 = factory.objectNode();
+        tg1.put("id", "tg_001");
+        tg1.put("name", "Demographics");
+        recordsNode.add(tg1);
+
+        ObjectNode tg2 = factory.objectNode();
+        tg2.put("id", "tg_002");
+        tg2.put("name", "Preferences");
+        recordsNode.add(tg2);
+
+        rootNode.set("traitGroups", recordsNode);
+
+        String json = mapper.writeValueAsString(rootNode);
+
+        TokenPaginationPage<WrapperMultiParam> page = TokenPaginationPage.fromJson(
+            "traitGroups", json, WrapperMultiParam.class, mapper);
+
+        Assert.assertEquals(1, page.getRecords().size());
+        WrapperMultiParam wrapper = page.getRecords().get(0);
+        Assert.assertNotNull(wrapper.getTraitGroups());
+        Assert.assertEquals(2, wrapper.getTraitGroups().size());
+        Assert.assertEquals("tg_001", wrapper.getTraitGroups().get(0).getId());
+        Assert.assertEquals("Demographics", wrapper.getTraitGroups().get(0).getName());
+    }
+
+    /**
+     * Test that regular (non-wrapper) record types still get per-record deserialization.
+     * Ensures the wrapper type detection doesn't break the normal path.
+     */
+    @Test
+    public void testFromJsonWithNonWrapperTypeStillWorksPerRecord() throws Exception {
+        ObjectNode rootNode = factory.objectNode();
+
+        ObjectNode metaNode = factory.objectNode();
+        metaNode.put("key", "services");
+        metaNode.put("nextToken", "next_123");
+        metaNode.put("pageSize", 2);
+        rootNode.set("meta", metaNode);
+
+        ArrayNode recordsNode = factory.arrayNode();
+        recordsNode.add(factory.objectNode().put("id", "svc_1").put("friendlyName", "Service One"));
+        recordsNode.add(factory.objectNode().put("id", "svc_2").put("friendlyName", "Service Two"));
+        rootNode.set("services", recordsNode);
+
+        String json = mapper.writeValueAsString(rootNode);
+
+        TokenPaginationPage<TestRecord> page = TokenPaginationPage.fromJson(
+            "services", json, TestRecord.class, mapper);
+
+        Assert.assertEquals(2, page.getRecords().size());
+        Assert.assertEquals("svc_1", page.getRecords().get(0).getId());
+        Assert.assertEquals("Service One", page.getRecords().get(0).getFriendlyName());
+        Assert.assertEquals("svc_2", page.getRecords().get(1).getId());
+        Assert.assertEquals("Service Two", page.getRecords().get(1).getFriendlyName());
+    }
+
+    /**
+     * Test wrapper type deserialization without meta (non-paginated response).
+     * Covers the buildPageWithoutMeta path.
+     */
+    @Test
+    public void testFromJsonWithWrapperTypeWithoutMeta() throws Exception {
+        ObjectNode rootNode = factory.objectNode();
+
+        ArrayNode recordsNode = factory.arrayNode();
+        ObjectNode obs1 = factory.objectNode();
+        obs1.put("content", "Note from call");
+        obs1.put("source", "call_log");
+        obs1.put("id", "obs_100");
+        recordsNode.add(obs1);
+
+        rootNode.set("observations", recordsNode);
+
+        String json = mapper.writeValueAsString(rootNode);
+
+        TokenPaginationPage<WrapperSingleParam> page = TokenPaginationPage.fromJson(
+            "observations", json, WrapperSingleParam.class, mapper);
+
+        Assert.assertEquals(1, page.getRecords().size());
+        WrapperSingleParam wrapper = page.getRecords().get(0);
+        Assert.assertNotNull(wrapper.getObservations());
+        Assert.assertEquals(1, wrapper.getObservations().size());
+        Assert.assertEquals("obs_100", wrapper.getObservations().get(0).getId());
+    }
+
+    /**
+     * Test Page.fromJson with a wrapper type.
+     * Covers the readWithResponse path used by ObservationReader.
+     */
+    @Test
+    public void testPageFromJsonWithWrapperType() throws Exception {
+        ObjectNode rootNode = factory.objectNode();
+
+        ArrayNode recordsNode = factory.arrayNode();
+        ObjectNode obs1 = factory.objectNode();
+        obs1.put("content", "Billing inquiry");
+        obs1.put("source", "support");
+        obs1.put("id", "obs_200");
+        recordsNode.add(obs1);
+
+        rootNode.set("observations", recordsNode);
+
+        // Page.fromJson needs either "uri" or "meta" for pagination metadata
+        ObjectNode metaNode = factory.objectNode();
+        metaNode.put("url", "/v1/observations");
+        metaNode.putNull("next_page_url");
+        metaNode.putNull("previous_page_url");
+        metaNode.putNull("first_page_url");
+        metaNode.put("page_size", 1);
+        rootNode.set("meta", metaNode);
+
+        String json = mapper.writeValueAsString(rootNode);
+
+        Page<WrapperSingleParam> page = Page.fromJson(
+            "observations", json, WrapperSingleParam.class, mapper);
+
+        Assert.assertEquals(1, page.getRecords().size());
+        WrapperSingleParam wrapper = page.getRecords().get(0);
+        Assert.assertNotNull(wrapper.getObservations());
+        Assert.assertEquals(1, wrapper.getObservations().size());
+        Assert.assertEquals("obs_200", wrapper.getObservations().get(0).getId());
+    }
+
+    /**
+     * Test Page.fromJson still works for regular record types (per-record deserialization).
+     */
+    @Test
+    public void testPageFromJsonWithNonWrapperType() throws Exception {
+        ObjectNode rootNode = factory.objectNode();
+
+        ArrayNode recordsNode = factory.arrayNode();
+        recordsNode.add(factory.objectNode().put("id", "r1").put("friendlyName", "First"));
+        recordsNode.add(factory.objectNode().put("id", "r2").put("friendlyName", "Second"));
+        rootNode.set("records", recordsNode);
+
+        rootNode.put("uri", "/2010-04-01/Accounts/AC123/Records.json");
+        rootNode.putNull("next_page_uri");
+        rootNode.putNull("previous_page_uri");
+        rootNode.putNull("first_page_uri");
+        rootNode.put("page_size", 2);
+
+        String json = mapper.writeValueAsString(rootNode);
+
+        Page<TestRecord> page = Page.fromJson(
+            "records", json, TestRecord.class, mapper);
+
+        Assert.assertEquals(2, page.getRecords().size());
+        Assert.assertEquals("r1", page.getRecords().get(0).getId());
+        Assert.assertEquals("First", page.getRecords().get(0).getFriendlyName());
+        Assert.assertEquals("r2", page.getRecords().get(1).getId());
+        Assert.assertEquals("Second", page.getRecords().get(1).getFriendlyName());
+    }
+
+    /**
+     * Test wrapper type with empty records array still produces a wrapper with empty list.
+     */
+    @Test
+    public void testFromJsonWithWrapperTypeEmptyRecords() throws Exception {
+        ObjectNode rootNode = factory.objectNode();
+
+        ObjectNode metaNode = factory.objectNode();
+        metaNode.put("key", "observations");
+        metaNode.put("pageSize", 0);
+        rootNode.set("meta", metaNode);
+
+        rootNode.set("observations", factory.arrayNode());
+
+        String json = mapper.writeValueAsString(rootNode);
+
+        TokenPaginationPage<WrapperSingleParam> page = TokenPaginationPage.fromJson(
+            "observations", json, WrapperSingleParam.class, mapper);
+
+        Assert.assertEquals(1, page.getRecords().size());
+        WrapperSingleParam wrapper = page.getRecords().get(0);
+        Assert.assertNotNull(wrapper.getObservations());
+        Assert.assertEquals(0, wrapper.getObservations().size());
+    }
+
+    /**
      * Helper class for testing JSON deserialization.
      *
      * This simple POJO represents a record that can be deserialized from JSON, allowing
@@ -637,12 +876,90 @@ public class TokenPaginationPageTest {
      * Helper class representing an imports response envelope with primitive records.
      * Used to test the branch where meta is absent and records are primitives.
      */
-    @com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PrimitiveImportRecord extends Resource {
         @Getter
         @Setter
         private List<String> imports;
 
         public PrimitiveImportRecord() {}
+    }
+
+    /**
+     * Wrapper type with a single @JsonCreator param matching the record key.
+     * Simulates ListObservationResponse where the constructor only takes the list.
+     */
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class WrapperSingleParam extends Resource {
+        @Getter
+        private final List<ObservationItem> observations;
+
+        @JsonCreator
+        private WrapperSingleParam(
+            @JsonProperty("observations") final List<ObservationItem> observations
+        ) {
+            this.observations = observations;
+        }
+    }
+
+    /**
+     * Wrapper type with multiple @JsonCreator params, one matching the record key.
+     * Simulates ListTraitGroupResponse with both meta and the list.
+     */
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class WrapperMultiParam extends Resource {
+        @Getter
+        private final WrapperMeta meta;
+
+        @Getter
+        private final List<TraitGroupItem> traitGroups;
+
+        @JsonCreator
+        private WrapperMultiParam(
+            @JsonProperty("meta") final WrapperMeta meta,
+            @JsonProperty("traitGroups") final List<TraitGroupItem> traitGroups
+        ) {
+            this.meta = meta;
+            this.traitGroups = traitGroups;
+        }
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class ObservationItem {
+        @Getter
+        @Setter
+        private String id;
+        @Getter
+        @Setter
+        private String content;
+        @Getter
+        @Setter
+        private String source;
+
+        public ObservationItem() {}
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class TraitGroupItem {
+        @Getter
+        @Setter
+        private String id;
+        @Getter
+        @Setter
+        private String name;
+
+        public TraitGroupItem() {}
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class WrapperMeta {
+        @Getter
+        @Setter
+        private String key;
+        @Getter
+        @Setter
+        private Integer pageSize;
+
+        public WrapperMeta() {}
     }
 }

@@ -105,6 +105,10 @@ public class TokenPaginationPage<T> extends Page<T> {
                     // Records are primitives (e.g., strings/IDs); treat the entire
                     // response envelope as a single record of type T.
                     results.add(mapper.readValue(json, recordType));
+                } else if (records != null && isWrapperType(key, recordType)) {
+                    // recordType wraps the array under the key (e.g., ListObservationResponse);
+                    // deserialize the full response as a single record.
+                    results.add(mapper.readValue(json, recordType));
                 } else if (records != null) {
                     for (final JsonNode record : records) {
                         results.add(mapper.readValue(record.toString(), recordType));
@@ -133,6 +137,9 @@ public class TokenPaginationPage<T> extends Page<T> {
 
         if (records.isArray() && records.size() > 0 && !records.get(0).isObject()) {
             // Records are primitives; treat the entire response as a single record
+            results.add(mapper.readValue(root.toString(), recordType));
+        } else if (isWrapperType(recordKey, recordType)) {
+            // recordType wraps the array under the key; deserialize the full response
             results.add(mapper.readValue(root.toString(), recordType));
         } else {
             for (final JsonNode record : records) {
@@ -208,4 +215,5 @@ public class TokenPaginationPage<T> extends Page<T> {
             return new TokenPaginationPage<>(this);
         }
     }
+
 }

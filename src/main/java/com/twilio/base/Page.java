@@ -1,10 +1,14 @@
 package com.twilio.base;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.exception.ApiConnectionException;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,6 +148,29 @@ public class Page<T> {
                 "Unable to deserialize response: " + e.getMessage() + "\nJSON: " + json, e
             );
         }
+    }
+
+    /**
+     * Checks if the recordType is a wrapper type whose @JsonCreator constructor
+     * has a parameter with a @JsonProperty matching the record key.
+     * Wrapper types expect the full response (with the array nested under the key)
+     * rather than individual record deserialization.
+     */
+    protected static boolean isWrapperType(String key, Class<?> recordType) {
+        try {
+            for (Constructor<?> ctor : recordType.getDeclaredConstructors()) {
+                if (ctor.isAnnotationPresent(JsonCreator.class)) {
+                    for (Parameter param : ctor.getParameters()) {
+                        JsonProperty prop = param.getAnnotation(JsonProperty.class);
+                        if (prop != null && prop.value().equals(key)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return false;
     }
 
     private static <T> Page<T> buildPage(JsonNode root, List<T> results) {

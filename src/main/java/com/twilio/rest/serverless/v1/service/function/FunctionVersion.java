@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
@@ -141,6 +142,7 @@ public class FunctionVersion extends Resource {
     @Getter
     private final String accountSid;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime dateCreated;
 
@@ -170,6 +172,8 @@ public class FunctionVersion extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("date_created") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime dateCreated,
         @JsonProperty("function_sid") final String functionSid,
         @JsonProperty("links") final Map<String, String> links,

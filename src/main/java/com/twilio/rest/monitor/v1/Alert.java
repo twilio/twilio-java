@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
@@ -114,12 +115,15 @@ public class Alert extends Resource {
     @Getter
     private final String apiVersion;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime dateCreated;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime dateGenerated;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime dateUpdated;
 
@@ -169,12 +173,18 @@ public class Alert extends Resource {
         @JsonProperty("api_version") final String apiVersion,
         @JsonProperty("date_created") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime dateCreated,
         @JsonProperty("date_generated") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime dateGenerated,
         @JsonProperty("date_updated") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime dateUpdated,
         @JsonProperty("error_code") final String errorCode,
         @JsonProperty("log_level") final String logLevel,

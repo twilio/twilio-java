@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
@@ -115,6 +116,7 @@ public class PluginConfiguration extends Resource {
     @Getter
     private final Boolean archived;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime dateCreated;
 
@@ -139,6 +141,8 @@ public class PluginConfiguration extends Resource {
         @JsonProperty("archived") final Boolean archived,
         @JsonProperty("date_created") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime dateCreated,
         @JsonProperty("description") final String description,
         @JsonProperty("links") final Map<String, String> links,

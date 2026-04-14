@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
@@ -108,12 +109,14 @@ public class DataSession extends Resource {
     @Getter
     private final Object cellLocationEstimate;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime end;
 
     @Getter
     private final String imei;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime lastUpdated;
 
@@ -144,6 +147,7 @@ public class DataSession extends Resource {
     @Getter
     private final String simSid;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime start;
 
@@ -156,10 +160,14 @@ public class DataSession extends Resource {
         ) final Object cellLocationEstimate,
         @JsonProperty("end") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime end,
         @JsonProperty("imei") final String imei,
         @JsonProperty("last_updated") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime lastUpdated,
         @JsonProperty("operator_country") final String operatorCountry,
         @JsonProperty("operator_mcc") final String operatorMcc,
@@ -172,6 +180,8 @@ public class DataSession extends Resource {
         @JsonProperty("sim_sid") final String simSid,
         @JsonProperty("start") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime start
     ) {
         this.accountSid = accountSid;

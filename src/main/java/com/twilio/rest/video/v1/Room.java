@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
@@ -85,9 +86,9 @@ public class Room extends Resource {
     }
 
     public enum RoomType {
+        GROUP("group"),
         GO("go"),
         PEER_TO_PEER("peer-to-peer"),
-        GROUP("group"),
         GROUP_SMALL("group-small");
 
         private final String value;
@@ -208,9 +209,11 @@ public class Room extends Resource {
     @Getter
     private final Boolean audioOnly;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime dateCreated;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime dateUpdated;
 
@@ -223,6 +226,7 @@ public class Room extends Resource {
     @Getter
     private final Boolean enableTurn;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime endTime;
 
@@ -280,15 +284,21 @@ public class Room extends Resource {
         @JsonProperty("audio_only") final Boolean audioOnly,
         @JsonProperty("date_created") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime dateCreated,
         @JsonProperty("date_updated") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime dateUpdated,
         @JsonProperty("duration") final Integer duration,
         @JsonProperty("empty_room_timeout") final Integer emptyRoomTimeout,
         @JsonProperty("enable_turn") final Boolean enableTurn,
         @JsonProperty("end_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime endTime,
         @JsonProperty("large_room") final Boolean largeRoom,
         @JsonProperty("links") final Map<String, String> links,

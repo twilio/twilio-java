@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
@@ -337,6 +338,7 @@ public class PortingPortIn extends Resource {
         private final String phoneNumber;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("port_date")
         @Getter
@@ -426,6 +428,7 @@ public class PortingPortIn extends Resource {
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonProperty("port_date")
             private ZonedDateTime portDate;
 
@@ -483,6 +486,7 @@ public class PortingPortIn extends Resource {
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("port_date")
             public Builder portDate(ZonedDateTime portDate) {
@@ -1263,6 +1267,7 @@ public class PortingPortIn extends Resource {
     @Getter
     private final String bundleSid;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime dateCreated;
 
@@ -1317,6 +1322,8 @@ public class PortingPortIn extends Resource {
         @JsonProperty("bundle_sid") final String bundleSid,
         @JsonProperty("date_created") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime dateCreated,
         @JsonProperty("documents") final List<String> documents,
         @JsonProperty(

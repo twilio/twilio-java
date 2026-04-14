@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
@@ -164,9 +165,11 @@ public class Execution extends Resource {
     @Getter
     private final Object context;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime dateCreated;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime dateUpdated;
 
@@ -175,6 +178,9 @@ public class Execution extends Resource {
 
     @Getter
     private final Integer flowVersion;
+
+    @Getter
+    private final String initiatedBy;
 
     @Getter
     private final Map<String, String> links;
@@ -198,12 +204,17 @@ public class Execution extends Resource {
         @JsonProperty("context") final Object context,
         @JsonProperty("date_created") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime dateCreated,
         @JsonProperty("date_updated") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime dateUpdated,
         @JsonProperty("flow_sid") final String flowSid,
         @JsonProperty("flow_version") final Integer flowVersion,
+        @JsonProperty("initiated_by") final String initiatedBy,
         @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("sid") final String sid,
         @JsonProperty("status") final Execution.Status status,
@@ -217,6 +228,7 @@ public class Execution extends Resource {
         this.dateUpdated = dateUpdated;
         this.flowSid = flowSid;
         this.flowVersion = flowVersion;
+        this.initiatedBy = initiatedBy;
         this.links = links;
         this.sid = sid;
         this.status = status;
@@ -246,6 +258,7 @@ public class Execution extends Resource {
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(flowSid, other.flowSid) &&
             Objects.equals(flowVersion, other.flowVersion) &&
+            Objects.equals(initiatedBy, other.initiatedBy) &&
             Objects.equals(links, other.links) &&
             Objects.equals(sid, other.sid) &&
             Objects.equals(status, other.status) &&
@@ -264,6 +277,7 @@ public class Execution extends Resource {
             dateUpdated,
             flowSid,
             flowVersion,
+            initiatedBy,
             links,
             sid,
             status,

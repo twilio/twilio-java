@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
@@ -67,6 +68,18 @@ public class User extends Resource {
 
     public static UserReader reader(final String pathOrganizationSid) {
         return new UserReader(pathOrganizationSid);
+    }
+
+    public static UserPatcher patcher(
+        final String pathOrganizationSid,
+        final String pathUserSid,
+        final User.ScimPatchRequest scimPatchRequest
+    ) {
+        return new UserPatcher(
+            pathOrganizationSid,
+            pathUserSid,
+            scimPatchRequest
+        );
     }
 
     public static UserUpdater updater(
@@ -430,12 +443,14 @@ public class User extends Resource {
         private final String resourceType;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("created")
         @Getter
         private final ZonedDateTime created;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("lastModified")
         @Getter
@@ -471,12 +486,14 @@ public class User extends Resource {
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonProperty("created")
             private ZonedDateTime created;
 
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonProperty("lastModified")
             private ZonedDateTime lastModified;
 
@@ -493,6 +510,7 @@ public class User extends Resource {
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("created")
             public Builder created(ZonedDateTime created) {
@@ -503,6 +521,7 @@ public class User extends Resource {
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("lastModified")
             public Builder lastModified(ZonedDateTime lastModified) {

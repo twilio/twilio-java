@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
@@ -114,6 +115,7 @@ public class FlexUser extends Resource {
     @Getter
     private final String accountSid;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime createdDate;
 
@@ -135,6 +137,7 @@ public class FlexUser extends Resource {
     @Getter
     private final List<String> roles;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime updatedDate;
 
@@ -161,6 +164,8 @@ public class FlexUser extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("created_date") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime createdDate,
         @JsonProperty("email") final String email,
         @JsonProperty("flex_team_sid") final String flexTeamSid,
@@ -170,6 +175,8 @@ public class FlexUser extends Resource {
         @JsonProperty("roles") final List<String> roles,
         @JsonProperty("updated_date") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime updatedDate,
         @JsonProperty("url") final URI url,
         @JsonProperty("user_sid") final String userSid,

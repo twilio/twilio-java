@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
@@ -114,6 +115,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     @Getter
     private final Integer avgTaskAcceptanceTime;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime endTime;
 
@@ -138,6 +140,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     @Getter
     private final Object splitByWaitTime;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime startTime;
 
@@ -179,6 +182,8 @@ public class WorkspaceCumulativeStatistics extends Resource {
         ) final Integer avgTaskAcceptanceTime,
         @JsonProperty("end_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime endTime,
         @JsonProperty(
             "reservations_accepted"
@@ -199,6 +204,8 @@ public class WorkspaceCumulativeStatistics extends Resource {
         @JsonProperty("split_by_wait_time") final Object splitByWaitTime,
         @JsonProperty("start_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime startTime,
         @JsonProperty("tasks_canceled") final Integer tasksCanceled,
         @JsonProperty("tasks_completed") final Integer tasksCompleted,

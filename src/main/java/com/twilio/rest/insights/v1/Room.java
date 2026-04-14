@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
@@ -321,6 +322,7 @@ public class Room extends Resource {
     @Getter
     private final Integer concurrentParticipants;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime createTime;
 
@@ -336,6 +338,7 @@ public class Room extends Resource {
     @Getter
     private final Room.EndReason endReason;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime endTime;
 
@@ -399,6 +402,8 @@ public class Room extends Resource {
         ) final Integer concurrentParticipants,
         @JsonProperty("create_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime createTime,
         @JsonProperty("created_method") final Room.CreatedMethod createdMethod,
         @JsonProperty("duration_sec") final Long durationSec,
@@ -406,6 +411,8 @@ public class Room extends Resource {
         @JsonProperty("end_reason") final Room.EndReason endReason,
         @JsonProperty("end_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime endTime,
         @JsonProperty("links") final Map<String, String> links,
         @JsonProperty(

@@ -58,6 +58,7 @@ public class MessageCreator extends Creator<Message> {
     private String contentVariables;
     private Message.RiskCheck riskCheck;
     private com.twilio.type.PhoneNumber from;
+    private com.twilio.type.PhoneNumber fallbackFrom;
     private String messagingServiceSid;
     private String body;
     private List<URI> mediaUrl;
@@ -275,6 +276,17 @@ public class MessageCreator extends Creator<Message> {
 
     public MessageCreator setFrom(final String from) {
         return setFrom(Promoter.phoneNumberFromString(from));
+    }
+
+    public MessageCreator setFallbackFrom(
+        final com.twilio.type.PhoneNumber fallbackFrom
+    ) {
+        this.fallbackFrom = fallbackFrom;
+        return this;
+    }
+
+    public MessageCreator setFallbackFrom(final String fallbackFrom) {
+        return setFallbackFrom(Promoter.phoneNumberFromString(fallbackFrom));
     }
 
     public MessageCreator setMessagingServiceSid(
@@ -547,6 +559,15 @@ public class MessageCreator extends Creator<Message> {
                 request,
                 "From",
                 from,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (fallbackFrom != null) {
+            Serializer.toString(
+                request,
+                "FallbackFrom",
+                fallbackFrom,
                 ParameterType.URLENCODED
             );
         }

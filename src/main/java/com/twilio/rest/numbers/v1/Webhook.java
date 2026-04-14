@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
@@ -104,12 +105,14 @@ public class Webhook extends Resource {
     @Getter
     private final List<String> notificationsOf;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime portInTargetDateCreated;
 
     @Getter
     private final URI portInTargetUrl;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime portOutTargetDateCreated;
 
@@ -124,10 +127,14 @@ public class Webhook extends Resource {
         @JsonProperty("notifications_of") final List<String> notificationsOf,
         @JsonProperty("port_in_target_date_created") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime portInTargetDateCreated,
         @JsonProperty("port_in_target_url") final URI portInTargetUrl,
         @JsonProperty("port_out_target_date_created") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime portOutTargetDateCreated,
         @JsonProperty("port_out_target_url") final URI portOutTargetUrl,
         @JsonProperty("url") final URI url

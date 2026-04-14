@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
@@ -166,9 +167,11 @@ public class Task extends Resource {
     @Getter
     private final String attributes;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime dateCreated;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime dateUpdated;
 
@@ -196,6 +199,7 @@ public class Task extends Resource {
     @Getter
     private final String taskChannelUniqueName;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime taskQueueEnteredDate;
 
@@ -211,6 +215,7 @@ public class Task extends Resource {
     @Getter
     private final URI url;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime virtualStartTime;
 
@@ -232,9 +237,13 @@ public class Task extends Resource {
         @JsonProperty("attributes") final String attributes,
         @JsonProperty("date_created") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime dateCreated,
         @JsonProperty("date_updated") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime dateUpdated,
         @JsonProperty("ignore_capacity") final Boolean ignoreCapacity,
         @JsonProperty("links") final Map<String, String> links,
@@ -248,6 +257,8 @@ public class Task extends Resource {
         ) final String taskChannelUniqueName,
         @JsonProperty("task_queue_entered_date") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime taskQueueEnteredDate,
         @JsonProperty(
             "task_queue_friendly_name"
@@ -257,6 +268,8 @@ public class Task extends Resource {
         @JsonProperty("url") final URI url,
         @JsonProperty("virtual_start_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime virtualStartTime,
         @JsonProperty(
             "workflow_friendly_name"

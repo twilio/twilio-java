@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
@@ -977,20 +978,22 @@ public class Report extends Resource {
     public static class InsightsV2CreateAccountReportRequestTimeRange {
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("start_time")
+        @JsonProperty("start_datetime")
         @Getter
-        private final ZonedDateTime startTime;
+        private final ZonedDateTime startDatetime;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("end_time")
+        @JsonProperty("end_datetime")
         @Getter
-        private final ZonedDateTime endTime;
+        private final ZonedDateTime endDatetime;
 
         private InsightsV2CreateAccountReportRequestTimeRange(Builder builder) {
-            this.startTime = builder.startTime;
-            this.endTime = builder.endTime;
+            this.startDatetime = builder.startDatetime;
+            this.endDatetime = builder.endDatetime;
         }
 
         public static Builder builder() {
@@ -1013,32 +1016,36 @@ public class Report extends Resource {
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
-            @JsonProperty("start_time")
-            private ZonedDateTime startTime;
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonProperty("start_datetime")
+            private ZonedDateTime startDatetime;
 
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
-            @JsonProperty("end_time")
-            private ZonedDateTime endTime;
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonProperty("end_datetime")
+            private ZonedDateTime endDatetime;
 
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("start_time")
-            public Builder startTime(ZonedDateTime startTime) {
-                this.startTime = startTime;
+            @JsonProperty("start_datetime")
+            public Builder startDatetime(ZonedDateTime startDatetime) {
+                this.startDatetime = startDatetime;
                 return this;
             }
 
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("end_time")
-            public Builder endTime(ZonedDateTime endTime) {
-                this.endTime = endTime;
+            @JsonProperty("end_datetime")
+            public Builder endDatetime(ZonedDateTime endDatetime) {
+                this.endDatetime = endDatetime;
                 return this;
             }
 
@@ -1060,14 +1067,14 @@ public class Report extends Resource {
             InsightsV2CreateAccountReportRequestTimeRange other =
                 (InsightsV2CreateAccountReportRequestTimeRange) o;
             return (
-                Objects.equals(startTime, other.startTime) &&
-                Objects.equals(endTime, other.endTime)
+                Objects.equals(startDatetime, other.startDatetime) &&
+                Objects.equals(endDatetime, other.endDatetime)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(startTime, endTime);
+            return Objects.hash(startDatetime, endDatetime);
         }
     }
 
@@ -3005,16 +3012,18 @@ public class Report extends Resource {
     public static class ReportMetadata {
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("start_time")
+        @JsonProperty("start_datetime")
         @Getter
-        private final ZonedDateTime startTime;
+        private final ZonedDateTime startDatetime;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("end_time")
+        @JsonProperty("end_datetime")
         @Getter
-        private final ZonedDateTime endTime;
+        private final ZonedDateTime endDatetime;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("filters")
@@ -3022,8 +3031,8 @@ public class Report extends Resource {
         private final List<ReportFilter> filters;
 
         private ReportMetadata(Builder builder) {
-            this.startTime = builder.startTime;
-            this.endTime = builder.endTime;
+            this.startDatetime = builder.startDatetime;
+            this.endDatetime = builder.endDatetime;
             this.filters = builder.filters;
         }
 
@@ -3044,14 +3053,16 @@ public class Report extends Resource {
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
-            @JsonProperty("start_time")
-            private ZonedDateTime startTime;
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonProperty("start_datetime")
+            private ZonedDateTime startDatetime;
 
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
-            @JsonProperty("end_time")
-            private ZonedDateTime endTime;
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonProperty("end_datetime")
+            private ZonedDateTime endDatetime;
 
             @JsonProperty("filters")
             private List<ReportFilter> filters;
@@ -3059,20 +3070,22 @@ public class Report extends Resource {
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("start_time")
-            public Builder startTime(ZonedDateTime startTime) {
-                this.startTime = startTime;
+            @JsonProperty("start_datetime")
+            public Builder startDatetime(ZonedDateTime startDatetime) {
+                this.startDatetime = startDatetime;
                 return this;
             }
 
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("end_time")
-            public Builder endTime(ZonedDateTime endTime) {
-                this.endTime = endTime;
+            @JsonProperty("end_datetime")
+            public Builder endDatetime(ZonedDateTime endDatetime) {
+                this.endDatetime = endDatetime;
                 return this;
             }
 
@@ -3100,15 +3113,15 @@ public class Report extends Resource {
 
             ReportMetadata other = (ReportMetadata) o;
             return (
-                Objects.equals(startTime, other.startTime) &&
-                Objects.equals(endTime, other.endTime) &&
+                Objects.equals(startDatetime, other.startDatetime) &&
+                Objects.equals(endDatetime, other.endDatetime) &&
                 Objects.equals(filters, other.filters)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(startTime, endTime, filters);
+            return Objects.hash(startDatetime, endDatetime, filters);
         }
     }
 

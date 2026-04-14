@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
@@ -271,12 +272,14 @@ public class CallSummaries extends Resource {
     @Getter
     private final Integer connectDuration;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime createdTime;
 
     @Getter
     private final Integer duration;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime endTime;
 
@@ -295,6 +298,7 @@ public class CallSummaries extends Resource {
     @Getter
     private final Object sipEdge;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime startTime;
 
@@ -324,10 +328,14 @@ public class CallSummaries extends Resource {
         @JsonProperty("connect_duration") final Integer connectDuration,
         @JsonProperty("created_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime createdTime,
         @JsonProperty("duration") final Integer duration,
         @JsonProperty("end_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime endTime,
         @JsonProperty("from") final Object from,
         @JsonProperty(
@@ -338,6 +346,8 @@ public class CallSummaries extends Resource {
         @JsonProperty("sip_edge") final Object sipEdge,
         @JsonProperty("start_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime startTime,
         @JsonProperty("tags") final List<String> tags,
         @JsonProperty("to") final Object to,

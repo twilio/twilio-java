@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
@@ -107,6 +108,7 @@ public class Schema extends Resource {
     @Getter
     private final Integer latestVersion;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime latestVersionDateCreated;
 
@@ -122,6 +124,8 @@ public class Schema extends Resource {
         @JsonProperty("latest_version") final Integer latestVersion,
         @JsonProperty("latest_version_date_created") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime latestVersionDateCreated,
         @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("url") final URI url

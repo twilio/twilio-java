@@ -43,6 +43,11 @@ public class ConversationRelay extends TwiML {
     private final String elevenlabsTextNormalization;
     private final String interruptSensitivity;
     private final String debug;
+    private final String backgroundnoisereduction;
+    private final String speechtimeout;
+    private final String deepgramsmartformat;
+    private final String ignorebackchannel;
+    private final String events;
 
     /**
      * For XML Serialization/Deserialization
@@ -77,6 +82,11 @@ public class ConversationRelay extends TwiML {
         this.elevenlabsTextNormalization = b.elevenlabsTextNormalization;
         this.interruptSensitivity = b.interruptSensitivity;
         this.debug = b.debug;
+        this.backgroundnoisereduction = b.backgroundnoisereduction;
+        this.speechtimeout = b.speechtimeout;
+        this.deepgramsmartformat = b.deepgramsmartformat;
+        this.ignorebackchannel = b.ignorebackchannel;
+        this.events = b.events;
     }
 
     /**
@@ -150,6 +160,21 @@ public class ConversationRelay extends TwiML {
         }
         if (this.getDebug() != null) {
             attrs.put("debug", this.getDebug());
+        }
+        if (this.getBackgroundnoisereduction() != null) {
+            attrs.put("backgroundnoisereduction", this.getBackgroundnoisereduction());
+        }
+        if (this.getSpeechtimeout() != null) {
+            attrs.put("speechtimeout", this.getSpeechtimeout());
+        }
+        if (this.getDeepgramsmartformat() != null) {
+            attrs.put("deepgramsmartformat", this.getDeepgramsmartformat());
+        }
+        if (this.getIgnorebackchannel() != null) {
+            attrs.put("ignorebackchannel", this.getIgnorebackchannel());
+        }
+        if (this.getEvents() != null) {
+            attrs.put("events", this.getEvents());
         }
 
         return attrs;
@@ -364,6 +389,61 @@ public class ConversationRelay extends TwiML {
     }
 
     /**
+     * This parameters enables background noise filtering on the audio stream before
+     * it reaches the STT engine, improving transcription accuracy in noisy
+     * environments
+     *
+     * @return This parameters enables background noise filtering on the audio
+     *         stream before it reaches the STT engine, improving transcription
+     *         accuracy in noisy environments
+     */
+    public String getBackgroundnoisereduction() {
+        return backgroundnoisereduction;
+    }
+
+    /**
+     * Set the duration of silence that indicates the end of speech
+     *
+     * @return Set the duration of silence that indicates the end of speech
+     */
+    public String getSpeechtimeout() {
+        return speechtimeout;
+    }
+
+    /**
+     * This parameter enables Deepgram's smart formatting feature, which
+     * automatically applies punctuation, capitalization, and formatting (e.g.
+     * numbers, dates, currency) to transcripts
+     *
+     * @return This parameter enables Deepgram's smart formatting feature, which
+     *         automatically applies punctuation, capitalization, and formatting
+     *         (e.g. numbers, dates, currency) to transcripts
+     */
+    public String getDeepgramsmartformat() {
+        return deepgramsmartformat;
+    }
+
+    /**
+     * This parameter brief caller acknowledgments (e.g. "yeah", "uh-huh") are
+     * ignored and will not interrupt the agent while it is speaking.
+     *
+     * @return This parameter brief caller acknowledgments (e.g. "yeah", "uh-huh")
+     *         are ignored and will not interrupt the agent while it is speaking.
+     */
+    public String getIgnorebackchannel() {
+        return ignorebackchannel;
+    }
+
+    /**
+     * This parameter allows you to enable event subscriptions
+     *
+     * @return This parameter allows you to enable event subscriptions
+     */
+    public String getEvents() {
+        return events;
+    }
+
+    /**
      * Create a new {@code <ConversationRelay>} element
      */
     @JsonPOJOBuilder(withPrefix = "")
@@ -403,6 +483,11 @@ public class ConversationRelay extends TwiML {
         private String elevenlabsTextNormalization;
         private String interruptSensitivity;
         private String debug;
+        private String backgroundnoisereduction;
+        private String speechtimeout;
+        private String deepgramsmartformat;
+        private String ignorebackchannel;
+        private String events;
 
         /**
          * URL of the remote service where the session is connected to
@@ -598,6 +683,56 @@ public class ConversationRelay extends TwiML {
         @JacksonXmlProperty(isAttribute = true, localName = "debug")
         public Builder debug(String debug) {
             this.debug = debug;
+            return this;
+        }
+
+        /**
+         * This parameters enables background noise filtering on the audio stream before
+         * it reaches the STT engine, improving transcription accuracy in noisy
+         * environments
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "backgroundnoisereduction")
+        public Builder backgroundnoisereduction(String backgroundnoisereduction) {
+            this.backgroundnoisereduction = backgroundnoisereduction;
+            return this;
+        }
+
+        /**
+         * Set the duration of silence that indicates the end of speech
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "speechtimeout")
+        public Builder speechtimeout(String speechtimeout) {
+            this.speechtimeout = speechtimeout;
+            return this;
+        }
+
+        /**
+         * This parameter enables Deepgram's smart formatting feature, which
+         * automatically applies punctuation, capitalization, and formatting (e.g.
+         * numbers, dates, currency) to transcripts
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "deepgramsmartformat")
+        public Builder deepgramsmartformat(String deepgramsmartformat) {
+            this.deepgramsmartformat = deepgramsmartformat;
+            return this;
+        }
+
+        /**
+         * This parameter brief caller acknowledgments (e.g. "yeah", "uh-huh") are
+         * ignored and will not interrupt the agent while it is speaking.
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "ignorebackchannel")
+        public Builder ignorebackchannel(String ignorebackchannel) {
+            this.ignorebackchannel = ignorebackchannel;
+            return this;
+        }
+
+        /**
+         * This parameter allows you to enable event subscriptions
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "events")
+        public Builder events(String events) {
+            this.events = events;
             return this;
         }
 

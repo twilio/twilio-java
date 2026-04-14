@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
@@ -117,12 +118,14 @@ public class Assistant extends Resource {
         private final String url;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_created")
         @Getter
         private final ZonedDateTime dateCreated;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_updated")
         @Getter
@@ -206,12 +209,14 @@ public class Assistant extends Resource {
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonProperty("date_created")
             private ZonedDateTime dateCreated;
 
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonProperty("date_updated")
             private ZonedDateTime dateUpdated;
 
@@ -855,12 +860,14 @@ public class Assistant extends Resource {
         private final String embeddingModel;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_created")
         @Getter
         private final ZonedDateTime dateCreated;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_updated")
         @Getter
@@ -933,12 +940,14 @@ public class Assistant extends Resource {
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonProperty("date_created")
             private ZonedDateTime dateCreated;
 
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonProperty("date_updated")
             private ZonedDateTime dateUpdated;
 
@@ -1115,9 +1124,11 @@ public class Assistant extends Resource {
     @Getter
     private final Object customerAi;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime dateCreated;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime dateUpdated;
 
@@ -1151,9 +1162,13 @@ public class Assistant extends Resource {
         @JsonProperty("customer_ai") final Object customerAi,
         @JsonProperty("date_created") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime dateCreated,
         @JsonProperty("date_updated") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime dateUpdated,
         @JsonProperty("id") final String id,
         @JsonProperty("knowledge") final List<

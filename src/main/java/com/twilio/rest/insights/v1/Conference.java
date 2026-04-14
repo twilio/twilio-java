@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
@@ -273,6 +274,7 @@ public class Conference extends Resource {
     @Getter
     private final Integer connectDurationSeconds;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime createTime;
 
@@ -285,6 +287,7 @@ public class Conference extends Resource {
     @Getter
     private final Conference.ConferenceEndReason endReason;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime endTime;
 
@@ -315,6 +318,7 @@ public class Conference extends Resource {
     @Getter
     private final Boolean recordingEnabled;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime startTime;
 
@@ -342,6 +346,8 @@ public class Conference extends Resource {
         ) final Integer connectDurationSeconds,
         @JsonProperty("create_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime createTime,
         @JsonProperty("detected_issues") final Object detectedIssues,
         @JsonProperty("duration_seconds") final Integer durationSeconds,
@@ -350,6 +356,8 @@ public class Conference extends Resource {
         ) final Conference.ConferenceEndReason endReason,
         @JsonProperty("end_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime endTime,
         @JsonProperty("ended_by") final String endedBy,
         @JsonProperty("friendly_name") final String friendlyName,
@@ -368,6 +376,8 @@ public class Conference extends Resource {
         @JsonProperty("recording_enabled") final Boolean recordingEnabled,
         @JsonProperty("start_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime startTime,
         @JsonProperty("status") final Conference.ConferenceStatus status,
         @JsonProperty("tag_info") final Object tagInfo,

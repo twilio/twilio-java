@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
@@ -295,12 +296,14 @@ public class ConferenceParticipant extends Resource {
     @Getter
     private final ConferenceParticipant.JitterBufferSize jitterBufferSize;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime joinTime;
 
     @Getter
     private final String label;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime leaveTime;
 
@@ -362,10 +365,14 @@ public class ConferenceParticipant extends Resource {
         ) final ConferenceParticipant.JitterBufferSize jitterBufferSize,
         @JsonProperty("join_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime joinTime,
         @JsonProperty("label") final String label,
         @JsonProperty("leave_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime leaveTime,
         @JsonProperty("metrics") final Object metrics,
         @JsonProperty(

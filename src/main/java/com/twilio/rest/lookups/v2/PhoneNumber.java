@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
@@ -204,6 +205,7 @@ public class PhoneNumber extends Resource {
         private final Boolean numberBlocked;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("number_blocked_date")
         @Getter
@@ -256,6 +258,7 @@ public class PhoneNumber extends Resource {
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonProperty("number_blocked_date")
             private ZonedDateTime numberBlockedDate;
 
@@ -285,6 +288,7 @@ public class PhoneNumber extends Resource {
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("number_blocked_date")
             public Builder numberBlockedDate(ZonedDateTime numberBlockedDate) {
@@ -740,6 +744,7 @@ public class PhoneNumber extends Resource {
     public static class LastSimSwapInfo {
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("last_sim_swap_date")
         @Getter
@@ -778,6 +783,7 @@ public class PhoneNumber extends Resource {
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonProperty("last_sim_swap_date")
             private ZonedDateTime lastSimSwapDate;
 
@@ -790,6 +796,7 @@ public class PhoneNumber extends Resource {
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("last_sim_swap_date")
             public Builder lastSimSwapDate(ZonedDateTime lastSimSwapDate) {

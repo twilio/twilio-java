@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
@@ -311,6 +312,7 @@ public class LookupOverride extends Resource {
     @Getter
     private final String overrideReason;
 
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime overrideTimestamp;
 
@@ -331,6 +333,8 @@ public class LookupOverride extends Resource {
         @JsonProperty("override_reason") final String overrideReason,
         @JsonProperty("override_timestamp") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime overrideTimestamp,
         @JsonProperty("phone_number") final String phoneNumber
     ) {

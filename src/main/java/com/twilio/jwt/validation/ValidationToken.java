@@ -246,7 +246,7 @@ public class ValidationToken extends Jwt {
 
         public Builder algorithm(SecureDigestAlgorithm<? extends Key, ?> algorithm) {
             if (!supportedAlgorithms.contains(algorithm)) {
-                throw new IllegalArgumentException("Not supported!");
+                throw new IllegalArgumentException("Signature Algorithm Not supported!");
             }
             this.algorithm = algorithm;
             return this;

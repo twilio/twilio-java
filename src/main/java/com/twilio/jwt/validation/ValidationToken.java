@@ -1,7 +1,8 @@
 package com.twilio.jwt.validation;
 
 import com.twilio.jwt.Jwt;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.SecureDigestAlgorithm;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -19,8 +20,7 @@ import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.message.BasicClassicHttpRequest;
 
-import static io.jsonwebtoken.SignatureAlgorithm.PS256;
-import static io.jsonwebtoken.SignatureAlgorithm.RS256;
+import java.security.Key;
 
 public class ValidationToken extends Jwt {
 
@@ -36,8 +36,8 @@ public class ValidationToken extends Jwt {
     private final List<String> signedHeaders;
     private final String requestBody;
 
-    private static final Set<SignatureAlgorithm> supportedAlgorithms
-        = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(PS256, RS256)));
+    private static final Set<SecureDigestAlgorithm<?, ?>> supportedAlgorithms
+        = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(Jwts.SIG.PS256, Jwts.SIG.RS256)));
 
     private ValidationToken(Builder b) {
         super(
@@ -109,7 +109,7 @@ public class ValidationToken extends Jwt {
         List<String> signedHeaders
     ) throws IOException, ParseException {
 
-         return fromHttpRequest(accountSid, credentialSid, signingKeySid, privateKey, request, signedHeaders, SignatureAlgorithm.RS256);
+         return fromHttpRequest(accountSid, credentialSid, signingKeySid, privateKey, request, signedHeaders, Jwts.SIG.RS256);
     }
 
     /**
@@ -132,7 +132,7 @@ public class ValidationToken extends Jwt {
         PrivateKey privateKey,
         HttpRequest request,
         List<String> signedHeaders,
-        SignatureAlgorithm algorithm
+        SecureDigestAlgorithm<? extends Key, ?> algorithm
          ) throws IOException, ParseException {
         Builder builder = new Builder(accountSid, credentialSid, signingKeySid, privateKey);
 
@@ -187,7 +187,7 @@ public class ValidationToken extends Jwt {
         private String requestBody = "";
         private int ttl = 300;
 
-        private SignatureAlgorithm algorithm = SignatureAlgorithm.RS256;
+        private SecureDigestAlgorithm<? extends Key, ?> algorithm = Jwts.SIG.RS256;
 
         /**
          * Create a new ValidationToken Builder.
@@ -244,9 +244,9 @@ public class ValidationToken extends Jwt {
             return this;
         }
 
-        public Builder algorithm(SignatureAlgorithm algorithm) {
+        public Builder algorithm(SecureDigestAlgorithm<? extends Key, ?> algorithm) {
             if (!supportedAlgorithms.contains(algorithm)) {
-                throw new IllegalArgumentException("Not supported!");
+                throw new IllegalArgumentException("Signature Algorithm Not supported!");
             }
             this.algorithm = algorithm;
             return this;

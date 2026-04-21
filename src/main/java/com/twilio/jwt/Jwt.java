@@ -2,7 +2,7 @@ package com.twilio.jwt;
 
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.SecureDigestAlgorithm;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public abstract class Jwt {
 
-    private final SignatureAlgorithm algorithm;
+    private final SecureDigestAlgorithm<? extends Key, ?> algorithm;
     private final Key secretKey;
     private final String issuer;
     private final Date expiration;
@@ -29,17 +29,17 @@ public abstract class Jwt {
      * @param expiration expiration Date
      */
     public Jwt(
-        SignatureAlgorithm algorithm,
+        SecureDigestAlgorithm<? extends Key, ?> algorithm,
         byte[] secret,
         String issuer,
         Date expiration
     ) {
-        this(
-            algorithm,
-            new SecretKeySpec(secret, algorithm.getJcaName()),
-            issuer,
-            expiration
-        );
+        this.algorithm = algorithm;
+        String id = algorithm.getId();
+        String jcaName = "HmacSHA" + id.substring(2);
+        this.secretKey = new SecretKeySpec(secret, jcaName);
+        this.issuer = issuer;
+        this.expiration = expiration;
     }
 
     /**
@@ -51,7 +51,7 @@ public abstract class Jwt {
      * @param expiration expiration Date
      */
     public Jwt(
-        SignatureAlgorithm algorithm,
+        SecureDigestAlgorithm<? extends Key, ?> algorithm,
         Key secretKey,
         String issuer,
         Date expiration
@@ -72,9 +72,11 @@ public abstract class Jwt {
         headers.put("typ", "JWT");
         headers.putAll(this.getHeaders());
 
+        @SuppressWarnings("unchecked")
+        SecureDigestAlgorithm<Key, ?> alg = (SecureDigestAlgorithm<Key, ?>) this.algorithm;
         JwtBuilder builder =
             Jwts.builder()
-                .signWith(this.algorithm, this.secretKey)
+                .signWith(this.secretKey, alg)
                 .setHeaderParams(headers)
                 .setIssuer(this.issuer)
                 .setExpiration(expiration);

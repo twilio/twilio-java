@@ -1,7 +1,7 @@
 package com.twilio.jwt.taskrouter;
 
 import com.twilio.jwt.Jwt;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.Jwts;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +22,7 @@ public class TaskRouterCapability extends Jwt {
 
     private TaskRouterCapability(Builder b) {
         super(
-            SignatureAlgorithm.HS256,
+            Jwts.SIG.HS256,
             b.authToken,
             b.accountSid,
             new Date(new Date().getTime() + b.ttl * 1000)

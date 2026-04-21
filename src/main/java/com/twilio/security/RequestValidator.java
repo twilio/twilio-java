@@ -13,7 +13,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import org.apache.hc.core5.http.NameValuePair;
-import org.apache.hc.core5.net.URLEncodedUtils;
+import org.apache.hc.core5.net.URIBuilder;
 
 public class RequestValidator {
 
@@ -37,7 +37,7 @@ public class RequestValidator {
 
     public boolean validate(String url, String body, String expectedSignature) throws URISyntaxException {
         Map<String, String> empty = new HashMap<>();
-        List<NameValuePair> params = URLEncodedUtils.parse(new URI(url), StandardCharsets.UTF_8);
+        List<NameValuePair> params = new URIBuilder(url).getQueryParams();
 
         NameValuePair bodySHA256 = null;
         for (NameValuePair param : params) {

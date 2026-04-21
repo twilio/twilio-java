@@ -117,7 +117,8 @@ public class TwilioTest {
         ExecutorService executorService = Executors.newCachedThreadPool();
         Twilio.setExecutorService(executorService);
         Twilio.destroy();
-        assertTrue(Twilio.getExecutorService().isShutdown());
+        assertTrue(executorService.isShutdown());
+        assertNotNull(Twilio.getExecutorService());
     }
 
     @Test

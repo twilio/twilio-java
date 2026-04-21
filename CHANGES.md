@@ -1,6 +1,14 @@
 twilio-java changelog
 =====================
 
+[2026-04-21] Version 12.0.0
+---------------------------
+**Library - Chore**
+- Added JDK 21 support.
+- Replace deprecated io.jsonwebtoken.SignatureAlgorithm enum with io.jsonwebtoken.security.SecureDigestAlgorithm from jjwt 0.12.x across all public APIs (Jwt, ValidationClient, ValidationInterceptor, ValidationToken)
+- Replace deprecated URLEncodedUtils with URIBuilder in RequestValidator (internal, no public API impact)
+
+
 [2026-04-14] Version 11.4.0
 ---------------------------
 **Library - Chore**

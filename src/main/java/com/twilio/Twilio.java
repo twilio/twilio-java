@@ -347,6 +347,7 @@ public class Twilio {
     public static synchronized void destroy() {
         if (executorService != null) {
             executorService.shutdown();
+            executorService = null;
         }
     }
 }

@@ -172,9 +172,8 @@
       <properties>
         <lombok.version>1.18.24</lombok.version>
         <mockito.version>4.11.0</mockito.version>
-        <equalsverifier.version>3.6.1</equalsverifier.version>
-        <byte-buddy.version>1.14.11</byte-buddy.version>
-        <objenesis.version>3.3</objenesis.version>
+        <byte-buddy.version>1.15.10</byte-buddy.version>
+        <objenesis.version>3.4</objenesis.version>
         <surefire.version>3.0.0-M4</surefire.version>
         <surefire.argLine></surefire.argLine>
       </properties>

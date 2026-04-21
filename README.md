@@ -26,9 +26,11 @@ This library supports the following Java implementations:
 - OpenJDK 8
 - OpenJDK 11
 - OpenJDK 17
+- OpenJDK 21
 - OracleJDK 8
 - OracleJDK 11
 - OracleJDK 17
+- OracleJDK 21
 
 For Java 7 support, use `twilio-java` major version `7.X.X`.
 
@@ -62,7 +64,7 @@ Use the following dependency in your project to grab via Maven:
 <dependency>
   <groupId>com.twilio.sdk</groupId>
   <artifactId>twilio</artifactId>
-  <version>11.X.X</version>
+  <version>12.X.X</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -70,7 +72,7 @@ Use the following dependency in your project to grab via Maven:
 or Gradle:
 
 ```groovy
-implementation "com.twilio.sdk:twilio:11.X.X"
+implementation "com.twilio.sdk:twilio:12.X.X"
 ```
 
 If you want to compile it yourself, here's how:

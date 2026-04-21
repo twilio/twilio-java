@@ -3,7 +3,8 @@ package com.twilio.http;
 import com.twilio.Twilio;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.SecureDigestAlgorithm;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
@@ -35,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 
-import static io.jsonwebtoken.SignatureAlgorithm.RS256;
+import java.security.Key;
 
 public class ValidationClient extends HttpClient {
 
@@ -69,7 +70,7 @@ public class ValidationClient extends HttpClient {
                             final String credentialSid,
                             final String signingKey,
                             final PrivateKey privateKey,
-                            final SignatureAlgorithm algorithm) {
+                            final SecureDigestAlgorithm<? extends Key, ?> algorithm) {
         this(accountSid, credentialSid, signingKey, privateKey, DEFAULT_REQUEST_CONFIG, algorithm);
     }
 
@@ -87,7 +88,7 @@ public class ValidationClient extends HttpClient {
                             final String signingKey,
                             final PrivateKey privateKey,
                             final RequestConfig requestConfig) {
-        this(accountSid, credentialSid, signingKey, privateKey, requestConfig, DEFAULT_SOCKET_CONFIG, RS256);
+        this(accountSid, credentialSid, signingKey, privateKey, requestConfig, DEFAULT_SOCKET_CONFIG, Jwts.SIG.RS256);
     }
 
     /**
@@ -105,7 +106,7 @@ public class ValidationClient extends HttpClient {
                             final String signingKey,
                             final PrivateKey privateKey,
                             final RequestConfig requestConfig,
-                            final SignatureAlgorithm algorithm) {
+                            final SecureDigestAlgorithm<? extends Key, ?> algorithm) {
         this(accountSid, credentialSid, signingKey, privateKey, requestConfig, DEFAULT_SOCKET_CONFIG, algorithm);
     }
 
@@ -126,7 +127,7 @@ public class ValidationClient extends HttpClient {
                             final RequestConfig requestConfig,
                             final SocketConfig socketConfig) {
 
-         this(accountSid, credentialSid, signingKey, privateKey, requestConfig, socketConfig, RS256);
+         this(accountSid, credentialSid, signingKey, privateKey, requestConfig, socketConfig, Jwts.SIG.RS256);
     }
 
     /**
@@ -146,7 +147,7 @@ public class ValidationClient extends HttpClient {
                             final PrivateKey privateKey,
                             final RequestConfig requestConfig,
                             final SocketConfig socketConfig,
-                            final SignatureAlgorithm algorithm) {
+                            final SecureDigestAlgorithm<? extends Key, ?> algorithm) {
 
         Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),

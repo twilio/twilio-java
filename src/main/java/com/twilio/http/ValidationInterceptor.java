@@ -2,7 +2,8 @@ package com.twilio.http;
 
 import com.twilio.jwt.Jwt;
 import com.twilio.jwt.validation.ValidationToken;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.SecureDigestAlgorithm;
 import org.apache.hc.core5.http.EntityDetails;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpException;
@@ -23,7 +24,7 @@ public class ValidationInterceptor implements HttpRequestInterceptor {
     private final String credentialSid;
     private final String signingKeySid;
     private final PrivateKey privateKey;
-    private final SignatureAlgorithm algorithm;
+    private final SecureDigestAlgorithm<? extends java.security.Key, ?> algorithm;
 
     /**
      * Create a new ValidationInterceptor.
@@ -35,7 +36,7 @@ public class ValidationInterceptor implements HttpRequestInterceptor {
      */
     public ValidationInterceptor(String accountSid, String credentialSid, String signingKeySid, PrivateKey privateKey) {
 
-         this(accountSid, credentialSid, signingKeySid, privateKey, SignatureAlgorithm.RS256);
+         this(accountSid, credentialSid, signingKeySid, privateKey, Jwts.SIG.RS256);
     }
 
 
@@ -49,7 +50,7 @@ public class ValidationInterceptor implements HttpRequestInterceptor {
      * @param algorithm     Client validaiton algorithm
      */
     public ValidationInterceptor(String accountSid, String credentialSid, String signingKeySid, PrivateKey privateKey,
-                                 SignatureAlgorithm algorithm) {
+                                 SecureDigestAlgorithm<? extends java.security.Key, ?> algorithm) {
         this.accountSid = accountSid;
         this.credentialSid = credentialSid;
         this.signingKeySid = signingKeySid;

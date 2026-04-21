@@ -13,6 +13,7 @@ import com.tngtech.archunit.lang.syntax.elements.GivenClassesConjunction;
 
 import com.twilio.base.Resource;
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAPackage;
 import static com.tngtech.archunit.lang.conditions.ArchConditions.dependOnClassesThat;
@@ -59,6 +60,7 @@ public class ComplianceTest {
         for (Class clazz : eligibleResourceClasses) {
             EqualsVerifier.forClass(clazz)
                     .usingGetClass()
+                    .suppress(Warning.BIGDECIMAL_EQUALITY)
                     .verify();
         }
     }

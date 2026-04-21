@@ -5,7 +5,7 @@ import com.twilio.http.ValidationInterceptor;
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.SecureDigestAlgorithm;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.protocol.HttpClientContext;
 import org.apache.hc.core5.http.ClassicHttpRequest;
@@ -38,12 +38,7 @@ import java.util.concurrent.Future;
 
 import static org.mockito.Mockito.when;
 
-import static io.jsonwebtoken.SignatureAlgorithm.PS256;
-import static io.jsonwebtoken.SignatureAlgorithm.PS384;
-import static io.jsonwebtoken.SignatureAlgorithm.PS512;
-import static io.jsonwebtoken.SignatureAlgorithm.RS256;
-import static io.jsonwebtoken.SignatureAlgorithm.RS384;
-import static io.jsonwebtoken.SignatureAlgorithm.RS512;
+import java.security.Key;
 
 public class ValidationTokenTest {
 
@@ -113,8 +108,8 @@ public class ValidationTokenTest {
 
     @Test
     public void testTokenValidAlgorithms() throws IOException {
-        List<SignatureAlgorithm> validAlgorithms = Arrays.asList(RS256, PS256);
-        for (SignatureAlgorithm alg : validAlgorithms) {
+        List<SecureDigestAlgorithm<? extends Key, ?>> validAlgorithms = Arrays.asList(Jwts.SIG.RS256, Jwts.SIG.PS256);
+        for (SecureDigestAlgorithm<? extends Key, ?> alg : validAlgorithms) {
             Jwt jwt = new ValidationToken.Builder(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey)
                     .algorithm(alg)
                     .method("GET")
@@ -132,8 +127,8 @@ public class ValidationTokenTest {
 
     @Test(expected =  IllegalArgumentException.class)
     public void testTokenInvalidAlgorithms() throws IOException {
-        List<SignatureAlgorithm> validAlgorithms = Arrays.asList(SignatureAlgorithm.HS256, SignatureAlgorithm.ES256, RS384, RS512, PS384, PS512);
-        for (SignatureAlgorithm alg : validAlgorithms) {
+        List<SecureDigestAlgorithm<? extends Key, ?>> validAlgorithms = Arrays.asList(Jwts.SIG.HS256, Jwts.SIG.ES256, Jwts.SIG.RS384, Jwts.SIG.RS512, Jwts.SIG.PS384, Jwts.SIG.PS512);
+        for (SecureDigestAlgorithm<? extends Key, ?> alg : validAlgorithms) {
             Jwt jwt = new ValidationToken.Builder(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey)
                     .algorithm(alg)
                     .method("GET")

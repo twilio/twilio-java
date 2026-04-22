@@ -201,7 +201,7 @@
     </profile>
   </profiles>
   <properties>
-    <jackson.version>2.18.6</jackson.version>
+    <jackson.version>3.1.0</jackson.version>
     <javadoc.plugin.version>3.3.1</javadoc.plugin.version>
     <jjwt.version>0.12.6</jjwt.version>
     <lombok.version>1.18.34</lombok.version>

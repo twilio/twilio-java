@@ -22,6 +22,9 @@ public class RestException {
     private final String moreInfo;
     private final Integer status;
     private final Map<String, Object> details;
+    private final Integer httpStatusCode;
+    private final Object params;
+    private final Boolean userError;
 
     /**
      * Initialize a Twilio Rest Exception.
@@ -34,12 +37,16 @@ public class RestException {
     @JsonCreator
     private RestException(@JsonProperty("status") final int status, @JsonProperty("message") final String message,
                           @JsonProperty("code") final Integer code, @JsonProperty("more_info") final String moreInfo,
-                          @JsonProperty("details") final Map<String, Object> details) {
+                          @JsonProperty("details") final Map<String, Object> details,
+        @JsonProperty("httpStatusCode") final Integer httpStatusCode,@JsonProperty("params") final Object params,@JsonProperty("userError") final Boolean userError) {
         this.status = status;
         this.message = message;
         this.code = code;
         this.moreInfo = moreInfo;
         this.details = details;
+        this.httpStatusCode = httpStatusCode;
+        this.params = params;
+        this.userError = userError;
     }
 
     /**
@@ -78,5 +85,17 @@ public class RestException {
 
     public Map<String, Object> getDetails() {
         return details;
+    }
+
+    public Boolean getUserError() {
+        return userError;
+    }
+
+    public Integer getHttpStatusCode() {
+        return httpStatusCode;
+    }
+
+    public Object getParams() {
+        return params;
     }
 }

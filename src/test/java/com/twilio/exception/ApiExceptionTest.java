@@ -36,7 +36,7 @@ public class ApiExceptionTest {
 
     @Test
     public void fullConstructorShouldPreserveAllValues() {
-        ApiException error = new ApiException(anyMessage, anyErrorCode, anyMoreInfo, anyHttpStatus, anyCause);
+        ApiException error = new ApiException(anyMessage, anyErrorCode, anyMoreInfo, anyHttpStatus, null, null, null, anyCause);
         assertEquals("Message", anyMessage, error.getMessage());
         assertSame("Cause", anyCause, error.getCause());
         assertEquals("More info", anyMoreInfo, error.getMoreInfo());

@@ -18,22 +18,25 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SinkValidate extends Resource {
-
-    private static final long serialVersionUID = 233814002700195L;
 
     public static SinkValidateCreator creator(
         final String pathSid,
@@ -85,15 +88,24 @@ public class SinkValidate extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String result;
 
     @JsonCreator
     private SinkValidate(@JsonProperty("result") final String result) {
         this.result = result;
-    }
-
-    public final String getResult() {
-        return this.result;
     }
 
     @Override
@@ -107,8 +119,7 @@ public class SinkValidate extends Resource {
         }
 
         SinkValidate other = (SinkValidate) o;
-
-        return Objects.equals(result, other.result);
+        return (Objects.equals(result, other.result));
     }
 
     @Override

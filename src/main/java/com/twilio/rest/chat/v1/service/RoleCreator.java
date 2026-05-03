@@ -15,8 +15,11 @@
 package com.twilio.rest.chat.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +28,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
+import com.twilio.type.*;
+import java.io.InputStream;
 import java.util.List;
 
 public class RoleCreator extends Creator<Role> {
@@ -66,8 +70,7 @@ public class RoleCreator extends Creator<Role> {
         return setPermission(Promoter.listOfOne(permission));
     }
 
-    @Override
-    public Role create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Roles";
 
         path =
@@ -75,14 +78,6 @@ public class RoleCreator extends Creator<Role> {
                 "{" + "ServiceSid" + "}",
                 this.pathServiceSid.toString()
             );
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path = path.replace("{" + "Type" + "}", this.type.toString());
-        path =
-            path.replace("{" + "Permission" + "}", this.permission.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -91,14 +86,17 @@ public class RoleCreator extends Creator<Role> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Role creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -109,20 +107,58 @@ public class RoleCreator extends Creator<Role> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Role create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Role.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Role> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Role content = Role.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (type != null) {
-            request.addPostParam("Type", type.toString());
+            Serializer.toString(
+                request,
+                "Type",
+                type,
+                ParameterType.URLENCODED
+            );
         }
+
         if (permission != null) {
-            for (String prop : permission) {
-                request.addPostParam("Permission", prop);
+            for (String param : permission) {
+                Serializer.toString(
+                    request,
+                    "Permission",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
     }

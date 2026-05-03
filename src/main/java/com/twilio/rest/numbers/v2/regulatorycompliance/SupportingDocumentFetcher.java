@@ -15,7 +15,7 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class SupportingDocumentFetcher extends Fetcher<SupportingDocument> {
 
@@ -33,8 +35,7 @@ public class SupportingDocumentFetcher extends Fetcher<SupportingDocument> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public SupportingDocument fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -44,7 +45,7 @@ public class SupportingDocumentFetcher extends Fetcher<SupportingDocument> {
             Domains.NUMBERS.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -52,8 +53,9 @@ public class SupportingDocumentFetcher extends Fetcher<SupportingDocument> {
                 "SupportingDocument fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -64,10 +66,31 @@ public class SupportingDocumentFetcher extends Fetcher<SupportingDocument> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SupportingDocument fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SupportingDocument.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<SupportingDocument> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SupportingDocument content = SupportingDocument.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

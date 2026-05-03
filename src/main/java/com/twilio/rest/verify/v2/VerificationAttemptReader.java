@@ -17,15 +17,21 @@ package com.twilio.rest.verify.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 import java.time.ZonedDateTime;
 
 public class VerificationAttemptReader extends Reader<VerificationAttempt> {
@@ -38,7 +44,7 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
     private String verifyServiceSid;
     private String verificationSid;
     private VerificationAttempt.ConversionStatus status;
-    private Integer pageSize;
+    private Long pageSize;
 
     public VerificationAttemptReader() {}
 
@@ -96,9 +102,44 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
         return this;
     }
 
-    public VerificationAttemptReader setPageSize(final Integer pageSize) {
+    public VerificationAttemptReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<VerificationAttempt> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<VerificationAttempt> page = Page.fromJson(
+            "attempts",
+            response.getContent(),
+            VerificationAttempt.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<VerificationAttempt> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v2/Attempts";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.VERIFY.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -109,34 +150,44 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
     }
 
     public Page<VerificationAttempt> firstPage(final TwilioRestClient client) {
-        String path = "/v2/Attempts";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.VERIFY.toString(),
-            path
-        );
-
-        addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<VerificationAttempt> pageForRequest(
+    public TwilioResponse<Page<VerificationAttempt>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<VerificationAttempt> page = Page.fromJson(
+            "attempts",
+            response.getContent(),
+            VerificationAttempt.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "VerificationAttempt read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -145,7 +196,14 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<VerificationAttempt> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "attempts",
             response.getContent(),
@@ -161,7 +219,7 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.VERIFY.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -173,7 +231,7 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.VERIFY.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -183,46 +241,90 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (dateCreatedAfter != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "DateCreatedAfter",
-                dateCreatedAfter.toInstant().toString()
+                dateCreatedAfter,
+                ParameterType.QUERY
             );
         }
 
         if (dateCreatedBefore != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "DateCreatedBefore",
-                dateCreatedBefore.toInstant().toString()
+                dateCreatedBefore,
+                ParameterType.QUERY
             );
         }
 
         if (channelDataTo != null) {
-            request.addQueryParam("ChannelData.To", channelDataTo);
+            Serializer.toString(
+                request,
+                "ChannelData.To",
+                channelDataTo,
+                ParameterType.QUERY
+            );
         }
+
         if (country != null) {
-            request.addQueryParam("Country", country);
+            Serializer.toString(
+                request,
+                "Country",
+                country,
+                ParameterType.QUERY
+            );
         }
+
         if (channel != null) {
-            request.addQueryParam("Channel", channel.toString());
+            Serializer.toString(
+                request,
+                "Channel",
+                channel,
+                ParameterType.QUERY
+            );
         }
+
         if (verifyServiceSid != null) {
-            request.addQueryParam("VerifyServiceSid", verifyServiceSid);
+            Serializer.toString(
+                request,
+                "VerifyServiceSid",
+                verifyServiceSid,
+                ParameterType.QUERY
+            );
         }
+
         if (verificationSid != null) {
-            request.addQueryParam("VerificationSid", verificationSid);
+            Serializer.toString(
+                request,
+                "VerificationSid",
+                verificationSid,
+                ParameterType.QUERY
+            );
         }
+
         if (status != null) {
-            request.addQueryParam("Status", status.toString());
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

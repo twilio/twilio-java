@@ -17,15 +17,21 @@ package com.twilio.rest.sync.v1.service.synclist;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class SyncListItemReader extends Reader<SyncListItem> {
 
@@ -34,7 +40,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     private SyncListItem.QueryResultOrder order;
     private String from;
     private SyncListItem.QueryFromBoundType bounds;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SyncListItemReader(
         final String pathServiceSid,
@@ -63,18 +69,37 @@ public class SyncListItemReader extends Reader<SyncListItem> {
         return this;
     }
 
-    public SyncListItemReader setPageSize(final Integer pageSize) {
+    public SyncListItemReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<SyncListItem> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<SyncListItem> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SyncListItem> page = Page.fromJson(
+            "items",
+            response.getContent(),
+            SyncListItem.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<SyncListItem> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<SyncListItem> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items";
+
         path =
             path.replace(
                 "{" + "ServiceSid" + "}",
@@ -87,27 +112,54 @@ public class SyncListItemReader extends Reader<SyncListItem> {
             Domains.SYNC.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<SyncListItem> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<SyncListItem> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<SyncListItem> pageForRequest(
+    public TwilioResponse<Page<SyncListItem>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SyncListItem> page = Page.fromJson(
+            "items",
+            response.getContent(),
+            SyncListItem.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "SyncListItem read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -116,7 +168,14 @@ public class SyncListItemReader extends Reader<SyncListItem> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<SyncListItem> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "items",
             response.getContent(),
@@ -132,7 +191,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.SYNC.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -144,7 +203,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.SYNC.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -154,23 +213,35 @@ public class SyncListItemReader extends Reader<SyncListItem> {
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (order != null) {
-            request.addQueryParam("Order", order.toString());
+            Serializer.toString(request, "Order", order, ParameterType.QUERY);
         }
+
         if (from != null) {
-            request.addQueryParam("From", from);
+            Serializer.toString(request, "From", from, ParameterType.QUERY);
         }
+
         if (bounds != null) {
-            request.addQueryParam("Bounds", bounds.toString());
+            Serializer.toString(request, "Bounds", bounds, ParameterType.QUERY);
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

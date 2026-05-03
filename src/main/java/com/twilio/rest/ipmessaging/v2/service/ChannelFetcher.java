@@ -15,7 +15,7 @@
 package com.twilio.rest.ipmessaging.v2.service;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ChannelFetcher extends Fetcher<Channel> {
 
@@ -35,8 +37,7 @@ public class ChannelFetcher extends Fetcher<Channel> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Channel fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Channels/{Sid}";
 
         path =
@@ -51,7 +52,7 @@ public class ChannelFetcher extends Fetcher<Channel> {
             Domains.IPMESSAGING.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -59,8 +60,9 @@ public class ChannelFetcher extends Fetcher<Channel> {
                 "Channel fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -71,7 +73,28 @@ public class ChannelFetcher extends Fetcher<Channel> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Channel fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Channel.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Channel> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Channel content = Channel.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

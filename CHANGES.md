@@ -1,6 +1,690 @@
 twilio-java changelog
 =====================
 
+[2026-04-21] Version 12.0.0
+---------------------------
+**Library - Chore**
+- Added JDK 21 support.
+- Replace deprecated io.jsonwebtoken.SignatureAlgorithm enum with io.jsonwebtoken.security.SecureDigestAlgorithm from jjwt 0.12.x across all public APIs (Jwt, ValidationClient, ValidationInterceptor, ValidationToken)
+- Replace deprecated URLEncodedUtils with URIBuilder in RequestValidator (internal, no public API impact)
+
+
+[2026-04-14] Version 11.4.0
+---------------------------
+**Library - Chore**
+- [PR #949](https://github.com/twilio/twilio-java/pull/949): add ISO8601Serializer. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #948](https://github.com/twilio/twilio-java/pull/948): add page without meta. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Feature**
+- [PR #947](https://github.com/twilio/twilio-java/pull/947): Added ResourceDeleter. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Twiml**
+- Add `backgroundNoiseReduction`, `speechTimeout`, `deepgramSmartFormat`, `ignoreBackchannel`, `events` attributes to `<ConversationRelay>`
+
+**Api**
+- Enabled incoming phone numbers(IPN) public apis in stage-ie1
+
+**Data-ingress**
+- ## 2026-04-09
+- **Content updates**:
+- Added parameter(s) to `GetDataSync`: datasetId
+- ## 2026-04-09
+- Minor updates (formatting, metadata)
+- ## 2026-04-06
+- Minor updates (formatting, metadata)
+- ## 2026-04-06
+- Minor updates (formatting, metadata)
+- ## 2026-04-06
+- Minor updates (formatting, metadata)
+- ## 2026-04-06
+- Minor updates (formatting, metadata)
+- ## 2026-04-06
+- **Content updates**:
+- Added properties to `CloudAppSourceUpdate`: config
+- Added properties to `CloudAppDatasetUpdate`: schedule
+- Added properties to `WarehouseSourceUpdate`: config
+- Added properties to `WarehouseDatasetUpdate`: schedule
+- ## 2026-04-06
+- **Content updates**:
+- Updated description for `GetCloudAppPreviewResult`
+- Updated description for `GetWarehousePreviewResult`
+- Updated description for `GetDataSampleResult`
+- ## 2026-03-27
+- Add schema oneOf back without discriminator
+- ## 2026-03-26
+- Minor updates (formatting, metadata)
+- ## 2026-03-26
+- Added prod-us1 to supportedRealms for all endpoints
+- ## 2026-03-25
+- Minor updates (formatting, metadata)
+- ## 2026-03-24
+- Minor updates (formatting, metadata)
+- ## 2026-03-24
+- Minor updates (formatting, metadata)
+- ## 2026-03-24
+- Minor updates (formatting, metadata)
+- ## 2026-03-24
+- **Added 10 new path(s)**:
+- `/v1/DataSyncs` (ListDataSyncs, TriggerDataSync)
+- `/v1/DataSyncs/{SyncId}` (GetDataSync)
+- `/v1/CloudAppSources/{SourceId}/Objects` (ListCloudAppObjects)
+- `/v1/CloudAppSources/{SourceId}/Objects/{Name}/Properties` (ListCloudAppObjectProperties)
+- `/v1/CloudAppSources/{SourceId}/Objects/{Name}/Preview` (PreviewCloudAppObjectData)
+- `/v1/CloudAppSources/{SourceId}/Objects/{Name}/Preview/{OperationId}` (GetCloudAppPreviewResult)
+- `/v1/WarehouseSources/{SourceId}/Preview` (PreviewWarehouseData)
+- `/v1/WarehouseSources/{SourceId}/Preview/{OperationId}` (GetWarehousePreviewResult)
+- `/v1/DataSample` (TriggerDataSample)
+- `/v1/DataSample/{OperationId}` (GetDataSampleResult)
+- ## 2026-03-24
+- Minor updates (formatting, metadata)
+- ## 2026-03-24
+- Use `explode: true` for query params when getting by ids and limit max items to 25
+- Make schema description for `Schema` more specific by using oneOf without discriminator for now.
+
+**Insights**
+- Added Insights Domains endpoints under `/v3/InsightsDomains/*` (Query + Metadata) to provide a versioned, GA-ready namespace alongside existing `/preview` endpoints.
+
+**Mcp**
+- # API Changes
+- ## 2026-04-07
+- **Added 1 new path(s)**:
+- `/v1/docs` (InvokeDocsMcp)
+
+**Memory**
+- ## 2026-04-09
+- **Removed 2 path(s)**:
+- `/v1/Stores/{storeId}/Profiles/Import` (ListProfileImports, CreateProfilesImport)
+- `/v1/Stores/{storeId}/Profiles/Import/{importId}` (FetchProfileImport)
+- libraryVisibility: private, docsVisibility: private
+- ## 2026-04-08
+- **Content updates**:
+- Added 301 response for `GetProfile` and `GetProfileTraits`
+- Added canonical ID header to response for `GetProfile` and `GetProfileTraits`
+- Add 308 response for `PatchProfile`
+- ## 2026-04-07
+- Added `AGENT` and `UNKNOWN` values to `ParticipantType` enum
+- ## 2026-04-06
+- **Content updates**:
+- Added async operation support to `UpdateTraitGroup` 202 response (Operation-Id, Location, Retry-After headers; statusUrl in body)
+- Added async operation support to `CreateDataMapping`, `UpdateDataMapping`, `DeleteDataMapping` 202 responses (Operation-Id, Location, Retry-After headers; statusUrl in body)
+- ## 2026-03-30
+- **Content updates**:
+- Updated description for `FetchProfileMemory`
+- ## 2026-03-27
+- **Content updates**:
+- Updated schema description for `TraitGroupCore`
+- ## 2026-03-25
+- **Content updates**:
+- Removed properties from `TraitDefinition`: displayName
+- ## 2026-03-25
+- **Content updates**:
+- Updated description for `UpdateProfileTraits`
+- Updated description for `FetchIdentityResolutionSettings`
+- Updated description for `UpdateIdentityResolutionSettings`
+- Updated schema description for `IdentityResolutionSettingsCore`
+- Updated schema description for `TraitGroupCore`
+- Made all fields besides `idType` optional w/ defaults for schema `IdentifierConfig`
+- ## 2026-03-24
+- **Content updates**:
+- Added properties to `OperationStatus`: result
+
+
+[2026-03-24] Version 11.3.6
+---------------------------
+**Data-ingress**
+- # API Changes
+- ## 2026-03-23
+- Added stage-us1 to supportedRealms for all endpoints
+- ## 2026-03-20
+- **Content updates**:
+- Removed estimatedCompletionTime from `LongRunningOperationResponse`
+- Moved operationId from `LongRunningOperationResponse` to headers
+- ## 2026-03-18
+- **Added 1 new path(s)**:
+- `/v1/ControlPlane/Operations/{OperationId}` (GetControlPlaneOperationStatus)
+- ## 2026-03-11
+- Minor updates (formatting, metadata)
+- ## 2026-03-11
+- Minor updates (formatting, metadata)
+- ## 2026-03-11
+- Minor updates (formatting, metadata)
+- ## 2026-03-11
+- Minor updates (formatting, metadata)
+- ## 2026-03-11
+- Minor updates (formatting, metadata)
+- ## 2026-03-05
+- Initial release with 10 paths and 22 operations
+
+**Memory**
+- ## 2026-03-19
+- **Added 1 new path(s)**:
+- `/v1/ControlPlane/Operations/{operationId}` (FetchOperation)
+- ## 2026-03-11
+- Minor updates (formatting, metadata)
+
+
+[2026-03-10] Version 11.3.5
+---------------------------
+**Library - Chore**
+- [PR #943](https://github.com/twilio/twilio-java/pull/943): bump com.fasterxml.jackson.core:jackson-core from 2.15.0 to 2.18.6. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #945](https://github.com/twilio/twilio-java/pull/945): added memory domain. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #941](https://github.com/twilio/twilio-java/pull/941): add validTwilioUrl utility check. Thanks to [@kridai](https://github.com/kridai)!
+
+**Library - Fix**
+- [PR #942](https://github.com/twilio/twilio-java/pull/942): encode URL path spaces as %20 instead of +. Thanks to [@hubert-ren](https://github.com/hubert-ren)!
+
+**Twiml**
+- Rename `recording_configuration` to `recording_configuration_id` attribute in `<Conference>`, `<Dial>`, `<Record>` verbs and `<Recording>` noun
+
+**Ace**
+- # ACE Signals API Changes
+- ## 2026-02-18
+- Initial release: POST /signals, GET/POST /signals/{signal_id}/results, GET /health
+- Enables OneAdmin integration for synchronous signal ingestion and policy result polling
+- Supports permission-based authorization for signal operations
+- Health endpoint available for monitoring without authentication
+
+**Api**
+- Added optional parameter `Confirmation` to Payments create endpoint to enable payment confirmation prompt before gateway submission
+- Added optional parameter `RequireMatchingInputs` to Payments create endpoint for input confirmation in agent-assisted payment flows
+- Added matcher capture types (`payment-card-number-matcher`, `expiration-date-matcher`, `security-code-matcher`, `postal-code-matcher`) to Payments update endpoint
+
+**Memory**
+- ## 2026-03-06
+- **Modified 1 path(s)**:
+- `/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries/{summaryId}` (added patch, get)
+
+
+[2026-02-18] Version 11.3.4
+---------------------------
+**Library - Chore**
+- [PR #937](https://github.com/twilio/twilio-java/pull/937): added exception as per rfc-9457 standards. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- Remove inequality examples from Calls StartTime and EndTime filter descriptions
+
+**Memory**
+- ## 2026-02-06
+- Minor updates (formatting, metadata)
+- ## 2026-02-06
+- Minor updates (formatting, metadata)
+- ## 2026-02-06
+- ## 2026-01-23
+- ## 2026-01-23
+- **Added 3 new path(s)**:
+- `/v1/Stores/{storeId}/Profiles/Imports` (ListProfileImportsV2, CreateProfilesImportV2)
+- `/v1/Stores/{storeId}/Profiles/Imports/{importId}` (FetchProfileImportV2)
+- **Removed 6 path(s)**:
+- `/v1/KnowledgeBases/{kbId}/Knowledge` (ListKnowledge, CreateKnowledge)
+- `/v1/KnowledgeBases/{kbId}/Search` (KnowledgeSearch)
+- `/v1/KnowledgeBases/{kbId}/Knowledge/{knowledgeId}` (RetrieveKnowledge, PatchKnowledge, DeleteKnowledge)
+- `/v1/KnowledgeBases/{kbId}/Knowledge/{knowledgeId}/Chunks` (ListKnowledgeChunks)
+- `/v1/ControlPlane/KnowledgeBases` (ListKnowledgeBases, CreateKnowledgeBase)
+- `/v1/ControlPlane/KnowledgeBases/{kbId}` (GetKnowledgeBase, UpdateKnowledgeBase, DeleteKnowledgeBase)
+- ## 2026-01-05
+- ## 2026-01-05
+- Initial release with 26 paths and 48 operations
+
+
+[2026-02-05] Version 11.3.3
+---------------------------
+**Library - Fix**
+- [PR #936](https://github.com/twilio/twilio-java/pull/936): java regional endpoint processing. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Twiml**
+- Add `recording_configuration` attribute to `<Recording>` noun
+
+**Api**
+- Clarify the behavior of date filters with the Calls API
+- Added Phone Number `type` property to `/IncomingPhoneNumbers` resource
+
+**Memory**
+- ## 2026-01-23
+- No path changes (updated metadata only)
+- ## 2026-01-22
+- No path changes (updated metadata only)
+- ## 2026-01-22
+- **Modified 1 path(s)**:
+- `/v1/Stores/{storeId}/Profiles/{profileId}` (added delete)
+
+
+[2026-01-22] Version 11.3.2
+---------------------------
+**Library - Chore**
+- [PR #933](https://github.com/twilio/twilio-java/pull/933): added methods to support response headers and status code. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #934](https://github.com/twilio/twilio-java/pull/934): update mockwebserver, okio to resolve CVE-2022-24329. Thanks to [@kridai](https://github.com/kridai)!
+
+**Twiml**
+- Added support for <Uri> and <Headers> inside <Dial><Sip>
+
+**Assistants**
+- AI Assistants v1 release
+
+**Autopilot**
+- Remove Export resource from Autopilot Assistant
+- Add dialogue_sid param to Query list resource
+- Add Restore resource to Autopilot Assistant
+- Add one new property in Query i.e dialogue_sid
+- Add Export resource to Autopilot Assistant.
+- Adds two new properties in Assistant i.e needs_model_build and development_stage
+- Add Webhooks resource to Autopilot Assistant.
+- Introduce `autopilot` subdomain with all resources from `preview.understand`
+
+**Compliance**
+- Added the new InventoryComplianceInsights API under version `/v1`.
+
+**Content**
+- changes for adding v2 endpoints
+
+**Marketplace**
+- Initial transition to Marketplace domain
+
+**Memory**
+- # API Changes
+- ## 2026-01-15
+- No path changes (updated metadata only)
+- ## 2026-01-13
+- **Added 1 new path(s)**:
+- `/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries/{summaryId}` (DeleteProfileConversationSummary)
+- ## 2026-01-12
+- No path changes (updated metadata only)
+- ## 2026-01-12
+- No path changes (updated metadata only)
+- ## 2026-01-12
+- No path changes (updated metadata only)
+- ## 2026-01-12
+- **Added 2 new path(s)**:
+- `/v1/Stores/{storeId}/Profiles/Imports` (ListProfileImportsV2, ImportProfilesV2)
+- `/v1/Stores/{storeId}/Profiles/Imports/{importId}` (GetProfileImportV2)
+- ## 2026-01-13
+- No path changes (updated metadata only)
+- ## 2026-01-07
+- No path changes (updated metadata only)
+- ## 2026-01-05
+- No path changes (updated metadata only)
+- ## 2025-12-17
+- No path changes (updated metadata only)
+- ## 2025-12-17
+- No path changes (updated metadata only)
+- ## 2025-12-17
+- **Added 1 new path(s)**:
+- `/v1/Stores/{storeId}/Profiles/{profileId}/Observations/{observationId}/Revisions` (ListObservationRevisions)
+
+**Sender-ids**
+- Added all v2 sender-id-service endpoints
+
+**Trusthub**
+- Add new delete endpoint for compliance_registration.
+
+**Voice**
+- Add ProvisioningStatus public API endpoints.
+
+**Wise_owl**
+- Init API as open-api spec
+- Updated Get Chat, Send Message and Create Chat to include `contexts` in Message, instead of root Chat
+
+**Www**
+- Port APIs from oauth.twilio.com to www.twilio.com
+
+
+[2026-01-07] Version 11.3.1
+---------------------------
+**Api**
+- Added optional parameter `clientNotificationUrl` for create call api
+- Added optional parameter `clientNotificationUrl` for create participant api
+
+
+[2025-12-17] Version 11.3.0
+---------------------------
+**Trunking**
+- Corrected the type used for phone number capabilities when accessed through a Trunk. **(breaking change)**
+- Corrected the type used for phone number capabilities when accessed through a Trunk. **(breaking change)**
+
+**Trusthub**
+- Added new parameters in in toll-free initialize api payload.
+- Remove the invalid status transition to Draft from the examples
+- Change the value of email to a valid one in the examples.
+
+
+[2025-12-03] Version 11.2.0
+---------------------------
+**Library - Chore**
+- [PR #931](https://github.com/twilio/twilio-java/pull/931): ignore region and edge for noauth apis example tokencreator. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #928](https://github.com/twilio/twilio-java/pull/928): Regional API domain processing. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Feature**
+- [PR #918](https://github.com/twilio/twilio-java/pull/918): add patch operation support. Thanks to [@kridai](https://github.com/kridai)!
+- [PR #917](https://github.com/twilio/twilio-java/pull/917): add token pagination strategy. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Add `twiml_session` resource for calls
+- Add `twiml_session` resource for calls
+
+**Monitor**
+- Update default output properties
+
+**Trusthub**
+- Added customer_profile_sid in toll-free initialize api payload.
+
+
+[2025-11-11] Version 11.1.0
+---------------------------
+**Memory**
+# Memory API Changes
+- Added initial Memory API endpoints with darkseagreen badge status
+
+[2025-11-11] Version 11.0.3
+---------------------------
+**Twiml**
+- Add new noun `<ConversationRelaySession>`
+- Add support for `<Recording>` noun under `<Start>` verb
+
+
+[2025-10-28] Version 11.0.2
+---------------------------
+**Ai**
+- Add `error` as possible transcript status
+- Add `error` as possible transcript status
+
+**Chat**
+- Updated v2 UserChannel `channel_status` from `not_participating` to `notParticipating`
+
+**Intelligence**
+- Make intelligence work with RestProxy
+- Add additional enums to better represent the possible states
+- Add `error` enum to transcription status to better align with possible outputs
+- Add `json` output type to text classification
+
+**Trusthub**
+- Remove required parameter Primary Profile Sid from compliance_inquiry and compliance_inquiry_individual
+
+**Accounts**
+- Add Messaging GeoPermissions API changes
+
+
+[2025-10-15] Version 11.0.1
+----------------------------
+
+**Api**
+
+- Updated description for property CallerDisplayName for participant create request
+- Updated description for property CallerDisplayName for participant create request
+
+
+[2025-09-30] Version 11.0.0
+------------------------------------
+
+**Library - Breaking Changes**
+- Refer [Upgrade.md](https://github.com/twilio/twilio-java/blob/main/UPGRADE.md) for detailed migration notes and list of Breaking Changes.
+
+**Accounts**
+- Update beta feature flag for consent and contact bulk upsert APIs
+
+**Api**
+- Add `date_created` property to media resource and date_created filtering parameters for read action
+- Updated the Recordings Resource `channels` property to clarify channels = # of channels in the recording resource and how to specify the # of channels in recording download
+- Remove usage category enum from usage record and usage triggers API **(breaking change)**
+- Add multiple missing usage categories to usage records and usage triggers api
+- Add `channels-whatsapp-template-marketing` and `channels-whatsapp-template-utility` to usage categories
+
+**Bulkexports**
+- Changed the type of 'details' field to be a list of objects instead of a single object
+
+**Conversations**
+- Fix `state` spelling for `initializing` enum value
+- Update `state` to include `intializing` for ServiceConversationWithParticipants and ConversationWithParticipants
+- Updates to `method` casing for ConfgurationAddress, ConversationScopedWebhook, and ServiceConversationScopedWebhook for RestProxy compatibility
+
+**Events**
+- Remove `SinkSid` parameter when updating subscriptions. **(breaking change)**
+
+**Intelligence**
+- Add encryption_credential_sid field in transcripts and services in v2
+
+**Flex**
+- Adding new optional parameter `identity` to `web_channels` API in version `v2`
+- update team name for web_channel, webchat_init_token, webchat_refresh_token
+
+**Verify**
+- Add passkeys support to Verify API creating and updating services.
+- Update `ienum` type for Factor creation
+- Add passkeys as challenge and factor type
+
+**Proxy**
+- remove shortcodes resource as its no longer used
+
+**Studio**
+- Add `type` to Step resource APIs
+
+**Serverless**
+- Change log field level from type `ienum` to `string` in Logs api
+
+**Taskrouter**
+- Remove `URL-encoded` from attributes param definition in tasks
+
+**Trunking**
+- Added `symmetric_rtp_enabled` property on Trunks.-
+
+**Trusthub**
+- Remove beta feature flag for all TH APIs
+- Remove beta feature flag for ComplianceInquiries API to support OneConsole traffic
+- Add required Permissions to the ComplianceInquiries API
+
+**Twiml**
+- Add new noun `<AiSession>`
+- Remove Duplicates.
+- Add Polly Generative voices.
+- Add Latest Google (Chirp3-HD) voices.
+- Add support for `<WhatsApp>` noun under `<Dial>` verb
+
+**Verify**
+- Allow to update all passkeys parameters in the service update
+
+
+[2025-06-12] Version 10.9.2
+---------------------------
+**Library - Chore**
+- [PR #858](https://github.com/twilio/twilio-java/pull/858): handle any Type with object datatype. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Change DependentPhoneNumber `capabilities` type `object` and `date_created`, `date_updated` to `date_time<rfc2822>`
+- Updated the `Default` value from 0 to 1 in the Recordings Resource `channels` property
+
+**Serverless**
+- Update `ienum` type level in Logs api
+
+**Verify**
+- Update Channel list in Verify Attempst API
+- Update `ienum` type for Conversion_Status in Verify Attempts API
+
+**Twiml**
+- Add `us2` to the list of supported values for the region attribute in the `<Conference>` TwiML noun.
+
+
+[2025-05-29] Version 10.9.1
+---------------------------
+**Library - Chore**
+- [PR #860](https://github.com/twilio/twilio-java/pull/860): update dependency version. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #857](https://github.com/twilio/twilio-java/pull/857): use iam token endpoint. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Added several usage category enums to `usage_record` API
+
+**Numbers**
+- Update the porting documentation
+
+**Verify**
+- Update `ienum` type for Channels in Verify Attempts API
+
+
+[2025-05-13] Version 10.9.0
+---------------------------
+**Library - Feature**
+- [PR #844](https://github.com/twilio/twilio-java/pull/844): Support custom ObjectMappers, with singleton defaults. Thanks to [@egoodhall](https://github.com/egoodhall)!
+
+**Library - Chore**
+- [PR #853](https://github.com/twilio/twilio-java/pull/853): add changelog for jwt. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Accounts**
+- Changes to add date_of_consent param in Bulk Consent API
+
+**Api**
+- Change `friendly_name`, `date_created` and `date_updated` properties to type `string`.
+
+**Twiml**
+- Update twiml definition for `<ConversationRelay>` and `<Assistant>`
+
+
+[2025-05-05] Version 10.8.0
+---------------------------
+**Library - Chore**
+- [PR #852](https://github.com/twilio/twilio-java/pull/852): removing jwt changelog. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #849](https://github.com/twilio/twilio-java/pull/849): Add example for using multi region setup in a single application. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #847](https://github.com/twilio/twilio-java/pull/847): bump com.google.code.gson:gson from 2.8.6 to 2.8.9. Thanks to [@dependabot](https://github.com/dependabot)!
+
+**Library - Fix**
+- [PR #846](https://github.com/twilio/twilio-java/pull/846): update jjwt version. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- **AccessToken**
+    - **Breaking Change**: Updated `AccessTokenBuilder` to use `byte[]` for the `secret` instead of `String`.
+        - Updated method signatures:
+            - `AccessTokenBuilder(String accountSid, String keySid, byte[] secret)`
+        - Example usage:
+          ```java
+          byte[] secret = “your_secret”.getBytes();
+          AccessTokenBuilder builder = new AccessTokenBuilder(accountSid, keySid, secret);
+          ```
+    **ClientCapability**
+    - **Breaking Change**: Updated `ClientCapability.Builder` to use `byte[]` for the `authToken` instead of `String`.
+        - Updated method signatures:
+            - `ClientCapability.Builder(String accountSid, byte[] authToken)`
+        - Example usage:
+          ```java
+          byte[] authToken = “your_auth_token”.getBytes();
+          ClientCapability.Builder builder = new ClientCapability.Builder(accountSid, authToken);
+          ```
+    **TaskRouterCapability**
+    - **Breaking Change**: Updated `TaskRouterCapability.Builder` to use `byte[]` for the `authToken` instead of `String`.
+        - Updated method signatures:
+            - `TaskRouterCapability.Builder(String accountSid, byte[] authToken)`
+        - Example usage:
+          ```java
+          byte[] authToken = “your_auth_token”.getBytes();
+          TaskRouterCapability.Builder builder = new TaskRouterCapability.Builder(accountSid, authToken);
+          ```
+
+**Api**
+- Add `response_key` for `Usage Triggers` fetch endpoint.
+
+**Flex**
+- Add Update Interaction API
+- Adding `webhook_ttid` as optional parameter in Interactions API
+
+**Serverless**
+- Add node22 as a valid Build runtime
+- Add node20 as a valid Build runtime
+
+**Video**
+- removed `transcribe_participants_on_connect` and `transcriptions_configuration` from the room resource **(breaking change)**
+- Added `transcribe_participants_on_connect` and `transcriptions_configuration` to the room resource
+
+
+[2025-04-07] Version 10.7.2
+---------------------------
+**Library - Chore**
+- [PR #842](https://github.com/twilio/twilio-java/pull/842): added patch method. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Studio**
+- Add documentation for parent_step_sid field in Step resource
+
+
+[2025-03-20] Version 10.7.1
+---------------------------
+**Accounts**
+- Update Safelist API docs as part of prefix supoort
+
+**Flex**
+- Removing `first_name`, `last_name`, and `friendly_name` from the Flex User API
+
+**Messaging**
+- Add missing tests under transaction/phone_numbers and transaction/short_code
+
+
+[2025-03-11] Version 10.7.0
+---------------------------
+**Library - Chore**
+- [PR #839](https://github.com/twilio/twilio-java/pull/839): MVR Release Preparation. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #841](https://github.com/twilio/twilio-java/pull/841): update upgrade doc. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #840](https://github.com/twilio/twilio-java/pull/840): add version. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #838](https://github.com/twilio/twilio-java/pull/838): Add domain and noauth base classes. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #837](https://github.com/twilio/twilio-java/pull/837): enable java test. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Add the missing `emergency_enabled` field for `Address Service` endpoints
+
+**Messaging**
+- Add missing enums for A2P and TF
+
+**Numbers**
+- add missing enum values to hosted_number_order_status
+
+**Twiml**
+- Convert Twiml Attribute `speechModel` of type enum to string **(breaking change)**
+
+
+[2025-02-20] Version 10.6.10
+----------------------------
+**Library - Chore**
+- [PR #836](https://github.com/twilio/twilio-java/pull/836): disable java test. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #835](https://github.com/twilio/twilio-java/pull/835): disable java test. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Flex**
+- Adding Digital Transfers APIs under v1/Interactions
+
+**Numbers**
+- Convert webhook_type to ienum type in v1/Porting/Configuration/Webhook/{webhook_type}
+
+**Trusthub**
+- Changing TrustHub SupportingDocument status enum from lowercase to uppercase since kyc-orch returns status capitalized and rest proxy requires strict casing
+
+
+[2025-02-11] Version 10.6.9
+---------------------------
+**Api**
+- Change downstream url and change media type for file `base/api/v2010/validation_request.json`.
+
+**Intelligence**
+- Add json_results for Generative JSON operator results
+
+**Messaging**
+- Add DestinationAlphaSender API to support Country-Specific Alpha Senders
+
+**Video**
+- Change codec type from enum to case-insensitive enum in recording and room_recording apis
+
+
+[2025-01-28] Version 10.6.8
+---------------------------
+**Library - Fix**
+- [PR #809](https://github.com/twilio/twilio-java/pull/809): Fix for 1 vulnerabilities. Thanks to [@twilio-product-security](https://github.com/twilio-product-security)!
+- [PR #830](https://github.com/twilio/twilio-java/pull/830): Voice v2 fix. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Chore**
+- [PR #831](https://github.com/twilio/twilio-java/pull/831): added bug report issue template. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #829](https://github.com/twilio/twilio-java/pull/829): add variant class. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Add open-api file tag to `conference/call recordings` and `recording_transcriptions`.
+
+**Events**
+- Add support for subaccount subscriptions (beta)
+
+**Insights**
+- add new region to conference APIs
+
+**Lookups**
+- Add new `parnter_sub_id` query parameter to the lookup request
+
+
 [2025-01-13] Version 10.6.7
 ---------------------------
 **Messaging**

@@ -18,26 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssistantsKnowledge extends Resource {
-
-    private static final long serialVersionUID = 142704301669097L;
 
     public static AssistantsKnowledgeCreator creator(
         final String pathAssistantId,
@@ -102,90 +104,88 @@ public class AssistantsKnowledge extends Resource {
         }
     }
 
-    private final String description;
-    private final String id;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final Map<String, Object> knowledgeSourceDetails;
-    private final String name;
-    private final String status;
-    private final String type;
-    private final String url;
-    private final String embeddingModel;
+
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String description;
+
+    @Getter
+    private final String embeddingModel;
+
+    @Getter
+    private final String id;
+
+    @Getter
+    private final Object knowledgeSourceDetails;
+
+    @Getter
+    private final String name;
+
+    @Getter
+    private final String status;
+
+    @Getter
+    private final String type;
+
+    @Getter
+    private final String url;
 
     @JsonCreator
     private AssistantsKnowledge(
-        @JsonProperty("description") final String description,
-        @JsonProperty("id") final String id,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("knowledge_source_details") final Map<
-            String,
-            Object
-        > knowledgeSourceDetails,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("description") final String description,
+        @JsonProperty("embedding_model") final String embeddingModel,
+        @JsonProperty("id") final String id,
+        @JsonProperty(
+            "knowledge_source_details"
+        ) final Object knowledgeSourceDetails,
         @JsonProperty("name") final String name,
         @JsonProperty("status") final String status,
         @JsonProperty("type") final String type,
-        @JsonProperty("url") final String url,
-        @JsonProperty("embedding_model") final String embeddingModel,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+        @JsonProperty("url") final String url
     ) {
-        this.description = description;
-        this.id = id;
         this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.description = description;
+        this.embeddingModel = embeddingModel;
+        this.id = id;
         this.knowledgeSourceDetails = knowledgeSourceDetails;
         this.name = name;
         this.status = status;
         this.type = type;
         this.url = url;
-        this.embeddingModel = embeddingModel;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final String getId() {
-        return this.id;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Map<String, Object> getKnowledgeSourceDetails() {
-        return this.knowledgeSourceDetails;
-    }
-
-    public final String getName() {
-        return this.name;
-    }
-
-    public final String getStatus() {
-        return this.status;
-    }
-
-    public final String getType() {
-        return this.type;
-    }
-
-    public final String getUrl() {
-        return this.url;
-    }
-
-    public final String getEmbeddingModel() {
-        return this.embeddingModel;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
     }
 
     @Override
@@ -199,11 +199,13 @@ public class AssistantsKnowledge extends Resource {
         }
 
         AssistantsKnowledge other = (AssistantsKnowledge) o;
-
         return (
-            Objects.equals(description, other.description) &&
-            Objects.equals(id, other.id) &&
             Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(embeddingModel, other.embeddingModel) &&
+            Objects.equals(id, other.id) &&
             Objects.equals(
                 knowledgeSourceDetails,
                 other.knowledgeSourceDetails
@@ -211,27 +213,24 @@ public class AssistantsKnowledge extends Resource {
             Objects.equals(name, other.name) &&
             Objects.equals(status, other.status) &&
             Objects.equals(type, other.type) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(embeddingModel, other.embeddingModel) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            description,
-            id,
             accountSid,
+            dateCreated,
+            dateUpdated,
+            description,
+            embeddingModel,
+            id,
             knowledgeSourceDetails,
             name,
             status,
             type,
-            url,
-            embeddingModel,
-            dateCreated,
-            dateUpdated
+            url
         );
     }
 }

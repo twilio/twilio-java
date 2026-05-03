@@ -15,8 +15,11 @@
 package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +28,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
+import java.io.InputStream;
 import java.net.URI;
 
 public class TranscriptionCreator extends Creator<Transcription> {
 
-    private String pathCallSid;
     private String pathAccountSid;
+    private String pathCallSid;
     private String name;
     private Transcription.Track track;
     private URI statusCallbackUrl;
@@ -46,6 +50,10 @@ public class TranscriptionCreator extends Creator<Transcription> {
     private String hints;
     private Boolean enableAutomaticPunctuation;
     private String intelligenceService;
+    private String conversationConfiguration;
+    private String conversationId;
+    private String configurationId;
+    private Boolean enableProviderData;
 
     public TranscriptionCreator(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -153,8 +161,33 @@ public class TranscriptionCreator extends Creator<Transcription> {
         return this;
     }
 
-    @Override
-    public Transcription create(final TwilioRestClient client) {
+    public TranscriptionCreator setConversationConfiguration(
+        final String conversationConfiguration
+    ) {
+        this.conversationConfiguration = conversationConfiguration;
+        return this;
+    }
+
+    public TranscriptionCreator setConversationId(final String conversationId) {
+        this.conversationId = conversationId;
+        return this;
+    }
+
+    public TranscriptionCreator setConfigurationId(
+        final String configurationId
+    ) {
+        this.configurationId = configurationId;
+        return this;
+    }
+
+    public TranscriptionCreator setEnableProviderData(
+        final Boolean enableProviderData
+    ) {
+        this.enableProviderData = enableProviderData;
+        return this;
+    }
+
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json";
 
@@ -176,14 +209,17 @@ public class TranscriptionCreator extends Creator<Transcription> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Transcription creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -194,64 +230,195 @@ public class TranscriptionCreator extends Creator<Transcription> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Transcription create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Transcription.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Transcription> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Transcription content = Transcription.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (name != null) {
-            request.addPostParam("Name", name);
+            Serializer.toString(
+                request,
+                "Name",
+                name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (track != null) {
-            request.addPostParam("Track", track.toString());
+            Serializer.toString(
+                request,
+                "Track",
+                track,
+                ParameterType.URLENCODED
+            );
         }
+
         if (statusCallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "StatusCallbackUrl",
-                statusCallbackUrl.toString()
+                statusCallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (statusCallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "StatusCallbackMethod",
-                statusCallbackMethod.toString()
+                statusCallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (inboundTrackLabel != null) {
-            request.addPostParam("InboundTrackLabel", inboundTrackLabel);
-        }
-        if (outboundTrackLabel != null) {
-            request.addPostParam("OutboundTrackLabel", outboundTrackLabel);
-        }
-        if (partialResults != null) {
-            request.addPostParam("PartialResults", partialResults.toString());
-        }
-        if (languageCode != null) {
-            request.addPostParam("LanguageCode", languageCode);
-        }
-        if (transcriptionEngine != null) {
-            request.addPostParam("TranscriptionEngine", transcriptionEngine);
-        }
-        if (profanityFilter != null) {
-            request.addPostParam("ProfanityFilter", profanityFilter.toString());
-        }
-        if (speechModel != null) {
-            request.addPostParam("SpeechModel", speechModel);
-        }
-        if (hints != null) {
-            request.addPostParam("Hints", hints);
-        }
-        if (enableAutomaticPunctuation != null) {
-            request.addPostParam(
-                "EnableAutomaticPunctuation",
-                enableAutomaticPunctuation.toString()
+            Serializer.toString(
+                request,
+                "InboundTrackLabel",
+                inboundTrackLabel,
+                ParameterType.URLENCODED
             );
         }
+
+        if (outboundTrackLabel != null) {
+            Serializer.toString(
+                request,
+                "OutboundTrackLabel",
+                outboundTrackLabel,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (partialResults != null) {
+            Serializer.toString(
+                request,
+                "PartialResults",
+                partialResults,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (languageCode != null) {
+            Serializer.toString(
+                request,
+                "LanguageCode",
+                languageCode,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (transcriptionEngine != null) {
+            Serializer.toString(
+                request,
+                "TranscriptionEngine",
+                transcriptionEngine,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (profanityFilter != null) {
+            Serializer.toString(
+                request,
+                "ProfanityFilter",
+                profanityFilter,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (speechModel != null) {
+            Serializer.toString(
+                request,
+                "SpeechModel",
+                speechModel,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (hints != null) {
+            Serializer.toString(
+                request,
+                "Hints",
+                hints,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (enableAutomaticPunctuation != null) {
+            Serializer.toString(
+                request,
+                "EnableAutomaticPunctuation",
+                enableAutomaticPunctuation,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (intelligenceService != null) {
-            request.addPostParam("IntelligenceService", intelligenceService);
+            Serializer.toString(
+                request,
+                "IntelligenceService",
+                intelligenceService,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (conversationConfiguration != null) {
+            Serializer.toString(
+                request,
+                "ConversationConfiguration",
+                conversationConfiguration,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (conversationId != null) {
+            Serializer.toString(
+                request,
+                "ConversationId",
+                conversationId,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (configurationId != null) {
+            Serializer.toString(
+                request,
+                "ConfigurationId",
+                configurationId,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (enableProviderData != null) {
+            Serializer.toString(
+                request,
+                "EnableProviderData",
+                enableProviderData,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

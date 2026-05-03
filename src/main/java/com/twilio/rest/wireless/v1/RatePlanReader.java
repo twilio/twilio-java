@@ -17,25 +17,66 @@ package com.twilio.rest.wireless.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class RatePlanReader extends Reader<RatePlan> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public RatePlanReader() {}
 
-    public RatePlanReader setPageSize(final Integer pageSize) {
+    public RatePlanReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<RatePlan> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<RatePlan> page = Page.fromJson(
+            "rate_plans",
+            response.getContent(),
+            RatePlan.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<RatePlan> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/RatePlans";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.WIRELESS.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -44,34 +85,44 @@ public class RatePlanReader extends Reader<RatePlan> {
     }
 
     public Page<RatePlan> firstPage(final TwilioRestClient client) {
-        String path = "/v1/RatePlans";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.WIRELESS.toString(),
-            path
-        );
-
-        addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<RatePlan> pageForRequest(
+    public TwilioResponse<Page<RatePlan>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<RatePlan> page = Page.fromJson(
+            "rate_plans",
+            response.getContent(),
+            RatePlan.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "RatePlan read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -80,7 +131,14 @@ public class RatePlanReader extends Reader<RatePlan> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<RatePlan> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "rate_plans",
             response.getContent(),
@@ -96,7 +154,7 @@ public class RatePlanReader extends Reader<RatePlan> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.WIRELESS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -108,7 +166,7 @@ public class RatePlanReader extends Reader<RatePlan> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.WIRELESS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -118,14 +176,23 @@ public class RatePlanReader extends Reader<RatePlan> {
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

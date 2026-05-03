@@ -15,7 +15,7 @@
 package com.twilio.rest.conversations.v1.conversation.message;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class DeliveryReceiptFetcher extends Fetcher<DeliveryReceipt> {
 
@@ -41,8 +43,7 @@ public class DeliveryReceiptFetcher extends Fetcher<DeliveryReceipt> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public DeliveryReceipt fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}";
 
@@ -63,7 +64,7 @@ public class DeliveryReceiptFetcher extends Fetcher<DeliveryReceipt> {
             Domains.CONVERSATIONS.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -71,8 +72,9 @@ public class DeliveryReceiptFetcher extends Fetcher<DeliveryReceipt> {
                 "DeliveryReceipt fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -83,10 +85,31 @@ public class DeliveryReceiptFetcher extends Fetcher<DeliveryReceipt> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public DeliveryReceipt fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return DeliveryReceipt.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<DeliveryReceipt> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        DeliveryReceipt content = DeliveryReceipt.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

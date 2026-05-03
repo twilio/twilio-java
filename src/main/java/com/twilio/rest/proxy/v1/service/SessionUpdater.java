@@ -14,8 +14,11 @@
 
 package com.twilio.rest.proxy.v1.service;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 import java.time.ZonedDateTime;
 
 public class SessionUpdater extends Updater<Session> {
@@ -54,8 +59,7 @@ public class SessionUpdater extends Updater<Session> {
         return this;
     }
 
-    @Override
-    public Session update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Sessions/{Sid}";
 
         path =
@@ -72,14 +76,17 @@ public class SessionUpdater extends Updater<Session> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Session update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -90,22 +97,52 @@ public class SessionUpdater extends Updater<Session> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Session update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Session.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Session> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Session content = Session.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (dateExpiry != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DateExpiry",
-                dateExpiry.toInstant().toString()
+                dateExpiry,
+                ParameterType.URLENCODED
             );
         }
+
         if (ttl != null) {
-            request.addPostParam("Ttl", ttl.toString());
+            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
         }
+
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

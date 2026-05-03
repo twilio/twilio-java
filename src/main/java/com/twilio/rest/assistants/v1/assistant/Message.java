@@ -19,65 +19,86 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Message extends Resource {
 
-    private static final long serialVersionUID = 131790089402244L;
+    public static MessageCreator creator(
+        final String pathId,
+        final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest
+    ) {
+        return new MessageCreator(
+            pathId,
+            assistantsV1ServiceAssistantSendMessageRequest
+        );
+    }
 
+    @JsonDeserialize(
+        builder = AssistantsV1ServiceAssistantSendMessageRequest.Builder.class
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceAssistantSendMessageRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("identity")
         @Getter
-        @Setter
-        private String identity;
+        private final String identity;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("session_id")
         @Getter
-        @Setter
-        private String sessionId;
+        private final String sessionId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("body")
         @Getter
-        @Setter
-        private String body;
+        private final String body;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("webhook")
         @Getter
-        @Setter
-        private String webhook;
+        private final String webhook;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("mode")
         @Getter
-        @Setter
-        private String mode;
+        private final String mode;
 
-        public AssistantsV1ServiceAssistantSendMessageRequest(
+        private AssistantsV1ServiceAssistantSendMessageRequest(
+            Builder builder
+        ) {
+            this.identity = builder.identity;
+            this.sessionId = builder.sessionId;
+            this.body = builder.body;
+            this.webhook = builder.webhook;
+            this.mode = builder.mode;
+        }
+
+        public static Builder builder(
             final String identity,
             final String body
         ) {
-            this.identity = identity;
-            this.body = body;
+            return new Builder(identity, body);
         }
 
         public static AssistantsV1ServiceAssistantSendMessageRequest fromJson(
@@ -89,16 +110,85 @@ public class Message extends Resource {
                 AssistantsV1ServiceAssistantSendMessageRequest.class
             );
         }
-    }
 
-    public static MessageCreator creator(
-        final String pathId,
-        final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest
-    ) {
-        return new MessageCreator(
-            pathId,
-            assistantsV1ServiceAssistantSendMessageRequest
-        );
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("identity")
+            private String identity;
+
+            @JsonProperty("session_id")
+            private String sessionId;
+
+            @JsonProperty("body")
+            private String body;
+
+            @JsonProperty("webhook")
+            private String webhook;
+
+            @JsonProperty("mode")
+            private String mode;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty("identity") final String identity,
+                @JsonProperty("body") final String body
+            ) {
+                this.identity = identity;
+                this.body = body;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("session_id")
+            public Builder sessionId(String sessionId) {
+                this.sessionId = sessionId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("webhook")
+            public Builder webhook(String webhook) {
+                this.webhook = webhook;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("mode")
+            public Builder mode(String mode) {
+                this.mode = mode;
+                return this;
+            }
+
+            public AssistantsV1ServiceAssistantSendMessageRequest build() {
+                return new AssistantsV1ServiceAssistantSendMessageRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            AssistantsV1ServiceAssistantSendMessageRequest other =
+                (AssistantsV1ServiceAssistantSendMessageRequest) o;
+            return (
+                Objects.equals(identity, other.identity) &&
+                Objects.equals(sessionId, other.sessionId) &&
+                Objects.equals(body, other.body) &&
+                Objects.equals(webhook, other.webhook) &&
+                Objects.equals(mode, other.mode)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(identity, sessionId, body, webhook, mode);
+        }
     }
 
     /**
@@ -156,59 +246,44 @@ public class Message extends Resource {
         }
     }
 
-    private final String status;
-    private final Boolean flagged;
+    @Getter
     private final Boolean aborted;
-    private final String sessionId;
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String body;
+
+    @Getter
     private final String error;
+
+    @Getter
+    private final Boolean flagged;
+
+    @Getter
+    private final String sessionId;
+
+    @Getter
+    private final String status;
 
     @JsonCreator
     private Message(
-        @JsonProperty("status") final String status,
-        @JsonProperty("flagged") final Boolean flagged,
         @JsonProperty("aborted") final Boolean aborted,
-        @JsonProperty("session_id") final String sessionId,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("body") final String body,
-        @JsonProperty("error") final String error
+        @JsonProperty("error") final String error,
+        @JsonProperty("flagged") final Boolean flagged,
+        @JsonProperty("session_id") final String sessionId,
+        @JsonProperty("status") final String status
     ) {
-        this.status = status;
-        this.flagged = flagged;
         this.aborted = aborted;
-        this.sessionId = sessionId;
         this.accountSid = accountSid;
         this.body = body;
         this.error = error;
-    }
-
-    public final String getStatus() {
-        return this.status;
-    }
-
-    public final Boolean getFlagged() {
-        return this.flagged;
-    }
-
-    public final Boolean getAborted() {
-        return this.aborted;
-    }
-
-    public final String getSessionId() {
-        return this.sessionId;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getBody() {
-        return this.body;
-    }
-
-    public final String getError() {
-        return this.error;
+        this.flagged = flagged;
+        this.sessionId = sessionId;
+        this.status = status;
     }
 
     @Override
@@ -222,28 +297,27 @@ public class Message extends Resource {
         }
 
         Message other = (Message) o;
-
         return (
-            Objects.equals(status, other.status) &&
-            Objects.equals(flagged, other.flagged) &&
             Objects.equals(aborted, other.aborted) &&
-            Objects.equals(sessionId, other.sessionId) &&
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(body, other.body) &&
-            Objects.equals(error, other.error)
+            Objects.equals(error, other.error) &&
+            Objects.equals(flagged, other.flagged) &&
+            Objects.equals(sessionId, other.sessionId) &&
+            Objects.equals(status, other.status)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            status,
-            flagged,
             aborted,
-            sessionId,
             accountSid,
             body,
-            error
+            error,
+            flagged,
+            sessionId,
+            status
         );
     }
 }

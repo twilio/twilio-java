@@ -15,7 +15,10 @@
 package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtyperegistrations;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,13 +27,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class AuthRegistrationsCredentialListMappingCreator
     extends Creator<AuthRegistrationsCredentialListMapping> {
 
+    private String pathAccountSid;
     private String pathDomainSid;
     private String credentialListSid;
-    private String pathAccountSid;
 
     public AuthRegistrationsCredentialListMappingCreator(
         final String pathDomainSid,
@@ -57,10 +62,7 @@ public class AuthRegistrationsCredentialListMappingCreator
         return this;
     }
 
-    @Override
-    public AuthRegistrationsCredentialListMapping create(
-        final TwilioRestClient client
-    ) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json";
 
@@ -78,11 +80,6 @@ public class AuthRegistrationsCredentialListMappingCreator
                 "{" + "DomainSid" + "}",
                 this.pathDomainSid.toString()
             );
-        path =
-            path.replace(
-                "{" + "CredentialListSid" + "}",
-                this.credentialListSid.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -91,14 +88,17 @@ public class AuthRegistrationsCredentialListMappingCreator
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "AuthRegistrationsCredentialListMapping creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -109,16 +109,45 @@ public class AuthRegistrationsCredentialListMappingCreator
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public AuthRegistrationsCredentialListMapping create(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
         return AuthRegistrationsCredentialListMapping.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<
+        AuthRegistrationsCredentialListMapping
+    > createWithResponse(final TwilioRestClient client) {
+        Response response = makeRequest(client);
+        AuthRegistrationsCredentialListMapping content =
+            AuthRegistrationsCredentialListMapping.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (credentialListSid != null) {
-            request.addPostParam("CredentialListSid", credentialListSid);
+            Serializer.toString(
+                request,
+                "CredentialListSid",
+                credentialListSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

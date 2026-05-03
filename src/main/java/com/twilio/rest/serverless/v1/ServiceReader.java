@@ -17,25 +17,66 @@ package com.twilio.rest.serverless.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ServiceReader extends Reader<Service> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public ServiceReader() {}
 
-    public ServiceReader setPageSize(final Integer pageSize) {
+    public ServiceReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<Service> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Service> page = Page.fromJson(
+            "services",
+            response.getContent(),
+            Service.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Service> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/Services";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.SERVERLESS.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -44,34 +85,44 @@ public class ServiceReader extends Reader<Service> {
     }
 
     public Page<Service> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Services";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.SERVERLESS.toString(),
-            path
-        );
-
-        addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Service> pageForRequest(
+    public TwilioResponse<Page<Service>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Service> page = Page.fromJson(
+            "services",
+            response.getContent(),
+            Service.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Service read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -80,7 +131,14 @@ public class ServiceReader extends Reader<Service> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Service> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "services",
             response.getContent(),
@@ -96,7 +154,7 @@ public class ServiceReader extends Reader<Service> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.SERVERLESS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -108,7 +166,7 @@ public class ServiceReader extends Reader<Service> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.SERVERLESS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -118,14 +176,23 @@ public class ServiceReader extends Reader<Service> {
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

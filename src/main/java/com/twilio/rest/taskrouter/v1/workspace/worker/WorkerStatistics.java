@@ -18,25 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WorkerStatistics extends Resource {
-
-    private static final long serialVersionUID = 54379371741662L;
 
     public static WorkerStatisticsFetcher fetcher(
         final String pathWorkspaceSid,
@@ -88,45 +89,46 @@ public class WorkerStatistics extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final Map<String, Object> cumulative;
-    private final String workerSid;
-    private final String workspaceSid;
+
+    @Getter
+    private final Object cumulative;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final String workerSid;
+
+    @Getter
+    private final String workspaceSid;
 
     @JsonCreator
     private WorkerStatistics(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("cumulative") final Map<String, Object> cumulative,
+        @JsonProperty("cumulative") final Object cumulative,
+        @JsonProperty("url") final URI url,
         @JsonProperty("worker_sid") final String workerSid,
-        @JsonProperty("workspace_sid") final String workspaceSid,
-        @JsonProperty("url") final URI url
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.cumulative = cumulative;
+        this.url = url;
         this.workerSid = workerSid;
         this.workspaceSid = workspaceSid;
-        this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Map<String, Object> getCumulative() {
-        return this.cumulative;
-    }
-
-    public final String getWorkerSid() {
-        return this.workerSid;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -140,13 +142,12 @@ public class WorkerStatistics extends Resource {
         }
 
         WorkerStatistics other = (WorkerStatistics) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(cumulative, other.cumulative) &&
+            Objects.equals(url, other.url) &&
             Objects.equals(workerSid, other.workerSid) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
-            Objects.equals(url, other.url)
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
@@ -155,9 +156,9 @@ public class WorkerStatistics extends Resource {
         return Objects.hash(
             accountSid,
             cumulative,
+            url,
             workerSid,
-            workspaceSid,
-            url
+            workspaceSid
         );
     }
 }

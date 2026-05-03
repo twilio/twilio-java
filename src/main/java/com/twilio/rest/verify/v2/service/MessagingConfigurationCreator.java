@@ -15,7 +15,10 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class MessagingConfigurationCreator
     extends Creator<MessagingConfiguration> {
@@ -54,20 +59,13 @@ public class MessagingConfigurationCreator
         return this;
     }
 
-    @Override
-    public MessagingConfiguration create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/MessagingConfigurations";
 
         path =
             path.replace(
                 "{" + "ServiceSid" + "}",
                 this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "Country" + "}", this.country.toString());
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.messagingServiceSid.toString()
             );
 
         Request request = new Request(
@@ -77,14 +75,17 @@ public class MessagingConfigurationCreator
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "MessagingConfiguration creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -95,19 +96,51 @@ public class MessagingConfigurationCreator
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public MessagingConfiguration create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return MessagingConfiguration.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<MessagingConfiguration> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        MessagingConfiguration content = MessagingConfiguration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (country != null) {
-            request.addPostParam("Country", country);
+            Serializer.toString(
+                request,
+                "Country",
+                country,
+                ParameterType.URLENCODED
+            );
         }
+
         if (messagingServiceSid != null) {
-            request.addPostParam("MessagingServiceSid", messagingServiceSid);
+            Serializer.toString(
+                request,
+                "MessagingServiceSid",
+                messagingServiceSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

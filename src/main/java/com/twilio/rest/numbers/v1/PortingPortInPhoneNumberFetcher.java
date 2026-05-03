@@ -15,7 +15,7 @@
 package com.twilio.rest.numbers.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class PortingPortInPhoneNumberFetcher
     extends Fetcher<PortingPortInPhoneNumber> {
@@ -39,8 +41,7 @@ public class PortingPortInPhoneNumberFetcher
         this.pathPhoneNumberSid = pathPhoneNumberSid;
     }
 
-    @Override
-    public PortingPortInPhoneNumber fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid}";
 
@@ -60,7 +61,7 @@ public class PortingPortInPhoneNumberFetcher
             Domains.NUMBERS.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -68,8 +69,9 @@ public class PortingPortInPhoneNumberFetcher
                 "PortingPortInPhoneNumber fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -80,10 +82,31 @@ public class PortingPortInPhoneNumberFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public PortingPortInPhoneNumber fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PortingPortInPhoneNumber.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<PortingPortInPhoneNumber> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PortingPortInPhoneNumber content = PortingPortInPhoneNumber.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

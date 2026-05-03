@@ -14,16 +14,22 @@
 
 package com.twilio.rest.previewiam.v1;
 
-import com.twilio.base.noauth.Creator;
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.Request;
 import com.twilio.http.Response;
-import com.twilio.http.noauth.NoAuthRequest;
-import com.twilio.http.noauth.NoAuthTwilioRestClient;
+import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class TokenCreator extends Creator<Token> {
 
@@ -81,31 +87,28 @@ public class TokenCreator extends Creator<Token> {
         return this;
     }
 
-    @Override
-    public Token create(final NoAuthTwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/token";
 
-        path =
-            path.replace("{" + "grant_type" + "}", this.grantType.toString());
-        path = path.replace("{" + "client_id" + "}", this.clientId.toString());
-
-        NoAuthRequest request = new NoAuthRequest(
+        Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEWIAM.toString(),
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        request.setAuth(NoAuthStrategy.getInstance());
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Token creation failed: Unable to connect to server"
             );
-        } else if (
-            !NoAuthTwilioRestClient.SUCCESS.test(response.getStatusCode())
-        ) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -116,34 +119,102 @@ public class TokenCreator extends Creator<Token> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Token create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Token.fromJson(response.getStream(), client.getObjectMapper());
     }
 
-    private void addPostParams(final NoAuthRequest request) {
+    @Override
+    public TwilioResponse<Token> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Token content = Token.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private void addPostParams(final Request request) {
         if (grantType != null) {
-            request.addPostParam("grant_type", grantType);
+            Serializer.toString(
+                request,
+                "grant_type",
+                grantType,
+                ParameterType.URLENCODED
+            );
         }
+
         if (clientId != null) {
-            request.addPostParam("client_id", clientId);
+            Serializer.toString(
+                request,
+                "client_id",
+                clientId,
+                ParameterType.URLENCODED
+            );
         }
+
         if (clientSecret != null) {
-            request.addPostParam("client_secret", clientSecret);
+            Serializer.toString(
+                request,
+                "client_secret",
+                clientSecret,
+                ParameterType.URLENCODED
+            );
         }
+
         if (code != null) {
-            request.addPostParam("code", code);
+            Serializer.toString(
+                request,
+                "code",
+                code,
+                ParameterType.URLENCODED
+            );
         }
+
         if (redirectUri != null) {
-            request.addPostParam("redirect_uri", redirectUri);
+            Serializer.toString(
+                request,
+                "redirect_uri",
+                redirectUri,
+                ParameterType.URLENCODED
+            );
         }
+
         if (audience != null) {
-            request.addPostParam("audience", audience);
+            Serializer.toString(
+                request,
+                "audience",
+                audience,
+                ParameterType.URLENCODED
+            );
         }
+
         if (refreshToken != null) {
-            request.addPostParam("refresh_token", refreshToken);
+            Serializer.toString(
+                request,
+                "refresh_token",
+                refreshToken,
+                ParameterType.URLENCODED
+            );
         }
+
         if (scope != null) {
-            request.addPostParam("scope", scope);
+            Serializer.toString(
+                request,
+                "scope",
+                scope,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

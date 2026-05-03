@@ -3,6 +3,7 @@
 [![Tests](https://github.com/twilio/twilio-java/actions/workflows/test-and-deploy.yml/badge.svg)](https://github.com/twilio/twilio-java/actions/workflows/test-and-deploy.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/com.twilio.sdk/twilio.svg)](https://mvnrepository.com/artifact/com.twilio.sdk/twilio)
 [![Learn with TwilioQuest](https://img.shields.io/static/v1?label=TwilioQuest&message=Learn%20to%20contribute%21&color=F22F46&labelColor=1f243c&style=flat-square&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAASFBMVEUAAAAZGRkcHBwjIyMoKCgAAABgYGBoaGiAgICMjIyzs7PJycnMzMzNzc3UoBfd3d3m5ubqrhfrMEDu7u739/f4vSb/3AD///9tbdyEAAAABXRSTlMAAAAAAMJrBrEAAAKoSURBVHgB7ZrRcuI6EESdyxXGYoNFvMD//+l2bSszRgyUYpFAsXOeiJGmj4NkuWx1Qeh+Ekl9DgEXOBwOx+Px5xyQhDykfgq4wG63MxxaR4ddIkg6Ul3g84vCIcjPBA5gmUMeXESrlukuoK33+33uID8TWeLAdOWsKpJYzwVMB7bOzYSGOciyUlXSn0/ABXTosJ1M1SbypZ4O4MbZuIDMU02PMbauhhHMHXbmebmALIiEbbbbbUrpF1gwE9kFfRNAJaP+FQEXCCTGyJ4ngDrjOFo3jEL5JdqjF/pueR4cCeCGgAtwmuRS6gDwaRiGvu+DMFwSBLTE3+jF8JyuV1okPZ+AC4hDFhCHyHQjdjPHUKFDlHSJkHQXMB3KpSwXNGJPcwwTdZiXlRN0gSp0zpWxNtM0beYE0nRH6QIbO7rawwXaBYz0j78gxjokDuv12gVeUuBD0MDi0OQCLvDaAho4juP1Q/jkAncXqIcCfd+7gAu4QLMACCLxpRsSuQh0igu0C9Svhi7weAGZg50L3IE3cai4IfkNZAC8dfdhsUD3CgKBVC9JE5ABAFzg4QL/taYPAAWrHdYcgfLaIgAXWJ7OV38n1LEF8tt2TH29E+QAoDoO5Ve/LtCQDmKM9kPbvCEBApK+IXzbcSJ0cIGF6e8gpcRhUDogWZ8JnaWjPXc/fNnBBUKRngiHgTUSivSzDRDgHZQOLvBQgf8rRt+VdBUUhwkU6VpJ+xcOwQUqZr+mR0kvBUgv6cB4+37hQAkXqE8PwGisGhJtN4xAHMzrsgvI7rccXqSvKh6jltGlrOHA3Xk1At3LC4QiPdX9/0ndHpGVvTjR4bZA1ypAKgVcwE5vx74ulwIugDt8e/X7JgfkucBMIAr26ndnB4UCLnDOqvteQsHlgX9N4A+c4cW3DXSPbwAAAABJRU5ErkJggg==)](https://twil.io/learn-open-source)
+[![libs.tech recommends](https://libs.tech/project/307476/badge.svg)](https://libs.tech/project/307476/twilio-java)
 
 ## Documentation
 
@@ -25,9 +26,11 @@ This library supports the following Java implementations:
 - OpenJDK 8
 - OpenJDK 11
 - OpenJDK 17
+- OpenJDK 21
 - OracleJDK 8
 - OracleJDK 11
 - OracleJDK 17
+- OracleJDK 21
 
 For Java 7 support, use `twilio-java` major version `7.X.X`.
 
@@ -61,7 +64,7 @@ Use the following dependency in your project to grab via Maven:
 <dependency>
   <groupId>com.twilio.sdk</groupId>
   <artifactId>twilio</artifactId>
-  <version>10.X.X</version>
+  <version>12.X.X</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -69,7 +72,7 @@ Use the following dependency in your project to grab via Maven:
 or Gradle:
 
 ```groovy
-implementation "com.twilio.sdk:twilio:10.X.X"
+implementation "com.twilio.sdk:twilio:12.X.X"
 ```
 
 If you want to compile it yourself, here's how:
@@ -220,8 +223,8 @@ public class Example {
 We are introducing Client Credentials Flow-based OAuth 2.0 authentication. 
 This feature is currently in `beta` and its implementation is subject to change.
 
-- API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/FetchMessageUsingOAuth.md)
-- Organisation API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/BearerTokenAuthentication.md)
+- API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/PublicOAuthExample.md)
+- Organisation API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/OrgsAPIExample.md)
 
 ### Iterate through records
 
@@ -264,6 +267,8 @@ Twilio.setEdge("sydney");
 ```
 
 This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
+
+To use multiple region within same application, refer [MultiRegionClient.md](https://github.com/twilio/twilio-java/blob/main/examples/MultiRegionClient.md)
 
 ### Enable Debug Logging
 
@@ -363,3 +368,5 @@ If you've instead found a bug in the library or would like new features added, g
 [apidocs]: https://www.twilio.com/docs/api
 [twiml]: https://www.twilio.com/docs/api/twiml
 [libdocs]: https://twilio.github.io/twilio-java
+
+

@@ -18,29 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class StreamMessage extends Resource {
 
-    private static final long serialVersionUID = 233477236246646L;
-
     public static StreamMessageCreator creator(
         final String pathServiceSid,
         final String pathStreamSid,
-        final Map<String, Object> data
+        final Object data
     ) {
         return new StreamMessageCreator(pathServiceSid, pathStreamSid, data);
     }
@@ -88,24 +89,31 @@ public class StreamMessage extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
+    private final Object data;
+
+    @Getter
     private final String sid;
-    private final Map<String, Object> data;
 
     @JsonCreator
     private StreamMessage(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("data") final Map<String, Object> data
+        @JsonProperty("data") final Object data,
+        @JsonProperty("sid") final String sid
     ) {
-        this.sid = sid;
         this.data = data;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final Map<String, Object> getData() {
-        return this.data;
+        this.sid = sid;
     }
 
     @Override
@@ -119,14 +127,13 @@ public class StreamMessage extends Resource {
         }
 
         StreamMessage other = (StreamMessage) o;
-
         return (
-            Objects.equals(sid, other.sid) && Objects.equals(data, other.data)
+            Objects.equals(data, other.data) && Objects.equals(sid, other.sid)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, data);
+        return Objects.hash(data, sid);
     }
 }

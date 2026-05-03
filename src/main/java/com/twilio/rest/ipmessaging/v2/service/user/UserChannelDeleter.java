@@ -15,7 +15,7 @@
 package com.twilio.rest.ipmessaging.v2.service.user;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
+import java.util.function.Predicate;
 
 public class UserChannelDeleter extends Deleter<UserChannel> {
 
@@ -41,8 +44,7 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
         this.pathChannelSid = pathChannelSid;
     }
 
-    @Override
-    public boolean delete(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}";
 
@@ -58,12 +60,14 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
                 this.pathChannelSid.toString()
             );
 
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.IPMESSAGING.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -71,8 +75,9 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
                 "UserChannel delete failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -83,6 +88,29 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return response;
+    }
+
+    @Override
+    public boolean delete(final TwilioRestClient client) {
+        Response response = makeRequest(client);
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
+        return deleteStatuses.test(response.getStatusCode());
+    }
+
+    @Override
+    public TwilioResponse<Boolean> deleteWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
+        Boolean deleted = deleteStatuses.test(response.getStatusCode());
+        return new TwilioResponse<>(
+            deleted,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

@@ -15,7 +15,10 @@
 package com.twilio.rest.serverless.v1.service.environment;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class VariableCreator extends Creator<Variable> {
 
@@ -54,8 +59,7 @@ public class VariableCreator extends Creator<Variable> {
         return this;
     }
 
-    @Override
-    public Variable create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables";
 
@@ -69,8 +73,6 @@ public class VariableCreator extends Creator<Variable> {
                 "{" + "EnvironmentSid" + "}",
                 this.pathEnvironmentSid.toString()
             );
-        path = path.replace("{" + "Key" + "}", this.key.toString());
-        path = path.replace("{" + "Value" + "}", this.value.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -79,14 +81,17 @@ public class VariableCreator extends Creator<Variable> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Variable creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -97,19 +102,46 @@ public class VariableCreator extends Creator<Variable> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Variable create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Variable.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Variable> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Variable content = Variable.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (key != null) {
-            request.addPostParam("Key", key);
+            Serializer.toString(request, "Key", key, ParameterType.URLENCODED);
         }
+
         if (value != null) {
-            request.addPostParam("Value", value);
+            Serializer.toString(
+                request,
+                "Value",
+                value,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

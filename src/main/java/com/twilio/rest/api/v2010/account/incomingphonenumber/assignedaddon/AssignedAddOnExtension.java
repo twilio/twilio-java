@@ -18,22 +18,25 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssignedAddOnExtension extends Resource {
-
-    private static final long serialVersionUID = 103705040276662L;
 
     public static AssignedAddOnExtensionFetcher fetcher(
         final String pathResourceSid,
@@ -126,73 +129,66 @@ public class AssignedAddOnExtension extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String resourceSid;
+
+    @Getter
     private final String assignedAddOnSid;
-    private final String friendlyName;
-    private final String productName;
-    private final String uniqueName;
-    private final String uri;
+
+    @Getter
     private final Boolean enabled;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final String productName;
+
+    @Getter
+    private final String resourceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String uniqueName;
+
+    @Getter
+    private final String uri;
 
     @JsonCreator
     private AssignedAddOnExtension(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("resource_sid") final String resourceSid,
         @JsonProperty("assigned_add_on_sid") final String assignedAddOnSid,
+        @JsonProperty("enabled") final Boolean enabled,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("product_name") final String productName,
+        @JsonProperty("resource_sid") final String resourceSid,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("uri") final String uri,
-        @JsonProperty("enabled") final Boolean enabled
+        @JsonProperty("uri") final String uri
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.resourceSid = resourceSid;
         this.assignedAddOnSid = assignedAddOnSid;
+        this.enabled = enabled;
         this.friendlyName = friendlyName;
         this.productName = productName;
+        this.resourceSid = resourceSid;
+        this.sid = sid;
         this.uniqueName = uniqueName;
         this.uri = uri;
-        this.enabled = enabled;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getResourceSid() {
-        return this.resourceSid;
-    }
-
-    public final String getAssignedAddOnSid() {
-        return this.assignedAddOnSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getProductName() {
-        return this.productName;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final String getUri() {
-        return this.uri;
-    }
-
-    public final Boolean getEnabled() {
-        return this.enabled;
     }
 
     @Override
@@ -206,32 +202,31 @@ public class AssignedAddOnExtension extends Resource {
         }
 
         AssignedAddOnExtension other = (AssignedAddOnExtension) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(resourceSid, other.resourceSid) &&
             Objects.equals(assignedAddOnSid, other.assignedAddOnSid) &&
+            Objects.equals(enabled, other.enabled) &&
             Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(productName, other.productName) &&
+            Objects.equals(resourceSid, other.resourceSid) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(uri, other.uri) &&
-            Objects.equals(enabled, other.enabled)
+            Objects.equals(uri, other.uri)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            resourceSid,
             assignedAddOnSid,
+            enabled,
             friendlyName,
             productName,
+            resourceSid,
+            sid,
             uniqueName,
-            uri,
-            enabled
+            uri
         );
     }
 }

@@ -17,21 +17,27 @@ package com.twilio.rest.conversations.v1.conversation.message;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
 
     private String pathConversationSid;
     private String pathMessageSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DeliveryReceiptReader(
         final String pathConversationSid,
@@ -41,19 +47,38 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
         this.pathMessageSid = pathMessageSid;
     }
 
-    public DeliveryReceiptReader setPageSize(final Integer pageSize) {
+    public DeliveryReceiptReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<DeliveryReceipt> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<DeliveryReceipt> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<DeliveryReceipt> page = Page.fromJson(
+            "delivery_receipts",
+            response.getContent(),
+            DeliveryReceipt.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<DeliveryReceipt> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<DeliveryReceipt> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts";
+
         path =
             path.replace(
                 "{" + "ConversationSid" + "}",
@@ -70,27 +95,54 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
             Domains.CONVERSATIONS.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<DeliveryReceipt> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<DeliveryReceipt> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<DeliveryReceipt> pageForRequest(
+    public TwilioResponse<Page<DeliveryReceipt>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<DeliveryReceipt> page = Page.fromJson(
+            "delivery_receipts",
+            response.getContent(),
+            DeliveryReceipt.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "DeliveryReceipt read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -99,7 +151,14 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<DeliveryReceipt> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "delivery_receipts",
             response.getContent(),
@@ -115,7 +174,7 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.CONVERSATIONS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -127,7 +186,7 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.CONVERSATIONS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -137,14 +196,23 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

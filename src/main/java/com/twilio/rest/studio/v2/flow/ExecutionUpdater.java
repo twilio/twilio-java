@@ -14,8 +14,11 @@
 
 package com.twilio.rest.studio.v2.flow;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ExecutionUpdater extends Updater<Execution> {
 
@@ -46,13 +51,11 @@ public class ExecutionUpdater extends Updater<Execution> {
         return this;
     }
 
-    @Override
-    public Execution update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Flows/{FlowSid}/Executions/{Sid}";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path = path.replace("{" + "Status" + "}", this.status.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -61,14 +64,17 @@ public class ExecutionUpdater extends Updater<Execution> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Execution update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -79,16 +85,42 @@ public class ExecutionUpdater extends Updater<Execution> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Execution update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Execution.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Execution> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Execution content = Execution.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

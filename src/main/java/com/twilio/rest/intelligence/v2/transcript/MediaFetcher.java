@@ -15,7 +15,9 @@
 package com.twilio.rest.intelligence.v2.transcript;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class MediaFetcher extends Fetcher<Media> {
 
@@ -39,8 +43,7 @@ public class MediaFetcher extends Fetcher<Media> {
         return this;
     }
 
-    @Override
-    public Media fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Transcripts/{Sid}/Media";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -51,7 +54,7 @@ public class MediaFetcher extends Fetcher<Media> {
             path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -59,8 +62,9 @@ public class MediaFetcher extends Fetcher<Media> {
                 "Media fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -71,13 +75,39 @@ public class MediaFetcher extends Fetcher<Media> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Media fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Media.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Media> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Media content = Media.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addQueryParams(final Request request) {
         if (redacted != null) {
-            request.addQueryParam("Redacted", redacted.toString());
+            Serializer.toString(
+                request,
+                "Redacted",
+                redacted,
+                ParameterType.QUERY
+            );
         }
     }
 }

@@ -15,7 +15,9 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class InsightsSettingsAnswerSetsFetcher
     extends Fetcher<InsightsSettingsAnswerSets> {
@@ -39,8 +43,7 @@ public class InsightsSettingsAnswerSetsFetcher
         return this;
     }
 
-    @Override
-    public InsightsSettingsAnswerSets fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Insights/QualityManagement/Settings/AnswerSets";
 
         Request request = new Request(
@@ -48,8 +51,8 @@ public class InsightsSettingsAnswerSetsFetcher
             Domains.FLEXAPI.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -57,8 +60,9 @@ public class InsightsSettingsAnswerSetsFetcher
                 "InsightsSettingsAnswerSets fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -69,16 +73,43 @@ public class InsightsSettingsAnswerSetsFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public InsightsSettingsAnswerSets fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return InsightsSettingsAnswerSets.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<InsightsSettingsAnswerSets> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        InsightsSettingsAnswerSets content =
+            InsightsSettingsAnswerSets.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addHeaderParams(final Request request) {
         if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
     }
 }

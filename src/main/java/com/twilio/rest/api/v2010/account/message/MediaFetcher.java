@@ -15,7 +15,7 @@
 package com.twilio.rest.api.v2010.account.message;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +24,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class MediaFetcher extends Fetcher<Media> {
 
+    private String pathAccountSid;
     private String pathMessageSid;
     private String pathSid;
-    private String pathAccountSid;
 
     public MediaFetcher(final String pathMessageSid, final String pathSid) {
         this.pathMessageSid = pathMessageSid;
@@ -46,8 +48,7 @@ public class MediaFetcher extends Fetcher<Media> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Media fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json";
 
@@ -72,7 +73,7 @@ public class MediaFetcher extends Fetcher<Media> {
             Domains.API.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -80,8 +81,9 @@ public class MediaFetcher extends Fetcher<Media> {
                 "Media fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -92,7 +94,28 @@ public class MediaFetcher extends Fetcher<Media> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Media fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Media.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Media> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Media content = Media.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

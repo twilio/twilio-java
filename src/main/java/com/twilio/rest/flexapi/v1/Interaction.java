@@ -18,34 +18,38 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Interaction extends Resource {
 
-    private static final long serialVersionUID = 1684368631913L;
-
-    public static InteractionCreator creator(
-        final Map<String, Object> channel
-    ) {
+    public static InteractionCreator creator(final Object channel) {
         return new InteractionCreator(channel);
     }
 
     public static InteractionFetcher fetcher(final String pathSid) {
         return new InteractionFetcher(pathSid);
+    }
+
+    public static InteractionUpdater updater(final String pathSid) {
+        return new InteractionUpdater(pathSid);
     }
 
     /**
@@ -91,54 +95,58 @@ public class Interaction extends Resource {
         }
     }
 
-    private final String sid;
-    private final Map<String, Object> channel;
-    private final Map<String, Object> routing;
-    private final URI url;
-    private final Map<String, String> links;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
+    private final Object channel;
+
+    @Getter
     private final String interactionContextSid;
+
+    @Getter
+    private final Map<String, String> links;
+
+    @Getter
+    private final Object routing;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final URI url;
+
+    @Getter
+    private final String webhookTtid;
 
     @JsonCreator
     private Interaction(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("channel") final Map<String, Object> channel,
-        @JsonProperty("routing") final Map<String, Object> routing,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("channel") final Object channel,
         @JsonProperty(
             "interaction_context_sid"
-        ) final String interactionContextSid
+        ) final String interactionContextSid,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("routing") final Object routing,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("webhook_ttid") final String webhookTtid
     ) {
-        this.sid = sid;
         this.channel = channel;
-        this.routing = routing;
-        this.url = url;
-        this.links = links;
         this.interactionContextSid = interactionContextSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final Map<String, Object> getChannel() {
-        return this.channel;
-    }
-
-    public final Map<String, Object> getRouting() {
-        return this.routing;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
-    public final String getInteractionContextSid() {
-        return this.interactionContextSid;
+        this.links = links;
+        this.routing = routing;
+        this.sid = sid;
+        this.url = url;
+        this.webhookTtid = webhookTtid;
     }
 
     @Override
@@ -152,26 +160,30 @@ public class Interaction extends Resource {
         }
 
         Interaction other = (Interaction) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(channel, other.channel) &&
-            Objects.equals(routing, other.routing) &&
-            Objects.equals(url, other.url) &&
+            Objects.equals(
+                interactionContextSid,
+                other.interactionContextSid
+            ) &&
             Objects.equals(links, other.links) &&
-            Objects.equals(interactionContextSid, other.interactionContextSid)
+            Objects.equals(routing, other.routing) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(webhookTtid, other.webhookTtid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             channel,
-            routing,
-            url,
+            interactionContextSid,
             links,
-            interactionContextSid
+            routing,
+            sid,
+            url,
+            webhookTtid
         );
     }
 }

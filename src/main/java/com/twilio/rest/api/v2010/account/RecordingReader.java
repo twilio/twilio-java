@@ -17,17 +17,22 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class RecordingReader extends Reader<Recording> {
 
@@ -38,7 +43,7 @@ public class RecordingReader extends Reader<Recording> {
     private String callSid;
     private String conferenceSid;
     private Boolean includeSoftDeleted;
-    private Integer pageSize;
+    private Long pageSize;
 
     public RecordingReader() {}
 
@@ -82,18 +87,37 @@ public class RecordingReader extends Reader<Recording> {
         return this;
     }
 
-    public RecordingReader setPageSize(final Integer pageSize) {
+    public RecordingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<Recording> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<Recording> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Recording> page = Page.fromJson(
+            "recordings",
+            response.getContent(),
+            Recording.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Recording> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<Recording> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Recordings.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -109,27 +133,54 @@ public class RecordingReader extends Reader<Recording> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<Recording> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<Recording> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Recording> pageForRequest(
+    public TwilioResponse<Page<Recording>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Recording> page = Page.fromJson(
+            "recordings",
+            response.getContent(),
+            Recording.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Recording read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -138,7 +189,14 @@ public class RecordingReader extends Reader<Recording> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Recording> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "recordings",
             response.getContent(),
@@ -176,42 +234,58 @@ public class RecordingReader extends Reader<Recording> {
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-        if (dateCreated != null) {
-            request.addQueryParam(
-                "DateCreated",
-                dateCreated.format(
-                    DateTimeFormatter.ofPattern(
-                        Request.QUERY_STRING_DATE_TIME_FORMAT
-                    )
-                )
-            );
-        } else if (dateCreatedAfter != null || dateCreatedBefore != null) {
-            request.addQueryDateTimeRange(
-                "DateCreated",
-                dateCreatedAfter,
-                dateCreatedBefore
-            );
-        }
+        Serializer.toString(
+            request,
+            "DateCreated",
+            dateCreated,
+            dateCreatedBefore,
+            dateCreatedAfter
+        );
+
         if (callSid != null) {
-            request.addQueryParam("CallSid", callSid);
-        }
-        if (conferenceSid != null) {
-            request.addQueryParam("ConferenceSid", conferenceSid);
-        }
-        if (includeSoftDeleted != null) {
-            request.addQueryParam(
-                "IncludeSoftDeleted",
-                includeSoftDeleted.toString()
+            Serializer.toString(
+                request,
+                "CallSid",
+                callSid,
+                ParameterType.QUERY
             );
         }
+
+        if (conferenceSid != null) {
+            Serializer.toString(
+                request,
+                "ConferenceSid",
+                conferenceSid,
+                ParameterType.QUERY
+            );
+        }
+
+        if (includeSoftDeleted != null) {
+            Serializer.toString(
+                request,
+                "IncludeSoftDeleted",
+                includeSoftDeleted,
+                ParameterType.QUERY
+            );
+        }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

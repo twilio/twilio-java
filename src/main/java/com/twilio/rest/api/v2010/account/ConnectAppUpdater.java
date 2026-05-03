@@ -14,9 +14,12 @@
 
 package com.twilio.rest.api.v2010.account;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +28,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 
 public class ConnectAppUpdater extends Updater<ConnectApp> {
 
-    private String pathSid;
     private String pathAccountSid;
+    private String pathSid;
     private URI authorizeRedirectUrl;
     private String companyName;
     private HttpMethod deauthorizeCallbackMethod;
@@ -127,8 +132,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
         return setPermissions(Promoter.listOfOne(permissions));
     }
 
-    @Override
-    public ConnectApp update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json";
 
@@ -150,14 +154,17 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ConnectApp update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -168,47 +175,106 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ConnectApp update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ConnectApp.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<ConnectApp> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ConnectApp content = ConnectApp.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (authorizeRedirectUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AuthorizeRedirectUrl",
-                authorizeRedirectUrl.toString()
+                authorizeRedirectUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (companyName != null) {
-            request.addPostParam("CompanyName", companyName);
+            Serializer.toString(
+                request,
+                "CompanyName",
+                companyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (deauthorizeCallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DeauthorizeCallbackMethod",
-                deauthorizeCallbackMethod.toString()
+                deauthorizeCallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (deauthorizeCallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DeauthorizeCallbackUrl",
-                deauthorizeCallbackUrl.toString()
+                deauthorizeCallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (homepageUrl != null) {
-            request.addPostParam("HomepageUrl", homepageUrl.toString());
+            Serializer.toString(
+                request,
+                "HomepageUrl",
+                homepageUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (permissions != null) {
-            for (ConnectApp.Permission prop : permissions) {
-                request.addPostParam("Permissions", prop.toString());
+            for (ConnectApp.Permission param : permissions) {
+                Serializer.toString(
+                    request,
+                    "Permissions",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
     }

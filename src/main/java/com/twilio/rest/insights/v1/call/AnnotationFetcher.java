@@ -15,7 +15,7 @@
 package com.twilio.rest.insights.v1.call;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class AnnotationFetcher extends Fetcher<Annotation> {
 
@@ -33,8 +35,7 @@ public class AnnotationFetcher extends Fetcher<Annotation> {
         this.pathCallSid = pathCallSid;
     }
 
-    @Override
-    public Annotation fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Voice/{CallSid}/Annotation";
 
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
@@ -44,7 +45,7 @@ public class AnnotationFetcher extends Fetcher<Annotation> {
             Domains.INSIGHTS.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -52,8 +53,9 @@ public class AnnotationFetcher extends Fetcher<Annotation> {
                 "Annotation fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -64,10 +66,31 @@ public class AnnotationFetcher extends Fetcher<Annotation> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Annotation fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Annotation.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Annotation> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Annotation content = Annotation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

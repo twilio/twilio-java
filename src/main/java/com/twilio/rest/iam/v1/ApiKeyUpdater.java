@@ -14,9 +14,11 @@
 
 package com.twilio.rest.iam.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ApiKeyUpdater extends Updater<ApiKey> {
 
     private String pathSid;
     private String friendlyName;
-    private Map<String, Object> policy;
+    private Object policy;
 
     public ApiKeyUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -42,13 +45,12 @@ public class ApiKeyUpdater extends Updater<ApiKey> {
         return this;
     }
 
-    public ApiKeyUpdater setPolicy(final Map<String, Object> policy) {
+    public ApiKeyUpdater setPolicy(final Object policy) {
         this.policy = policy;
         return this;
     }
 
-    @Override
-    public ApiKey update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Keys/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -60,14 +62,17 @@ public class ApiKeyUpdater extends Updater<ApiKey> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ApiKey update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -78,16 +83,48 @@ public class ApiKeyUpdater extends Updater<ApiKey> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ApiKey update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ApiKey.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<ApiKey> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ApiKey content = ApiKey.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (policy != null) {
-            request.addPostParam("Policy", Converter.mapToJson(policy));
+            Serializer.toString(
+                request,
+                "Policy",
+                policy,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

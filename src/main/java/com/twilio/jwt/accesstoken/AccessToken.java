@@ -1,7 +1,7 @@
 package com.twilio.jwt.accesstoken;
 
 import com.twilio.jwt.Jwt;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.Jwts;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -33,7 +33,7 @@ public class AccessToken extends Jwt {
 
     private AccessToken(Builder b) {
         super(
-            SignatureAlgorithm.HS256,
+            Jwts.SIG.HS256,
             b.secret,
             b.keySid,
             new Date(new Date().getTime() + b.ttl * 1000)
@@ -94,7 +94,7 @@ public class AccessToken extends Jwt {
     public static class Builder {
         private String accountSid;
         private String keySid;
-        private String secret;
+        private byte[] secret;
         private String identity;
         private String region;
         private Date nbf = null;
@@ -108,7 +108,7 @@ public class AccessToken extends Jwt {
          * @param keySid key to use
          * @param secret secret key
          */
-        public Builder(String accountSid, String keySid, String secret) {
+        public Builder(String accountSid, String keySid, byte[] secret) {
             this.accountSid = accountSid;
             this.keySid = keySid;
             this.secret = secret;

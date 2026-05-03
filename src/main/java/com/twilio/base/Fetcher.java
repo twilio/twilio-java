@@ -47,4 +47,11 @@ public abstract class Fetcher<T extends Resource> {
      * @return Requested object
      */
     public abstract T fetch(final TwilioRestClient client);
+
+    public TwilioResponse<T> fetchWithResponse() {
+        return fetchWithResponse(Twilio.getRestClient());
+    }
+    public TwilioResponse<T> fetchWithResponse(final TwilioRestClient client) {
+        throw new UnsupportedOperationException("fetchWithResponse is not supported for this resource.");
+    }
 }

@@ -14,8 +14,11 @@
 
 package com.twilio.rest.flexapi.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class PluginUpdater extends Updater<Plugin> {
 
@@ -36,11 +41,6 @@ public class PluginUpdater extends Updater<Plugin> {
         this.pathSid = pathSid;
     }
 
-    public PluginUpdater setFlexMetadata(final String flexMetadata) {
-        this.flexMetadata = flexMetadata;
-        return this;
-    }
-
     public PluginUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
@@ -51,8 +51,12 @@ public class PluginUpdater extends Updater<Plugin> {
         return this;
     }
 
-    @Override
-    public Plugin update(final TwilioRestClient client) {
+    public PluginUpdater setFlexMetadata(final String flexMetadata) {
+        this.flexMetadata = flexMetadata;
+        return this;
+    }
+
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/PluginService/Plugins/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -63,16 +67,19 @@ public class PluginUpdater extends Updater<Plugin> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Plugin update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -83,22 +90,59 @@ public class PluginUpdater extends Updater<Plugin> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Plugin update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Plugin.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Plugin> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Plugin content = Plugin.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (flexMetadata != null) {
-            request.addHeaderParam("Flex-Metadata", flexMetadata);
+            Serializer.toString(
+                request,
+                "Flex-Metadata",
+                flexMetadata,
+                ParameterType.HEADER
+            );
         }
     }
 }

@@ -18,24 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class KnowledgeStatus extends Resource {
-
-    private static final long serialVersionUID = 178959927465400L;
 
     public static KnowledgeStatusFetcher fetcher(final String pathId) {
         return new KnowledgeStatusFetcher(pathId);
@@ -84,38 +88,46 @@ public class KnowledgeStatus extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String status;
-    private final String lastStatus;
+
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String lastStatus;
+
+    @Getter
+    private final String status;
 
     @JsonCreator
     private KnowledgeStatus(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("status") final String status,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("last_status") final String lastStatus,
-        @JsonProperty("date_updated") final String dateUpdated
+        @JsonProperty("status") final String status
     ) {
         this.accountSid = accountSid;
-        this.status = status;
+        this.dateUpdated = dateUpdated;
         this.lastStatus = lastStatus;
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getStatus() {
-        return this.status;
-    }
-
-    public final String getLastStatus() {
-        return this.lastStatus;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
+        this.status = status;
     }
 
     @Override
@@ -129,17 +141,16 @@ public class KnowledgeStatus extends Resource {
         }
 
         KnowledgeStatus other = (KnowledgeStatus) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(status, other.status) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(lastStatus, other.lastStatus) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+            Objects.equals(status, other.status)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, status, lastStatus, dateUpdated);
+        return Objects.hash(accountSid, dateUpdated, lastStatus, status);
     }
 }

@@ -18,25 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SourceIpMapping extends Resource {
-
-    private static final long serialVersionUID = 45000058150157L;
 
     public static SourceIpMappingCreator creator(
         final String ipRecordSid,
@@ -107,52 +111,61 @@ public class SourceIpMapping extends Resource {
         }
     }
 
-    private final String sid;
-    private final String ipRecordSid;
-    private final String sipDomainSid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String ipRecordSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String sipDomainSid;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private SourceIpMapping(
-        @JsonProperty("sid") final String sid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("ip_record_sid") final String ipRecordSid,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("sip_domain_sid") final String sipDomainSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.ipRecordSid = ipRecordSid;
+        this.sid = sid;
         this.sipDomainSid = sipDomainSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getIpRecordSid() {
-        return this.ipRecordSid;
-    }
-
-    public final String getSipDomainSid() {
-        return this.sipDomainSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -166,13 +179,12 @@ public class SourceIpMapping extends Resource {
         }
 
         SourceIpMapping other = (SourceIpMapping) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(ipRecordSid, other.ipRecordSid) &&
-            Objects.equals(sipDomainSid, other.sipDomainSid) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(ipRecordSid, other.ipRecordSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(sipDomainSid, other.sipDomainSid) &&
             Objects.equals(url, other.url)
         );
     }
@@ -180,11 +192,11 @@ public class SourceIpMapping extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            ipRecordSid,
-            sipDomainSid,
             dateCreated,
             dateUpdated,
+            ipRecordSid,
+            sid,
+            sipDomainSid,
             url
         );
     }

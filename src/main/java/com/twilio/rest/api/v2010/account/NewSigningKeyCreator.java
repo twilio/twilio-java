@@ -15,7 +15,10 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class NewSigningKeyCreator extends Creator<NewSigningKey> {
 
@@ -41,8 +46,7 @@ public class NewSigningKeyCreator extends Creator<NewSigningKey> {
         return this;
     }
 
-    @Override
-    public NewSigningKey create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json";
 
         this.pathAccountSid =
@@ -62,14 +66,17 @@ public class NewSigningKeyCreator extends Creator<NewSigningKey> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "NewSigningKey creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -80,16 +87,42 @@ public class NewSigningKeyCreator extends Creator<NewSigningKey> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public NewSigningKey create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return NewSigningKey.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<NewSigningKey> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        NewSigningKey content = NewSigningKey.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

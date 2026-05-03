@@ -15,7 +15,7 @@
 package com.twilio.rest.conversations.v1.service;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class BindingFetcher extends Fetcher<Binding> {
 
@@ -38,8 +40,7 @@ public class BindingFetcher extends Fetcher<Binding> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Binding fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Bindings/{Sid}";
 
         path =
@@ -54,7 +55,7 @@ public class BindingFetcher extends Fetcher<Binding> {
             Domains.CONVERSATIONS.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -62,8 +63,9 @@ public class BindingFetcher extends Fetcher<Binding> {
                 "Binding fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -74,7 +76,28 @@ public class BindingFetcher extends Fetcher<Binding> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Binding fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Binding.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Binding> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Binding content = Binding.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

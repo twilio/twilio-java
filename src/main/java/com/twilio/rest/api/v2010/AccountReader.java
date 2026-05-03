@@ -17,21 +17,27 @@ package com.twilio.rest.api.v2010;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class AccountReader extends Reader<Account> {
 
     private String friendlyName;
     private Account.Status status;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AccountReader() {}
 
@@ -45,9 +51,44 @@ public class AccountReader extends Reader<Account> {
         return this;
     }
 
-    public AccountReader setPageSize(final Integer pageSize) {
+    public AccountReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<Account> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Account> page = Page.fromJson(
+            "accounts",
+            response.getContent(),
+            Account.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Account> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/2010-04-01/Accounts.json";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.API.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -56,34 +97,44 @@ public class AccountReader extends Reader<Account> {
     }
 
     public Page<Account> firstPage(final TwilioRestClient client) {
-        String path = "/2010-04-01/Accounts.json";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.API.toString(),
-            path
-        );
-
-        addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Account> pageForRequest(
+    public TwilioResponse<Page<Account>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Account> page = Page.fromJson(
+            "accounts",
+            response.getContent(),
+            Account.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Account read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -92,7 +143,14 @@ public class AccountReader extends Reader<Account> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Account> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "accounts",
             response.getContent(),
@@ -130,20 +188,36 @@ public class AccountReader extends Reader<Account> {
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
         }
+
         if (status != null) {
-            request.addQueryParam("Status", status.toString());
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

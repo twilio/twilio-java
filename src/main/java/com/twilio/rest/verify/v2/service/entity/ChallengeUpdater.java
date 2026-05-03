@@ -14,9 +14,11 @@
 
 package com.twilio.rest.verify.v2.service.entity;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ChallengeUpdater extends Updater<Challenge> {
 
@@ -33,7 +36,7 @@ public class ChallengeUpdater extends Updater<Challenge> {
     private String pathIdentity;
     private String pathSid;
     private String authPayload;
-    private Map<String, Object> metadata;
+    private Object metadata;
 
     public ChallengeUpdater(
         final String pathServiceSid,
@@ -50,13 +53,12 @@ public class ChallengeUpdater extends Updater<Challenge> {
         return this;
     }
 
-    public ChallengeUpdater setMetadata(final Map<String, Object> metadata) {
+    public ChallengeUpdater setMetadata(final Object metadata) {
         this.metadata = metadata;
         return this;
     }
 
-    @Override
-    public Challenge update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}";
 
@@ -76,14 +78,17 @@ public class ChallengeUpdater extends Updater<Challenge> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Challenge update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -94,19 +99,51 @@ public class ChallengeUpdater extends Updater<Challenge> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Challenge update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Challenge.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Challenge> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Challenge content = Challenge.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (authPayload != null) {
-            request.addPostParam("AuthPayload", authPayload);
+            Serializer.toString(
+                request,
+                "AuthPayload",
+                authPayload,
+                ParameterType.URLENCODED
+            );
         }
+
         if (metadata != null) {
-            request.addPostParam("Metadata", Converter.mapToJson(metadata));
+            Serializer.toString(
+                request,
+                "Metadata",
+                metadata,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

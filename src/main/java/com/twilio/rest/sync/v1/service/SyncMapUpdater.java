@@ -14,8 +14,11 @@
 
 package com.twilio.rest.sync.v1.service;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class SyncMapUpdater extends Updater<SyncMap> {
 
@@ -47,8 +52,7 @@ public class SyncMapUpdater extends Updater<SyncMap> {
         return this;
     }
 
-    @Override
-    public SyncMap update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Maps/{Sid}";
 
         path =
@@ -65,14 +69,17 @@ public class SyncMapUpdater extends Updater<SyncMap> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "SyncMap update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -83,16 +90,43 @@ public class SyncMapUpdater extends Updater<SyncMap> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SyncMap update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SyncMap.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<SyncMap> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SyncMap content = SyncMap.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (ttl != null) {
-            request.addPostParam("Ttl", ttl.toString());
+            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
         }
+
         if (collectionTtl != null) {
-            request.addPostParam("CollectionTtl", collectionTtl.toString());
+            Serializer.toString(
+                request,
+                "CollectionTtl",
+                collectionTtl,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

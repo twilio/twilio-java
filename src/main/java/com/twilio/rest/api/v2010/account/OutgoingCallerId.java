@@ -18,24 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class OutgoingCallerId extends Resource {
-
-    private static final long serialVersionUID = 75956517535233L;
 
     public static OutgoingCallerIdDeleter deleter(final String pathSid) {
         return new OutgoingCallerIdDeleter(pathSid);
@@ -121,61 +124,62 @@ public class OutgoingCallerId extends Resource {
         }
     }
 
-    private final String sid;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final String friendlyName;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
     private final com.twilio.type.PhoneNumber phoneNumber;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final String uri;
 
     @JsonCreator
     private OutgoingCallerId(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty(
             "phone_number"
         ) final com.twilio.type.PhoneNumber phoneNumber,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("uri") final String uri
     ) {
-        this.sid = sid;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
-        this.friendlyName = friendlyName;
         this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.friendlyName = friendlyName;
         this.phoneNumber = phoneNumber;
+        this.sid = sid;
         this.uri = uri;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final com.twilio.type.PhoneNumber getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public final String getUri() {
-        return this.uri;
     }
 
     @Override
@@ -189,14 +193,13 @@ public class OutgoingCallerId extends Resource {
         }
 
         OutgoingCallerId other = (OutgoingCallerId) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(phoneNumber, other.phoneNumber) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(uri, other.uri)
         );
     }
@@ -204,12 +207,12 @@ public class OutgoingCallerId extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
+            accountSid,
             dateCreated,
             dateUpdated,
             friendlyName,
-            accountSid,
             phoneNumber,
+            sid,
             uri
         );
     }

@@ -15,7 +15,7 @@
 package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtypecalls;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,13 +24,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class AuthCallsIpAccessControlListMappingFetcher
     extends Fetcher<AuthCallsIpAccessControlListMapping> {
 
+    private String pathAccountSid;
     private String pathDomainSid;
     private String pathSid;
-    private String pathAccountSid;
 
     public AuthCallsIpAccessControlListMappingFetcher(
         final String pathDomainSid,
@@ -50,10 +52,7 @@ public class AuthCallsIpAccessControlListMappingFetcher
         this.pathSid = pathSid;
     }
 
-    @Override
-    public AuthCallsIpAccessControlListMapping fetch(
-        final TwilioRestClient client
-    ) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json";
 
@@ -78,7 +77,7 @@ public class AuthCallsIpAccessControlListMappingFetcher
             Domains.API.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -86,8 +85,9 @@ public class AuthCallsIpAccessControlListMappingFetcher
                 "AuthCallsIpAccessControlListMapping fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -98,10 +98,34 @@ public class AuthCallsIpAccessControlListMappingFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public AuthCallsIpAccessControlListMapping fetch(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
         return AuthCallsIpAccessControlListMapping.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<
+        AuthCallsIpAccessControlListMapping
+    > fetchWithResponse(final TwilioRestClient client) {
+        Response response = makeRequest(client);
+        AuthCallsIpAccessControlListMapping content =
+            AuthCallsIpAccessControlListMapping.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

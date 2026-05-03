@@ -13,3 +13,5 @@ release.properties
 .settings/
 settings.json
 **/.openapi-generator*
+.claude/settings.local.json
+CLAUDE.md

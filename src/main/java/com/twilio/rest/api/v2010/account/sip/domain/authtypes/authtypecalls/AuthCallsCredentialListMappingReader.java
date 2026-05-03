@@ -17,22 +17,28 @@ package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtypecalls;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class AuthCallsCredentialListMappingReader
     extends Reader<AuthCallsCredentialListMapping> {
 
-    private String pathDomainSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private String pathDomainSid;
+    private Long pageSize;
 
     public AuthCallsCredentialListMappingReader(final String pathDomainSid) {
         this.pathDomainSid = pathDomainSid;
@@ -47,24 +53,36 @@ public class AuthCallsCredentialListMappingReader
     }
 
     public AuthCallsCredentialListMappingReader setPageSize(
-        final Integer pageSize
+        final Long pageSize
     ) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<AuthCallsCredentialListMapping> read(
+    public ResourceSetResponse<AuthCallsCredentialListMapping> readWithResponse(
         final TwilioRestClient client
     ) {
-        return new ResourceSet<>(this, client, firstPage(client));
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AuthCallsCredentialListMapping> page = Page.fromJson(
+            "contents",
+            response.getContent(),
+            AuthCallsCredentialListMapping.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<AuthCallsCredentialListMapping> resourceSet =
+            new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<AuthCallsCredentialListMapping> firstPage(
-        final TwilioRestClient client
-    ) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -85,27 +103,58 @@ public class AuthCallsCredentialListMappingReader
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<AuthCallsCredentialListMapping> read(
+        final TwilioRestClient client
+    ) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<AuthCallsCredentialListMapping> firstPage(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<AuthCallsCredentialListMapping> pageForRequest(
+    public TwilioResponse<
+        Page<AuthCallsCredentialListMapping>
+    > firstPageWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<AuthCallsCredentialListMapping> page = Page.fromJson(
+            "contents",
+            response.getContent(),
+            AuthCallsCredentialListMapping.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "AuthCallsCredentialListMapping read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -114,7 +163,14 @@ public class AuthCallsCredentialListMappingReader
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<AuthCallsCredentialListMapping> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "contents",
             response.getContent(),
@@ -152,14 +208,23 @@ public class AuthCallsCredentialListMappingReader
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

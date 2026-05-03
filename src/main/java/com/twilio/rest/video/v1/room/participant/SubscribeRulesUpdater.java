@@ -14,9 +14,11 @@
 
 package com.twilio.rest.video.v1.room.participant;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
 
     private String pathRoomSid;
     private String pathParticipantSid;
-    private Map<String, Object> rules;
+    private Object rules;
 
     public SubscribeRulesUpdater(
         final String pathRoomSid,
@@ -41,13 +44,12 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
         this.pathParticipantSid = pathParticipantSid;
     }
 
-    public SubscribeRulesUpdater setRules(final Map<String, Object> rules) {
+    public SubscribeRulesUpdater setRules(final Object rules) {
         this.rules = rules;
         return this;
     }
 
-    @Override
-    public SubscribeRules update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules";
 
@@ -65,14 +67,17 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "SubscribeRules update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -83,16 +88,42 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SubscribeRules update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SubscribeRules.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<SubscribeRules> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SubscribeRules content = SubscribeRules.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (rules != null) {
-            request.addPostParam("Rules", Converter.mapToJson(rules));
+            Serializer.toString(
+                request,
+                "Rules",
+                rules,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

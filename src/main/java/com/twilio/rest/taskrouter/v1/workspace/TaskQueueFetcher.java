@@ -15,7 +15,7 @@
 package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class TaskQueueFetcher extends Fetcher<TaskQueue> {
 
@@ -38,8 +40,7 @@ public class TaskQueueFetcher extends Fetcher<TaskQueue> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public TaskQueue fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}";
 
         path =
@@ -54,7 +55,7 @@ public class TaskQueueFetcher extends Fetcher<TaskQueue> {
             Domains.TASKROUTER.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -62,8 +63,9 @@ public class TaskQueueFetcher extends Fetcher<TaskQueue> {
                 "TaskQueue fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -74,10 +76,31 @@ public class TaskQueueFetcher extends Fetcher<TaskQueue> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public TaskQueue fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return TaskQueue.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<TaskQueue> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        TaskQueue content = TaskQueue.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

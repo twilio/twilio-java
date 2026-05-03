@@ -16,6 +16,7 @@ package com.twilio.rest.numbers.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -25,6 +26,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class PortingWebhookConfigurationCreator
     extends Creator<PortingWebhookConfiguration> {
@@ -38,8 +41,7 @@ public class PortingWebhookConfigurationCreator
         return this;
     }
 
-    @Override
-    public PortingWebhookConfiguration create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Porting/Configuration/Webhook";
 
         Request request = new Request(
@@ -49,14 +51,17 @@ public class PortingWebhookConfigurationCreator
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "PortingWebhookConfiguration creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -67,10 +72,32 @@ public class PortingWebhookConfigurationCreator
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public PortingWebhookConfiguration create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PortingWebhookConfiguration.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<PortingWebhookConfiguration> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PortingWebhookConfiguration content =
+            PortingWebhookConfiguration.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

@@ -32,6 +32,14 @@ public abstract class Reader<T extends Resource> {
      */
     public abstract ResourceSet<T> read(final TwilioRestClient client);
 
+    public ResourceSetResponse<T> readWithResponse() {
+        return readWithResponse(Twilio.getRestClient());
+    }
+    
+    public ResourceSetResponse<T> readWithResponse(final TwilioRestClient client) {
+        throw new UnsupportedOperationException("readWithResponse is not supported for this resource.");
+    }
+
     /**
      * Execute an async request using default client.
      *

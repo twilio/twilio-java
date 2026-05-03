@@ -18,26 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class NetworkAccessProfileNetwork extends Resource {
-
-    private static final long serialVersionUID = 187162547019967L;
 
     public static NetworkAccessProfileNetworkCreator creator(
         final String pathNetworkAccessProfileSid,
@@ -126,56 +127,53 @@ public class NetworkAccessProfileNetwork extends Resource {
         }
     }
 
-    private final String sid;
-    private final String networkAccessProfileSid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String friendlyName;
+
+    @Getter
+    private final List<Object> identifiers;
+
+    @Getter
     private final String isoCountry;
-    private final List<Map<String, Object>> identifiers;
+
+    @Getter
+    private final String networkAccessProfileSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private NetworkAccessProfileNetwork(
-        @JsonProperty("sid") final String sid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("identifiers") final List<Object> identifiers,
+        @JsonProperty("iso_country") final String isoCountry,
         @JsonProperty(
             "network_access_profile_sid"
         ) final String networkAccessProfileSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty("identifiers") final List<
-            Map<String, Object>
-        > identifiers,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
-        this.networkAccessProfileSid = networkAccessProfileSid;
         this.friendlyName = friendlyName;
-        this.isoCountry = isoCountry;
         this.identifiers = identifiers;
+        this.isoCountry = isoCountry;
+        this.networkAccessProfileSid = networkAccessProfileSid;
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getNetworkAccessProfileSid() {
-        return this.networkAccessProfileSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getIsoCountry() {
-        return this.isoCountry;
-    }
-
-    public final List<Map<String, Object>> getIdentifiers() {
-        return this.identifiers;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -189,16 +187,15 @@ public class NetworkAccessProfileNetwork extends Resource {
         }
 
         NetworkAccessProfileNetwork other = (NetworkAccessProfileNetwork) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(identifiers, other.identifiers) &&
+            Objects.equals(isoCountry, other.isoCountry) &&
             Objects.equals(
                 networkAccessProfileSid,
                 other.networkAccessProfileSid
             ) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(isoCountry, other.isoCountry) &&
-            Objects.equals(identifiers, other.identifiers) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(url, other.url)
         );
     }
@@ -206,11 +203,11 @@ public class NetworkAccessProfileNetwork extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            networkAccessProfileSid,
             friendlyName,
-            isoCountry,
             identifiers,
+            isoCountry,
+            networkAccessProfileSid,
+            sid,
             url
         );
     }

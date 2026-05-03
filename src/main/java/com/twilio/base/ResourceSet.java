@@ -14,6 +14,7 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
 
     private final Reader<E> reader;
     private final TwilioRestClient client;
+    private final Page<E> firstPage; // Store reference to first page to enable multiple iterations
 
     private boolean autoPaging;
     private long pages = 1;
@@ -32,6 +33,7 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
     public ResourceSet(final Reader<E> reader, final TwilioRestClient client, final Page<E> page) {
         this.reader = reader;
         this.client = client;
+        this.firstPage = page; // Save first page to allow resetting iterator state
         this.page = page;
         this.iterator = page.getRecords().iterator();
         this.autoPaging = true;
@@ -74,6 +76,12 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
+        // Reset state to allow multiple iterations
+        this.processed = 0;
+        this.pages = 1;
+        this.page = this.firstPage; // Reset to first page for new iteration
+        this.iterator = this.firstPage.getRecords().iterator(); // Reset iterator to start of first page
+        
         return new ResourceSetIterator<>(this);
     }
 

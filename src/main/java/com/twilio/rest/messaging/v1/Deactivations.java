@@ -18,23 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Deactivations extends Resource {
-
-    private static final long serialVersionUID = 245900587626041L;
 
     public static DeactivationsFetcher fetcher() {
         return new DeactivationsFetcher();
@@ -83,15 +86,24 @@ public class Deactivations extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final URI redirectTo;
 
     @JsonCreator
     private Deactivations(@JsonProperty("redirect_to") final URI redirectTo) {
         this.redirectTo = redirectTo;
-    }
-
-    public final URI getRedirectTo() {
-        return this.redirectTo;
     }
 
     @Override
@@ -105,8 +117,7 @@ public class Deactivations extends Resource {
         }
 
         Deactivations other = (Deactivations) o;
-
-        return Objects.equals(redirectTo, other.redirectTo);
+        return (Objects.equals(redirectTo, other.redirectTo));
     }
 
     @Override

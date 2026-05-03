@@ -19,283 +19,31 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Tool extends Resource {
-
-    private static final long serialVersionUID = 65943663776562L;
-
-    @ToString
-    public static class AssistantsV1ServiceCreatePolicyRequest {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("description")
-        @Getter
-        @Setter
-        private String description;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("id")
-        @Getter
-        @Setter
-        private String id;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("name")
-        @Getter
-        @Setter
-        private String name;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("policy_details")
-        @Getter
-        @Setter
-        private Map<String, Object> policyDetails;
-
-        public String getPolicyDetails() {
-            return Converter.mapToJson(policyDetails);
-        }
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("type")
-        @Getter
-        @Setter
-        private String type;
-
-        public static AssistantsV1ServiceCreatePolicyRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                AssistantsV1ServiceCreatePolicyRequest.class
-            );
-        }
-    }
-
-    @ToString
-    public static class AssistantsV1ServiceCreateToolRequest {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("assistant_id")
-        @Getter
-        @Setter
-        private String assistantId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("description")
-        @Getter
-        @Setter
-        private String description;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("enabled")
-        @Getter
-        @Setter
-        private Boolean enabled;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("meta")
-        @Getter
-        @Setter
-        private Map<String, Object> meta;
-
-        public String getMeta() {
-            return Converter.mapToJson(meta);
-        }
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("name")
-        @Getter
-        @Setter
-        private String name;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("policy")
-        @Getter
-        @Setter
-        private AssistantsV1ServiceCreatePolicyRequest policy;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("type")
-        @Getter
-        @Setter
-        private String type;
-
-        public AssistantsV1ServiceCreateToolRequest() {}
-
-        public static AssistantsV1ServiceCreateToolRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                AssistantsV1ServiceCreateToolRequest.class
-            );
-        }
-    }
-
-    @ToString
-    public static class AssistantsV1ServiceUpdateToolRequest {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("assistant_id")
-        @Getter
-        @Setter
-        private String assistantId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("description")
-        @Getter
-        @Setter
-        private String description;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("enabled")
-        @Getter
-        @Setter
-        private Boolean enabled;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("meta")
-        @Getter
-        @Setter
-        private Map<String, Object> meta;
-
-        public String getMeta() {
-            return Converter.mapToJson(meta);
-        }
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("name")
-        @Getter
-        @Setter
-        private String name;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("policy")
-        @Getter
-        @Setter
-        private AssistantsV1ServiceCreatePolicyRequest policy;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("type")
-        @Getter
-        @Setter
-        private String type;
-
-        public AssistantsV1ServiceUpdateToolRequest() {}
-
-        public static AssistantsV1ServiceUpdateToolRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                AssistantsV1ServiceUpdateToolRequest.class
-            );
-        }
-    }
-
-    @ToString
-    public static class AssistantsV1ServicePolicy {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("id")
-        @Getter
-        @Setter
-        private String id;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("name")
-        @Getter
-        @Setter
-        private String name;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("description")
-        @Getter
-        @Setter
-        private String description;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("accountSid")
-        @Getter
-        @Setter
-        private String accountSid;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("userSid")
-        @Getter
-        @Setter
-        private String userSid;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("type")
-        @Getter
-        @Setter
-        private String type;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("policyDetails")
-        @Getter
-        @Setter
-        private Map<String, Object> policyDetails;
-
-        public String getPolicyDetails() {
-            return Converter.mapToJson(policyDetails);
-        }
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("dateCreated")
-        @Getter
-        @Setter
-        private ZonedDateTime dateCreated;
-
-        public String getDateCreated() {
-            return dateCreated.toInstant().toString();
-        }
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("dateUpdated")
-        @Getter
-        @Setter
-        private ZonedDateTime dateUpdated;
-
-        public String getDateUpdated() {
-            return dateUpdated.toInstant().toString();
-        }
-
-        public static AssistantsV1ServicePolicy fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                AssistantsV1ServicePolicy.class
-            );
-        }
-    }
 
     public static ToolCreator creator(
         final Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest
@@ -317,6 +65,737 @@ public class Tool extends Resource {
 
     public static ToolUpdater updater(final String pathId) {
         return new ToolUpdater(pathId);
+    }
+
+    @JsonDeserialize(
+        builder = AssistantsV1ServiceCreatePolicyRequest.Builder.class
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class AssistantsV1ServiceCreatePolicyRequest {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("description")
+        @Getter
+        private final String description;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        private final String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("name")
+        @Getter
+        private final String name;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("policy_details")
+        @Getter
+        private final Object policyDetails;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        private final String type;
+
+        private AssistantsV1ServiceCreatePolicyRequest(Builder builder) {
+            this.description = builder.description;
+            this.id = builder.id;
+            this.name = builder.name;
+            this.policyDetails = builder.policyDetails;
+            this.type = builder.type;
+        }
+
+        public static Builder builder(final Object policyDetails) {
+            return new Builder(policyDetails);
+        }
+
+        public static AssistantsV1ServiceCreatePolicyRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceCreatePolicyRequest.class
+            );
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("description")
+            private String description;
+
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("name")
+            private String name;
+
+            @JsonProperty("policy_details")
+            private Object policyDetails;
+
+            @JsonProperty("type")
+            private String type;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty("policy_details") final Object policyDetails
+            ) {
+                this.policyDetails = policyDetails;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("description")
+            public Builder description(String description) {
+                this.description = description;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            public Builder id(String id) {
+                this.id = id;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("name")
+            public Builder name(String name) {
+                this.name = name;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            public Builder type(String type) {
+                this.type = type;
+                return this;
+            }
+
+            public AssistantsV1ServiceCreatePolicyRequest build() {
+                return new AssistantsV1ServiceCreatePolicyRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            AssistantsV1ServiceCreatePolicyRequest other =
+                (AssistantsV1ServiceCreatePolicyRequest) o;
+            return (
+                Objects.equals(description, other.description) &&
+                Objects.equals(id, other.id) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(policyDetails, other.policyDetails) &&
+                Objects.equals(type, other.type)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(description, id, name, policyDetails, type);
+        }
+    }
+
+    @JsonDeserialize(
+        builder = AssistantsV1ServiceUpdateToolRequest.Builder.class
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class AssistantsV1ServiceUpdateToolRequest {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("assistant_id")
+        @Getter
+        private final String assistantId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("description")
+        @Getter
+        private final String description;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("enabled")
+        @Getter
+        private final Boolean enabled;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("meta")
+        @Getter
+        private final Object meta;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("name")
+        @Getter
+        private final String name;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("policy")
+        @Getter
+        private final AssistantsV1ServiceCreatePolicyRequest policy;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        private final String type;
+
+        private AssistantsV1ServiceUpdateToolRequest(Builder builder) {
+            this.assistantId = builder.assistantId;
+            this.description = builder.description;
+            this.enabled = builder.enabled;
+            this.meta = builder.meta;
+            this.name = builder.name;
+            this.policy = builder.policy;
+            this.type = builder.type;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static AssistantsV1ServiceUpdateToolRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceUpdateToolRequest.class
+            );
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("assistant_id")
+            private String assistantId;
+
+            @JsonProperty("description")
+            private String description;
+
+            @JsonProperty("enabled")
+            private Boolean enabled;
+
+            @JsonProperty("meta")
+            private Object meta;
+
+            @JsonProperty("name")
+            private String name;
+
+            @JsonProperty("policy")
+            private AssistantsV1ServiceCreatePolicyRequest policy;
+
+            @JsonProperty("type")
+            private String type;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("assistant_id")
+            public Builder assistantId(String assistantId) {
+                this.assistantId = assistantId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("description")
+            public Builder description(String description) {
+                this.description = description;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("enabled")
+            public Builder enabled(Boolean enabled) {
+                this.enabled = enabled;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("meta")
+            public Builder meta(Object meta) {
+                this.meta = meta;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("name")
+            public Builder name(String name) {
+                this.name = name;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("policy")
+            public Builder policy(
+                AssistantsV1ServiceCreatePolicyRequest policy
+            ) {
+                this.policy = policy;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            public Builder type(String type) {
+                this.type = type;
+                return this;
+            }
+
+            public AssistantsV1ServiceUpdateToolRequest build() {
+                return new AssistantsV1ServiceUpdateToolRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            AssistantsV1ServiceUpdateToolRequest other =
+                (AssistantsV1ServiceUpdateToolRequest) o;
+            return (
+                Objects.equals(assistantId, other.assistantId) &&
+                Objects.equals(description, other.description) &&
+                Objects.equals(enabled, other.enabled) &&
+                Objects.equals(meta, other.meta) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(policy, other.policy) &&
+                Objects.equals(type, other.type)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                assistantId,
+                description,
+                enabled,
+                meta,
+                name,
+                policy,
+                type
+            );
+        }
+    }
+
+    @JsonDeserialize(
+        builder = AssistantsV1ServiceCreateToolRequest.Builder.class
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class AssistantsV1ServiceCreateToolRequest {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("assistant_id")
+        @Getter
+        private final String assistantId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("description")
+        @Getter
+        private final String description;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("enabled")
+        @Getter
+        private final Boolean enabled;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("meta")
+        @Getter
+        private final Object meta;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("name")
+        @Getter
+        private final String name;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("policy")
+        @Getter
+        private final AssistantsV1ServiceCreatePolicyRequest policy;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        private final String type;
+
+        private AssistantsV1ServiceCreateToolRequest(Builder builder) {
+            this.assistantId = builder.assistantId;
+            this.description = builder.description;
+            this.enabled = builder.enabled;
+            this.meta = builder.meta;
+            this.name = builder.name;
+            this.policy = builder.policy;
+            this.type = builder.type;
+        }
+
+        public static Builder builder(
+            final Boolean enabled,
+            final String name,
+            final String type
+        ) {
+            return new Builder(enabled, name, type);
+        }
+
+        public static AssistantsV1ServiceCreateToolRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceCreateToolRequest.class
+            );
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("assistant_id")
+            private String assistantId;
+
+            @JsonProperty("description")
+            private String description;
+
+            @JsonProperty("enabled")
+            private Boolean enabled;
+
+            @JsonProperty("meta")
+            private Object meta;
+
+            @JsonProperty("name")
+            private String name;
+
+            @JsonProperty("policy")
+            private AssistantsV1ServiceCreatePolicyRequest policy;
+
+            @JsonProperty("type")
+            private String type;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty("enabled") final Boolean enabled,
+                @JsonProperty("name") final String name,
+                @JsonProperty("type") final String type
+            ) {
+                this.enabled = enabled;
+                this.name = name;
+                this.type = type;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("assistant_id")
+            public Builder assistantId(String assistantId) {
+                this.assistantId = assistantId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("description")
+            public Builder description(String description) {
+                this.description = description;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("meta")
+            public Builder meta(Object meta) {
+                this.meta = meta;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("policy")
+            public Builder policy(
+                AssistantsV1ServiceCreatePolicyRequest policy
+            ) {
+                this.policy = policy;
+                return this;
+            }
+
+            public AssistantsV1ServiceCreateToolRequest build() {
+                return new AssistantsV1ServiceCreateToolRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            AssistantsV1ServiceCreateToolRequest other =
+                (AssistantsV1ServiceCreateToolRequest) o;
+            return (
+                Objects.equals(assistantId, other.assistantId) &&
+                Objects.equals(description, other.description) &&
+                Objects.equals(enabled, other.enabled) &&
+                Objects.equals(meta, other.meta) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(policy, other.policy) &&
+                Objects.equals(type, other.type)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                assistantId,
+                description,
+                enabled,
+                meta,
+                name,
+                policy,
+                type
+            );
+        }
+    }
+
+    @JsonDeserialize(builder = AssistantsV1ServicePolicy.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class AssistantsV1ServicePolicy {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        private final String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("name")
+        @Getter
+        private final String name;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("description")
+        @Getter
+        private final String description;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("account_sid")
+        @Getter
+        private final String accountSid;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("user_sid")
+        @Getter
+        private final String userSid;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        private final String type;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("policy_details")
+        @Getter
+        private final Object policyDetails;
+
+        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("date_created")
+        @Getter
+        private final ZonedDateTime dateCreated;
+
+        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("date_updated")
+        @Getter
+        private final ZonedDateTime dateUpdated;
+
+        private AssistantsV1ServicePolicy(Builder builder) {
+            this.id = builder.id;
+            this.name = builder.name;
+            this.description = builder.description;
+            this.accountSid = builder.accountSid;
+            this.userSid = builder.userSid;
+            this.type = builder.type;
+            this.policyDetails = builder.policyDetails;
+            this.dateCreated = builder.dateCreated;
+            this.dateUpdated = builder.dateUpdated;
+        }
+
+        public static Builder builder(
+            final String type,
+            final Object policyDetails
+        ) {
+            return new Builder(type, policyDetails);
+        }
+
+        public static AssistantsV1ServicePolicy fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServicePolicy.class
+            );
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("name")
+            private String name;
+
+            @JsonProperty("description")
+            private String description;
+
+            @JsonProperty("account_sid")
+            private String accountSid;
+
+            @JsonProperty("user_sid")
+            private String userSid;
+
+            @JsonProperty("type")
+            private String type;
+
+            @JsonProperty("policy_details")
+            private Object policyDetails;
+
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonProperty("date_created")
+            private ZonedDateTime dateCreated;
+
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonProperty("date_updated")
+            private ZonedDateTime dateUpdated;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty("type") final String type,
+                @JsonProperty("policy_details") final Object policyDetails
+            ) {
+                this.type = type;
+                this.policyDetails = policyDetails;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            public Builder id(String id) {
+                this.id = id;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("name")
+            public Builder name(String name) {
+                this.name = name;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("description")
+            public Builder description(String description) {
+                this.description = description;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("account_sid")
+            public Builder accountSid(String accountSid) {
+                this.accountSid = accountSid;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("user_sid")
+            public Builder userSid(String userSid) {
+                this.userSid = userSid;
+                return this;
+            }
+
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("date_created")
+            public Builder dateCreated(ZonedDateTime dateCreated) {
+                this.dateCreated = dateCreated;
+                return this;
+            }
+
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("date_updated")
+            public Builder dateUpdated(ZonedDateTime dateUpdated) {
+                this.dateUpdated = dateUpdated;
+                return this;
+            }
+
+            public AssistantsV1ServicePolicy build() {
+                return new AssistantsV1ServicePolicy(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            AssistantsV1ServicePolicy other = (AssistantsV1ServicePolicy) o;
+            return (
+                Objects.equals(id, other.id) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(description, other.description) &&
+                Objects.equals(accountSid, other.accountSid) &&
+                Objects.equals(userSid, other.userSid) &&
+                Objects.equals(type, other.type) &&
+                Objects.equals(policyDetails, other.policyDetails) &&
+                Objects.equals(dateCreated, other.dateCreated) &&
+                Objects.equals(dateUpdated, other.dateUpdated)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                id,
+                name,
+                description,
+                accountSid,
+                userSid,
+                type,
+                policyDetails,
+                dateCreated,
+                dateUpdated
+            );
+        }
     }
 
     /**
@@ -374,94 +853,81 @@ public class Tool extends Resource {
         }
     }
 
+    @Getter
     private final String accountSid;
-    private final String description;
-    private final Boolean enabled;
-    private final String id;
-    private final Map<String, Object> meta;
-    private final String name;
-    private final Boolean requiresAuth;
-    private final String type;
-    private final String url;
+
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String description;
+
+    @Getter
+    private final Boolean enabled;
+
+    @Getter
+    private final String id;
+
+    @Getter
+    private final Object meta;
+
+    @Getter
+    private final String name;
+
+    @Getter
     private final List<AssistantsV1ServicePolicy> policies;
+
+    @Getter
+    private final Boolean requiresAuth;
+
+    @Getter
+    private final String type;
+
+    @Getter
+    private final String url;
 
     @JsonCreator
     private Tool(
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("description") final String description,
         @JsonProperty("enabled") final Boolean enabled,
         @JsonProperty("id") final String id,
-        @JsonProperty("meta") final Map<String, Object> meta,
+        @JsonProperty("meta") final Object meta,
         @JsonProperty("name") final String name,
+        @JsonProperty("policies") final List<
+            AssistantsV1ServicePolicy
+        > policies,
         @JsonProperty("requires_auth") final Boolean requiresAuth,
         @JsonProperty("type") final String type,
-        @JsonProperty("url") final String url,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("policies") final List<AssistantsV1ServicePolicy> policies
+        @JsonProperty("url") final String url
     ) {
         this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.description = description;
         this.enabled = enabled;
         this.id = id;
         this.meta = meta;
         this.name = name;
+        this.policies = policies;
         this.requiresAuth = requiresAuth;
         this.type = type;
         this.url = url;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.policies = policies;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final Boolean getEnabled() {
-        return this.enabled;
-    }
-
-    public final String getId() {
-        return this.id;
-    }
-
-    public final Map<String, Object> getMeta() {
-        return this.meta;
-    }
-
-    public final String getName() {
-        return this.name;
-    }
-
-    public final Boolean getRequiresAuth() {
-        return this.requiresAuth;
-    }
-
-    public final String getType() {
-        return this.type;
-    }
-
-    public final String getUrl() {
-        return this.url;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final List<AssistantsV1ServicePolicy> getPolicies() {
-        return this.policies;
     }
 
     @Override
@@ -475,20 +941,19 @@ public class Tool extends Resource {
         }
 
         Tool other = (Tool) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(description, other.description) &&
             Objects.equals(enabled, other.enabled) &&
             Objects.equals(id, other.id) &&
             Objects.equals(meta, other.meta) &&
             Objects.equals(name, other.name) &&
+            Objects.equals(policies, other.policies) &&
             Objects.equals(requiresAuth, other.requiresAuth) &&
             Objects.equals(type, other.type) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(policies, other.policies)
+            Objects.equals(url, other.url)
         );
     }
 
@@ -496,17 +961,17 @@ public class Tool extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
+            dateCreated,
+            dateUpdated,
             description,
             enabled,
             id,
             meta,
             name,
+            policies,
             requiresAuth,
             type,
-            url,
-            dateCreated,
-            dateUpdated,
-            policies
+            url
         );
     }
 }

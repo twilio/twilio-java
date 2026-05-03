@@ -15,7 +15,7 @@
 package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,13 +24,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
+import java.util.function.Predicate;
 
 public class UserDefinedMessageSubscriptionDeleter
     extends Deleter<UserDefinedMessageSubscription> {
 
+    private String pathAccountSid;
     private String pathCallSid;
     private String pathSid;
-    private String pathAccountSid;
 
     public UserDefinedMessageSubscriptionDeleter(
         final String pathCallSid,
@@ -50,8 +53,7 @@ public class UserDefinedMessageSubscriptionDeleter
         this.pathSid = pathSid;
     }
 
-    @Override
-    public boolean delete(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json";
 
@@ -67,12 +69,14 @@ public class UserDefinedMessageSubscriptionDeleter
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -80,8 +84,9 @@ public class UserDefinedMessageSubscriptionDeleter
                 "UserDefinedMessageSubscription delete failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -92,6 +97,29 @@ public class UserDefinedMessageSubscriptionDeleter
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return response;
+    }
+
+    @Override
+    public boolean delete(final TwilioRestClient client) {
+        Response response = makeRequest(client);
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
+        return deleteStatuses.test(response.getStatusCode());
+    }
+
+    @Override
+    public TwilioResponse<Boolean> deleteWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
+        Boolean deleted = deleteStatuses.test(response.getStatusCode());
+        return new TwilioResponse<>(
+            deleted,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

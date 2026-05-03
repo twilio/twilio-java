@@ -15,7 +15,7 @@
 package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class WorkflowFetcher extends Fetcher<Workflow> {
 
@@ -38,8 +40,7 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Workflow fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}";
 
         path =
@@ -54,7 +55,7 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
             Domains.TASKROUTER.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -62,8 +63,9 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
                 "Workflow fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -74,10 +76,31 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Workflow fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Workflow.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Workflow> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Workflow content = Workflow.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

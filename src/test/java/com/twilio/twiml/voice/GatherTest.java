@@ -57,13 +57,13 @@ public class GatherTest {
             .bargeIn(true)
             .debug(true)
             .actionOnEmptyResult(true)
-            .speechModel(Gather.SpeechModel.DEFAULT)
+            .speechModel("speech_model")
             .enhanced(true)
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Gather action=\"https://example.com\" actionOnEmptyResult=\"true\" bargeIn=\"true\" debug=\"true\" enhanced=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechModel=\"default\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>",
+            "<Gather action=\"https://example.com\" actionOnEmptyResult=\"true\" bargeIn=\"true\" debug=\"true\" enhanced=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechModel=\"speech_model\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>",
             elem.toXml()
         );
     }
@@ -199,12 +199,12 @@ public class GatherTest {
             .bargeIn(true)
             .debug(true)
             .actionOnEmptyResult(true)
-            .speechModel(Gather.SpeechModel.DEFAULT)
+            .speechModel("speech_model")
             .enhanced(true)
             .build();
 
         Assert.assertEquals(
-            Gather.Builder.fromXml("<Gather action=\"https://example.com\" actionOnEmptyResult=\"true\" bargeIn=\"true\" debug=\"true\" enhanced=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechModel=\"default\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>").build().toXml(),
+            Gather.Builder.fromXml("<Gather action=\"https://example.com\" actionOnEmptyResult=\"true\" bargeIn=\"true\" debug=\"true\" enhanced=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechModel=\"speech_model\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>").build().toXml(),
             elem.toXml()
         );
     }

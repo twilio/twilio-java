@@ -2,7 +2,121 @@
 
 _`MAJOR` version bumps will have upgrade notes posted here._
 
+[2026-04-21] 11.x.x to 12.x.x
+-----------------------------
+### Overview
+##### Twilio Java Helper Library's major version 12.0.0 is now available. This release adds JDK 21 build and test support and replaces the deprecated `io.jsonwebtoken.SignatureAlgorithm` enum with the modern `io.jsonwebtoken.security.SecureDigestAlgorithm` API from jjwt 0.12.x. The compiled JAR remains JDK 8 compatible.
+
+##### Breaking Changes
+
+###### 1. `SignatureAlgorithm` replaced with `SecureDigestAlgorithm`
+Who is impacted:
+Users who pass an explicit algorithm parameter to `ValidationClient`, `ValidationInterceptor`, `ValidationToken.fromHttpRequest()`, `ValidationToken.Builder.algorithm()`, or who subclass `com.twilio.jwt.Jwt` directly.
+
+Who is NOT impacted:
+Users who use the default constructors of `ValidationClient` or `ValidationInterceptor` (the ones without an algorithm parameter). Users who only use `AccessToken`, `ClientCapability`, `TaskRouterCapability`, or the REST API resource classes (`Message`, `Call`, etc.).
+
+##### Migration
+
+Replace the import and algorithm constants:
+
+```java
+// 11.x.x
+import io.jsonwebtoken.SignatureAlgorithm;
+
+new ValidationClient(accountSid, credSid, signingKeySid, privateKey, SignatureAlgorithm.PS256);
+
+new ValidationToken.Builder(accountSid, credSid, signingKeySid, privateKey)
+    .algorithm(SignatureAlgorithm.RS256)
+    .build();
+```
+
+```java
+// 12.x.x
+import io.jsonwebtoken.Jwts;
+
+new ValidationClient(accountSid, credSid, signingKeySid, privateKey, Jwts.SIG.PS256);
+
+new ValidationToken.Builder(accountSid, credSid, signingKeySid, privateKey)
+    .algorithm(Jwts.SIG.RS256)
+    .build();
+```
+
+##### Affected Public API Signatures
+
+**`com.twilio.jwt.Jwt`** — Both constructors:
+```java
+// 11.x.x
+public Jwt(SignatureAlgorithm algorithm, byte[] secret, String issuer, Date expiration)
+public Jwt(SignatureAlgorithm algorithm, Key secretKey, String issuer, Date expiration)
+
+// 12.x.x
+public Jwt(SecureDigestAlgorithm<? extends Key, ?> algorithm, byte[] secret, String issuer, Date expiration)
+public Jwt(SecureDigestAlgorithm<? extends Key, ?> algorithm, Key secretKey, String issuer, Date expiration)
+```
+
+**`com.twilio.http.ValidationClient`** — Three constructors (the ones accepting an algorithm parameter):
+```java
+// 11.x.x
+public ValidationClient(..., SignatureAlgorithm algorithm)
+
+// 12.x.x
+public ValidationClient(..., SecureDigestAlgorithm<? extends Key, ?> algorithm)
+```
+
+**`com.twilio.http.ValidationInterceptor`** — One constructor:
+```java
+// 11.x.x
+public ValidationInterceptor(String accountSid, String credentialSid, String signingKeySid, PrivateKey privateKey, SignatureAlgorithm algorithm)
+
+// 12.x.x
+public ValidationInterceptor(String accountSid, String credentialSid, String signingKeySid, PrivateKey privateKey, SecureDigestAlgorithm<? extends Key, ?> algorithm)
+```
+
+**`com.twilio.jwt.validation.ValidationToken`** — Static factory method and builder:
+```java
+// 11.x.x
+public static ValidationToken fromHttpRequest(..., SignatureAlgorithm algorithm)
+public Builder algorithm(SignatureAlgorithm algorithm)
+
+// 12.x.x
+public static ValidationToken fromHttpRequest(..., SecureDigestAlgorithm<? extends Key, ?> algorithm)
+public Builder algorithm(SecureDigestAlgorithm<? extends Key, ?> algorithm)
+```
+
+###### 2. Internal: `URLEncodedUtils` replaced with `URIBuilder` in `RequestValidator`
+This is an internal implementation change with no public API impact. The deprecated `org.apache.hc.core5.net.URLEncodedUtils` was replaced with `org.apache.hc.core5.net.URIBuilder`.
+
+##### JDK Support
+The library now supports building and testing on both JDK 8 and JDK 11+ (including JDK 21) via Maven profiles that activate automatically based on the detected JDK version. The compiled JAR remains JDK 8 compatible (`-source 8 -target 8`).
+
+[2025-09-30] 10.x.x to 11.x.x
+-----------------------------
+### Overview
+##### Twilio Java Helper Library’s major version 11.0.0 is now available. 11.0.0 version contains breaking changes
+
+##### Breaking Changes
+###### 1. NetworkHttpClient upgraded from HttpClient4 → HttpClient5
+Who are impacted: 
+Users who override NetworkHttpClient.
+
+###### 2. Bug Fix: Enum suffix removed (StatusEnum → Status)
+This was a bug in Account resource in Organisation API
+
+###### 3. Organisation API — Organisation API init authentication mechanism has been changed.
+Who are impacted:
+Users calling the Organisation API. Refer Examples
+Organisation API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/OrgsAPIExample.md)
+
+###### 4. Bug Fix: Using Object data type for [anyType](https://swagger.io/docs/specification/v3_0/data-models/data-types/#any-type) fields in open-api specifications
+Who are impacted:
+Properties/Parameters defined as [anyType](https://swagger.io/docs/specification/v3_0/data-models/data-types/#any-type) in open-api specifications will be represented using `Object` now.
+Previous data type: `Map<String,Object>`
+New data type: `Object`
+
+
 [2024-02-08] 9.x.x to 10.x.x
+-----------------------------
 ### Overview
 
 ##### Twilio Java Helper Library’s major version 10.0.0 is now available. We ensured that you can upgrade to Java helper Library 10.0.0 version without any breaking changes of existing apis

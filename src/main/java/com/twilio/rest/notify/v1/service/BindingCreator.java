@@ -15,8 +15,11 @@
 package com.twilio.rest.notify.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +28,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
+import com.twilio.type.*;
+import java.io.InputStream;
 import java.util.List;
 
 public class BindingCreator extends Creator<Binding> {
@@ -94,8 +98,7 @@ public class BindingCreator extends Creator<Binding> {
         return this;
     }
 
-    @Override
-    public Binding create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Bindings";
 
         path =
@@ -103,13 +106,6 @@ public class BindingCreator extends Creator<Binding> {
                 "{" + "ServiceSid" + "}",
                 this.pathServiceSid.toString()
             );
-        path = path.replace("{" + "Identity" + "}", this.identity.toString());
-        path =
-            path.replace(
-                "{" + "BindingType" + "}",
-                this.bindingType.toString()
-            );
-        path = path.replace("{" + "Address" + "}", this.address.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -118,14 +114,17 @@ public class BindingCreator extends Creator<Binding> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Binding creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -136,36 +135,95 @@ public class BindingCreator extends Creator<Binding> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Binding create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Binding.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Binding> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Binding content = Binding.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (identity != null) {
-            request.addPostParam("Identity", identity);
-        }
-        if (bindingType != null) {
-            request.addPostParam("BindingType", bindingType.toString());
-        }
-        if (address != null) {
-            request.addPostParam("Address", address);
-        }
-        if (tag != null) {
-            for (String prop : tag) {
-                request.addPostParam("Tag", prop);
-            }
-        }
-        if (notificationProtocolVersion != null) {
-            request.addPostParam(
-                "NotificationProtocolVersion",
-                notificationProtocolVersion
+            Serializer.toString(
+                request,
+                "Identity",
+                identity,
+                ParameterType.URLENCODED
             );
         }
-        if (credentialSid != null) {
-            request.addPostParam("CredentialSid", credentialSid);
+
+        if (bindingType != null) {
+            Serializer.toString(
+                request,
+                "BindingType",
+                bindingType,
+                ParameterType.URLENCODED
+            );
         }
+
+        if (address != null) {
+            Serializer.toString(
+                request,
+                "Address",
+                address,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (tag != null) {
+            for (String param : tag) {
+                Serializer.toString(
+                    request,
+                    "Tag",
+                    param,
+                    ParameterType.URLENCODED
+                );
+            }
+        }
+
+        if (notificationProtocolVersion != null) {
+            Serializer.toString(
+                request,
+                "NotificationProtocolVersion",
+                notificationProtocolVersion,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (credentialSid != null) {
+            Serializer.toString(
+                request,
+                "CredentialSid",
+                credentialSid,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (endpoint != null) {
-            request.addPostParam("Endpoint", endpoint);
+            Serializer.toString(
+                request,
+                "Endpoint",
+                endpoint,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -15,7 +15,7 @@
 package com.twilio.rest.studio.v2;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class FlowFetcher extends Fetcher<Flow> {
 
@@ -33,8 +35,7 @@ public class FlowFetcher extends Fetcher<Flow> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Flow fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Flows/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -44,7 +45,7 @@ public class FlowFetcher extends Fetcher<Flow> {
             Domains.STUDIO.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -52,8 +53,9 @@ public class FlowFetcher extends Fetcher<Flow> {
                 "Flow fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -64,7 +66,28 @@ public class FlowFetcher extends Fetcher<Flow> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Flow fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Flow.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Flow> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Flow content = Flow.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

@@ -18,26 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UserChannel extends Resource {
-
-    private static final long serialVersionUID = 104594062960806L;
 
     public static UserChannelDeleter deleter(
         final String pathServiceSid,
@@ -80,6 +82,47 @@ public class UserChannel extends Resource {
             pathUserSid,
             pathChannelSid
         );
+    }
+
+    public enum NotificationLevel {
+        DEFAULT("default"),
+        MUTED("muted");
+
+        private final String value;
+
+        private NotificationLevel(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static NotificationLevel forValue(final String value) {
+            return Promoter.enumFromString(value, NotificationLevel.values());
+        }
+    }
+
+    public enum ChannelStatus {
+        JOINED("joined"),
+        INVITED("invited"),
+        NOT_PARTICIPATING("not_participating");
+
+        private final String value;
+
+        private ChannelStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChannelStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ChannelStatus.values());
+        }
     }
 
     /**
@@ -125,93 +168,82 @@ public class UserChannel extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
+
+    @Getter
     private final String channelSid;
-    private final String userSid;
-    private final String memberSid;
-    private final UserChannel.ChannelStatus status;
+
+    @Getter
     private final Integer lastConsumedMessageIndex;
-    private final Integer unreadMessagesCount;
+
+    @Getter
     private final Map<String, String> links;
-    private final URI url;
+
+    @Getter
+    private final String memberSid;
+
+    @Getter
     private final UserChannel.NotificationLevel notificationLevel;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final UserChannel.ChannelStatus status;
+
+    @Getter
+    private final Integer unreadMessagesCount;
+
+    @Getter
+    private final URI url;
+
+    @Getter
+    private final String userSid;
 
     @JsonCreator
     private UserChannel(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("channel_sid") final String channelSid,
-        @JsonProperty("user_sid") final String userSid,
-        @JsonProperty("member_sid") final String memberSid,
-        @JsonProperty("status") final UserChannel.ChannelStatus status,
         @JsonProperty(
             "last_consumed_message_index"
         ) final Integer lastConsumedMessageIndex,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("member_sid") final String memberSid,
+        @JsonProperty(
+            "notification_level"
+        ) final UserChannel.NotificationLevel notificationLevel,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("status") final UserChannel.ChannelStatus status,
         @JsonProperty(
             "unread_messages_count"
         ) final Integer unreadMessagesCount,
-        @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("url") final URI url,
-        @JsonProperty(
-            "notification_level"
-        ) final UserChannel.NotificationLevel notificationLevel
+        @JsonProperty("user_sid") final String userSid
     ) {
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
         this.channelSid = channelSid;
-        this.userSid = userSid;
-        this.memberSid = memberSid;
-        this.status = status;
         this.lastConsumedMessageIndex = lastConsumedMessageIndex;
-        this.unreadMessagesCount = unreadMessagesCount;
         this.links = links;
-        this.url = url;
+        this.memberSid = memberSid;
         this.notificationLevel = notificationLevel;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getChannelSid() {
-        return this.channelSid;
-    }
-
-    public final String getUserSid() {
-        return this.userSid;
-    }
-
-    public final String getMemberSid() {
-        return this.memberSid;
-    }
-
-    public final UserChannel.ChannelStatus getStatus() {
-        return this.status;
-    }
-
-    public final Integer getLastConsumedMessageIndex() {
-        return this.lastConsumedMessageIndex;
-    }
-
-    public final Integer getUnreadMessagesCount() {
-        return this.unreadMessagesCount;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final UserChannel.NotificationLevel getNotificationLevel() {
-        return this.notificationLevel;
+        this.serviceSid = serviceSid;
+        this.status = status;
+        this.unreadMessagesCount = unreadMessagesCount;
+        this.url = url;
+        this.userSid = userSid;
     }
 
     @Override
@@ -225,22 +257,21 @@ public class UserChannel extends Resource {
         }
 
         UserChannel other = (UserChannel) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
             Objects.equals(channelSid, other.channelSid) &&
-            Objects.equals(userSid, other.userSid) &&
-            Objects.equals(memberSid, other.memberSid) &&
-            Objects.equals(status, other.status) &&
             Objects.equals(
                 lastConsumedMessageIndex,
                 other.lastConsumedMessageIndex
             ) &&
-            Objects.equals(unreadMessagesCount, other.unreadMessagesCount) &&
             Objects.equals(links, other.links) &&
+            Objects.equals(memberSid, other.memberSid) &&
+            Objects.equals(notificationLevel, other.notificationLevel) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(unreadMessagesCount, other.unreadMessagesCount) &&
             Objects.equals(url, other.url) &&
-            Objects.equals(notificationLevel, other.notificationLevel)
+            Objects.equals(userSid, other.userSid)
         );
     }
 
@@ -248,57 +279,16 @@ public class UserChannel extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
-            serviceSid,
             channelSid,
-            userSid,
-            memberSid,
-            status,
             lastConsumedMessageIndex,
-            unreadMessagesCount,
             links,
+            memberSid,
+            notificationLevel,
+            serviceSid,
+            status,
+            unreadMessagesCount,
             url,
-            notificationLevel
+            userSid
         );
-    }
-
-    public enum ChannelStatus {
-        JOINED("joined"),
-        INVITED("invited"),
-        NOT_PARTICIPATING("not_participating");
-
-        private final String value;
-
-        private ChannelStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChannelStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ChannelStatus.values());
-        }
-    }
-
-    public enum NotificationLevel {
-        DEFAULT("default"),
-        MUTED("muted");
-
-        private final String value;
-
-        private NotificationLevel(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static NotificationLevel forValue(final String value) {
-            return Promoter.enumFromString(value, NotificationLevel.values());
-        }
     }
 }

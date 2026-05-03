@@ -15,7 +15,10 @@
 package com.twilio.rest.accounts.v1.credential;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class AwsCreator extends Creator<Aws> {
 
@@ -50,15 +55,8 @@ public class AwsCreator extends Creator<Aws> {
         return this;
     }
 
-    @Override
-    public Aws create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Credentials/AWS";
-
-        path =
-            path.replace(
-                "{" + "Credentials" + "}",
-                this.credentials.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -67,14 +65,17 @@ public class AwsCreator extends Creator<Aws> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Aws creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -85,19 +86,57 @@ public class AwsCreator extends Creator<Aws> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Aws create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Aws.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Aws> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Aws content = Aws.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (credentials != null) {
-            request.addPostParam("Credentials", credentials);
+            Serializer.toString(
+                request,
+                "Credentials",
+                credentials,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (accountSid != null) {
-            request.addPostParam("AccountSid", accountSid);
+            Serializer.toString(
+                request,
+                "AccountSid",
+                accountSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

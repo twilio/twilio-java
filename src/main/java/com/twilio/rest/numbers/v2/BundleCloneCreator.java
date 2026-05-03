@@ -15,7 +15,10 @@
 package com.twilio.rest.numbers.v2;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class BundleCloneCreator extends Creator<BundleClone> {
 
@@ -57,19 +62,13 @@ public class BundleCloneCreator extends Creator<BundleClone> {
         return this;
     }
 
-    @Override
-    public BundleClone create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Clones";
 
         path =
             path.replace(
                 "{" + "BundleSid" + "}",
                 this.pathBundleSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "TargetAccountSid" + "}",
-                this.targetAccountSid.toString()
             );
 
         Request request = new Request(
@@ -79,14 +78,17 @@ public class BundleCloneCreator extends Creator<BundleClone> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "BundleClone creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -97,22 +99,60 @@ public class BundleCloneCreator extends Creator<BundleClone> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public BundleClone create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return BundleClone.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<BundleClone> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        BundleClone content = BundleClone.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (targetAccountSid != null) {
-            request.addPostParam("TargetAccountSid", targetAccountSid);
+            Serializer.toString(
+                request,
+                "TargetAccountSid",
+                targetAccountSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (moveToDraft != null) {
-            request.addPostParam("MoveToDraft", moveToDraft.toString());
+            Serializer.toString(
+                request,
+                "MoveToDraft",
+                moveToDraft,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -18,25 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsConversations extends Resource {
-
-    private static final long serialVersionUID = 172863414006149L;
 
     public static InsightsConversationsReader reader() {
         return new InsightsConversationsReader();
@@ -85,38 +86,41 @@ public class InsightsConversations extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountId;
+
+    @Getter
     private final String conversationId;
+
+    @Getter
     private final Integer segmentCount;
-    private final List<Map<String, Object>> segments;
+
+    @Getter
+    private final List<Object> segments;
 
     @JsonCreator
     private InsightsConversations(
         @JsonProperty("account_id") final String accountId,
         @JsonProperty("conversation_id") final String conversationId,
         @JsonProperty("segment_count") final Integer segmentCount,
-        @JsonProperty("segments") final List<Map<String, Object>> segments
+        @JsonProperty("segments") final List<Object> segments
     ) {
         this.accountId = accountId;
         this.conversationId = conversationId;
         this.segmentCount = segmentCount;
         this.segments = segments;
-    }
-
-    public final String getAccountId() {
-        return this.accountId;
-    }
-
-    public final String getConversationId() {
-        return this.conversationId;
-    }
-
-    public final Integer getSegmentCount() {
-        return this.segmentCount;
-    }
-
-    public final List<Map<String, Object>> getSegments() {
-        return this.segments;
     }
 
     @Override
@@ -130,7 +134,6 @@ public class InsightsConversations extends Resource {
         }
 
         InsightsConversations other = (InsightsConversations) o;
-
         return (
             Objects.equals(accountId, other.accountId) &&
             Objects.equals(conversationId, other.conversationId) &&

@@ -15,7 +15,7 @@
 package com.twilio.rest.trusthub.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class EndUserTypeFetcher extends Fetcher<EndUserType> {
 
@@ -33,8 +35,7 @@ public class EndUserTypeFetcher extends Fetcher<EndUserType> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public EndUserType fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/EndUserTypes/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -44,7 +45,7 @@ public class EndUserTypeFetcher extends Fetcher<EndUserType> {
             Domains.TRUSTHUB.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -52,8 +53,9 @@ public class EndUserTypeFetcher extends Fetcher<EndUserType> {
                 "EndUserType fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -64,10 +66,31 @@ public class EndUserTypeFetcher extends Fetcher<EndUserType> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public EndUserType fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return EndUserType.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<EndUserType> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        EndUserType content = EndUserType.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

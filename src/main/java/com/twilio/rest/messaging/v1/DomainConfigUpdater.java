@@ -14,9 +14,12 @@
 
 package com.twilio.rest.messaging.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +28,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 import java.net.URI;
 
 public class DomainConfigUpdater extends Updater<DomainConfig> {
@@ -69,8 +74,7 @@ public class DomainConfigUpdater extends Updater<DomainConfig> {
         return this;
     }
 
-    @Override
-    public DomainConfig update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
 
         path =
@@ -86,14 +90,17 @@ public class DomainConfigUpdater extends Updater<DomainConfig> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "DomainConfig update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -104,28 +111,69 @@ public class DomainConfigUpdater extends Updater<DomainConfig> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public DomainConfig update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return DomainConfig.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<DomainConfig> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        DomainConfig content = DomainConfig.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (fallbackUrl != null) {
-            request.addPostParam("FallbackUrl", fallbackUrl.toString());
-        }
-        if (callbackUrl != null) {
-            request.addPostParam("CallbackUrl", callbackUrl.toString());
-        }
-        if (continueOnFailure != null) {
-            request.addPostParam(
-                "ContinueOnFailure",
-                continueOnFailure.toString()
+            Serializer.toString(
+                request,
+                "FallbackUrl",
+                fallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
+        if (callbackUrl != null) {
+            Serializer.toString(
+                request,
+                "CallbackUrl",
+                callbackUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (continueOnFailure != null) {
+            Serializer.toString(
+                request,
+                "ContinueOnFailure",
+                continueOnFailure,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (disableHttps != null) {
-            request.addPostParam("DisableHttps", disableHttps.toString());
+            Serializer.toString(
+                request,
+                "DisableHttps",
+                disableHttps,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

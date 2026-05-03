@@ -14,24 +14,27 @@
 
 package com.twilio.rest.voice.v1;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
-import lombok.ToString;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ArchivedCall extends Resource {
-
-    private static final long serialVersionUID = 0L;
 
     public static ArchivedCallDeleter deleter(
         final LocalDate pathDate,
@@ -81,5 +84,30 @@ public class ArchivedCall extends Resource {
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
         }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @JsonCreator
+    private ArchivedCall() {}
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj.getClass() == this.getClass();
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }

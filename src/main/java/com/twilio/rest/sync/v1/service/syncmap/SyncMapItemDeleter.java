@@ -15,7 +15,9 @@
 package com.twilio.rest.sync.v1.service.syncmap;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
+import java.util.function.Predicate;
 
 public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
 
@@ -47,8 +52,7 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
         return this;
     }
 
-    @Override
-    public boolean delete(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}";
 
         path =
@@ -59,13 +63,15 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
         path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
         path = path.replace("{" + "Key" + "}", this.pathKey.toString());
 
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SYNC.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -73,8 +79,9 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
                 "SyncMapItem delete failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -85,12 +92,40 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return response;
+    }
+
+    @Override
+    public boolean delete(final TwilioRestClient client) {
+        Response response = makeRequest(client);
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
+        return deleteStatuses.test(response.getStatusCode());
+    }
+
+    @Override
+    public TwilioResponse<Boolean> deleteWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Predicate<Integer> deleteStatuses = i ->
+            i != null && i >= 200 && i < 300;
+        Boolean deleted = deleteStatuses.test(response.getStatusCode());
+        return new TwilioResponse<>(
+            deleted,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addHeaderParams(final Request request) {
         if (ifMatch != null) {
-            request.addHeaderParam("If-Match", ifMatch);
+            Serializer.toString(
+                request,
+                "If-Match",
+                ifMatch,
+                ParameterType.HEADER
+            );
         }
     }
 }

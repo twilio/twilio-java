@@ -15,7 +15,7 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +24,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class SigningKeyFetcher extends Fetcher<SigningKey> {
 
-    private String pathSid;
     private String pathAccountSid;
+    private String pathSid;
 
     public SigningKeyFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -42,8 +44,7 @@ public class SigningKeyFetcher extends Fetcher<SigningKey> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public SigningKey fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json";
 
@@ -63,7 +64,7 @@ public class SigningKeyFetcher extends Fetcher<SigningKey> {
             Domains.API.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -71,8 +72,9 @@ public class SigningKeyFetcher extends Fetcher<SigningKey> {
                 "SigningKey fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -83,10 +85,31 @@ public class SigningKeyFetcher extends Fetcher<SigningKey> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SigningKey fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SigningKey.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<SigningKey> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SigningKey content = SigningKey.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

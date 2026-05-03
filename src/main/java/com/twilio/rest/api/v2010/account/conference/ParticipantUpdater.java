@@ -14,9 +14,12 @@
 
 package com.twilio.rest.api.v2010.account.conference;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +28,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 import java.net.URI;
 
 public class ParticipantUpdater extends Updater<Participant> {
 
+    private String pathAccountSid;
     private String pathConferenceSid;
     private String pathCallSid;
-    private String pathAccountSid;
     private Boolean muted;
     private Boolean hold;
     private URI holdUrl;
@@ -139,8 +144,7 @@ public class ParticipantUpdater extends Updater<Participant> {
         return this;
     }
 
-    @Override
-    public Participant update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json";
 
@@ -167,14 +171,17 @@ public class ParticipantUpdater extends Updater<Participant> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Participant update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -185,52 +192,141 @@ public class ParticipantUpdater extends Updater<Participant> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Participant update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Participant.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<Participant> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Participant content = Participant.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (muted != null) {
-            request.addPostParam("Muted", muted.toString());
-        }
-        if (hold != null) {
-            request.addPostParam("Hold", hold.toString());
-        }
-        if (holdUrl != null) {
-            request.addPostParam("HoldUrl", holdUrl.toString());
-        }
-        if (holdMethod != null) {
-            request.addPostParam("HoldMethod", holdMethod.toString());
-        }
-        if (announceUrl != null) {
-            request.addPostParam("AnnounceUrl", announceUrl.toString());
-        }
-        if (announceMethod != null) {
-            request.addPostParam("AnnounceMethod", announceMethod.toString());
-        }
-        if (waitUrl != null) {
-            request.addPostParam("WaitUrl", waitUrl.toString());
-        }
-        if (waitMethod != null) {
-            request.addPostParam("WaitMethod", waitMethod.toString());
-        }
-        if (beepOnExit != null) {
-            request.addPostParam("BeepOnExit", beepOnExit.toString());
-        }
-        if (endConferenceOnExit != null) {
-            request.addPostParam(
-                "EndConferenceOnExit",
-                endConferenceOnExit.toString()
+            Serializer.toString(
+                request,
+                "Muted",
+                muted,
+                ParameterType.URLENCODED
             );
         }
-        if (coaching != null) {
-            request.addPostParam("Coaching", coaching.toString());
+
+        if (hold != null) {
+            Serializer.toString(
+                request,
+                "Hold",
+                hold,
+                ParameterType.URLENCODED
+            );
         }
+
+        if (holdUrl != null) {
+            Serializer.toString(
+                request,
+                "HoldUrl",
+                holdUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (holdMethod != null) {
+            Serializer.toString(
+                request,
+                "HoldMethod",
+                holdMethod,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (announceUrl != null) {
+            Serializer.toString(
+                request,
+                "AnnounceUrl",
+                announceUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (announceMethod != null) {
+            Serializer.toString(
+                request,
+                "AnnounceMethod",
+                announceMethod,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (waitUrl != null) {
+            Serializer.toString(
+                request,
+                "WaitUrl",
+                waitUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (waitMethod != null) {
+            Serializer.toString(
+                request,
+                "WaitMethod",
+                waitMethod,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (beepOnExit != null) {
+            Serializer.toString(
+                request,
+                "BeepOnExit",
+                beepOnExit,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (endConferenceOnExit != null) {
+            Serializer.toString(
+                request,
+                "EndConferenceOnExit",
+                endConferenceOnExit,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (coaching != null) {
+            Serializer.toString(
+                request,
+                "Coaching",
+                coaching,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (callSidToCoach != null) {
-            request.addPostParam("CallSidToCoach", callSidToCoach);
+            Serializer.toString(
+                request,
+                "CallSidToCoach",
+                callSidToCoach,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

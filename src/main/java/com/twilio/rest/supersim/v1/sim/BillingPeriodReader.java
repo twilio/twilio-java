@@ -17,28 +17,71 @@ package com.twilio.rest.supersim.v1.sim;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class BillingPeriodReader extends Reader<BillingPeriod> {
 
     private String pathSimSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public BillingPeriodReader(final String pathSimSid) {
         this.pathSimSid = pathSimSid;
     }
 
-    public BillingPeriodReader setPageSize(final Integer pageSize) {
+    public BillingPeriodReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<BillingPeriod> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<BillingPeriod> page = Page.fromJson(
+            "billing_periods",
+            response.getContent(),
+            BillingPeriod.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<BillingPeriod> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/Sims/{SimSid}/BillingPeriods";
+
+        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.SUPERSIM.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -47,35 +90,44 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
     }
 
     public Page<BillingPeriod> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Sims/{SimSid}/BillingPeriods";
-        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.SUPERSIM.toString(),
-            path
-        );
-
-        addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<BillingPeriod> pageForRequest(
+    public TwilioResponse<Page<BillingPeriod>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<BillingPeriod> page = Page.fromJson(
+            "billing_periods",
+            response.getContent(),
+            BillingPeriod.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "BillingPeriod read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -84,7 +136,14 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<BillingPeriod> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "billing_periods",
             response.getContent(),
@@ -100,7 +159,7 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.SUPERSIM.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -112,7 +171,7 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.SUPERSIM.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -122,14 +181,23 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

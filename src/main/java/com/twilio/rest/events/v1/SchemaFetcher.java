@@ -15,7 +15,7 @@
 package com.twilio.rest.events.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class SchemaFetcher extends Fetcher<Schema> {
 
@@ -33,8 +35,7 @@ public class SchemaFetcher extends Fetcher<Schema> {
         this.pathId = pathId;
     }
 
-    @Override
-    public Schema fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Schemas/{Id}";
 
         path = path.replace("{" + "Id" + "}", this.pathId.toString());
@@ -44,7 +45,7 @@ public class SchemaFetcher extends Fetcher<Schema> {
             Domains.EVENTS.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -52,8 +53,9 @@ public class SchemaFetcher extends Fetcher<Schema> {
                 "Schema fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -64,7 +66,28 @@ public class SchemaFetcher extends Fetcher<Schema> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Schema fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Schema.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Schema> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Schema content = Schema.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

@@ -16,6 +16,7 @@ package com.twilio.rest.marketplace.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -25,6 +26,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ReferralConversionCreator extends Creator<ReferralConversion> {
 
@@ -43,15 +46,8 @@ public class ReferralConversionCreator extends Creator<ReferralConversion> {
         return this;
     }
 
-    @Override
-    public ReferralConversion create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/ReferralConversion";
-
-        path =
-            path.replace(
-                "{" + "CreateReferralConversionRequest" + "}",
-                this.createReferralConversionRequest.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -60,14 +56,17 @@ public class ReferralConversionCreator extends Creator<ReferralConversion> {
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ReferralConversion creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -78,10 +77,31 @@ public class ReferralConversionCreator extends Creator<ReferralConversion> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ReferralConversion create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ReferralConversion.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ReferralConversion> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ReferralConversion content = ReferralConversion.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

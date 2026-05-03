@@ -15,7 +15,7 @@
 package com.twilio.rest.sync.v1.service.syncmap;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
 
@@ -41,8 +43,7 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
         this.pathIdentity = pathIdentity;
     }
 
-    @Override
-    public SyncMapPermission fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}";
 
@@ -60,7 +61,7 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
             Domains.SYNC.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -68,8 +69,9 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
                 "SyncMapPermission fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -80,10 +82,31 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SyncMapPermission fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SyncMapPermission.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<SyncMapPermission> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SyncMapPermission content = SyncMapPermission.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

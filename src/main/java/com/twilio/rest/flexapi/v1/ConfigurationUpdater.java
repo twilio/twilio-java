@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -25,6 +26,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ConfigurationUpdater extends Updater<Configuration> {
 
@@ -37,8 +40,7 @@ public class ConfigurationUpdater extends Updater<Configuration> {
         return this;
     }
 
-    @Override
-    public Configuration update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Configuration";
 
         Request request = new Request(
@@ -48,14 +50,17 @@ public class ConfigurationUpdater extends Updater<Configuration> {
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Configuration update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -66,10 +71,31 @@ public class ConfigurationUpdater extends Updater<Configuration> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Configuration update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Configuration.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Configuration> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Configuration content = Configuration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

@@ -18,25 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Member extends Resource {
-
-    private static final long serialVersionUID = 196464556782918L;
 
     public static MemberFetcher fetcher(
         final String pathQueueSid,
@@ -129,53 +132,53 @@ public class Member extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String callSid;
+
+    @Getter
     private final ZonedDateTime dateEnqueued;
+
+    @Getter
     private final Integer position;
-    private final String uri;
-    private final Integer waitTime;
+
+    @Getter
     private final String queueSid;
+
+    @Getter
+    private final String uri;
+
+    @Getter
+    private final Integer waitTime;
 
     @JsonCreator
     private Member(
         @JsonProperty("call_sid") final String callSid,
-        @JsonProperty("date_enqueued") final String dateEnqueued,
+        @JsonProperty("date_enqueued") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateEnqueued,
         @JsonProperty("position") final Integer position,
+        @JsonProperty("queue_sid") final String queueSid,
         @JsonProperty("uri") final String uri,
-        @JsonProperty("wait_time") final Integer waitTime,
-        @JsonProperty("queue_sid") final String queueSid
+        @JsonProperty("wait_time") final Integer waitTime
     ) {
         this.callSid = callSid;
-        this.dateEnqueued =
-            DateConverter.rfc2822DateTimeFromString(dateEnqueued);
+        this.dateEnqueued = dateEnqueued;
         this.position = position;
+        this.queueSid = queueSid;
         this.uri = uri;
         this.waitTime = waitTime;
-        this.queueSid = queueSid;
-    }
-
-    public final String getCallSid() {
-        return this.callSid;
-    }
-
-    public final ZonedDateTime getDateEnqueued() {
-        return this.dateEnqueued;
-    }
-
-    public final Integer getPosition() {
-        return this.position;
-    }
-
-    public final String getUri() {
-        return this.uri;
-    }
-
-    public final Integer getWaitTime() {
-        return this.waitTime;
-    }
-
-    public final String getQueueSid() {
-        return this.queueSid;
     }
 
     @Override
@@ -189,14 +192,13 @@ public class Member extends Resource {
         }
 
         Member other = (Member) o;
-
         return (
             Objects.equals(callSid, other.callSid) &&
             Objects.equals(dateEnqueued, other.dateEnqueued) &&
             Objects.equals(position, other.position) &&
+            Objects.equals(queueSid, other.queueSid) &&
             Objects.equals(uri, other.uri) &&
-            Objects.equals(waitTime, other.waitTime) &&
-            Objects.equals(queueSid, other.queueSid)
+            Objects.equals(waitTime, other.waitTime)
         );
     }
 
@@ -206,9 +208,9 @@ public class Member extends Resource {
             callSid,
             dateEnqueued,
             position,
+            queueSid,
             uri,
-            waitTime,
-            queueSid
+            waitTime
         );
     }
 }

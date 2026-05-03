@@ -15,9 +15,10 @@
 package com.twilio.rest.sync.v1.service.syncmap;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,15 +27,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class SyncMapItemCreator extends Creator<SyncMapItem> {
 
     private String pathServiceSid;
     private String pathMapSid;
     private String key;
-    private Map<String, Object> data;
+    private Object data;
     private Integer ttl;
     private Integer itemTtl;
     private Integer collectionTtl;
@@ -43,7 +44,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
         final String pathServiceSid,
         final String pathMapSid,
         final String key,
-        final Map<String, Object> data
+        final Object data
     ) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -56,7 +57,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
         return this;
     }
 
-    public SyncMapItemCreator setData(final Map<String, Object> data) {
+    public SyncMapItemCreator setData(final Object data) {
         this.data = data;
         return this;
     }
@@ -76,8 +77,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
         return this;
     }
 
-    @Override
-    public SyncMapItem create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items";
 
         path =
@@ -86,8 +86,6 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
                 this.pathServiceSid.toString()
             );
         path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
-        path = path.replace("{" + "Key" + "}", this.key.toString());
-        path = path.replace("{" + "Data" + "}", this.data.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -96,14 +94,17 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "SyncMapItem creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -114,28 +115,68 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SyncMapItem create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SyncMapItem.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<SyncMapItem> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SyncMapItem content = SyncMapItem.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (key != null) {
-            request.addPostParam("Key", key);
+            Serializer.toString(request, "Key", key, ParameterType.URLENCODED);
         }
+
         if (data != null) {
-            request.addPostParam("Data", Converter.mapToJson(data));
+            Serializer.toString(
+                request,
+                "Data",
+                data,
+                ParameterType.URLENCODED
+            );
         }
+
         if (ttl != null) {
-            request.addPostParam("Ttl", ttl.toString());
+            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
         }
+
         if (itemTtl != null) {
-            request.addPostParam("ItemTtl", itemTtl.toString());
+            Serializer.toString(
+                request,
+                "ItemTtl",
+                itemTtl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (collectionTtl != null) {
-            request.addPostParam("CollectionTtl", collectionTtl.toString());
+            Serializer.toString(
+                request,
+                "CollectionTtl",
+                collectionTtl,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -18,29 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BulkConsents extends Resource {
 
-    private static final long serialVersionUID = 126137950684284L;
-
-    public static BulkConsentsCreator creator(
-        final List<Map<String, Object>> items
-    ) {
+    public static BulkConsentsCreator creator(final List<Object> items) {
         return new BulkConsentsCreator(items);
     }
 
@@ -87,17 +86,24 @@ public class BulkConsents extends Resource {
         }
     }
 
-    private final Map<String, Object> items;
-
-    @JsonCreator
-    private BulkConsents(
-        @JsonProperty("items") final Map<String, Object> items
-    ) {
-        this.items = items;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
     }
 
-    public final Map<String, Object> getItems() {
-        return this.items;
+    @Getter
+    private final Object items;
+
+    @JsonCreator
+    private BulkConsents(@JsonProperty("items") final Object items) {
+        this.items = items;
     }
 
     @Override
@@ -111,8 +117,7 @@ public class BulkConsents extends Resource {
         }
 
         BulkConsents other = (BulkConsents) o;
-
-        return Objects.equals(items, other.items);
+        return (Objects.equals(items, other.items));
     }
 
     @Override

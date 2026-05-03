@@ -17,28 +17,71 @@ package com.twilio.rest.wireless.v1.sim;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class DataSessionReader extends Reader<DataSession> {
 
     private String pathSimSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DataSessionReader(final String pathSimSid) {
         this.pathSimSid = pathSimSid;
     }
 
-    public DataSessionReader setPageSize(final Integer pageSize) {
+    public DataSessionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<DataSession> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<DataSession> page = Page.fromJson(
+            "data_sessions",
+            response.getContent(),
+            DataSession.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<DataSession> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/Sims/{SimSid}/DataSessions";
+
+        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.WIRELESS.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -47,35 +90,44 @@ public class DataSessionReader extends Reader<DataSession> {
     }
 
     public Page<DataSession> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Sims/{SimSid}/DataSessions";
-        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.WIRELESS.toString(),
-            path
-        );
-
-        addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<DataSession> pageForRequest(
+    public TwilioResponse<Page<DataSession>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<DataSession> page = Page.fromJson(
+            "data_sessions",
+            response.getContent(),
+            DataSession.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "DataSession read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -84,7 +136,14 @@ public class DataSessionReader extends Reader<DataSession> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<DataSession> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "data_sessions",
             response.getContent(),
@@ -100,7 +159,7 @@ public class DataSessionReader extends Reader<DataSession> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.WIRELESS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -112,7 +171,7 @@ public class DataSessionReader extends Reader<DataSession> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.WIRELESS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -122,14 +181,23 @@ public class DataSessionReader extends Reader<DataSession> {
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

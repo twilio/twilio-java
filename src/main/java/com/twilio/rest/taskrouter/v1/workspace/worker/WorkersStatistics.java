@@ -18,25 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WorkersStatistics extends Resource {
-
-    private static final long serialVersionUID = 274987650256203L;
 
     public static WorkersStatisticsFetcher fetcher(
         final String pathWorkspaceSid
@@ -87,45 +88,46 @@ public class WorkersStatistics extends Resource {
         }
     }
 
-    private final Map<String, Object> realtime;
-    private final Map<String, Object> cumulative;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String workspaceSid;
+
+    @Getter
+    private final Object cumulative;
+
+    @Getter
+    private final Object realtime;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final String workspaceSid;
 
     @JsonCreator
     private WorkersStatistics(
-        @JsonProperty("realtime") final Map<String, Object> realtime,
-        @JsonProperty("cumulative") final Map<String, Object> cumulative,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("workspace_sid") final String workspaceSid,
-        @JsonProperty("url") final URI url
+        @JsonProperty("cumulative") final Object cumulative,
+        @JsonProperty("realtime") final Object realtime,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
-        this.realtime = realtime;
-        this.cumulative = cumulative;
         this.accountSid = accountSid;
-        this.workspaceSid = workspaceSid;
+        this.cumulative = cumulative;
+        this.realtime = realtime;
         this.url = url;
-    }
-
-    public final Map<String, Object> getRealtime() {
-        return this.realtime;
-    }
-
-    public final Map<String, Object> getCumulative() {
-        return this.cumulative;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.workspaceSid = workspaceSid;
     }
 
     @Override
@@ -139,24 +141,23 @@ public class WorkersStatistics extends Resource {
         }
 
         WorkersStatistics other = (WorkersStatistics) o;
-
         return (
-            Objects.equals(realtime, other.realtime) &&
-            Objects.equals(cumulative, other.cumulative) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
-            Objects.equals(url, other.url)
+            Objects.equals(cumulative, other.cumulative) &&
+            Objects.equals(realtime, other.realtime) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            realtime,
-            cumulative,
             accountSid,
-            workspaceSid,
-            url
+            cumulative,
+            realtime,
+            url,
+            workspaceSid
         );
     }
 }

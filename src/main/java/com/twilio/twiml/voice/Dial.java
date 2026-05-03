@@ -802,6 +802,15 @@ public class Dial extends TwiML {
         }
 
         /**
+         * Add a child {@code <WhatsApp>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "WhatsApp")
+        public Builder whatsApp(WhatsApp whatsApp) {
+            this.children.add(whatsApp);
+            return this;
+        }
+
+        /**
          * Create and return resulting {@code <Dial>} element
          */
         public Dial build() {

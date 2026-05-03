@@ -9,6 +9,7 @@ package com.twilio.twiml.voice;
 
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
+import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -19,6 +20,24 @@ import java.util.List;
  * Test class for {@link Sip}
  */
 public class SipTest {
+    @Test
+    public void testEmptyElement() {
+        Sip elem = new Sip.Builder().build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Sip/>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testEmptyElementUrl() {
+        Sip elem = new Sip.Builder().build();
+
+        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CSip%2F%3E", elem.toUrl());
+    }
+
     @Test
     public void testElementWithParams() {
         Sip elem = new Sip.Builder(URI.create("https://example.com"))
@@ -46,6 +65,120 @@ public class SipTest {
     }
 
     @Test
+    public void testElementWithExtraAttributes() {
+        Sip elem = new Sip.Builder().option("foo", "bar").option("a", "b").build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Sip a=\"b\" foo=\"bar\"/>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithChildren() {
+        Sip.Builder builder = new Sip.Builder();
+
+        builder.uri(new SipUri.Builder(URI.create("https://example.com"))
+                    .priority("priority")
+                    .weight("weight")
+                    .username("username")
+                    .password("password")
+                    .build());
+
+        builder.headers(new Headers.Builder().build());
+
+        Sip elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Sip>" +
+                "<Uri password=\"password\" priority=\"priority\" username=\"username\" weight=\"weight\">https://example.com</Uri>" +
+                "<Headers/>" +
+            "</Sip>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithTextNode() {
+        Sip.Builder builder = new Sip.Builder();
+
+        builder.addText("Hey no tags!");
+
+        Sip elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Sip>" +
+            "Hey no tags!" +
+            "</Sip>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testMixedContent() {
+        GenericNode.Builder child = new GenericNode.Builder("Child");
+        child.addText("content");
+
+        Sip.Builder builder = new Sip.Builder();
+
+        builder.addText("before");
+        builder.addChild(child.build());
+        builder.addText("after");
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Sip>" +
+            "before" +
+            "<Child>content</Child>" +
+            "after" +
+            "</Sip>",
+            builder.build().toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNode() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        genericBuilder.addText("Some text");
+        GenericNode node = genericBuilder.build();
+
+        Sip.Builder builder = new Sip.Builder();
+        Sip elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Sip>" +
+            "<genericTag>" +
+            "Some text" +
+            "</genericTag>" +
+            "</Sip>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithGenericNodeAttributes() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        GenericNode node = genericBuilder.option("key", "value").addText("someText").build();
+
+        Sip.Builder builder = new Sip.Builder();
+        Sip elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Sip>" +
+            "<genericTag key=\"value\">" +
+            "someText" +
+            "</genericTag>" +
+            "</Sip>",
+            elem.toXml()
+        );
+    }
+
+    @Test
     public void testXmlAttributesDeserialization() {
         final Sip elem = new Sip.Builder(URI.create("https://example.com"))
             .username("username")
@@ -66,6 +199,46 @@ public class SipTest {
 
         Assert.assertEquals(
             Sip.Builder.fromXml("<Sip amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Sip.Builder builder = new Sip.Builder();
+
+        builder.uri(new SipUri.Builder(URI.create("https://example.com"))
+                    .priority("priority")
+                    .weight("weight")
+                    .username("username")
+                    .password("password")
+                    .build());
+
+        builder.headers(new Headers.Builder().build());
+
+        final Sip elem = builder.build();
+
+        Assert.assertEquals(
+            Sip.Builder.fromXml("<Sip>" +
+                "<Uri password=\"password\" priority=\"priority\" username=\"username\" weight=\"weight\">https://example.com</Uri>" +
+                "<Headers/>" +
+            "</Sip>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final Sip.Builder builder = new Sip.Builder();
+
+        builder.headers(new Headers.Builder().build());
+
+        final Sip elem = builder.build();
+
+        Assert.assertEquals(
+            Sip.Builder.fromXml("<Sip>" +
+                "<Headers/>" +
+            "</Sip>").build().toXml(),
             elem.toXml()
         );
     }

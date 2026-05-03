@@ -15,7 +15,7 @@
 package com.twilio.rest.api.v2010.account.incomingphonenumber;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +24,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
 
+    private String pathAccountSid;
     private String pathResourceSid;
     private String pathSid;
-    private String pathAccountSid;
 
     public AssignedAddOnFetcher(
         final String pathResourceSid,
@@ -49,8 +51,7 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public AssignedAddOn fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json";
 
@@ -75,7 +76,7 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
             Domains.API.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -83,8 +84,9 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
                 "AssignedAddOn fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -95,10 +97,31 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public AssignedAddOn fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return AssignedAddOn.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<AssignedAddOn> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        AssignedAddOn content = AssignedAddOn.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

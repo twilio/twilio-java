@@ -15,7 +15,10 @@
 package com.twilio.rest.intelligence.v2;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ServiceCreator extends Creator<Service> {
 
@@ -36,6 +41,7 @@ public class ServiceCreator extends Creator<Service> {
     private Boolean mediaRedaction;
     private String webhookUrl;
     private Service.HttpMethod webhookHttpMethod;
+    private String encryptionCredentialSid;
 
     public ServiceCreator(final String uniqueName) {
         this.uniqueName = uniqueName;
@@ -88,12 +94,15 @@ public class ServiceCreator extends Creator<Service> {
         return this;
     }
 
-    @Override
-    public Service create(final TwilioRestClient client) {
-        String path = "/v2/Services";
+    public ServiceCreator setEncryptionCredentialSid(
+        final String encryptionCredentialSid
+    ) {
+        this.encryptionCredentialSid = encryptionCredentialSid;
+        return this;
+    }
 
-        path =
-            path.replace("{" + "UniqueName" + "}", this.uniqueName.toString());
+    private Response makeRequest(final TwilioRestClient client) {
+        String path = "/v2/Services";
 
         Request request = new Request(
             HttpMethod.POST,
@@ -102,14 +111,17 @@ public class ServiceCreator extends Creator<Service> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Service creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -120,39 +132,119 @@ public class ServiceCreator extends Creator<Service> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Service create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Service.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Service> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Service content = Service.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (autoTranscribe != null) {
-            request.addPostParam("AutoTranscribe", autoTranscribe.toString());
+            Serializer.toString(
+                request,
+                "AutoTranscribe",
+                autoTranscribe,
+                ParameterType.URLENCODED
+            );
         }
+
         if (dataLogging != null) {
-            request.addPostParam("DataLogging", dataLogging.toString());
+            Serializer.toString(
+                request,
+                "DataLogging",
+                dataLogging,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (languageCode != null) {
-            request.addPostParam("LanguageCode", languageCode);
+            Serializer.toString(
+                request,
+                "LanguageCode",
+                languageCode,
+                ParameterType.URLENCODED
+            );
         }
+
         if (autoRedaction != null) {
-            request.addPostParam("AutoRedaction", autoRedaction.toString());
+            Serializer.toString(
+                request,
+                "AutoRedaction",
+                autoRedaction,
+                ParameterType.URLENCODED
+            );
         }
+
         if (mediaRedaction != null) {
-            request.addPostParam("MediaRedaction", mediaRedaction.toString());
+            Serializer.toString(
+                request,
+                "MediaRedaction",
+                mediaRedaction,
+                ParameterType.URLENCODED
+            );
         }
+
         if (webhookUrl != null) {
-            request.addPostParam("WebhookUrl", webhookUrl);
+            Serializer.toString(
+                request,
+                "WebhookUrl",
+                webhookUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (webhookHttpMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "WebhookHttpMethod",
-                webhookHttpMethod.toString()
+                webhookHttpMethod,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (encryptionCredentialSid != null) {
+            Serializer.toString(
+                request,
+                "EncryptionCredentialSid",
+                encryptionCredentialSid,
+                ParameterType.URLENCODED
             );
         }
     }

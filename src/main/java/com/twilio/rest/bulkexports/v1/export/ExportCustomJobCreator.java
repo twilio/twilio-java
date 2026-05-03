@@ -15,7 +15,10 @@
 package com.twilio.rest.bulkexports.v1.export;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
 
@@ -77,21 +82,13 @@ public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
         return this;
     }
 
-    @Override
-    public ExportCustomJob create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Exports/{ResourceType}/Jobs";
 
         path =
             path.replace(
                 "{" + "ResourceType" + "}",
                 this.pathResourceType.toString()
-            );
-        path = path.replace("{" + "StartDay" + "}", this.startDay.toString());
-        path = path.replace("{" + "EndDay" + "}", this.endDay.toString());
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
             );
 
         Request request = new Request(
@@ -101,14 +98,17 @@ public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ExportCustomJob creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -119,31 +119,87 @@ public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ExportCustomJob create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ExportCustomJob.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<ExportCustomJob> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ExportCustomJob content = ExportCustomJob.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (startDay != null) {
-            request.addPostParam("StartDay", startDay);
+            Serializer.toString(
+                request,
+                "StartDay",
+                startDay,
+                ParameterType.URLENCODED
+            );
         }
+
         if (endDay != null) {
-            request.addPostParam("EndDay", endDay);
+            Serializer.toString(
+                request,
+                "EndDay",
+                endDay,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (webhookUrl != null) {
-            request.addPostParam("WebhookUrl", webhookUrl);
+            Serializer.toString(
+                request,
+                "WebhookUrl",
+                webhookUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (webhookMethod != null) {
-            request.addPostParam("WebhookMethod", webhookMethod);
+            Serializer.toString(
+                request,
+                "WebhookMethod",
+                webhookMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (email != null) {
-            request.addPostParam("Email", email);
+            Serializer.toString(
+                request,
+                "Email",
+                email,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -15,7 +15,7 @@
 package com.twilio.rest.api.v2010.account.usage;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +24,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class TriggerFetcher extends Fetcher<Trigger> {
 
-    private String pathSid;
     private String pathAccountSid;
+    private String pathSid;
 
     public TriggerFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -39,8 +41,7 @@ public class TriggerFetcher extends Fetcher<Trigger> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Trigger fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json";
 
@@ -60,7 +61,7 @@ public class TriggerFetcher extends Fetcher<Trigger> {
             Domains.API.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -68,8 +69,9 @@ public class TriggerFetcher extends Fetcher<Trigger> {
                 "Trigger fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -80,7 +82,28 @@ public class TriggerFetcher extends Fetcher<Trigger> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Trigger fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Trigger.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Trigger> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Trigger content = Trigger.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

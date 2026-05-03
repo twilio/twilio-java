@@ -18,25 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RequestManagedCert extends Resource {
-
-    private static final long serialVersionUID = 86009690306630L;
 
     public static RequestManagedCertUpdater updater(
         final String pathDomainSid
@@ -87,73 +91,81 @@ public class RequestManagedCert extends Resource {
         }
     }
 
-    private final String domainSid;
-    private final ZonedDateTime dateUpdated;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateExpires;
-    private final URI domainName;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String certificateSid;
-    private final URI url;
+
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+    @Getter
+    private final ZonedDateTime dateExpires;
+
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final URI domainName;
+
+    @Getter
+    private final String domainSid;
+
+    @Getter
     private final Boolean managed;
+
+    @Getter
     private final Boolean requesting;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private RequestManagedCert(
-        @JsonProperty("domain_sid") final String domainSid,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_expires") final String dateExpires,
-        @JsonProperty("domain_name") final URI domainName,
         @JsonProperty("certificate_sid") final String certificateSid,
-        @JsonProperty("url") final URI url,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_expires") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
+        ) final ZonedDateTime dateExpires,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("domain_name") final URI domainName,
+        @JsonProperty("domain_sid") final String domainSid,
         @JsonProperty("managed") final Boolean managed,
-        @JsonProperty("requesting") final Boolean requesting
+        @JsonProperty("requesting") final Boolean requesting,
+        @JsonProperty("url") final URI url
     ) {
-        this.domainSid = domainSid;
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateExpires = DateConverter.iso8601DateTimeFromString(dateExpires);
-        this.domainName = domainName;
         this.certificateSid = certificateSid;
-        this.url = url;
+        this.dateCreated = dateCreated;
+        this.dateExpires = dateExpires;
+        this.dateUpdated = dateUpdated;
+        this.domainName = domainName;
+        this.domainSid = domainSid;
         this.managed = managed;
         this.requesting = requesting;
-    }
-
-    public final String getDomainSid() {
-        return this.domainSid;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateExpires() {
-        return this.dateExpires;
-    }
-
-    public final URI getDomainName() {
-        return this.domainName;
-    }
-
-    public final String getCertificateSid() {
-        return this.certificateSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Boolean getManaged() {
-        return this.managed;
-    }
-
-    public final Boolean getRequesting() {
-        return this.requesting;
+        this.url = url;
     }
 
     @Override
@@ -167,32 +179,31 @@ public class RequestManagedCert extends Resource {
         }
 
         RequestManagedCert other = (RequestManagedCert) o;
-
         return (
-            Objects.equals(domainSid, other.domainSid) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(certificateSid, other.certificateSid) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateExpires, other.dateExpires) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(domainName, other.domainName) &&
-            Objects.equals(certificateSid, other.certificateSid) &&
-            Objects.equals(url, other.url) &&
+            Objects.equals(domainSid, other.domainSid) &&
             Objects.equals(managed, other.managed) &&
-            Objects.equals(requesting, other.requesting)
+            Objects.equals(requesting, other.requesting) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            domainSid,
-            dateUpdated,
+            certificateSid,
             dateCreated,
             dateExpires,
+            dateUpdated,
             domainName,
-            certificateSid,
-            url,
+            domainSid,
             managed,
-            requesting
+            requesting,
+            url
         );
     }
 }

@@ -14,8 +14,11 @@
 
 package com.twilio.rest.marketplace.v1;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
 
@@ -81,8 +86,7 @@ public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
         return this;
     }
 
-    @Override
-    public ModuleDataManagement update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Listing/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
@@ -94,14 +98,17 @@ public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ModuleDataManagement update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -112,34 +119,96 @@ public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ModuleDataManagement update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ModuleDataManagement.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<ModuleDataManagement> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ModuleDataManagement content = ModuleDataManagement.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (moduleInfo != null) {
-            request.addPostParam("ModuleInfo", moduleInfo);
+            Serializer.toString(
+                request,
+                "ModuleInfo",
+                moduleInfo,
+                ParameterType.URLENCODED
+            );
         }
+
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
+
         if (documentation != null) {
-            request.addPostParam("Documentation", documentation);
+            Serializer.toString(
+                request,
+                "Documentation",
+                documentation,
+                ParameterType.URLENCODED
+            );
         }
+
         if (policies != null) {
-            request.addPostParam("Policies", policies);
+            Serializer.toString(
+                request,
+                "Policies",
+                policies,
+                ParameterType.URLENCODED
+            );
         }
+
         if (support != null) {
-            request.addPostParam("Support", support);
+            Serializer.toString(
+                request,
+                "Support",
+                support,
+                ParameterType.URLENCODED
+            );
         }
+
         if (configuration != null) {
-            request.addPostParam("Configuration", configuration);
+            Serializer.toString(
+                request,
+                "Configuration",
+                configuration,
+                ParameterType.URLENCODED
+            );
         }
+
         if (pricing != null) {
-            request.addPostParam("Pricing", pricing);
+            Serializer.toString(
+                request,
+                "Pricing",
+                pricing,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -18,26 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Message extends Resource {
-
-    private static final long serialVersionUID = 88120971522058L;
 
     public static MessageReader reader(final String pathSessionId) {
         return new MessageReader(pathSessionId);
@@ -86,80 +88,81 @@ public class Message extends Resource {
         }
     }
 
-    private final String id;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String assistantId;
-    private final String sessionId;
-    private final String identity;
-    private final String role;
-    private final Map<String, Object> content;
-    private final Map<String, Object> meta;
+
+    @Getter
+    private final Object content;
+
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String id;
+
+    @Getter
+    private final String identity;
+
+    @Getter
+    private final Object meta;
+
+    @Getter
+    private final String role;
+
+    @Getter
+    private final String sessionId;
 
     @JsonCreator
     private Message(
-        @JsonProperty("id") final String id,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("assistant_id") final String assistantId,
-        @JsonProperty("session_id") final String sessionId,
+        @JsonProperty("content") final Object content,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("id") final String id,
         @JsonProperty("identity") final String identity,
+        @JsonProperty("meta") final Object meta,
         @JsonProperty("role") final String role,
-        @JsonProperty("content") final Map<String, Object> content,
-        @JsonProperty("meta") final Map<String, Object> meta,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+        @JsonProperty("session_id") final String sessionId
     ) {
-        this.id = id;
         this.accountSid = accountSid;
         this.assistantId = assistantId;
-        this.sessionId = sessionId;
-        this.identity = identity;
-        this.role = role;
         this.content = content;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.id = id;
+        this.identity = identity;
         this.meta = meta;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-    }
-
-    public final String getId() {
-        return this.id;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getAssistantId() {
-        return this.assistantId;
-    }
-
-    public final String getSessionId() {
-        return this.sessionId;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
-    }
-
-    public final String getRole() {
-        return this.role;
-    }
-
-    public final Map<String, Object> getContent() {
-        return this.content;
-    }
-
-    public final Map<String, Object> getMeta() {
-        return this.meta;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
+        this.role = role;
+        this.sessionId = sessionId;
     }
 
     @Override
@@ -173,34 +176,33 @@ public class Message extends Resource {
         }
 
         Message other = (Message) o;
-
         return (
-            Objects.equals(id, other.id) &&
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(assistantId, other.assistantId) &&
-            Objects.equals(sessionId, other.sessionId) &&
-            Objects.equals(identity, other.identity) &&
-            Objects.equals(role, other.role) &&
             Objects.equals(content, other.content) &&
-            Objects.equals(meta, other.meta) &&
             Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(id, other.id) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(meta, other.meta) &&
+            Objects.equals(role, other.role) &&
+            Objects.equals(sessionId, other.sessionId)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            id,
             accountSid,
             assistantId,
-            sessionId,
-            identity,
-            role,
             content,
-            meta,
             dateCreated,
-            dateUpdated
+            dateUpdated,
+            id,
+            identity,
+            meta,
+            role,
+            sessionId
         );
     }
 }

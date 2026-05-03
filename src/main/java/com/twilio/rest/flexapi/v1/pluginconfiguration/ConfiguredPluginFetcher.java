@@ -15,7 +15,9 @@
 package com.twilio.rest.flexapi.v1.pluginconfiguration;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ConfiguredPluginFetcher extends Fetcher<ConfiguredPlugin> {
 
@@ -44,8 +48,7 @@ public class ConfiguredPluginFetcher extends Fetcher<ConfiguredPlugin> {
         return this;
     }
 
-    @Override
-    public ConfiguredPlugin fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins/{PluginSid}";
 
@@ -65,8 +68,8 @@ public class ConfiguredPluginFetcher extends Fetcher<ConfiguredPlugin> {
             Domains.FLEXAPI.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -74,8 +77,9 @@ public class ConfiguredPluginFetcher extends Fetcher<ConfiguredPlugin> {
                 "ConfiguredPlugin fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -86,16 +90,42 @@ public class ConfiguredPluginFetcher extends Fetcher<ConfiguredPlugin> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ConfiguredPlugin fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ConfiguredPlugin.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<ConfiguredPlugin> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ConfiguredPlugin content = ConfiguredPlugin.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addHeaderParams(final Request request) {
         if (flexMetadata != null) {
-            request.addHeaderParam("Flex-Metadata", flexMetadata);
+            Serializer.toString(
+                request,
+                "Flex-Metadata",
+                flexMetadata,
+                ParameterType.HEADER
+            );
         }
     }
 }

@@ -15,7 +15,7 @@
 package com.twilio.rest.serverless.v1.service.function;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
 
@@ -41,8 +43,7 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public FunctionVersion fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}";
 
@@ -63,7 +64,7 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
             Domains.SERVERLESS.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -71,8 +72,9 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
                 "FunctionVersion fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -83,10 +85,31 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public FunctionVersion fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return FunctionVersion.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<FunctionVersion> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        FunctionVersion content = FunctionVersion.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

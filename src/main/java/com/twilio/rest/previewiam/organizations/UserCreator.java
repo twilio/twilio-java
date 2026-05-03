@@ -15,16 +15,19 @@
 package com.twilio.rest.previewiam.organizations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.bearertoken.Creator;
+import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.Request;
 import com.twilio.http.Response;
-import com.twilio.http.bearertoken.BearerTokenRequest;
-import com.twilio.http.bearertoken.BearerTokenTwilioRestClient;
+import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class UserCreator extends Creator<User> {
 
@@ -44,8 +47,7 @@ public class UserCreator extends Creator<User> {
         return this;
     }
 
-    @Override
-    public User create(final BearerTokenTwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/scim/Users";
 
         path =
@@ -53,25 +55,25 @@ public class UserCreator extends Creator<User> {
                 "{" + "OrganizationSid" + "}",
                 this.pathOrganizationSid.toString()
             );
-        path = path.replace("{" + "ScimUser" + "}", this.scimUser.toString());
 
-        BearerTokenRequest request = new BearerTokenRequest(
+        Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEWIAM.toString(),
             path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "User creation failed: Unable to connect to server"
             );
-        } else if (
-            !BearerTokenTwilioRestClient.SUCCESS.test(response.getStatusCode())
-        ) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -82,14 +84,32 @@ public class UserCreator extends Creator<User> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public User create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return User.fromJson(response.getStream(), client.getObjectMapper());
     }
 
-    private void addPostParams(
-        final BearerTokenRequest request,
-        BearerTokenTwilioRestClient client
+    @Override
+    public TwilioResponse<User> createWithResponse(
+        final TwilioRestClient client
     ) {
+        Response response = makeRequest(client);
+        User content = User.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (scimUser != null) {
             request.setBody(User.toJson(scimUser, objectMapper));

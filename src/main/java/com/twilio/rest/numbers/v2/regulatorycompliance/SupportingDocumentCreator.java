@@ -15,9 +15,10 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,14 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class SupportingDocumentCreator extends Creator<SupportingDocument> {
 
     private String friendlyName;
     private String type;
-    private Map<String, Object> attributes;
+    private Object attributes;
 
     public SupportingDocumentCreator(
         final String friendlyName,
@@ -55,23 +56,13 @@ public class SupportingDocumentCreator extends Creator<SupportingDocument> {
         return this;
     }
 
-    public SupportingDocumentCreator setAttributes(
-        final Map<String, Object> attributes
-    ) {
+    public SupportingDocumentCreator setAttributes(final Object attributes) {
         this.attributes = attributes;
         return this;
     }
 
-    @Override
-    public SupportingDocument create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/SupportingDocuments";
-
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path = path.replace("{" + "Type" + "}", this.type.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -80,14 +71,17 @@ public class SupportingDocumentCreator extends Creator<SupportingDocument> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "SupportingDocument creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -98,22 +92,60 @@ public class SupportingDocumentCreator extends Creator<SupportingDocument> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SupportingDocument create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SupportingDocument.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<SupportingDocument> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SupportingDocument content = SupportingDocument.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (type != null) {
-            request.addPostParam("Type", type);
+            Serializer.toString(
+                request,
+                "Type",
+                type,
+                ParameterType.URLENCODED
+            );
         }
+
         if (attributes != null) {
-            request.addPostParam("Attributes", Converter.mapToJson(attributes));
+            Serializer.toString(
+                request,
+                "Attributes",
+                attributes,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

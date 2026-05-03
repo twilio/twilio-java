@@ -18,24 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Queue extends Resource {
-
-    private static final long serialVersionUID = 17909156629067L;
 
     public static QueueCreator creator(final String friendlyName) {
         return new QueueCreator(friendlyName);
@@ -132,73 +135,70 @@ public class Queue extends Resource {
         }
     }
 
-    private final ZonedDateTime dateUpdated;
-    private final Integer currentSize;
-    private final String friendlyName;
-    private final String uri;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final Integer averageWaitTime;
-    private final String sid;
+
+    @Getter
+    private final Integer currentSize;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
     private final Integer maxSize;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String uri;
 
     @JsonCreator
     private Queue(
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("current_size") final Integer currentSize,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("uri") final String uri,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("average_wait_time") final Integer averageWaitTime,
+        @JsonProperty("current_size") final Integer currentSize,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("max_size") final Integer maxSize,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("max_size") final Integer maxSize
+        @JsonProperty("uri") final String uri
     ) {
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
-        this.currentSize = currentSize;
-        this.friendlyName = friendlyName;
-        this.uri = uri;
         this.accountSid = accountSid;
         this.averageWaitTime = averageWaitTime;
-        this.sid = sid;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
+        this.currentSize = currentSize;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.friendlyName = friendlyName;
         this.maxSize = maxSize;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final Integer getCurrentSize() {
-        return this.currentSize;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getUri() {
-        return this.uri;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Integer getAverageWaitTime() {
-        return this.averageWaitTime;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final Integer getMaxSize() {
-        return this.maxSize;
+        this.sid = sid;
+        this.uri = uri;
     }
 
     @Override
@@ -212,32 +212,31 @@ public class Queue extends Resource {
         }
 
         Queue other = (Queue) o;
-
         return (
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(currentSize, other.currentSize) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(uri, other.uri) &&
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(averageWaitTime, other.averageWaitTime) &&
-            Objects.equals(sid, other.sid) &&
+            Objects.equals(currentSize, other.currentSize) &&
             Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(maxSize, other.maxSize)
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(maxSize, other.maxSize) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uri, other.uri)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            dateUpdated,
-            currentSize,
-            friendlyName,
-            uri,
             accountSid,
             averageWaitTime,
-            sid,
+            currentSize,
             dateCreated,
-            maxSize
+            dateUpdated,
+            friendlyName,
+            maxSize,
+            sid,
+            uri
         );
     }
 }

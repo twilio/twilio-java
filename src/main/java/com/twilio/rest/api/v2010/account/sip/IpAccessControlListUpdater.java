@@ -14,8 +14,11 @@
 
 package com.twilio.rest.api.v2010.account.sip;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
 
+    private String pathAccountSid;
     private String pathSid;
     private String friendlyName;
-    private String pathAccountSid;
 
     public IpAccessControlListUpdater(
         final String pathSid,
@@ -56,8 +61,7 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
         return this;
     }
 
-    @Override
-    public IpAccessControlList update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json";
 
@@ -71,11 +75,6 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
                 this.pathAccountSid.toString()
             );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -84,14 +83,17 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "IpAccessControlList update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -102,16 +104,42 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public IpAccessControlList update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return IpAccessControlList.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<IpAccessControlList> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        IpAccessControlList content = IpAccessControlList.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

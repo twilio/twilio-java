@@ -15,7 +15,7 @@
 package com.twilio.rest.voice.v1.connectionpolicy;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ConnectionPolicyTargetFetcher
     extends Fetcher<ConnectionPolicyTarget> {
@@ -39,8 +41,7 @@ public class ConnectionPolicyTargetFetcher
         this.pathSid = pathSid;
     }
 
-    @Override
-    public ConnectionPolicyTarget fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
@@ -56,7 +57,7 @@ public class ConnectionPolicyTargetFetcher
             Domains.VOICE.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -64,8 +65,9 @@ public class ConnectionPolicyTargetFetcher
                 "ConnectionPolicyTarget fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -76,10 +78,31 @@ public class ConnectionPolicyTargetFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ConnectionPolicyTarget fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ConnectionPolicyTarget.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ConnectionPolicyTarget> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ConnectionPolicyTarget content = ConnectionPolicyTarget.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

@@ -15,7 +15,10 @@
 package com.twilio.rest.serverless.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ServiceCreator extends Creator<Service> {
 
@@ -59,17 +64,8 @@ public class ServiceCreator extends Creator<Service> {
         return this;
     }
 
-    @Override
-    public Service create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services";
-
-        path =
-            path.replace("{" + "UniqueName" + "}", this.uniqueName.toString());
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -78,14 +74,17 @@ public class ServiceCreator extends Creator<Service> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Service creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -96,25 +95,66 @@ public class ServiceCreator extends Creator<Service> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Service create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Service.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Service> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Service content = Service.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
-        }
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
-        }
-        if (includeCredentials != null) {
-            request.addPostParam(
-                "IncludeCredentials",
-                includeCredentials.toString()
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
             );
         }
+
+        if (friendlyName != null) {
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (includeCredentials != null) {
+            Serializer.toString(
+                request,
+                "IncludeCredentials",
+                includeCredentials,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (uiEditable != null) {
-            request.addPostParam("UiEditable", uiEditable.toString());
+            Serializer.toString(
+                request,
+                "UiEditable",
+                uiEditable,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

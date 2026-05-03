@@ -15,7 +15,10 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,16 +27,18 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class AddressCreator extends Creator<Address> {
 
+    private String pathAccountSid;
     private String customerName;
     private String street;
     private String city;
     private String region;
     private String postalCode;
     private String isoCountry;
-    private String pathAccountSid;
     private String friendlyName;
     private Boolean emergencyEnabled;
     private Boolean autoCorrectAddress;
@@ -125,8 +130,7 @@ public class AddressCreator extends Creator<Address> {
         return this;
     }
 
-    @Override
-    public Address create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Addresses.json";
 
         this.pathAccountSid =
@@ -138,18 +142,6 @@ public class AddressCreator extends Creator<Address> {
                 "{" + "AccountSid" + "}",
                 this.pathAccountSid.toString()
             );
-        path =
-            path.replace(
-                "{" + "CustomerName" + "}",
-                this.customerName.toString()
-            );
-        path = path.replace("{" + "Street" + "}", this.street.toString());
-        path = path.replace("{" + "City" + "}", this.city.toString());
-        path = path.replace("{" + "Region" + "}", this.region.toString());
-        path =
-            path.replace("{" + "PostalCode" + "}", this.postalCode.toString());
-        path =
-            path.replace("{" + "IsoCountry" + "}", this.isoCountry.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -158,14 +150,17 @@ public class AddressCreator extends Creator<Address> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Address creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -176,46 +171,120 @@ public class AddressCreator extends Creator<Address> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Address create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Address.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Address> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Address content = Address.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
     private void addPostParams(final Request request) {
         if (customerName != null) {
-            request.addPostParam("CustomerName", customerName);
+            Serializer.toString(
+                request,
+                "CustomerName",
+                customerName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (street != null) {
-            request.addPostParam("Street", street);
+            Serializer.toString(
+                request,
+                "Street",
+                street,
+                ParameterType.URLENCODED
+            );
         }
+
         if (city != null) {
-            request.addPostParam("City", city);
+            Serializer.toString(
+                request,
+                "City",
+                city,
+                ParameterType.URLENCODED
+            );
         }
+
         if (region != null) {
-            request.addPostParam("Region", region);
+            Serializer.toString(
+                request,
+                "Region",
+                region,
+                ParameterType.URLENCODED
+            );
         }
+
         if (postalCode != null) {
-            request.addPostParam("PostalCode", postalCode);
+            Serializer.toString(
+                request,
+                "PostalCode",
+                postalCode,
+                ParameterType.URLENCODED
+            );
         }
+
         if (isoCountry != null) {
-            request.addPostParam("IsoCountry", isoCountry);
+            Serializer.toString(
+                request,
+                "IsoCountry",
+                isoCountry,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (emergencyEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "EmergencyEnabled",
-                emergencyEnabled.toString()
+                emergencyEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (autoCorrectAddress != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCorrectAddress",
-                autoCorrectAddress.toString()
+                autoCorrectAddress,
+                ParameterType.URLENCODED
             );
         }
+
         if (streetSecondary != null) {
-            request.addPostParam("StreetSecondary", streetSecondary);
+            Serializer.toString(
+                request,
+                "StreetSecondary",
+                streetSecondary,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

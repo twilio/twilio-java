@@ -15,7 +15,7 @@
 package com.twilio.rest.serverless.v1.service;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class AssetFetcher extends Fetcher<Asset> {
 
@@ -35,8 +37,7 @@ public class AssetFetcher extends Fetcher<Asset> {
         this.pathSid = pathSid;
     }
 
-    @Override
-    public Asset fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Assets/{Sid}";
 
         path =
@@ -51,7 +52,7 @@ public class AssetFetcher extends Fetcher<Asset> {
             Domains.SERVERLESS.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -59,8 +60,9 @@ public class AssetFetcher extends Fetcher<Asset> {
                 "Asset fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -71,7 +73,28 @@ public class AssetFetcher extends Fetcher<Asset> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Asset fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Asset.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Asset> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Asset content = Asset.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

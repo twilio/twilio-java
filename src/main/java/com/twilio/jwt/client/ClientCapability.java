@@ -2,7 +2,7 @@ package com.twilio.jwt.client;
 
 import com.twilio.jwt.Jwt;
 import com.twilio.jwt.JwtEncodingException;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.Jwts;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class ClientCapability extends Jwt {
 
     private ClientCapability(Builder b) {
         super(
-            SignatureAlgorithm.HS256,
+            Jwts.SIG.HS256,
             b.authToken,
             b.accountSid,
             new Date(new Date().getTime() + b.ttl * 1000)
@@ -57,7 +57,7 @@ public class ClientCapability extends Jwt {
     /** Builder used to construct a Client Capability. */
     public static class Builder {
         private String accountSid;
-        private String authToken;
+        private byte[] authToken;
         private int ttl = 3600;
         private List<Scope> scopes = new ArrayList<>();
 
@@ -67,7 +67,7 @@ public class ClientCapability extends Jwt {
          * @param accountSid account to use
          * @param authToken auth token
          */
-        public Builder(String accountSid, String authToken) {
+        public Builder(String accountSid, byte[] authToken) {
             this.accountSid = accountSid;
             this.authToken = authToken;
         }

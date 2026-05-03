@@ -18,23 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AvailableAddOnExtension extends Resource {
-
-    private static final long serialVersionUID = 15009232316880L;
 
     public static AvailableAddOnExtensionFetcher fetcher(
         final String pathAvailableAddOnSid,
@@ -95,52 +98,51 @@ public class AvailableAddOnExtension extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String availableAddOnSid;
+
+    @Getter
     private final String friendlyName;
+
+    @Getter
     private final String productName;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final String uniqueName;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private AvailableAddOnExtension(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("available_add_on_sid") final String availableAddOnSid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("product_name") final String productName,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.availableAddOnSid = availableAddOnSid;
         this.friendlyName = friendlyName;
         this.productName = productName;
+        this.sid = sid;
         this.uniqueName = uniqueName;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAvailableAddOnSid() {
-        return this.availableAddOnSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getProductName() {
-        return this.productName;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -154,12 +156,11 @@ public class AvailableAddOnExtension extends Resource {
         }
 
         AvailableAddOnExtension other = (AvailableAddOnExtension) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(availableAddOnSid, other.availableAddOnSid) &&
             Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(productName, other.productName) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(uniqueName, other.uniqueName) &&
             Objects.equals(url, other.url)
         );
@@ -168,10 +169,10 @@ public class AvailableAddOnExtension extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             availableAddOnSid,
             friendlyName,
             productName,
+            sid,
             uniqueName,
             url
         );

@@ -11,6 +11,7 @@ import com.twilio.http.TwilioRestClient;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -47,7 +48,7 @@ public class TwilioTest {
 
     @Before
     public void init() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
@@ -116,7 +117,8 @@ public class TwilioTest {
         ExecutorService executorService = Executors.newCachedThreadPool();
         Twilio.setExecutorService(executorService);
         Twilio.destroy();
-        assertTrue(Twilio.getExecutorService().isShutdown());
+        assertTrue(executorService.isShutdown());
+        assertNotNull(Twilio.getExecutorService());
     }
 
     @Test
@@ -158,4 +160,5 @@ public class TwilioTest {
 
         Twilio.validateSslCertificate(networkHttpClient);
     }
+
 }

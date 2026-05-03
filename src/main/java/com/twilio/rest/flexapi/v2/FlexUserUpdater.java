@@ -14,8 +14,11 @@
 
 package com.twilio.rest.flexapi.v2;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,15 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class FlexUserUpdater extends Updater<FlexUser> {
 
     private String pathInstanceSid;
     private String pathFlexUserSid;
-    private String firstName;
-    private String lastName;
     private String email;
-    private String friendlyName;
     private String userSid;
     private String locale;
 
@@ -44,23 +46,8 @@ public class FlexUserUpdater extends Updater<FlexUser> {
         this.pathFlexUserSid = pathFlexUserSid;
     }
 
-    public FlexUserUpdater setFirstName(final String firstName) {
-        this.firstName = firstName;
-        return this;
-    }
-
-    public FlexUserUpdater setLastName(final String lastName) {
-        this.lastName = lastName;
-        return this;
-    }
-
     public FlexUserUpdater setEmail(final String email) {
         this.email = email;
-        return this;
-    }
-
-    public FlexUserUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
         return this;
     }
 
@@ -74,8 +61,7 @@ public class FlexUserUpdater extends Updater<FlexUser> {
         return this;
     }
 
-    @Override
-    public FlexUser update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Instances/{InstanceSid}/Users/{FlexUserSid}";
 
         path =
@@ -96,14 +82,17 @@ public class FlexUserUpdater extends Updater<FlexUser> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "FlexUser update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -114,31 +103,60 @@ public class FlexUserUpdater extends Updater<FlexUser> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public FlexUser update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return FlexUser.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<FlexUser> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        FlexUser content = FlexUser.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
-        if (firstName != null) {
-            request.addPostParam("FirstName", firstName);
-        }
-        if (lastName != null) {
-            request.addPostParam("LastName", lastName);
-        }
         if (email != null) {
-            request.addPostParam("Email", email);
+            Serializer.toString(
+                request,
+                "Email",
+                email,
+                ParameterType.URLENCODED
+            );
         }
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
-        }
+
         if (userSid != null) {
-            request.addPostParam("UserSid", userSid);
+            Serializer.toString(
+                request,
+                "UserSid",
+                userSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (locale != null) {
-            request.addPostParam("Locale", locale);
+            Serializer.toString(
+                request,
+                "Locale",
+                locale,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

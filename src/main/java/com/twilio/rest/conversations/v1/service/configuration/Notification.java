@@ -18,25 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Notification extends Resource {
-
-    private static final long serialVersionUID = 46010876689651L;
 
     public static NotificationFetcher fetcher(final String pathChatServiceSid) {
         return new NotificationFetcher(pathChatServiceSid);
@@ -89,65 +90,58 @@ public class Notification extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
+    private final Object addedToConversation;
+
+    @Getter
     private final String chatServiceSid;
-    private final Map<String, Object> newMessage;
-    private final Map<String, Object> addedToConversation;
-    private final Map<String, Object> removedFromConversation;
+
+    @Getter
     private final Boolean logEnabled;
+
+    @Getter
+    private final Object newMessage;
+
+    @Getter
+    private final Object removedFromConversation;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Notification(
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("added_to_conversation") final Object addedToConversation,
         @JsonProperty("chat_service_sid") final String chatServiceSid,
-        @JsonProperty("new_message") final Map<String, Object> newMessage,
-        @JsonProperty("added_to_conversation") final Map<
-            String,
-            Object
-        > addedToConversation,
-        @JsonProperty("removed_from_conversation") final Map<
-            String,
-            Object
-        > removedFromConversation,
         @JsonProperty("log_enabled") final Boolean logEnabled,
+        @JsonProperty("new_message") final Object newMessage,
+        @JsonProperty(
+            "removed_from_conversation"
+        ) final Object removedFromConversation,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
-        this.chatServiceSid = chatServiceSid;
-        this.newMessage = newMessage;
         this.addedToConversation = addedToConversation;
-        this.removedFromConversation = removedFromConversation;
+        this.chatServiceSid = chatServiceSid;
         this.logEnabled = logEnabled;
+        this.newMessage = newMessage;
+        this.removedFromConversation = removedFromConversation;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getChatServiceSid() {
-        return this.chatServiceSid;
-    }
-
-    public final Map<String, Object> getNewMessage() {
-        return this.newMessage;
-    }
-
-    public final Map<String, Object> getAddedToConversation() {
-        return this.addedToConversation;
-    }
-
-    public final Map<String, Object> getRemovedFromConversation() {
-        return this.removedFromConversation;
-    }
-
-    public final Boolean getLogEnabled() {
-        return this.logEnabled;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -161,17 +155,16 @@ public class Notification extends Resource {
         }
 
         Notification other = (Notification) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(chatServiceSid, other.chatServiceSid) &&
-            Objects.equals(newMessage, other.newMessage) &&
             Objects.equals(addedToConversation, other.addedToConversation) &&
+            Objects.equals(chatServiceSid, other.chatServiceSid) &&
+            Objects.equals(logEnabled, other.logEnabled) &&
+            Objects.equals(newMessage, other.newMessage) &&
             Objects.equals(
                 removedFromConversation,
                 other.removedFromConversation
             ) &&
-            Objects.equals(logEnabled, other.logEnabled) &&
             Objects.equals(url, other.url)
         );
     }
@@ -180,11 +173,11 @@ public class Notification extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
-            chatServiceSid,
-            newMessage,
             addedToConversation,
-            removedFromConversation,
+            chatServiceSid,
             logEnabled,
+            newMessage,
+            removedFromConversation,
             url
         );
     }

@@ -15,6 +15,7 @@
 package com.twilio.rest.assistants.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -25,6 +26,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class AssistantUpdater extends Updater<Assistant> {
 
@@ -43,8 +46,7 @@ public class AssistantUpdater extends Updater<Assistant> {
         return this;
     }
 
-    @Override
-    public Assistant update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Assistants/{id}";
 
         path = path.replace("{" + "id" + "}", this.pathId.toString());
@@ -56,14 +58,17 @@ public class AssistantUpdater extends Updater<Assistant> {
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Assistant update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -74,10 +79,31 @@ public class AssistantUpdater extends Updater<Assistant> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Assistant update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Assistant.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Assistant> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Assistant content = Assistant.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

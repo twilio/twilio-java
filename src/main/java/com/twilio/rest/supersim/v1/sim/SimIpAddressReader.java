@@ -17,28 +17,71 @@ package com.twilio.rest.supersim.v1.sim;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class SimIpAddressReader extends Reader<SimIpAddress> {
 
     private String pathSimSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SimIpAddressReader(final String pathSimSid) {
         this.pathSimSid = pathSimSid;
     }
 
-    public SimIpAddressReader setPageSize(final Integer pageSize) {
+    public SimIpAddressReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<SimIpAddress> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SimIpAddress> page = Page.fromJson(
+            "ip_addresses",
+            response.getContent(),
+            SimIpAddress.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<SimIpAddress> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/Sims/{SimSid}/IpAddresses";
+
+        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.SUPERSIM.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -47,35 +90,44 @@ public class SimIpAddressReader extends Reader<SimIpAddress> {
     }
 
     public Page<SimIpAddress> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Sims/{SimSid}/IpAddresses";
-        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.SUPERSIM.toString(),
-            path
-        );
-
-        addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<SimIpAddress> pageForRequest(
+    public TwilioResponse<Page<SimIpAddress>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<SimIpAddress> page = Page.fromJson(
+            "ip_addresses",
+            response.getContent(),
+            SimIpAddress.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "SimIpAddress read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -84,7 +136,14 @@ public class SimIpAddressReader extends Reader<SimIpAddress> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<SimIpAddress> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "ip_addresses",
             response.getContent(),
@@ -100,7 +159,7 @@ public class SimIpAddressReader extends Reader<SimIpAddress> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.SUPERSIM.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -112,7 +171,7 @@ public class SimIpAddressReader extends Reader<SimIpAddress> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.SUPERSIM.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -122,14 +181,23 @@ public class SimIpAddressReader extends Reader<SimIpAddress> {
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

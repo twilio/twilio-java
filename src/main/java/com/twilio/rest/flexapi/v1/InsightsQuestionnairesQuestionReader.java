@@ -17,33 +17,32 @@ package com.twilio.rest.flexapi.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 import java.util.List;
 
 public class InsightsQuestionnairesQuestionReader
     extends Reader<InsightsQuestionnairesQuestion> {
 
-    private String authorization;
     private List<String> categorySid;
-    private Integer pageSize;
+    private Long pageSize;
+    private String authorization;
 
     public InsightsQuestionnairesQuestionReader() {}
-
-    public InsightsQuestionnairesQuestionReader setAuthorization(
-        final String authorization
-    ) {
-        this.authorization = authorization;
-        return this;
-    }
 
     public InsightsQuestionnairesQuestionReader setCategorySid(
         final List<String> categorySid
@@ -59,10 +58,50 @@ public class InsightsQuestionnairesQuestionReader
     }
 
     public InsightsQuestionnairesQuestionReader setPageSize(
-        final Integer pageSize
+        final Long pageSize
     ) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public InsightsQuestionnairesQuestionReader setAuthorization(
+        final String authorization
+    ) {
+        this.authorization = authorization;
+        return this;
+    }
+
+    public ResourceSetResponse<InsightsQuestionnairesQuestion> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<InsightsQuestionnairesQuestion> page = Page.fromJson(
+            "questions",
+            response.getContent(),
+            InsightsQuestionnairesQuestion.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<InsightsQuestionnairesQuestion> resourceSet =
+            new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/Insights/QualityManagement/Questions";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.FLEXAPI.toString(),
+            path
+        );
+        addQueryParams(request);
+        addHeaderParams(request);
+        return request;
     }
 
     @Override
@@ -75,35 +114,44 @@ public class InsightsQuestionnairesQuestionReader
     public Page<InsightsQuestionnairesQuestion> firstPage(
         final TwilioRestClient client
     ) {
-        String path = "/v1/Insights/QualityManagement/Questions";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.FLEXAPI.toString(),
-            path
-        );
-
-        addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addHeaderParams(request);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<InsightsQuestionnairesQuestion> pageForRequest(
+    public TwilioResponse<
+        Page<InsightsQuestionnairesQuestion>
+    > firstPageWithResponse(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<InsightsQuestionnairesQuestion> page = Page.fromJson(
+            "questions",
+            response.getContent(),
+            InsightsQuestionnairesQuestion.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "InsightsQuestionnairesQuestion read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -112,7 +160,14 @@ public class InsightsQuestionnairesQuestionReader
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<InsightsQuestionnairesQuestion> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "questions",
             response.getContent(),
@@ -128,7 +183,7 @@ public class InsightsQuestionnairesQuestionReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.FLEXAPI.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -140,7 +195,7 @@ public class InsightsQuestionnairesQuestionReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.FLEXAPI.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -150,29 +205,49 @@ public class InsightsQuestionnairesQuestionReader
         final String targetUrl,
         final TwilioRestClient client
     ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
-
-        return pageForRequest(client, request);
-    }
-
-    private void addHeaderParams(final Request request) {
-        if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
         }
+        Request request = new Request(HttpMethod.GET, targetUrl);
+        return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (categorySid != null) {
-            for (String prop : categorySid) {
-                request.addQueryParam("CategorySid", prop);
+            for (String param : categorySid) {
+                Serializer.toString(
+                    request,
+                    "CategorySid",
+                    param,
+                    ParameterType.QUERY
+                );
             }
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
+    }
+
+    private void addHeaderParams(final Request request) {
+        if (authorization != null) {
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
     }
 }

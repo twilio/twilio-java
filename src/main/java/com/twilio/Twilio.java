@@ -11,6 +11,7 @@ import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import java.util.Map;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -18,13 +19,29 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Singleton class to initialize Twilio environment.
+ * The {@code Twilio} class is a thread-safe singleton that manages the global configuration and initialization
+ * of the Twilio Java SDK environment. It provides static methods to set credentials, region, edge, and other
+ * runtime options, as well as to initialize and retrieve the shared {@link TwilioRestClient} instance.
+ * <p>
+ * Usage of this class is required before making API requests. Credentials can be set via environment variables,
+ * system properties, or explicitly using the {@code init} methods. The class also manages a shared
+ * {@link ExecutorService} for asynchronous operations and provides utility methods for SSL certificate validation.
+ * <p>
+ * Example usage:
+ * <pre>
+ *     Twilio.init("ACCOUNT_SID", "AUTH_TOKEN");
+ *     // or with a CredentialProvider
+ *     Twilio.init(new MyCredentialProvider());
+ * </pre>
+ * <p>
  */
 public class Twilio {
 
-    public static final String VERSION = "10.6.7";
+    public static final String VERSION = "12.0.0";
     public static final String JAVA_VERSION = System.getProperty("java.version");
     public static final String OS_NAME = System.getProperty("os.name");
     public static final String OS_ARCH = System.getProperty("os.arch");
@@ -37,13 +54,17 @@ public class Twilio {
     private static String edge = System.getenv("TWILIO_EDGE");
     private static volatile TwilioRestClient restClient;
     private static volatile ExecutorService executorService;
-    
+
     private static CredentialProvider credentialProvider;
+
+    private static final Logger logger = LoggerFactory.getLogger(Twilio.class);
+
+
 
     private Twilio() {
     }
 
-    /*
+    /**
      * Ensures that the ExecutorService is shutdown when the JVM exits.
      */
     static {
@@ -85,7 +106,7 @@ public class Twilio {
         if (credentialProvider == null) {
             throw new AuthenticationException("Credential Provider can not be null");
         }
-        
+
         if (!credentialProvider.equals(Twilio.credentialProvider)) {
             Twilio.invalidate();
         }
@@ -234,7 +255,6 @@ public class Twilio {
         if (userAgentExtensions != null) {
             builder.userAgentExtensions(Twilio.userAgentExtensions);
         }
-
         builder.region(Twilio.region);
         builder.edge(Twilio.edge);
 
@@ -315,7 +335,7 @@ public class Twilio {
     private static void invalidateOAuthCreds() {
         Twilio.credentialProvider = null;
     }
-    
+
     private static void invalidateBasicCreds() {
         Twilio.username = null;
         Twilio.password = null;
@@ -327,6 +347,7 @@ public class Twilio {
     public static synchronized void destroy() {
         if (executorService != null) {
             executorService.shutdown();
+            executorService = null;
         }
     }
 }

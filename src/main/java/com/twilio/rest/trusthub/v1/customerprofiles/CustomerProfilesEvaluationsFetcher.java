@@ -15,7 +15,7 @@
 package com.twilio.rest.trusthub.v1.customerprofiles;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class CustomerProfilesEvaluationsFetcher
     extends Fetcher<CustomerProfilesEvaluations> {
@@ -39,8 +41,7 @@ public class CustomerProfilesEvaluationsFetcher
         this.pathSid = pathSid;
     }
 
-    @Override
-    public CustomerProfilesEvaluations fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations/{Sid}";
 
@@ -56,7 +57,7 @@ public class CustomerProfilesEvaluationsFetcher
             Domains.TRUSTHUB.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -64,8 +65,9 @@ public class CustomerProfilesEvaluationsFetcher
                 "CustomerProfilesEvaluations fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -76,10 +78,32 @@ public class CustomerProfilesEvaluationsFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public CustomerProfilesEvaluations fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return CustomerProfilesEvaluations.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<CustomerProfilesEvaluations> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        CustomerProfilesEvaluations content =
+            CustomerProfilesEvaluations.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

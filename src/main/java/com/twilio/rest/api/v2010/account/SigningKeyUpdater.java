@@ -14,8 +14,11 @@
 
 package com.twilio.rest.api.v2010.account;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class SigningKeyUpdater extends Updater<SigningKey> {
 
-    private String pathSid;
     private String pathAccountSid;
+    private String pathSid;
     private String friendlyName;
 
     public SigningKeyUpdater(final String pathSid) {
@@ -48,8 +53,7 @@ public class SigningKeyUpdater extends Updater<SigningKey> {
         return this;
     }
 
-    @Override
-    public SigningKey update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json";
 
@@ -71,14 +75,17 @@ public class SigningKeyUpdater extends Updater<SigningKey> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "SigningKey update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -89,16 +96,42 @@ public class SigningKeyUpdater extends Updater<SigningKey> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SigningKey update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SigningKey.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<SigningKey> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SigningKey content = SigningKey.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

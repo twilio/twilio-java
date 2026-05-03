@@ -18,26 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Eligibility extends Resource {
-
-    private static final long serialVersionUID = 222327706675602L;
 
     public static EligibilityCreator creator() {
         return new EligibilityCreator();
@@ -98,17 +98,12 @@ public class Eligibility extends Resource {
         }
     }
 
-    private final List<Map<String, Object>> results;
+    @Getter
+    private final List<Object> results;
 
     @JsonCreator
-    private Eligibility(
-        @JsonProperty("results") final List<Map<String, Object>> results
-    ) {
+    private Eligibility(@JsonProperty("results") final List<Object> results) {
         this.results = results;
-    }
-
-    public final List<Map<String, Object>> getResults() {
-        return this.results;
     }
 
     @Override
@@ -122,8 +117,7 @@ public class Eligibility extends Resource {
         }
 
         Eligibility other = (Eligibility) o;
-
-        return Objects.equals(results, other.results);
+        return (Objects.equals(results, other.results));
     }
 
     @Override

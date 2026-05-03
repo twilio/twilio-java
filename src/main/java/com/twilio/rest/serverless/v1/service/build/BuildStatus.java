@@ -18,30 +18,54 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BuildStatus extends Resource {
 
-    private static final long serialVersionUID = 256582650740181L;
-
     public static BuildStatusFetcher fetcher(
         final String pathServiceSid,
         final String pathSid
     ) {
         return new BuildStatusFetcher(pathServiceSid, pathSid);
+    }
+
+    public enum Status {
+        BUILDING("building"),
+        COMPLETED("completed"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 
     /**
@@ -87,45 +111,46 @@ public class BuildStatus extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final BuildStatus.Status status;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private BuildStatus(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("status") final BuildStatus.Status status,
         @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
+        this.sid = sid;
         this.status = status;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final BuildStatus.Status getStatus() {
-        return this.status;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -139,11 +164,10 @@ public class BuildStatus extends Resource {
         }
 
         BuildStatus other = (BuildStatus) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(status, other.status) &&
             Objects.equals(url, other.url)
         );
@@ -151,27 +175,6 @@ public class BuildStatus extends Resource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, serviceSid, status, url);
-    }
-
-    public enum Status {
-        BUILDING("building"),
-        COMPLETED("completed"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
+        return Objects.hash(accountSid, serviceSid, sid, status, url);
     }
 }

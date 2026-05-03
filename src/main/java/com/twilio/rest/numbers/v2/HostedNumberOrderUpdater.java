@@ -14,8 +14,11 @@
 
 package com.twilio.rest.numbers.v2;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
 
@@ -61,12 +66,10 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
         return this;
     }
 
-    @Override
-    public HostedNumberOrder update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/HostedNumber/Orders/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path = path.replace("{" + "Status" + "}", this.status.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -75,14 +78,17 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "HostedNumberOrder update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -93,27 +99,59 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public HostedNumberOrder update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return HostedNumberOrder.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<HostedNumberOrder> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        HostedNumberOrder content = HostedNumberOrder.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (status != null) {
-            request.addPostParam("Status", status.toString());
-        }
-        if (verificationCallDelay != null) {
-            request.addPostParam(
-                "VerificationCallDelay",
-                verificationCallDelay.toString()
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
             );
         }
+
+        if (verificationCallDelay != null) {
+            Serializer.toString(
+                request,
+                "VerificationCallDelay",
+                verificationCallDelay,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (verificationCallExtension != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VerificationCallExtension",
-                verificationCallExtension
+                verificationCallExtension,
+                ParameterType.URLENCODED
             );
         }
     }

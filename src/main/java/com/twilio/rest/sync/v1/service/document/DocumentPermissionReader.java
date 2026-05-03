@@ -17,21 +17,27 @@ package com.twilio.rest.sync.v1.service.document;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class DocumentPermissionReader extends Reader<DocumentPermission> {
 
     private String pathServiceSid;
     private String pathDocumentSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DocumentPermissionReader(
         final String pathServiceSid,
@@ -41,19 +47,38 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
         this.pathDocumentSid = pathDocumentSid;
     }
 
-    public DocumentPermissionReader setPageSize(final Integer pageSize) {
+    public DocumentPermissionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-    @Override
-    public ResourceSet<DocumentPermission> read(final TwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<DocumentPermission> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<DocumentPermission> page = Page.fromJson(
+            "permissions",
+            response.getContent(),
+            DocumentPermission.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<DocumentPermission> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<DocumentPermission> firstPage(final TwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions";
+
         path =
             path.replace(
                 "{" + "ServiceSid" + "}",
@@ -70,27 +95,54 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
             Domains.SYNC.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<DocumentPermission> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<DocumentPermission> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<DocumentPermission> pageForRequest(
+    public TwilioResponse<Page<DocumentPermission>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<DocumentPermission> page = Page.fromJson(
+            "permissions",
+            response.getContent(),
+            DocumentPermission.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "DocumentPermission read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -99,7 +151,14 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<DocumentPermission> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "permissions",
             response.getContent(),
@@ -115,7 +174,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.SYNC.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -127,7 +186,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.SYNC.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -137,14 +196,23 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

@@ -18,23 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Safelist extends Resource {
-
-    private static final long serialVersionUID = 83566412587236L;
 
     public static SafelistCreator creator(final String phoneNumber) {
         return new SafelistCreator(phoneNumber);
@@ -91,31 +94,36 @@ public class Safelist extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String phoneNumber;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Safelist(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("phone_number") final String phoneNumber,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.phoneNumber = phoneNumber;
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -129,16 +137,15 @@ public class Safelist extends Resource {
         }
 
         Safelist other = (Safelist) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(phoneNumber, other.phoneNumber) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, phoneNumber, url);
+        return Objects.hash(phoneNumber, sid, url);
     }
 }

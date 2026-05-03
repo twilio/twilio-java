@@ -17,15 +17,21 @@ package com.twilio.rest.numbers.v2.regulatorycompliance;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class RegulationReader extends Reader<Regulation> {
 
@@ -33,7 +39,7 @@ public class RegulationReader extends Reader<Regulation> {
     private String isoCountry;
     private String numberType;
     private Boolean includeConstraints;
-    private Integer pageSize;
+    private Long pageSize;
 
     public RegulationReader() {}
 
@@ -61,9 +67,44 @@ public class RegulationReader extends Reader<Regulation> {
         return this;
     }
 
-    public RegulationReader setPageSize(final Integer pageSize) {
+    public RegulationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<Regulation> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Regulation> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            Regulation.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<Regulation> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v2/RegulatoryCompliance/Regulations";
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.NUMBERS.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -72,34 +113,44 @@ public class RegulationReader extends Reader<Regulation> {
     }
 
     public Page<Regulation> firstPage(final TwilioRestClient client) {
-        String path = "/v2/RegulatoryCompliance/Regulations";
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.NUMBERS.toString(),
-            path
-        );
-
-        addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<Regulation> pageForRequest(
+    public TwilioResponse<Page<Regulation>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<Regulation> page = Page.fromJson(
+            "results",
+            response.getContent(),
+            Regulation.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Regulation read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -108,7 +159,14 @@ public class RegulationReader extends Reader<Regulation> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<Regulation> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "results",
             response.getContent(),
@@ -124,7 +182,7 @@ public class RegulationReader extends Reader<Regulation> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.NUMBERS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -136,7 +194,7 @@ public class RegulationReader extends Reader<Regulation> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.NUMBERS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -146,29 +204,59 @@ public class RegulationReader extends Reader<Regulation> {
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (endUserType != null) {
-            request.addQueryParam("EndUserType", endUserType.toString());
-        }
-        if (isoCountry != null) {
-            request.addQueryParam("IsoCountry", isoCountry);
-        }
-        if (numberType != null) {
-            request.addQueryParam("NumberType", numberType);
-        }
-        if (includeConstraints != null) {
-            request.addQueryParam(
-                "IncludeConstraints",
-                includeConstraints.toString()
+            Serializer.toString(
+                request,
+                "EndUserType",
+                endUserType,
+                ParameterType.QUERY
             );
         }
+
+        if (isoCountry != null) {
+            Serializer.toString(
+                request,
+                "IsoCountry",
+                isoCountry,
+                ParameterType.QUERY
+            );
+        }
+
+        if (numberType != null) {
+            Serializer.toString(
+                request,
+                "NumberType",
+                numberType,
+                ParameterType.QUERY
+            );
+        }
+
+        if (includeConstraints != null) {
+            Serializer.toString(
+                request,
+                "IncludeConstraints",
+                includeConstraints,
+                ParameterType.QUERY
+            );
+        }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

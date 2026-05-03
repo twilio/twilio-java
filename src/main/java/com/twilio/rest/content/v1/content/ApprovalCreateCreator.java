@@ -16,6 +16,7 @@ package com.twilio.rest.content.v1.content;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -25,6 +26,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
 
@@ -46,19 +49,13 @@ public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
         return this;
     }
 
-    @Override
-    public ApprovalCreate create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Content/{ContentSid}/ApprovalRequests/whatsapp";
 
         path =
             path.replace(
                 "{" + "ContentSid" + "}",
                 this.pathContentSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ContentApprovalRequest" + "}",
-                this.contentApprovalRequest.toString()
             );
 
         Request request = new Request(
@@ -68,14 +65,17 @@ public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ApprovalCreate creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -86,10 +86,31 @@ public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ApprovalCreate create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ApprovalCreate.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<ApprovalCreate> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ApprovalCreate content = ApprovalCreate.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

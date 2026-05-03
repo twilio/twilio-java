@@ -193,6 +193,24 @@ public class Connect extends TwiML {
         }
 
         /**
+         * Add a child {@code <AiSession>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "AiSession")
+        public Builder aiSession(AiSession aiSession) {
+            this.children.add(aiSession);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <ConversationRelaySession>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "ConversationRelaySession")
+        public Builder conversationRelaySession(ConversationRelaySession conversationRelaySession) {
+            this.children.add(conversationRelaySession);
+            return this;
+        }
+
+        /**
          * Create and return resulting {@code <Connect>} element
          */
         public Connect build() {

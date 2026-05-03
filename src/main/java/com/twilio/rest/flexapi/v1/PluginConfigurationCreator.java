@@ -15,10 +15,11 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,16 +28,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 import java.util.List;
-import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class PluginConfigurationCreator extends Creator<PluginConfiguration> {
 
-    private String name;
     private String flexMetadata;
-    private List<Map<String, Object>> plugins;
+    private String name;
+    private List<Object> plugins;
     private String description;
 
     public PluginConfigurationCreator(final String name) {
@@ -48,23 +48,12 @@ public class PluginConfigurationCreator extends Creator<PluginConfiguration> {
         return this;
     }
 
-    public PluginConfigurationCreator setFlexMetadata(
-        final String flexMetadata
-    ) {
-        this.flexMetadata = flexMetadata;
-        return this;
-    }
-
-    public PluginConfigurationCreator setPlugins(
-        final List<Map<String, Object>> plugins
-    ) {
+    public PluginConfigurationCreator setPlugins(final List<Object> plugins) {
         this.plugins = plugins;
         return this;
     }
 
-    public PluginConfigurationCreator setPlugins(
-        final Map<String, Object> plugins
-    ) {
+    public PluginConfigurationCreator setPlugins(final Object plugins) {
         return setPlugins(Promoter.listOfOne(plugins));
     }
 
@@ -73,11 +62,15 @@ public class PluginConfigurationCreator extends Creator<PluginConfiguration> {
         return this;
     }
 
-    @Override
-    public PluginConfiguration create(final TwilioRestClient client) {
-        String path = "/v1/PluginService/Configurations";
+    public PluginConfigurationCreator setFlexMetadata(
+        final String flexMetadata
+    ) {
+        this.flexMetadata = flexMetadata;
+        return this;
+    }
 
-        path = path.replace("{" + "Name" + "}", this.name.toString());
+    private Response makeRequest(final TwilioRestClient client) {
+        String path = "/v1/PluginService/Configurations";
 
         Request request = new Request(
             HttpMethod.POST,
@@ -85,16 +78,19 @@ public class PluginConfigurationCreator extends Creator<PluginConfiguration> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "PluginConfiguration creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -105,30 +101,73 @@ public class PluginConfigurationCreator extends Creator<PluginConfiguration> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public PluginConfiguration create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PluginConfiguration.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<PluginConfiguration> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PluginConfiguration content = PluginConfiguration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (name != null) {
-            request.addPostParam("Name", name);
+            Serializer.toString(
+                request,
+                "Name",
+                name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (plugins != null) {
-            for (Map<String, Object> prop : plugins) {
-                request.addPostParam("Plugins", Converter.mapToJson(prop));
+            for (Object param : plugins) {
+                Serializer.toString(
+                    request,
+                    "Plugins",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (flexMetadata != null) {
-            request.addHeaderParam("Flex-Metadata", flexMetadata);
+            Serializer.toString(
+                request,
+                "Flex-Metadata",
+                flexMetadata,
+                ParameterType.HEADER
+            );
         }
     }
 }

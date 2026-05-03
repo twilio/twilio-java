@@ -14,18 +14,24 @@
 
 package com.twilio.rest.previewiam.organizations;
 
-import com.twilio.base.bearertoken.Page;
-import com.twilio.base.bearertoken.Reader;
-import com.twilio.base.bearertoken.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.Page;
+import com.twilio.base.Reader;
+import com.twilio.base.ResourceSet;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
+import com.twilio.http.Request;
 import com.twilio.http.Response;
-import com.twilio.http.bearertoken.BearerTokenRequest;
-import com.twilio.http.bearertoken.BearerTokenTwilioRestClient;
+import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class UserReader extends Reader<User> {
 
@@ -41,47 +47,87 @@ public class UserReader extends Reader<User> {
         return this;
     }
 
-    @Override
-    public ResourceSet<User> read(final BearerTokenTwilioRestClient client) {
-        return new ResourceSet<>(this, client, firstPage(client));
+    public ResourceSetResponse<User> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<User> page = Page.fromJson(
+            "Resources",
+            response.getContent(),
+            User.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<User> resourceSet = new ResourceSet<>(this, client, page);
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 
-    public Page<User> firstPage(final BearerTokenTwilioRestClient client) {
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/scim/Users";
+
         path =
             path.replace(
                 "{" + "OrganizationSid" + "}",
                 this.pathOrganizationSid.toString()
             );
 
-        BearerTokenRequest request = new BearerTokenRequest(
+        Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEWIAM.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        return request;
+    }
+
+    @Override
+    public ResourceSet<User> read(final TwilioRestClient client) {
+        return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    public Page<User> firstPage(final TwilioRestClient client) {
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<User> pageForRequest(
-        final BearerTokenTwilioRestClient client,
-        final BearerTokenRequest request
+    public TwilioResponse<Page<User>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<User> page = Page.fromJson(
+            "Resources",
+            response.getContent(),
+            User.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
+        final TwilioRestClient client,
+        final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "User read failed: Unable to connect to server"
             );
-        } else if (
-            !BearerTokenTwilioRestClient.SUCCESS.test(response.getStatusCode())
-        ) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -90,7 +136,14 @@ public class UserReader extends Reader<User> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<User> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "Resources",
             response.getContent(),
@@ -102,11 +155,11 @@ public class UserReader extends Reader<User> {
     @Override
     public Page<User> previousPage(
         final Page<User> page,
-        final BearerTokenTwilioRestClient client
+        final TwilioRestClient client
     ) {
-        BearerTokenRequest request = new BearerTokenRequest(
+        Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.PREVIEWIAM.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -114,11 +167,11 @@ public class UserReader extends Reader<User> {
     @Override
     public Page<User> nextPage(
         final Page<User> page,
-        final BearerTokenTwilioRestClient client
+        final TwilioRestClient client
     ) {
-        BearerTokenRequest request = new BearerTokenRequest(
+        Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.PREVIEWIAM.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -126,19 +179,20 @@ public class UserReader extends Reader<User> {
     @Override
     public Page<User> getPage(
         final String targetUrl,
-        final BearerTokenTwilioRestClient client
+        final TwilioRestClient client
     ) {
-        BearerTokenRequest request = new BearerTokenRequest(
-            HttpMethod.GET,
-            targetUrl
-        );
-
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
+        Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
-    private void addQueryParams(final BearerTokenRequest request) {
+    private void addQueryParams(final Request request) {
         if (filter != null) {
-            request.addQueryParam("filter", filter);
+            Serializer.toString(request, "filter", filter, ParameterType.QUERY);
         }
 
         if (getPageSize() != null) {

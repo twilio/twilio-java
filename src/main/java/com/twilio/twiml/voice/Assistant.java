@@ -34,10 +34,15 @@ public class Assistant extends TwiML {
     private final Boolean dtmfDetection;
     private final String welcomeGreeting;
     private final Boolean partialPrompts;
-    private final Boolean interruptible;
-    private final Boolean interruptByDtmf;
-    private final Boolean welcomeGreetingInterruptible;
-    private final Boolean debug;
+    private final String welcomeGreetingInterruptible;
+    private final String interruptible;
+    private final Boolean preemptible;
+    private final String hints;
+    private final String intelligenceService;
+    private final Boolean reportInputDuringAgentSpeech;
+    private final String elevenlabsTextNormalization;
+    private final String interruptSensitivity;
+    private final String debug;
 
     /**
      * For XML Serialization/Deserialization
@@ -63,9 +68,14 @@ public class Assistant extends TwiML {
         this.dtmfDetection = b.dtmfDetection;
         this.welcomeGreeting = b.welcomeGreeting;
         this.partialPrompts = b.partialPrompts;
-        this.interruptible = b.interruptible;
-        this.interruptByDtmf = b.interruptByDtmf;
         this.welcomeGreetingInterruptible = b.welcomeGreetingInterruptible;
+        this.interruptible = b.interruptible;
+        this.preemptible = b.preemptible;
+        this.hints = b.hints;
+        this.intelligenceService = b.intelligenceService;
+        this.reportInputDuringAgentSpeech = b.reportInputDuringAgentSpeech;
+        this.elevenlabsTextNormalization = b.elevenlabsTextNormalization;
+        this.interruptSensitivity = b.interruptSensitivity;
         this.debug = b.debug;
     }
 
@@ -114,17 +124,32 @@ public class Assistant extends TwiML {
         if (this.isPartialPrompts() != null) {
             attrs.put("partialPrompts", this.isPartialPrompts().toString());
         }
-        if (this.isInterruptible() != null) {
-            attrs.put("interruptible", this.isInterruptible().toString());
+        if (this.getWelcomeGreetingInterruptible() != null) {
+            attrs.put("welcomeGreetingInterruptible", this.getWelcomeGreetingInterruptible());
         }
-        if (this.isInterruptByDtmf() != null) {
-            attrs.put("interruptByDtmf", this.isInterruptByDtmf().toString());
+        if (this.getInterruptible() != null) {
+            attrs.put("interruptible", this.getInterruptible());
         }
-        if (this.isWelcomeGreetingInterruptible() != null) {
-            attrs.put("welcomeGreetingInterruptible", this.isWelcomeGreetingInterruptible().toString());
+        if (this.isPreemptible() != null) {
+            attrs.put("preemptible", this.isPreemptible().toString());
         }
-        if (this.isDebug() != null) {
-            attrs.put("debug", this.isDebug().toString());
+        if (this.getHints() != null) {
+            attrs.put("hints", this.getHints());
+        }
+        if (this.getIntelligenceService() != null) {
+            attrs.put("intelligenceService", this.getIntelligenceService());
+        }
+        if (this.isReportInputDuringAgentSpeech() != null) {
+            attrs.put("reportInputDuringAgentSpeech", this.isReportInputDuringAgentSpeech().toString());
+        }
+        if (this.getElevenlabsTextNormalization() != null) {
+            attrs.put("elevenlabsTextNormalization", this.getElevenlabsTextNormalization());
+        }
+        if (this.getInterruptSensitivity() != null) {
+            attrs.put("interruptSensitivity", this.getInterruptSensitivity());
+        }
+        if (this.getDebug() != null) {
+            attrs.put("debug", this.getDebug());
         }
 
         return attrs;
@@ -243,38 +268,98 @@ public class Assistant extends TwiML {
     }
 
     /**
-     * Whether caller's speaking can interrupt the play of text-to-speech
+     * "Whether and how the input from a caller, such as speaking or DTMF can
+     * interrupt the welcome greeting
      *
-     * @return Whether caller's speaking can interrupt the play of text-to-speech
+     * @return "Whether and how the input from a caller, such as speaking or DTMF
+     *         can interrupt the welcome greeting
      */
-    public Boolean isInterruptible() {
-        return interruptible;
-    }
-
-    /**
-     * Whether DTMF tone can interrupt the play of text-to-speech
-     *
-     * @return Whether DTMF tone can interrupt the play of text-to-speech
-     */
-    public Boolean isInterruptByDtmf() {
-        return interruptByDtmf;
-    }
-
-    /**
-     * Whether caller's speaking can interrupt the welcome greeting
-     *
-     * @return Whether caller's speaking can interrupt the welcome greeting
-     */
-    public Boolean isWelcomeGreetingInterruptible() {
+    public String getWelcomeGreetingInterruptible() {
         return welcomeGreetingInterruptible;
     }
 
     /**
-     * Whether debugging on the session is enabled
+     * Whether and how the input from a caller, such as speaking or DTMF can
+     * interrupt the play of text-to-speech
      *
-     * @return Whether debugging on the session is enabled
+     * @return Whether and how the input from a caller, such as speaking or DTMF
+     *         can interrupt the play of text-to-speech
      */
-    public Boolean isDebug() {
+    public String getInterruptible() {
+        return interruptible;
+    }
+
+    /**
+     * Whether subsequent text-to-speech or play media can interrupt the on-going
+     * play of text-to-speech or media
+     *
+     * @return Whether subsequent text-to-speech or play media can interrupt the
+     *         on-going play of text-to-speech or media
+     */
+    public Boolean isPreemptible() {
+        return preemptible;
+    }
+
+    /**
+     * Phrases to help better accuracy in speech recognition of these pharases
+     *
+     * @return Phrases to help better accuracy in speech recognition of these
+     *         pharases
+     */
+    public String getHints() {
+        return hints;
+    }
+
+    /**
+     * The Conversational Intelligence Service id or unique name to be used for the
+     * session
+     *
+     * @return The Conversational Intelligence Service id or unique name to be used
+     *         for the session
+     */
+    public String getIntelligenceService() {
+        return intelligenceService;
+    }
+
+    /**
+     * Whether prompts should be reported to WebSocket server when text-to-speech
+     * playing and interrupt is disabled
+     *
+     * @return Whether prompts should be reported to WebSocket server when
+     *         text-to-speech playing and interrupt is disabled
+     */
+    public Boolean isReportInputDuringAgentSpeech() {
+        return reportInputDuringAgentSpeech;
+    }
+
+    /**
+     * When using ElevenLabs as TTS provider, this parameter allows you to enable or
+     * disable its text normalization feature
+     *
+     * @return When using ElevenLabs as TTS provider, this parameter allows you to
+     *         enable or disable its text normalization feature
+     */
+    public String getElevenlabsTextNormalization() {
+        return elevenlabsTextNormalization;
+    }
+
+    /**
+     * Set the sensitivity of the interrupt feature for speech. The value can be
+     * low, medium, or high
+     *
+     * @return Set the sensitivity of the interrupt feature for speech. The value
+     *         can be low, medium, or high
+     */
+    public String getInterruptSensitivity() {
+        return interruptSensitivity;
+    }
+
+    /**
+     * Multiple debug options to be used for troubleshooting
+     *
+     * @return Multiple debug options to be used for troubleshooting
+     */
+    public String getDebug() {
         return debug;
     }
 
@@ -309,10 +394,15 @@ public class Assistant extends TwiML {
         private Boolean dtmfDetection;
         private String welcomeGreeting;
         private Boolean partialPrompts;
-        private Boolean interruptible;
-        private Boolean interruptByDtmf;
-        private Boolean welcomeGreetingInterruptible;
-        private Boolean debug;
+        private String welcomeGreetingInterruptible;
+        private String interruptible;
+        private Boolean preemptible;
+        private String hints;
+        private String intelligenceService;
+        private Boolean reportInputDuringAgentSpeech;
+        private String elevenlabsTextNormalization;
+        private String interruptSensitivity;
+        private String debug;
 
         /**
          * The assistant ID of the AI Assistant
@@ -424,37 +514,89 @@ public class Assistant extends TwiML {
         }
 
         /**
-         * Whether caller's speaking can interrupt the play of text-to-speech
-         */
-        @JacksonXmlProperty(isAttribute = true, localName = "interruptible")
-        public Builder interruptible(Boolean interruptible) {
-            this.interruptible = interruptible;
-            return this;
-        }
-
-        /**
-         * Whether DTMF tone can interrupt the play of text-to-speech
-         */
-        @JacksonXmlProperty(isAttribute = true, localName = "interruptByDtmf")
-        public Builder interruptByDtmf(Boolean interruptByDtmf) {
-            this.interruptByDtmf = interruptByDtmf;
-            return this;
-        }
-
-        /**
-         * Whether caller's speaking can interrupt the welcome greeting
+         * "Whether and how the input from a caller, such as speaking or DTMF can
+         * interrupt the welcome greeting
          */
         @JacksonXmlProperty(isAttribute = true, localName = "welcomeGreetingInterruptible")
-        public Builder welcomeGreetingInterruptible(Boolean welcomeGreetingInterruptible) {
+        public Builder welcomeGreetingInterruptible(String welcomeGreetingInterruptible) {
             this.welcomeGreetingInterruptible = welcomeGreetingInterruptible;
             return this;
         }
 
         /**
-         * Whether debugging on the session is enabled
+         * Whether and how the input from a caller, such as speaking or DTMF can
+         * interrupt the play of text-to-speech
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "interruptible")
+        public Builder interruptible(String interruptible) {
+            this.interruptible = interruptible;
+            return this;
+        }
+
+        /**
+         * Whether subsequent text-to-speech or play media can interrupt the on-going
+         * play of text-to-speech or media
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "preemptible")
+        public Builder preemptible(Boolean preemptible) {
+            this.preemptible = preemptible;
+            return this;
+        }
+
+        /**
+         * Phrases to help better accuracy in speech recognition of these pharases
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "hints")
+        public Builder hints(String hints) {
+            this.hints = hints;
+            return this;
+        }
+
+        /**
+         * The Conversational Intelligence Service id or unique name to be used for the
+         * session
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "intelligenceService")
+        public Builder intelligenceService(String intelligenceService) {
+            this.intelligenceService = intelligenceService;
+            return this;
+        }
+
+        /**
+         * Whether prompts should be reported to WebSocket server when text-to-speech
+         * playing and interrupt is disabled
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "reportInputDuringAgentSpeech")
+        public Builder reportInputDuringAgentSpeech(Boolean reportInputDuringAgentSpeech) {
+            this.reportInputDuringAgentSpeech = reportInputDuringAgentSpeech;
+            return this;
+        }
+
+        /**
+         * When using ElevenLabs as TTS provider, this parameter allows you to enable or
+         * disable its text normalization feature
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "elevenlabsTextNormalization")
+        public Builder elevenlabsTextNormalization(String elevenlabsTextNormalization) {
+            this.elevenlabsTextNormalization = elevenlabsTextNormalization;
+            return this;
+        }
+
+        /**
+         * Set the sensitivity of the interrupt feature for speech. The value can be
+         * low, medium, or high
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "interruptSensitivity")
+        public Builder interruptSensitivity(String interruptSensitivity) {
+            this.interruptSensitivity = interruptSensitivity;
+            return this;
+        }
+
+        /**
+         * Multiple debug options to be used for troubleshooting
          */
         @JacksonXmlProperty(isAttribute = true, localName = "debug")
-        public Builder debug(Boolean debug) {
+        public Builder debug(String debug) {
             this.debug = debug;
             return this;
         }

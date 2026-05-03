@@ -15,7 +15,7 @@
 package com.twilio.rest.intelligence.v2;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class OperatorAttachmentsFetcher extends Fetcher<OperatorAttachments> {
 
@@ -33,8 +35,7 @@ public class OperatorAttachmentsFetcher extends Fetcher<OperatorAttachments> {
         this.pathServiceSid = pathServiceSid;
     }
 
-    @Override
-    public OperatorAttachments fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Operators";
 
         path =
@@ -48,7 +49,7 @@ public class OperatorAttachmentsFetcher extends Fetcher<OperatorAttachments> {
             Domains.INTELLIGENCE.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -56,8 +57,9 @@ public class OperatorAttachmentsFetcher extends Fetcher<OperatorAttachments> {
                 "OperatorAttachments fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -68,10 +70,31 @@ public class OperatorAttachmentsFetcher extends Fetcher<OperatorAttachments> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public OperatorAttachments fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return OperatorAttachments.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<OperatorAttachments> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        OperatorAttachments content = OperatorAttachments.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

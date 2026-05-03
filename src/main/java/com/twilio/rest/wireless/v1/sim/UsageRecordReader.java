@@ -17,15 +17,21 @@ package com.twilio.rest.wireless.v1.sim;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.ResourceSetResponse;
+import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 import java.time.ZonedDateTime;
 
 public class UsageRecordReader extends Reader<UsageRecord> {
@@ -34,7 +40,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     private ZonedDateTime end;
     private ZonedDateTime start;
     private UsageRecord.Granularity granularity;
-    private Integer pageSize;
+    private Long pageSize;
 
     public UsageRecordReader(final String pathSimSid) {
         this.pathSimSid = pathSimSid;
@@ -57,9 +63,46 @@ public class UsageRecordReader extends Reader<UsageRecord> {
         return this;
     }
 
-    public UsageRecordReader setPageSize(final Integer pageSize) {
+    public UsageRecordReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ResourceSetResponse<UsageRecord> readWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<UsageRecord> page = Page.fromJson(
+            "usage_records",
+            response.getContent(),
+            UsageRecord.class,
+            client.getObjectMapper()
+        );
+        ResourceSet<UsageRecord> resourceSet = new ResourceSet<>(
+            this,
+            client,
+            page
+        );
+        return new ResourceSetResponse<>(
+            resourceSet,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Request buildFirstPageRequest(final TwilioRestClient client) {
+        String path = "/v1/Sims/{SimSid}/UsageRecords";
+
+        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
+
+        Request request = new Request(
+            HttpMethod.GET,
+            Domains.WIRELESS.toString(),
+            path
+        );
+        addQueryParams(request);
+        return request;
     }
 
     @Override
@@ -68,35 +111,44 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     public Page<UsageRecord> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Sims/{SimSid}/UsageRecords";
-        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
-
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.WIRELESS.toString(),
-            path
-        );
-
-        addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        Request request = buildFirstPageRequest(client);
         return pageForRequest(client, request);
     }
 
-    private Page<UsageRecord> pageForRequest(
+    public TwilioResponse<Page<UsageRecord>> firstPageWithResponse(
+        final TwilioRestClient client
+    ) {
+        Request request = buildFirstPageRequest(client);
+        Response response = makeRequest(client, request);
+        Page<UsageRecord> page = Page.fromJson(
+            "usage_records",
+            response.getContent(),
+            UsageRecord.class,
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            page,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
+    private Response makeRequest(
         final TwilioRestClient client,
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "UsageRecord read failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -105,7 +157,14 @@ public class UsageRecordReader extends Reader<UsageRecord> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    private Page<UsageRecord> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
+        Response response = makeRequest(client, request);
         return Page.fromJson(
             "usage_records",
             response.getContent(),
@@ -121,7 +180,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.WIRELESS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -133,7 +192,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.WIRELESS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -143,25 +202,40 @@ public class UsageRecordReader extends Reader<UsageRecord> {
         final String targetUrl,
         final TwilioRestClient client
     ) {
+        if (!com.twilio.http.HttpUtility.isValidTwilioUrl(targetUrl)) {
+            throw new ApiException(
+                "Invalid URL: URL must be a valid Twilio domain"
+            );
+        }
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (end != null) {
-            request.addQueryParam("End", end.toInstant().toString());
+            Serializer.toString(request, "End", end, ParameterType.QUERY);
         }
 
         if (start != null) {
-            request.addQueryParam("Start", start.toInstant().toString());
+            Serializer.toString(request, "Start", start, ParameterType.QUERY);
         }
 
         if (granularity != null) {
-            request.addQueryParam("Granularity", granularity.toString());
+            Serializer.toString(
+                request,
+                "Granularity",
+                granularity,
+                ParameterType.QUERY
+            );
         }
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

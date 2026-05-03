@@ -14,8 +14,11 @@
 
 package com.twilio.rest.sync.v1.service.synclist;
 
+import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
 
@@ -65,8 +70,7 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
         return this;
     }
 
-    @Override
-    public SyncListPermission update(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
 
@@ -78,9 +82,6 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
         path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
         path =
             path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
-        path = path.replace("{" + "Read" + "}", this.read.toString());
-        path = path.replace("{" + "Write" + "}", this.write.toString());
-        path = path.replace("{" + "Manage" + "}", this.manage.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -89,14 +90,17 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "SyncListPermission update failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -107,22 +111,60 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public SyncListPermission update(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return SyncListPermission.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<SyncListPermission> updateWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        SyncListPermission content = SyncListPermission.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (read != null) {
-            request.addPostParam("Read", read.toString());
+            Serializer.toString(
+                request,
+                "Read",
+                read,
+                ParameterType.URLENCODED
+            );
         }
+
         if (write != null) {
-            request.addPostParam("Write", write.toString());
+            Serializer.toString(
+                request,
+                "Write",
+                write,
+                ParameterType.URLENCODED
+            );
         }
+
         if (manage != null) {
-            request.addPostParam("Manage", manage.toString());
+            Serializer.toString(
+                request,
+                "Manage",
+                manage,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

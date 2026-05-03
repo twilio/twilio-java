@@ -18,26 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ConnectApp extends Resource {
-
-    private static final long serialVersionUID = 203118827948403L;
 
     public static ConnectAppDeleter deleter(final String pathSid) {
         return new ConnectAppDeleter(pathSid);
@@ -78,6 +81,49 @@ public class ConnectApp extends Resource {
         final String pathSid
     ) {
         return new ConnectAppUpdater(pathAccountSid, pathSid);
+    }
+
+    public enum ConnectAppPermission {
+        GET_ALL("get-all"),
+        POST_ALL("post-all");
+
+        private final String value;
+
+        private ConnectAppPermission(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ConnectAppPermission forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                ConnectAppPermission.values()
+            );
+        }
+    }
+
+    public enum Permission {
+        GET_ALL("get-all"),
+        POST_ALL("post-all");
+
+        private final String value;
+
+        private Permission(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Permission forValue(final String value) {
+            return Promoter.enumFromString(value, Permission.values());
+        }
     }
 
     /**
@@ -123,16 +169,49 @@ public class ConnectApp extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final URI authorizeRedirectUrl;
+
+    @Getter
     private final String companyName;
+
+    @Getter
     private final HttpMethod deauthorizeCallbackMethod;
+
+    @Getter
     private final URI deauthorizeCallbackUrl;
+
+    @Getter
     private final String description;
+
+    @Getter
     private final String friendlyName;
+
+    @Getter
     private final URI homepageUrl;
+
+    @Getter
     private final List<ConnectApp.Permission> permissions;
+
+    @Getter
     private final String sid;
+
+    @Getter
     private final String uri;
 
     @JsonCreator
@@ -168,50 +247,6 @@ public class ConnectApp extends Resource {
         this.uri = uri;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final URI getAuthorizeRedirectUrl() {
-        return this.authorizeRedirectUrl;
-    }
-
-    public final String getCompanyName() {
-        return this.companyName;
-    }
-
-    public final HttpMethod getDeauthorizeCallbackMethod() {
-        return this.deauthorizeCallbackMethod;
-    }
-
-    public final URI getDeauthorizeCallbackUrl() {
-        return this.deauthorizeCallbackUrl;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final URI getHomepageUrl() {
-        return this.homepageUrl;
-    }
-
-    public final List<ConnectApp.Permission> getPermissions() {
-        return this.permissions;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getUri() {
-        return this.uri;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -223,7 +258,6 @@ public class ConnectApp extends Resource {
         }
 
         ConnectApp other = (ConnectApp) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(authorizeRedirectUrl, other.authorizeRedirectUrl) &&
@@ -260,25 +294,5 @@ public class ConnectApp extends Resource {
             sid,
             uri
         );
-    }
-
-    public enum Permission {
-        GET_ALL("get-all"),
-        POST_ALL("post-all");
-
-        private final String value;
-
-        private Permission(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Permission forValue(final String value) {
-            return Promoter.enumFromString(value, Permission.values());
-        }
     }
 }

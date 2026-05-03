@@ -15,7 +15,7 @@
 package com.twilio.rest.trusthub.v1.customerprofiles;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class CustomerProfilesEntityAssignmentsFetcher
     extends Fetcher<CustomerProfilesEntityAssignments> {
@@ -39,10 +41,7 @@ public class CustomerProfilesEntityAssignmentsFetcher
         this.pathSid = pathSid;
     }
 
-    @Override
-    public CustomerProfilesEntityAssignments fetch(
-        final TwilioRestClient client
-    ) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}";
 
@@ -58,7 +57,7 @@ public class CustomerProfilesEntityAssignmentsFetcher
             Domains.TRUSTHUB.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -66,8 +65,9 @@ public class CustomerProfilesEntityAssignmentsFetcher
                 "CustomerProfilesEntityAssignments fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -78,10 +78,34 @@ public class CustomerProfilesEntityAssignmentsFetcher
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public CustomerProfilesEntityAssignments fetch(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
         return CustomerProfilesEntityAssignments.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<CustomerProfilesEntityAssignments> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        CustomerProfilesEntityAssignments content =
+            CustomerProfilesEntityAssignments.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 }

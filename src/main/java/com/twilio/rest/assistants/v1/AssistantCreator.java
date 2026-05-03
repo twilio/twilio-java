@@ -16,6 +16,7 @@ package com.twilio.rest.assistants.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -25,6 +26,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class AssistantCreator extends Creator<Assistant> {
 
@@ -45,15 +48,8 @@ public class AssistantCreator extends Creator<Assistant> {
         return this;
     }
 
-    @Override
-    public Assistant create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Assistants";
-
-        path =
-            path.replace(
-                "{" + "AssistantsV1ServiceCreateAssistantRequest" + "}",
-                this.assistantsV1ServiceCreateAssistantRequest.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -62,14 +58,17 @@ public class AssistantCreator extends Creator<Assistant> {
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Assistant creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -80,10 +79,31 @@ public class AssistantCreator extends Creator<Assistant> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Assistant create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Assistant.fromJson(
             response.getStream(),
             client.getObjectMapper()
+        );
+    }
+
+    @Override
+    public TwilioResponse<Assistant> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Assistant content = Assistant.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
         );
     }
 

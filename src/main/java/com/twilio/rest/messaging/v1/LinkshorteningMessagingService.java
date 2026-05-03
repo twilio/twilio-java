@@ -18,23 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class LinkshorteningMessagingService extends Resource {
-
-    private static final long serialVersionUID = 242981332247911L;
 
     public static LinkshorteningMessagingServiceCreator creator(
         final String pathDomainSid,
@@ -105,8 +108,25 @@ public class LinkshorteningMessagingService extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String domainSid;
+
+    @Getter
     private final String messagingServiceSid;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
@@ -118,18 +138,6 @@ public class LinkshorteningMessagingService extends Resource {
         this.domainSid = domainSid;
         this.messagingServiceSid = messagingServiceSid;
         this.url = url;
-    }
-
-    public final String getDomainSid() {
-        return this.domainSid;
-    }
-
-    public final String getMessagingServiceSid() {
-        return this.messagingServiceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -144,7 +152,6 @@ public class LinkshorteningMessagingService extends Resource {
 
         LinkshorteningMessagingService other =
             (LinkshorteningMessagingService) o;
-
         return (
             Objects.equals(domainSid, other.domainSid) &&
             Objects.equals(messagingServiceSid, other.messagingServiceSid) &&

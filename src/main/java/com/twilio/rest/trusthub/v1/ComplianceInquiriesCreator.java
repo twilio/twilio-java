@@ -15,7 +15,10 @@
 package com.twilio.rest.trusthub.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,23 +27,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
 
-    private String primaryProfileSid;
     private String notificationEmail;
     private String themeSetId;
+    private String primaryProfileSid;
 
-    public ComplianceInquiriesCreator(final String primaryProfileSid) {
-        this.primaryProfileSid = primaryProfileSid;
-    }
-
-    public ComplianceInquiriesCreator setPrimaryProfileSid(
-        final String primaryProfileSid
-    ) {
-        this.primaryProfileSid = primaryProfileSid;
-        return this;
-    }
+    public ComplianceInquiriesCreator() {}
 
     public ComplianceInquiriesCreator setNotificationEmail(
         final String notificationEmail
@@ -54,15 +50,15 @@ public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
         return this;
     }
 
-    @Override
-    public ComplianceInquiries create(final TwilioRestClient client) {
-        String path = "/v1/ComplianceInquiries/Customers/Initialize";
+    public ComplianceInquiriesCreator setPrimaryProfileSid(
+        final String primaryProfileSid
+    ) {
+        this.primaryProfileSid = primaryProfileSid;
+        return this;
+    }
 
-        path =
-            path.replace(
-                "{" + "PrimaryProfileSid" + "}",
-                this.primaryProfileSid.toString()
-            );
+    private Response makeRequest(final TwilioRestClient client) {
+        String path = "/v1/ComplianceInquiries/Customers/Initialize";
 
         Request request = new Request(
             HttpMethod.POST,
@@ -71,14 +67,17 @@ public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ComplianceInquiries creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -89,22 +88,60 @@ public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ComplianceInquiries create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ComplianceInquiries.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<ComplianceInquiries> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ComplianceInquiries content = ComplianceInquiries.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
-        if (primaryProfileSid != null) {
-            request.addPostParam("PrimaryProfileSid", primaryProfileSid);
-        }
         if (notificationEmail != null) {
-            request.addPostParam("NotificationEmail", notificationEmail);
+            Serializer.toString(
+                request,
+                "NotificationEmail",
+                notificationEmail,
+                ParameterType.URLENCODED
+            );
         }
+
         if (themeSetId != null) {
-            request.addPostParam("ThemeSetId", themeSetId);
+            Serializer.toString(
+                request,
+                "ThemeSetId",
+                themeSetId,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (primaryProfileSid != null) {
+            Serializer.toString(
+                request,
+                "PrimaryProfileSid",
+                primaryProfileSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

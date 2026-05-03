@@ -15,8 +15,11 @@
 package com.twilio.rest.conversations.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +28,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
+import com.twilio.type.*;
+import java.io.InputStream;
 import java.util.List;
 
 public class AddressConfigurationCreator extends Creator<AddressConfiguration> {
@@ -142,12 +146,8 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration> {
         return this;
     }
 
-    @Override
-    public AddressConfiguration create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Configuration/Addresses";
-
-        path = path.replace("{" + "Type" + "}", this.type.toString());
-        path = path.replace("{" + "Address" + "}", this.address.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -156,14 +156,17 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "AddressConfiguration creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -174,72 +177,143 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public AddressConfiguration create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return AddressConfiguration.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<AddressConfiguration> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        AddressConfiguration content = AddressConfiguration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (type != null) {
-            request.addPostParam("Type", type.toString());
+            Serializer.toString(
+                request,
+                "Type",
+                type,
+                ParameterType.URLENCODED
+            );
         }
+
         if (address != null) {
-            request.addPostParam("Address", address);
+            Serializer.toString(
+                request,
+                "Address",
+                address,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (autoCreationEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCreation.Enabled",
-                autoCreationEnabled.toString()
+                autoCreationEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (autoCreationType != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCreation.Type",
-                autoCreationType.toString()
+                autoCreationType,
+                ParameterType.URLENCODED
             );
         }
+
         if (autoCreationConversationServiceSid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCreation.ConversationServiceSid",
-                autoCreationConversationServiceSid
+                autoCreationConversationServiceSid,
+                ParameterType.URLENCODED
             );
         }
+
         if (autoCreationWebhookUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCreation.WebhookUrl",
-                autoCreationWebhookUrl
+                autoCreationWebhookUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (autoCreationWebhookMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCreation.WebhookMethod",
-                autoCreationWebhookMethod.toString()
+                autoCreationWebhookMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (autoCreationWebhookFilters != null) {
-            for (String prop : autoCreationWebhookFilters) {
-                request.addPostParam("AutoCreation.WebhookFilters", prop);
+            for (String param : autoCreationWebhookFilters) {
+                Serializer.toString(
+                    request,
+                    "AutoCreation.WebhookFilters",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (autoCreationStudioFlowSid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCreation.StudioFlowSid",
-                autoCreationStudioFlowSid
+                autoCreationStudioFlowSid,
+                ParameterType.URLENCODED
             );
         }
+
         if (autoCreationStudioRetryCount != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AutoCreation.StudioRetryCount",
-                autoCreationStudioRetryCount.toString()
+                autoCreationStudioRetryCount,
+                ParameterType.URLENCODED
             );
         }
+
         if (addressCountry != null) {
-            request.addPostParam("AddressCountry", addressCountry);
+            Serializer.toString(
+                request,
+                "AddressCountry",
+                addressCountry,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

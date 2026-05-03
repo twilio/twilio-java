@@ -18,25 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PortingWebhookConfiguration extends Resource {
-
-    private static final long serialVersionUID = 164865478946260L;
 
     public static PortingWebhookConfigurationCreator creator() {
         return new PortingWebhookConfigurationCreator();
@@ -103,38 +105,29 @@ public class PortingWebhookConfiguration extends Resource {
         }
     }
 
-    private final URI url;
-    private final URI portInTargetUrl;
-    private final URI portOutTargetUrl;
+    @Getter
     private final List<String> notificationsOf;
+
+    @Getter
+    private final URI portInTargetUrl;
+
+    @Getter
+    private final URI portOutTargetUrl;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private PortingWebhookConfiguration(
-        @JsonProperty("url") final URI url,
+        @JsonProperty("notifications_of") final List<String> notificationsOf,
         @JsonProperty("port_in_target_url") final URI portInTargetUrl,
         @JsonProperty("port_out_target_url") final URI portOutTargetUrl,
-        @JsonProperty("notifications_of") final List<String> notificationsOf
+        @JsonProperty("url") final URI url
     ) {
-        this.url = url;
+        this.notificationsOf = notificationsOf;
         this.portInTargetUrl = portInTargetUrl;
         this.portOutTargetUrl = portOutTargetUrl;
-        this.notificationsOf = notificationsOf;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final URI getPortInTargetUrl() {
-        return this.portInTargetUrl;
-    }
-
-    public final URI getPortOutTargetUrl() {
-        return this.portOutTargetUrl;
-    }
-
-    public final List<String> getNotificationsOf() {
-        return this.notificationsOf;
+        this.url = url;
     }
 
     @Override
@@ -148,22 +141,21 @@ public class PortingWebhookConfiguration extends Resource {
         }
 
         PortingWebhookConfiguration other = (PortingWebhookConfiguration) o;
-
         return (
-            Objects.equals(url, other.url) &&
+            Objects.equals(notificationsOf, other.notificationsOf) &&
             Objects.equals(portInTargetUrl, other.portInTargetUrl) &&
             Objects.equals(portOutTargetUrl, other.portOutTargetUrl) &&
-            Objects.equals(notificationsOf, other.notificationsOf)
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            url,
+            notificationsOf,
             portInTargetUrl,
             portOutTargetUrl,
-            notificationsOf
+            url
         );
     }
 }

@@ -18,22 +18,25 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WebChannels extends Resource {
-
-    private static final long serialVersionUID = 110421660015552L;
 
     public static WebChannelsCreator creator(final String addressSid) {
         return new WebChannelsCreator(addressSid);
@@ -82,7 +85,22 @@ public class WebChannels extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String conversationSid;
+
+    @Getter
     private final String identity;
 
     @JsonCreator
@@ -92,14 +110,6 @@ public class WebChannels extends Resource {
     ) {
         this.conversationSid = conversationSid;
         this.identity = identity;
-    }
-
-    public final String getConversationSid() {
-        return this.conversationSid;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
     }
 
     @Override
@@ -113,7 +123,6 @@ public class WebChannels extends Resource {
         }
 
         WebChannels other = (WebChannels) o;
-
         return (
             Objects.equals(conversationSid, other.conversationSid) &&
             Objects.equals(identity, other.identity)

@@ -15,7 +15,7 @@
 package com.twilio.rest.api.v2010.account.recording.addonresult.payload;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,13 +24,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class DataFetcher extends Fetcher<Data> {
 
+    private String pathAccountSid;
     private String pathReferenceSid;
     private String pathAddOnResultSid;
     private String pathPayloadSid;
-    private String pathAccountSid;
 
     public DataFetcher(
         final String pathReferenceSid,
@@ -54,8 +56,7 @@ public class DataFetcher extends Fetcher<Data> {
         this.pathPayloadSid = pathPayloadSid;
     }
 
-    @Override
-    public Data fetch(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json";
 
@@ -89,7 +90,7 @@ public class DataFetcher extends Fetcher<Data> {
             Domains.API.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -97,8 +98,9 @@ public class DataFetcher extends Fetcher<Data> {
                 "Data fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -109,7 +111,28 @@ public class DataFetcher extends Fetcher<Data> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public Data fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return Data.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<Data> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        Data content = Data.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

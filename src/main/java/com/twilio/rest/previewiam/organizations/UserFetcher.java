@@ -14,16 +14,18 @@
 
 package com.twilio.rest.previewiam.organizations;
 
-import com.twilio.base.bearertoken.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.base.Fetcher;
+import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.Request;
 import com.twilio.http.Response;
-import com.twilio.http.bearertoken.BearerTokenRequest;
-import com.twilio.http.bearertoken.BearerTokenTwilioRestClient;
+import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class UserFetcher extends Fetcher<User> {
 
@@ -38,8 +40,7 @@ public class UserFetcher extends Fetcher<User> {
         this.pathUserSid = pathUserSid;
     }
 
-    @Override
-    public User fetch(final BearerTokenTwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/scim/Users/{UserSid}";
 
         path =
@@ -49,23 +50,22 @@ public class UserFetcher extends Fetcher<User> {
             );
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
 
-        BearerTokenRequest request = new BearerTokenRequest(
+        Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEWIAM.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException(
                 "User fetch failed: Unable to connect to server"
             );
-        } else if (
-            !BearerTokenTwilioRestClient.SUCCESS.test(response.getStatusCode())
-        ) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -76,7 +76,28 @@ public class UserFetcher extends Fetcher<User> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public User fetch(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return User.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    @Override
+    public TwilioResponse<User> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        User content = User.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
     }
 }

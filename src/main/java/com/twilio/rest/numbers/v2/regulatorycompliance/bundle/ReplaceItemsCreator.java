@@ -15,7 +15,10 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class ReplaceItemsCreator extends Creator<ReplaceItems> {
 
@@ -43,8 +48,7 @@ public class ReplaceItemsCreator extends Creator<ReplaceItems> {
         return this;
     }
 
-    @Override
-    public ReplaceItems create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ReplaceItems";
 
@@ -52,11 +56,6 @@ public class ReplaceItemsCreator extends Creator<ReplaceItems> {
             path.replace(
                 "{" + "BundleSid" + "}",
                 this.pathBundleSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "FromBundleSid" + "}",
-                this.fromBundleSid.toString()
             );
 
         Request request = new Request(
@@ -66,14 +65,17 @@ public class ReplaceItemsCreator extends Creator<ReplaceItems> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ReplaceItems creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -84,16 +86,42 @@ public class ReplaceItemsCreator extends Creator<ReplaceItems> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public ReplaceItems create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return ReplaceItems.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<ReplaceItems> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        ReplaceItems content = ReplaceItems.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (fromBundleSid != null) {
-            request.addPostParam("FromBundleSid", fromBundleSid);
+            Serializer.toString(
+                request,
+                "FromBundleSid",
+                fromBundleSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

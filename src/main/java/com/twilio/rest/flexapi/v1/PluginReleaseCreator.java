@@ -15,7 +15,10 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.base.TwilioResponse;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
+import java.io.InputStream;
 
 public class PluginReleaseCreator extends Creator<PluginRelease> {
 
-    private String configurationId;
     private String flexMetadata;
+    private String configurationId;
 
     public PluginReleaseCreator(final String configurationId) {
         this.configurationId = configurationId;
@@ -46,15 +51,8 @@ public class PluginReleaseCreator extends Creator<PluginRelease> {
         return this;
     }
 
-    @Override
-    public PluginRelease create(final TwilioRestClient client) {
+    private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/PluginService/Releases";
-
-        path =
-            path.replace(
-                "{" + "ConfigurationId" + "}",
-                this.configurationId.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -62,16 +60,19 @@ public class PluginReleaseCreator extends Creator<PluginRelease> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "PluginRelease creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+            InputStream inputStream = response.getStream();
             RestException restException = RestException.fromJson(
-                response.getStream(),
+                inputStream,
                 client.getObjectMapper()
             );
             if (restException == null) {
@@ -82,22 +83,53 @@ public class PluginReleaseCreator extends Creator<PluginRelease> {
             }
             throw new ApiException(restException);
         }
+        return response;
+    }
 
+    @Override
+    public PluginRelease create(final TwilioRestClient client) {
+        Response response = makeRequest(client);
         return PluginRelease.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
+    @Override
+    public TwilioResponse<PluginRelease> createWithResponse(
+        final TwilioRestClient client
+    ) {
+        Response response = makeRequest(client);
+        PluginRelease content = PluginRelease.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+        return new TwilioResponse<>(
+            content,
+            response.getStatusCode(),
+            response.getHeaders()
+        );
+    }
+
     private void addPostParams(final Request request) {
         if (configurationId != null) {
-            request.addPostParam("ConfigurationId", configurationId);
+            Serializer.toString(
+                request,
+                "ConfigurationId",
+                configurationId,
+                ParameterType.URLENCODED
+            );
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (flexMetadata != null) {
-            request.addHeaderParam("Flex-Metadata", flexMetadata);
+            Serializer.toString(
+                request,
+                "Flex-Metadata",
+                flexMetadata,
+                ParameterType.HEADER
+            );
         }
     }
 }

@@ -18,24 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class OperatorAttachments extends Resource {
-
-    private static final long serialVersionUID = 34922173315166L;
 
     public static OperatorAttachmentsFetcher fetcher(
         final String pathServiceSid
@@ -86,31 +89,36 @@ public class OperatorAttachments extends Resource {
         }
     }
 
-    private final String serviceSid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final List<String> operatorSids;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private OperatorAttachments(
-        @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("operator_sids") final List<String> operatorSids,
+        @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("url") final URI url
     ) {
-        this.serviceSid = serviceSid;
         this.operatorSids = operatorSids;
+        this.serviceSid = serviceSid;
         this.url = url;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final List<String> getOperatorSids() {
-        return this.operatorSids;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -124,16 +132,15 @@ public class OperatorAttachments extends Resource {
         }
 
         OperatorAttachments other = (OperatorAttachments) o;
-
         return (
-            Objects.equals(serviceSid, other.serviceSid) &&
             Objects.equals(operatorSids, other.operatorSids) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
             Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(serviceSid, operatorSids, url);
+        return Objects.hash(operatorSids, serviceSid, url);
     }
 }

@@ -18,25 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Transcription extends Resource {
-
-    private static final long serialVersionUID = 149103878272565L;
 
     public static TranscriptionCreator creator(final String pathCallSid) {
         return new TranscriptionCreator(pathCallSid);
@@ -69,6 +72,66 @@ public class Transcription extends Resource {
             pathSid,
             status
         );
+    }
+
+    public enum Status {
+        IN_PROGRESS("in-progress"),
+        STOPPED("stopped");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum UpdateStatus {
+        STOPPED("stopped");
+
+        private final String value;
+
+        private UpdateStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static UpdateStatus forValue(final String value) {
+            return Promoter.enumFromString(value, UpdateStatus.values());
+        }
+    }
+
+    public enum Track {
+        INBOUND_TRACK("inbound_track"),
+        OUTBOUND_TRACK("outbound_track"),
+        BOTH_TRACKS("both_tracks");
+
+        private final String value;
+
+        private Track(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Track forValue(final String value) {
+            return Promoter.enumFromString(value, Track.values());
+        }
     }
 
     /**
@@ -114,59 +177,58 @@ public class Transcription extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String callSid;
-    private final String name;
-    private final Transcription.Status status;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String name;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Transcription.Status status;
+
+    @Getter
     private final String uri;
 
     @JsonCreator
     private Transcription(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("call_sid") final String callSid,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("name") final String name,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("status") final Transcription.Status status,
-        @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("uri") final String uri
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
         this.callSid = callSid;
+        this.dateUpdated = dateUpdated;
         this.name = name;
+        this.sid = sid;
         this.status = status;
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
         this.uri = uri;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getCallSid() {
-        return this.callSid;
-    }
-
-    public final String getName() {
-        return this.name;
-    }
-
-    public final Transcription.Status getStatus() {
-        return this.status;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getUri() {
-        return this.uri;
     }
 
     @Override
@@ -180,14 +242,13 @@ public class Transcription extends Resource {
         }
 
         Transcription other = (Transcription) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(callSid, other.callSid) &&
-            Objects.equals(name, other.name) &&
-            Objects.equals(status, other.status) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
             Objects.equals(uri, other.uri)
         );
     }
@@ -195,73 +256,13 @@ public class Transcription extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
             callSid,
-            name,
-            status,
             dateUpdated,
+            name,
+            sid,
+            status,
             uri
         );
-    }
-
-    public enum UpdateStatus {
-        STOPPED("stopped");
-
-        private final String value;
-
-        private UpdateStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static UpdateStatus forValue(final String value) {
-            return Promoter.enumFromString(value, UpdateStatus.values());
-        }
-    }
-
-    public enum Status {
-        IN_PROGRESS("in-progress"),
-        STOPPED("stopped");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum Track {
-        INBOUND_TRACK("inbound_track"),
-        OUTBOUND_TRACK("outbound_track"),
-        BOTH_TRACKS("both_tracks");
-
-        private final String value;
-
-        private Track(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Track forValue(final String value) {
-            return Promoter.enumFromString(value, Track.values());
-        }
     }
 }

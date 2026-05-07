@@ -17,6 +17,7 @@ package com.twilio.rest.api.v2010.account.conference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -145,6 +146,7 @@ public class Participant extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }

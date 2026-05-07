@@ -84,6 +84,7 @@ public class VoiceResponseTest {
                     .record(Dial.Record.DO_NOT_RECORD)
                     .trim(Dial.Trim.TRIM_SILENCE)
                     .recordingStatusCallback(URI.create("https://example.com"))
+                    .recordingConfigurationId("recording_configuration_id")
                     .recordingStatusCallbackMethod(HttpMethod.GET)
                     .recordingStatusCallbackEvents(Promoter.listOfOne(Dial.RecordingEvent.IN_PROGRESS))
                     .answerOnBridge(true)
@@ -155,6 +156,7 @@ public class VoiceResponseTest {
                     .recordingStatusCallbackEvents(Promoter.listOfOne(Record.RecordingEvent.IN_PROGRESS))
                     .transcribe(true)
                     .transcribeCallback(URI.create("https://example.com"))
+                    .recordingConfigurationId("recording_configuration_id")
                     .build());
 
         builder.redirect(new Redirect.Builder(URI.create("https://example.com")).method(HttpMethod.GET).build());
@@ -212,7 +214,7 @@ public class VoiceResponseTest {
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response>" +
                 "<Connect action=\"https://example.com\" method=\"GET\"/>" +
-                "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>" +
+                "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>" +
                 "<Echo/>" +
                 "<Enqueue action=\"https://example.com\" maxQueueSize=\"1\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>" +
                 "<Gather action=\"https://example.com\" actionOnEmptyResult=\"true\" bargeIn=\"true\" debug=\"true\" enhanced=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechModel=\"speech_model\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>" +
@@ -221,7 +223,7 @@ public class VoiceResponseTest {
                 "<Pause length=\"1\"/>" +
                 "<Play digits=\"digits\" loop=\"1\">https://example.com</Play>" +
                 "<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>" +
-                "<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>" +
+                "<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>" +
                 "<Redirect method=\"GET\">https://example.com</Redirect>" +
                 "<Reject reason=\"rejected\"/>" +
                 "<Say language=\"af-ZA\" loop=\"1\" voice=\"man\">message</Say>" +
@@ -340,6 +342,7 @@ public class VoiceResponseTest {
                     .record(Dial.Record.DO_NOT_RECORD)
                     .trim(Dial.Trim.TRIM_SILENCE)
                     .recordingStatusCallback(URI.create("https://example.com"))
+                    .recordingConfigurationId("recording_configuration_id")
                     .recordingStatusCallbackMethod(HttpMethod.GET)
                     .recordingStatusCallbackEvents(Promoter.listOfOne(Dial.RecordingEvent.IN_PROGRESS))
                     .answerOnBridge(true)
@@ -411,6 +414,7 @@ public class VoiceResponseTest {
                     .recordingStatusCallbackEvents(Promoter.listOfOne(Record.RecordingEvent.IN_PROGRESS))
                     .transcribe(true)
                     .transcribeCallback(URI.create("https://example.com"))
+                    .recordingConfigurationId("recording_configuration_id")
                     .build());
 
         builder.redirect(new Redirect.Builder(URI.create("https://example.com")).method(HttpMethod.GET).build());
@@ -467,7 +471,7 @@ public class VoiceResponseTest {
         Assert.assertEquals(
             VoiceResponse.Builder.fromXml("<Response>" +
                 "<Connect action=\"https://example.com\" method=\"GET\"/>" +
-                "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>" +
+                "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>" +
                 "<Echo/>" +
                 "<Enqueue action=\"https://example.com\" maxQueueSize=\"1\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>" +
                 "<Gather action=\"https://example.com\" actionOnEmptyResult=\"true\" bargeIn=\"true\" debug=\"true\" enhanced=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechModel=\"speech_model\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>" +
@@ -476,7 +480,7 @@ public class VoiceResponseTest {
                 "<Pause length=\"1\"/>" +
                 "<Play digits=\"digits\" loop=\"1\">https://example.com</Play>" +
                 "<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>" +
-                "<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>" +
+                "<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>" +
                 "<Redirect method=\"GET\">https://example.com</Redirect>" +
                 "<Reject reason=\"rejected\"/>" +
                 "<Say language=\"af-ZA\" loop=\"1\" voice=\"man\">message</Say>" +

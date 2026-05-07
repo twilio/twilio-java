@@ -50,6 +50,7 @@ public class CallCreator extends Creator<Call> {
     private String recordingChannels;
     private String recordingStatusCallback;
     private HttpMethod recordingStatusCallbackMethod;
+    private String recordingConfigurationId;
     private String sipAuthUsername;
     private String sipAuthPassword;
     private String machineDetection;
@@ -228,6 +229,13 @@ public class CallCreator extends Creator<Call> {
         final HttpMethod recordingStatusCallbackMethod
     ) {
         this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
+        return this;
+    }
+
+    public CallCreator setRecordingConfigurationId(
+        final String recordingConfigurationId
+    ) {
+        this.recordingConfigurationId = recordingConfigurationId;
         return this;
     }
 
@@ -576,6 +584,15 @@ public class CallCreator extends Creator<Call> {
                 request,
                 "RecordingStatusCallbackMethod",
                 recordingStatusCallbackMethod,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (recordingConfigurationId != null) {
+            Serializer.toString(
+                request,
+                "RecordingConfigurationId",
+                recordingConfigurationId,
                 ParameterType.URLENCODED
             );
         }

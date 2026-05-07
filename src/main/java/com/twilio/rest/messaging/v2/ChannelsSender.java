@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -86,6 +87,7 @@ public class ChannelsSender extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }
@@ -106,6 +108,7 @@ public class ChannelsSender extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }
@@ -128,6 +131,7 @@ public class ChannelsSender extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }
@@ -151,6 +155,7 @@ public class ChannelsSender extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }
@@ -158,6 +163,29 @@ public class ChannelsSender extends Resource {
         @JsonCreator
         public static VerificationMethod forValue(final String value) {
             return Promoter.enumFromString(value, VerificationMethod.values());
+        }
+    }
+
+    public enum UseCase {
+        PROMOTIONAL("PROMOTIONAL"),
+        TRANSACTIONAL("TRANSACTIONAL"),
+        OTP("OTP"),
+        MULTI_USE("MULTI_USE");
+
+        private final String value;
+
+        private UseCase(final String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static UseCase forValue(final String value) {
+            return Promoter.enumFromString(value, UseCase.values());
         }
     }
 
@@ -175,6 +203,7 @@ public class ChannelsSender extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }
@@ -198,6 +227,7 @@ public class ChannelsSender extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }
@@ -218,6 +248,7 @@ public class ChannelsSender extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }
@@ -371,6 +402,11 @@ public class ChannelsSender extends Resource {
         private final String accentColor;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("use_case")
+        @Getter
+        private final ChannelsSender.UseCase useCase;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("vertical")
         @Getter
         private final String vertical;
@@ -400,6 +436,7 @@ public class ChannelsSender extends Resource {
             this.privacyUrl = builder.privacyUrl;
             this.termsOfServiceUrl = builder.termsOfServiceUrl;
             this.accentColor = builder.accentColor;
+            this.useCase = builder.useCase;
             this.vertical = builder.vertical;
             this.websites = builder.websites;
             this.emails = builder.emails;
@@ -449,6 +486,9 @@ public class ChannelsSender extends Resource {
 
             @JsonProperty("accent_color")
             private String accentColor;
+
+            @JsonProperty("use_case")
+            private ChannelsSender.UseCase useCase;
 
             @JsonProperty("vertical")
             private String vertical;
@@ -526,6 +566,13 @@ public class ChannelsSender extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("use_case")
+            public Builder useCase(ChannelsSender.UseCase useCase) {
+                this.useCase = useCase;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("vertical")
             public Builder vertical(String vertical) {
                 this.vertical = vertical;
@@ -580,6 +627,7 @@ public class ChannelsSender extends Resource {
                 Objects.equals(privacyUrl, other.privacyUrl) &&
                 Objects.equals(termsOfServiceUrl, other.termsOfServiceUrl) &&
                 Objects.equals(accentColor, other.accentColor) &&
+                Objects.equals(useCase, other.useCase) &&
                 Objects.equals(vertical, other.vertical) &&
                 Objects.equals(websites, other.websites) &&
                 Objects.equals(emails, other.emails) &&
@@ -599,6 +647,7 @@ public class ChannelsSender extends Resource {
                 privacyUrl,
                 termsOfServiceUrl,
                 accentColor,
+                useCase,
                 vertical,
                 websites,
                 emails,
@@ -1725,6 +1774,11 @@ public class ChannelsSender extends Resource {
         private final String accentColor;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("use_case")
+        @Getter
+        private final ChannelsSender.UseCase useCase;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("vertical")
         @Getter
         private final String vertical;
@@ -1762,6 +1816,7 @@ public class ChannelsSender extends Resource {
             this.privacyUrl = builder.privacyUrl;
             this.termsOfServiceUrl = builder.termsOfServiceUrl;
             this.accentColor = builder.accentColor;
+            this.useCase = builder.useCase;
             this.vertical = builder.vertical;
             this.websites = builder.websites;
             this.emails = builder.emails;
@@ -1811,6 +1866,9 @@ public class ChannelsSender extends Resource {
 
             @JsonProperty("accent_color")
             private String accentColor;
+
+            @JsonProperty("use_case")
+            private ChannelsSender.UseCase useCase;
 
             @JsonProperty("vertical")
             private String vertical;
@@ -1894,6 +1952,13 @@ public class ChannelsSender extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("use_case")
+            public Builder useCase(ChannelsSender.UseCase useCase) {
+                this.useCase = useCase;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("vertical")
             public Builder vertical(String vertical) {
                 this.vertical = vertical;
@@ -1962,6 +2027,7 @@ public class ChannelsSender extends Resource {
                 Objects.equals(privacyUrl, other.privacyUrl) &&
                 Objects.equals(termsOfServiceUrl, other.termsOfServiceUrl) &&
                 Objects.equals(accentColor, other.accentColor) &&
+                Objects.equals(useCase, other.useCase) &&
                 Objects.equals(vertical, other.vertical) &&
                 Objects.equals(websites, other.websites) &&
                 Objects.equals(emails, other.emails) &&
@@ -1981,6 +2047,7 @@ public class ChannelsSender extends Resource {
                 privacyUrl,
                 termsOfServiceUrl,
                 accentColor,
+                useCase,
                 vertical,
                 websites,
                 emails,

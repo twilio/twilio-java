@@ -39,6 +39,8 @@ public class RoleAssignmentReader extends Reader<RoleAssignment> {
     private Integer pageSize;
     private String identity;
     private String scope;
+    private String resourceType;
+    private String resourceId;
 
     public RoleAssignmentReader(final String pathOrganizationSid) {
         this.pathOrganizationSid = pathOrganizationSid;
@@ -56,6 +58,16 @@ public class RoleAssignmentReader extends Reader<RoleAssignment> {
 
     public RoleAssignmentReader setScope(final String scope) {
         this.scope = scope;
+        return this;
+    }
+
+    public RoleAssignmentReader setResourceType(final String resourceType) {
+        this.resourceType = resourceType;
+        return this;
+    }
+
+    public RoleAssignmentReader setResourceId(final String resourceId) {
+        this.resourceId = resourceId;
         return this;
     }
 
@@ -227,6 +239,24 @@ public class RoleAssignmentReader extends Reader<RoleAssignment> {
 
         if (scope != null) {
             Serializer.toString(request, "Scope", scope, ParameterType.QUERY);
+        }
+
+        if (resourceType != null) {
+            Serializer.toString(
+                request,
+                "ResourceType",
+                resourceType,
+                ParameterType.QUERY
+            );
+        }
+
+        if (resourceId != null) {
+            Serializer.toString(
+                request,
+                "ResourceId",
+                resourceId,
+                ParameterType.QUERY
+            );
         }
 
         if (getPageSize() != null) {

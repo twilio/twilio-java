@@ -43,6 +43,7 @@ public class RecordingCreator extends Creator<Recording> {
     private String trim;
     private String recordingChannels;
     private String recordingTrack;
+    private String recordingConfigurationId;
 
     public RecordingCreator(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -107,6 +108,13 @@ public class RecordingCreator extends Creator<Recording> {
 
     public RecordingCreator setRecordingTrack(final String recordingTrack) {
         this.recordingTrack = recordingTrack;
+        return this;
+    }
+
+    public RecordingCreator setRecordingConfigurationId(
+        final String recordingConfigurationId
+    ) {
+        this.recordingConfigurationId = recordingConfigurationId;
         return this;
     }
 
@@ -234,6 +242,15 @@ public class RecordingCreator extends Creator<Recording> {
                 request,
                 "RecordingTrack",
                 recordingTrack,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (recordingConfigurationId != null) {
+            Serializer.toString(
+                request,
+                "RecordingConfigurationId",
+                recordingConfigurationId,
                 ParameterType.URLENCODED
             );
         }

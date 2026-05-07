@@ -1,6 +1,76 @@
 twilio-java changelog
 =====================
 
+[2026-05-07] Version 12.1.1
+---------------------------
+**Library - Chore**
+- [PR #957](https://github.com/twilio/twilio-java/pull/957): changed reference of mvn repo. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Conversations**
+- update actions api visibility
+
+**Memory**
+- ## 2026-05-07
+- **Content updates**:
+- include store api
+
+
+[2026-05-06] Version 12.1.0
+---------------------------
+**Library - Feature**
+- [PR #956](https://github.com/twilio/twilio-java/pull/956): add new exception attributes. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Chore**
+- [PR #955](https://github.com/twilio/twilio-java/pull/955): java 12.0.0 mvr prep. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Twiml**
+- Set `recording_configuration_id` attribute to public visibility in `<Conference>`, `<Dial>`, `<Record>` verbs and `<Recording>` noun
+
+**Api**
+- Add RecordingConfigurationId parameter for CreateCall, CreateCallRecording, CreateConferenceRecording, and CreateParticipant endpoints
+
+**Authy**
+- # Changelog
+- ## v1
+- Added Authy API v1 under `/v1` — initial onboarding of Public API (`/v1/protected/*`), Device API (`/v1/json/*`), and Dashboard API (`/v1/dashboard/*`) behind REST Proxy using transparent proxy mode.
+
+**Data-ingress**
+- ## 2026-04-21
+- **Content updates**:
+- Updated description for `CreateDataSync`
+- Updated description for `DeleteCloudAppDataset`
+- Updated description for `DeleteWarehouseDataset`
+- ## 2026-04-20
+- Minor updates (formatting, metadata)
+- ## 2026-04-17
+- updated operationId for dataplane APIs,Minor updates (formatting, metadata)
+- ## 2026-04-15
+- libraryVisibility to private
+- ## 2026-04-14
+- **Added 1 new path(s)**:
+- `/v1/DataSyncs/Latest` (GetLatestDataSyncs)
+
+**Memory**
+- ## 2026-04-21
+- **Content updates**:
+- Remove Prefer/Async-Operation headers
+- ## 2026-04-21
+- **Content updates**:
+- Added 301 response for `ListIdentifiers` and `GetIdentifier`
+- Added 308 response for `DeleteProfile`, `CreateIdentifier`, `PatchIdentifier`, and `DeleteIdentifier`
+- ## 2026-04-14
+- **Modified 1 path(s)**:
+- `/v1/ControlPlane/Stores/{storeId}` (added delete)
+- Minor updates (formatting, metadata)
+
+**Voice**
+- ## 2026-04-17
+- Added `I-Twilio-Auth-Account` to `downstreamRequest` headers in POST /v3/Transcriptions transactions to document RestProxy account header injection
+- ## 2026-04-10
+- Added initial version of Transcriptions V3 API
+- Added POST /v3/Transcriptions endpoint to create a new transcription from a source ID or media URL
+
+
 [2026-04-21] Version 12.0.0
 ---------------------------
 **Library - Chore**

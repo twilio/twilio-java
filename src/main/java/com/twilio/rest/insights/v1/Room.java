@@ -17,6 +17,7 @@ package com.twilio.rest.insights.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -66,6 +67,7 @@ public class Room extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }
@@ -88,6 +90,7 @@ public class Room extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }
@@ -108,6 +111,7 @@ public class Room extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }
@@ -128,6 +132,7 @@ public class Room extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }
@@ -156,6 +161,7 @@ public class Room extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }
@@ -178,6 +184,7 @@ public class Room extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }
@@ -199,6 +206,7 @@ public class Room extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }
@@ -221,6 +229,7 @@ public class Room extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }
@@ -248,6 +257,7 @@ public class Room extends Resource {
             this.value = value;
         }
 
+        @JsonValue
         public String toString() {
             return value;
         }

@@ -158,6 +158,7 @@ public class Conference extends TwiML {
     private final HttpMethod waitMethod;
     private final Integer maxParticipants;
     private final Conference.Record record;
+    private final String recordingConfigurationId;
     private final Conference.Region region;
     private final String coach;
     private final Conference.Trim trim;
@@ -192,6 +193,7 @@ public class Conference extends TwiML {
         this.waitMethod = b.waitMethod;
         this.maxParticipants = b.maxParticipants;
         this.record = b.record;
+        this.recordingConfigurationId = b.recordingConfigurationId;
         this.region = b.region;
         this.coach = b.coach;
         this.trim = b.trim;
@@ -248,6 +250,9 @@ public class Conference extends TwiML {
         }
         if (this.getRecord() != null) {
             attrs.put("record", this.getRecord().toString());
+        }
+        if (this.getRecordingConfigurationId() != null) {
+            attrs.put("recordingConfigurationId", this.getRecordingConfigurationId());
         }
         if (this.getRegion() != null) {
             attrs.put("region", this.getRegion().toString());
@@ -359,6 +364,15 @@ public class Conference extends TwiML {
      */
     public Conference.Record getRecord() {
         return record;
+    }
+
+    /**
+     * Configuration for the recording
+     *
+     * @return Configuration for the recording
+     */
+    public String getRecordingConfigurationId() {
+        return recordingConfigurationId;
     }
 
     /**
@@ -529,6 +543,7 @@ public class Conference extends TwiML {
         private HttpMethod waitMethod;
         private Integer maxParticipants;
         private Conference.Record record;
+        private String recordingConfigurationId;
         private Conference.Region region;
         private String coach;
         private Conference.Trim trim;
@@ -633,6 +648,15 @@ public class Conference extends TwiML {
         @JacksonXmlProperty(isAttribute = true, localName = "record")
         public Builder record(Conference.Record record) {
             this.record = record;
+            return this;
+        }
+
+        /**
+         * Configuration for the recording
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "recordingConfigurationId")
+        public Builder recordingConfigurationId(String recordingConfigurationId) {
+            this.recordingConfigurationId = recordingConfigurationId;
             return this;
         }
 

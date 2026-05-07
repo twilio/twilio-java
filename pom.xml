@@ -5,7 +5,7 @@
   <artifactId>twilio</artifactId>
   <packaging>jar</packaging>
   <name>twilio</name>
-  <version>12.0.0</version>
+  <version>12.1.1</version>
   <description>Twilio Java Helper Library</description>
   <url>https://www.twilio.com</url>
   <licenses>
@@ -19,7 +19,7 @@
     <url>git@github.com:twilio/twilio-java.git</url>
     <connection>scm:git:git@github.com:twilio/twilio-java.git</connection>
     <developerConnection>scm:git:git@github.com:twilio/twilio-java.git</developerConnection>
-    <tag>11.4.0</tag>
+    <tag>12.1.1</tag>
   </scm>
   <developers>
     <developer>
@@ -192,11 +192,9 @@
         <jdk>[11,)</jdk>
       </activation>
       <properties>
-        <surefire.argLine>
-          --add-opens java.base/java.lang=ALL-UNNAMED
+        <surefire.argLine>--add-opens java.base/java.lang=ALL-UNNAMED
           --add-opens java.base/java.lang.reflect=ALL-UNNAMED
-          --add-opens java.base/java.util=ALL-UNNAMED
-        </surefire.argLine>
+          --add-opens java.base/java.util=ALL-UNNAMED</surefire.argLine>
       </properties>
     </profile>
   </profiles>

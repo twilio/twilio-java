@@ -52,7 +52,7 @@ public class TranscriptionCreator extends Creator<Transcription> {
     private String intelligenceService;
     private String conversationConfiguration;
     private String conversationId;
-    private String configurationId;
+    private String transcriptionConfigurationId;
     private Boolean enableProviderData;
 
     public TranscriptionCreator(final String pathCallSid) {
@@ -173,10 +173,10 @@ public class TranscriptionCreator extends Creator<Transcription> {
         return this;
     }
 
-    public TranscriptionCreator setConfigurationId(
-        final String configurationId
+    public TranscriptionCreator setTranscriptionConfigurationId(
+        final String transcriptionConfigurationId
     ) {
-        this.configurationId = configurationId;
+        this.transcriptionConfigurationId = transcriptionConfigurationId;
         return this;
     }
 
@@ -403,11 +403,11 @@ public class TranscriptionCreator extends Creator<Transcription> {
             );
         }
 
-        if (configurationId != null) {
+        if (transcriptionConfigurationId != null) {
             Serializer.toString(
                 request,
-                "ConfigurationId",
-                configurationId,
+                "TranscriptionConfigurationId",
+                transcriptionConfigurationId,
                 ParameterType.URLENCODED
             );
         }

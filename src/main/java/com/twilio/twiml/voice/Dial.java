@@ -168,6 +168,7 @@ public class Dial extends TwiML {
     private final Dial.Record record;
     private final Dial.Trim trim;
     private final URI recordingStatusCallback;
+    private final String recordingConfigurationId;
     private final HttpMethod recordingStatusCallbackMethod;
     private final List<Dial.RecordingEvent> recordingStatusCallbackEvent;
     private final Boolean answerOnBridge;
@@ -200,6 +201,7 @@ public class Dial extends TwiML {
         this.record = b.record;
         this.trim = b.trim;
         this.recordingStatusCallback = b.recordingStatusCallback;
+        this.recordingConfigurationId = b.recordingConfigurationId;
         this.recordingStatusCallbackMethod = b.recordingStatusCallbackMethod;
         this.recordingStatusCallbackEvent = b.recordingStatusCallbackEvent;
         this.answerOnBridge = b.answerOnBridge;
@@ -256,6 +258,9 @@ public class Dial extends TwiML {
         }
         if (this.getRecordingStatusCallback() != null) {
             attrs.put("recordingStatusCallback", this.getRecordingStatusCallback().toString());
+        }
+        if (this.getRecordingConfigurationId() != null) {
+            attrs.put("recordingConfigurationId", this.getRecordingConfigurationId());
         }
         if (this.getRecordingStatusCallbackMethod() != null) {
             attrs.put("recordingStatusCallbackMethod", this.getRecordingStatusCallbackMethod().toString());
@@ -367,6 +372,15 @@ public class Dial extends TwiML {
      */
     public URI getRecordingStatusCallback() {
         return recordingStatusCallback;
+    }
+
+    /**
+     * Configuration for the recording
+     *
+     * @return Configuration for the recording
+     */
+    public String getRecordingConfigurationId() {
+        return recordingConfigurationId;
     }
 
     /**
@@ -507,6 +521,7 @@ public class Dial extends TwiML {
         private Dial.Record record;
         private Dial.Trim trim;
         private URI recordingStatusCallback;
+        private String recordingConfigurationId;
         private HttpMethod recordingStatusCallbackMethod;
         private List<Dial.RecordingEvent> recordingStatusCallbackEvent;
         private Boolean answerOnBridge;
@@ -625,6 +640,15 @@ public class Dial extends TwiML {
          */
         public Builder recordingStatusCallback(String recordingStatusCallback) {
             this.recordingStatusCallback = Promoter.uriFromString(recordingStatusCallback);
+            return this;
+        }
+
+        /**
+         * Configuration for the recording
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "recordingConfigurationId")
+        public Builder recordingConfigurationId(String recordingConfigurationId) {
+            this.recordingConfigurationId = recordingConfigurationId;
             return this;
         }
 

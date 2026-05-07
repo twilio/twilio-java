@@ -50,6 +50,7 @@ public class DialTest {
             .record(Dial.Record.DO_NOT_RECORD)
             .trim(Dial.Trim.TRIM_SILENCE)
             .recordingStatusCallback(URI.create("https://example.com"))
+            .recordingConfigurationId("recording_configuration_id")
             .recordingStatusCallbackMethod(HttpMethod.GET)
             .recordingStatusCallbackEvents(Promoter.listOfOne(Dial.RecordingEvent.IN_PROGRESS))
             .answerOnBridge(true)
@@ -63,7 +64,7 @@ public class DialTest {
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>",
+            "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>",
             elem.toXml()
         );
     }
@@ -100,6 +101,7 @@ public class DialTest {
                     .waitMethod(HttpMethod.GET)
                     .maxParticipants(1)
                     .record(Conference.Record.DO_NOT_RECORD)
+                    .recordingConfigurationId("recording_configuration_id")
                     .region(Conference.Region.US1)
                     .coach("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
                     .trim(Conference.Trim.TRIM_SILENCE)
@@ -181,7 +183,7 @@ public class DialTest {
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Dial>" +
                 "<Client method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">identity</Client>" +
-                "<Conference beep=\"true\" coach=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" jitterBufferSize=\"large\" maxParticipants=\"1\" muted=\"true\" participantLabel=\"participant_label\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\">name</Conference>" +
+                "<Conference beep=\"true\" coach=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" jitterBufferSize=\"large\" maxParticipants=\"1\" muted=\"true\" participantLabel=\"participant_label\" record=\"do-not-record\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\">name</Conference>" +
                 "<Number amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" byoc=\"BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>" +
                 "<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>" +
                 "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>" +
@@ -283,6 +285,7 @@ public class DialTest {
             .record(Dial.Record.DO_NOT_RECORD)
             .trim(Dial.Trim.TRIM_SILENCE)
             .recordingStatusCallback(URI.create("https://example.com"))
+            .recordingConfigurationId("recording_configuration_id")
             .recordingStatusCallbackMethod(HttpMethod.GET)
             .recordingStatusCallbackEvents(Promoter.listOfOne(Dial.RecordingEvent.IN_PROGRESS))
             .answerOnBridge(true)
@@ -295,7 +298,7 @@ public class DialTest {
             .build();
 
         Assert.assertEquals(
-            Dial.Builder.fromXml("<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>").build().toXml(),
+            Dial.Builder.fromXml("<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>").build().toXml(),
             elem.toXml()
         );
     }
@@ -321,6 +324,7 @@ public class DialTest {
                     .waitMethod(HttpMethod.GET)
                     .maxParticipants(1)
                     .record(Conference.Record.DO_NOT_RECORD)
+                    .recordingConfigurationId("recording_configuration_id")
                     .region(Conference.Region.US1)
                     .coach("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
                     .trim(Conference.Trim.TRIM_SILENCE)
@@ -401,7 +405,7 @@ public class DialTest {
         Assert.assertEquals(
             Dial.Builder.fromXml("<Dial>" +
                 "<Client method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">identity</Client>" +
-                "<Conference beep=\"true\" coach=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" jitterBufferSize=\"large\" maxParticipants=\"1\" muted=\"true\" participantLabel=\"participant_label\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\">name</Conference>" +
+                "<Conference beep=\"true\" coach=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" jitterBufferSize=\"large\" maxParticipants=\"1\" muted=\"true\" participantLabel=\"participant_label\" record=\"do-not-record\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\">name</Conference>" +
                 "<Number amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" byoc=\"BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>" +
                 "<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>" +
                 "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>" +

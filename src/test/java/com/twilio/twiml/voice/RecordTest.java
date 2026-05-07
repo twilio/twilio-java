@@ -53,11 +53,12 @@ public class RecordTest {
             .recordingStatusCallbackEvents(Promoter.listOfOne(Record.RecordingEvent.IN_PROGRESS))
             .transcribe(true)
             .transcribeCallback(URI.create("https://example.com"))
+            .recordingConfigurationId("recording_configuration_id")
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>",
+            "<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>",
             elem.toXml()
         );
     }
@@ -147,10 +148,11 @@ public class RecordTest {
             .recordingStatusCallbackEvents(Promoter.listOfOne(Record.RecordingEvent.IN_PROGRESS))
             .transcribe(true)
             .transcribeCallback(URI.create("https://example.com"))
+            .recordingConfigurationId("recording_configuration_id")
             .build();
 
         Assert.assertEquals(
-            Record.Builder.fromXml("<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>").build().toXml(),
+            Record.Builder.fromXml("<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>").build().toXml(),
             elem.toXml()
         );
     }

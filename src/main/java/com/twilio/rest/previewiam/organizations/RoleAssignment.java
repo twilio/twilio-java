@@ -90,10 +90,22 @@ public class RoleAssignment extends Resource {
         @Getter
         private final String identity;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("resource_type")
+        @Getter
+        private final String resourceType;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("resource_id")
+        @Getter
+        private final String resourceId;
+
         private PublicApiCreateRoleAssignmentRequest(Builder builder) {
             this.roleSid = builder.roleSid;
             this.scope = builder.scope;
             this.identity = builder.identity;
+            this.resourceType = builder.resourceType;
+            this.resourceId = builder.resourceId;
         }
 
         public static Builder builder(
@@ -126,6 +138,12 @@ public class RoleAssignment extends Resource {
             @JsonProperty("identity")
             private String identity;
 
+            @JsonProperty("resource_type")
+            private String resourceType;
+
+            @JsonProperty("resource_id")
+            private String resourceId;
+
             @JsonCreator
             public Builder(
                 @JsonProperty("role_sid") final String roleSid,
@@ -135,6 +153,20 @@ public class RoleAssignment extends Resource {
                 this.roleSid = roleSid;
                 this.scope = scope;
                 this.identity = identity;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("resource_type")
+            public Builder resourceType(String resourceType) {
+                this.resourceType = resourceType;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("resource_id")
+            public Builder resourceId(String resourceId) {
+                this.resourceId = resourceId;
+                return this;
             }
 
             public PublicApiCreateRoleAssignmentRequest build() {
@@ -157,13 +189,21 @@ public class RoleAssignment extends Resource {
             return (
                 Objects.equals(roleSid, other.roleSid) &&
                 Objects.equals(scope, other.scope) &&
-                Objects.equals(identity, other.identity)
+                Objects.equals(identity, other.identity) &&
+                Objects.equals(resourceType, other.resourceType) &&
+                Objects.equals(resourceId, other.resourceId)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(roleSid, scope, identity);
+            return Objects.hash(
+                roleSid,
+                scope,
+                identity,
+                resourceType,
+                resourceId
+            );
         }
     }
 
@@ -226,6 +266,12 @@ public class RoleAssignment extends Resource {
     private final String identity;
 
     @Getter
+    private final String resourceId;
+
+    @Getter
+    private final String resourceType;
+
+    @Getter
     private final String roleSid;
 
     @Getter
@@ -237,11 +283,15 @@ public class RoleAssignment extends Resource {
     @JsonCreator
     private RoleAssignment(
         @JsonProperty("identity") final String identity,
+        @JsonProperty("resource_id") final String resourceId,
+        @JsonProperty("resource_type") final String resourceType,
         @JsonProperty("role_sid") final String roleSid,
         @JsonProperty("scope") final String scope,
         @JsonProperty("sid") final String sid
     ) {
         this.identity = identity;
+        this.resourceId = resourceId;
+        this.resourceType = resourceType;
         this.roleSid = roleSid;
         this.scope = scope;
         this.sid = sid;
@@ -260,6 +310,8 @@ public class RoleAssignment extends Resource {
         RoleAssignment other = (RoleAssignment) o;
         return (
             Objects.equals(identity, other.identity) &&
+            Objects.equals(resourceId, other.resourceId) &&
+            Objects.equals(resourceType, other.resourceType) &&
             Objects.equals(roleSid, other.roleSid) &&
             Objects.equals(scope, other.scope) &&
             Objects.equals(sid, other.sid)
@@ -268,6 +320,13 @@ public class RoleAssignment extends Resource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(identity, roleSid, scope, sid);
+        return Objects.hash(
+            identity,
+            resourceId,
+            resourceType,
+            roleSid,
+            scope,
+            sid
+        );
     }
 }

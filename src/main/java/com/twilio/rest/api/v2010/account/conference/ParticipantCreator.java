@@ -75,6 +75,7 @@ public class ParticipantCreator extends Creator<Participant> {
     private String callerId;
     private String callReason;
     private String recordingTrack;
+    private String recordingConfigurationId;
     private Integer timeLimit;
     private String machineDetection;
     private Integer machineDetectionTimeout;
@@ -396,6 +397,13 @@ public class ParticipantCreator extends Creator<Participant> {
 
     public ParticipantCreator setRecordingTrack(final String recordingTrack) {
         this.recordingTrack = recordingTrack;
+        return this;
+    }
+
+    public ParticipantCreator setRecordingConfigurationId(
+        final String recordingConfigurationId
+    ) {
+        this.recordingConfigurationId = recordingConfigurationId;
         return this;
     }
 
@@ -909,6 +917,15 @@ public class ParticipantCreator extends Creator<Participant> {
                 request,
                 "RecordingTrack",
                 recordingTrack,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (recordingConfigurationId != null) {
+            Serializer.toString(
+                request,
+                "RecordingConfigurationId",
+                recordingConfigurationId,
                 ParameterType.URLENCODED
             );
         }

@@ -108,6 +108,7 @@ public class Recording extends TwiML {
     private final Recording.Trim trim;
     private final Recording.Track track;
     private final Recording.Channels channels;
+    private final String recordingConfigurationId;
 
     /**
      * For XML Serialization/Deserialization
@@ -127,6 +128,7 @@ public class Recording extends TwiML {
         this.trim = b.trim;
         this.track = b.track;
         this.channels = b.channels;
+        this.recordingConfigurationId = b.recordingConfigurationId;
     }
 
     /**
@@ -155,6 +157,9 @@ public class Recording extends TwiML {
         }
         if (this.getChannels() != null) {
             attrs.put("channels", this.getChannels().toString());
+        }
+        if (this.getRecordingConfigurationId() != null) {
+            attrs.put("recordingConfigurationId", this.getRecordingConfigurationId());
         }
 
         return attrs;
@@ -227,6 +232,15 @@ public class Recording extends TwiML {
     }
 
     /**
+     * Configuration for the recording
+     *
+     * @return Configuration for the recording
+     */
+    public String getRecordingConfigurationId() {
+        return recordingConfigurationId;
+    }
+
+    /**
      * Create a new {@code <Recording>} element
      */
     @JsonPOJOBuilder(withPrefix = "")
@@ -251,6 +265,7 @@ public class Recording extends TwiML {
         private Recording.Trim trim;
         private Recording.Track track;
         private Recording.Channels channels;
+        private String recordingConfigurationId;
 
         /**
          * Recording Status Callback URL
@@ -311,6 +326,15 @@ public class Recording extends TwiML {
         @JacksonXmlProperty(isAttribute = true, localName = "channels")
         public Builder channels(Recording.Channels channels) {
             this.channels = channels;
+            return this;
+        }
+
+        /**
+         * Configuration for the recording
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "recordingConfigurationId")
+        public Builder recordingConfigurationId(String recordingConfigurationId) {
+            this.recordingConfigurationId = recordingConfigurationId;
             return this;
         }
 

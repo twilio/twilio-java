@@ -105,6 +105,7 @@ public class StartTest {
                     .trim(Recording.Trim.TRIM_SILENCE)
                     .track(Recording.Track.INBOUND)
                     .channels(Recording.Channels.MONO)
+                    .recordingConfigurationId("recording_configuration_id")
                     .build());
 
         Start elem = builder.build();
@@ -115,7 +116,7 @@ public class StartTest {
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>" +
                 "<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" intelligenceService=\"intelligence_service\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>" +
-                "<Recording channels=\"mono\" recordingStatusCallback=\"recording_status_callback\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" track=\"inbound\" trim=\"trim-silence\"/>" +
+                "<Recording channels=\"mono\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"recording_status_callback\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" track=\"inbound\" trim=\"trim-silence\"/>" +
             "</Start>",
             elem.toXml()
         );
@@ -254,6 +255,7 @@ public class StartTest {
                     .trim(Recording.Trim.TRIM_SILENCE)
                     .track(Recording.Track.INBOUND)
                     .channels(Recording.Channels.MONO)
+                    .recordingConfigurationId("recording_configuration_id")
                     .build());
 
         final Start elem = builder.build();
@@ -263,7 +265,7 @@ public class StartTest {
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>" +
                 "<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" intelligenceService=\"intelligence_service\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>" +
-                "<Recording channels=\"mono\" recordingStatusCallback=\"recording_status_callback\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" track=\"inbound\" trim=\"trim-silence\"/>" +
+                "<Recording channels=\"mono\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"recording_status_callback\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" track=\"inbound\" trim=\"trim-silence\"/>" +
             "</Start>").build().toXml(),
             elem.toXml()
         );

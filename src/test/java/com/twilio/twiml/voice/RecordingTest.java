@@ -45,11 +45,12 @@ public class RecordingTest {
             .trim(Recording.Trim.TRIM_SILENCE)
             .track(Recording.Track.INBOUND)
             .channels(Recording.Channels.MONO)
+            .recordingConfigurationId("recording_configuration_id")
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Recording channels=\"mono\" recordingStatusCallback=\"recording_status_callback\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" track=\"inbound\" trim=\"trim-silence\"/>",
+            "<Recording channels=\"mono\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"recording_status_callback\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" track=\"inbound\" trim=\"trim-silence\"/>",
             elem.toXml()
         );
     }
@@ -133,10 +134,11 @@ public class RecordingTest {
             .trim(Recording.Trim.TRIM_SILENCE)
             .track(Recording.Track.INBOUND)
             .channels(Recording.Channels.MONO)
+            .recordingConfigurationId("recording_configuration_id")
             .build();
 
         Assert.assertEquals(
-            Recording.Builder.fromXml("<Recording channels=\"mono\" recordingStatusCallback=\"recording_status_callback\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" track=\"inbound\" trim=\"trim-silence\"/>").build().toXml(),
+            Recording.Builder.fromXml("<Recording channels=\"mono\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"recording_status_callback\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" track=\"inbound\" trim=\"trim-silence\"/>").build().toXml(),
             elem.toXml()
         );
     }

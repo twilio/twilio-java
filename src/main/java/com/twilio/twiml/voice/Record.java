@@ -70,6 +70,7 @@ public class Record extends TwiML {
     private final List<Record.RecordingEvent> recordingStatusCallbackEvent;
     private final Boolean transcribe;
     private final URI transcribeCallback;
+    private final String recordingConfigurationId;
 
     /**
      * For XML Serialization/Deserialization
@@ -95,6 +96,7 @@ public class Record extends TwiML {
         this.recordingStatusCallbackEvent = b.recordingStatusCallbackEvent;
         this.transcribe = b.transcribe;
         this.transcribeCallback = b.transcribeCallback;
+        this.recordingConfigurationId = b.recordingConfigurationId;
     }
 
     /**
@@ -141,6 +143,9 @@ public class Record extends TwiML {
         }
         if (this.getTranscribeCallback() != null) {
             attrs.put("transcribeCallback", this.getTranscribeCallback().toString());
+        }
+        if (this.getRecordingConfigurationId() != null) {
+            attrs.put("recordingConfigurationId", this.getRecordingConfigurationId());
         }
 
         return attrs;
@@ -267,6 +272,15 @@ public class Record extends TwiML {
     }
 
     /**
+     * Configuration for the recording
+     *
+     * @return Configuration for the recording
+     */
+    public String getRecordingConfigurationId() {
+        return recordingConfigurationId;
+    }
+
+    /**
      * Create a new {@code <Record>} element
      */
     @JsonPOJOBuilder(withPrefix = "")
@@ -297,6 +311,7 @@ public class Record extends TwiML {
         private List<Record.RecordingEvent> recordingStatusCallbackEvent;
         private Boolean transcribe;
         private URI transcribeCallback;
+        private String recordingConfigurationId;
 
         /**
          * Action URL
@@ -435,6 +450,15 @@ public class Record extends TwiML {
          */
         public Builder transcribeCallback(String transcribeCallback) {
             this.transcribeCallback = Promoter.uriFromString(transcribeCallback);
+            return this;
+        }
+
+        /**
+         * Configuration for the recording
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "recordingConfigurationId")
+        public Builder recordingConfigurationId(String recordingConfigurationId) {
+            this.recordingConfigurationId = recordingConfigurationId;
             return this;
         }
 

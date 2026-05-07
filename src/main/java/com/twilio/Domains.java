@@ -29,6 +29,7 @@ public enum Domains {
     KNOWLEDGE("knowledge"),
     LOOKUPS("lookups"),
     MARKETPLACE("marketplace"),
+    MEMORY("memory"),
     MESSAGING("messaging"),
     MONITOR("monitor"),
     NOTIFY("notify"),

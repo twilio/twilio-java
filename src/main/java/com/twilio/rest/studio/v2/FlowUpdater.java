@@ -37,6 +37,7 @@ public class FlowUpdater extends Updater<Flow> {
     private String friendlyName;
     private Object definition;
     private String commitMessage;
+    private String authorSid;
 
     public FlowUpdater(final String pathSid, final Flow.Status status) {
         this.pathSid = pathSid;
@@ -60,6 +61,11 @@ public class FlowUpdater extends Updater<Flow> {
 
     public FlowUpdater setCommitMessage(final String commitMessage) {
         this.commitMessage = commitMessage;
+        return this;
+    }
+
+    public FlowUpdater setAuthorSid(final String authorSid) {
+        this.authorSid = authorSid;
         return this;
     }
 
@@ -154,6 +160,15 @@ public class FlowUpdater extends Updater<Flow> {
                 request,
                 "CommitMessage",
                 commitMessage,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (authorSid != null) {
+            Serializer.toString(
+                request,
+                "AuthorSid",
+                authorSid,
                 ParameterType.URLENCODED
             );
         }

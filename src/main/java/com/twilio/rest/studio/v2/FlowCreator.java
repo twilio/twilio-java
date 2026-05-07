@@ -36,6 +36,7 @@ public class FlowCreator extends Creator<Flow> {
     private Flow.Status status;
     private Object definition;
     private String commitMessage;
+    private String authorSid;
 
     public FlowCreator(
         final String friendlyName,
@@ -64,6 +65,11 @@ public class FlowCreator extends Creator<Flow> {
 
     public FlowCreator setCommitMessage(final String commitMessage) {
         this.commitMessage = commitMessage;
+        return this;
+    }
+
+    public FlowCreator setAuthorSid(final String authorSid) {
+        this.authorSid = authorSid;
         return this;
     }
 
@@ -156,6 +162,15 @@ public class FlowCreator extends Creator<Flow> {
                 request,
                 "CommitMessage",
                 commitMessage,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (authorSid != null) {
+            Serializer.toString(
+                request,
+                "AuthorSid",
+                authorSid,
                 ParameterType.URLENCODED
             );
         }

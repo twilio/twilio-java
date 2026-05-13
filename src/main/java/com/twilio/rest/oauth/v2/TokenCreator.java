@@ -42,8 +42,11 @@ public class TokenCreator extends Creator<Token> {
     private String audience;
     private String refreshToken;
     private String scope;
+    private String codeVerifier;
 
-    public TokenCreator() {}
+    public TokenCreator(final String grantType) {
+        this.grantType = grantType;
+    }
 
     public TokenCreator setGrantType(final String grantType) {
         this.grantType = grantType;
@@ -82,6 +85,11 @@ public class TokenCreator extends Creator<Token> {
 
     public TokenCreator setScope(final String scope) {
         this.scope = scope;
+        return this;
+    }
+
+    public TokenCreator setCodeVerifier(final String codeVerifier) {
+        this.codeVerifier = codeVerifier;
         return this;
     }
 
@@ -228,6 +236,15 @@ public class TokenCreator extends Creator<Token> {
                 request,
                 "scope",
                 scope,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (codeVerifier != null) {
+            Serializer.toString(
+                request,
+                "code_verifier",
+                codeVerifier,
                 ParameterType.URLENCODED
             );
         }

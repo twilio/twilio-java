@@ -1,9 +1,9 @@
 name: CI
 on:
   push:
-    branches: [ 'supplychain-*' ]
+    branches: ["supplychain-*"]
   pull_request:
-    branches: [ 'supplychain-*' ]
+    branches: ["supplychain-*"]
 
 jobs:
   build:
@@ -20,12 +20,14 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@17f84c3641ba7b8f6deff6309fc4c864478f5d62 # v3
         with:
-          distribution: 'temurin'
-          java-version: '11'
-          cache: 'maven'
+          distribution: "temurin"
+          java-version: "11"
+          cache: "maven"
 
       - name: Artifactory OIDC
         if: ${{ !github.event.pull_request.head.repo.fork }}
         uses: twilio/sdk-actions/artifactory-oidc@691c14fb56b196ac0bd2f97148f0ac618b883cbd
+        with:
+          ecosystem: "maven"
 
       - run: mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V

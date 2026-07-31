@@ -9,6 +9,9 @@ jobs:
   build:
     name: Build
     runs-on: ${{ github.event.pull_request.head.repo.fork && 'ubuntu-latest' || 'ubuntu-x64' }}
+    permissions:
+      id-token: write
+      contents: read
     timeout-minutes: 20
     steps:
       - name: Checkout twilio-java

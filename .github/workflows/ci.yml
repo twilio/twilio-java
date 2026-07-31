@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: ['*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      java-version:
+        description: "Java version (or 'all' for full matrix)"
+        required: false
+        default: "11"
+
+jobs:
+  test:
+    name: Test - Java ${{ matrix.java }}
+    runs-on: ${{ github.event.pull_request.head.repo.fork && 'ubuntu-latest' || 'ubuntu-x64' }}
+    if: github.repository_owner == 'twilio'
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        java: ${{ github.event.inputs.java-version == 'all' && fromJson('[8, 11, 17, 21]') || fromJson(format('[{0}]', github.event.inputs.java-version || '11')) }}
+    steps:
+      - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Artifactory OIDC
+        if: ${{ !github.event.pull_request.head.repo.fork }}
+        uses: twilio/sdk-actions/artifactory-oidc@645dd125886c4e19c657b162522ae46c1c8f2d0f # java_maven
+        with:
+          ecosystem: maven
+
+      - name: Set up Java
+        uses: actions/setup-java@17f84c3641ba7b8f6deff6309fc4c864478f5d62 # v3
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+          cache: maven
+
+      - run: mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+
+      - name: Run unit tests
+        run: mvn test -B
+
+#      - name: SonarCloud scan
+#        if: ${{ matrix.java == 11 && !github.event.pull_request.head.repo.fork && (github.event_name == 'pull_request' || github.ref_type == 'branch') }}
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#        run: mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=twilio_twilio-java

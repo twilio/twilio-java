@@ -26,7 +26,7 @@ jobs:
 
       - name: Artifactory OIDC
         if: ${{ !github.event.pull_request.head.repo.fork }}
-        uses: twilio/sdk-actions/artifactory-oidc@691c14fb56b196ac0bd2f97148f0ac618b883cbd
+        uses: twilio/sdk-actions/artifactory-oidc@ce419e4f97200b0c85af0791b0b5665aab43b334 # java_maven
         with:
           ecosystem: "maven"
 

@@ -9,6 +9,7 @@ jobs:
   build:
     name: Build
     runs-on: ${{ github.event.pull_request.head.repo.fork && 'ubuntu-latest' || 'ubuntu-x64' }}
+    environment: test_docker
     permissions:
       id-token: write
       contents: read

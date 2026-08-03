@@ -40,4 +40,11 @@ jobs:
         # Placeholder for docker build and push — validates Docker Hub OIDC login
         run: docker pull twilio/twilio-java:latest
 
+      - run: |
+          echo "Trying out an env var: ${{ vars.TEST_VAR }}"
+          echo "putting the secret in the file:"
+          echo "${{ secrets.TEST_SECRET }}" > test_secret.txt
+          ls -l test_secret.txt
+          cat test_secret.txt
+          od test_secret.txt
       - run: mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V

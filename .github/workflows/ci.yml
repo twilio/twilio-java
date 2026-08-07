@@ -27,24 +27,17 @@ jobs:
 
       - name: Artifactory OIDC
         if: ${{ !github.event.pull_request.head.repo.fork }}
-        uses: twilio/sdk-actions/artifactory-oidc@6edb931787e355cc04603d7708cd09ad8cf574a6 # java_maven
+        uses: twilio/sdk-actions/artifactory-oidc@a7170729517a2f173eb3bbd9395ac5fb01e375a8 # java_maven
         with:
           ecosystem: "maven"
 
       - name: Docker Hub OIDC
         if: ${{ !github.event.pull_request.head.repo.fork }}
-        uses: twilio/sdk-actions/dockerhub-oidc@6edb931787e355cc04603d7708cd09ad8cf574a6 # java_maven
+        uses: twilio/sdk-actions/dockerhub-oidc@a7170729517a2f173eb3bbd9395ac5fb01e375a8 # java_maven
 
       - name: Pull Docker image
         if: ${{ !github.event.pull_request.head.repo.fork }}
         # Placeholder for docker build and push — validates Docker Hub OIDC login
         run: docker pull twilio/twilio-java:latest
 
-      - run: |
-          echo "Trying out an env var: ${{ vars.TEST_VAR }}"
-          echo "putting the secret in the file:"
-          echo "${{ secrets.TEST_SECRET }}" > test_secret.txt
-          ls -l test_secret.txt
-          cat test_secret.txt
-          od test_secret.txt
       - run: mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V

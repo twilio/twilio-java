@@ -27,17 +27,8 @@ jobs:
 
       - name: Artifactory OIDC
         if: ${{ !github.event.pull_request.head.repo.fork }}
-        uses: twilio/sdk-actions/artifactory-oidc@a7170729517a2f173eb3bbd9395ac5fb01e375a8 # java_maven
+        uses: twilio/sdk-actions/artifactory-oidc@645dd125886c4e19c657b162522ae46c1c8f2d0f # java_maven
         with:
           ecosystem: "maven"
-
-      - name: Docker Hub OIDC
-        if: ${{ !github.event.pull_request.head.repo.fork }}
-        uses: twilio/sdk-actions/dockerhub-oidc@a7170729517a2f173eb3bbd9395ac5fb01e375a8 # java_maven
-
-      - name: Pull Docker image
-        if: ${{ !github.event.pull_request.head.repo.fork }}
-        # Placeholder for docker build and push — validates Docker Hub OIDC login
-        run: docker pull twilio/twilio-java:latest
 
       - run: mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V

@@ -1,0 +1,34 @@
+name: CI
+on:
+  push:
+    branches: ["supplychain-*"]
+  pull_request:
+    branches: ["supplychain-*"]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ${{ github.event.pull_request.head.repo.fork && 'ubuntu-latest' || 'ubuntu-x64' }}
+    environment: test_docker
+    permissions:
+      id-token: write
+      contents: read
+    timeout-minutes: 20
+    steps:
+      - name: Checkout twilio-java
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
+
+      - name: Set up Java
+        uses: actions/setup-java@17f84c3641ba7b8f6deff6309fc4c864478f5d62 # v3
+        with:
+          distribution: "temurin"
+          java-version: "11"
+          cache: "maven"
+
+      - name: Artifactory OIDC
+        if: ${{ !github.event.pull_request.head.repo.fork }}
+        uses: twilio/sdk-actions/artifactory-oidc@645dd125886c4e19c657b162522ae46c1c8f2d0f # java_maven
+        with:
+          ecosystem: "maven"
+
+      - run: mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V

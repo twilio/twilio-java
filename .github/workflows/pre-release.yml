@@ -1,6 +1,8 @@
 name: Cluster Tests and Release Readiness
 
 on:
+  push:
+    branches: [gated-release]
   schedule:
     - cron: '0 15 * * 1'  # 8AM PST every Monday
   workflow_dispatch:

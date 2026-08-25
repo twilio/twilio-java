@@ -19,15 +19,15 @@ jobs:
       matrix:
         java: [11, 17, 21]
     steps:
-      - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Artifactory OIDC
-        uses: twilio/sdk-actions/artifactory-oidc@645dd125886c4e19c657b162522ae46c1c8f2d0f # java_maven
+        uses: twilio/sdk-actions/artifactory-oidc@4ffc0c647c8d692a8fff24d4f767b207c3d1222e # java_maven
         with:
           ecosystem: maven
 
       - name: Set up Java
-        uses: actions/setup-java@17f84c3641ba7b8f6deff6309fc4c864478f5d62 # v3
+        uses: actions/setup-java@e9fbacdec3bb3b6036605a3e6f7995d66773a8c6 # v3.14.2
         with:
           distribution: temurin
           java-version: ${{ matrix.java }}
@@ -49,12 +49,12 @@ jobs:
       contents: write
       id-token: write
     steps:
-      - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           fetch-depth: 0
 
       - name: Artifactory OIDC
-        uses: twilio/sdk-actions/artifactory-oidc@645dd125886c4e19c657b162522ae46c1c8f2d0f # java_maven
+        uses: twilio/sdk-actions/artifactory-oidc@4ffc0c647c8d692a8fff24d4f767b207c3d1222e # java_maven
         with:
           ecosystem: maven
 
@@ -78,7 +78,7 @@ jobs:
 #        run: make docker-build && make docker-push
 
       - name: Set up Java for Maven Central publish
-        uses: actions/setup-java@17f84c3641ba7b8f6deff6309fc4c864478f5d62 # v3
+        uses: actions/setup-java@e9fbacdec3bb3b6036605a3e6f7995d66773a8c6 # v3.14.2
         with:
           java-version: '11'
           distribution: temurin

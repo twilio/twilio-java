@@ -1,14 +1,14 @@
+# todo: whitelist or replace the action & enable it
 name: Lint PR
 on:
-  pull_request_target:
-    types: [ opened, edited, synchronize, reopened ]
+  workflow_dispatch:
 
 jobs:
   validate:
     name: Validate title
     runs-on: ubuntu-latest
     steps:
-      - uses: amannn/action-semantic-pull-request@v5
+      - uses: amannn/action-semantic-pull-request@9ebc021bcf7ac66f840f985c84d0ef77afd5e8d9 # v5.5.1
         with:
           types: |
             chore

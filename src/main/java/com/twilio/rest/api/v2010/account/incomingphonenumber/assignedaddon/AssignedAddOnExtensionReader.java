@@ -34,7 +34,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class AssignedAddOnExtensionReader
-    extends Reader<AssignedAddOnExtension> {
+    extends Reader<AssignedAddOnExtension>
+{
 
     private String pathAccountSid;
     private String pathResourceSid;
@@ -95,21 +96,18 @@ public class AssignedAddOnExtensionReader
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ResourceSid" + "}",
-                this.pathResourceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "AssignedAddOnSid" + "}",
-                this.pathAssignedAddOnSid.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
+        path = path.replace(
+            "{" + "ResourceSid" + "}",
+            this.pathResourceSid.toString()
+        );
+        path = path.replace(
+            "{" + "AssignedAddOnSid" + "}",
+            this.pathAssignedAddOnSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

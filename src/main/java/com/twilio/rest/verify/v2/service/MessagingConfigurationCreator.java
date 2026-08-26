@@ -31,7 +31,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class MessagingConfigurationCreator
-    extends Creator<MessagingConfiguration> {
+    extends Creator<MessagingConfiguration>
+{
 
     private String pathServiceSid;
     private String country;
@@ -62,11 +63,10 @@ public class MessagingConfigurationCreator
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/MessagingConfigurations";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

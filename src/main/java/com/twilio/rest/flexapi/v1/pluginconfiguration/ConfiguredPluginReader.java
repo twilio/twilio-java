@@ -80,11 +80,10 @@ public class ConfiguredPluginReader extends Reader<ConfiguredPlugin> {
         String path =
             "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins";
 
-        path =
-            path.replace(
-                "{" + "ConfigurationSid" + "}",
-                this.pathConfigurationSid.toString()
-            );
+        path = path.replace(
+            "{" + "ConfigurationSid" + "}",
+            this.pathConfigurationSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

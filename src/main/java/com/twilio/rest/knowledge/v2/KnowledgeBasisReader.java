@@ -36,7 +36,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class KnowledgeBasisReader
-    extends Reader<KnowledgeBasis.ListKnowledgeBasisResponse> {
+    extends Reader<KnowledgeBasis.ListKnowledgeBasisResponse>
+{
 
     private Integer pageSize;
     private String pageToken;
@@ -61,9 +62,9 @@ public class KnowledgeBasisReader
         return this;
     }
 
-    public ResourceSetResponse<
-        KnowledgeBasis.ListKnowledgeBasisResponse
-    > readWithResponse(final TwilioRestClient client) {
+    public ResourceSetResponse<KnowledgeBasis.ListKnowledgeBasisResponse> readWithResponse(
+        final TwilioRestClient client
+    ) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<KnowledgeBasis.ListKnowledgeBasisResponse> page = Page.fromJson(

@@ -34,7 +34,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class InsightsAssessmentsCommentReader
-    extends Reader<InsightsAssessmentsComment> {
+    extends Reader<InsightsAssessmentsComment>
+{
 
     private String segmentId;
     private String agentId;

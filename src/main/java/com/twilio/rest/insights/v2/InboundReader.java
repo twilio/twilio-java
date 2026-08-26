@@ -73,8 +73,10 @@ public class InboundReader extends Reader<Inbound> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/Voice/Reports/PhoneNumbers/Inbound/{reportId}";
 
-        path =
-            path.replace("{" + "reportId" + "}", this.pathReportId.toString());
+        path = path.replace(
+            "{" + "reportId" + "}",
+            this.pathReportId.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

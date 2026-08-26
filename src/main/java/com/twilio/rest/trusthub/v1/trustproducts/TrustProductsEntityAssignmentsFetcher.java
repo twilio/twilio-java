@@ -28,7 +28,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TrustProductsEntityAssignmentsFetcher
-    extends Fetcher<TrustProductsEntityAssignments> {
+    extends Fetcher<TrustProductsEntityAssignments>
+{
 
     private String pathTrustProductSid;
     private String pathSid;
@@ -45,11 +46,10 @@ public class TrustProductsEntityAssignmentsFetcher
         String path =
             "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "TrustProductSid" + "}",
-                this.pathTrustProductSid.toString()
-            );
+        path = path.replace(
+            "{" + "TrustProductSid" + "}",
+            this.pathTrustProductSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

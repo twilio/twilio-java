@@ -141,7 +141,7 @@ public class TypingIndicator extends Resource {
         }
 
         TypingIndicator other = (TypingIndicator) o;
-        return (Objects.equals(success, other.success));
+        return Objects.equals(success, other.success);
     }
 
     @Override

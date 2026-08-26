@@ -16,6 +16,9 @@ package com.twilio.rest.accounts.v1;
 
 import com.twilio.base.TwilioResponse;
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,7 +32,16 @@ import java.io.InputStream;
 
 public class AuthTokenPromotionUpdater extends Updater<AuthTokenPromotion> {
 
+    private Boolean suppressEmailNotification;
+
     public AuthTokenPromotionUpdater() {}
+
+    public AuthTokenPromotionUpdater setSuppressEmailNotification(
+        final Boolean suppressEmailNotification
+    ) {
+        this.suppressEmailNotification = suppressEmailNotification;
+        return this;
+    }
 
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/AuthTokens/Promote";
@@ -39,6 +51,8 @@ public class AuthTokenPromotionUpdater extends Updater<AuthTokenPromotion> {
             Domains.ACCOUNTS.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        addPostParams(request);
 
         Response response = client.request(request);
 
@@ -86,5 +100,16 @@ public class AuthTokenPromotionUpdater extends Updater<AuthTokenPromotion> {
             response.getStatusCode(),
             response.getHeaders()
         );
+    }
+
+    private void addPostParams(final Request request) {
+        if (suppressEmailNotification != null) {
+            Serializer.toString(
+                request,
+                "SuppressEmailNotification",
+                suppressEmailNotification,
+                ParameterType.URLENCODED
+            );
+        }
     }
 }

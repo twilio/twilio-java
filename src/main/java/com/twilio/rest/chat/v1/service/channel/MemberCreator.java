@@ -60,16 +60,14 @@ public class MemberCreator extends Creator<Member> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChannelSid" + "}",
-                this.pathChannelSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "ChannelSid" + "}",
+            this.pathChannelSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

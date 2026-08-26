@@ -53,11 +53,10 @@ public class SipDomainUpdater extends Updater<SipDomain> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/SipDomains/{SipDomain}";
 
-        path =
-            path.replace(
-                "{" + "SipDomain" + "}",
-                this.pathSipDomain.toString()
-            );
+        path = path.replace(
+            "{" + "SipDomain" + "}",
+            this.pathSipDomain.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

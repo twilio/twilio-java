@@ -78,11 +78,10 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
         path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
 
         Request request = new Request(

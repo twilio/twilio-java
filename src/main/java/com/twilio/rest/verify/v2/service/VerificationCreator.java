@@ -47,6 +47,7 @@ public class VerificationCreator extends Creator<Verification> {
     private String appHash;
     private String templateSid;
     private String templateCustomSubstitutions;
+    private String templates;
     private String deviceIp;
     private Boolean enableSnaClientToken;
     private Verification.RiskCheck riskCheck;
@@ -138,6 +139,11 @@ public class VerificationCreator extends Creator<Verification> {
         return this;
     }
 
+    public VerificationCreator setTemplates(final String templates) {
+        this.templates = templates;
+        return this;
+    }
+
     public VerificationCreator setDeviceIp(final String deviceIp) {
         this.deviceIp = deviceIp;
         return this;
@@ -165,11 +171,10 @@ public class VerificationCreator extends Creator<Verification> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Verifications";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -345,6 +350,15 @@ public class VerificationCreator extends Creator<Verification> {
                 request,
                 "TemplateCustomSubstitutions",
                 templateCustomSubstitutions,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (templates != null) {
+            Serializer.toString(
+                request,
+                "Templates",
+                templates,
                 ParameterType.URLENCODED
             );
         }

@@ -38,11 +38,10 @@ public class PortingPortInFetcher extends Fetcher<PortingPortIn> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Porting/PortIn/{PortInRequestSid}";
 
-        path =
-            path.replace(
-                "{" + "PortInRequestSid" + "}",
-                this.pathPortInRequestSid.toString()
-            );
+        path = path.replace(
+            "{" + "PortInRequestSid" + "}",
+            this.pathPortInRequestSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

@@ -61,9 +61,9 @@ public class KnowledgeReader extends Reader<Knowledge.ListKnowledgeResponse> {
         return this;
     }
 
-    public ResourceSetResponse<
-        Knowledge.ListKnowledgeResponse
-    > readWithResponse(final TwilioRestClient client) {
+    public ResourceSetResponse<Knowledge.ListKnowledgeResponse> readWithResponse(
+        final TwilioRestClient client
+    ) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<Knowledge.ListKnowledgeResponse> page = Page.fromJson(

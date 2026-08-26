@@ -47,13 +47,14 @@ public class FactorFetcher extends Fetcher<Factor> {
         String path =
             "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "Identity" + "}",
+            this.pathIdentity.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

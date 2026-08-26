@@ -33,7 +33,8 @@ import java.io.InputStream;
 import java.net.URI;
 
 public class UserDefinedMessageSubscriptionCreator
-    extends Creator<UserDefinedMessageSubscription> {
+    extends Creator<UserDefinedMessageSubscription>
+{
 
     private String pathAccountSid;
     private String pathCallSid;
@@ -94,11 +95,10 @@ public class UserDefinedMessageSubscriptionCreator
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
         Request request = new Request(

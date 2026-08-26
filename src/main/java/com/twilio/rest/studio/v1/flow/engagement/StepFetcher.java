@@ -48,11 +48,10 @@ public class StepFetcher extends Fetcher<Step> {
             "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{Sid}";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path =
-            path.replace(
-                "{" + "EngagementSid" + "}",
-                this.pathEngagementSid.toString()
-            );
+        path = path.replace(
+            "{" + "EngagementSid" + "}",
+            this.pathEngagementSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

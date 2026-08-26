@@ -94,21 +94,18 @@ public class PayloadReader extends Reader<Payload> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ReferenceSid" + "}",
-                this.pathReferenceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "AddOnResultSid" + "}",
-                this.pathAddOnResultSid.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
+        path = path.replace(
+            "{" + "ReferenceSid" + "}",
+            this.pathReferenceSid.toString()
+        );
+        path = path.replace(
+            "{" + "AddOnResultSid" + "}",
+            this.pathAddOnResultSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

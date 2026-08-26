@@ -28,7 +28,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class CustomerProfilesEvaluationsFetcher
-    extends Fetcher<CustomerProfilesEvaluations> {
+    extends Fetcher<CustomerProfilesEvaluations>
+{
 
     private String pathCustomerProfileSid;
     private String pathSid;
@@ -45,11 +46,10 @@ public class CustomerProfilesEvaluationsFetcher
         String path =
             "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "CustomerProfileSid" + "}",
-                this.pathCustomerProfileSid.toString()
-            );
+        path = path.replace(
+            "{" + "CustomerProfileSid" + "}",
+            this.pathCustomerProfileSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

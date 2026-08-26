@@ -57,11 +57,10 @@ public class NumberFetcher extends Fetcher<Number> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Voice/Numbers/{DestinationNumber}";
 
-        path =
-            path.replace(
-                "{" + "DestinationNumber" + "}",
-                this.pathDestinationNumber.toString()
-            );
+        path = path.replace(
+            "{" + "DestinationNumber" + "}",
+            this.pathDestinationNumber.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

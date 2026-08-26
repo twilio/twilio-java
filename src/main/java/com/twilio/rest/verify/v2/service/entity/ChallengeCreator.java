@@ -94,13 +94,14 @@ public class ChallengeCreator extends Creator<Challenge> {
         String path =
             "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "Identity" + "}",
+            this.pathIdentity.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

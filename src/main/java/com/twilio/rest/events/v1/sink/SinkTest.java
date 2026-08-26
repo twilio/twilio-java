@@ -116,7 +116,7 @@ public class SinkTest extends Resource {
         }
 
         SinkTest other = (SinkTest) o;
-        return (Objects.equals(result, other.result));
+        return Objects.equals(result, other.result);
     }
 
     @Override

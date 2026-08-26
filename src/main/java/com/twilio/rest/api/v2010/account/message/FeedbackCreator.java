@@ -61,16 +61,14 @@ public class FeedbackCreator extends Creator<Feedback> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "MessageSid" + "}",
-                this.pathMessageSid.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
+        path = path.replace(
+            "{" + "MessageSid" + "}",
+            this.pathMessageSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

@@ -151,9 +151,9 @@ public class WorkersCumulativeStatistics extends Resource {
     @JsonCreator
     private WorkersCumulativeStatistics(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("activity_durations") final List<
-            Object
-        > activityDurations,
+        @JsonProperty(
+            "activity_durations"
+        ) final List<Object> activityDurations,
         @JsonProperty("end_time") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
         ) @JsonSerialize(

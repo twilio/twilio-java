@@ -45,16 +45,14 @@ public class RoleAssignmentDeleter extends Deleter<RoleAssignment> {
         String path =
             "/Organizations/{OrganizationSid}/RoleAssignments/{RoleAssignmentSid}";
 
-        path =
-            path.replace(
-                "{" + "OrganizationSid" + "}",
-                this.pathOrganizationSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "RoleAssignmentSid" + "}",
-                this.pathRoleAssignmentSid.toString()
-            );
+        path = path.replace(
+            "{" + "OrganizationSid" + "}",
+            this.pathOrganizationSid.toString()
+        );
+        path = path.replace(
+            "{" + "RoleAssignmentSid" + "}",
+            this.pathRoleAssignmentSid.toString()
+        );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

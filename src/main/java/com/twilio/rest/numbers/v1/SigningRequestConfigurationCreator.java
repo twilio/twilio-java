@@ -30,7 +30,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class SigningRequestConfigurationCreator
-    extends Creator<SigningRequestConfiguration> {
+    extends Creator<SigningRequestConfiguration>
+{
 
     private Object body;
 

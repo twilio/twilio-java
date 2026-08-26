@@ -30,7 +30,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class BulkHostedNumberOrderFetcher
-    extends Fetcher<BulkHostedNumberOrder> {
+    extends Fetcher<BulkHostedNumberOrder>
+{
 
     private String pathBulkHostingSid;
     private String orderStatus;
@@ -49,11 +50,10 @@ public class BulkHostedNumberOrderFetcher
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/HostedNumber/Orders/Bulk/{BulkHostingSid}";
 
-        path =
-            path.replace(
-                "{" + "BulkHostingSid" + "}",
-                this.pathBulkHostingSid.toString()
-            );
+        path = path.replace(
+            "{" + "BulkHostingSid" + "}",
+            this.pathBulkHostingSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

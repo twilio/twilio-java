@@ -73,11 +73,10 @@ public class SubscribedEventReader extends Reader<SubscribedEvent> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents";
 
-        path =
-            path.replace(
-                "{" + "SubscriptionSid" + "}",
-                this.pathSubscriptionSid.toString()
-            );
+        path = path.replace(
+            "{" + "SubscriptionSid" + "}",
+            this.pathSubscriptionSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

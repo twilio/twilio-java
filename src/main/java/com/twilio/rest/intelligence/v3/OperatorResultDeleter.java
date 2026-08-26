@@ -19,7 +19,6 @@ import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
-import com.twilio.exception.RestStandardException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
@@ -40,11 +39,10 @@ public class OperatorResultDeleter extends Deleter<OperatorResult> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v3/OperatorResults/{operatorResultId}";
 
-        path =
-            path.replace(
-                "{" + "operatorResultId" + "}",
-                this.pathOperatorResultId.toString()
-            );
+        path = path.replace(
+            "{" + "operatorResultId" + "}",
+            this.pathOperatorResultId.toString()
+        );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;
@@ -62,16 +60,6 @@ public class OperatorResultDeleter extends Deleter<OperatorResult> {
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             InputStream inputStream = response.getStream();
-            RestStandardException standardException =
-                RestStandardException.fromJson(
-                    inputStream,
-                    client.getObjectMapper()
-                );
-            if (
-                standardException != null && standardException.getType() != null
-            ) {
-                throw new ApiException(standardException);
-            }
             RestException restException = RestException.fromJson(
                 inputStream,
                 client.getObjectMapper()

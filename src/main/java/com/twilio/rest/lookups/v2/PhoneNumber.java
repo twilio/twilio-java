@@ -106,6 +106,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = CallForwardingInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CallForwardingInfo {
@@ -136,6 +137,7 @@ public class PhoneNumber extends Resource {
             return mapper.readValue(jsonString, CallForwardingInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -181,8 +183,7 @@ public class PhoneNumber extends Resource {
                 Objects.equals(
                     callForwardingEnabled,
                     other.callForwardingEnabled
-                ) &&
-                Objects.equals(errorCode, other.errorCode)
+                ) && Objects.equals(errorCode, other.errorCode)
             );
         }
 
@@ -193,6 +194,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = SmsPumpingRiskInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class SmsPumpingRiskInfo {
@@ -249,6 +251,7 @@ public class PhoneNumber extends Resource {
             return mapper.readValue(jsonString, SmsPumpingRiskInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -371,6 +374,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = ReassignedNumberInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ReassignedNumberInfo {
@@ -407,6 +411,7 @@ public class PhoneNumber extends Resource {
             return mapper.readValue(jsonString, ReassignedNumberInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -474,6 +479,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = IdentityMatchInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class IdentityMatchInfo {
@@ -564,6 +570,7 @@ public class PhoneNumber extends Resource {
             return mapper.readValue(jsonString, IdentityMatchInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -742,6 +749,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = LastSimSwapInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class LastSimSwapInfo {
@@ -780,6 +788,7 @@ public class PhoneNumber extends Resource {
             return mapper.readValue(jsonString, LastSimSwapInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -855,6 +864,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = LineTypeIntelligenceInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class LineTypeIntelligenceInfo {
@@ -903,6 +913,7 @@ public class PhoneNumber extends Resource {
             return mapper.readValue(jsonString, LineTypeIntelligenceInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -994,6 +1005,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = SimSwapInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class SimSwapInfo {
@@ -1042,6 +1054,7 @@ public class PhoneNumber extends Resource {
             return mapper.readValue(jsonString, SimSwapInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1133,6 +1146,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = LineStatusInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class LineStatusInfo {
@@ -1163,6 +1177,7 @@ public class PhoneNumber extends Resource {
             return mapper.readValue(jsonString, LineStatusInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1215,6 +1230,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = CallerNameInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CallerNameInfo {
@@ -1251,6 +1267,7 @@ public class PhoneNumber extends Resource {
             return mapper.readValue(jsonString, CallerNameInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1449,9 +1466,9 @@ public class PhoneNumber extends Resource {
         ) final SmsPumpingRiskInfo smsPumpingRisk,
         @JsonProperty("url") final URI url,
         @JsonProperty("valid") final Boolean valid,
-        @JsonProperty("validation_errors") final List<
-            PhoneNumber.ValidationError
-        > validationErrors
+        @JsonProperty(
+            "validation_errors"
+        ) final List<PhoneNumber.ValidationError> validationErrors
     ) {
         this.callForwarding = callForwarding;
         this.callerName = callerName;

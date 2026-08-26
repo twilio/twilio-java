@@ -52,11 +52,10 @@ public class ReplaceItemsCreator extends Creator<ReplaceItems> {
         String path =
             "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ReplaceItems";
 
-        path =
-            path.replace(
-                "{" + "BundleSid" + "}",
-                this.pathBundleSid.toString()
-            );
+        path = path.replace(
+            "{" + "BundleSid" + "}",
+            this.pathBundleSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

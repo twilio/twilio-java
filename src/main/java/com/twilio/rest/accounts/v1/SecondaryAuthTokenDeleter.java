@@ -16,6 +16,8 @@ package com.twilio.rest.accounts.v1;
 
 import com.twilio.base.Deleter;
 import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -30,7 +32,16 @@ import java.util.function.Predicate;
 
 public class SecondaryAuthTokenDeleter extends Deleter<SecondaryAuthToken> {
 
+    private Boolean suppressEmailNotification;
+
     public SecondaryAuthTokenDeleter() {}
+
+    public SecondaryAuthTokenDeleter setSuppressEmailNotification(
+        final Boolean suppressEmailNotification
+    ) {
+        this.suppressEmailNotification = suppressEmailNotification;
+        return this;
+    }
 
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/AuthTokens/Secondary";
@@ -42,6 +53,7 @@ public class SecondaryAuthTokenDeleter extends Deleter<SecondaryAuthToken> {
             Domains.ACCOUNTS.toString(),
             path
         );
+        addQueryParams(request);
 
         Response response = client.request(request);
 
@@ -87,5 +99,16 @@ public class SecondaryAuthTokenDeleter extends Deleter<SecondaryAuthToken> {
             response.getStatusCode(),
             response.getHeaders()
         );
+    }
+
+    private void addQueryParams(final Request request) {
+        if (suppressEmailNotification != null) {
+            Serializer.toString(
+                request,
+                "SuppressEmailNotification",
+                suppressEmailNotification,
+                ParameterType.QUERY
+            );
+        }
     }
 }

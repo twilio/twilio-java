@@ -80,6 +80,7 @@ public class Outbound extends Resource {
     }
 
     @JsonDeserialize(builder = PhoneNumberReportFilter.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class PhoneNumberReportFilter {
@@ -110,6 +111,7 @@ public class Outbound extends Resource {
             return mapper.readValue(jsonString, PhoneNumberReportFilter.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -164,6 +166,7 @@ public class Outbound extends Resource {
     @JsonDeserialize(
         builder = InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection {
@@ -206,6 +209,7 @@ public class Outbound extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -286,6 +290,7 @@ public class Outbound extends Resource {
     }
 
     @JsonDeserialize(builder = CountyCarrierValue.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CountyCarrierValue {
@@ -316,6 +321,7 @@ public class Outbound extends Resource {
             return mapper.readValue(jsonString, CountyCarrierValue.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -368,6 +374,7 @@ public class Outbound extends Resource {
     }
 
     @JsonDeserialize(builder = CountyCarrierValueCarriers.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CountyCarrierValueCarriers {
@@ -413,6 +420,7 @@ public class Outbound extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -499,6 +507,7 @@ public class Outbound extends Resource {
     @JsonDeserialize(
         builder = InsightsV2CreatePhoneNumbersReportRequestTimeRange.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class InsightsV2CreatePhoneNumbersReportRequestTimeRange {
@@ -538,6 +547,7 @@ public class Outbound extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -609,6 +619,7 @@ public class Outbound extends Resource {
     }
 
     @JsonDeserialize(builder = ReportFilter.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ReportFilter {
@@ -639,6 +650,7 @@ public class Outbound extends Resource {
             return mapper.readValue(jsonString, ReportFilter.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -693,6 +705,7 @@ public class Outbound extends Resource {
     @JsonDeserialize(
         builder = InsightsV2CreatePhoneNumbersReportRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class InsightsV2CreatePhoneNumbersReportRequest {
@@ -732,6 +745,7 @@ public class Outbound extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -798,6 +812,7 @@ public class Outbound extends Resource {
     }
 
     @JsonDeserialize(builder = ReportMetadata.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ReportMetadata {
@@ -838,6 +853,7 @@ public class Outbound extends Resource {
             return mapper.readValue(jsonString, ReportMetadata.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -919,6 +935,7 @@ public class Outbound extends Resource {
     @JsonDeserialize(
         builder = InsightsV2OutboundPhoneNumberReportCallStatePercentage.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class InsightsV2OutboundPhoneNumberReportCallStatePercentage {
@@ -972,6 +989,7 @@ public class Outbound extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1175,9 +1193,9 @@ public class Outbound extends Resource {
         @JsonProperty(
             "answering_machine_detection"
         ) final InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection answeringMachineDetection,
-        @JsonProperty("blocked_calls_by_carrier") final List<
-            CountyCarrierValue
-        > blockedCallsByCarrier,
+        @JsonProperty(
+            "blocked_calls_by_carrier"
+        ) final List<CountyCarrierValue> blockedCallsByCarrier,
         @JsonProperty("call_answer_score") final Float callAnswerScore,
         @JsonProperty(
             "call_state_percentage"

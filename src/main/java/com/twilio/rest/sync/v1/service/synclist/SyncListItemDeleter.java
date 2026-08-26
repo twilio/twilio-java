@@ -55,11 +55,10 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
         path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
         path = path.replace("{" + "Index" + "}", this.pathIndex.toString());
 

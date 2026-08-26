@@ -34,7 +34,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ParticipantConversationReader
-    extends Reader<ParticipantConversation> {
+    extends Reader<ParticipantConversation>
+{
 
     private String identity;
     private String address;

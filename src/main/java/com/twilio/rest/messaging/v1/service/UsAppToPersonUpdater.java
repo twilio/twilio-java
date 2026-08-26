@@ -154,11 +154,10 @@ public class UsAppToPersonUpdater extends Updater<UsAppToPerson> {
         String path =
             "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.pathMessagingServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "MessagingServiceSid" + "}",
+            this.pathMessagingServiceSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

@@ -1,0 +1,86 @@
+name: Cluster Tests and Release Readiness
+
+on:
+  push:
+    branches: [gated-release]
+  schedule:
+    - cron: '0 15 * * 1'  # 8AM PST every Monday
+  workflow_dispatch:
+
+jobs:
+  cluster-test:
+    name: Cluster Tests
+    runs-on: ubuntu-x64
+    if: github.repository_owner == 'twilio'
+    timeout-minutes: 20
+    environment: production
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Artifactory OIDC
+        uses: twilio/sdk-actions/artifactory-oidc@4ffc0c647c8d692a8fff24d4f767b207c3d1222e # java_maven
+        with:
+          ecosystem: maven
+
+      - name: Set up Java
+        uses: actions/setup-java@e9fbacdec3bb3b6036605a3e6f7995d66773a8c6 # v3.14.2
+        with:
+          distribution: temurin
+          java-version: '11'
+          cache: maven
+
+      - run: mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+
+      - name: Run cluster tests
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_API_KEY: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY }}
+          TWILIO_API_SECRET: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY_SECRET }}
+          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
+          TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
+          TWILIO_ORGS_CLIENT_ID: ${{ secrets.TWILIO_ORGS_CLIENT_ID }}
+          TWILIO_ORGS_CLIENT_SECRET: ${{ secrets.TWILIO_ORGS_CLIENT_SECRET }}
+          TWILIO_ORG_SID: ${{ secrets.TWILIO_ORG_SID }}
+          TWILIO_CLIENT_ID: ${{ secrets.TWILIO_CLIENT_ID }}
+          TWILIO_CLIENT_SECRET: ${{ secrets.TWILIO_CLIENT_SECRET }}
+          TWILIO_MESSAGE_SID: ${{ secrets.TWILIO_MESSAGE_SID }}
+        run: mvn test -Dtest=ClusterTest -B
+
+  deploy-dry-run:
+    name: Release Readiness Check
+    needs: [cluster-test]
+    runs-on: ubuntu-x64
+    if: github.repository_owner == 'twilio'
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Artifactory OIDC
+        uses: twilio/sdk-actions/artifactory-oidc@4ffc0c647c8d692a8fff24d4f767b207c3d1222e # java_maven
+        with:
+          ecosystem: maven
+
+      - name: Set up Java
+        uses: actions/setup-java@e9fbacdec3bb3b6036605a3e6f7995d66773a8c6 # v3.14.2
+        with:
+          distribution: temurin
+          java-version: '11'
+          cache: maven
+
+      - run: mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+
+      - name: Build artifacts (dry run)
+        run: mvn clean package -DskipTests -B -Prelease -Dgpg.skip
+
+      - name: Dry run summary
+        run: |
+          PKG_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "Built artifacts:"
+          ls -lh target/*.jar 2>/dev/null || echo "No artifacts found"
+          echo "Package version: $PKG_VERSION"
+          echo "--- DRY RUN COMPLETE ---"

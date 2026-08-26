@@ -74,15 +74,14 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
         String path =
             "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
-        path = path.replace(
-            "{" + "Identity" + "}",
-            this.pathIdentity.toString()
-        );
+        path =
+            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
         Request request = new Request(
             HttpMethod.POST,

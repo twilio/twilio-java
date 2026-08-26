@@ -56,10 +56,11 @@ public class ProfilePatcher extends Patcher<Profile.PatchProfileResponse> {
         String path = "/v1/Stores/{storeId}/Profiles/{profileId}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.PATCH,

@@ -261,9 +261,9 @@ public class Metadata extends Resource {
 
         @JsonCreator
         private FetchMetadataResponse(
-            @JsonProperty(
-                "cubes"
-            ) final List<InsightsMetadataResponseCubes> cubes,
+            @JsonProperty("cubes") final List<
+                InsightsMetadataResponseCubes
+            > cubes,
             @JsonProperty("domain") final String domain
         ) {
             this.cubes = cubes;
@@ -383,12 +383,12 @@ public class Metadata extends Resource {
             @JsonCreator
             public Builder(
                 @JsonProperty("name") final String name,
-                @JsonProperty(
-                    "measures"
-                ) final List<InsightsMetadataResponseCubesMeasures> measures,
-                @JsonProperty(
-                    "dimensions"
-                ) final List<InsightsMetadataResponseCubesDimensions> dimensions
+                @JsonProperty("measures") final List<
+                    InsightsMetadataResponseCubesMeasures
+                > measures,
+                @JsonProperty("dimensions") final List<
+                    InsightsMetadataResponseCubesDimensions
+                > dimensions
             ) {
                 this.name = name;
                 this.measures = measures;

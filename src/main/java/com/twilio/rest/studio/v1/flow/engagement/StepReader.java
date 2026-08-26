@@ -75,10 +75,11 @@ public class StepReader extends Reader<Step> {
         String path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path = path.replace(
-            "{" + "EngagementSid" + "}",
-            this.pathEngagementSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "EngagementSid" + "}",
+                this.pathEngagementSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

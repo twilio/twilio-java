@@ -38,10 +38,11 @@ public class ConfigurationFetcher extends Fetcher<Configuration> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Configuration";
 
-        path = path.replace(
-            "{" + "ChatServiceSid" + "}",
-            this.pathChatServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ChatServiceSid" + "}",
+                this.pathChatServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

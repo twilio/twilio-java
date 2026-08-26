@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class AccountDefaultConfigurationUpdater
-    extends Updater<AccountDefaultConfiguration>
-{
+    extends Updater<AccountDefaultConfiguration> {
 
     private String pathType;
     private AccountDefaultConfiguration.VoiceV2AccountDefaultConfigurationRequest voiceV2AccountDefaultConfigurationRequest;

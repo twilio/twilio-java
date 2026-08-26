@@ -48,15 +48,17 @@ public class UserConversationDeleter extends Deleter<UserConversation> {
         String path =
             "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}";
 
-        path = path.replace(
-            "{" + "ChatServiceSid" + "}",
-            this.pathChatServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ChatServiceSid" + "}",
+                this.pathChatServiceSid.toString()
+            );
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
-        path = path.replace(
-            "{" + "ConversationSid" + "}",
-            this.pathConversationSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ConversationSid" + "}",
+                this.pathConversationSid.toString()
+            );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

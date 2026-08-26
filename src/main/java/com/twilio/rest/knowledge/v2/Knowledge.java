@@ -1471,9 +1471,9 @@ public class Knowledge extends Resource {
             @JsonCreator
             public Builder(
                 @JsonProperty("title") final String title,
-                @JsonProperty(
-                    "instances"
-                ) final List<KnowledgeErrorInstance> instances
+                @JsonProperty("instances") final List<
+                    KnowledgeErrorInstance
+                > instances
             ) {
                 this.title = title;
                 this.instances = instances;

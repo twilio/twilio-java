@@ -29,8 +29,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConversationSummaryPatcher
-    extends Patcher<ConversationSummary.PatchConversationSummaryResponse>
-{
+    extends Patcher<ConversationSummary.PatchConversationSummaryResponse> {
 
     private String pathStoreId;
     private String pathProfileId;
@@ -64,14 +63,16 @@ public class ConversationSummaryPatcher
             "/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries/{summaryId}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
-        path = path.replace(
-            "{" + "summaryId" + "}",
-            this.pathSummaryId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
+        path =
+            path.replace(
+                "{" + "summaryId" + "}",
+                this.pathSummaryId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.PATCH,

@@ -931,9 +931,9 @@ public class Observation extends Resource {
 
             @JsonCreator
             public Builder(
-                @JsonProperty(
-                    "observations"
-                ) final List<ObservationCreateRequest> observations
+                @JsonProperty("observations") final List<
+                    ObservationCreateRequest
+                > observations
             ) {
                 this.observations = observations;
             }

@@ -51,10 +51,11 @@ public class ChannelSenderCreator extends Creator<ChannelSender> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{MessagingServiceSid}/ChannelSenders";
 
-        path = path.replace(
-            "{" + "MessagingServiceSid" + "}",
-            this.pathMessagingServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "MessagingServiceSid" + "}",
+                this.pathMessagingServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

@@ -72,10 +72,11 @@ public class RecallCreator extends Creator<Recall.CreateRecallResponse> {
         String path = "/v1/Stores/{storeId}/Profiles/{profileId}/Recall";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

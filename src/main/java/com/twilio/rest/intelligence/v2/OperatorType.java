@@ -246,9 +246,9 @@ public class OperatorType extends Resource {
         @JsonProperty("output_type") final OperatorType.OutputType outputType,
         @JsonProperty("provider") final OperatorType.Provider provider,
         @JsonProperty("sid") final String sid,
-        @JsonProperty(
-            "supported_languages"
-        ) final List<String> supportedLanguages,
+        @JsonProperty("supported_languages") final List<
+            String
+        > supportedLanguages,
         @JsonProperty("url") final URI url
     ) {
         this.availability = availability;

@@ -33,8 +33,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class AuthorizationDocumentUpdater
-    extends Updater<AuthorizationDocument>
-{
+    extends Updater<AuthorizationDocument> {
 
     private String pathSid;
     private List<String> hostedNumberOrderSids;

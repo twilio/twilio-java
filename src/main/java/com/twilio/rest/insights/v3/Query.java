@@ -741,9 +741,9 @@ public class Query extends Resource {
 
             @JsonCreator
             public Builder(
-                @JsonProperty(
-                    "expressions"
-                ) final List<QueryDefinitionFiltersExpressions> expressions
+                @JsonProperty("expressions") final List<
+                    QueryDefinitionFiltersExpressions
+                > expressions
             ) {
                 this.expressions = expressions;
             }

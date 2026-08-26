@@ -29,8 +29,7 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class StoreDeleter
-    extends ResourceDeleter<Store, Store.DeleteStoreResponse>
-{
+    extends ResourceDeleter<Store, Store.DeleteStoreResponse> {
 
     private String pathStoreId;
 

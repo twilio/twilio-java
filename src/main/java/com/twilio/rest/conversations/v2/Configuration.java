@@ -281,16 +281,16 @@ public class Configuration extends Resource {
             @JsonProperty("description") final String description,
             @JsonProperty("displayName") final String displayName,
             @JsonProperty("id") final String id,
-            @JsonProperty(
-                "intelligenceConfigurationIds"
-            ) final List<String> intelligenceConfigurationIds,
+            @JsonProperty("intelligenceConfigurationIds") final List<
+                String
+            > intelligenceConfigurationIds,
             @JsonProperty(
                 "memoryExtractionEnabled"
             ) final Boolean memoryExtractionEnabled,
             @JsonProperty("memoryStoreId") final String memoryStoreId,
-            @JsonProperty(
-                "statusCallbacks"
-            ) final List<ConversationsV2StatusCallbackConfig> statusCallbacks,
+            @JsonProperty("statusCallbacks") final List<
+                ConversationsV2StatusCallbackConfig
+            > statusCallbacks,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt,
             @JsonProperty("version") final Long version
         ) {
@@ -488,16 +488,16 @@ public class Configuration extends Resource {
             @JsonProperty("description") final String description,
             @JsonProperty("displayName") final String displayName,
             @JsonProperty("id") final String id,
-            @JsonProperty(
-                "intelligenceConfigurationIds"
-            ) final List<String> intelligenceConfigurationIds,
+            @JsonProperty("intelligenceConfigurationIds") final List<
+                String
+            > intelligenceConfigurationIds,
             @JsonProperty(
                 "memoryExtractionEnabled"
             ) final Boolean memoryExtractionEnabled,
             @JsonProperty("memoryStoreId") final String memoryStoreId,
-            @JsonProperty(
-                "statusCallbacks"
-            ) final List<ConversationsV2StatusCallbackConfig> statusCallbacks,
+            @JsonProperty("statusCallbacks") final List<
+                ConversationsV2StatusCallbackConfig
+            > statusCallbacks,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt,
             @JsonProperty("version") final Long version
         ) {
@@ -1019,7 +1019,9 @@ public class Configuration extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("captureRules")
         @Getter
-        private final List<UpdateConfigurationRequestChannelSettingsValueCaptureRules> captureRules;
+        private final List<
+            UpdateConfigurationRequestChannelSettingsValueCaptureRules
+        > captureRules;
 
         private UpdateConfigurationRequestChannelSettingsValue(
             Builder builder
@@ -1050,7 +1052,9 @@ public class Configuration extends Resource {
             private UpdateConfigurationRequestChannelSettingsValueStatusTimeouts statusTimeouts;
 
             @JsonProperty("captureRules")
-            private List<UpdateConfigurationRequestChannelSettingsValueCaptureRules> captureRules;
+            private List<
+                UpdateConfigurationRequestChannelSettingsValueCaptureRules
+            > captureRules;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("statusTimeouts")
@@ -1064,7 +1068,9 @@ public class Configuration extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("captureRules")
             public Builder captureRules(
-                List<UpdateConfigurationRequestChannelSettingsValueCaptureRules> captureRules
+                List<
+                    UpdateConfigurationRequestChannelSettingsValueCaptureRules
+                > captureRules
             ) {
                 this.captureRules = captureRules;
                 return this;
@@ -1115,7 +1121,9 @@ public class Configuration extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("captureRules")
         @Getter
-        private final List<CreateConfigurationRequestChannelSettingsValueCaptureRules> captureRules;
+        private final List<
+            CreateConfigurationRequestChannelSettingsValueCaptureRules
+        > captureRules;
 
         private CreateConfigurationRequestChannelSettingsValue(
             Builder builder
@@ -1146,7 +1154,9 @@ public class Configuration extends Resource {
             private CreateConfigurationRequestChannelSettingsValueStatusTimeouts statusTimeouts;
 
             @JsonProperty("captureRules")
-            private List<CreateConfigurationRequestChannelSettingsValueCaptureRules> captureRules;
+            private List<
+                CreateConfigurationRequestChannelSettingsValueCaptureRules
+            > captureRules;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("statusTimeouts")
@@ -1160,7 +1170,9 @@ public class Configuration extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("captureRules")
             public Builder captureRules(
-                List<CreateConfigurationRequestChannelSettingsValueCaptureRules> captureRules
+                List<
+                    CreateConfigurationRequestChannelSettingsValueCaptureRules
+                > captureRules
             ) {
                 this.captureRules = captureRules;
                 return this;
@@ -1397,7 +1409,9 @@ public class Configuration extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("statusCallbacks")
         @Getter
-        private final List<UpdateConfigurationRequestStatusCallbacks> statusCallbacks;
+        private final List<
+            UpdateConfigurationRequestStatusCallbacks
+        > statusCallbacks;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("intelligenceConfigurationIds")
@@ -1477,7 +1491,9 @@ public class Configuration extends Resource {
             > channelSettings;
 
             @JsonProperty("statusCallbacks")
-            private List<UpdateConfigurationRequestStatusCallbacks> statusCallbacks;
+            private List<
+                UpdateConfigurationRequestStatusCallbacks
+            > statusCallbacks;
 
             @JsonProperty("intelligenceConfigurationIds")
             private List<String> intelligenceConfigurationIds;
@@ -1919,7 +1935,9 @@ public class Configuration extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("statusCallbacks")
         @Getter
-        private final List<CreateConfigurationRequestStatusCallbacks> statusCallbacks;
+        private final List<
+            CreateConfigurationRequestStatusCallbacks
+        > statusCallbacks;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("intelligenceConfigurationIds")
@@ -1996,7 +2014,9 @@ public class Configuration extends Resource {
             > channelSettings;
 
             @JsonProperty("statusCallbacks")
-            private List<CreateConfigurationRequestStatusCallbacks> statusCallbacks;
+            private List<
+                CreateConfigurationRequestStatusCallbacks
+            > statusCallbacks;
 
             @JsonProperty("intelligenceConfigurationIds")
             private List<String> intelligenceConfigurationIds;

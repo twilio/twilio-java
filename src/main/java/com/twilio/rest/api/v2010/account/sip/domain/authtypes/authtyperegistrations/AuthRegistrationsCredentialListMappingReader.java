@@ -34,8 +34,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class AuthRegistrationsCredentialListMappingReader
-    extends Reader<AuthRegistrationsCredentialListMapping>
-{
+    extends Reader<AuthRegistrationsCredentialListMapping> {
 
     private String pathAccountSid;
     private String pathDomainSid;
@@ -62,9 +61,9 @@ public class AuthRegistrationsCredentialListMappingReader
         return this;
     }
 
-    public ResourceSetResponse<AuthRegistrationsCredentialListMapping> readWithResponse(
-        final TwilioRestClient client
-    ) {
+    public ResourceSetResponse<
+        AuthRegistrationsCredentialListMapping
+    > readWithResponse(final TwilioRestClient client) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<AuthRegistrationsCredentialListMapping> page = Page.fromJson(
@@ -90,14 +89,16 @@ public class AuthRegistrationsCredentialListMappingReader
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path = path.replace(
-            "{" + "AccountSid" + "}",
-            this.pathAccountSid.toString()
-        );
-        path = path.replace(
-            "{" + "DomainSid" + "}",
-            this.pathDomainSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "DomainSid" + "}",
+                this.pathDomainSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

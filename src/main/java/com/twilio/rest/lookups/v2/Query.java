@@ -1121,7 +1121,8 @@ public class Query extends Resource {
                 Objects.equals(
                     callForwardingEnabled,
                     other.callForwardingEnabled
-                ) && Objects.equals(errorCode, other.errorCode)
+                ) &&
+                Objects.equals(errorCode, other.errorCode)
             );
         }
 
@@ -2360,9 +2361,9 @@ public class Query extends Resource {
 
     @JsonCreator
     private Query(
-        @JsonProperty(
-            "phone_numbers"
-        ) final List<LookupBatchResponse> phoneNumbers
+        @JsonProperty("phone_numbers") final List<
+            LookupBatchResponse
+        > phoneNumbers
     ) {
         this.phoneNumbers = phoneNumbers;
     }

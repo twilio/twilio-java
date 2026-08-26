@@ -208,9 +208,9 @@ public class RatePlan extends Resource {
             using = com.twilio.converter.ISO8601Serializer.class
         ) final ZonedDateTime dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty(
-            "international_roaming"
-        ) final List<String> internationalRoaming,
+        @JsonProperty("international_roaming") final List<
+            String
+        > internationalRoaming,
         @JsonProperty(
             "international_roaming_data_limit"
         ) final Integer internationalRoamingDataLimit,

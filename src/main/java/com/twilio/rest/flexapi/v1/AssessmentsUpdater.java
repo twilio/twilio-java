@@ -75,10 +75,11 @@ public class AssessmentsUpdater extends Updater<Assessments> {
         String path =
             "/v1/Insights/QualityManagement/Assessments/{AssessmentSid}";
 
-        path = path.replace(
-            "{" + "AssessmentSid" + "}",
-            this.pathAssessmentSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AssessmentSid" + "}",
+                this.pathAssessmentSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

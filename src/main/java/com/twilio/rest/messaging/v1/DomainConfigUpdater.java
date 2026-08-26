@@ -77,10 +77,11 @@ public class DomainConfigUpdater extends Updater<DomainConfig> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
 
-        path = path.replace(
-            "{" + "DomainSid" + "}",
-            this.pathDomainSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "DomainSid" + "}",
+                this.pathDomainSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

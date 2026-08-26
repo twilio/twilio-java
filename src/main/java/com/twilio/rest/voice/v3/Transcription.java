@@ -251,9 +251,9 @@ public class Transcription extends Resource {
             @JsonProperty("duration") final Integer duration,
             @JsonProperty("id") final String id,
             @JsonProperty("mediaUrl") final URI mediaUrl,
-            @JsonProperty(
-                "participants"
-            ) final List<VoiceV3TranscriptionParticipant> participants,
+            @JsonProperty("participants") final List<
+                VoiceV3TranscriptionParticipant
+            > participants,
             @JsonProperty(
                 "resolvedConfiguration"
             ) final VoiceV3TranscriptionResolvedConfiguration resolvedConfiguration,
@@ -859,7 +859,9 @@ public class Transcription extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("participantDefaults")
         @Getter
-        private final List<VoiceV3TranscriptionResolvedConfigurationParticipantDefaults> participantDefaults;
+        private final List<
+            VoiceV3TranscriptionResolvedConfigurationParticipantDefaults
+        > participantDefaults;
 
         private VoiceV3TranscriptionResolvedConfiguration(Builder builder) {
             this.transcriptionEngine = builder.transcriptionEngine;
@@ -906,7 +908,9 @@ public class Transcription extends Resource {
             private String conversationConfigurationId;
 
             @JsonProperty("participantDefaults")
-            private List<VoiceV3TranscriptionResolvedConfigurationParticipantDefaults> participantDefaults;
+            private List<
+                VoiceV3TranscriptionResolvedConfigurationParticipantDefaults
+            > participantDefaults;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("transcriptionEngine")
@@ -950,7 +954,9 @@ public class Transcription extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("participantDefaults")
             public Builder participantDefaults(
-                List<VoiceV3TranscriptionResolvedConfigurationParticipantDefaults> participantDefaults
+                List<
+                    VoiceV3TranscriptionResolvedConfigurationParticipantDefaults
+                > participantDefaults
             ) {
                 this.participantDefaults = participantDefaults;
                 return this;

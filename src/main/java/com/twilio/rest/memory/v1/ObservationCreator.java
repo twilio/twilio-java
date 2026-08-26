@@ -32,8 +32,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ObservationCreator
-    extends Creator<Observation.CreateObservationResponse>
-{
+    extends Creator<Observation.CreateObservationResponse> {
 
     private String pathStoreId;
     private String pathProfileId;
@@ -74,10 +73,11 @@ public class ObservationCreator
         String path = "/v1/Stores/{storeId}/Profiles/{profileId}/Observations";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -123,9 +123,9 @@ public class ObservationCreator
     }
 
     @Override
-    public TwilioResponse<Observation.CreateObservationResponse> createWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Observation.CreateObservationResponse
+    > createWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Observation.CreateObservationResponse content =
             Observation.CreateObservationResponse.fromJson(

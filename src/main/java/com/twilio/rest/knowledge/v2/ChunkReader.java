@@ -85,10 +85,11 @@ public class ChunkReader extends Reader<Chunk.ListChunkResponse> {
             "/v2/KnowledgeBases/{kbId}/Knowledge/{knowledgeId}/Chunks";
 
         path = path.replace("{" + "kbId" + "}", this.pathKbId.toString());
-        path = path.replace(
-            "{" + "knowledgeId" + "}",
-            this.pathKnowledgeId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "knowledgeId" + "}",
+                this.pathKnowledgeId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -190,10 +191,11 @@ public class ChunkReader extends Reader<Chunk.ListChunkResponse> {
             "/v2/KnowledgeBases/{kbId}/Knowledge/{knowledgeId}/Chunks";
 
         path = path.replace("{" + "kbId" + "}", this.pathKbId.toString());
-        path = path.replace(
-            "{" + "knowledgeId" + "}",
-            this.pathKnowledgeId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "knowledgeId" + "}",
+                this.pathKnowledgeId.toString()
+            );
 
         path = path + page.previousQueryString();
         Request request = new Request(
@@ -214,10 +216,11 @@ public class ChunkReader extends Reader<Chunk.ListChunkResponse> {
             "/v2/KnowledgeBases/{kbId}/Knowledge/{knowledgeId}/Chunks";
 
         path = path.replace("{" + "kbId" + "}", this.pathKbId.toString());
-        path = path.replace(
-            "{" + "knowledgeId" + "}",
-            this.pathKnowledgeId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "knowledgeId" + "}",
+                this.pathKnowledgeId.toString()
+            );
 
         path = path + page.nextQueryString();
         Request request = new Request(

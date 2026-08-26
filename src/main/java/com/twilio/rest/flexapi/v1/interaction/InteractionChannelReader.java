@@ -73,10 +73,11 @@ public class InteractionChannelReader extends Reader<InteractionChannel> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Interactions/{InteractionSid}/Channels";
 
-        path = path.replace(
-            "{" + "InteractionSid" + "}",
-            this.pathInteractionSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "InteractionSid" + "}",
+                this.pathInteractionSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

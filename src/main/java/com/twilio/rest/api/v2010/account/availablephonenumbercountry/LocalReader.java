@@ -204,14 +204,16 @@ public class LocalReader extends Reader<Local> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path = path.replace(
-            "{" + "AccountSid" + "}",
-            this.pathAccountSid.toString()
-        );
-        path = path.replace(
-            "{" + "CountryCode" + "}",
-            this.pathCountryCode.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "CountryCode" + "}",
+                this.pathCountryCode.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

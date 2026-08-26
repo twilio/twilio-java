@@ -266,9 +266,9 @@ public class DependentHostedNumberOrder extends Resource {
         @JsonProperty(
             "verification_attempts"
         ) final Integer verificationAttempts,
-        @JsonProperty(
-            "verification_call_sids"
-        ) final List<String> verificationCallSids,
+        @JsonProperty("verification_call_sids") final List<
+            String
+        > verificationCallSids,
         @JsonProperty("verification_code") final String verificationCode,
         @JsonProperty(
             "verification_document_sid"

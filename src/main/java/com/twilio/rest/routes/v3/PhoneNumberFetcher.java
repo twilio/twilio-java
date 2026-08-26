@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class PhoneNumberFetcher
-    extends Fetcher<PhoneNumber.FetchPhoneNumberResponse>
-{
+    extends Fetcher<PhoneNumber.FetchPhoneNumberResponse> {
 
     private String pathPhoneNumber;
 
@@ -40,10 +39,11 @@ public class PhoneNumberFetcher
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v3/PhoneNumbers/{phoneNumber}";
 
-        path = path.replace(
-            "{" + "phoneNumber" + "}",
-            this.pathPhoneNumber.toString()
-        );
+        path =
+            path.replace(
+                "{" + "phoneNumber" + "}",
+                this.pathPhoneNumber.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -86,9 +86,9 @@ public class PhoneNumberFetcher
     }
 
     @Override
-    public TwilioResponse<PhoneNumber.FetchPhoneNumberResponse> fetchWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        PhoneNumber.FetchPhoneNumberResponse
+    > fetchWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         PhoneNumber.FetchPhoneNumberResponse content =
             PhoneNumber.FetchPhoneNumberResponse.fromJson(

@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class AssignedAddOnExtensionFetcher
-    extends Fetcher<AssignedAddOnExtension>
-{
+    extends Fetcher<AssignedAddOnExtension> {
 
     private String pathAccountSid;
     private String pathResourceSid;
@@ -66,18 +65,21 @@ public class AssignedAddOnExtensionFetcher
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path = path.replace(
-            "{" + "AccountSid" + "}",
-            this.pathAccountSid.toString()
-        );
-        path = path.replace(
-            "{" + "ResourceSid" + "}",
-            this.pathResourceSid.toString()
-        );
-        path = path.replace(
-            "{" + "AssignedAddOnSid" + "}",
-            this.pathAssignedAddOnSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ResourceSid" + "}",
+                this.pathResourceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "AssignedAddOnSid" + "}",
+                this.pathAssignedAddOnSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

@@ -85,10 +85,11 @@ public class SentenceReader extends Reader<Sentence> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/Transcripts/{TranscriptSid}/Sentences";
 
-        path = path.replace(
-            "{" + "TranscriptSid" + "}",
-            this.pathTranscriptSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "TranscriptSid" + "}",
+                this.pathTranscriptSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

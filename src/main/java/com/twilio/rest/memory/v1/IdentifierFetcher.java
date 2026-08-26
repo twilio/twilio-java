@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class IdentifierFetcher
-    extends Fetcher<Identifier.FetchIdentifierResponse>
-{
+    extends Fetcher<Identifier.FetchIdentifierResponse> {
 
     private String pathStoreId;
     private String pathProfileId;
@@ -50,10 +49,11 @@ public class IdentifierFetcher
             "/v1/Stores/{storeId}/Profiles/{profileId}/Identifiers/{idType}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
         path = path.replace("{" + "idType" + "}", this.pathIdType.toString());
 
         Request request = new Request(

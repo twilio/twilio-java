@@ -52,10 +52,11 @@ public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Content/{ContentSid}/ApprovalRequests/whatsapp";
 
-        path = path.replace(
-            "{" + "ContentSid" + "}",
-            this.pathContentSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ContentSid" + "}",
+                this.pathContentSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

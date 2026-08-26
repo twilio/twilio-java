@@ -98,9 +98,9 @@ public class Operator extends Resource {
                 OperatorParameter
             > parameters,
             @JsonProperty("prompt") final String prompt,
-            @JsonProperty(
-                "trainingExamples"
-            ) final List<OperatorTrainingExample> trainingExamples,
+            @JsonProperty("trainingExamples") final List<
+                OperatorTrainingExample
+            > trainingExamples,
             @JsonProperty("version") final Integer version
         ) {
             this.author = author;
@@ -228,9 +228,9 @@ public class Operator extends Resource {
                 OperatorParameter
             > parameters,
             @JsonProperty("prompt") final String prompt,
-            @JsonProperty(
-                "trainingExamples"
-            ) final List<OperatorTrainingExample> trainingExamples,
+            @JsonProperty("trainingExamples") final List<
+                OperatorTrainingExample
+            > trainingExamples,
             @JsonProperty("version") final Integer version
         ) {
             this.author = author;
@@ -400,9 +400,9 @@ public class Operator extends Resource {
                 OperatorParameter
             > parameters,
             @JsonProperty("prompt") final String prompt,
-            @JsonProperty(
-                "trainingExamples"
-            ) final List<OperatorTrainingExample> trainingExamples,
+            @JsonProperty("trainingExamples") final List<
+                OperatorTrainingExample
+            > trainingExamples,
             @JsonProperty("version") final Integer version
         ) {
             this.author = author;
@@ -569,9 +569,9 @@ public class Operator extends Resource {
                 OperatorParameter
             > parameters,
             @JsonProperty("prompt") final String prompt,
-            @JsonProperty(
-                "trainingExamples"
-            ) final List<OperatorTrainingExample> trainingExamples,
+            @JsonProperty("trainingExamples") final List<
+                OperatorTrainingExample
+            > trainingExamples,
             @JsonProperty("version") final Integer version
         ) {
             this.author = author;

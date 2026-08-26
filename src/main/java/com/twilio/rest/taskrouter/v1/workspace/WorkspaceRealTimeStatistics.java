@@ -140,9 +140,9 @@ public class WorkspaceRealTimeStatistics extends Resource {
     @JsonCreator
     private WorkspaceRealTimeStatistics(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty(
-            "activity_statistics"
-        ) final List<Object> activityStatistics,
+        @JsonProperty("activity_statistics") final List<
+            Object
+        > activityStatistics,
         @JsonProperty(
             "longest_task_waiting_age"
         ) final Integer longestTaskWaitingAge,

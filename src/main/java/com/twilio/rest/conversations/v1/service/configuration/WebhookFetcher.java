@@ -38,10 +38,11 @@ public class WebhookFetcher extends Fetcher<Webhook> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Configuration/Webhooks";
 
-        path = path.replace(
-            "{" + "ChatServiceSid" + "}",
-            this.pathChatServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ChatServiceSid" + "}",
+                this.pathChatServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

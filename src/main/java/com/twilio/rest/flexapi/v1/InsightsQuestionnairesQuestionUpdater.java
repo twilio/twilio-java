@@ -31,8 +31,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class InsightsQuestionnairesQuestionUpdater
-    extends Updater<InsightsQuestionnairesQuestion>
-{
+    extends Updater<InsightsQuestionnairesQuestion> {
 
     private String pathQuestionSid;
     private String authorization;
@@ -95,10 +94,11 @@ public class InsightsQuestionnairesQuestionUpdater
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Insights/QualityManagement/Questions/{QuestionSid}";
 
-        path = path.replace(
-            "{" + "QuestionSid" + "}",
-            this.pathQuestionSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "QuestionSid" + "}",
+                this.pathQuestionSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

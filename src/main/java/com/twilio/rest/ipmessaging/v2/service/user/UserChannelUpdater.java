@@ -75,15 +75,17 @@ public class UserChannelUpdater extends Updater<UserChannel> {
         String path =
             "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
-        path = path.replace(
-            "{" + "ChannelSid" + "}",
-            this.pathChannelSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

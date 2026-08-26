@@ -39,10 +39,11 @@ public class OperatorResultDeleter extends Deleter<OperatorResult> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v3/OperatorResults/{operatorResultId}";
 
-        path = path.replace(
-            "{" + "operatorResultId" + "}",
-            this.pathOperatorResultId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "operatorResultId" + "}",
+                this.pathOperatorResultId.toString()
+            );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

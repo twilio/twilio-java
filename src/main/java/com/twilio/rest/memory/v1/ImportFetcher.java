@@ -41,10 +41,8 @@ public class ImportFetcher extends Fetcher<Import.FetchImportResponse> {
         String path = "/v1/Stores/{storeId}/Profiles/Imports/{importId}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "importId" + "}",
-            this.pathImportId.toString()
-        );
+        path =
+            path.replace("{" + "importId" + "}", this.pathImportId.toString());
 
         Request request = new Request(
             HttpMethod.GET,

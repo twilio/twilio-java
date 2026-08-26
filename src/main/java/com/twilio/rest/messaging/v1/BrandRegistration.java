@@ -296,9 +296,9 @@ public class BrandRegistration extends Resource {
             "a2p_profile_bundle_sid"
         ) final String a2pProfileBundleSid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty(
-            "brand_feedback"
-        ) final List<BrandRegistration.BrandFeedback> brandFeedback,
+        @JsonProperty("brand_feedback") final List<
+            BrandRegistration.BrandFeedback
+        > brandFeedback,
         @JsonProperty("brand_score") final Integer brandScore,
         @JsonProperty("brand_type") final String brandType,
         @JsonProperty(

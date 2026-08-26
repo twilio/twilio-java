@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class PortingWebhookConfigurationCreator
-    extends Creator<PortingWebhookConfiguration>
-{
+    extends Creator<PortingWebhookConfiguration> {
 
     private Object body;
 

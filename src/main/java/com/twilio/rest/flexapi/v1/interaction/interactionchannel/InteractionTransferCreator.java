@@ -52,14 +52,16 @@ public class InteractionTransferCreator extends Creator<InteractionTransfer> {
         String path =
             "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers";
 
-        path = path.replace(
-            "{" + "InteractionSid" + "}",
-            this.pathInteractionSid.toString()
-        );
-        path = path.replace(
-            "{" + "ChannelSid" + "}",
-            this.pathChannelSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "InteractionSid" + "}",
+                this.pathInteractionSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

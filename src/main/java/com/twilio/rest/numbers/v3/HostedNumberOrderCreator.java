@@ -34,8 +34,7 @@ import java.net.URI;
 import java.util.List;
 
 public class HostedNumberOrderCreator
-    extends Creator<HostedNumberOrder.CreateHostedNumberOrderResponse>
-{
+    extends Creator<HostedNumberOrder.CreateHostedNumberOrderResponse> {
 
     private com.twilio.type.PhoneNumber phoneNumber;
     private Boolean smsCapability;
@@ -236,9 +235,9 @@ public class HostedNumberOrderCreator
     }
 
     @Override
-    public TwilioResponse<HostedNumberOrder.CreateHostedNumberOrderResponse> createWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        HostedNumberOrder.CreateHostedNumberOrderResponse
+    > createWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         HostedNumberOrder.CreateHostedNumberOrderResponse content =
             HostedNumberOrder.CreateHostedNumberOrderResponse.fromJson(

@@ -99,10 +99,11 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues";
 
-        path = path.replace(
-            "{" + "WorkspaceSid" + "}",
-            this.pathWorkspaceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

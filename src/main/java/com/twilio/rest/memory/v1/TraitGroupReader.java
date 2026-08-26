@@ -36,8 +36,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TraitGroupReader
-    extends Reader<TraitGroup.ListTraitGroupResponse>
-{
+    extends Reader<TraitGroup.ListTraitGroupResponse> {
 
     private String pathStoreId;
     private Boolean includeTraits;
@@ -69,9 +68,9 @@ public class TraitGroupReader
         return this;
     }
 
-    public ResourceSetResponse<TraitGroup.ListTraitGroupResponse> readWithResponse(
-        final TwilioRestClient client
-    ) {
+    public ResourceSetResponse<
+        TraitGroup.ListTraitGroupResponse
+    > readWithResponse(final TwilioRestClient client) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<TraitGroup.ListTraitGroupResponse> page = Page.fromJson(

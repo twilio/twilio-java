@@ -29,8 +29,7 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class PortingWebhookConfigurationDeleteDeleter
-    extends Deleter<PortingWebhookConfigurationDelete>
-{
+    extends Deleter<PortingWebhookConfigurationDelete> {
 
     private PortingWebhookConfigurationDelete.WebhookType pathWebhookType;
 
@@ -43,10 +42,11 @@ public class PortingWebhookConfigurationDeleteDeleter
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Porting/Configuration/Webhook/{WebhookType}";
 
-        path = path.replace(
-            "{" + "WebhookType" + "}",
-            this.pathWebhookType.toString()
-        );
+        path =
+            path.replace(
+                "{" + "WebhookType" + "}",
+                this.pathWebhookType.toString()
+            );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

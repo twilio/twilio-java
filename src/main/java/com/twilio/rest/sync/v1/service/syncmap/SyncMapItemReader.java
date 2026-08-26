@@ -100,10 +100,11 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
 
         Request request = new Request(

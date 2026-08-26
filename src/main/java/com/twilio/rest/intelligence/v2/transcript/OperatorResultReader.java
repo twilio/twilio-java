@@ -79,10 +79,11 @@ public class OperatorResultReader extends Reader<OperatorResult> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/Transcripts/{TranscriptSid}/OperatorResults";
 
-        path = path.replace(
-            "{" + "TranscriptSid" + "}",
-            this.pathTranscriptSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "TranscriptSid" + "}",
+                this.pathTranscriptSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

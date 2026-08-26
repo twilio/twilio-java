@@ -38,10 +38,11 @@ public class ConferenceFetcher extends Fetcher<Conference> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Conferences/{ConferenceSid}";
 
-        path = path.replace(
-            "{" + "ConferenceSid" + "}",
-            this.pathConferenceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ConferenceSid" + "}",
+                this.pathConferenceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

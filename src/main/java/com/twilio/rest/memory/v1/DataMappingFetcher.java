@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class DataMappingFetcher
-    extends Fetcher<DataMapping.FetchDataMappingResponse>
-{
+    extends Fetcher<DataMapping.FetchDataMappingResponse> {
 
     private String pathStoreId;
     private String pathDataMappingId;
@@ -47,10 +46,11 @@ public class DataMappingFetcher
             "/v1/ControlPlane/Stores/{storeId}/DataMappings/{dataMappingId}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "dataMappingId" + "}",
-            this.pathDataMappingId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "dataMappingId" + "}",
+                this.pathDataMappingId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -93,9 +93,9 @@ public class DataMappingFetcher
     }
 
     @Override
-    public TwilioResponse<DataMapping.FetchDataMappingResponse> fetchWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        DataMapping.FetchDataMappingResponse
+    > fetchWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         DataMapping.FetchDataMappingResponse content =
             DataMapping.FetchDataMappingResponse.fromJson(

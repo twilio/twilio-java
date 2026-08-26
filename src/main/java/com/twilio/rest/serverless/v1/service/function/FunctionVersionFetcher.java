@@ -47,14 +47,16 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
         String path =
             "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
-        path = path.replace(
-            "{" + "FunctionSid" + "}",
-            this.pathFunctionSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "FunctionSid" + "}",
+                this.pathFunctionSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

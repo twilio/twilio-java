@@ -32,8 +32,7 @@ public class ConversationSummaryDeleter
     extends ResourceDeleter<
         ConversationSummary,
         ConversationSummary.DeleteConversationSummaryResponse
-    >
-{
+    > {
 
     private String pathStoreId;
     private String pathProfileId;
@@ -54,14 +53,16 @@ public class ConversationSummaryDeleter
             "/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries/{summaryId}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
-        path = path.replace(
-            "{" + "summaryId" + "}",
-            this.pathSummaryId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
+        path =
+            path.replace(
+                "{" + "summaryId" + "}",
+                this.pathSummaryId.toString()
+            );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;
@@ -106,9 +107,9 @@ public class ConversationSummaryDeleter
     }
 
     @Override
-    public TwilioResponse<ConversationSummary.DeleteConversationSummaryResponse> deleteWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        ConversationSummary.DeleteConversationSummaryResponse
+    > deleteWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         ConversationSummary.DeleteConversationSummaryResponse content =
             ConversationSummary.DeleteConversationSummaryResponse.fromJson(

@@ -105,10 +105,11 @@ public class ParticipantCreator extends Creator<Participant> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Conversations/{ConversationSid}/Participants";
 
-        path = path.replace(
-            "{" + "ConversationSid" + "}",
-            this.pathConversationSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ConversationSid" + "}",
+                this.pathConversationSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

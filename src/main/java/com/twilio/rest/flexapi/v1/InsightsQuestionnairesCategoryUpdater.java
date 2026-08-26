@@ -31,8 +31,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class InsightsQuestionnairesCategoryUpdater
-    extends Updater<InsightsQuestionnairesCategory>
-{
+    extends Updater<InsightsQuestionnairesCategory> {
 
     private String pathCategorySid;
     private String authorization;
@@ -61,10 +60,11 @@ public class InsightsQuestionnairesCategoryUpdater
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Insights/QualityManagement/Categories/{CategorySid}";
 
-        path = path.replace(
-            "{" + "CategorySid" + "}",
-            this.pathCategorySid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "CategorySid" + "}",
+                this.pathCategorySid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

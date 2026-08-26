@@ -47,8 +47,7 @@ public class IdentityResolutionSetting extends Resource {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class CreateIdentityResolutionSettingResponse
-        extends Resource
-    {
+        extends Resource {
 
         @JsonCreator
         private CreateIdentityResolutionSettingResponse() {}
@@ -92,8 +91,7 @@ public class IdentityResolutionSetting extends Resource {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class UpdateIdentityResolutionSettingResponse
-        extends Resource
-    {
+        extends Resource {
 
         @Getter
         private final String message;
@@ -152,8 +150,7 @@ public class IdentityResolutionSetting extends Resource {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class DeleteIdentityResolutionSettingResponse
-        extends Resource
-    {
+        extends Resource {
 
         @JsonCreator
         private DeleteIdentityResolutionSettingResponse() {}
@@ -240,8 +237,7 @@ public class IdentityResolutionSetting extends Resource {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PatchIdentityResolutionSettingResponse
-        extends Resource
-    {
+        extends Resource {
 
         @JsonCreator
         private PatchIdentityResolutionSettingResponse() {}
@@ -285,8 +281,7 @@ public class IdentityResolutionSetting extends Resource {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class FetchIdentityResolutionSettingResponse
-        extends Resource
-    {
+        extends Resource {
 
         @Getter
         private final List<IdentifierConfig> identifierConfigs;
@@ -299,9 +294,9 @@ public class IdentityResolutionSetting extends Resource {
 
         @JsonCreator
         private FetchIdentityResolutionSettingResponse(
-            @JsonProperty(
-                "identifierConfigs"
-            ) final List<IdentifierConfig> identifierConfigs,
+            @JsonProperty("identifierConfigs") final List<
+                IdentifierConfig
+            > identifierConfigs,
             @JsonProperty("matchingRules") final List<String> matchingRules,
             @JsonProperty("version") final Integer version
         ) {
@@ -663,9 +658,9 @@ public class IdentityResolutionSetting extends Resource {
 
             @JsonCreator
             public Builder(
-                @JsonProperty(
-                    "identifierConfigs"
-                ) final List<IdentifierConfig> identifierConfigs,
+                @JsonProperty("identifierConfigs") final List<
+                    IdentifierConfig
+                > identifierConfigs,
                 @JsonProperty("matchingRules") final List<String> matchingRules
             ) {
                 this.identifierConfigs = identifierConfigs;

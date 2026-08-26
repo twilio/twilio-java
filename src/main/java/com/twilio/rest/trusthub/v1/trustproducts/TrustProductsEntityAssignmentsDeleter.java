@@ -29,8 +29,7 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class TrustProductsEntityAssignmentsDeleter
-    extends Deleter<TrustProductsEntityAssignments>
-{
+    extends Deleter<TrustProductsEntityAssignments> {
 
     private String pathTrustProductSid;
     private String pathSid;
@@ -47,10 +46,11 @@ public class TrustProductsEntityAssignmentsDeleter
         String path =
             "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}";
 
-        path = path.replace(
-            "{" + "TrustProductSid" + "}",
-            this.pathTrustProductSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "TrustProductSid" + "}",
+                this.pathTrustProductSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Predicate<Integer> deleteStatuses = i ->

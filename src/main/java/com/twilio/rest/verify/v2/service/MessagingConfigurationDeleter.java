@@ -29,8 +29,7 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class MessagingConfigurationDeleter
-    extends Deleter<MessagingConfiguration>
-{
+    extends Deleter<MessagingConfiguration> {
 
     private String pathServiceSid;
     private String pathCountry;
@@ -47,10 +46,11 @@ public class MessagingConfigurationDeleter
         String path =
             "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "Country" + "}", this.pathCountry.toString());
 
         Predicate<Integer> deleteStatuses = i ->

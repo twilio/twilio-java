@@ -48,15 +48,14 @@ public class SyncListPermissionDeleter extends Deleter<SyncListPermission> {
         String path =
             "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
-        path = path.replace(
-            "{" + "Identity" + "}",
-            this.pathIdentity.toString()
-        );
+        path =
+            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

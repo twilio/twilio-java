@@ -42,10 +42,11 @@ public class TypeDeleter extends Deleter<Type> {
         String path = "/v2/Configurations/{Type}/{IdOrUniqueName}";
 
         path = path.replace("{" + "Type" + "}", this.pathType.toString());
-        path = path.replace(
-            "{" + "IdOrUniqueName" + "}",
-            this.pathIdOrUniqueName.toString()
-        );
+        path =
+            path.replace(
+                "{" + "IdOrUniqueName" + "}",
+                this.pathIdOrUniqueName.toString()
+            );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

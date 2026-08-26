@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class DestinationAlphaSenderFetcher
-    extends Fetcher<DestinationAlphaSender>
-{
+    extends Fetcher<DestinationAlphaSender> {
 
     private String pathServiceSid;
     private String pathSid;
@@ -45,10 +44,11 @@ public class DestinationAlphaSenderFetcher
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/DestinationAlphaSenders/{Sid}";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

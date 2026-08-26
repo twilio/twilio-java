@@ -76,7 +76,9 @@ public class Communication extends Resource {
         private final ZonedDateTime occurredAt;
 
         @Getter
-        private final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients;
+        private final List<
+            ListCommunicationByConversation200ResponseCommunicationsRecipients
+        > recipients;
 
         @Getter
         private final String resourceId;
@@ -98,9 +100,9 @@ public class Communication extends Resource {
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("occurredAt") final ZonedDateTime occurredAt,
-            @JsonProperty(
-                "recipients"
-            ) final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients,
+            @JsonProperty("recipients") final List<
+                ListCommunicationByConversation200ResponseCommunicationsRecipients
+            > recipients,
             @JsonProperty("resourceId") final String resourceId,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
@@ -289,7 +291,9 @@ public class Communication extends Resource {
         private final ZonedDateTime occurredAt;
 
         @Getter
-        private final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients;
+        private final List<
+            ListCommunicationByConversation200ResponseCommunicationsRecipients
+        > recipients;
 
         @Getter
         private final String resourceId;
@@ -311,9 +315,9 @@ public class Communication extends Resource {
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("occurredAt") final ZonedDateTime occurredAt,
-            @JsonProperty(
-                "recipients"
-            ) final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients,
+            @JsonProperty("recipients") final List<
+                ListCommunicationByConversation200ResponseCommunicationsRecipients
+            > recipients,
             @JsonProperty("resourceId") final String resourceId,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
@@ -460,7 +464,9 @@ public class Communication extends Resource {
         private final ZonedDateTime occurredAt;
 
         @Getter
-        private final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients;
+        private final List<
+            ListCommunicationByConversation200ResponseCommunicationsRecipients
+        > recipients;
 
         @Getter
         private final String resourceId;
@@ -482,9 +488,9 @@ public class Communication extends Resource {
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("occurredAt") final ZonedDateTime occurredAt,
-            @JsonProperty(
-                "recipients"
-            ) final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients,
+            @JsonProperty("recipients") final List<
+                ListCommunicationByConversation200ResponseCommunicationsRecipients
+            > recipients,
             @JsonProperty("resourceId") final String resourceId,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
@@ -1181,7 +1187,9 @@ public class Communication extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("recipients")
         @Getter
-        private final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients;
+        private final List<
+            ListCommunicationByConversation200ResponseCommunicationsRecipients
+        > recipients;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
@@ -1226,7 +1234,9 @@ public class Communication extends Resource {
             final String accountId,
             final ConversationsV2ParticipantAddress author,
             final ListCommunicationByConversation200ResponseCommunicationsContent content,
-            final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients
+            final List<
+                ListCommunicationByConversation200ResponseCommunicationsRecipients
+            > recipients
         ) {
             return new Builder(
                 id,
@@ -1274,7 +1284,9 @@ public class Communication extends Resource {
             private String resourceId;
 
             @JsonProperty("recipients")
-            private List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients;
+            private List<
+                ListCommunicationByConversation200ResponseCommunicationsRecipients
+            > recipients;
 
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
@@ -1308,9 +1320,9 @@ public class Communication extends Resource {
                 @JsonProperty(
                     "content"
                 ) final ListCommunicationByConversation200ResponseCommunicationsContent content,
-                @JsonProperty(
-                    "recipients"
-                ) final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients
+                @JsonProperty("recipients") final List<
+                    ListCommunicationByConversation200ResponseCommunicationsRecipients
+                > recipients
             ) {
                 this.id = id;
                 this.conversationId = conversationId;
@@ -1445,7 +1457,9 @@ public class Communication extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("recipients")
         @Getter
-        private final List<CreateCommunicationInConversationRequestRecipients> recipients;
+        private final List<
+            CreateCommunicationInConversationRequestRecipients
+        > recipients;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
@@ -1465,7 +1479,9 @@ public class Communication extends Resource {
         public static Builder builder(
             final CreateCommunicationInConversationRequestAuthor author,
             final CreateCommunicationInConversationRequestContent content,
-            final List<CreateCommunicationInConversationRequestRecipients> recipients
+            final List<
+                CreateCommunicationInConversationRequestRecipients
+            > recipients
         ) {
             return new Builder(author, content, recipients);
         }
@@ -1494,7 +1510,9 @@ public class Communication extends Resource {
             private String channelId;
 
             @JsonProperty("recipients")
-            private List<CreateCommunicationInConversationRequestRecipients> recipients;
+            private List<
+                CreateCommunicationInConversationRequestRecipients
+            > recipients;
 
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
@@ -1511,9 +1529,9 @@ public class Communication extends Resource {
                 @JsonProperty(
                     "content"
                 ) final CreateCommunicationInConversationRequestContent content,
-                @JsonProperty(
-                    "recipients"
-                ) final List<CreateCommunicationInConversationRequestRecipients> recipients
+                @JsonProperty("recipients") final List<
+                    CreateCommunicationInConversationRequestRecipients
+                > recipients
             ) {
                 this.author = author;
                 this.content = content;
@@ -1602,7 +1620,9 @@ public class Communication extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("words")
         @Getter
-        private final List<ConversationsV2ContentTranscriptionTranscriptionWords> words;
+        private final List<
+            ConversationsV2ContentTranscriptionTranscriptionWords
+        > words;
 
         private ConversationsV2ContentTranscriptionTranscription(
             Builder builder
@@ -1641,7 +1661,9 @@ public class Communication extends Resource {
             private String engine;
 
             @JsonProperty("words")
-            private List<ConversationsV2ContentTranscriptionTranscriptionWords> words;
+            private List<
+                ConversationsV2ContentTranscriptionTranscriptionWords
+            > words;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("channel")
@@ -1667,7 +1689,9 @@ public class Communication extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("words")
             public Builder words(
-                List<ConversationsV2ContentTranscriptionTranscriptionWords> words
+                List<
+                    ConversationsV2ContentTranscriptionTranscriptionWords
+                > words
             ) {
                 this.words = words;
                 return this;

@@ -2054,9 +2054,9 @@ public class Application extends Resource {
         ) final ZonedDateTime dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty(
-            "notification_emails"
-        ) final List<String> notificationEmails,
+        @JsonProperty("notification_emails") final List<
+            String
+        > notificationEmails,
         @JsonProperty("reviewer") final String reviewer,
         @JsonProperty(
             "setup"

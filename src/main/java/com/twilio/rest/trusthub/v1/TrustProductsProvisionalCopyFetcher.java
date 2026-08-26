@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TrustProductsProvisionalCopyFetcher
-    extends Fetcher<TrustProductsProvisionalCopy>
-{
+    extends Fetcher<TrustProductsProvisionalCopy> {
 
     private String pathTrustProductSid;
 
@@ -42,10 +41,11 @@ public class TrustProductsProvisionalCopyFetcher
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/TrustProducts/{TrustProductSid}/ProvisionalCopy";
 
-        path = path.replace(
-            "{" + "TrustProductSid" + "}",
-            this.pathTrustProductSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "TrustProductSid" + "}",
+                this.pathTrustProductSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

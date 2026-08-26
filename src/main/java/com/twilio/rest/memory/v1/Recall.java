@@ -64,13 +64,13 @@ public class Recall extends Resource {
 
         @JsonCreator
         private CreateRecallResponse(
-            @JsonProperty(
-                "communications"
-            ) final List<Communication> communications,
+            @JsonProperty("communications") final List<
+                Communication
+            > communications,
             @JsonProperty("meta") final MemoryRetrievalResponseMeta meta,
-            @JsonProperty(
-                "observations"
-            ) final List<RecallObservationInfo> observations,
+            @JsonProperty("observations") final List<
+                RecallObservationInfo
+            > observations,
             @JsonProperty("summaries") final List<RecallSummaryInfo> summaries
         ) {
             this.communications = communications;
@@ -1595,9 +1595,9 @@ public class Recall extends Resource {
                 @JsonProperty("id") final String id,
                 @JsonProperty("content") final CommunicationContent content,
                 @JsonProperty("author") final Participant author,
-                @JsonProperty(
-                    "recipients"
-                ) final List<CommunicationRecipients> recipients
+                @JsonProperty("recipients") final List<
+                    CommunicationRecipients
+                > recipients
             ) {
                 this.id = id;
                 this.content = content;

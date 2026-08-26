@@ -37,8 +37,7 @@ import java.io.InputStream;
 import java.time.ZonedDateTime;
 
 public class TranscriptionReader
-    extends Reader<Transcription.ListTranscriptionResponse>
-{
+    extends Reader<Transcription.ListTranscriptionResponse> {
 
     private ZonedDateTime createdAfter;
     private ZonedDateTime createdBefore;
@@ -89,9 +88,9 @@ public class TranscriptionReader
         return this;
     }
 
-    public ResourceSetResponse<Transcription.ListTranscriptionResponse> readWithResponse(
-        final TwilioRestClient client
-    ) {
+    public ResourceSetResponse<
+        Transcription.ListTranscriptionResponse
+    > readWithResponse(final TwilioRestClient client) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<Transcription.ListTranscriptionResponse> page = Page.fromJson(

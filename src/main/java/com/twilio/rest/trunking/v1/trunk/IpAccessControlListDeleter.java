@@ -44,10 +44,8 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}";
 
-        path = path.replace(
-            "{" + "TrunkSid" + "}",
-            this.pathTrunkSid.toString()
-        );
+        path =
+            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Predicate<Integer> deleteStatuses = i ->

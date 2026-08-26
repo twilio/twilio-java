@@ -79,10 +79,11 @@ public class PluginVersionsReader extends Reader<PluginVersions> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/PluginService/Plugins/{PluginSid}/Versions";
 
-        path = path.replace(
-            "{" + "PluginSid" + "}",
-            this.pathPluginSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "PluginSid" + "}",
+                this.pathPluginSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

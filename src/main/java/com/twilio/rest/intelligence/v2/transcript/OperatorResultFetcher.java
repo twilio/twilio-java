@@ -52,14 +52,16 @@ public class OperatorResultFetcher extends Fetcher<OperatorResult> {
         String path =
             "/v2/Transcripts/{TranscriptSid}/OperatorResults/{OperatorSid}";
 
-        path = path.replace(
-            "{" + "TranscriptSid" + "}",
-            this.pathTranscriptSid.toString()
-        );
-        path = path.replace(
-            "{" + "OperatorSid" + "}",
-            this.pathOperatorSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "TranscriptSid" + "}",
+                this.pathTranscriptSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "OperatorSid" + "}",
+                this.pathOperatorSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

@@ -1851,17 +1851,23 @@ public class ChannelsSender extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("websites")
         @Getter
-        private final List<MessagingV2ChannelsSenderProfileGenericResponseWebsites> websites;
+        private final List<
+            MessagingV2ChannelsSenderProfileGenericResponseWebsites
+        > websites;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("emails")
         @Getter
-        private final List<MessagingV2ChannelsSenderProfileGenericResponseEmails> emails;
+        private final List<
+            MessagingV2ChannelsSenderProfileGenericResponseEmails
+        > emails;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("phone_numbers")
         @Getter
-        private final List<MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers> phoneNumbers;
+        private final List<
+            MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers
+        > phoneNumbers;
 
         private MessagingV2ChannelsSenderProfileGenericResponse(
             Builder builder
@@ -1934,13 +1940,19 @@ public class ChannelsSender extends Resource {
             private String vertical;
 
             @JsonProperty("websites")
-            private List<MessagingV2ChannelsSenderProfileGenericResponseWebsites> websites;
+            private List<
+                MessagingV2ChannelsSenderProfileGenericResponseWebsites
+            > websites;
 
             @JsonProperty("emails")
-            private List<MessagingV2ChannelsSenderProfileGenericResponseEmails> emails;
+            private List<
+                MessagingV2ChannelsSenderProfileGenericResponseEmails
+            > emails;
 
             @JsonProperty("phone_numbers")
-            private List<MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers> phoneNumbers;
+            private List<
+                MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers
+            > phoneNumbers;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("name")
@@ -2022,7 +2034,9 @@ public class ChannelsSender extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("websites")
             public Builder websites(
-                List<MessagingV2ChannelsSenderProfileGenericResponseWebsites> websites
+                List<
+                    MessagingV2ChannelsSenderProfileGenericResponseWebsites
+                > websites
             ) {
                 this.websites = websites;
                 return this;
@@ -2031,7 +2045,9 @@ public class ChannelsSender extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("emails")
             public Builder emails(
-                List<MessagingV2ChannelsSenderProfileGenericResponseEmails> emails
+                List<
+                    MessagingV2ChannelsSenderProfileGenericResponseEmails
+                > emails
             ) {
                 this.emails = emails;
                 return this;
@@ -2040,7 +2056,9 @@ public class ChannelsSender extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("phone_numbers")
             public Builder phoneNumbers(
-                List<MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers> phoneNumbers
+                List<
+                    MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers
+                > phoneNumbers
             ) {
                 this.phoneNumbers = phoneNumbers;
                 return this;
@@ -2321,7 +2339,9 @@ public class ChannelsSender extends Resource {
     private final String friendlyName;
 
     @Getter
-    private final List<MessagingV2ChannelsSenderOfflineReasonsItems> offlineReasons;
+    private final List<
+        MessagingV2ChannelsSenderOfflineReasonsItems
+    > offlineReasons;
 
     @Getter
     private final MessagingV2ChannelsSenderProfileGenericResponse profile;
@@ -2353,9 +2373,9 @@ public class ChannelsSender extends Resource {
             "configuration"
         ) final MessagingV2ChannelsSenderConfiguration configuration,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty(
-            "offline_reasons"
-        ) final List<MessagingV2ChannelsSenderOfflineReasonsItems> offlineReasons,
+        @JsonProperty("offline_reasons") final List<
+            MessagingV2ChannelsSenderOfflineReasonsItems
+        > offlineReasons,
         @JsonProperty(
             "profile"
         ) final MessagingV2ChannelsSenderProfileGenericResponse profile,

@@ -43,14 +43,16 @@ public class OperatorAttachmentCreator extends Creator<OperatorAttachment> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Operators/{OperatorSid}";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
-        path = path.replace(
-            "{" + "OperatorSid" + "}",
-            this.pathOperatorSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "OperatorSid" + "}",
+                this.pathOperatorSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

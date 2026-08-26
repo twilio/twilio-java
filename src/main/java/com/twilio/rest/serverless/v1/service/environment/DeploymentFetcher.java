@@ -47,14 +47,16 @@ public class DeploymentFetcher extends Fetcher<Deployment> {
         String path =
             "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments/{Sid}";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
-        path = path.replace(
-            "{" + "EnvironmentSid" + "}",
-            this.pathEnvironmentSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "EnvironmentSid" + "}",
+                this.pathEnvironmentSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

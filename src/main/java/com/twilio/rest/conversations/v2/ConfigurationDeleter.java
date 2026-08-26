@@ -34,8 +34,7 @@ public class ConfigurationDeleter
     extends ResourceDeleter<
         Configuration,
         Configuration.DeleteConfigurationResponse
-    >
-{
+    > {
 
     private String pathId;
     private String idempotencyKey;
@@ -98,9 +97,9 @@ public class ConfigurationDeleter
     }
 
     @Override
-    public TwilioResponse<Configuration.DeleteConfigurationResponse> deleteWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Configuration.DeleteConfigurationResponse
+    > deleteWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Configuration.DeleteConfigurationResponse content =
             Configuration.DeleteConfigurationResponse.fromJson(

@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConfigurationFetcher
-    extends Fetcher<Configuration.FetchConfigurationResponse>
-{
+    extends Fetcher<Configuration.FetchConfigurationResponse> {
 
     private String pathId;
 
@@ -83,9 +82,9 @@ public class ConfigurationFetcher
     }
 
     @Override
-    public TwilioResponse<Configuration.FetchConfigurationResponse> fetchWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Configuration.FetchConfigurationResponse
+    > fetchWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Configuration.FetchConfigurationResponse content =
             Configuration.FetchConfigurationResponse.fromJson(

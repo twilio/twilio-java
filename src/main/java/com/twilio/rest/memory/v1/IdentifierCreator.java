@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class IdentifierCreator
-    extends Creator<Identifier.CreateIdentifierResponse>
-{
+    extends Creator<Identifier.CreateIdentifierResponse> {
 
     private String pathStoreId;
     private String pathProfileId;
@@ -58,10 +57,11 @@ public class IdentifierCreator
         String path = "/v1/Stores/{storeId}/Profiles/{profileId}/Identifiers";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -106,9 +106,9 @@ public class IdentifierCreator
     }
 
     @Override
-    public TwilioResponse<Identifier.CreateIdentifierResponse> createWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Identifier.CreateIdentifierResponse
+    > createWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Identifier.CreateIdentifierResponse content =
             Identifier.CreateIdentifierResponse.fromJson(

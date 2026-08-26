@@ -94,14 +94,16 @@ public class LogReader extends Reader<Log> {
         String path =
             "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
-        path = path.replace(
-            "{" + "EnvironmentSid" + "}",
-            this.pathEnvironmentSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "EnvironmentSid" + "}",
+                this.pathEnvironmentSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

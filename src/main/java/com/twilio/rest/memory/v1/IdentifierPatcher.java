@@ -29,8 +29,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class IdentifierPatcher
-    extends Patcher<Identifier.PatchIdentifierResponse>
-{
+    extends Patcher<Identifier.PatchIdentifierResponse> {
 
     private String pathStoreId;
     private String pathProfileId;
@@ -64,10 +63,11 @@ public class IdentifierPatcher
             "/v1/Stores/{storeId}/Profiles/{profileId}/Identifiers/{idType}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
         path = path.replace("{" + "idType" + "}", this.pathIdType.toString());
 
         Request request = new Request(

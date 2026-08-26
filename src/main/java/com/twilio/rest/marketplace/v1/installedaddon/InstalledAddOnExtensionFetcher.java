@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class InstalledAddOnExtensionFetcher
-    extends Fetcher<InstalledAddOnExtension>
-{
+    extends Fetcher<InstalledAddOnExtension> {
 
     private String pathInstalledAddOnSid;
     private String pathSid;
@@ -46,10 +45,11 @@ public class InstalledAddOnExtensionFetcher
         String path =
             "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}";
 
-        path = path.replace(
-            "{" + "InstalledAddOnSid" + "}",
-            this.pathInstalledAddOnSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "InstalledAddOnSid" + "}",
+                this.pathInstalledAddOnSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

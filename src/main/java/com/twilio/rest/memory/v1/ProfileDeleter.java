@@ -29,8 +29,7 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class ProfileDeleter
-    extends ResourceDeleter<Profile, Profile.DeleteProfileResponse>
-{
+    extends ResourceDeleter<Profile, Profile.DeleteProfileResponse> {
 
     private String pathStoreId;
     private String pathProfileId;
@@ -47,10 +46,11 @@ public class ProfileDeleter
         String path = "/v1/Stores/{storeId}/Profiles/{profileId}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

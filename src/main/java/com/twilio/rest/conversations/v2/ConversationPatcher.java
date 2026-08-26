@@ -29,8 +29,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConversationPatcher
-    extends Patcher<Conversation.PatchConversationResponse>
-{
+    extends Patcher<Conversation.PatchConversationResponse> {
 
     private String pathId;
     private Conversation.PatchConversationByIdRequest patchConversationByIdRequest;

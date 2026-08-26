@@ -308,9 +308,9 @@ public class HostedNumberOrder extends Resource {
         @JsonProperty(
             "verification_call_extension"
         ) final String verificationCallExtension,
-        @JsonProperty(
-            "verification_call_sids"
-        ) final List<String> verificationCallSids,
+        @JsonProperty("verification_call_sids") final List<
+            String
+        > verificationCallSids,
         @JsonProperty("verification_code") final String verificationCode,
         @JsonProperty(
             "verification_type"

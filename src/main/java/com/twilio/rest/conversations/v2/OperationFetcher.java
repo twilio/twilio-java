@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class OperationFetcher
-    extends Fetcher<Operation.FetchOperationResponse>
-{
+    extends Fetcher<Operation.FetchOperationResponse> {
 
     private String pathId;
 

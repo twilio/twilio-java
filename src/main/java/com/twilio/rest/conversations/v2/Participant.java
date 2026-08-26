@@ -80,9 +80,9 @@ public class Participant extends Resource {
         @JsonCreator
         private CreateParticipantResponse(
             @JsonProperty("accountId") final String accountId,
-            @JsonProperty(
-                "addresses"
-            ) final List<ConversationsV2Address> addresses,
+            @JsonProperty("addresses") final List<
+                ConversationsV2Address
+            > addresses,
             @JsonProperty("conversationId") final String conversationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
@@ -193,9 +193,9 @@ public class Participant extends Resource {
         @JsonCreator
         private UpdateParticipantResponse(
             @JsonProperty("accountId") final String accountId,
-            @JsonProperty(
-                "addresses"
-            ) final List<ConversationsV2Address> addresses,
+            @JsonProperty("addresses") final List<
+                ConversationsV2Address
+            > addresses,
             @JsonProperty("conversationId") final String conversationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
@@ -348,9 +348,9 @@ public class Participant extends Resource {
         @JsonCreator
         private ListParticipantResponse(
             @JsonProperty("accountId") final String accountId,
-            @JsonProperty(
-                "addresses"
-            ) final List<ConversationsV2Address> addresses,
+            @JsonProperty("addresses") final List<
+                ConversationsV2Address
+            > addresses,
             @JsonProperty("conversationId") final String conversationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
@@ -503,9 +503,9 @@ public class Participant extends Resource {
         @JsonCreator
         private FetchParticipantResponse(
             @JsonProperty("accountId") final String accountId,
-            @JsonProperty(
-                "addresses"
-            ) final List<ConversationsV2Address> addresses,
+            @JsonProperty("addresses") final List<
+                ConversationsV2Address
+            > addresses,
             @JsonProperty("conversationId") final String conversationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
@@ -859,7 +859,9 @@ public class Participant extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("addresses")
         @Getter
-        private final List<CreateConversationWithConfigRequestParticipantsAddresses> addresses;
+        private final List<
+            CreateConversationWithConfigRequestParticipantsAddresses
+        > addresses;
 
         private UpdateParticipantInConversationRequest(Builder builder) {
             this.name = builder.name;
@@ -896,7 +898,9 @@ public class Participant extends Resource {
             private String profileId;
 
             @JsonProperty("addresses")
-            private List<CreateConversationWithConfigRequestParticipantsAddresses> addresses;
+            private List<
+                CreateConversationWithConfigRequestParticipantsAddresses
+            > addresses;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("name")
@@ -922,7 +926,9 @@ public class Participant extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("addresses")
             public Builder addresses(
-                List<CreateConversationWithConfigRequestParticipantsAddresses> addresses
+                List<
+                    CreateConversationWithConfigRequestParticipantsAddresses
+                > addresses
             ) {
                 this.addresses = addresses;
                 return this;
@@ -985,7 +991,9 @@ public class Participant extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("addresses")
         @Getter
-        private final List<CreateConversationWithConfigRequestParticipantsAddresses> addresses;
+        private final List<
+            CreateConversationWithConfigRequestParticipantsAddresses
+        > addresses;
 
         private CreateParticipantInConversationRequest(Builder builder) {
             this.name = builder.name;
@@ -995,7 +1003,9 @@ public class Participant extends Resource {
         }
 
         public static Builder builder(
-            final List<CreateConversationWithConfigRequestParticipantsAddresses> addresses
+            final List<
+                CreateConversationWithConfigRequestParticipantsAddresses
+            > addresses
         ) {
             return new Builder(addresses);
         }
@@ -1024,13 +1034,15 @@ public class Participant extends Resource {
             private String profileId;
 
             @JsonProperty("addresses")
-            private List<CreateConversationWithConfigRequestParticipantsAddresses> addresses;
+            private List<
+                CreateConversationWithConfigRequestParticipantsAddresses
+            > addresses;
 
             @JsonCreator
             public Builder(
-                @JsonProperty(
-                    "addresses"
-                ) final List<CreateConversationWithConfigRequestParticipantsAddresses> addresses
+                @JsonProperty("addresses") final List<
+                    CreateConversationWithConfigRequestParticipantsAddresses
+                > addresses
             ) {
                 this.addresses = addresses;
             }

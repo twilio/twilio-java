@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class DataMappingCreator
-    extends Creator<DataMapping.CreateDataMappingResponse>
-{
+    extends Creator<DataMapping.CreateDataMappingResponse> {
 
     private String pathStoreId;
     private DataMapping.CreateDataMappingInput createDataMappingInput;
@@ -99,9 +98,9 @@ public class DataMappingCreator
     }
 
     @Override
-    public TwilioResponse<DataMapping.CreateDataMappingResponse> createWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        DataMapping.CreateDataMappingResponse
+    > createWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         DataMapping.CreateDataMappingResponse content =
             DataMapping.CreateDataMappingResponse.fromJson(

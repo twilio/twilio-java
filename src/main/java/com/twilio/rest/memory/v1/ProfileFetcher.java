@@ -52,10 +52,11 @@ public class ProfileFetcher extends Fetcher<Profile.FetchProfileResponse> {
         String path = "/v1/Stores/{storeId}/Profiles/{profileId}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

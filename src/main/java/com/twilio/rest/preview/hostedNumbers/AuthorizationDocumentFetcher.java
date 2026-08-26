@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class AuthorizationDocumentFetcher
-    extends Fetcher<AuthorizationDocument>
-{
+    extends Fetcher<AuthorizationDocument> {
 
     private String pathSid;
 

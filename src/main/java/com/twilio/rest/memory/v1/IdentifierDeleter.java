@@ -31,8 +31,7 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class IdentifierDeleter
-    extends ResourceDeleter<Identifier, Identifier.DeleteIdentifierResponse>
-{
+    extends ResourceDeleter<Identifier, Identifier.DeleteIdentifierResponse> {
 
     private String pathStoreId;
     private String pathProfileId;
@@ -59,10 +58,11 @@ public class IdentifierDeleter
             "/v1/Stores/{storeId}/Profiles/{profileId}/Identifiers/{idType}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
         path = path.replace("{" + "idType" + "}", this.pathIdType.toString());
 
         Predicate<Integer> deleteStatuses = i ->
@@ -109,9 +109,9 @@ public class IdentifierDeleter
     }
 
     @Override
-    public TwilioResponse<Identifier.DeleteIdentifierResponse> deleteWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Identifier.DeleteIdentifierResponse
+    > deleteWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Identifier.DeleteIdentifierResponse content =
             Identifier.DeleteIdentifierResponse.fromJson(

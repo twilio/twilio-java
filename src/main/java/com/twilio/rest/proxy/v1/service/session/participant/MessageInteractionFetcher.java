@@ -50,18 +50,21 @@ public class MessageInteractionFetcher extends Fetcher<MessageInteraction> {
         String path =
             "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
-        path = path.replace(
-            "{" + "SessionSid" + "}",
-            this.pathSessionSid.toString()
-        );
-        path = path.replace(
-            "{" + "ParticipantSid" + "}",
-            this.pathParticipantSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "SessionSid" + "}",
+                this.pathSessionSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ParticipantSid" + "}",
+                this.pathParticipantSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

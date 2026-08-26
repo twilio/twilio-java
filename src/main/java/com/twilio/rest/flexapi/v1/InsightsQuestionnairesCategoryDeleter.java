@@ -31,8 +31,7 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class InsightsQuestionnairesCategoryDeleter
-    extends Deleter<InsightsQuestionnairesCategory>
-{
+    extends Deleter<InsightsQuestionnairesCategory> {
 
     private String pathCategorySid;
     private String authorization;
@@ -51,10 +50,11 @@ public class InsightsQuestionnairesCategoryDeleter
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Insights/QualityManagement/Categories/{CategorySid}";
 
-        path = path.replace(
-            "{" + "CategorySid" + "}",
-            this.pathCategorySid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "CategorySid" + "}",
+                this.pathCategorySid.toString()
+            );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

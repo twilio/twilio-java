@@ -39,10 +39,11 @@ public class SafelistDeleter extends Deleter<Safelist> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/SafeList/Numbers/{PhoneNumber}";
 
-        path = path.replace(
-            "{" + "PhoneNumber" + "}",
-            this.pathPhoneNumber.toString()
-        );
+        path =
+            path.replace(
+                "{" + "PhoneNumber" + "}",
+                this.pathPhoneNumber.toString()
+            );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

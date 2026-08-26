@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class OperationFetcher
-    extends Fetcher<Operation.FetchOperationResponse>
-{
+    extends Fetcher<Operation.FetchOperationResponse> {
 
     private String pathOperationId;
 
@@ -40,10 +39,11 @@ public class OperationFetcher
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/ControlPlane/Operations/{operationId}";
 
-        path = path.replace(
-            "{" + "operationId" + "}",
-            this.pathOperationId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "operationId" + "}",
+                this.pathOperationId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

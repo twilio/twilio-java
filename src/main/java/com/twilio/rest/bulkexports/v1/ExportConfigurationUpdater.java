@@ -67,10 +67,11 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Exports/{ResourceType}/Configuration";
 
-        path = path.replace(
-            "{" + "ResourceType" + "}",
-            this.pathResourceType.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ResourceType" + "}",
+                this.pathResourceType.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

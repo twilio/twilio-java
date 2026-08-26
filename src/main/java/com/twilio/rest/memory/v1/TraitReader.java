@@ -96,10 +96,11 @@ public class TraitReader extends Reader<Trait.ListTraitResponse> {
         String path = "/v1/Stores/{storeId}/Profiles/{profileId}/Traits";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -200,10 +201,11 @@ public class TraitReader extends Reader<Trait.ListTraitResponse> {
         String path = "/v1/Stores/{storeId}/Profiles/{profileId}/Traits";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         path = path + page.previousQueryString();
         Request request = new Request(
@@ -223,10 +225,11 @@ public class TraitReader extends Reader<Trait.ListTraitResponse> {
         String path = "/v1/Stores/{storeId}/Profiles/{profileId}/Traits";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         path = path + page.nextQueryString();
         Request request = new Request(

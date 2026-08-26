@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TrustProductsEvaluationsFetcher
-    extends Fetcher<TrustProductsEvaluations>
-{
+    extends Fetcher<TrustProductsEvaluations> {
 
     private String pathTrustProductSid;
     private String pathSid;
@@ -45,10 +44,11 @@ public class TrustProductsEvaluationsFetcher
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid}";
 
-        path = path.replace(
-            "{" + "TrustProductSid" + "}",
-            this.pathTrustProductSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "TrustProductSid" + "}",
+                this.pathTrustProductSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

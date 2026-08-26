@@ -56,10 +56,11 @@ public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Porting/Portability/PhoneNumber/{PhoneNumber}";
 
-        path = path.replace(
-            "{" + "PhoneNumber" + "}",
-            this.pathPhoneNumber.toString()
-        );
+        path =
+            path.replace(
+                "{" + "PhoneNumber" + "}",
+                this.pathPhoneNumber.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

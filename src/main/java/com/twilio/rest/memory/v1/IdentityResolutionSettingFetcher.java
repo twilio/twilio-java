@@ -28,8 +28,9 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class IdentityResolutionSettingFetcher
-    extends Fetcher<IdentityResolutionSetting.FetchIdentityResolutionSettingResponse>
-{
+    extends Fetcher<
+        IdentityResolutionSetting.FetchIdentityResolutionSettingResponse
+    > {
 
     private String pathStoreId;
 
@@ -84,9 +85,9 @@ public class IdentityResolutionSettingFetcher
     }
 
     @Override
-    public TwilioResponse<IdentityResolutionSetting.FetchIdentityResolutionSettingResponse> fetchWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        IdentityResolutionSetting.FetchIdentityResolutionSettingResponse
+    > fetchWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         IdentityResolutionSetting.FetchIdentityResolutionSettingResponse content =
             IdentityResolutionSetting.FetchIdentityResolutionSettingResponse.fromJson(

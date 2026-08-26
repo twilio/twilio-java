@@ -44,10 +44,11 @@ public class ParticipantFetcher extends Fetcher<Participant> {
         String path = "/v1/Video/Rooms/{RoomSid}/Participants/{ParticipantSid}";
 
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
-        path = path.replace(
-            "{" + "ParticipantSid" + "}",
-            this.pathParticipantSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ParticipantSid" + "}",
+                this.pathParticipantSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

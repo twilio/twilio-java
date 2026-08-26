@@ -354,9 +354,9 @@ public class ConferenceParticipant extends Resource {
         @JsonProperty(
             "call_type"
         ) final ConferenceParticipant.CallType callType,
-        @JsonProperty(
-            "coached_participants"
-        ) final List<String> coachedParticipants,
+        @JsonProperty("coached_participants") final List<
+            String
+        > coachedParticipants,
         @JsonProperty(
             "conference_region"
         ) final ConferenceParticipant.Region conferenceRegion,

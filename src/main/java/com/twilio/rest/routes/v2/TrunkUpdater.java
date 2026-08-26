@@ -53,10 +53,11 @@ public class TrunkUpdater extends Updater<Trunk> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Trunks/{SipTrunkDomain}";
 
-        path = path.replace(
-            "{" + "SipTrunkDomain" + "}",
-            this.pathSipTrunkDomain.toString()
-        );
+        path =
+            path.replace(
+                "{" + "SipTrunkDomain" + "}",
+                this.pathSipTrunkDomain.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

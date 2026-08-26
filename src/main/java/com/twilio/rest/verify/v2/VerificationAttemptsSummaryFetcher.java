@@ -31,8 +31,7 @@ import java.io.InputStream;
 import java.time.ZonedDateTime;
 
 public class VerificationAttemptsSummaryFetcher
-    extends Fetcher<VerificationAttemptsSummary>
-{
+    extends Fetcher<VerificationAttemptsSummary> {
 
     private String verifyServiceSid;
     private ZonedDateTime dateCreatedAfter;

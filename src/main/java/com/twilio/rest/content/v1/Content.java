@@ -265,8 +265,10 @@ public class Content extends Resource {
             return new Builder(id, title, layout);
         }
 
-        public static FlowsPage fromJson(String jsonString, ObjectMapper mapper)
-            throws IOException {
+        public static FlowsPage fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
             return mapper.readValue(jsonString, FlowsPage.class);
         }
 
@@ -1128,9 +1130,9 @@ public class Content extends Resource {
 
             @JsonCreator
             public Builder(
-                @JsonProperty(
-                    "actions"
-                ) final List<AuthenticationAction> actions
+                @JsonProperty("actions") final List<
+                    AuthenticationAction
+                > actions
             ) {
                 this.actions = actions;
             }

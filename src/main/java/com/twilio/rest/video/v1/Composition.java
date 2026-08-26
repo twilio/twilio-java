@@ -233,9 +233,9 @@ public class Composition extends Resource {
     private Composition(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("audio_sources") final List<String> audioSources,
-        @JsonProperty(
-            "audio_sources_excluded"
-        ) final List<String> audioSourcesExcluded,
+        @JsonProperty("audio_sources_excluded") final List<
+            String
+        > audioSourcesExcluded,
         @JsonProperty("bitrate") final Integer bitrate,
         @JsonProperty("date_completed") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class

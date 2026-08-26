@@ -31,8 +31,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class InteractionChannelInviteCreator
-    extends Creator<InteractionChannelInvite>
-{
+    extends Creator<InteractionChannelInvite> {
 
     private String pathInteractionSid;
     private String pathChannelSid;
@@ -57,14 +56,16 @@ public class InteractionChannelInviteCreator
         String path =
             "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites";
 
-        path = path.replace(
-            "{" + "InteractionSid" + "}",
-            this.pathInteractionSid.toString()
-        );
-        path = path.replace(
-            "{" + "ChannelSid" + "}",
-            this.pathChannelSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "InteractionSid" + "}",
+                this.pathInteractionSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

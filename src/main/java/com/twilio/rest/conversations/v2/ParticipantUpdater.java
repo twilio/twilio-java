@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ParticipantUpdater
-    extends Updater<Participant.UpdateParticipantResponse>
-{
+    extends Updater<Participant.UpdateParticipantResponse> {
 
     private String pathConversationId;
     private String pathId;
@@ -56,10 +55,11 @@ public class ParticipantUpdater
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Conversations/{ConversationId}/Participants/{id}";
 
-        path = path.replace(
-            "{" + "ConversationId" + "}",
-            this.pathConversationId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ConversationId" + "}",
+                this.pathConversationId.toString()
+            );
         path = path.replace("{" + "id" + "}", this.pathId.toString());
 
         Request request = new Request(
@@ -105,9 +105,9 @@ public class ParticipantUpdater
     }
 
     @Override
-    public TwilioResponse<Participant.UpdateParticipantResponse> updateWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Participant.UpdateParticipantResponse
+    > updateWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Participant.UpdateParticipantResponse content =
             Participant.UpdateParticipantResponse.fromJson(

@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class AccountDefaultConfigurationFetcher
-    extends Fetcher<AccountDefaultConfiguration>
-{
+    extends Fetcher<AccountDefaultConfiguration> {
 
     private String pathType;
 

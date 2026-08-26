@@ -97,10 +97,11 @@ public class PluginVersionsCreator extends Creator<PluginVersions> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/PluginService/Plugins/{PluginSid}/Versions";
 
-        path = path.replace(
-            "{" + "PluginSid" + "}",
-            this.pathPluginSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "PluginSid" + "}",
+                this.pathPluginSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

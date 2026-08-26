@@ -79,10 +79,11 @@ public class UserConversationReader extends Reader<UserConversation> {
         String path =
             "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations";
 
-        path = path.replace(
-            "{" + "ChatServiceSid" + "}",
-            this.pathChatServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ChatServiceSid" + "}",
+                this.pathChatServiceSid.toString()
+            );
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
 
         Request request = new Request(

@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TranscriptionFetcher
-    extends Fetcher<Transcription.FetchTranscriptionResponse>
-{
+    extends Fetcher<Transcription.FetchTranscriptionResponse> {
 
     private String pathTranscriptionId;
 
@@ -40,10 +39,11 @@ public class TranscriptionFetcher
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v3/Transcriptions/{transcriptionId}";
 
-        path = path.replace(
-            "{" + "transcriptionId" + "}",
-            this.pathTranscriptionId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "transcriptionId" + "}",
+                this.pathTranscriptionId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -86,9 +86,9 @@ public class TranscriptionFetcher
     }
 
     @Override
-    public TwilioResponse<Transcription.FetchTranscriptionResponse> fetchWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Transcription.FetchTranscriptionResponse
+    > fetchWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Transcription.FetchTranscriptionResponse content =
             Transcription.FetchTranscriptionResponse.fromJson(

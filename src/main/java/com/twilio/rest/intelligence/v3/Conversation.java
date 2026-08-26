@@ -222,13 +222,13 @@ public class Conversation extends Resource {
             ) final String conversationConfigurationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
-            @JsonProperty(
-                "intelligenceConfigurationIds"
-            ) final List<String> intelligenceConfigurationIds,
+            @JsonProperty("intelligenceConfigurationIds") final List<
+                String
+            > intelligenceConfigurationIds,
             @JsonProperty("name") final String name,
-            @JsonProperty(
-                "operatorResultIds"
-            ) final List<String> operatorResultIds,
+            @JsonProperty("operatorResultIds") final List<
+                String
+            > operatorResultIds,
             @JsonProperty("participants") final List<Participant> participants,
             @JsonProperty(
                 "status"
@@ -406,21 +406,21 @@ public class Conversation extends Resource {
             @JsonProperty("accountId") final String accountId,
             @JsonProperty("channelIds") final List<String> channelIds,
             @JsonProperty("channels") final List<Conversation.Channel> channels,
-            @JsonProperty(
-                "communications"
-            ) final List<Communication> communications,
+            @JsonProperty("communications") final List<
+                Communication
+            > communications,
             @JsonProperty(
                 "conversationConfigurationId"
             ) final String conversationConfigurationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
-            @JsonProperty(
-                "intelligenceConfigurationIds"
-            ) final List<String> intelligenceConfigurationIds,
+            @JsonProperty("intelligenceConfigurationIds") final List<
+                String
+            > intelligenceConfigurationIds,
             @JsonProperty("name") final String name,
-            @JsonProperty(
-                "operatorResultIds"
-            ) final List<String> operatorResultIds,
+            @JsonProperty("operatorResultIds") final List<
+                String
+            > operatorResultIds,
             @JsonProperty("participants") final List<Participant> participants,
             @JsonProperty(
                 "status"
@@ -827,22 +827,22 @@ public class Conversation extends Resource {
                 ) final Conversation.ConversationStatus status,
                 @JsonProperty("createdAt") final ZonedDateTime createdAt,
                 @JsonProperty("updatedAt") final ZonedDateTime updatedAt,
-                @JsonProperty(
-                    "intelligenceConfigurationIds"
-                ) final List<String> intelligenceConfigurationIds,
+                @JsonProperty("intelligenceConfigurationIds") final List<
+                    String
+                > intelligenceConfigurationIds,
                 @JsonProperty(
                     "conversationConfigurationId"
                 ) final String conversationConfigurationId,
-                @JsonProperty(
-                    "channels"
-                ) final List<Conversation.Channel> channels,
+                @JsonProperty("channels") final List<
+                    Conversation.Channel
+                > channels,
                 @JsonProperty("channelIds") final List<String> channelIds,
-                @JsonProperty(
-                    "participants"
-                ) final List<Participant> participants,
-                @JsonProperty(
-                    "operatorResultIds"
-                ) final List<String> operatorResultIds
+                @JsonProperty("participants") final List<
+                    Participant
+                > participants,
+                @JsonProperty("operatorResultIds") final List<
+                    String
+                > operatorResultIds
             ) {
                 this.id = id;
                 this.accountId = accountId;

@@ -29,8 +29,10 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class DataMappingDeleter
-    extends ResourceDeleter<DataMapping, DataMapping.DeleteDataMappingResponse>
-{
+    extends ResourceDeleter<
+        DataMapping,
+        DataMapping.DeleteDataMappingResponse
+    > {
 
     private String pathStoreId;
     private String pathDataMappingId;
@@ -48,10 +50,11 @@ public class DataMappingDeleter
             "/v1/ControlPlane/Stores/{storeId}/DataMappings/{dataMappingId}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "dataMappingId" + "}",
-            this.pathDataMappingId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "dataMappingId" + "}",
+                this.pathDataMappingId.toString()
+            );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;
@@ -96,9 +99,9 @@ public class DataMappingDeleter
     }
 
     @Override
-    public TwilioResponse<DataMapping.DeleteDataMappingResponse> deleteWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        DataMapping.DeleteDataMappingResponse
+    > deleteWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         DataMapping.DeleteDataMappingResponse content =
             DataMapping.DeleteDataMappingResponse.fromJson(

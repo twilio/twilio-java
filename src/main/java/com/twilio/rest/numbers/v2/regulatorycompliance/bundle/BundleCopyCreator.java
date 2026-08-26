@@ -47,10 +47,11 @@ public class BundleCopyCreator extends Creator<BundleCopy> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Copies";
 
-        path = path.replace(
-            "{" + "BundleSid" + "}",
-            this.pathBundleSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "BundleSid" + "}",
+                this.pathBundleSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

@@ -34,8 +34,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class AvailableAddOnExtensionReader
-    extends Reader<AvailableAddOnExtension>
-{
+    extends Reader<AvailableAddOnExtension> {
 
     private String pathAvailableAddOnSid;
     private Integer pageSize;
@@ -75,10 +74,11 @@ public class AvailableAddOnExtensionReader
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/AvailableAddOns/{AvailableAddOnSid}/Extensions";
 
-        path = path.replace(
-            "{" + "AvailableAddOnSid" + "}",
-            this.pathAvailableAddOnSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AvailableAddOnSid" + "}",
+                this.pathAvailableAddOnSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

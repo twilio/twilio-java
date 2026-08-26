@@ -54,10 +54,11 @@ public class LookupOverrideCreator extends Creator<LookupOverride> {
         String path = "/v2/PhoneNumbers/{PhoneNumber}/Overrides/{Field}";
 
         path = path.replace("{" + "Field" + "}", this.pathField.toString());
-        path = path.replace(
-            "{" + "PhoneNumber" + "}",
-            this.pathPhoneNumber.toString()
-        );
+        path =
+            path.replace(
+                "{" + "PhoneNumber" + "}",
+                this.pathPhoneNumber.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

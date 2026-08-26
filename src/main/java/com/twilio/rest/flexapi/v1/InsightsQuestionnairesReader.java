@@ -34,8 +34,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class InsightsQuestionnairesReader
-    extends Reader<InsightsQuestionnaires>
-{
+    extends Reader<InsightsQuestionnaires> {
 
     private Boolean includeInactive;
     private Long pageSize;

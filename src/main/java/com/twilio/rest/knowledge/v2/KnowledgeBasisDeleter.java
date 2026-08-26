@@ -32,8 +32,7 @@ public class KnowledgeBasisDeleter
     extends ResourceDeleter<
         KnowledgeBasis,
         KnowledgeBasis.DeleteKnowledgeBasisResponse
-    >
-{
+    > {
 
     private String pathKbId;
 
@@ -89,9 +88,9 @@ public class KnowledgeBasisDeleter
     }
 
     @Override
-    public TwilioResponse<KnowledgeBasis.DeleteKnowledgeBasisResponse> deleteWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        KnowledgeBasis.DeleteKnowledgeBasisResponse
+    > deleteWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         KnowledgeBasis.DeleteKnowledgeBasisResponse content =
             KnowledgeBasis.DeleteKnowledgeBasisResponse.fromJson(

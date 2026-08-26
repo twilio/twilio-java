@@ -127,10 +127,11 @@ public class ConversationUpdater extends Updater<Conversation> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Conversations/{Sid}";
 
-        path = path.replace(
-            "{" + "ChatServiceSid" + "}",
-            this.pathChatServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ChatServiceSid" + "}",
+                this.pathChatServiceSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

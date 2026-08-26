@@ -1141,9 +1141,9 @@ public class Configuration extends Resource {
             @JsonCreator
             public Builder(
                 @JsonProperty("displayName") final String displayName,
-                @JsonProperty(
-                    "rules"
-                ) final List<RuleUpdateRequestPayload> rules
+                @JsonProperty("rules") final List<
+                    RuleUpdateRequestPayload
+                > rules
             ) {
                 this.displayName = displayName;
                 this.rules = rules;
@@ -1510,9 +1510,9 @@ public class Configuration extends Resource {
             @JsonCreator
             public Builder(
                 @JsonProperty("displayName") final String displayName,
-                @JsonProperty(
-                    "rules"
-                ) final List<RuleCreationRequestPayload> rules
+                @JsonProperty("rules") final List<
+                    RuleCreationRequestPayload
+                > rules
             ) {
                 this.displayName = displayName;
                 this.rules = rules;

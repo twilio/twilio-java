@@ -617,9 +617,9 @@ public class OperatorResult extends Resource {
 
             @JsonCreator
             public Builder(
-                @JsonProperty(
-                    "entities"
-                ) final List<ExtractionResultResultEntities> entities
+                @JsonProperty("entities") final List<
+                    ExtractionResultResultEntities
+                > entities
             ) {
                 this.entities = entities;
             }
@@ -1142,9 +1142,9 @@ public class OperatorResult extends Resource {
 
             @JsonCreator
             public Builder(
-                @JsonProperty(
-                    "sources"
-                ) final List<ResolvedContextKnowledgeSources> sources
+                @JsonProperty("sources") final List<
+                    ResolvedContextKnowledgeSources
+                > sources
             ) {
                 this.sources = sources;
             }
@@ -1417,9 +1417,9 @@ public class OperatorResult extends Resource {
                     "communications"
                 ) final ExecutionDetailsCommunications communications,
                 @JsonProperty("channels") final List<String> channels,
-                @JsonProperty(
-                    "participants"
-                ) final List<ExecutionDetailsParticipants> participants
+                @JsonProperty("participants") final List<
+                    ExecutionDetailsParticipants
+                > participants
             ) {
                 this.trigger = trigger;
                 this.communications = communications;

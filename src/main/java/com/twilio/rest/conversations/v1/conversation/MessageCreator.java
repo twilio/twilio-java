@@ -104,10 +104,11 @@ public class MessageCreator extends Creator<Message> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Conversations/{ConversationSid}/Messages";
 
-        path = path.replace(
-            "{" + "ConversationSid" + "}",
-            this.pathConversationSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ConversationSid" + "}",
+                this.pathConversationSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

@@ -38,10 +38,8 @@ public class FormFetcher extends Fetcher<Form> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Forms/{FormType}";
 
-        path = path.replace(
-            "{" + "FormType" + "}",
-            this.pathFormType.toString()
-        );
+        path =
+            path.replace("{" + "FormType" + "}", this.pathFormType.toString());
 
         Request request = new Request(
             HttpMethod.GET,

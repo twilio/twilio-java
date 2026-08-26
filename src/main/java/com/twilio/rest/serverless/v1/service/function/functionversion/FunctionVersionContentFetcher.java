@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class FunctionVersionContentFetcher
-    extends Fetcher<FunctionVersionContent>
-{
+    extends Fetcher<FunctionVersionContent> {
 
     private String pathServiceSid;
     private String pathFunctionSid;
@@ -49,14 +48,16 @@ public class FunctionVersionContentFetcher
         String path =
             "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}/Content";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
-        path = path.replace(
-            "{" + "FunctionSid" + "}",
-            this.pathFunctionSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "FunctionSid" + "}",
+                this.pathFunctionSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

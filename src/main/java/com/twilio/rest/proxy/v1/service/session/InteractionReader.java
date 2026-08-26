@@ -79,14 +79,16 @@ public class InteractionReader extends Reader<Interaction> {
         String path =
             "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
-        path = path.replace(
-            "{" + "SessionSid" + "}",
-            this.pathSessionSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "SessionSid" + "}",
+                this.pathSessionSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

@@ -31,8 +31,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class DataMappingPatcher
-    extends Patcher<DataMapping.PatchDataMappingResponse>
-{
+    extends Patcher<DataMapping.PatchDataMappingResponse> {
 
     private String pathStoreId;
     private String pathDataMappingId;
@@ -67,10 +66,11 @@ public class DataMappingPatcher
             "/v1/ControlPlane/Stores/{storeId}/DataMappings/{dataMappingId}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "dataMappingId" + "}",
-            this.pathDataMappingId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "dataMappingId" + "}",
+                this.pathDataMappingId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.PATCH,

@@ -635,9 +635,9 @@ public class Action extends Resource {
                 @JsonProperty(
                     "from"
                 ) final ConversationsV2SendMessageParticipant from,
-                @JsonProperty(
-                    "to"
-                ) final List<ConversationsV2SendMessageParticipant> to,
+                @JsonProperty("to") final List<
+                    ConversationsV2SendMessageParticipant
+                > to,
                 @JsonProperty(
                     "content"
                 ) final ConversationsV2SendMessageContent content

@@ -5,8 +5,10 @@ twilio-java changelog
 [2026-08-26] Version 13.0.0
 ---------------------------
 **Library - Fix**
-- [PR #826](https://github.com/twilio/twilio-oai-generator/pull/826): added forward compatibility for twilio-java nested response (#826) Thanks to [@sbansla](https://github.com/sbansla)!\
-- Fixed deserialization failure when API responses contain unknown fields in nested objects.
+- [PR #826](https://github.com/twilio/twilio-oai-generator/pull/826): Fixed deserialization failure when API responses contain unknown fields in nested objects. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Library - Breaking Changes**
+- Renamed nested model classes in Conversations v2 and Messaging v2 APIs to correct class name generation. Affected resources: `Action`, `Communication`, `Configuration`, `Conversation`, `Operation`, `Participant` (conversations/v2) and `ChannelsSender` (messaging/v2). **(breaking change)**
 
 [2026-08-26] Version 12.2.0
 ---------------------------

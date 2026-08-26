@@ -3,6 +3,9 @@ twilio-java changelog
 
 [2026-08-26] Version 12.2.0
 ---------------------------
+**Library - Fix**
+- Fixed deserialization failure when API responses contain unknown fields in nested objects.
+
 **Twiml**
 - Remove `<Assistant>` noun from `<Connect>` verb as part of the AI Assistants deprecation **(breaking change)**
 - Add `passports` attribute to `<Dial>` verb for SHAKEN/STIR passport passthrough

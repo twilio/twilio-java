@@ -83,13 +83,14 @@ public class MemberReader extends Reader<Member> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace("{" + "QueueSid" + "}", this.pathQueueSid.toString());
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
+        path = path.replace(
+            "{" + "QueueSid" + "}",
+            this.pathQueueSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

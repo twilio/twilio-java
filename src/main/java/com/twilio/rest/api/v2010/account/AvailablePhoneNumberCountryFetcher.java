@@ -28,7 +28,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class AvailablePhoneNumberCountryFetcher
-    extends Fetcher<AvailablePhoneNumberCountry> {
+    extends Fetcher<AvailablePhoneNumberCountry>
+{
 
     private String pathAccountSid;
     private String pathCountryCode;
@@ -53,16 +54,14 @@ public class AvailablePhoneNumberCountryFetcher
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "CountryCode" + "}",
-                this.pathCountryCode.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
+        path = path.replace(
+            "{" + "CountryCode" + "}",
+            this.pathCountryCode.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

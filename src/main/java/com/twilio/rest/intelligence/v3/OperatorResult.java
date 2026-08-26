@@ -123,7 +123,7 @@ public class OperatorResult extends Resource {
             }
             UpdateOperatorResultResponse other =
                 (UpdateOperatorResultResponse) o;
-            return (true);
+            return true;
         }
 
         @Override
@@ -498,6 +498,7 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = ExtractionResultResultEntities.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ExtractionResultResultEntities {
@@ -531,6 +532,7 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -579,6 +581,7 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = ExtractionResultResult.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ExtractionResultResult {
@@ -605,6 +608,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, ExtractionResultResult.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -613,9 +617,9 @@ public class OperatorResult extends Resource {
 
             @JsonCreator
             public Builder(
-                @JsonProperty("entities") final List<
-                    ExtractionResultResultEntities
-                > entities
+                @JsonProperty(
+                    "entities"
+                ) final List<ExtractionResultResultEntities> entities
             ) {
                 this.entities = entities;
             }
@@ -636,7 +640,7 @@ public class OperatorResult extends Resource {
             }
 
             ExtractionResultResult other = (ExtractionResultResult) o;
-            return (Objects.equals(entities, other.entities));
+            return Objects.equals(entities, other.entities);
         }
 
         @Override
@@ -646,6 +650,7 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = ListOperators200ResponseMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListOperators200ResponseMeta {
@@ -694,6 +699,7 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -764,6 +770,7 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = SystemMetaData.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class SystemMetaData {
@@ -822,6 +829,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, SystemMetaData.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -900,6 +908,7 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = ExecutionDetailsParticipants.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ExecutionDetailsParticipants {
@@ -939,6 +948,7 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1001,6 +1011,7 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = OperatorReference.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperatorReference {
@@ -1041,6 +1052,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, OperatorReference.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1094,6 +1106,7 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = ResolvedContextKnowledge.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ResolvedContextKnowledge {
@@ -1120,6 +1133,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, ResolvedContextKnowledge.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1128,9 +1142,9 @@ public class OperatorResult extends Resource {
 
             @JsonCreator
             public Builder(
-                @JsonProperty("sources") final List<
-                    ResolvedContextKnowledgeSources
-                > sources
+                @JsonProperty(
+                    "sources"
+                ) final List<ResolvedContextKnowledgeSources> sources
             ) {
                 this.sources = sources;
             }
@@ -1151,7 +1165,7 @@ public class OperatorResult extends Resource {
             }
 
             ResolvedContextKnowledge other = (ResolvedContextKnowledge) o;
-            return (Objects.equals(sources, other.sources));
+            return Objects.equals(sources, other.sources);
         }
 
         @Override
@@ -1161,6 +1175,7 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = IntelligenceConfigurationReference.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class IntelligenceConfigurationReference {
@@ -1204,6 +1219,7 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1258,6 +1274,7 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = TextResultResult.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TextResultResult {
@@ -1282,6 +1299,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, TextResultResult.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1309,7 +1327,7 @@ public class OperatorResult extends Resource {
             }
 
             TextResultResult other = (TextResultResult) o;
-            return (Objects.equals(text, other.text));
+            return Objects.equals(text, other.text);
         }
 
         @Override
@@ -1319,6 +1337,7 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = ExecutionDetails.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ExecutionDetails {
@@ -1372,6 +1391,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, ExecutionDetails.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1397,9 +1417,9 @@ public class OperatorResult extends Resource {
                     "communications"
                 ) final ExecutionDetailsCommunications communications,
                 @JsonProperty("channels") final List<String> channels,
-                @JsonProperty("participants") final List<
-                    ExecutionDetailsParticipants
-                > participants
+                @JsonProperty(
+                    "participants"
+                ) final List<ExecutionDetailsParticipants> participants
             ) {
                 this.trigger = trigger;
                 this.communications = communications;
@@ -1452,6 +1472,7 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = ResolvedContextKnowledgeSources.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ResolvedContextKnowledgeSources {
@@ -1488,6 +1509,7 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1538,6 +1560,7 @@ public class OperatorResult extends Resource {
     @JsonDeserialize(
         builder = OperatorResultsResponseBaseMetadata.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperatorResultsResponseBaseMetadata {
@@ -1565,6 +1588,7 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1595,7 +1619,7 @@ public class OperatorResult extends Resource {
 
             OperatorResultsResponseBaseMetadata other =
                 (OperatorResultsResponseBaseMetadata) o;
-            return (Objects.equals(system, other.system));
+            return Objects.equals(system, other.system);
         }
 
         @Override
@@ -1605,6 +1629,7 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = ResolvedContext.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ResolvedContext {
@@ -1635,6 +1660,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, ResolvedContext.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1687,6 +1713,7 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = ExecutionDetailsTrigger.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ExecutionDetailsTrigger {
@@ -1722,6 +1749,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, ExecutionDetailsTrigger.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1773,6 +1801,7 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = ExecutionDetailsCommunications.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ExecutionDetailsCommunications {
@@ -1806,6 +1835,7 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1854,6 +1884,7 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = ResolvedContextMemory.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ResolvedContextMemory {
@@ -1887,6 +1918,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, ResolvedContextMemory.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1934,9 +1966,20 @@ public class OperatorResult extends Resource {
     }
 
     @JsonDeserialize(builder = OperatorResultsResponseV1.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperatorResultsResponseV1 {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("outputFormat")
+        @Getter
+        private final String outputFormat;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        private final String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("accountId")
@@ -1944,9 +1987,19 @@ public class OperatorResult extends Resource {
         private final String accountId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("intelligenceConfiguration")
+        @Getter
+        private final IntelligenceConfigurationReference intelligenceConfiguration;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("conversationId")
         @Getter
         private final String conversationId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("operator")
+        @Getter
+        private final OperatorReference operator;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
@@ -1956,19 +2009,14 @@ public class OperatorResult extends Resource {
         private final ZonedDateTime dateCreated;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("referenceIds")
+        @Getter
+        private final List<String> referenceIds;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("executionDetails")
         @Getter
         private final ExecutionDetails executionDetails;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("id")
-        @Getter
-        private final String id;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("intelligenceConfiguration")
-        @Getter
-        private final IntelligenceConfigurationReference intelligenceConfiguration;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("metadata")
@@ -1976,36 +2024,21 @@ public class OperatorResult extends Resource {
         private final OperatorResultsResponseBaseMetadata metadata;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("operator")
-        @Getter
-        private final OperatorReference operator;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("outputFormat")
-        @Getter
-        private final String outputFormat;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("referenceIds")
-        @Getter
-        private final List<String> referenceIds;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("result")
         @Getter
         private final TextResultResult result;
 
         private OperatorResultsResponseV1(Builder builder) {
-            this.accountId = builder.accountId;
-            this.conversationId = builder.conversationId;
-            this.dateCreated = builder.dateCreated;
-            this.executionDetails = builder.executionDetails;
-            this.id = builder.id;
-            this.intelligenceConfiguration = builder.intelligenceConfiguration;
-            this.metadata = builder.metadata;
-            this.operator = builder.operator;
             this.outputFormat = builder.outputFormat;
+            this.id = builder.id;
+            this.accountId = builder.accountId;
+            this.intelligenceConfiguration = builder.intelligenceConfiguration;
+            this.conversationId = builder.conversationId;
+            this.operator = builder.operator;
+            this.dateCreated = builder.dateCreated;
             this.referenceIds = builder.referenceIds;
+            this.executionDetails = builder.executionDetails;
+            this.metadata = builder.metadata;
             this.result = builder.result;
         }
 
@@ -2023,14 +2056,27 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
+            @JsonProperty("outputFormat")
+            private String outputFormat;
+
+            @JsonProperty("id")
+            private String id;
 
             @JsonProperty("accountId")
             private String accountId;
 
+            @JsonProperty("intelligenceConfiguration")
+            private IntelligenceConfigurationReference intelligenceConfiguration;
+
             @JsonProperty("conversationId")
             private String conversationId;
+
+            @JsonProperty("operator")
+            private OperatorReference operator;
 
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
@@ -2039,29 +2085,31 @@ public class OperatorResult extends Resource {
             @JsonProperty("dateCreated")
             private ZonedDateTime dateCreated;
 
+            @JsonProperty("referenceIds")
+            private List<String> referenceIds;
+
             @JsonProperty("executionDetails")
             private ExecutionDetails executionDetails;
-
-            @JsonProperty("id")
-            private String id;
-
-            @JsonProperty("intelligenceConfiguration")
-            private IntelligenceConfigurationReference intelligenceConfiguration;
 
             @JsonProperty("metadata")
             private OperatorResultsResponseBaseMetadata metadata;
 
-            @JsonProperty("operator")
-            private OperatorReference operator;
-
-            @JsonProperty("outputFormat")
-            private String outputFormat;
-
-            @JsonProperty("referenceIds")
-            private List<String> referenceIds;
-
             @JsonProperty("result")
             private TextResultResult result;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("outputFormat")
+            public Builder outputFormat(String outputFormat) {
+                this.outputFormat = outputFormat;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            public Builder id(String id) {
+                this.id = id;
+                return this;
+            }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("accountId")
@@ -2071,9 +2119,25 @@ public class OperatorResult extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("intelligenceConfiguration")
+            public Builder intelligenceConfiguration(
+                IntelligenceConfigurationReference intelligenceConfiguration
+            ) {
+                this.intelligenceConfiguration = intelligenceConfiguration;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("conversationId")
             public Builder conversationId(String conversationId) {
                 this.conversationId = conversationId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("operator")
+            public Builder operator(OperatorReference operator) {
+                this.operator = operator;
                 return this;
             }
 
@@ -2089,25 +2153,16 @@ public class OperatorResult extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("referenceIds")
+            public Builder referenceIds(List<String> referenceIds) {
+                this.referenceIds = referenceIds;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("executionDetails")
             public Builder executionDetails(ExecutionDetails executionDetails) {
                 this.executionDetails = executionDetails;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("id")
-            public Builder id(String id) {
-                this.id = id;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("intelligenceConfiguration")
-            public Builder intelligenceConfiguration(
-                IntelligenceConfigurationReference intelligenceConfiguration
-            ) {
-                this.intelligenceConfiguration = intelligenceConfiguration;
                 return this;
             }
 
@@ -2117,27 +2172,6 @@ public class OperatorResult extends Resource {
                 OperatorResultsResponseBaseMetadata metadata
             ) {
                 this.metadata = metadata;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("operator")
-            public Builder operator(OperatorReference operator) {
-                this.operator = operator;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("outputFormat")
-            public Builder outputFormat(String outputFormat) {
-                this.outputFormat = outputFormat;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("referenceIds")
-            public Builder referenceIds(List<String> referenceIds) {
-                this.referenceIds = referenceIds;
                 return this;
             }
 
@@ -2165,19 +2199,19 @@ public class OperatorResult extends Resource {
 
             OperatorResultsResponseV1 other = (OperatorResultsResponseV1) o;
             return (
-                Objects.equals(accountId, other.accountId) &&
-                Objects.equals(conversationId, other.conversationId) &&
-                Objects.equals(dateCreated, other.dateCreated) &&
-                Objects.equals(executionDetails, other.executionDetails) &&
+                Objects.equals(outputFormat, other.outputFormat) &&
                 Objects.equals(id, other.id) &&
+                Objects.equals(accountId, other.accountId) &&
                 Objects.equals(
                     intelligenceConfiguration,
                     other.intelligenceConfiguration
                 ) &&
-                Objects.equals(metadata, other.metadata) &&
+                Objects.equals(conversationId, other.conversationId) &&
                 Objects.equals(operator, other.operator) &&
-                Objects.equals(outputFormat, other.outputFormat) &&
+                Objects.equals(dateCreated, other.dateCreated) &&
                 Objects.equals(referenceIds, other.referenceIds) &&
+                Objects.equals(executionDetails, other.executionDetails) &&
+                Objects.equals(metadata, other.metadata) &&
                 Objects.equals(result, other.result)
             );
         }
@@ -2185,16 +2219,16 @@ public class OperatorResult extends Resource {
         @Override
         public int hashCode() {
             return Objects.hash(
-                accountId,
-                conversationId,
-                dateCreated,
-                executionDetails,
-                id,
-                intelligenceConfiguration,
-                metadata,
-                operator,
                 outputFormat,
+                id,
+                accountId,
+                intelligenceConfiguration,
+                conversationId,
+                operator,
+                dateCreated,
                 referenceIds,
+                executionDetails,
+                metadata,
                 result
             );
         }

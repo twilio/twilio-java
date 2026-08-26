@@ -31,7 +31,8 @@ import java.io.InputStream;
 import java.time.ZonedDateTime;
 
 public class WorkspaceCumulativeStatisticsFetcher
-    extends Fetcher<WorkspaceCumulativeStatistics> {
+    extends Fetcher<WorkspaceCumulativeStatistics>
+{
 
     private String pathWorkspaceSid;
     private ZonedDateTime endDate;
@@ -82,11 +83,10 @@ public class WorkspaceCumulativeStatisticsFetcher
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/CumulativeStatistics";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
+        path = path.replace(
+            "{" + "WorkspaceSid" + "}",
+            this.pathWorkspaceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

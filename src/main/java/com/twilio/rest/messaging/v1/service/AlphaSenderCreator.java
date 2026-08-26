@@ -51,11 +51,10 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/AlphaSenders";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

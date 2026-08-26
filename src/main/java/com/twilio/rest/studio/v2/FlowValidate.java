@@ -143,7 +143,7 @@ public class FlowValidate extends Resource {
         }
 
         FlowValidate other = (FlowValidate) o;
-        return (Objects.equals(valid, other.valid));
+        return Objects.equals(valid, other.valid);
     }
 
     @Override

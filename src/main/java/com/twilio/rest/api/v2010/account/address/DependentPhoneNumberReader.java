@@ -87,16 +87,14 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "AddressSid" + "}",
-                this.pathAddressSid.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
+        path = path.replace(
+            "{" + "AddressSid" + "}",
+            this.pathAddressSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

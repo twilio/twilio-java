@@ -30,7 +30,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class KnowledgeBasisCreator
-    extends Creator<KnowledgeBasis.CreateKnowledgeBasisResponse> {
+    extends Creator<KnowledgeBasis.CreateKnowledgeBasisResponse>
+{
 
     private KnowledgeBasis.KnowledgeBaseCore knowledgeBaseCore;
 
@@ -93,9 +94,9 @@ public class KnowledgeBasisCreator
     }
 
     @Override
-    public TwilioResponse<
-        KnowledgeBasis.CreateKnowledgeBasisResponse
-    > createWithResponse(final TwilioRestClient client) {
+    public TwilioResponse<KnowledgeBasis.CreateKnowledgeBasisResponse> createWithResponse(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
         KnowledgeBasis.CreateKnowledgeBasisResponse content =
             KnowledgeBasis.CreateKnowledgeBasisResponse.fromJson(

@@ -47,13 +47,14 @@ public class AssetVersionFetcher extends Fetcher<AssetVersion> {
         String path =
             "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace("{" + "AssetSid" + "}", this.pathAssetSid.toString());
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "AssetSid" + "}",
+            this.pathAssetSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

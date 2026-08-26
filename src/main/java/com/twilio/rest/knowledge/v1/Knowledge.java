@@ -69,6 +69,7 @@ public class Knowledge extends Resource {
     @JsonDeserialize(
         builder = KnowledgeV1ServiceUpdateKnowledgeRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class KnowledgeV1ServiceUpdateKnowledgeRequest {
@@ -126,6 +127,7 @@ public class Knowledge extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -239,6 +241,7 @@ public class Knowledge extends Resource {
     @JsonDeserialize(
         builder = KnowledgeV1ServiceCreateKnowledgeRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class KnowledgeV1ServiceCreateKnowledgeRequest {
@@ -296,6 +299,7 @@ public class Knowledge extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -404,6 +408,7 @@ public class Knowledge extends Resource {
     @JsonDeserialize(
         builder = KnowledgeV1ServiceCreatePolicyRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class KnowledgeV1ServiceCreatePolicyRequest {
@@ -455,6 +460,7 @@ public class Knowledge extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

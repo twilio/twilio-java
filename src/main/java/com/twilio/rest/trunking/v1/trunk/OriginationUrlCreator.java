@@ -89,8 +89,10 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/OriginationUrls";
 
-        path =
-            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
+        path = path.replace(
+            "{" + "TrunkSid" + "}",
+            this.pathTrunkSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

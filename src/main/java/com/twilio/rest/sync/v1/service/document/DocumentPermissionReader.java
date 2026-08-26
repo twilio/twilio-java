@@ -79,16 +79,14 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
         String path =
             "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "DocumentSid" + "}",
-                this.pathDocumentSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "DocumentSid" + "}",
+            this.pathDocumentSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

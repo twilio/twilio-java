@@ -16,6 +16,7 @@ package com.twilio.rest.insights.v1.call;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -23,6 +24,8 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
@@ -32,7 +35,9 @@ import com.twilio.type.*;
 import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Objects;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -42,6 +47,27 @@ public class Event extends Resource {
 
     public static EventReader reader(final String pathCallSid) {
         return new EventReader(pathCallSid);
+    }
+
+    public enum Type {
+        DTMF("DTMF"),
+        SPEECH("SPEECH");
+
+        private final String value;
+
+        private Type(final String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
+        }
     }
 
     public enum TwilioEdge {
@@ -68,6 +94,29 @@ public class Event extends Resource {
         }
     }
 
+    public enum EndStatus {
+        UNKNOWN("unknown"),
+        FAILURE("failure"),
+        ENDED("ended"),
+        HUNG_UP("hung_up");
+
+        private final String value;
+
+        private EndStatus(final String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static EndStatus forValue(final String value) {
+            return Promoter.enumFromString(value, EndStatus.values());
+        }
+    }
+
     public enum Level {
         UNKNOWN("UNKNOWN"),
         DEBUG("DEBUG"),
@@ -89,6 +138,934 @@ public class Event extends Resource {
         @JsonCreator
         public static Level forValue(final String value) {
             return Promoter.enumFromString(value, Level.values());
+        }
+    }
+
+    @JsonDeserialize(builder = ConfigurationEvent.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class ConfigurationEvent {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("configurations")
+        @Getter
+        private final Map<String, String> configurations;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("languages")
+        @Getter
+        private final Map<String, ConfigurationEventLanguagesValue> languages;
+
+        private ConfigurationEvent(Builder builder) {
+            this.configurations = builder.configurations;
+            this.languages = builder.languages;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static ConfigurationEvent fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, ConfigurationEvent.class);
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("configurations")
+            private Map<String, String> configurations;
+
+            @JsonProperty("languages")
+            private Map<String, ConfigurationEventLanguagesValue> languages;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("configurations")
+            public Builder configurations(Map<String, String> configurations) {
+                this.configurations = configurations;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("languages")
+            public Builder languages(
+                Map<String, ConfigurationEventLanguagesValue> languages
+            ) {
+                this.languages = languages;
+                return this;
+            }
+
+            public ConfigurationEvent build() {
+                return new ConfigurationEvent(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ConfigurationEvent other = (ConfigurationEvent) o;
+            return (
+                Objects.equals(configurations, other.configurations) &&
+                Objects.equals(languages, other.languages)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(configurations, languages);
+        }
+    }
+
+    @JsonDeserialize(builder = ConfigurationEventLanguagesValue.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class ConfigurationEventLanguagesValue {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("tts_provider")
+        @Getter
+        private final String ttsProvider;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("voice")
+        @Getter
+        private final String voice;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("transcription_provider")
+        @Getter
+        private final String transcriptionProvider;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("speech_model")
+        @Getter
+        private final String speechModel;
+
+        private ConfigurationEventLanguagesValue(Builder builder) {
+            this.ttsProvider = builder.ttsProvider;
+            this.voice = builder.voice;
+            this.transcriptionProvider = builder.transcriptionProvider;
+            this.speechModel = builder.speechModel;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static ConfigurationEventLanguagesValue fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                ConfigurationEventLanguagesValue.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("tts_provider")
+            private String ttsProvider;
+
+            @JsonProperty("voice")
+            private String voice;
+
+            @JsonProperty("transcription_provider")
+            private String transcriptionProvider;
+
+            @JsonProperty("speech_model")
+            private String speechModel;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("tts_provider")
+            public Builder ttsProvider(String ttsProvider) {
+                this.ttsProvider = ttsProvider;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("voice")
+            public Builder voice(String voice) {
+                this.voice = voice;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("transcription_provider")
+            public Builder transcriptionProvider(String transcriptionProvider) {
+                this.transcriptionProvider = transcriptionProvider;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("speech_model")
+            public Builder speechModel(String speechModel) {
+                this.speechModel = speechModel;
+                return this;
+            }
+
+            public ConfigurationEventLanguagesValue build() {
+                return new ConfigurationEventLanguagesValue(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ConfigurationEventLanguagesValue other =
+                (ConfigurationEventLanguagesValue) o;
+            return (
+                Objects.equals(ttsProvider, other.ttsProvider) &&
+                Objects.equals(voice, other.voice) &&
+                Objects.equals(
+                    transcriptionProvider,
+                    other.transcriptionProvider
+                ) &&
+                Objects.equals(speechModel, other.speechModel)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                ttsProvider,
+                voice,
+                transcriptionProvider,
+                speechModel
+            );
+        }
+    }
+
+    @JsonDeserialize(builder = CallWrapUpEvent.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CallWrapUpEvent {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("duration_in_seconds")
+        @Getter
+        private final Integer durationInSeconds;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("end_status")
+        @Getter
+        private final Event.EndStatus endStatus;
+
+        private CallWrapUpEvent(Builder builder) {
+            this.durationInSeconds = builder.durationInSeconds;
+            this.endStatus = builder.endStatus;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CallWrapUpEvent fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, CallWrapUpEvent.class);
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("duration_in_seconds")
+            private Integer durationInSeconds;
+
+            @JsonProperty("end_status")
+            private Event.EndStatus endStatus;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("duration_in_seconds")
+            public Builder durationInSeconds(Integer durationInSeconds) {
+                this.durationInSeconds = durationInSeconds;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("end_status")
+            public Builder endStatus(Event.EndStatus endStatus) {
+                this.endStatus = endStatus;
+                return this;
+            }
+
+            public CallWrapUpEvent build() {
+                return new CallWrapUpEvent(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CallWrapUpEvent other = (CallWrapUpEvent) o;
+            return (
+                Objects.equals(durationInSeconds, other.durationInSeconds) &&
+                Objects.equals(endStatus, other.endStatus)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(durationInSeconds, endStatus);
+        }
+    }
+
+    @JsonDeserialize(builder = LanguageChangedEvent.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class LanguageChangedEvent {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("tts_language_code")
+        @Getter
+        private final String ttsLanguageCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("transcription_language_code")
+        @Getter
+        private final String transcriptionLanguageCode;
+
+        private LanguageChangedEvent(Builder builder) {
+            this.ttsLanguageCode = builder.ttsLanguageCode;
+            this.transcriptionLanguageCode = builder.transcriptionLanguageCode;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static LanguageChangedEvent fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, LanguageChangedEvent.class);
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("tts_language_code")
+            private String ttsLanguageCode;
+
+            @JsonProperty("transcription_language_code")
+            private String transcriptionLanguageCode;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("tts_language_code")
+            public Builder ttsLanguageCode(String ttsLanguageCode) {
+                this.ttsLanguageCode = ttsLanguageCode;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("transcription_language_code")
+            public Builder transcriptionLanguageCode(
+                String transcriptionLanguageCode
+            ) {
+                this.transcriptionLanguageCode = transcriptionLanguageCode;
+                return this;
+            }
+
+            public LanguageChangedEvent build() {
+                return new LanguageChangedEvent(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            LanguageChangedEvent other = (LanguageChangedEvent) o;
+            return (
+                Objects.equals(ttsLanguageCode, other.ttsLanguageCode) &&
+                Objects.equals(
+                    transcriptionLanguageCode,
+                    other.transcriptionLanguageCode
+                )
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(ttsLanguageCode, transcriptionLanguageCode);
+        }
+    }
+
+    @JsonDeserialize(builder = ErrorEvent.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class ErrorEvent {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("error_code")
+        @Getter
+        private final Integer errorCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("message")
+        @Getter
+        private final String message;
+
+        private ErrorEvent(Builder builder) {
+            this.errorCode = builder.errorCode;
+            this.message = builder.message;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static ErrorEvent fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, ErrorEvent.class);
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("error_code")
+            private Integer errorCode;
+
+            @JsonProperty("message")
+            private String message;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("error_code")
+            public Builder errorCode(Integer errorCode) {
+                this.errorCode = errorCode;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("message")
+            public Builder message(String message) {
+                this.message = message;
+                return this;
+            }
+
+            public ErrorEvent build() {
+                return new ErrorEvent(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ErrorEvent other = (ErrorEvent) o;
+            return (
+                Objects.equals(errorCode, other.errorCode) &&
+                Objects.equals(message, other.message)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(errorCode, message);
+        }
+    }
+
+    @JsonDeserialize(builder = LastTokenReceivedEvent.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class LastTokenReceivedEvent {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("total_tokens")
+        @Getter
+        private final Integer totalTokens;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("total_words")
+        @Getter
+        private final Integer totalWords;
+
+        private LastTokenReceivedEvent(Builder builder) {
+            this.totalTokens = builder.totalTokens;
+            this.totalWords = builder.totalWords;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static LastTokenReceivedEvent fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, LastTokenReceivedEvent.class);
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("total_tokens")
+            private Integer totalTokens;
+
+            @JsonProperty("total_words")
+            private Integer totalWords;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("total_tokens")
+            public Builder totalTokens(Integer totalTokens) {
+                this.totalTokens = totalTokens;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("total_words")
+            public Builder totalWords(Integer totalWords) {
+                this.totalWords = totalWords;
+                return this;
+            }
+
+            public LastTokenReceivedEvent build() {
+                return new LastTokenReceivedEvent(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            LastTokenReceivedEvent other = (LastTokenReceivedEvent) o;
+            return (
+                Objects.equals(totalTokens, other.totalTokens) &&
+                Objects.equals(totalWords, other.totalWords)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(totalTokens, totalWords);
+        }
+    }
+
+    @JsonDeserialize(builder = InterruptEvent.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class InterruptEvent {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        private final Event.Type type;
+
+        private InterruptEvent(Builder builder) {
+            this.type = builder.type;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static InterruptEvent fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, InterruptEvent.class);
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("type")
+            private Event.Type type;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            public Builder type(Event.Type type) {
+                this.type = type;
+                return this;
+            }
+
+            public InterruptEvent build() {
+                return new InterruptEvent(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            InterruptEvent other = (InterruptEvent) o;
+            return Objects.equals(type, other.type);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(type);
+        }
+    }
+
+    @JsonDeserialize(
+        builder = InsightsV1CallEventConversationRelayData.Builder.class
+    )
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class InsightsV1CallEventConversationRelayData {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("session_id")
+        @Getter
+        private final String sessionId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sequence_number")
+        @Getter
+        private final Integer sequenceNumber;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("tts_latency")
+        @Getter
+        private final LatencyEvent ttsLatency;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("stt_latency")
+        @Getter
+        private final LatencyEvent sttLatency;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("interrupt")
+        @Getter
+        private final InterruptEvent interrupt;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("last_token_received")
+        @Getter
+        private final LastTokenReceivedEvent lastTokenReceived;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("configurations")
+        @Getter
+        private final ConfigurationEvent configurations;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("language_changed")
+        @Getter
+        private final LanguageChangedEvent languageChanged;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("call_wrap_up")
+        @Getter
+        private final CallWrapUpEvent callWrapUp;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("error")
+        @Getter
+        private final ErrorEvent error;
+
+        private InsightsV1CallEventConversationRelayData(Builder builder) {
+            this.sessionId = builder.sessionId;
+            this.sequenceNumber = builder.sequenceNumber;
+            this.ttsLatency = builder.ttsLatency;
+            this.sttLatency = builder.sttLatency;
+            this.interrupt = builder.interrupt;
+            this.lastTokenReceived = builder.lastTokenReceived;
+            this.configurations = builder.configurations;
+            this.languageChanged = builder.languageChanged;
+            this.callWrapUp = builder.callWrapUp;
+            this.error = builder.error;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static InsightsV1CallEventConversationRelayData fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                InsightsV1CallEventConversationRelayData.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("session_id")
+            private String sessionId;
+
+            @JsonProperty("sequence_number")
+            private Integer sequenceNumber;
+
+            @JsonProperty("tts_latency")
+            private LatencyEvent ttsLatency;
+
+            @JsonProperty("stt_latency")
+            private LatencyEvent sttLatency;
+
+            @JsonProperty("interrupt")
+            private InterruptEvent interrupt;
+
+            @JsonProperty("last_token_received")
+            private LastTokenReceivedEvent lastTokenReceived;
+
+            @JsonProperty("configurations")
+            private ConfigurationEvent configurations;
+
+            @JsonProperty("language_changed")
+            private LanguageChangedEvent languageChanged;
+
+            @JsonProperty("call_wrap_up")
+            private CallWrapUpEvent callWrapUp;
+
+            @JsonProperty("error")
+            private ErrorEvent error;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("session_id")
+            public Builder sessionId(String sessionId) {
+                this.sessionId = sessionId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("sequence_number")
+            public Builder sequenceNumber(Integer sequenceNumber) {
+                this.sequenceNumber = sequenceNumber;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("tts_latency")
+            public Builder ttsLatency(LatencyEvent ttsLatency) {
+                this.ttsLatency = ttsLatency;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("stt_latency")
+            public Builder sttLatency(LatencyEvent sttLatency) {
+                this.sttLatency = sttLatency;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("interrupt")
+            public Builder interrupt(InterruptEvent interrupt) {
+                this.interrupt = interrupt;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("last_token_received")
+            public Builder lastTokenReceived(
+                LastTokenReceivedEvent lastTokenReceived
+            ) {
+                this.lastTokenReceived = lastTokenReceived;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("configurations")
+            public Builder configurations(ConfigurationEvent configurations) {
+                this.configurations = configurations;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("language_changed")
+            public Builder languageChanged(
+                LanguageChangedEvent languageChanged
+            ) {
+                this.languageChanged = languageChanged;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("call_wrap_up")
+            public Builder callWrapUp(CallWrapUpEvent callWrapUp) {
+                this.callWrapUp = callWrapUp;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("error")
+            public Builder error(ErrorEvent error) {
+                this.error = error;
+                return this;
+            }
+
+            public InsightsV1CallEventConversationRelayData build() {
+                return new InsightsV1CallEventConversationRelayData(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            InsightsV1CallEventConversationRelayData other =
+                (InsightsV1CallEventConversationRelayData) o;
+            return (
+                Objects.equals(sessionId, other.sessionId) &&
+                Objects.equals(sequenceNumber, other.sequenceNumber) &&
+                Objects.equals(ttsLatency, other.ttsLatency) &&
+                Objects.equals(sttLatency, other.sttLatency) &&
+                Objects.equals(interrupt, other.interrupt) &&
+                Objects.equals(lastTokenReceived, other.lastTokenReceived) &&
+                Objects.equals(configurations, other.configurations) &&
+                Objects.equals(languageChanged, other.languageChanged) &&
+                Objects.equals(callWrapUp, other.callWrapUp) &&
+                Objects.equals(error, other.error)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                sessionId,
+                sequenceNumber,
+                ttsLatency,
+                sttLatency,
+                interrupt,
+                lastTokenReceived,
+                configurations,
+                languageChanged,
+                callWrapUp,
+                error
+            );
+        }
+    }
+
+    @JsonDeserialize(builder = LatencyEvent.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class LatencyEvent {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("latency_ms")
+        @Getter
+        private final Integer latencyMs;
+
+        private LatencyEvent(Builder builder) {
+            this.latencyMs = builder.latencyMs;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static LatencyEvent fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, LatencyEvent.class);
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("latency_ms")
+            private Integer latencyMs;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("latency_ms")
+            public Builder latencyMs(Integer latencyMs) {
+                this.latencyMs = latencyMs;
+                return this;
+            }
+
+            public LatencyEvent build() {
+                return new LatencyEvent(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            LatencyEvent other = (LatencyEvent) o;
+            return Objects.equals(latencyMs, other.latencyMs);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(latencyMs);
         }
     }
 
@@ -160,6 +1137,9 @@ public class Event extends Resource {
     private final Object clientEdge;
 
     @Getter
+    private final InsightsV1CallEventConversationRelayData conversationRelayData;
+
+    @Getter
     private final Event.TwilioEdge edge;
 
     @Getter
@@ -186,6 +1166,9 @@ public class Event extends Resource {
         @JsonProperty("call_sid") final String callSid,
         @JsonProperty("carrier_edge") final Object carrierEdge,
         @JsonProperty("client_edge") final Object clientEdge,
+        @JsonProperty(
+            "conversation_relay_data"
+        ) final InsightsV1CallEventConversationRelayData conversationRelayData,
         @JsonProperty("edge") final Event.TwilioEdge edge,
         @JsonProperty("group") final String group,
         @JsonProperty("level") final Event.Level level,
@@ -198,6 +1181,7 @@ public class Event extends Resource {
         this.callSid = callSid;
         this.carrierEdge = carrierEdge;
         this.clientEdge = clientEdge;
+        this.conversationRelayData = conversationRelayData;
         this.edge = edge;
         this.group = group;
         this.level = level;
@@ -223,6 +1207,10 @@ public class Event extends Resource {
             Objects.equals(callSid, other.callSid) &&
             Objects.equals(carrierEdge, other.carrierEdge) &&
             Objects.equals(clientEdge, other.clientEdge) &&
+            Objects.equals(
+                conversationRelayData,
+                other.conversationRelayData
+            ) &&
             Objects.equals(edge, other.edge) &&
             Objects.equals(group, other.group) &&
             Objects.equals(level, other.level) &&
@@ -240,6 +1228,7 @@ public class Event extends Resource {
             callSid,
             carrierEdge,
             clientEdge,
+            conversationRelayData,
             edge,
             group,
             level,

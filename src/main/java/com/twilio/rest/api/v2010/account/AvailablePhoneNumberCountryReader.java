@@ -34,7 +34,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class AvailablePhoneNumberCountryReader
-    extends Reader<AvailablePhoneNumberCountry> {
+    extends Reader<AvailablePhoneNumberCountry>
+{
 
     private String pathAccountSid;
     private Long pageSize;
@@ -78,11 +79,10 @@ public class AvailablePhoneNumberCountryReader
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

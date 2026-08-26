@@ -72,7 +72,7 @@ public class Participant extends Resource {
         private final String profileId;
 
         @Getter
-        private final Participant.Type type;
+        private final Participant.ConversationsVParticipantType type;
 
         @Getter
         private final ZonedDateTime updatedAt;
@@ -80,15 +80,17 @@ public class Participant extends Resource {
         @JsonCreator
         private CreateParticipantResponse(
             @JsonProperty("accountId") final String accountId,
-            @JsonProperty("addresses") final List<
-                ConversationsV2Address
-            > addresses,
+            @JsonProperty(
+                "addresses"
+            ) final List<ConversationsV2Address> addresses,
             @JsonProperty("conversationId") final String conversationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("name") final String name,
             @JsonProperty("profileId") final String profileId,
-            @JsonProperty("type") final Participant.Type type,
+            @JsonProperty(
+                "type"
+            ) final Participant.ConversationsVParticipantType type,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
             this.accountId = accountId;
@@ -183,7 +185,7 @@ public class Participant extends Resource {
         private final String profileId;
 
         @Getter
-        private final Participant.Type type;
+        private final Participant.ConversationsVParticipantType type;
 
         @Getter
         private final ZonedDateTime updatedAt;
@@ -191,15 +193,17 @@ public class Participant extends Resource {
         @JsonCreator
         private UpdateParticipantResponse(
             @JsonProperty("accountId") final String accountId,
-            @JsonProperty("addresses") final List<
-                ConversationsV2Address
-            > addresses,
+            @JsonProperty(
+                "addresses"
+            ) final List<ConversationsV2Address> addresses,
             @JsonProperty("conversationId") final String conversationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("name") final String name,
             @JsonProperty("profileId") final String profileId,
-            @JsonProperty("type") final Participant.Type type,
+            @JsonProperty(
+                "type"
+            ) final Participant.ConversationsVParticipantType type,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
             this.accountId = accountId;
@@ -336,7 +340,7 @@ public class Participant extends Resource {
         private final String profileId;
 
         @Getter
-        private final Participant.Type type;
+        private final Participant.ConversationsVParticipantType type;
 
         @Getter
         private final ZonedDateTime updatedAt;
@@ -344,15 +348,17 @@ public class Participant extends Resource {
         @JsonCreator
         private ListParticipantResponse(
             @JsonProperty("accountId") final String accountId,
-            @JsonProperty("addresses") final List<
-                ConversationsV2Address
-            > addresses,
+            @JsonProperty(
+                "addresses"
+            ) final List<ConversationsV2Address> addresses,
             @JsonProperty("conversationId") final String conversationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("name") final String name,
             @JsonProperty("profileId") final String profileId,
-            @JsonProperty("type") final Participant.Type type,
+            @JsonProperty(
+                "type"
+            ) final Participant.ConversationsVParticipantType type,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
             this.accountId = accountId;
@@ -489,7 +495,7 @@ public class Participant extends Resource {
         private final String profileId;
 
         @Getter
-        private final Participant.Type type;
+        private final Participant.ConversationsVParticipantType type;
 
         @Getter
         private final ZonedDateTime updatedAt;
@@ -497,15 +503,17 @@ public class Participant extends Resource {
         @JsonCreator
         private FetchParticipantResponse(
             @JsonProperty("accountId") final String accountId,
-            @JsonProperty("addresses") final List<
-                ConversationsV2Address
-            > addresses,
+            @JsonProperty(
+                "addresses"
+            ) final List<ConversationsV2Address> addresses,
             @JsonProperty("conversationId") final String conversationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("name") final String name,
             @JsonProperty("profileId") final String profileId,
-            @JsonProperty("type") final Participant.Type type,
+            @JsonProperty(
+                "type"
+            ) final Participant.ConversationsVParticipantType type,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
             this.accountId = accountId;
@@ -575,26 +583,55 @@ public class Participant extends Resource {
         }
     }
 
-    public static ParticipantCreator creator(final String pathConversationSid) {
-        return new ParticipantCreator(pathConversationSid);
+    public static ParticipantCreator creator(final String pathConversationId) {
+        return new ParticipantCreator(pathConversationId);
     }
 
     public static ParticipantFetcher fetcher(
-        final String pathConversationSid,
-        final String pathSid
+        final String pathConversationId,
+        final String pathId
     ) {
-        return new ParticipantFetcher(pathConversationSid, pathSid);
+        return new ParticipantFetcher(pathConversationId, pathId);
     }
 
-    public static ParticipantReader reader(final String pathConversationSid) {
-        return new ParticipantReader(pathConversationSid);
+    public static ParticipantReader reader(final String pathConversationId) {
+        return new ParticipantReader(pathConversationId);
     }
 
     public static ParticipantUpdater updater(
-        final String pathConversationSid,
-        final String pathSid
+        final String pathConversationId,
+        final String pathId
     ) {
-        return new ParticipantUpdater(pathConversationSid, pathSid);
+        return new ParticipantUpdater(pathConversationId, pathId);
+    }
+
+    public enum ConversationsVParticipantType {
+        HUMAN_AGENT("HUMAN_AGENT"),
+        CUSTOMER("CUSTOMER"),
+        AI_AGENT("AI_AGENT"),
+        AGENT("AGENT"),
+        UNKNOWN("UNKNOWN");
+
+        private final String value;
+
+        private ConversationsVParticipantType(final String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ConversationsVParticipantType forValue(
+            final String value
+        ) {
+            return Promoter.enumFromString(
+                value,
+                ConversationsVParticipantType.values()
+            );
+        }
     }
 
     public enum Type {
@@ -645,9 +682,37 @@ public class Participant extends Resource {
         }
     }
 
+    public enum ConversationsVChannel {
+        VOICE("VOICE"),
+        SMS("SMS"),
+        RCS("RCS"),
+        WHATSAPP("WHATSAPP"),
+        CHAT("CHAT");
+
+        private final String value;
+
+        private ConversationsVChannel(final String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ConversationsVChannel forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                ConversationsVChannel.values()
+            );
+        }
+    }
+
     @JsonDeserialize(
         builder = ListParticipantByConversation200ResponseMeta.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListParticipantByConversation200ResponseMeta {
@@ -693,6 +758,7 @@ public class Participant extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -768,115 +834,9 @@ public class Participant extends Resource {
     }
 
     @JsonDeserialize(
-        builder = CreateParticipantInConversationRequestAddresses.Builder.class
-    )
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class CreateParticipantInConversationRequestAddresses {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("channel")
-        @Getter
-        private final Participant.Channel channel;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("address")
-        @Getter
-        private final String address;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("channelId")
-        @Getter
-        private final String channelId;
-
-        private CreateParticipantInConversationRequestAddresses(
-            Builder builder
-        ) {
-            this.channel = builder.channel;
-            this.address = builder.address;
-            this.channelId = builder.channelId;
-        }
-
-        public static Builder builder(
-            final Participant.Channel channel,
-            final String address
-        ) {
-            return new Builder(channel, address);
-        }
-
-        public static CreateParticipantInConversationRequestAddresses fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                CreateParticipantInConversationRequestAddresses.class
-            );
-        }
-
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonProperty("channel")
-            private Participant.Channel channel;
-
-            @JsonProperty("address")
-            private String address;
-
-            @JsonProperty("channelId")
-            private String channelId;
-
-            @JsonCreator
-            public Builder(
-                @JsonProperty("channel") final Participant.Channel channel,
-                @JsonProperty("address") final String address
-            ) {
-                this.channel = channel;
-                this.address = address;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("channelId")
-            public Builder channelId(String channelId) {
-                this.channelId = channelId;
-                return this;
-            }
-
-            public CreateParticipantInConversationRequestAddresses build() {
-                return new CreateParticipantInConversationRequestAddresses(
-                    this
-                );
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            CreateParticipantInConversationRequestAddresses other =
-                (CreateParticipantInConversationRequestAddresses) o;
-            return (
-                Objects.equals(channel, other.channel) &&
-                Objects.equals(address, other.address) &&
-                Objects.equals(channelId, other.channelId)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(channel, address, channelId);
-        }
-    }
-
-    @JsonDeserialize(
         builder = UpdateParticipantInConversationRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class UpdateParticipantInConversationRequest {
@@ -899,9 +859,7 @@ public class Participant extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("addresses")
         @Getter
-        private final List<
-            CreateParticipantInConversationRequestAddresses
-        > addresses;
+        private final List<CreateConversationWithConfigRequestParticipantsAddresses> addresses;
 
         private UpdateParticipantInConversationRequest(Builder builder) {
             this.name = builder.name;
@@ -924,6 +882,7 @@ public class Participant extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -937,9 +896,7 @@ public class Participant extends Resource {
             private String profileId;
 
             @JsonProperty("addresses")
-            private List<
-                CreateParticipantInConversationRequestAddresses
-            > addresses;
+            private List<CreateConversationWithConfigRequestParticipantsAddresses> addresses;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("name")
@@ -965,7 +922,7 @@ public class Participant extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("addresses")
             public Builder addresses(
-                List<CreateParticipantInConversationRequestAddresses> addresses
+                List<CreateConversationWithConfigRequestParticipantsAddresses> addresses
             ) {
                 this.addresses = addresses;
                 return this;
@@ -1005,6 +962,7 @@ public class Participant extends Resource {
     @JsonDeserialize(
         builder = CreateParticipantInConversationRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateParticipantInConversationRequest {
@@ -1027,9 +985,7 @@ public class Participant extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("addresses")
         @Getter
-        private final List<
-            CreateParticipantInConversationRequestAddresses
-        > addresses;
+        private final List<CreateConversationWithConfigRequestParticipantsAddresses> addresses;
 
         private CreateParticipantInConversationRequest(Builder builder) {
             this.name = builder.name;
@@ -1039,9 +995,7 @@ public class Participant extends Resource {
         }
 
         public static Builder builder(
-            final List<
-                CreateParticipantInConversationRequestAddresses
-            > addresses
+            final List<CreateConversationWithConfigRequestParticipantsAddresses> addresses
         ) {
             return new Builder(addresses);
         }
@@ -1056,6 +1010,7 @@ public class Participant extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1069,15 +1024,13 @@ public class Participant extends Resource {
             private String profileId;
 
             @JsonProperty("addresses")
-            private List<
-                CreateParticipantInConversationRequestAddresses
-            > addresses;
+            private List<CreateConversationWithConfigRequestParticipantsAddresses> addresses;
 
             @JsonCreator
             public Builder(
-                @JsonProperty("addresses") final List<
-                    CreateParticipantInConversationRequestAddresses
-                > addresses
+                @JsonProperty(
+                    "addresses"
+                ) final List<CreateConversationWithConfigRequestParticipantsAddresses> addresses
             ) {
                 this.addresses = addresses;
             }
@@ -1137,6 +1090,7 @@ public class Participant extends Resource {
     @JsonDeserialize(
         builder = ListParticipantByConversation200ResponseParticipants.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListParticipantByConversation200ResponseParticipants {
@@ -1164,7 +1118,7 @@ public class Participant extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
         @Getter
-        private final Participant.Type type;
+        private final Participant.ConversationsVParticipantType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("profileId")
@@ -1223,6 +1177,7 @@ public class Participant extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1239,7 +1194,7 @@ public class Participant extends Resource {
             private String name;
 
             @JsonProperty("type")
-            private Participant.Type type;
+            private Participant.ConversationsVParticipantType type;
 
             @JsonProperty("profileId")
             private String profileId;
@@ -1276,7 +1231,9 @@ public class Participant extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("type")
-            public Builder type(Participant.Type type) {
+            public Builder type(
+                Participant.ConversationsVParticipantType type
+            ) {
                 this.type = type;
                 return this;
             }
@@ -1366,6 +1323,7 @@ public class Participant extends Resource {
     }
 
     @JsonDeserialize(builder = ConversationsV2Address.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2Address {
@@ -1373,7 +1331,7 @@ public class Participant extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("channel")
         @Getter
-        private final Participant.Channel channel;
+        private final Participant.ConversationsVChannel channel;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("address")
@@ -1392,7 +1350,7 @@ public class Participant extends Resource {
         }
 
         public static Builder builder(
-            final Participant.Channel channel,
+            final Participant.ConversationsVChannel channel,
             final String address
         ) {
             return new Builder(channel, address);
@@ -1405,11 +1363,12 @@ public class Participant extends Resource {
             return mapper.readValue(jsonString, ConversationsV2Address.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
             @JsonProperty("channel")
-            private Participant.Channel channel;
+            private Participant.ConversationsVChannel channel;
 
             @JsonProperty("address")
             private String address;
@@ -1419,7 +1378,9 @@ public class Participant extends Resource {
 
             @JsonCreator
             public Builder(
-                @JsonProperty("channel") final Participant.Channel channel,
+                @JsonProperty(
+                    "channel"
+                ) final Participant.ConversationsVChannel channel,
                 @JsonProperty("address") final String address
             ) {
                 this.channel = channel;
@@ -1449,6 +1410,115 @@ public class Participant extends Resource {
             }
 
             ConversationsV2Address other = (ConversationsV2Address) o;
+            return (
+                Objects.equals(channel, other.channel) &&
+                Objects.equals(address, other.address) &&
+                Objects.equals(channelId, other.channelId)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(channel, address, channelId);
+        }
+    }
+
+    @JsonDeserialize(
+        builder = CreateConversationWithConfigRequestParticipantsAddresses.Builder.class
+    )
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CreateConversationWithConfigRequestParticipantsAddresses {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("channel")
+        @Getter
+        private final Participant.Channel channel;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("address")
+        @Getter
+        private final String address;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("channelId")
+        @Getter
+        private final String channelId;
+
+        private CreateConversationWithConfigRequestParticipantsAddresses(
+            Builder builder
+        ) {
+            this.channel = builder.channel;
+            this.address = builder.address;
+            this.channelId = builder.channelId;
+        }
+
+        public static Builder builder(
+            final Participant.Channel channel,
+            final String address
+        ) {
+            return new Builder(channel, address);
+        }
+
+        public static CreateConversationWithConfigRequestParticipantsAddresses fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CreateConversationWithConfigRequestParticipantsAddresses.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("channel")
+            private Participant.Channel channel;
+
+            @JsonProperty("address")
+            private String address;
+
+            @JsonProperty("channelId")
+            private String channelId;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty("channel") final Participant.Channel channel,
+                @JsonProperty("address") final String address
+            ) {
+                this.channel = channel;
+                this.address = address;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("channelId")
+            public Builder channelId(String channelId) {
+                this.channelId = channelId;
+                return this;
+            }
+
+            public CreateConversationWithConfigRequestParticipantsAddresses build() {
+                return new CreateConversationWithConfigRequestParticipantsAddresses(
+                    this
+                );
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateConversationWithConfigRequestParticipantsAddresses other =
+                (CreateConversationWithConfigRequestParticipantsAddresses) o;
             return (
                 Objects.equals(channel, other.channel) &&
                 Objects.equals(address, other.address) &&

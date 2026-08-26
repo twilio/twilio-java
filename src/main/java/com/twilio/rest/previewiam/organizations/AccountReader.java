@@ -73,11 +73,10 @@ public class AccountReader extends Reader<Account> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/Accounts";
 
-        path =
-            path.replace(
-                "{" + "OrganizationSid" + "}",
-                this.pathOrganizationSid.toString()
-            );
+        path = path.replace(
+            "{" + "OrganizationSid" + "}",
+            this.pathOrganizationSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

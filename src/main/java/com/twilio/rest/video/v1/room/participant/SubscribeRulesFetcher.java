@@ -45,11 +45,10 @@ public class SubscribeRulesFetcher extends Fetcher<SubscribeRules> {
             "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules";
 
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
-        path =
-            path.replace(
-                "{" + "ParticipantSid" + "}",
-                this.pathParticipantSid.toString()
-            );
+        path = path.replace(
+            "{" + "ParticipantSid" + "}",
+            this.pathParticipantSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

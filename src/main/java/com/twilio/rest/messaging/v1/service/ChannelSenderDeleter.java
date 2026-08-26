@@ -44,11 +44,10 @@ public class ChannelSenderDeleter extends Deleter<ChannelSender> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{MessagingServiceSid}/ChannelSenders/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.pathMessagingServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "MessagingServiceSid" + "}",
+            this.pathMessagingServiceSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Predicate<Integer> deleteStatuses = i ->

@@ -47,16 +47,14 @@ public class VariableFetcher extends Fetcher<Variable> {
         String path =
             "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "EnvironmentSid" + "}",
-                this.pathEnvironmentSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "EnvironmentSid" + "}",
+            this.pathEnvironmentSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

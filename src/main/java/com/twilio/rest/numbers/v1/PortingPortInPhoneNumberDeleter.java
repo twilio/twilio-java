@@ -29,7 +29,8 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class PortingPortInPhoneNumberDeleter
-    extends Deleter<PortingPortInPhoneNumber> {
+    extends Deleter<PortingPortInPhoneNumber>
+{
 
     private String pathPortInRequestSid;
     private String pathPhoneNumberSid;
@@ -46,16 +47,14 @@ public class PortingPortInPhoneNumberDeleter
         String path =
             "/v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid}";
 
-        path =
-            path.replace(
-                "{" + "PortInRequestSid" + "}",
-                this.pathPortInRequestSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "PhoneNumberSid" + "}",
-                this.pathPhoneNumberSid.toString()
-            );
+        path = path.replace(
+            "{" + "PortInRequestSid" + "}",
+            this.pathPortInRequestSid.toString()
+        );
+        path = path.replace(
+            "{" + "PhoneNumberSid" + "}",
+            this.pathPhoneNumberSid.toString()
+        );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

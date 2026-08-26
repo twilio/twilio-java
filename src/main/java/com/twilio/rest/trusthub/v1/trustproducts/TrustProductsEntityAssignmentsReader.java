@@ -34,7 +34,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TrustProductsEntityAssignmentsReader
-    extends Reader<TrustProductsEntityAssignments> {
+    extends Reader<TrustProductsEntityAssignments>
+{
 
     private String pathTrustProductSid;
     private String objectType;
@@ -83,11 +84,10 @@ public class TrustProductsEntityAssignmentsReader
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/TrustProducts/{TrustProductSid}/EntityAssignments";
 
-        path =
-            path.replace(
-                "{" + "TrustProductSid" + "}",
-                this.pathTrustProductSid.toString()
-            );
+        path = path.replace(
+            "{" + "TrustProductSid" + "}",
+            this.pathTrustProductSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

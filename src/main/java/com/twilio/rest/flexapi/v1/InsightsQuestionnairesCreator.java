@@ -33,7 +33,8 @@ import java.io.InputStream;
 import java.util.List;
 
 public class InsightsQuestionnairesCreator
-    extends Creator<InsightsQuestionnaires> {
+    extends Creator<InsightsQuestionnaires>
+{
 
     private String authorization;
     private String name;

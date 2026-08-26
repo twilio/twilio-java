@@ -43,8 +43,10 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/CredentialLists/{Sid}";
 
-        path =
-            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
+        path = path.replace(
+            "{" + "TrunkSid" + "}",
+            this.pathTrunkSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

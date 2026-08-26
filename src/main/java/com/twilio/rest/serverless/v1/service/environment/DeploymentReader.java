@@ -79,16 +79,14 @@ public class DeploymentReader extends Reader<Deployment> {
         String path =
             "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "EnvironmentSid" + "}",
-                this.pathEnvironmentSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "EnvironmentSid" + "}",
+            this.pathEnvironmentSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

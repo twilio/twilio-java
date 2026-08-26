@@ -31,7 +31,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class AuthCallsIpAccessControlListMappingCreator
-    extends Creator<AuthCallsIpAccessControlListMapping> {
+    extends Creator<AuthCallsIpAccessControlListMapping>
+{
 
     private String pathAccountSid;
     private String pathDomainSid;
@@ -70,16 +71,14 @@ public class AuthCallsIpAccessControlListMappingCreator
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
+        path = path.replace(
+            "{" + "DomainSid" + "}",
+            this.pathDomainSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -124,9 +123,9 @@ public class AuthCallsIpAccessControlListMappingCreator
     }
 
     @Override
-    public TwilioResponse<
-        AuthCallsIpAccessControlListMapping
-    > createWithResponse(final TwilioRestClient client) {
+    public TwilioResponse<AuthCallsIpAccessControlListMapping> createWithResponse(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
         AuthCallsIpAccessControlListMapping content =
             AuthCallsIpAccessControlListMapping.fromJson(

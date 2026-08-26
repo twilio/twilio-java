@@ -30,7 +30,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class WorkflowRealTimeStatisticsFetcher
-    extends Fetcher<WorkflowRealTimeStatistics> {
+    extends Fetcher<WorkflowRealTimeStatistics>
+{
 
     private String pathWorkspaceSid;
     private String pathWorkflowSid;
@@ -55,16 +56,14 @@ public class WorkflowRealTimeStatisticsFetcher
         String path =
             "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/RealTimeStatistics";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "WorkflowSid" + "}",
-                this.pathWorkflowSid.toString()
-            );
+        path = path.replace(
+            "{" + "WorkspaceSid" + "}",
+            this.pathWorkspaceSid.toString()
+        );
+        path = path.replace(
+            "{" + "WorkflowSid" + "}",
+            this.pathWorkflowSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

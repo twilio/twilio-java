@@ -75,16 +75,14 @@ public class BucketReader extends Reader<Bucket> {
         String path =
             "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "RateLimitSid" + "}",
-                this.pathRateLimitSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "RateLimitSid" + "}",
+            this.pathRateLimitSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

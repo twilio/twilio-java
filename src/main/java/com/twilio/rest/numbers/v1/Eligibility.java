@@ -117,7 +117,7 @@ public class Eligibility extends Resource {
         }
 
         Eligibility other = (Eligibility) o;
-        return (Objects.equals(results, other.results));
+        return Objects.equals(results, other.results);
     }
 
     @Override

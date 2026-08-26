@@ -116,7 +116,7 @@ public class HighriskSpecialPrefix extends Resource {
         }
 
         HighriskSpecialPrefix other = (HighriskSpecialPrefix) o;
-        return (Objects.equals(prefix, other.prefix));
+        return Objects.equals(prefix, other.prefix);
     }
 
     @Override

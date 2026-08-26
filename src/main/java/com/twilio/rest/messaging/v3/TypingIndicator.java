@@ -51,7 +51,9 @@ public class TypingIndicator extends Resource {
     }
 
     public enum Channel {
-        WHATSAPP("WHATSAPP");
+        WHATSAPP("WHATSAPP"),
+        APPLE("APPLE"),
+        RCS("RCS");
 
         private final String value;
 
@@ -92,6 +94,7 @@ public class TypingIndicator extends Resource {
     }
 
     @JsonDeserialize(builder = TypingIndicatorRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TypingIndicatorRequest {
@@ -102,9 +105,9 @@ public class TypingIndicator extends Resource {
         private final TypingIndicator.Channel channel;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("event")
+        @JsonProperty("messageId")
         @Getter
-        private final TypingIndicator.Event event;
+        private final String messageId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("from")
@@ -112,21 +115,21 @@ public class TypingIndicator extends Resource {
         private final String from;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("messageId")
-        @Getter
-        private final String messageId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("to")
         @Getter
         private final String to;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("event")
+        @Getter
+        private final TypingIndicator.Event event;
+
         private TypingIndicatorRequest(Builder builder) {
             this.channel = builder.channel;
-            this.event = builder.event;
-            this.from = builder.from;
             this.messageId = builder.messageId;
+            this.from = builder.from;
             this.to = builder.to;
+            this.event = builder.event;
         }
 
         public static Builder builder() {
@@ -140,42 +143,29 @@ public class TypingIndicator extends Resource {
             return mapper.readValue(jsonString, TypingIndicatorRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
             @JsonProperty("channel")
             private TypingIndicator.Channel channel;
 
-            @JsonProperty("event")
-            private TypingIndicator.Event event;
+            @JsonProperty("messageId")
+            private String messageId;
 
             @JsonProperty("from")
             private String from;
 
-            @JsonProperty("messageId")
-            private String messageId;
-
             @JsonProperty("to")
             private String to;
+
+            @JsonProperty("event")
+            private TypingIndicator.Event event;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("channel")
             public Builder channel(TypingIndicator.Channel channel) {
                 this.channel = channel;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("event")
-            public Builder event(TypingIndicator.Event event) {
-                this.event = event;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("from")
-            public Builder from(String from) {
-                this.from = from;
                 return this;
             }
 
@@ -187,9 +177,23 @@ public class TypingIndicator extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("from")
+            public Builder from(String from) {
+                this.from = from;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("to")
             public Builder to(String to) {
                 this.to = to;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("event")
+            public Builder event(TypingIndicator.Event event) {
+                this.event = event;
                 return this;
             }
 
@@ -211,16 +215,16 @@ public class TypingIndicator extends Resource {
             TypingIndicatorRequest other = (TypingIndicatorRequest) o;
             return (
                 Objects.equals(channel, other.channel) &&
-                Objects.equals(event, other.event) &&
-                Objects.equals(from, other.from) &&
                 Objects.equals(messageId, other.messageId) &&
-                Objects.equals(to, other.to)
+                Objects.equals(from, other.from) &&
+                Objects.equals(to, other.to) &&
+                Objects.equals(event, other.event)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(channel, event, from, messageId, to);
+            return Objects.hash(channel, messageId, from, to, event);
         }
     }
 
@@ -298,7 +302,7 @@ public class TypingIndicator extends Resource {
         }
 
         TypingIndicator other = (TypingIndicator) o;
-        return (Objects.equals(success, other.success));
+        return Objects.equals(success, other.success);
     }
 
     @Override

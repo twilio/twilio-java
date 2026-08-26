@@ -34,7 +34,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class CustomerProfilesEntityAssignmentsReader
-    extends Reader<CustomerProfilesEntityAssignments> {
+    extends Reader<CustomerProfilesEntityAssignments>
+{
 
     private String pathCustomerProfileSid;
     private String objectType;
@@ -60,9 +61,9 @@ public class CustomerProfilesEntityAssignmentsReader
         return this;
     }
 
-    public ResourceSetResponse<
-        CustomerProfilesEntityAssignments
-    > readWithResponse(final TwilioRestClient client) {
+    public ResourceSetResponse<CustomerProfilesEntityAssignments> readWithResponse(
+        final TwilioRestClient client
+    ) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<CustomerProfilesEntityAssignments> page = Page.fromJson(
@@ -84,11 +85,10 @@ public class CustomerProfilesEntityAssignmentsReader
         String path =
             "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments";
 
-        path =
-            path.replace(
-                "{" + "CustomerProfileSid" + "}",
-                this.pathCustomerProfileSid.toString()
-            );
+        path = path.replace(
+            "{" + "CustomerProfileSid" + "}",
+            this.pathCustomerProfileSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

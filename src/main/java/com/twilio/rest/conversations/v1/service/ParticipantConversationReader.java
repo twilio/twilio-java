@@ -34,7 +34,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ParticipantConversationReader
-    extends Reader<ParticipantConversation> {
+    extends Reader<ParticipantConversation>
+{
 
     private String pathChatServiceSid;
     private String identity;
@@ -86,11 +87,10 @@ public class ParticipantConversationReader
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/ParticipantConversations";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ChatServiceSid" + "}",
+            this.pathChatServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

@@ -37,6 +37,8 @@ public class AuthorizeFetcher extends Fetcher<Authorize> {
     private String redirectUri;
     private String scope;
     private String state;
+    private String codeChallenge;
+    private Authorize.CodeChallengeMethod codeChallengeMethod;
 
     public AuthorizeFetcher() {}
 
@@ -62,6 +64,18 @@ public class AuthorizeFetcher extends Fetcher<Authorize> {
 
     public AuthorizeFetcher setState(final String state) {
         this.state = state;
+        return this;
+    }
+
+    public AuthorizeFetcher setCodeChallenge(final String codeChallenge) {
+        this.codeChallenge = codeChallenge;
+        return this;
+    }
+
+    public AuthorizeFetcher setCodeChallengeMethod(
+        final Authorize.CodeChallengeMethod codeChallengeMethod
+    ) {
+        this.codeChallengeMethod = codeChallengeMethod;
         return this;
     }
 
@@ -158,6 +172,24 @@ public class AuthorizeFetcher extends Fetcher<Authorize> {
 
         if (state != null) {
             Serializer.toString(request, "state", state, ParameterType.QUERY);
+        }
+
+        if (codeChallenge != null) {
+            Serializer.toString(
+                request,
+                "code_challenge",
+                codeChallenge,
+                ParameterType.QUERY
+            );
+        }
+
+        if (codeChallengeMethod != null) {
+            Serializer.toString(
+                request,
+                "code_challenge_method",
+                codeChallengeMethod,
+                ParameterType.QUERY
+            );
         }
     }
 }

@@ -44,13 +44,14 @@ public class BrandVettingFetcher extends Fetcher<BrandVetting> {
         String path =
             "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid}";
 
-        path =
-            path.replace("{" + "BrandSid" + "}", this.pathBrandSid.toString());
-        path =
-            path.replace(
-                "{" + "BrandVettingSid" + "}",
-                this.pathBrandVettingSid.toString()
-            );
+        path = path.replace(
+            "{" + "BrandSid" + "}",
+            this.pathBrandSid.toString()
+        );
+        path = path.replace(
+            "{" + "BrandVettingSid" + "}",
+            this.pathBrandVettingSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

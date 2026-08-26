@@ -44,11 +44,10 @@ public class UserConversationFetcher extends Fetcher<UserConversation> {
         String path = "/v1/Users/{UserSid}/Conversations/{ConversationSid}";
 
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
+        path = path.replace(
+            "{" + "ConversationSid" + "}",
+            this.pathConversationSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

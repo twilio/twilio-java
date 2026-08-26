@@ -30,7 +30,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class PluginConfigurationArchiveUpdater
-    extends Updater<PluginConfigurationArchive> {
+    extends Updater<PluginConfigurationArchive>
+{
 
     private String pathSid;
     private String flexMetadata;

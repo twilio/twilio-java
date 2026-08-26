@@ -54,11 +54,10 @@ public class EmbeddedSessionCreator extends Creator<EmbeddedSession> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/SenderIdRegistrations/{BundleSid}/EmbeddedSessions";
 
-        path =
-            path.replace(
-                "{" + "BundleSid" + "}",
-                this.pathBundleSid.toString()
-            );
+        path = path.replace(
+            "{" + "BundleSid" + "}",
+            this.pathBundleSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

@@ -28,7 +28,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class PortingPortInPhoneNumberFetcher
-    extends Fetcher<PortingPortInPhoneNumber> {
+    extends Fetcher<PortingPortInPhoneNumber>
+{
 
     private String pathPortInRequestSid;
     private String pathPhoneNumberSid;
@@ -45,16 +46,14 @@ public class PortingPortInPhoneNumberFetcher
         String path =
             "/v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid}";
 
-        path =
-            path.replace(
-                "{" + "PortInRequestSid" + "}",
-                this.pathPortInRequestSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "PhoneNumberSid" + "}",
-                this.pathPhoneNumberSid.toString()
-            );
+        path = path.replace(
+            "{" + "PortInRequestSid" + "}",
+            this.pathPortInRequestSid.toString()
+        );
+        path = path.replace(
+            "{" + "PhoneNumberSid" + "}",
+            this.pathPhoneNumberSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

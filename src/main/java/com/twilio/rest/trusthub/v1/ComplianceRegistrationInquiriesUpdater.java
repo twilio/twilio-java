@@ -31,7 +31,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ComplianceRegistrationInquiriesUpdater
-    extends Updater<ComplianceRegistrationInquiries> {
+    extends Updater<ComplianceRegistrationInquiries>
+{
 
     private String pathRegistrationId;
     private Boolean isIsvEmbed;
@@ -61,11 +62,10 @@ public class ComplianceRegistrationInquiriesUpdater
         String path =
             "/v1/ComplianceInquiries/Registration/{RegistrationId}/RegulatoryCompliance/GB/Initialize";
 
-        path =
-            path.replace(
-                "{" + "RegistrationId" + "}",
-                this.pathRegistrationId.toString()
-            );
+        path = path.replace(
+            "{" + "RegistrationId" + "}",
+            this.pathRegistrationId.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

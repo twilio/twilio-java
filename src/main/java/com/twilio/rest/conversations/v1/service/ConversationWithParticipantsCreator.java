@@ -34,7 +34,8 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 public class ConversationWithParticipantsCreator
-    extends Creator<ConversationWithParticipants> {
+    extends Creator<ConversationWithParticipants>
+{
 
     private String pathChatServiceSid;
     private ConversationWithParticipants.WebhookEnabledType xTwilioWebhookEnabled;
@@ -158,11 +159,10 @@ public class ConversationWithParticipantsCreator
         String path =
             "/v1/Services/{ChatServiceSid}/ConversationWithParticipants";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ChatServiceSid" + "}",
+            this.pathChatServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

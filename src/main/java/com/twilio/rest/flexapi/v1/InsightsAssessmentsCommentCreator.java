@@ -32,7 +32,8 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 
 public class InsightsAssessmentsCommentCreator
-    extends Creator<InsightsAssessmentsComment> {
+    extends Creator<InsightsAssessmentsComment>
+{
 
     private String authorization;
     private String categoryId;

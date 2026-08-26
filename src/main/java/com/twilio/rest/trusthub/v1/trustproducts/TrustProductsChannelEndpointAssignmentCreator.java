@@ -31,7 +31,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TrustProductsChannelEndpointAssignmentCreator
-    extends Creator<TrustProductsChannelEndpointAssignment> {
+    extends Creator<TrustProductsChannelEndpointAssignment>
+{
 
     private String pathTrustProductSid;
     private String channelEndpointType;
@@ -65,11 +66,10 @@ public class TrustProductsChannelEndpointAssignmentCreator
         String path =
             "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments";
 
-        path =
-            path.replace(
-                "{" + "TrustProductSid" + "}",
-                this.pathTrustProductSid.toString()
-            );
+        path = path.replace(
+            "{" + "TrustProductSid" + "}",
+            this.pathTrustProductSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -114,9 +114,9 @@ public class TrustProductsChannelEndpointAssignmentCreator
     }
 
     @Override
-    public TwilioResponse<
-        TrustProductsChannelEndpointAssignment
-    > createWithResponse(final TwilioRestClient client) {
+    public TwilioResponse<TrustProductsChannelEndpointAssignment> createWithResponse(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
         TrustProductsChannelEndpointAssignment content =
             TrustProductsChannelEndpointAssignment.fromJson(

@@ -98,9 +98,9 @@ public class Operator extends Resource {
                 OperatorParameter
             > parameters,
             @JsonProperty("prompt") final String prompt,
-            @JsonProperty("trainingExamples") final List<
-                OperatorTrainingExample
-            > trainingExamples,
+            @JsonProperty(
+                "trainingExamples"
+            ) final List<OperatorTrainingExample> trainingExamples,
             @JsonProperty("version") final Integer version
         ) {
             this.author = author;
@@ -228,9 +228,9 @@ public class Operator extends Resource {
                 OperatorParameter
             > parameters,
             @JsonProperty("prompt") final String prompt,
-            @JsonProperty("trainingExamples") final List<
-                OperatorTrainingExample
-            > trainingExamples,
+            @JsonProperty(
+                "trainingExamples"
+            ) final List<OperatorTrainingExample> trainingExamples,
             @JsonProperty("version") final Integer version
         ) {
             this.author = author;
@@ -400,9 +400,9 @@ public class Operator extends Resource {
                 OperatorParameter
             > parameters,
             @JsonProperty("prompt") final String prompt,
-            @JsonProperty("trainingExamples") final List<
-                OperatorTrainingExample
-            > trainingExamples,
+            @JsonProperty(
+                "trainingExamples"
+            ) final List<OperatorTrainingExample> trainingExamples,
             @JsonProperty("version") final Integer version
         ) {
             this.author = author;
@@ -569,9 +569,9 @@ public class Operator extends Resource {
                 OperatorParameter
             > parameters,
             @JsonProperty("prompt") final String prompt,
-            @JsonProperty("trainingExamples") final List<
-                OperatorTrainingExample
-            > trainingExamples,
+            @JsonProperty(
+                "trainingExamples"
+            ) final List<OperatorTrainingExample> trainingExamples,
             @JsonProperty("version") final Integer version
         ) {
             this.author = author;
@@ -743,6 +743,7 @@ public class Operator extends Resource {
     }
 
     @JsonDeserialize(builder = OperatorParameter.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperatorParameter {
@@ -785,6 +786,7 @@ public class Operator extends Resource {
             return mapper.readValue(jsonString, OperatorParameter.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -857,6 +859,7 @@ public class Operator extends Resource {
     }
 
     @JsonDeserialize(builder = LanguageOperator.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class LanguageOperator {
@@ -941,6 +944,7 @@ public class Operator extends Resource {
             return mapper.readValue(jsonString, LanguageOperator.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1110,6 +1114,7 @@ public class Operator extends Resource {
     }
 
     @JsonDeserialize(builder = ListOperators200ResponseMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListOperators200ResponseMeta {
@@ -1158,6 +1163,7 @@ public class Operator extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1228,6 +1234,7 @@ public class Operator extends Resource {
     }
 
     @JsonDeserialize(builder = OperatorContext.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperatorContext {
@@ -1258,6 +1265,7 @@ public class Operator extends Resource {
             return mapper.readValue(jsonString, OperatorContext.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1310,6 +1318,7 @@ public class Operator extends Resource {
     }
 
     @JsonDeserialize(builder = OperatorContextKnowledge.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperatorContextKnowledge {
@@ -1334,6 +1343,7 @@ public class Operator extends Resource {
             return mapper.readValue(jsonString, OperatorContextKnowledge.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1363,7 +1373,7 @@ public class Operator extends Resource {
             }
 
             OperatorContextKnowledge other = (OperatorContextKnowledge) o;
-            return (Objects.equals(enabled, other.enabled));
+            return Objects.equals(enabled, other.enabled);
         }
 
         @Override
@@ -1373,6 +1383,7 @@ public class Operator extends Resource {
     }
 
     @JsonDeserialize(builder = OperatorTrainingExample.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperatorTrainingExample {
@@ -1403,6 +1414,7 @@ public class Operator extends Resource {
             return mapper.readValue(jsonString, OperatorTrainingExample.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1450,6 +1462,7 @@ public class Operator extends Resource {
     }
 
     @JsonDeserialize(builder = OperatorContextMemory.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperatorContextMemory {
@@ -1474,6 +1487,7 @@ public class Operator extends Resource {
             return mapper.readValue(jsonString, OperatorContextMemory.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1503,7 +1517,7 @@ public class Operator extends Resource {
             }
 
             OperatorContextMemory other = (OperatorContextMemory) o;
-            return (Objects.equals(enabled, other.enabled));
+            return Objects.equals(enabled, other.enabled);
         }
 
         @Override

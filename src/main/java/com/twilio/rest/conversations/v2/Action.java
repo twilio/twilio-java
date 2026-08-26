@@ -67,7 +67,7 @@ public class Action extends Resource {
         private final Map<String, String> related;
 
         @Getter
-        private final Action.Status status;
+        private final Action.ConversationsVActionStatus status;
 
         @Getter
         private final String type;
@@ -82,7 +82,9 @@ public class Action extends Resource {
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("related") final Map<String, String> related,
-            @JsonProperty("status") final Action.Status status,
+            @JsonProperty(
+                "status"
+            ) final Action.ConversationsVActionStatus status,
             @JsonProperty("type") final String type,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
@@ -177,7 +179,7 @@ public class Action extends Resource {
                 return false;
             }
             UpdateActionResponse other = (UpdateActionResponse) o;
-            return (true);
+            return true;
         }
 
         @Override
@@ -255,7 +257,7 @@ public class Action extends Resource {
                 return false;
             }
             ListActionResponse other = (ListActionResponse) o;
-            return (true);
+            return true;
         }
 
         @Override
@@ -322,7 +324,7 @@ public class Action extends Resource {
         private final Map<String, String> related;
 
         @Getter
-        private final Action.Status status;
+        private final Action.ConversationsVActionStatus status;
 
         @Getter
         private final String type;
@@ -337,7 +339,9 @@ public class Action extends Resource {
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("related") final Map<String, String> related,
-            @JsonProperty("status") final Action.Status status,
+            @JsonProperty(
+                "status"
+            ) final Action.ConversationsVActionStatus status,
             @JsonProperty("type") final String type,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
@@ -419,14 +423,14 @@ public class Action extends Resource {
         return new ActionFetcher(pathConversationId, pathActionId);
     }
 
-    public enum Status {
+    public enum ConversationsVActionStatus {
         PENDING("PENDING"),
         COMPLETED("COMPLETED"),
         FAILED("FAILED");
 
         private final String value;
 
-        private Status(final String value) {
+        private ConversationsVActionStatus(final String value) {
             this.value = value;
         }
 
@@ -436,12 +440,15 @@ public class Action extends Resource {
         }
 
         @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
+        public static ConversationsVActionStatus forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                ConversationsVActionStatus.values()
+            );
         }
     }
 
-    public enum Channel {
+    public enum ConversationsVChannel {
         VOICE("VOICE"),
         SMS("SMS"),
         RCS("RCS"),
@@ -450,7 +457,7 @@ public class Action extends Resource {
 
         private final String value;
 
-        private Channel(final String value) {
+        private ConversationsVChannel(final String value) {
             this.value = value;
         }
 
@@ -460,12 +467,16 @@ public class Action extends Resource {
         }
 
         @JsonCreator
-        public static Channel forValue(final String value) {
-            return Promoter.enumFromString(value, Channel.values());
+        public static ConversationsVChannel forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                ConversationsVChannel.values()
+            );
         }
     }
 
     @JsonDeserialize(builder = CreateConversationActionRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateConversationActionRequest {
@@ -502,6 +513,7 @@ public class Action extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -552,6 +564,7 @@ public class Action extends Resource {
     }
 
     @JsonDeserialize(builder = ConversationsV2SendMessagePayload.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2SendMessagePayload {
@@ -601,6 +614,7 @@ public class Action extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -621,9 +635,9 @@ public class Action extends Resource {
                 @JsonProperty(
                     "from"
                 ) final ConversationsV2SendMessageParticipant from,
-                @JsonProperty("to") final List<
-                    ConversationsV2SendMessageParticipant
-                > to,
+                @JsonProperty(
+                    "to"
+                ) final List<ConversationsV2SendMessageParticipant> to,
                 @JsonProperty(
                     "content"
                 ) final ConversationsV2SendMessageContent content
@@ -674,6 +688,7 @@ public class Action extends Resource {
     }
 
     @JsonDeserialize(builder = ConversationsV2SendMessageContent.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2SendMessageContent {
@@ -719,6 +734,7 @@ public class Action extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -796,6 +812,7 @@ public class Action extends Resource {
     @JsonDeserialize(
         builder = ConversationsV2SendMessageParticipant.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2SendMessageParticipant {
@@ -813,7 +830,7 @@ public class Action extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("channel")
         @Getter
-        private final Action.Channel channel;
+        private final Action.ConversationsVChannel channel;
 
         private ConversationsV2SendMessageParticipant(Builder builder) {
             this.participantId = builder.participantId;
@@ -835,6 +852,7 @@ public class Action extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -845,7 +863,7 @@ public class Action extends Resource {
             private String address;
 
             @JsonProperty("channel")
-            private Action.Channel channel;
+            private Action.ConversationsVChannel channel;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("participantId")
@@ -863,7 +881,7 @@ public class Action extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("channel")
-            public Builder channel(Action.Channel channel) {
+            public Builder channel(Action.ConversationsVChannel channel) {
                 this.channel = channel;
                 return this;
             }

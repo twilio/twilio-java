@@ -16,6 +16,7 @@ package com.twilio.rest.insights.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -24,6 +25,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
@@ -38,6 +40,7 @@ import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -194,6 +197,674 @@ public class CallSummaries extends Resource {
         }
     }
 
+    public enum CallSummaryCrelaySessionState {
+        UNKNOWN("unknown"),
+        FAILURE("failure"),
+        ENDED("ended"),
+        HUNG_UP("hung_up");
+
+        private final String value;
+
+        private CallSummaryCrelaySessionState(final String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CallSummaryCrelaySessionState forValue(
+            final String value
+        ) {
+            return Promoter.enumFromString(
+                value,
+                CallSummaryCrelaySessionState.values()
+            );
+        }
+    }
+
+    @JsonDeserialize(builder = CallSummaryCrelayRateStats.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CallSummaryCrelayRateStats {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("min")
+        @Getter
+        private final Float min;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("max")
+        @Getter
+        private final Float max;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("avg")
+        @Getter
+        private final Float avg;
+
+        private CallSummaryCrelayRateStats(Builder builder) {
+            this.min = builder.min;
+            this.max = builder.max;
+            this.avg = builder.avg;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CallSummaryCrelayRateStats fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CallSummaryCrelayRateStats.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("min")
+            private Float min;
+
+            @JsonProperty("max")
+            private Float max;
+
+            @JsonProperty("avg")
+            private Float avg;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("min")
+            public Builder min(Float min) {
+                this.min = min;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("max")
+            public Builder max(Float max) {
+                this.max = max;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("avg")
+            public Builder avg(Float avg) {
+                this.avg = avg;
+                return this;
+            }
+
+            public CallSummaryCrelayRateStats build() {
+                return new CallSummaryCrelayRateStats(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CallSummaryCrelayRateStats other = (CallSummaryCrelayRateStats) o;
+            return (
+                Objects.equals(min, other.min) &&
+                Objects.equals(max, other.max) &&
+                Objects.equals(avg, other.avg)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(min, max, avg);
+        }
+    }
+
+    @JsonDeserialize(builder = CallSummaryCrelayInterruptions.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CallSummaryCrelayInterruptions {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("customer_to_agent")
+        @Getter
+        private final Integer customerToAgent;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("agent_to_customer")
+        @Getter
+        private final Integer agentToCustomer;
+
+        private CallSummaryCrelayInterruptions(Builder builder) {
+            this.customerToAgent = builder.customerToAgent;
+            this.agentToCustomer = builder.agentToCustomer;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CallSummaryCrelayInterruptions fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CallSummaryCrelayInterruptions.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("customer_to_agent")
+            private Integer customerToAgent;
+
+            @JsonProperty("agent_to_customer")
+            private Integer agentToCustomer;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("customer_to_agent")
+            public Builder customerToAgent(Integer customerToAgent) {
+                this.customerToAgent = customerToAgent;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("agent_to_customer")
+            public Builder agentToCustomer(Integer agentToCustomer) {
+                this.agentToCustomer = agentToCustomer;
+                return this;
+            }
+
+            public CallSummaryCrelayInterruptions build() {
+                return new CallSummaryCrelayInterruptions(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CallSummaryCrelayInterruptions other =
+                (CallSummaryCrelayInterruptions) o;
+            return (
+                Objects.equals(customerToAgent, other.customerToAgent) &&
+                Objects.equals(agentToCustomer, other.agentToCustomer)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(customerToAgent, agentToCustomer);
+        }
+    }
+
+    @JsonDeserialize(builder = CallSummaryCrelayTokenStats.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CallSummaryCrelayTokenStats {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("total")
+        @Getter
+        private final Integer total;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("tokens_per_second")
+        @Getter
+        private final CallSummaryCrelayRateStats tokensPerSecond;
+
+        private CallSummaryCrelayTokenStats(Builder builder) {
+            this.total = builder.total;
+            this.tokensPerSecond = builder.tokensPerSecond;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CallSummaryCrelayTokenStats fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CallSummaryCrelayTokenStats.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("total")
+            private Integer total;
+
+            @JsonProperty("tokens_per_second")
+            private CallSummaryCrelayRateStats tokensPerSecond;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("total")
+            public Builder total(Integer total) {
+                this.total = total;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("tokens_per_second")
+            public Builder tokensPerSecond(
+                CallSummaryCrelayRateStats tokensPerSecond
+            ) {
+                this.tokensPerSecond = tokensPerSecond;
+                return this;
+            }
+
+            public CallSummaryCrelayTokenStats build() {
+                return new CallSummaryCrelayTokenStats(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CallSummaryCrelayTokenStats other = (CallSummaryCrelayTokenStats) o;
+            return (
+                Objects.equals(total, other.total) &&
+                Objects.equals(tokensPerSecond, other.tokensPerSecond)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(total, tokensPerSecond);
+        }
+    }
+
+    @JsonDeserialize(builder = CallSummaryAgentSessionSummary.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CallSummaryAgentSessionSummary {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("session_id")
+        @Getter
+        private final String sessionId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("tts_latency_ms")
+        @Getter
+        private final CallSummaryCrelayRateStats ttsLatencyMs;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("stt_latency_ms")
+        @Getter
+        private final CallSummaryCrelayRateStats sttLatencyMs;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("network_latency_ms")
+        @Getter
+        private final CallSummaryCrelayRateStats networkLatencyMs;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("time_to_first_audio_ms")
+        @Getter
+        private final CallSummaryCrelayRateStats timeToFirstAudioMs;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("application_latency_ms")
+        @Getter
+        private final CallSummaryCrelayRateStats applicationLatencyMs;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("tokens")
+        @Getter
+        private final CallSummaryCrelayTokenStats tokens;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("words")
+        @Getter
+        private final CallSummaryCrelayWordStats words;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("turns")
+        @Getter
+        private final Integer turns;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("interruptions")
+        @Getter
+        private final CallSummaryCrelayInterruptions interruptions;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("session_state")
+        @Getter
+        private final CallSummaries.CallSummaryCrelaySessionState sessionState;
+
+        private CallSummaryAgentSessionSummary(Builder builder) {
+            this.sessionId = builder.sessionId;
+            this.ttsLatencyMs = builder.ttsLatencyMs;
+            this.sttLatencyMs = builder.sttLatencyMs;
+            this.networkLatencyMs = builder.networkLatencyMs;
+            this.timeToFirstAudioMs = builder.timeToFirstAudioMs;
+            this.applicationLatencyMs = builder.applicationLatencyMs;
+            this.tokens = builder.tokens;
+            this.words = builder.words;
+            this.turns = builder.turns;
+            this.interruptions = builder.interruptions;
+            this.sessionState = builder.sessionState;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CallSummaryAgentSessionSummary fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CallSummaryAgentSessionSummary.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("session_id")
+            private String sessionId;
+
+            @JsonProperty("tts_latency_ms")
+            private CallSummaryCrelayRateStats ttsLatencyMs;
+
+            @JsonProperty("stt_latency_ms")
+            private CallSummaryCrelayRateStats sttLatencyMs;
+
+            @JsonProperty("network_latency_ms")
+            private CallSummaryCrelayRateStats networkLatencyMs;
+
+            @JsonProperty("time_to_first_audio_ms")
+            private CallSummaryCrelayRateStats timeToFirstAudioMs;
+
+            @JsonProperty("application_latency_ms")
+            private CallSummaryCrelayRateStats applicationLatencyMs;
+
+            @JsonProperty("tokens")
+            private CallSummaryCrelayTokenStats tokens;
+
+            @JsonProperty("words")
+            private CallSummaryCrelayWordStats words;
+
+            @JsonProperty("turns")
+            private Integer turns;
+
+            @JsonProperty("interruptions")
+            private CallSummaryCrelayInterruptions interruptions;
+
+            @JsonProperty("session_state")
+            private CallSummaries.CallSummaryCrelaySessionState sessionState;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("session_id")
+            public Builder sessionId(String sessionId) {
+                this.sessionId = sessionId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("tts_latency_ms")
+            public Builder ttsLatencyMs(
+                CallSummaryCrelayRateStats ttsLatencyMs
+            ) {
+                this.ttsLatencyMs = ttsLatencyMs;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("stt_latency_ms")
+            public Builder sttLatencyMs(
+                CallSummaryCrelayRateStats sttLatencyMs
+            ) {
+                this.sttLatencyMs = sttLatencyMs;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("network_latency_ms")
+            public Builder networkLatencyMs(
+                CallSummaryCrelayRateStats networkLatencyMs
+            ) {
+                this.networkLatencyMs = networkLatencyMs;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("time_to_first_audio_ms")
+            public Builder timeToFirstAudioMs(
+                CallSummaryCrelayRateStats timeToFirstAudioMs
+            ) {
+                this.timeToFirstAudioMs = timeToFirstAudioMs;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("application_latency_ms")
+            public Builder applicationLatencyMs(
+                CallSummaryCrelayRateStats applicationLatencyMs
+            ) {
+                this.applicationLatencyMs = applicationLatencyMs;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("tokens")
+            public Builder tokens(CallSummaryCrelayTokenStats tokens) {
+                this.tokens = tokens;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("words")
+            public Builder words(CallSummaryCrelayWordStats words) {
+                this.words = words;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("turns")
+            public Builder turns(Integer turns) {
+                this.turns = turns;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("interruptions")
+            public Builder interruptions(
+                CallSummaryCrelayInterruptions interruptions
+            ) {
+                this.interruptions = interruptions;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("session_state")
+            public Builder sessionState(
+                CallSummaries.CallSummaryCrelaySessionState sessionState
+            ) {
+                this.sessionState = sessionState;
+                return this;
+            }
+
+            public CallSummaryAgentSessionSummary build() {
+                return new CallSummaryAgentSessionSummary(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CallSummaryAgentSessionSummary other =
+                (CallSummaryAgentSessionSummary) o;
+            return (
+                Objects.equals(sessionId, other.sessionId) &&
+                Objects.equals(ttsLatencyMs, other.ttsLatencyMs) &&
+                Objects.equals(sttLatencyMs, other.sttLatencyMs) &&
+                Objects.equals(networkLatencyMs, other.networkLatencyMs) &&
+                Objects.equals(timeToFirstAudioMs, other.timeToFirstAudioMs) &&
+                Objects.equals(
+                    applicationLatencyMs,
+                    other.applicationLatencyMs
+                ) &&
+                Objects.equals(tokens, other.tokens) &&
+                Objects.equals(words, other.words) &&
+                Objects.equals(turns, other.turns) &&
+                Objects.equals(interruptions, other.interruptions) &&
+                Objects.equals(sessionState, other.sessionState)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                sessionId,
+                ttsLatencyMs,
+                sttLatencyMs,
+                networkLatencyMs,
+                timeToFirstAudioMs,
+                applicationLatencyMs,
+                tokens,
+                words,
+                turns,
+                interruptions,
+                sessionState
+            );
+        }
+    }
+
+    @JsonDeserialize(builder = CallSummaryCrelayWordStats.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CallSummaryCrelayWordStats {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("total")
+        @Getter
+        private final Integer total;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("words_per_minute")
+        @Getter
+        private final CallSummaryCrelayRateStats wordsPerMinute;
+
+        private CallSummaryCrelayWordStats(Builder builder) {
+            this.total = builder.total;
+            this.wordsPerMinute = builder.wordsPerMinute;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CallSummaryCrelayWordStats fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CallSummaryCrelayWordStats.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("total")
+            private Integer total;
+
+            @JsonProperty("words_per_minute")
+            private CallSummaryCrelayRateStats wordsPerMinute;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("total")
+            public Builder total(Integer total) {
+                this.total = total;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("words_per_minute")
+            public Builder wordsPerMinute(
+                CallSummaryCrelayRateStats wordsPerMinute
+            ) {
+                this.wordsPerMinute = wordsPerMinute;
+                return this;
+            }
+
+            public CallSummaryCrelayWordStats build() {
+                return new CallSummaryCrelayWordStats(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CallSummaryCrelayWordStats other = (CallSummaryCrelayWordStats) o;
+            return (
+                Objects.equals(total, other.total) &&
+                Objects.equals(wordsPerMinute, other.wordsPerMinute)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(total, wordsPerMinute);
+        }
+    }
+
     /**
      * Converts a JSON String into a CallSummaries object using the provided ObjectMapper.
      *
@@ -251,6 +922,9 @@ public class CallSummaries extends Resource {
 
     @Getter
     private final String accountSid;
+
+    @Getter
+    private final List<CallSummaryAgentSessionSummary> agentSessionSummaries;
 
     @Getter
     private final Object annotation;
@@ -324,6 +998,9 @@ public class CallSummaries extends Resource {
     @JsonCreator
     private CallSummaries(
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty(
+            "agent_session_summaries"
+        ) final List<CallSummaryAgentSessionSummary> agentSessionSummaries,
         @JsonProperty("annotation") final Object annotation,
         @JsonProperty("answered_by") final CallSummaries.AnsweredBy answeredBy,
         @JsonProperty("attributes") final Object attributes,
@@ -362,6 +1039,7 @@ public class CallSummaries extends Resource {
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
+        this.agentSessionSummaries = agentSessionSummaries;
         this.annotation = annotation;
         this.answeredBy = answeredBy;
         this.attributes = attributes;
@@ -399,6 +1077,10 @@ public class CallSummaries extends Resource {
         CallSummaries other = (CallSummaries) o;
         return (
             Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(
+                agentSessionSummaries,
+                other.agentSessionSummaries
+            ) &&
             Objects.equals(annotation, other.annotation) &&
             Objects.equals(answeredBy, other.answeredBy) &&
             Objects.equals(attributes, other.attributes) &&
@@ -428,6 +1110,7 @@ public class CallSummaries extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
+            agentSessionSummaries,
             annotation,
             answeredBy,
             attributes,

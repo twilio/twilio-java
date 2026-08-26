@@ -142,9 +142,9 @@ public class Number extends Resource {
         @JsonProperty(
             "origination_number"
         ) final com.twilio.type.PhoneNumber originationNumber,
-        @JsonProperty("outbound_call_prices") final List<
-            OutboundCallPriceWithOrigin
-        > outboundCallPrices,
+        @JsonProperty(
+            "outbound_call_prices"
+        ) final List<OutboundCallPriceWithOrigin> outboundCallPrices,
         @JsonProperty("price_unit") @JsonDeserialize(
             using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,

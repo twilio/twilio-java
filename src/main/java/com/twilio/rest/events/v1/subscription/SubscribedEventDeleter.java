@@ -45,11 +45,10 @@ public class SubscribedEventDeleter extends Deleter<SubscribedEvent> {
         String path =
             "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}";
 
-        path =
-            path.replace(
-                "{" + "SubscriptionSid" + "}",
-                this.pathSubscriptionSid.toString()
-            );
+        path = path.replace(
+            "{" + "SubscriptionSid" + "}",
+            this.pathSubscriptionSid.toString()
+        );
         path = path.replace("{" + "Type" + "}", this.pathType.toString());
 
         Predicate<Integer> deleteStatuses = i ->

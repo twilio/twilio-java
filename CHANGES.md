@@ -5,6 +5,11 @@ twilio-java changelog
 ---------------------------
 
 
+[2026-08-26] Version 13.0.0
+---------------------------
+**Library - Fix**
+- [PR #826](https://github.com/twilio/twilio-oai-generator/pull/826): added forward compatibility for twilio-java nested response (#826) Thanks to [@sbansla](https://github.com/sbansla)!
+
 [2026-08-26] Version 12.2.0
 ---------------------------
 **Library - Fix**

@@ -2,6 +2,27 @@
 
 _`MAJOR` version bumps will have upgrade notes posted here._
 
+[2026-08-26] 12.x.x to 13.x.x
+-----------------------------
+### Overview
+##### Twilio Java Helper Library's major version 13.0.0 includes a fix to PascalCase generation for enum and model names containing numbers.
+
+##### Breaking Changes
+
+###### 1. Enum and model names
+Type names that contained numbers (e.g., from API version identifiers) previously had those numbers silently dropped. They are now included in the PascalCase output.
+
+Examples:
+- `ConversationsVConversationGroupingType` → `ConversationsV2ConversationGroupingType`
+- `Action.Status` → `Action.ConversationsV2ActionStatus`
+
+Who is impacted:
+Users who reference generated enum or model types by name in their code where those types contain numbers in the API schema name.
+
+##### Migration
+Update enum references.
+
+
 [2026-04-21] 11.x.x to 12.x.x
 -----------------------------
 ### Overview

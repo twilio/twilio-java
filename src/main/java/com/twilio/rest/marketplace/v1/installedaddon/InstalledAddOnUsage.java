@@ -69,9 +69,7 @@ public class InstalledAddOnUsage extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("billable_items")
         @Getter
-        private final List<
-            MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
-        > billableItems;
+        private final List<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems> billableItems;
 
         private MarketplaceV1InstalledAddOnInstalledAddOnUsage(
             Builder builder
@@ -81,9 +79,7 @@ public class InstalledAddOnUsage extends Resource {
         }
 
         public static Builder builder(
-            final List<
-                MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
-            > billableItems
+            final List<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems> billableItems
         ) {
             return new Builder(billableItems);
         }
@@ -105,15 +101,13 @@ public class InstalledAddOnUsage extends Resource {
             private BigDecimal totalSubmitted;
 
             @JsonProperty("billable_items")
-            private List<
-                MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
-            > billableItems;
+            private List<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems> billableItems;
 
             @JsonCreator
             public Builder(
-                @JsonProperty("billable_items") final List<
-                    MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
-                > billableItems
+                @JsonProperty(
+                    "billable_items"
+                ) final List<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems> billableItems
             ) {
                 this.billableItems = billableItems;
             }
@@ -317,18 +311,16 @@ public class InstalledAddOnUsage extends Resource {
     }
 
     @Getter
-    private final List<
-        MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
-    > billableItems;
+    private final List<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems> billableItems;
 
     @Getter
     private final BigDecimal totalSubmitted;
 
     @JsonCreator
     private InstalledAddOnUsage(
-        @JsonProperty("billable_items") final List<
-            MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
-        > billableItems,
+        @JsonProperty(
+            "billable_items"
+        ) final List<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems> billableItems,
         @JsonProperty("total_submitted") final BigDecimal totalSubmitted
     ) {
         this.billableItems = billableItems;

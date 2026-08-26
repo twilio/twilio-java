@@ -71,16 +71,14 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
         String path =
             "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Statistics";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "WorkerSid" + "}",
-                this.pathWorkerSid.toString()
-            );
+        path = path.replace(
+            "{" + "WorkspaceSid" + "}",
+            this.pathWorkspaceSid.toString()
+        );
+        path = path.replace(
+            "{" + "WorkerSid" + "}",
+            this.pathWorkerSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

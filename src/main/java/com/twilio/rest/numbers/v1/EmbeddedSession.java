@@ -112,7 +112,7 @@ public class EmbeddedSession extends Resource {
 
             NumbersV1CreateEmbeddedSessionRequest other =
                 (NumbersV1CreateEmbeddedSessionRequest) o;
-            return (Objects.equals(themeSetId, other.themeSetId));
+            return Objects.equals(themeSetId, other.themeSetId);
         }
 
         @Override

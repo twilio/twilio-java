@@ -125,7 +125,7 @@ public class MessagingGeopermissions extends Resource {
         }
 
         MessagingGeopermissions other = (MessagingGeopermissions) o;
-        return (Objects.equals(permissions, other.permissions));
+        return Objects.equals(permissions, other.permissions);
     }
 
     @Override

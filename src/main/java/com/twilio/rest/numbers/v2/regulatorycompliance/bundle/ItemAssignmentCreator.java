@@ -52,11 +52,10 @@ public class ItemAssignmentCreator extends Creator<ItemAssignment> {
         String path =
             "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments";
 
-        path =
-            path.replace(
-                "{" + "BundleSid" + "}",
-                this.pathBundleSid.toString()
-            );
+        path = path.replace(
+            "{" + "BundleSid" + "}",
+            this.pathBundleSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

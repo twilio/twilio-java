@@ -28,7 +28,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class AuthRegistrationsCredentialListMappingFetcher
-    extends Fetcher<AuthRegistrationsCredentialListMapping> {
+    extends Fetcher<AuthRegistrationsCredentialListMapping>
+{
 
     private String pathAccountSid;
     private String pathDomainSid;
@@ -60,16 +61,14 @@ public class AuthRegistrationsCredentialListMappingFetcher
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
+        path = path.replace(
+            "{" + "DomainSid" + "}",
+            this.pathDomainSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
@@ -113,9 +112,9 @@ public class AuthRegistrationsCredentialListMappingFetcher
     }
 
     @Override
-    public TwilioResponse<
-        AuthRegistrationsCredentialListMapping
-    > fetchWithResponse(final TwilioRestClient client) {
+    public TwilioResponse<AuthRegistrationsCredentialListMapping> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
         AuthRegistrationsCredentialListMapping content =
             AuthRegistrationsCredentialListMapping.fromJson(

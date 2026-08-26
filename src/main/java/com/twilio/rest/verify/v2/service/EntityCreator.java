@@ -48,11 +48,10 @@ public class EntityCreator extends Creator<Entity> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Entities";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

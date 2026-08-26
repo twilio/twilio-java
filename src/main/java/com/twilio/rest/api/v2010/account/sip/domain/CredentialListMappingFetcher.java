@@ -28,7 +28,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class CredentialListMappingFetcher
-    extends Fetcher<CredentialListMapping> {
+    extends Fetcher<CredentialListMapping>
+{
 
     private String pathAccountSid;
     private String pathDomainSid;
@@ -60,16 +61,14 @@ public class CredentialListMappingFetcher
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
+        path = path.replace(
+            "{" + "DomainSid" + "}",
+            this.pathDomainSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

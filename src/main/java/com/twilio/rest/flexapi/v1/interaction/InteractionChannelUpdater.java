@@ -62,11 +62,10 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Interactions/{InteractionSid}/Channels/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "InteractionSid" + "}",
-                this.pathInteractionSid.toString()
-            );
+        path = path.replace(
+            "{" + "InteractionSid" + "}",
+            this.pathInteractionSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

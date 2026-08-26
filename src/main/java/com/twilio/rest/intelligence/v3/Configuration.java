@@ -1062,7 +1062,7 @@ public class Configuration extends Resource {
             }
 
             ContextKnowledge other = (ContextKnowledge) o;
-            return (Objects.equals(bases, other.bases));
+            return Objects.equals(bases, other.bases);
         }
 
         @Override
@@ -1129,9 +1129,9 @@ public class Configuration extends Resource {
             @JsonCreator
             public Builder(
                 @JsonProperty("displayName") final String displayName,
-                @JsonProperty("rules") final List<
-                    RuleUpdateRequestPayload
-                > rules
+                @JsonProperty(
+                    "rules"
+                ) final List<RuleUpdateRequestPayload> rules
             ) {
                 this.displayName = displayName;
                 this.rules = rules;
@@ -1305,7 +1305,7 @@ public class Configuration extends Resource {
             }
 
             ContextMemory other = (ContextMemory) o;
-            return (Objects.equals(enabled, other.enabled));
+            return Objects.equals(enabled, other.enabled);
         }
 
         @Override
@@ -1490,9 +1490,9 @@ public class Configuration extends Resource {
             @JsonCreator
             public Builder(
                 @JsonProperty("displayName") final String displayName,
-                @JsonProperty("rules") final List<
-                    RuleCreationRequestPayload
-                > rules
+                @JsonProperty(
+                    "rules"
+                ) final List<RuleCreationRequestPayload> rules
             ) {
                 this.displayName = displayName;
                 this.rules = rules;
@@ -1588,7 +1588,7 @@ public class Configuration extends Resource {
             }
 
             TriggerParameters other = (TriggerParameters) o;
-            return (Objects.equals(count, other.count));
+            return Objects.equals(count, other.count);
         }
 
         @Override

@@ -56,18 +56,18 @@ public class NotificationCreator extends Creator<Notification> {
         String path =
             "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{ChallengeSid}/Notifications";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
-        path =
-            path.replace(
-                "{" + "ChallengeSid" + "}",
-                this.pathChallengeSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "Identity" + "}",
+            this.pathIdentity.toString()
+        );
+        path = path.replace(
+            "{" + "ChallengeSid" + "}",
+            this.pathChallengeSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

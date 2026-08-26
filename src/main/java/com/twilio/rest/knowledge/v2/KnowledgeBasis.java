@@ -168,11 +168,16 @@ public class KnowledgeBasis extends Resource {
         @Getter
         private final String message;
 
+        @Getter
+        private final String statusUrl;
+
         @JsonCreator
         private DeleteKnowledgeBasisResponse(
-            @JsonProperty("message") final String message
+            @JsonProperty("message") final String message,
+            @JsonProperty("statusUrl") final String statusUrl
         ) {
             this.message = message;
+            this.statusUrl = statusUrl;
         }
 
         public static DeleteKnowledgeBasisResponse fromJson(
@@ -203,12 +208,15 @@ public class KnowledgeBasis extends Resource {
             }
             DeleteKnowledgeBasisResponse other =
                 (DeleteKnowledgeBasisResponse) o;
-            return Objects.equals(message, other.message);
+            return (
+                Objects.equals(message, other.message) &&
+                Objects.equals(statusUrl, other.statusUrl)
+            );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(message);
+            return Objects.hash(message, statusUrl);
         }
     }
 

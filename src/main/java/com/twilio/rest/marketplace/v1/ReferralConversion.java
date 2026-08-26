@@ -106,9 +106,7 @@ public class ReferralConversion extends Resource {
 
             CreateReferralConversionRequest other =
                 (CreateReferralConversionRequest) o;
-            return (
-                Objects.equals(referralAccountSid, other.referralAccountSid)
-            );
+            return Objects.equals(referralAccountSid, other.referralAccountSid);
         }
 
         @Override
@@ -193,7 +191,7 @@ public class ReferralConversion extends Resource {
         }
 
         ReferralConversion other = (ReferralConversion) o;
-        return (Objects.equals(convertedAccountSid, other.convertedAccountSid));
+        return Objects.equals(convertedAccountSid, other.convertedAccountSid);
     }
 
     @Override

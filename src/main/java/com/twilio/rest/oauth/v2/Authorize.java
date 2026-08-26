@@ -17,6 +17,7 @@ package com.twilio.rest.oauth.v2;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -24,6 +25,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.type.*;
@@ -41,6 +43,26 @@ public class Authorize extends Resource {
 
     public static AuthorizeFetcher fetcher() {
         return new AuthorizeFetcher();
+    }
+
+    public enum CodeChallengeMethod {
+        S256("S256");
+
+        private final String value;
+
+        private CodeChallengeMethod(final String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CodeChallengeMethod forValue(final String value) {
+            return Promoter.enumFromString(value, CodeChallengeMethod.values());
+        }
     }
 
     /**
@@ -117,7 +139,7 @@ public class Authorize extends Resource {
         }
 
         Authorize other = (Authorize) o;
-        return (Objects.equals(redirectTo, other.redirectTo));
+        return Objects.equals(redirectTo, other.redirectTo);
     }
 
     @Override

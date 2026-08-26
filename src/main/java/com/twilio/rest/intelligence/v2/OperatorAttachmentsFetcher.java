@@ -38,11 +38,10 @@ public class OperatorAttachmentsFetcher extends Fetcher<OperatorAttachments> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Operators";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

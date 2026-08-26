@@ -34,6 +34,7 @@ import com.twilio.type.*;
 import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import lombok.Builder;
@@ -113,7 +114,7 @@ public class Chunk extends Resource {
                 return false;
             }
             UpdateChunkResponse other = (UpdateChunkResponse) o;
-            return (true);
+            return true;
         }
 
         @Override
@@ -165,18 +166,38 @@ public class Chunk extends Resource {
     public static class ListChunkResponse extends Resource {
 
         @Getter
+        private final Integer chunkIndex;
+
+        @Getter
         private final String content;
 
         @Getter
         private final ZonedDateTime createdAt;
 
+        @Getter
+        private final Integer documentNumber;
+
+        @Getter
+        private final String documentTitle;
+
+        @Getter
+        private final URI documentUrl;
+
         @JsonCreator
         private ListChunkResponse(
+            @JsonProperty("chunkIndex") final Integer chunkIndex,
             @JsonProperty("content") final String content,
-            @JsonProperty("createdAt") final ZonedDateTime createdAt
+            @JsonProperty("createdAt") final ZonedDateTime createdAt,
+            @JsonProperty("documentNumber") final Integer documentNumber,
+            @JsonProperty("documentTitle") final String documentTitle,
+            @JsonProperty("documentUrl") final URI documentUrl
         ) {
+            this.chunkIndex = chunkIndex;
             this.content = content;
             this.createdAt = createdAt;
+            this.documentNumber = documentNumber;
+            this.documentTitle = documentTitle;
+            this.documentUrl = documentUrl;
         }
 
         public static ListChunkResponse fromJson(
@@ -204,14 +225,25 @@ public class Chunk extends Resource {
             }
             ListChunkResponse other = (ListChunkResponse) o;
             return (
+                Objects.equals(chunkIndex, other.chunkIndex) &&
                 Objects.equals(content, other.content) &&
-                Objects.equals(createdAt, other.createdAt)
+                Objects.equals(createdAt, other.createdAt) &&
+                Objects.equals(documentNumber, other.documentNumber) &&
+                Objects.equals(documentTitle, other.documentTitle) &&
+                Objects.equals(documentUrl, other.documentUrl)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(content, createdAt);
+            return Objects.hash(
+                chunkIndex,
+                content,
+                createdAt,
+                documentNumber,
+                documentTitle,
+                documentUrl
+            );
         }
     }
 
@@ -433,9 +465,33 @@ public class Chunk extends Resource {
         @Getter
         private final ZonedDateTime createdAt;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("chunkIndex")
+        @Getter
+        private final Integer chunkIndex;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("documentTitle")
+        @Getter
+        private final String documentTitle;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("documentUrl")
+        @Getter
+        private final URI documentUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("documentNumber")
+        @Getter
+        private final Integer documentNumber;
+
         private KnowledgeChunk(Builder builder) {
             this.content = builder.content;
             this.createdAt = builder.createdAt;
+            this.chunkIndex = builder.chunkIndex;
+            this.documentTitle = builder.documentTitle;
+            this.documentUrl = builder.documentUrl;
+            this.documentNumber = builder.documentNumber;
         }
 
         public static Builder builder() {
@@ -462,6 +518,18 @@ public class Chunk extends Resource {
             @JsonProperty("createdAt")
             private ZonedDateTime createdAt;
 
+            @JsonProperty("chunkIndex")
+            private Integer chunkIndex;
+
+            @JsonProperty("documentTitle")
+            private String documentTitle;
+
+            @JsonProperty("documentUrl")
+            private URI documentUrl;
+
+            @JsonProperty("documentNumber")
+            private Integer documentNumber;
+
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("content")
             public Builder content(String content) {
@@ -477,6 +545,34 @@ public class Chunk extends Resource {
             @JsonProperty("createdAt")
             public Builder createdAt(ZonedDateTime createdAt) {
                 this.createdAt = createdAt;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("chunkIndex")
+            public Builder chunkIndex(Integer chunkIndex) {
+                this.chunkIndex = chunkIndex;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("documentTitle")
+            public Builder documentTitle(String documentTitle) {
+                this.documentTitle = documentTitle;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("documentUrl")
+            public Builder documentUrl(URI documentUrl) {
+                this.documentUrl = documentUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("documentNumber")
+            public Builder documentNumber(Integer documentNumber) {
+                this.documentNumber = documentNumber;
                 return this;
             }
 
@@ -498,13 +594,24 @@ public class Chunk extends Resource {
             KnowledgeChunk other = (KnowledgeChunk) o;
             return (
                 Objects.equals(content, other.content) &&
-                Objects.equals(createdAt, other.createdAt)
+                Objects.equals(createdAt, other.createdAt) &&
+                Objects.equals(chunkIndex, other.chunkIndex) &&
+                Objects.equals(documentTitle, other.documentTitle) &&
+                Objects.equals(documentUrl, other.documentUrl) &&
+                Objects.equals(documentNumber, other.documentNumber)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(content, createdAt);
+            return Objects.hash(
+                content,
+                createdAt,
+                chunkIndex,
+                documentTitle,
+                documentUrl,
+                documentNumber
+            );
         }
     }
 

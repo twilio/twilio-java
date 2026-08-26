@@ -38,8 +38,10 @@ public class ReportFetcher extends Fetcher<Report> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Voice/Reports/{reportId}";
 
-        path =
-            path.replace("{" + "reportId" + "}", this.pathReportId.toString());
+        path = path.replace(
+            "{" + "reportId" + "}",
+            this.pathReportId.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

@@ -28,7 +28,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class NetworkAccessProfileNetworkFetcher
-    extends Fetcher<NetworkAccessProfileNetwork> {
+    extends Fetcher<NetworkAccessProfileNetwork>
+{
 
     private String pathNetworkAccessProfileSid;
     private String pathSid;
@@ -45,11 +46,10 @@ public class NetworkAccessProfileNetworkFetcher
         String path =
             "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "NetworkAccessProfileSid" + "}",
-                this.pathNetworkAccessProfileSid.toString()
-            );
+        path = path.replace(
+            "{" + "NetworkAccessProfileSid" + "}",
+            this.pathNetworkAccessProfileSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

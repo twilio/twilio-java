@@ -121,7 +121,7 @@ public class Operation extends Resource {
                 return false;
             }
             UpdateOperationResponse other = (UpdateOperationResponse) o;
-            return (true);
+            return true;
         }
 
         @Override
@@ -205,7 +205,7 @@ public class Operation extends Resource {
                 return false;
             }
             ListOperationResponse other = (ListOperationResponse) o;
-            return (true);
+            return true;
         }
 
         @Override

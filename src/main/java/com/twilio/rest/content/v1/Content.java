@@ -195,7 +195,8 @@ public class Content extends Resource {
         PHONE_NUMBER("PHONE_NUMBER"),
         COPY_CODE("COPY_CODE"),
         VOICE_CALL("VOICE_CALL"),
-        VOICE_CALL_REQUEST("VOICE_CALL_REQUEST");
+        VOICE_CALL_REQUEST("VOICE_CALL_REQUEST"),
+        REQUEST_CONTACT_INFO("REQUEST_CONTACT_INFO");
 
         private final String value;
 
@@ -263,10 +264,8 @@ public class Content extends Resource {
             return new Builder(id, title, layout);
         }
 
-        public static FlowsPage fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
+        public static FlowsPage fromJson(String jsonString, ObjectMapper mapper)
+            throws IOException {
             return mapper.readValue(jsonString, FlowsPage.class);
         }
 
@@ -695,10 +694,9 @@ public class Content extends Resource {
         }
 
         public static Builder builder(
-            final Content.CallToActionActionType type,
-            final String title
+            final Content.CallToActionActionType type
         ) {
-            return new Builder(type, title);
+            return new Builder(type);
         }
 
         public static CallToActionAction fromJson(
@@ -731,11 +729,16 @@ public class Content extends Resource {
 
             @JsonCreator
             public Builder(
-                @JsonProperty("type") final Content.CallToActionActionType type,
-                @JsonProperty("title") final String title
+                @JsonProperty("type") final Content.CallToActionActionType type
             ) {
                 this.type = type;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("title")
+            public Builder title(String title) {
                 this.title = title;
+                return this;
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -1113,9 +1116,9 @@ public class Content extends Resource {
 
             @JsonCreator
             public Builder(
-                @JsonProperty("actions") final List<
-                    AuthenticationAction
-                > actions
+                @JsonProperty(
+                    "actions"
+                ) final List<AuthenticationAction> actions
             ) {
                 this.actions = actions;
             }
@@ -2652,7 +2655,7 @@ public class Content extends Resource {
             }
 
             TwilioText other = (TwilioText) o;
-            return (Objects.equals(body, other.body));
+            return Objects.equals(body, other.body);
         }
 
         @Override

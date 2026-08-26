@@ -1175,9 +1175,9 @@ public class Outbound extends Resource {
         @JsonProperty(
             "answering_machine_detection"
         ) final InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection answeringMachineDetection,
-        @JsonProperty("blocked_calls_by_carrier") final List<
-            CountyCarrierValue
-        > blockedCallsByCarrier,
+        @JsonProperty(
+            "blocked_calls_by_carrier"
+        ) final List<CountyCarrierValue> blockedCallsByCarrier,
         @JsonProperty("call_answer_score") final Float callAnswerScore,
         @JsonProperty(
             "call_state_percentage"

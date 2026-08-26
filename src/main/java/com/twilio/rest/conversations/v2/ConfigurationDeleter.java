@@ -21,7 +21,6 @@ import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
-import com.twilio.exception.RestStandardException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
@@ -35,13 +34,14 @@ public class ConfigurationDeleter
     extends ResourceDeleter<
         Configuration,
         Configuration.DeleteConfigurationResponse
-    > {
+    >
+{
 
-    private String pathSid;
+    private String pathId;
     private String idempotencyKey;
 
-    public ConfigurationDeleter(final String pathSid) {
-        this.pathSid = pathSid;
+    public ConfigurationDeleter(final String pathId) {
+        this.pathId = pathId;
     }
 
     public ConfigurationDeleter setIdempotencyKey(final String idempotencyKey) {
@@ -50,9 +50,9 @@ public class ConfigurationDeleter
     }
 
     private Response makeRequest(final TwilioRestClient client) {
-        String path = "/v2/ControlPlane/Configurations/{Sid}";
+        String path = "/v2/ControlPlane/Configurations/{id}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;
@@ -71,16 +71,6 @@ public class ConfigurationDeleter
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             InputStream inputStream = response.getStream();
-            RestStandardException standardException =
-                RestStandardException.fromJson(
-                    inputStream,
-                    client.getObjectMapper()
-                );
-            if (
-                standardException != null && standardException.getType() != null
-            ) {
-                throw new ApiException(standardException);
-            }
             RestException restException = RestException.fromJson(
                 inputStream,
                 client.getObjectMapper()
@@ -108,9 +98,9 @@ public class ConfigurationDeleter
     }
 
     @Override
-    public TwilioResponse<
-        Configuration.DeleteConfigurationResponse
-    > deleteWithResponse(final TwilioRestClient client) {
+    public TwilioResponse<Configuration.DeleteConfigurationResponse> deleteWithResponse(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
         Configuration.DeleteConfigurationResponse content =
             Configuration.DeleteConfigurationResponse.fromJson(

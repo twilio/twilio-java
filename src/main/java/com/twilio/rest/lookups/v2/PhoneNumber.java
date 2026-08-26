@@ -181,8 +181,7 @@ public class PhoneNumber extends Resource {
                 Objects.equals(
                     callForwardingEnabled,
                     other.callForwardingEnabled
-                ) &&
-                Objects.equals(errorCode, other.errorCode)
+                ) && Objects.equals(errorCode, other.errorCode)
             );
         }
 
@@ -1449,9 +1448,9 @@ public class PhoneNumber extends Resource {
         ) final SmsPumpingRiskInfo smsPumpingRisk,
         @JsonProperty("url") final URI url,
         @JsonProperty("valid") final Boolean valid,
-        @JsonProperty("validation_errors") final List<
-            PhoneNumber.ValidationError
-        > validationErrors
+        @JsonProperty(
+            "validation_errors"
+        ) final List<PhoneNumber.ValidationError> validationErrors
     ) {
         this.callForwarding = callForwarding;
         this.callerName = callerName;

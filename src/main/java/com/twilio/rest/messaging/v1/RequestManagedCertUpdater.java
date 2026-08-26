@@ -39,11 +39,10 @@ public class RequestManagedCertUpdater extends Updater<RequestManagedCert> {
         String path =
             "/v1/LinkShortening/Domains/{DomainSid}/RequestManagedCert";
 
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
+        path = path.replace(
+            "{" + "DomainSid" + "}",
+            this.pathDomainSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

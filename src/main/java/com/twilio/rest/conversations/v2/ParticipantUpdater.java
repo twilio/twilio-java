@@ -21,7 +21,6 @@ import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
-import com.twilio.exception.RestStandardException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
@@ -31,18 +30,19 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ParticipantUpdater
-    extends Updater<Participant.UpdateParticipantResponse> {
+    extends Updater<Participant.UpdateParticipantResponse>
+{
 
-    private String pathConversationSid;
-    private String pathSid;
+    private String pathConversationId;
+    private String pathId;
     private Participant.UpdateParticipantInConversationRequest updateParticipantInConversationRequest;
 
     public ParticipantUpdater(
-        final String pathConversationSid,
-        final String pathSid
+        final String pathConversationId,
+        final String pathId
     ) {
-        this.pathConversationSid = pathConversationSid;
-        this.pathSid = pathSid;
+        this.pathConversationId = pathConversationId;
+        this.pathId = pathId;
     }
 
     public ParticipantUpdater setUpdateParticipantInConversationRequest(
@@ -54,14 +54,13 @@ public class ParticipantUpdater
     }
 
     private Response makeRequest(final TwilioRestClient client) {
-        String path = "/v2/Conversations/{ConversationSid}/Participants/{Sid}";
+        String path = "/v2/Conversations/{ConversationId}/Participants/{id}";
 
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace(
+            "{" + "ConversationId" + "}",
+            this.pathConversationId.toString()
+        );
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
         Request request = new Request(
             HttpMethod.PUT,
@@ -79,16 +78,6 @@ public class ParticipantUpdater
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             InputStream inputStream = response.getStream();
-            RestStandardException standardException =
-                RestStandardException.fromJson(
-                    inputStream,
-                    client.getObjectMapper()
-                );
-            if (
-                standardException != null && standardException.getType() != null
-            ) {
-                throw new ApiException(standardException);
-            }
             RestException restException = RestException.fromJson(
                 inputStream,
                 client.getObjectMapper()
@@ -116,9 +105,9 @@ public class ParticipantUpdater
     }
 
     @Override
-    public TwilioResponse<
-        Participant.UpdateParticipantResponse
-    > updateWithResponse(final TwilioRestClient client) {
+    public TwilioResponse<Participant.UpdateParticipantResponse> updateWithResponse(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
         Participant.UpdateParticipantResponse content =
             Participant.UpdateParticipantResponse.fromJson(

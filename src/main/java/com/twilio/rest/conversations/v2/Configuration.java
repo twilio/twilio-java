@@ -230,7 +230,7 @@ public class Configuration extends Resource {
         > channelSettings;
 
         @Getter
-        private final Configuration.ConversationGroupingType conversationGroupingType;
+        private final Configuration.ConversationsVConversationGroupingType conversationGroupingType;
 
         @Getter
         private final ConversationsV2ConversationsV1Bridge conversationsV1Bridge;
@@ -273,7 +273,7 @@ public class Configuration extends Resource {
             > channelSettings,
             @JsonProperty(
                 "conversationGroupingType"
-            ) final Configuration.ConversationGroupingType conversationGroupingType,
+            ) final Configuration.ConversationsVConversationGroupingType conversationGroupingType,
             @JsonProperty(
                 "conversationsV1Bridge"
             ) final ConversationsV2ConversationsV1Bridge conversationsV1Bridge,
@@ -281,16 +281,16 @@ public class Configuration extends Resource {
             @JsonProperty("description") final String description,
             @JsonProperty("displayName") final String displayName,
             @JsonProperty("id") final String id,
-            @JsonProperty("intelligenceConfigurationIds") final List<
-                String
-            > intelligenceConfigurationIds,
+            @JsonProperty(
+                "intelligenceConfigurationIds"
+            ) final List<String> intelligenceConfigurationIds,
             @JsonProperty(
                 "memoryExtractionEnabled"
             ) final Boolean memoryExtractionEnabled,
             @JsonProperty("memoryStoreId") final String memoryStoreId,
-            @JsonProperty("statusCallbacks") final List<
-                ConversationsV2StatusCallbackConfig
-            > statusCallbacks,
+            @JsonProperty(
+                "statusCallbacks"
+            ) final List<ConversationsV2StatusCallbackConfig> statusCallbacks,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt,
             @JsonProperty("version") final Long version
         ) {
@@ -437,7 +437,7 @@ public class Configuration extends Resource {
         > channelSettings;
 
         @Getter
-        private final Configuration.ConversationGroupingType conversationGroupingType;
+        private final Configuration.ConversationsVConversationGroupingType conversationGroupingType;
 
         @Getter
         private final ConversationsV2ConversationsV1Bridge conversationsV1Bridge;
@@ -480,7 +480,7 @@ public class Configuration extends Resource {
             > channelSettings,
             @JsonProperty(
                 "conversationGroupingType"
-            ) final Configuration.ConversationGroupingType conversationGroupingType,
+            ) final Configuration.ConversationsVConversationGroupingType conversationGroupingType,
             @JsonProperty(
                 "conversationsV1Bridge"
             ) final ConversationsV2ConversationsV1Bridge conversationsV1Bridge,
@@ -488,16 +488,16 @@ public class Configuration extends Resource {
             @JsonProperty("description") final String description,
             @JsonProperty("displayName") final String displayName,
             @JsonProperty("id") final String id,
-            @JsonProperty("intelligenceConfigurationIds") final List<
-                String
-            > intelligenceConfigurationIds,
+            @JsonProperty(
+                "intelligenceConfigurationIds"
+            ) final List<String> intelligenceConfigurationIds,
             @JsonProperty(
                 "memoryExtractionEnabled"
             ) final Boolean memoryExtractionEnabled,
             @JsonProperty("memoryStoreId") final String memoryStoreId,
-            @JsonProperty("statusCallbacks") final List<
-                ConversationsV2StatusCallbackConfig
-            > statusCallbacks,
+            @JsonProperty(
+                "statusCallbacks"
+            ) final List<ConversationsV2StatusCallbackConfig> statusCallbacks,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt,
             @JsonProperty("version") final Long version
         ) {
@@ -596,20 +596,20 @@ public class Configuration extends Resource {
         return new ConfigurationCreator();
     }
 
-    public static ConfigurationDeleter deleter(final String pathSid) {
-        return new ConfigurationDeleter(pathSid);
+    public static ConfigurationDeleter deleter(final String pathId) {
+        return new ConfigurationDeleter(pathId);
     }
 
-    public static ConfigurationFetcher fetcher(final String pathSid) {
-        return new ConfigurationFetcher(pathSid);
+    public static ConfigurationFetcher fetcher(final String pathId) {
+        return new ConfigurationFetcher(pathId);
     }
 
     public static ConfigurationReader reader() {
         return new ConfigurationReader();
     }
 
-    public static ConfigurationUpdater updater(final String pathSid) {
-        return new ConfigurationUpdater(pathSid);
+    public static ConfigurationUpdater updater(final String pathId) {
+        return new ConfigurationUpdater(pathId);
     }
 
     public enum ConversationGroupingType {
@@ -641,10 +641,7 @@ public class Configuration extends Resource {
 
     public enum Method {
         POST("POST"),
-        GET("GET"),
-        PUT("PUT"),
-        DELETE("DELETE"),
-        PATCH("PATCH");
+        GET("GET");
 
         private final String value;
 
@@ -660,6 +657,35 @@ public class Configuration extends Resource {
         @JsonCreator
         public static Method forValue(final String value) {
             return Promoter.enumFromString(value, Method.values());
+        }
+    }
+
+    public enum ConversationsVConversationGroupingType {
+        GROUP_BY_PROFILE("GROUP_BY_PROFILE"),
+        GROUP_BY_PARTICIPANT_ADDRESSES("GROUP_BY_PARTICIPANT_ADDRESSES"),
+        GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE(
+            "GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE"
+        );
+
+        private final String value;
+
+        private ConversationsVConversationGroupingType(final String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ConversationsVConversationGroupingType forValue(
+            final String value
+        ) {
+            return Promoter.enumFromString(
+                value,
+                ConversationsVConversationGroupingType.values()
+            );
         }
     }
 
@@ -986,9 +1012,7 @@ public class Configuration extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("captureRules")
         @Getter
-        private final List<
-            UpdateConfigurationRequestChannelSettingsValueCaptureRules
-        > captureRules;
+        private final List<UpdateConfigurationRequestChannelSettingsValueCaptureRules> captureRules;
 
         private UpdateConfigurationRequestChannelSettingsValue(
             Builder builder
@@ -1018,9 +1042,7 @@ public class Configuration extends Resource {
             private UpdateConfigurationRequestChannelSettingsValueStatusTimeouts statusTimeouts;
 
             @JsonProperty("captureRules")
-            private List<
-                UpdateConfigurationRequestChannelSettingsValueCaptureRules
-            > captureRules;
+            private List<UpdateConfigurationRequestChannelSettingsValueCaptureRules> captureRules;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("statusTimeouts")
@@ -1034,9 +1056,7 @@ public class Configuration extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("captureRules")
             public Builder captureRules(
-                List<
-                    UpdateConfigurationRequestChannelSettingsValueCaptureRules
-                > captureRules
+                List<UpdateConfigurationRequestChannelSettingsValueCaptureRules> captureRules
             ) {
                 this.captureRules = captureRules;
                 return this;
@@ -1086,9 +1106,7 @@ public class Configuration extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("captureRules")
         @Getter
-        private final List<
-            CreateConfigurationRequestChannelSettingsValueCaptureRules
-        > captureRules;
+        private final List<CreateConfigurationRequestChannelSettingsValueCaptureRules> captureRules;
 
         private CreateConfigurationRequestChannelSettingsValue(
             Builder builder
@@ -1118,9 +1136,7 @@ public class Configuration extends Resource {
             private CreateConfigurationRequestChannelSettingsValueStatusTimeouts statusTimeouts;
 
             @JsonProperty("captureRules")
-            private List<
-                CreateConfigurationRequestChannelSettingsValueCaptureRules
-            > captureRules;
+            private List<CreateConfigurationRequestChannelSettingsValueCaptureRules> captureRules;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("statusTimeouts")
@@ -1134,9 +1150,7 @@ public class Configuration extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("captureRules")
             public Builder captureRules(
-                List<
-                    CreateConfigurationRequestChannelSettingsValueCaptureRules
-                > captureRules
+                List<CreateConfigurationRequestChannelSettingsValueCaptureRules> captureRules
             ) {
                 this.captureRules = captureRules;
                 return this;
@@ -1168,6 +1182,77 @@ public class Configuration extends Resource {
         @Override
         public int hashCode() {
             return Objects.hash(statusTimeouts, captureRules);
+        }
+    }
+
+    @JsonDeserialize(
+        builder = CreateConfigurationRequestConversationsV1Bridge.Builder.class
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CreateConfigurationRequestConversationsV1Bridge {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("serviceId")
+        @Getter
+        private final String serviceId;
+
+        private CreateConfigurationRequestConversationsV1Bridge(
+            Builder builder
+        ) {
+            this.serviceId = builder.serviceId;
+        }
+
+        public static Builder builder(final String serviceId) {
+            return new Builder(serviceId);
+        }
+
+        public static CreateConfigurationRequestConversationsV1Bridge fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CreateConfigurationRequestConversationsV1Bridge.class
+            );
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("serviceId")
+            private String serviceId;
+
+            @JsonCreator
+            public Builder(@JsonProperty("serviceId") final String serviceId) {
+                this.serviceId = serviceId;
+            }
+
+            public CreateConfigurationRequestConversationsV1Bridge build() {
+                return new CreateConfigurationRequestConversationsV1Bridge(
+                    this
+                );
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateConfigurationRequestConversationsV1Bridge other =
+                (CreateConfigurationRequestConversationsV1Bridge) o;
+            return Objects.equals(serviceId, other.serviceId);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(serviceId);
         }
     }
 
@@ -1297,9 +1382,7 @@ public class Configuration extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("statusCallbacks")
         @Getter
-        private final List<
-            UpdateConfigurationRequestStatusCallbacks
-        > statusCallbacks;
+        private final List<UpdateConfigurationRequestStatusCallbacks> statusCallbacks;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("intelligenceConfigurationIds")
@@ -1311,6 +1394,11 @@ public class Configuration extends Resource {
         @Getter
         private final Boolean memoryExtractionEnabled;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("conversationsV1Bridge")
+        @Getter
+        private final CreateConfigurationRequestConversationsV1Bridge conversationsV1Bridge;
+
         private UpdateConfigurationRequest(Builder builder) {
             this.displayName = builder.displayName;
             this.description = builder.description;
@@ -1321,6 +1409,7 @@ public class Configuration extends Resource {
             this.intelligenceConfigurationIds =
                 builder.intelligenceConfigurationIds;
             this.memoryExtractionEnabled = builder.memoryExtractionEnabled;
+            this.conversationsV1Bridge = builder.conversationsV1Bridge;
         }
 
         public static Builder builder(
@@ -1372,15 +1461,16 @@ public class Configuration extends Resource {
             > channelSettings;
 
             @JsonProperty("statusCallbacks")
-            private List<
-                UpdateConfigurationRequestStatusCallbacks
-            > statusCallbacks;
+            private List<UpdateConfigurationRequestStatusCallbacks> statusCallbacks;
 
             @JsonProperty("intelligenceConfigurationIds")
             private List<String> intelligenceConfigurationIds;
 
             @JsonProperty("memoryExtractionEnabled")
             private Boolean memoryExtractionEnabled;
+
+            @JsonProperty("conversationsV1Bridge")
+            private CreateConfigurationRequestConversationsV1Bridge conversationsV1Bridge;
 
             @JsonCreator
             public Builder(
@@ -1435,6 +1525,15 @@ public class Configuration extends Resource {
                 return this;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("conversationsV1Bridge")
+            public Builder conversationsV1Bridge(
+                CreateConfigurationRequestConversationsV1Bridge conversationsV1Bridge
+            ) {
+                this.conversationsV1Bridge = conversationsV1Bridge;
+                return this;
+            }
+
             public UpdateConfigurationRequest build() {
                 return new UpdateConfigurationRequest(this);
             }
@@ -1468,6 +1567,10 @@ public class Configuration extends Resource {
                 Objects.equals(
                     memoryExtractionEnabled,
                     other.memoryExtractionEnabled
+                ) &&
+                Objects.equals(
+                    conversationsV1Bridge,
+                    other.conversationsV1Bridge
                 )
             );
         }
@@ -1482,7 +1585,8 @@ public class Configuration extends Resource {
                 channelSettings,
                 statusCallbacks,
                 intelligenceConfigurationIds,
-                memoryExtractionEnabled
+                memoryExtractionEnabled,
+                conversationsV1Bridge
             );
         }
     }
@@ -1792,9 +1896,7 @@ public class Configuration extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("statusCallbacks")
         @Getter
-        private final List<
-            CreateConfigurationRequestStatusCallbacks
-        > statusCallbacks;
+        private final List<CreateConfigurationRequestStatusCallbacks> statusCallbacks;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("intelligenceConfigurationIds")
@@ -1806,6 +1908,11 @@ public class Configuration extends Resource {
         @Getter
         private final Boolean memoryExtractionEnabled;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("conversationsV1Bridge")
+        @Getter
+        private final CreateConfigurationRequestConversationsV1Bridge conversationsV1Bridge;
+
         private CreateConfigurationRequest(Builder builder) {
             this.displayName = builder.displayName;
             this.description = builder.description;
@@ -1816,6 +1923,7 @@ public class Configuration extends Resource {
             this.intelligenceConfigurationIds =
                 builder.intelligenceConfigurationIds;
             this.memoryExtractionEnabled = builder.memoryExtractionEnabled;
+            this.conversationsV1Bridge = builder.conversationsV1Bridge;
         }
 
         public static Builder builder(
@@ -1864,15 +1972,16 @@ public class Configuration extends Resource {
             > channelSettings;
 
             @JsonProperty("statusCallbacks")
-            private List<
-                CreateConfigurationRequestStatusCallbacks
-            > statusCallbacks;
+            private List<CreateConfigurationRequestStatusCallbacks> statusCallbacks;
 
             @JsonProperty("intelligenceConfigurationIds")
             private List<String> intelligenceConfigurationIds;
 
             @JsonProperty("memoryExtractionEnabled")
             private Boolean memoryExtractionEnabled;
+
+            @JsonProperty("conversationsV1Bridge")
+            private CreateConfigurationRequestConversationsV1Bridge conversationsV1Bridge;
 
             @JsonCreator
             public Builder(
@@ -1929,6 +2038,15 @@ public class Configuration extends Resource {
                 return this;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("conversationsV1Bridge")
+            public Builder conversationsV1Bridge(
+                CreateConfigurationRequestConversationsV1Bridge conversationsV1Bridge
+            ) {
+                this.conversationsV1Bridge = conversationsV1Bridge;
+                return this;
+            }
+
             public CreateConfigurationRequest build() {
                 return new CreateConfigurationRequest(this);
             }
@@ -1962,6 +2080,10 @@ public class Configuration extends Resource {
                 Objects.equals(
                     memoryExtractionEnabled,
                     other.memoryExtractionEnabled
+                ) &&
+                Objects.equals(
+                    conversationsV1Bridge,
+                    other.conversationsV1Bridge
                 )
             );
         }
@@ -1976,7 +2098,8 @@ public class Configuration extends Resource {
                 channelSettings,
                 statusCallbacks,
                 intelligenceConfigurationIds,
-                memoryExtractionEnabled
+                memoryExtractionEnabled,
+                conversationsV1Bridge
             );
         }
     }
@@ -2039,7 +2162,7 @@ public class Configuration extends Resource {
 
             ConversationsV2ConversationsV1Bridge other =
                 (ConversationsV2ConversationsV1Bridge) o;
-            return (Objects.equals(serviceId, other.serviceId));
+            return Objects.equals(serviceId, other.serviceId);
         }
 
         @Override
@@ -2257,7 +2380,7 @@ public class Configuration extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("conversationGroupingType")
         @Getter
-        private final Configuration.ConversationGroupingType conversationGroupingType;
+        private final Configuration.ConversationsVConversationGroupingType conversationGroupingType;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("memoryStoreId")
@@ -2332,7 +2455,7 @@ public class Configuration extends Resource {
             final String id,
             final String displayName,
             final String description,
-            final Configuration.ConversationGroupingType conversationGroupingType,
+            final Configuration.ConversationsVConversationGroupingType conversationGroupingType,
             final String memoryStoreId
         ) {
             return new Builder(
@@ -2367,7 +2490,7 @@ public class Configuration extends Resource {
             private String description;
 
             @JsonProperty("conversationGroupingType")
-            private Configuration.ConversationGroupingType conversationGroupingType;
+            private Configuration.ConversationsVConversationGroupingType conversationGroupingType;
 
             @JsonProperty("memoryStoreId")
             private String memoryStoreId;
@@ -2411,7 +2534,7 @@ public class Configuration extends Resource {
                 @JsonProperty("description") final String description,
                 @JsonProperty(
                     "conversationGroupingType"
-                ) final Configuration.ConversationGroupingType conversationGroupingType,
+                ) final Configuration.ConversationsVConversationGroupingType conversationGroupingType,
                 @JsonProperty("memoryStoreId") final String memoryStoreId
             ) {
                 this.id = id;

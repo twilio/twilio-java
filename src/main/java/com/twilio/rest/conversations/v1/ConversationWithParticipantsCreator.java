@@ -34,7 +34,8 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 public class ConversationWithParticipantsCreator
-    extends Creator<ConversationWithParticipants> {
+    extends Creator<ConversationWithParticipants>
+{
 
     private ConversationWithParticipants.WebhookEnabledType xTwilioWebhookEnabled;
     private String friendlyName;

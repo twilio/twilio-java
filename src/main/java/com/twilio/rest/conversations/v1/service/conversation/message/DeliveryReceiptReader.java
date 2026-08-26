@@ -82,21 +82,18 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
         String path =
             "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "MessageSid" + "}",
-                this.pathMessageSid.toString()
-            );
+        path = path.replace(
+            "{" + "ChatServiceSid" + "}",
+            this.pathChatServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "ConversationSid" + "}",
+            this.pathConversationSid.toString()
+        );
+        path = path.replace(
+            "{" + "MessageSid" + "}",
+            this.pathMessageSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

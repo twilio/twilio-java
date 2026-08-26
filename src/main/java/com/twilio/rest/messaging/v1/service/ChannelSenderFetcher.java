@@ -43,11 +43,10 @@ public class ChannelSenderFetcher extends Fetcher<ChannelSender> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{MessagingServiceSid}/ChannelSenders/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.pathMessagingServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "MessagingServiceSid" + "}",
+            this.pathMessagingServiceSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

@@ -87,11 +87,10 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
+        path = path.replace(
+            "{" + "WorkspaceSid" + "}",
+            this.pathWorkspaceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

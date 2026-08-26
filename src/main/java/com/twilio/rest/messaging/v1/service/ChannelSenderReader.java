@@ -73,11 +73,10 @@ public class ChannelSenderReader extends Reader<ChannelSender> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{MessagingServiceSid}/ChannelSenders";
 
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.pathMessagingServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "MessagingServiceSid" + "}",
+            this.pathMessagingServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

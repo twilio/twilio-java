@@ -76,9 +76,7 @@ public class Communication extends Resource {
         private final ZonedDateTime occurredAt;
 
         @Getter
-        private final List<
-            ListCommunicationByConversation200ResponseCommunicationsRecipients
-        > recipients;
+        private final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients;
 
         @Getter
         private final String resourceId;
@@ -100,9 +98,9 @@ public class Communication extends Resource {
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("occurredAt") final ZonedDateTime occurredAt,
-            @JsonProperty("recipients") final List<
-                ListCommunicationByConversation200ResponseCommunicationsRecipients
-            > recipients,
+            @JsonProperty(
+                "recipients"
+            ) final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients,
             @JsonProperty("resourceId") final String resourceId,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
@@ -212,7 +210,7 @@ public class Communication extends Resource {
                 return false;
             }
             UpdateCommunicationResponse other = (UpdateCommunicationResponse) o;
-            return (true);
+            return true;
         }
 
         @Override
@@ -291,9 +289,7 @@ public class Communication extends Resource {
         private final ZonedDateTime occurredAt;
 
         @Getter
-        private final List<
-            ListCommunicationByConversation200ResponseCommunicationsRecipients
-        > recipients;
+        private final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients;
 
         @Getter
         private final String resourceId;
@@ -315,9 +311,9 @@ public class Communication extends Resource {
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("occurredAt") final ZonedDateTime occurredAt,
-            @JsonProperty("recipients") final List<
-                ListCommunicationByConversation200ResponseCommunicationsRecipients
-            > recipients,
+            @JsonProperty(
+                "recipients"
+            ) final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients,
             @JsonProperty("resourceId") final String resourceId,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
@@ -464,9 +460,7 @@ public class Communication extends Resource {
         private final ZonedDateTime occurredAt;
 
         @Getter
-        private final List<
-            ListCommunicationByConversation200ResponseCommunicationsRecipients
-        > recipients;
+        private final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients;
 
         @Getter
         private final String resourceId;
@@ -488,9 +482,9 @@ public class Communication extends Resource {
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("occurredAt") final ZonedDateTime occurredAt,
-            @JsonProperty("recipients") final List<
-                ListCommunicationByConversation200ResponseCommunicationsRecipients
-            > recipients,
+            @JsonProperty(
+                "recipients"
+            ) final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients,
             @JsonProperty("resourceId") final String resourceId,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
@@ -568,24 +562,25 @@ public class Communication extends Resource {
     }
 
     public static CommunicationCreator creator(
-        final String pathConversationSid
+        final String pathConversationId
     ) {
-        return new CommunicationCreator(pathConversationSid);
+        return new CommunicationCreator(pathConversationId);
     }
 
     public static CommunicationFetcher fetcher(
-        final String pathConversationSid,
-        final String pathSid
+        final String pathConversationId,
+        final String pathId
     ) {
-        return new CommunicationFetcher(pathConversationSid, pathSid);
+        return new CommunicationFetcher(pathConversationId, pathId);
     }
 
-    public static CommunicationReader reader(final String pathConversationSid) {
-        return new CommunicationReader(pathConversationSid);
+    public static CommunicationReader reader(final String pathConversationId) {
+        return new CommunicationReader(pathConversationId);
     }
 
     public enum Type {
-        TEXT("TEXT");
+        TEXT("TEXT"),
+        TRANSCRIPTION("TRANSCRIPTION");
 
         private final String value;
 
@@ -628,7 +623,7 @@ public class Communication extends Resource {
         }
     }
 
-    public enum DeliveryStatus {
+    public enum ConversationsVRecipientDeliveryStatus {
         INITIATED("INITIATED"),
         IN_PROGRESS("IN_PROGRESS"),
         DELIVERED("DELIVERED"),
@@ -637,7 +632,7 @@ public class Communication extends Resource {
 
         private final String value;
 
-        private DeliveryStatus(final String value) {
+        private ConversationsVRecipientDeliveryStatus(final String value) {
             this.value = value;
         }
 
@@ -647,8 +642,40 @@ public class Communication extends Resource {
         }
 
         @JsonCreator
-        public static DeliveryStatus forValue(final String value) {
-            return Promoter.enumFromString(value, DeliveryStatus.values());
+        public static ConversationsVRecipientDeliveryStatus forValue(
+            final String value
+        ) {
+            return Promoter.enumFromString(
+                value,
+                ConversationsVRecipientDeliveryStatus.values()
+            );
+        }
+    }
+
+    public enum ConversationsVChannel {
+        VOICE("VOICE"),
+        SMS("SMS"),
+        RCS("RCS"),
+        WHATSAPP("WHATSAPP"),
+        CHAT("CHAT");
+
+        private final String value;
+
+        private ConversationsVChannel(final String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ConversationsVChannel forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                ConversationsVChannel.values()
+            );
         }
     }
 
@@ -665,7 +692,7 @@ public class Communication extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("channel")
         @Getter
-        private final Communication.Channel channel;
+        private final Communication.ConversationsVChannel channel;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("participantId")
@@ -680,7 +707,7 @@ public class Communication extends Resource {
 
         public static Builder builder(
             final String address,
-            final Communication.Channel channel
+            final Communication.ConversationsVChannel channel
         ) {
             return new Builder(address, channel);
         }
@@ -702,7 +729,7 @@ public class Communication extends Resource {
             private String address;
 
             @JsonProperty("channel")
-            private Communication.Channel channel;
+            private Communication.ConversationsVChannel channel;
 
             @JsonProperty("participantId")
             private String participantId;
@@ -710,7 +737,9 @@ public class Communication extends Resource {
             @JsonCreator
             public Builder(
                 @JsonProperty("address") final String address,
-                @JsonProperty("channel") final Communication.Channel channel
+                @JsonProperty(
+                    "channel"
+                ) final Communication.ConversationsVChannel channel
             ) {
                 this.address = address;
                 this.channel = channel;
@@ -754,236 +783,82 @@ public class Communication extends Resource {
     }
 
     @JsonDeserialize(
-        builder = CreateCommunicationInConversationRequest.Builder.class
+        builder = CreateCommunicationInConversationRequestRecipients.Builder.class
     )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
-    public static class CreateCommunicationInConversationRequest {
+    public static class CreateCommunicationInConversationRequestRecipients {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("author")
+        @JsonProperty("address")
         @Getter
-        private final CreateCommunicationInConversationRequestAuthor author;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("content")
-        @Getter
-        private final CreateCommunicationInConversationRequestContent content;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("channelId")
-        @Getter
-        private final String channelId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("recipients")
-        @Getter
-        private final List<
-            CreateCommunicationInConversationRequestAuthor
-        > recipients;
-
-        private CreateCommunicationInConversationRequest(Builder builder) {
-            this.author = builder.author;
-            this.content = builder.content;
-            this.channelId = builder.channelId;
-            this.recipients = builder.recipients;
-        }
-
-        public static Builder builder(
-            final CreateCommunicationInConversationRequestAuthor author,
-            final CreateCommunicationInConversationRequestContent content,
-            final List<
-                CreateCommunicationInConversationRequestAuthor
-            > recipients
-        ) {
-            return new Builder(author, content, recipients);
-        }
-
-        public static CreateCommunicationInConversationRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                CreateCommunicationInConversationRequest.class
-            );
-        }
-
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonProperty("author")
-            private CreateCommunicationInConversationRequestAuthor author;
-
-            @JsonProperty("content")
-            private CreateCommunicationInConversationRequestContent content;
-
-            @JsonProperty("channelId")
-            private String channelId;
-
-            @JsonProperty("recipients")
-            private List<
-                CreateCommunicationInConversationRequestAuthor
-            > recipients;
-
-            @JsonCreator
-            public Builder(
-                @JsonProperty(
-                    "author"
-                ) final CreateCommunicationInConversationRequestAuthor author,
-                @JsonProperty(
-                    "content"
-                ) final CreateCommunicationInConversationRequestContent content,
-                @JsonProperty("recipients") final List<
-                    CreateCommunicationInConversationRequestAuthor
-                > recipients
-            ) {
-                this.author = author;
-                this.content = content;
-                this.recipients = recipients;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("channelId")
-            public Builder channelId(String channelId) {
-                this.channelId = channelId;
-                return this;
-            }
-
-            public CreateCommunicationInConversationRequest build() {
-                return new CreateCommunicationInConversationRequest(this);
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            CreateCommunicationInConversationRequest other =
-                (CreateCommunicationInConversationRequest) o;
-            return (
-                Objects.equals(author, other.author) &&
-                Objects.equals(content, other.content) &&
-                Objects.equals(channelId, other.channelId) &&
-                Objects.equals(recipients, other.recipients)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(author, content, channelId, recipients);
-        }
-    }
-
-    @JsonDeserialize(
-        builder = ConversationsV2ContentTranscriptionTranscription.Builder.class
-    )
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class ConversationsV2ContentTranscriptionTranscription {
+        private final String address;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("channel")
         @Getter
-        private final Integer channel;
+        private final Communication.Channel channel;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("confidence")
+        @JsonProperty("participantId")
         @Getter
-        private final Float confidence;
+        private final String participantId;
 
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("engine")
-        @Getter
-        private final String engine;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("words")
-        @Getter
-        private final List<
-            ConversationsV2ContentTranscriptionTranscriptionWords
-        > words;
-
-        private ConversationsV2ContentTranscriptionTranscription(
+        private CreateCommunicationInConversationRequestRecipients(
             Builder builder
         ) {
+            this.address = builder.address;
             this.channel = builder.channel;
-            this.confidence = builder.confidence;
-            this.engine = builder.engine;
-            this.words = builder.words;
+            this.participantId = builder.participantId;
         }
 
-        public static Builder builder() {
-            return new Builder();
+        public static Builder builder(
+            final String address,
+            final Communication.Channel channel
+        ) {
+            return new Builder(address, channel);
         }
 
-        public static ConversationsV2ContentTranscriptionTranscription fromJson(
+        public static CreateCommunicationInConversationRequestRecipients fromJson(
             String jsonString,
             ObjectMapper mapper
         ) throws IOException {
             return mapper.readValue(
                 jsonString,
-                ConversationsV2ContentTranscriptionTranscription.class
+                CreateCommunicationInConversationRequestRecipients.class
             );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
+            @JsonProperty("address")
+            private String address;
+
             @JsonProperty("channel")
-            private Integer channel;
+            private Communication.Channel channel;
 
-            @JsonProperty("confidence")
-            private Float confidence;
+            @JsonProperty("participantId")
+            private String participantId;
 
-            @JsonProperty("engine")
-            private String engine;
-
-            @JsonProperty("words")
-            private List<
-                ConversationsV2ContentTranscriptionTranscriptionWords
-            > words;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("channel")
-            public Builder channel(Integer channel) {
-                this.channel = channel;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("confidence")
-            public Builder confidence(Float confidence) {
-                this.confidence = confidence;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("engine")
-            public Builder engine(String engine) {
-                this.engine = engine;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("words")
-            public Builder words(
-                List<
-                    ConversationsV2ContentTranscriptionTranscriptionWords
-                > words
+            @JsonCreator
+            public Builder(
+                @JsonProperty("address") final String address,
+                @JsonProperty("channel") final Communication.Channel channel
             ) {
-                this.words = words;
+                this.address = address;
+                this.channel = channel;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("participantId")
+            public Builder participantId(String participantId) {
+                this.participantId = participantId;
                 return this;
             }
 
-            public ConversationsV2ContentTranscriptionTranscription build() {
-                return new ConversationsV2ContentTranscriptionTranscription(
+            public CreateCommunicationInConversationRequestRecipients build() {
+                return new CreateCommunicationInConversationRequestRecipients(
                     this
                 );
             }
@@ -999,19 +874,18 @@ public class Communication extends Resource {
                 return false;
             }
 
-            ConversationsV2ContentTranscriptionTranscription other =
-                (ConversationsV2ContentTranscriptionTranscription) o;
+            CreateCommunicationInConversationRequestRecipients other =
+                (CreateCommunicationInConversationRequestRecipients) o;
             return (
+                Objects.equals(address, other.address) &&
                 Objects.equals(channel, other.channel) &&
-                Objects.equals(confidence, other.confidence) &&
-                Objects.equals(engine, other.engine) &&
-                Objects.equals(words, other.words)
+                Objects.equals(participantId, other.participantId)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(channel, confidence, engine, words);
+            return Objects.hash(address, channel, participantId);
         }
     }
 
@@ -1143,6 +1017,682 @@ public class Communication extends Resource {
     }
 
     @JsonDeserialize(
+        builder = ListCommunicationByConversation200ResponseCommunicationsContent.Builder.class
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class ListCommunicationByConversation200ResponseCommunicationsContent {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        private final Communication.Type type;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("text")
+        @Getter
+        private final String text;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("transcription")
+        @Getter
+        private final ConversationsV2ContentTranscriptionTranscription transcription;
+
+        private ListCommunicationByConversation200ResponseCommunicationsContent(
+            Builder builder
+        ) {
+            this.type = builder.type;
+            this.text = builder.text;
+            this.transcription = builder.transcription;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static ListCommunicationByConversation200ResponseCommunicationsContent fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                ListCommunicationByConversation200ResponseCommunicationsContent.class
+            );
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("type")
+            private Communication.Type type;
+
+            @JsonProperty("text")
+            private String text;
+
+            @JsonProperty("transcription")
+            private ConversationsV2ContentTranscriptionTranscription transcription;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            public Builder type(Communication.Type type) {
+                this.type = type;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("text")
+            public Builder text(String text) {
+                this.text = text;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("transcription")
+            public Builder transcription(
+                ConversationsV2ContentTranscriptionTranscription transcription
+            ) {
+                this.transcription = transcription;
+                return this;
+            }
+
+            public ListCommunicationByConversation200ResponseCommunicationsContent build() {
+                return new ListCommunicationByConversation200ResponseCommunicationsContent(
+                    this
+                );
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ListCommunicationByConversation200ResponseCommunicationsContent other =
+                (ListCommunicationByConversation200ResponseCommunicationsContent) o;
+            return (
+                Objects.equals(type, other.type) &&
+                Objects.equals(text, other.text) &&
+                Objects.equals(transcription, other.transcription)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(type, text, transcription);
+        }
+    }
+
+    @JsonDeserialize(
+        builder = ListCommunicationByConversation200ResponseCommunications.Builder.class
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class ListCommunicationByConversation200ResponseCommunications {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        private final String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("conversationId")
+        @Getter
+        private final String conversationId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("accountId")
+        @Getter
+        private final String accountId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("author")
+        @Getter
+        private final ConversationsV2ParticipantAddress author;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("content")
+        @Getter
+        private final ListCommunicationByConversation200ResponseCommunicationsContent content;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("channelId")
+        @Getter
+        private final String channelId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("resourceId")
+        @Getter
+        private final String resourceId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("recipients")
+        @Getter
+        private final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients;
+
+        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("createdAt")
+        @Getter
+        private final ZonedDateTime createdAt;
+
+        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("updatedAt")
+        @Getter
+        private final ZonedDateTime updatedAt;
+
+        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("occurredAt")
+        @Getter
+        private final ZonedDateTime occurredAt;
+
+        private ListCommunicationByConversation200ResponseCommunications(
+            Builder builder
+        ) {
+            this.id = builder.id;
+            this.conversationId = builder.conversationId;
+            this.accountId = builder.accountId;
+            this.author = builder.author;
+            this.content = builder.content;
+            this.channelId = builder.channelId;
+            this.resourceId = builder.resourceId;
+            this.recipients = builder.recipients;
+            this.createdAt = builder.createdAt;
+            this.updatedAt = builder.updatedAt;
+            this.occurredAt = builder.occurredAt;
+        }
+
+        public static Builder builder(
+            final String id,
+            final String conversationId,
+            final String accountId,
+            final ConversationsV2ParticipantAddress author,
+            final ListCommunicationByConversation200ResponseCommunicationsContent content,
+            final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients
+        ) {
+            return new Builder(
+                id,
+                conversationId,
+                accountId,
+                author,
+                content,
+                recipients
+            );
+        }
+
+        public static ListCommunicationByConversation200ResponseCommunications fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                ListCommunicationByConversation200ResponseCommunications.class
+            );
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("conversationId")
+            private String conversationId;
+
+            @JsonProperty("accountId")
+            private String accountId;
+
+            @JsonProperty("author")
+            private ConversationsV2ParticipantAddress author;
+
+            @JsonProperty("content")
+            private ListCommunicationByConversation200ResponseCommunicationsContent content;
+
+            @JsonProperty("channelId")
+            private String channelId;
+
+            @JsonProperty("resourceId")
+            private String resourceId;
+
+            @JsonProperty("recipients")
+            private List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients;
+
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonProperty("createdAt")
+            private ZonedDateTime createdAt;
+
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonProperty("updatedAt")
+            private ZonedDateTime updatedAt;
+
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonProperty("occurredAt")
+            private ZonedDateTime occurredAt;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty("id") final String id,
+                @JsonProperty("conversationId") final String conversationId,
+                @JsonProperty("accountId") final String accountId,
+                @JsonProperty(
+                    "author"
+                ) final ConversationsV2ParticipantAddress author,
+                @JsonProperty(
+                    "content"
+                ) final ListCommunicationByConversation200ResponseCommunicationsContent content,
+                @JsonProperty(
+                    "recipients"
+                ) final List<ListCommunicationByConversation200ResponseCommunicationsRecipients> recipients
+            ) {
+                this.id = id;
+                this.conversationId = conversationId;
+                this.accountId = accountId;
+                this.author = author;
+                this.content = content;
+                this.recipients = recipients;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("channelId")
+            public Builder channelId(String channelId) {
+                this.channelId = channelId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("resourceId")
+            public Builder resourceId(String resourceId) {
+                this.resourceId = resourceId;
+                return this;
+            }
+
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("createdAt")
+            public Builder createdAt(ZonedDateTime createdAt) {
+                this.createdAt = createdAt;
+                return this;
+            }
+
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("updatedAt")
+            public Builder updatedAt(ZonedDateTime updatedAt) {
+                this.updatedAt = updatedAt;
+                return this;
+            }
+
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("occurredAt")
+            public Builder occurredAt(ZonedDateTime occurredAt) {
+                this.occurredAt = occurredAt;
+                return this;
+            }
+
+            public ListCommunicationByConversation200ResponseCommunications build() {
+                return new ListCommunicationByConversation200ResponseCommunications(
+                    this
+                );
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ListCommunicationByConversation200ResponseCommunications other =
+                (ListCommunicationByConversation200ResponseCommunications) o;
+            return (
+                Objects.equals(id, other.id) &&
+                Objects.equals(conversationId, other.conversationId) &&
+                Objects.equals(accountId, other.accountId) &&
+                Objects.equals(author, other.author) &&
+                Objects.equals(content, other.content) &&
+                Objects.equals(channelId, other.channelId) &&
+                Objects.equals(resourceId, other.resourceId) &&
+                Objects.equals(recipients, other.recipients) &&
+                Objects.equals(createdAt, other.createdAt) &&
+                Objects.equals(updatedAt, other.updatedAt) &&
+                Objects.equals(occurredAt, other.occurredAt)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                id,
+                conversationId,
+                accountId,
+                author,
+                content,
+                channelId,
+                resourceId,
+                recipients,
+                createdAt,
+                updatedAt,
+                occurredAt
+            );
+        }
+    }
+
+    @JsonDeserialize(
+        builder = CreateCommunicationInConversationRequest.Builder.class
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CreateCommunicationInConversationRequest {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("author")
+        @Getter
+        private final CreateCommunicationInConversationRequestAuthor author;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("content")
+        @Getter
+        private final CreateCommunicationInConversationRequestContent content;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("channelId")
+        @Getter
+        private final String channelId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("recipients")
+        @Getter
+        private final List<CreateCommunicationInConversationRequestRecipients> recipients;
+
+        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("occurredAt")
+        @Getter
+        private final ZonedDateTime occurredAt;
+
+        private CreateCommunicationInConversationRequest(Builder builder) {
+            this.author = builder.author;
+            this.content = builder.content;
+            this.channelId = builder.channelId;
+            this.recipients = builder.recipients;
+            this.occurredAt = builder.occurredAt;
+        }
+
+        public static Builder builder(
+            final CreateCommunicationInConversationRequestAuthor author,
+            final CreateCommunicationInConversationRequestContent content,
+            final List<CreateCommunicationInConversationRequestRecipients> recipients
+        ) {
+            return new Builder(author, content, recipients);
+        }
+
+        public static CreateCommunicationInConversationRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CreateCommunicationInConversationRequest.class
+            );
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("author")
+            private CreateCommunicationInConversationRequestAuthor author;
+
+            @JsonProperty("content")
+            private CreateCommunicationInConversationRequestContent content;
+
+            @JsonProperty("channelId")
+            private String channelId;
+
+            @JsonProperty("recipients")
+            private List<CreateCommunicationInConversationRequestRecipients> recipients;
+
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonProperty("occurredAt")
+            private ZonedDateTime occurredAt;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty(
+                    "author"
+                ) final CreateCommunicationInConversationRequestAuthor author,
+                @JsonProperty(
+                    "content"
+                ) final CreateCommunicationInConversationRequestContent content,
+                @JsonProperty(
+                    "recipients"
+                ) final List<CreateCommunicationInConversationRequestRecipients> recipients
+            ) {
+                this.author = author;
+                this.content = content;
+                this.recipients = recipients;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("channelId")
+            public Builder channelId(String channelId) {
+                this.channelId = channelId;
+                return this;
+            }
+
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("occurredAt")
+            public Builder occurredAt(ZonedDateTime occurredAt) {
+                this.occurredAt = occurredAt;
+                return this;
+            }
+
+            public CreateCommunicationInConversationRequest build() {
+                return new CreateCommunicationInConversationRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateCommunicationInConversationRequest other =
+                (CreateCommunicationInConversationRequest) o;
+            return (
+                Objects.equals(author, other.author) &&
+                Objects.equals(content, other.content) &&
+                Objects.equals(channelId, other.channelId) &&
+                Objects.equals(recipients, other.recipients) &&
+                Objects.equals(occurredAt, other.occurredAt)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                author,
+                content,
+                channelId,
+                recipients,
+                occurredAt
+            );
+        }
+    }
+
+    @JsonDeserialize(
+        builder = ConversationsV2ContentTranscriptionTranscription.Builder.class
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class ConversationsV2ContentTranscriptionTranscription {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("channel")
+        @Getter
+        private final Integer channel;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("confidence")
+        @Getter
+        private final Float confidence;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("engine")
+        @Getter
+        private final String engine;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("words")
+        @Getter
+        private final List<ConversationsV2ContentTranscriptionTranscriptionWords> words;
+
+        private ConversationsV2ContentTranscriptionTranscription(
+            Builder builder
+        ) {
+            this.channel = builder.channel;
+            this.confidence = builder.confidence;
+            this.engine = builder.engine;
+            this.words = builder.words;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static ConversationsV2ContentTranscriptionTranscription fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                ConversationsV2ContentTranscriptionTranscription.class
+            );
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("channel")
+            private Integer channel;
+
+            @JsonProperty("confidence")
+            private Float confidence;
+
+            @JsonProperty("engine")
+            private String engine;
+
+            @JsonProperty("words")
+            private List<ConversationsV2ContentTranscriptionTranscriptionWords> words;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("channel")
+            public Builder channel(Integer channel) {
+                this.channel = channel;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("confidence")
+            public Builder confidence(Float confidence) {
+                this.confidence = confidence;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("engine")
+            public Builder engine(String engine) {
+                this.engine = engine;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("words")
+            public Builder words(
+                List<ConversationsV2ContentTranscriptionTranscriptionWords> words
+            ) {
+                this.words = words;
+                return this;
+            }
+
+            public ConversationsV2ContentTranscriptionTranscription build() {
+                return new ConversationsV2ContentTranscriptionTranscription(
+                    this
+                );
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ConversationsV2ContentTranscriptionTranscription other =
+                (ConversationsV2ContentTranscriptionTranscription) o;
+            return (
+                Objects.equals(channel, other.channel) &&
+                Objects.equals(confidence, other.confidence) &&
+                Objects.equals(engine, other.engine) &&
+                Objects.equals(words, other.words)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(channel, confidence, engine, words);
+        }
+    }
+
+    @JsonDeserialize(
         builder = CreateCommunicationInConversationRequestAuthor.Builder.class
     )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -1262,7 +1812,7 @@ public class Communication extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("channel")
         @Getter
-        private final Communication.Channel channel;
+        private final Communication.ConversationsVChannel channel;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("participantId")
@@ -1272,7 +1822,7 @@ public class Communication extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("deliveryStatus")
         @Getter
-        private final Communication.DeliveryStatus deliveryStatus;
+        private final Communication.ConversationsVRecipientDeliveryStatus deliveryStatus;
 
         private ListCommunicationByConversation200ResponseCommunicationsRecipients(
             Builder builder
@@ -1285,7 +1835,7 @@ public class Communication extends Resource {
 
         public static Builder builder(
             final String address,
-            final Communication.Channel channel
+            final Communication.ConversationsVChannel channel
         ) {
             return new Builder(address, channel);
         }
@@ -1307,18 +1857,20 @@ public class Communication extends Resource {
             private String address;
 
             @JsonProperty("channel")
-            private Communication.Channel channel;
+            private Communication.ConversationsVChannel channel;
 
             @JsonProperty("participantId")
             private String participantId;
 
             @JsonProperty("deliveryStatus")
-            private Communication.DeliveryStatus deliveryStatus;
+            private Communication.ConversationsVRecipientDeliveryStatus deliveryStatus;
 
             @JsonCreator
             public Builder(
                 @JsonProperty("address") final String address,
-                @JsonProperty("channel") final Communication.Channel channel
+                @JsonProperty(
+                    "channel"
+                ) final Communication.ConversationsVChannel channel
             ) {
                 this.address = address;
                 this.channel = channel;
@@ -1334,7 +1886,7 @@ public class Communication extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("deliveryStatus")
             public Builder deliveryStatus(
-                Communication.DeliveryStatus deliveryStatus
+                Communication.ConversationsVRecipientDeliveryStatus deliveryStatus
             ) {
                 this.deliveryStatus = deliveryStatus;
                 return this;
@@ -1613,6 +2165,11 @@ public class Communication extends Resource {
     public static class CreateCommunicationInConversationRequestContent {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        private final Communication.Type type;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("text")
         @Getter
         private final String text;
@@ -1622,17 +2179,12 @@ public class Communication extends Resource {
         @Getter
         private final ContentTranscriptionTranscription transcription;
 
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("type")
-        @Getter
-        private final Communication.Type type;
-
         private CreateCommunicationInConversationRequestContent(
             Builder builder
         ) {
+            this.type = builder.type;
             this.text = builder.text;
             this.transcription = builder.transcription;
-            this.type = builder.type;
         }
 
         public static Builder builder() {
@@ -1652,14 +2204,21 @@ public class Communication extends Resource {
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
+            @JsonProperty("type")
+            private Communication.Type type;
+
             @JsonProperty("text")
             private String text;
 
             @JsonProperty("transcription")
             private ContentTranscriptionTranscription transcription;
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("type")
-            private Communication.Type type;
+            public Builder type(Communication.Type type) {
+                this.type = type;
+                return this;
+            }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("text")
@@ -1674,13 +2233,6 @@ public class Communication extends Resource {
                 ContentTranscriptionTranscription transcription
             ) {
                 this.transcription = transcription;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("type")
-            public Builder type(Communication.Type type) {
-                this.type = type;
                 return this;
             }
 
@@ -1704,414 +2256,15 @@ public class Communication extends Resource {
             CreateCommunicationInConversationRequestContent other =
                 (CreateCommunicationInConversationRequestContent) o;
             return (
+                Objects.equals(type, other.type) &&
                 Objects.equals(text, other.text) &&
-                Objects.equals(transcription, other.transcription) &&
-                Objects.equals(type, other.type)
+                Objects.equals(transcription, other.transcription)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(text, transcription, type);
-        }
-    }
-
-    @JsonDeserialize(
-        builder = ListCommunicationByConversation200ResponseCommunicationsContent.Builder.class
-    )
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class ListCommunicationByConversation200ResponseCommunicationsContent {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("text")
-        @Getter
-        private final String text;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("transcription")
-        @Getter
-        private final ConversationsV2ContentTranscriptionTranscription transcription;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("type")
-        @Getter
-        private final Communication.Type type;
-
-        private ListCommunicationByConversation200ResponseCommunicationsContent(
-            Builder builder
-        ) {
-            this.text = builder.text;
-            this.transcription = builder.transcription;
-            this.type = builder.type;
-        }
-
-        public static Builder builder() {
-            return new Builder();
-        }
-
-        public static ListCommunicationByConversation200ResponseCommunicationsContent fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                ListCommunicationByConversation200ResponseCommunicationsContent.class
-            );
-        }
-
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonProperty("text")
-            private String text;
-
-            @JsonProperty("transcription")
-            private ConversationsV2ContentTranscriptionTranscription transcription;
-
-            @JsonProperty("type")
-            private Communication.Type type;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("text")
-            public Builder text(String text) {
-                this.text = text;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("transcription")
-            public Builder transcription(
-                ConversationsV2ContentTranscriptionTranscription transcription
-            ) {
-                this.transcription = transcription;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("type")
-            public Builder type(Communication.Type type) {
-                this.type = type;
-                return this;
-            }
-
-            public ListCommunicationByConversation200ResponseCommunicationsContent build() {
-                return new ListCommunicationByConversation200ResponseCommunicationsContent(
-                    this
-                );
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            ListCommunicationByConversation200ResponseCommunicationsContent other =
-                (ListCommunicationByConversation200ResponseCommunicationsContent) o;
-            return (
-                Objects.equals(text, other.text) &&
-                Objects.equals(transcription, other.transcription) &&
-                Objects.equals(type, other.type)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(text, transcription, type);
-        }
-    }
-
-    @JsonDeserialize(
-        builder = ListCommunicationByConversation200ResponseCommunications.Builder.class
-    )
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class ListCommunicationByConversation200ResponseCommunications {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("id")
-        @Getter
-        private final String id;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("conversationId")
-        @Getter
-        private final String conversationId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("accountId")
-        @Getter
-        private final String accountId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("author")
-        @Getter
-        private final ConversationsV2ParticipantAddress author;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("content")
-        @Getter
-        private final ListCommunicationByConversation200ResponseCommunicationsContent content;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("channelId")
-        @Getter
-        private final String channelId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("resourceId")
-        @Getter
-        private final String resourceId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("recipients")
-        @Getter
-        private final List<
-            ListCommunicationByConversation200ResponseCommunicationsRecipients
-        > recipients;
-
-        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
-        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("createdAt")
-        @Getter
-        private final ZonedDateTime createdAt;
-
-        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
-        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("updatedAt")
-        @Getter
-        private final ZonedDateTime updatedAt;
-
-        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
-        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("occurredAt")
-        @Getter
-        private final ZonedDateTime occurredAt;
-
-        private ListCommunicationByConversation200ResponseCommunications(
-            Builder builder
-        ) {
-            this.id = builder.id;
-            this.conversationId = builder.conversationId;
-            this.accountId = builder.accountId;
-            this.author = builder.author;
-            this.content = builder.content;
-            this.channelId = builder.channelId;
-            this.resourceId = builder.resourceId;
-            this.recipients = builder.recipients;
-            this.createdAt = builder.createdAt;
-            this.updatedAt = builder.updatedAt;
-            this.occurredAt = builder.occurredAt;
-        }
-
-        public static Builder builder(
-            final String id,
-            final String conversationId,
-            final String accountId,
-            final ConversationsV2ParticipantAddress author,
-            final ListCommunicationByConversation200ResponseCommunicationsContent content,
-            final List<
-                ListCommunicationByConversation200ResponseCommunicationsRecipients
-            > recipients
-        ) {
-            return new Builder(
-                id,
-                conversationId,
-                accountId,
-                author,
-                content,
-                recipients
-            );
-        }
-
-        public static ListCommunicationByConversation200ResponseCommunications fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                ListCommunicationByConversation200ResponseCommunications.class
-            );
-        }
-
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonProperty("id")
-            private String id;
-
-            @JsonProperty("conversationId")
-            private String conversationId;
-
-            @JsonProperty("accountId")
-            private String accountId;
-
-            @JsonProperty("author")
-            private ConversationsV2ParticipantAddress author;
-
-            @JsonProperty("content")
-            private ListCommunicationByConversation200ResponseCommunicationsContent content;
-
-            @JsonProperty("channelId")
-            private String channelId;
-
-            @JsonProperty("resourceId")
-            private String resourceId;
-
-            @JsonProperty("recipients")
-            private List<
-                ListCommunicationByConversation200ResponseCommunicationsRecipients
-            > recipients;
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-            @JsonProperty("createdAt")
-            private ZonedDateTime createdAt;
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-            @JsonProperty("updatedAt")
-            private ZonedDateTime updatedAt;
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-            @JsonProperty("occurredAt")
-            private ZonedDateTime occurredAt;
-
-            @JsonCreator
-            public Builder(
-                @JsonProperty("id") final String id,
-                @JsonProperty("conversationId") final String conversationId,
-                @JsonProperty("accountId") final String accountId,
-                @JsonProperty(
-                    "author"
-                ) final ConversationsV2ParticipantAddress author,
-                @JsonProperty(
-                    "content"
-                ) final ListCommunicationByConversation200ResponseCommunicationsContent content,
-                @JsonProperty("recipients") final List<
-                    ListCommunicationByConversation200ResponseCommunicationsRecipients
-                > recipients
-            ) {
-                this.id = id;
-                this.conversationId = conversationId;
-                this.accountId = accountId;
-                this.author = author;
-                this.content = content;
-                this.recipients = recipients;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("channelId")
-            public Builder channelId(String channelId) {
-                this.channelId = channelId;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("resourceId")
-            public Builder resourceId(String resourceId) {
-                this.resourceId = resourceId;
-                return this;
-            }
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("createdAt")
-            public Builder createdAt(ZonedDateTime createdAt) {
-                this.createdAt = createdAt;
-                return this;
-            }
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("updatedAt")
-            public Builder updatedAt(ZonedDateTime updatedAt) {
-                this.updatedAt = updatedAt;
-                return this;
-            }
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("occurredAt")
-            public Builder occurredAt(ZonedDateTime occurredAt) {
-                this.occurredAt = occurredAt;
-                return this;
-            }
-
-            public ListCommunicationByConversation200ResponseCommunications build() {
-                return new ListCommunicationByConversation200ResponseCommunications(
-                    this
-                );
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            ListCommunicationByConversation200ResponseCommunications other =
-                (ListCommunicationByConversation200ResponseCommunications) o;
-            return (
-                Objects.equals(id, other.id) &&
-                Objects.equals(conversationId, other.conversationId) &&
-                Objects.equals(accountId, other.accountId) &&
-                Objects.equals(author, other.author) &&
-                Objects.equals(content, other.content) &&
-                Objects.equals(channelId, other.channelId) &&
-                Objects.equals(resourceId, other.resourceId) &&
-                Objects.equals(recipients, other.recipients) &&
-                Objects.equals(createdAt, other.createdAt) &&
-                Objects.equals(updatedAt, other.updatedAt) &&
-                Objects.equals(occurredAt, other.occurredAt)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(
-                id,
-                conversationId,
-                accountId,
-                author,
-                content,
-                channelId,
-                resourceId,
-                recipients,
-                createdAt,
-                updatedAt,
-                occurredAt
-            );
+            return Objects.hash(type, text, transcription);
         }
     }
 

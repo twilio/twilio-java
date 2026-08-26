@@ -59,16 +59,14 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ResourceSid" + "}",
-                this.pathResourceSid.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
+        path = path.replace(
+            "{" + "ResourceSid" + "}",
+            this.pathResourceSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

@@ -69,11 +69,10 @@ public class AssetReader extends Reader<Asset> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Assets";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

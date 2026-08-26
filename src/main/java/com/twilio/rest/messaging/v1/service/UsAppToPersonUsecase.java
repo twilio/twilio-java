@@ -105,9 +105,9 @@ public class UsAppToPersonUsecase extends Resource {
 
     @JsonCreator
     private UsAppToPersonUsecase(
-        @JsonProperty("us_app_to_person_usecases") final List<
-            Object
-        > usAppToPersonUsecases
+        @JsonProperty(
+            "us_app_to_person_usecases"
+        ) final List<Object> usAppToPersonUsecases
     ) {
         this.usAppToPersonUsecases = usAppToPersonUsecases;
     }
@@ -123,8 +123,9 @@ public class UsAppToPersonUsecase extends Resource {
         }
 
         UsAppToPersonUsecase other = (UsAppToPersonUsecase) o;
-        return (
-            Objects.equals(usAppToPersonUsecases, other.usAppToPersonUsecases)
+        return Objects.equals(
+            usAppToPersonUsecases,
+            other.usAppToPersonUsecases
         );
     }
 

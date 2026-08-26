@@ -78,11 +78,10 @@ public class SyncListPermissionReader extends Reader<SyncListPermission> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
         path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
 
         Request request = new Request(

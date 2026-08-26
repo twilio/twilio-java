@@ -31,7 +31,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class NetworkAccessProfileNetworkCreator
-    extends Creator<NetworkAccessProfileNetwork> {
+    extends Creator<NetworkAccessProfileNetwork>
+{
 
     private String pathNetworkAccessProfileSid;
     private String network;
@@ -53,11 +54,10 @@ public class NetworkAccessProfileNetworkCreator
         String path =
             "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks";
 
-        path =
-            path.replace(
-                "{" + "NetworkAccessProfileSid" + "}",
-                this.pathNetworkAccessProfileSid.toString()
-            );
+        path = path.replace(
+            "{" + "NetworkAccessProfileSid" + "}",
+            this.pathNetworkAccessProfileSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

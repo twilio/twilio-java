@@ -41,11 +41,10 @@ public class EvaluationFetcher extends Fetcher<Evaluation> {
         String path =
             "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "BundleSid" + "}",
-                this.pathBundleSid.toString()
-            );
+        path = path.replace(
+            "{" + "BundleSid" + "}",
+            this.pathBundleSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

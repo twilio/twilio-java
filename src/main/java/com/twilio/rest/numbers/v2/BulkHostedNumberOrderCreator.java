@@ -30,7 +30,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class BulkHostedNumberOrderCreator
-    extends Creator<BulkHostedNumberOrder> {
+    extends Creator<BulkHostedNumberOrder>
+{
 
     private Object body;
 

@@ -64,6 +64,7 @@ public class CallCreator extends Creator<Call> {
     private String asyncAmd;
     private URI asyncAmdStatusCallback;
     private HttpMethod asyncAmdStatusCallbackMethod;
+    private String passports;
     private String byoc;
     private String callReason;
     private String callToken;
@@ -335,6 +336,11 @@ public class CallCreator extends Creator<Call> {
         return this;
     }
 
+    public CallCreator setPassports(final String passports) {
+        this.passports = passports;
+        return this;
+    }
+
     public CallCreator setByoc(final String byoc) {
         this.byoc = byoc;
         return this;
@@ -405,11 +411,10 @@ public class CallCreator extends Creator<Call> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -712,6 +717,15 @@ public class CallCreator extends Creator<Call> {
                 request,
                 "AsyncAmdStatusCallbackMethod",
                 asyncAmdStatusCallbackMethod,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (passports != null) {
+            Serializer.toString(
+                request,
+                "Passports",
+                passports,
                 ParameterType.URLENCODED
             );
         }

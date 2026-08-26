@@ -55,16 +55,14 @@ public class InteractionTransferUpdater extends Updater<InteractionTransfer> {
         String path =
             "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "InteractionSid" + "}",
-                this.pathInteractionSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChannelSid" + "}",
-                this.pathChannelSid.toString()
-            );
+        path = path.replace(
+            "{" + "InteractionSid" + "}",
+            this.pathInteractionSid.toString()
+        );
+        path = path.replace(
+            "{" + "ChannelSid" + "}",
+            this.pathChannelSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

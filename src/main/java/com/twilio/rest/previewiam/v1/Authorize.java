@@ -117,7 +117,7 @@ public class Authorize extends Resource {
         }
 
         Authorize other = (Authorize) o;
-        return (Objects.equals(redirectTo, other.redirectTo));
+        return Objects.equals(redirectTo, other.redirectTo);
     }
 
     @Override

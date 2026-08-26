@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,6 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.type.*;
@@ -63,6 +65,29 @@ public class OAuthApp extends Resource {
             pathSid,
             iamV1AccountVendorOauthAppUpdateRequest
         );
+    }
+
+    public enum TokenEndpointAuthMethod {
+        CLIENT_SECRET_BASIC("client_secret_basic");
+
+        private final String value;
+
+        private TokenEndpointAuthMethod(final String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TokenEndpointAuthMethod forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                TokenEndpointAuthMethod.values()
+            );
+        }
     }
 
     @JsonDeserialize(
@@ -190,6 +215,11 @@ public class OAuthApp extends Resource {
         private final String clientSid;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("token_endpoint_auth_method")
+        @Getter
+        private final OAuthApp.TokenEndpointAuthMethod tokenEndpointAuthMethod;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("policy")
         @Getter
         private final IamV1OrganizationVendoroauthappPolicy policy;
@@ -205,6 +235,7 @@ public class OAuthApp extends Resource {
             this.ownerSid = builder.ownerSid;
             this.description = builder.description;
             this.clientSid = builder.clientSid;
+            this.tokenEndpointAuthMethod = builder.tokenEndpointAuthMethod;
             this.policy = builder.policy;
             this.accessTokenTtl = builder.accessTokenTtl;
         }
@@ -240,6 +271,9 @@ public class OAuthApp extends Resource {
 
             @JsonProperty("client_sid")
             private String clientSid;
+
+            @JsonProperty("token_endpoint_auth_method")
+            private OAuthApp.TokenEndpointAuthMethod tokenEndpointAuthMethod;
 
             @JsonProperty("policy")
             private IamV1OrganizationVendoroauthappPolicy policy;
@@ -283,6 +317,15 @@ public class OAuthApp extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("token_endpoint_auth_method")
+            public Builder tokenEndpointAuthMethod(
+                OAuthApp.TokenEndpointAuthMethod tokenEndpointAuthMethod
+            ) {
+                this.tokenEndpointAuthMethod = tokenEndpointAuthMethod;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("policy")
             public Builder policy(
                 IamV1OrganizationVendoroauthappPolicy policy
@@ -321,6 +364,10 @@ public class OAuthApp extends Resource {
                 Objects.equals(ownerSid, other.ownerSid) &&
                 Objects.equals(description, other.description) &&
                 Objects.equals(clientSid, other.clientSid) &&
+                Objects.equals(
+                    tokenEndpointAuthMethod,
+                    other.tokenEndpointAuthMethod
+                ) &&
                 Objects.equals(policy, other.policy) &&
                 Objects.equals(accessTokenTtl, other.accessTokenTtl)
             );
@@ -334,6 +381,7 @@ public class OAuthApp extends Resource {
                 ownerSid,
                 description,
                 clientSid,
+                tokenEndpointAuthMethod,
                 policy,
                 accessTokenTtl
             );
@@ -636,6 +684,9 @@ public class OAuthApp extends Resource {
     @Getter
     private final String createdBy;
 
+    @Getter
+    private final String creatorSid;
+
     @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
     @Getter
     private final ZonedDateTime dateCreated;
@@ -665,6 +716,7 @@ public class OAuthApp extends Resource {
     private OAuthApp(
         @JsonProperty("access_token_ttl") final Integer accessTokenTtl,
         @JsonProperty("created_by") final String createdBy,
+        @JsonProperty("creator_sid") final String creatorSid,
         @JsonProperty("date_created") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
         ) @JsonSerialize(
@@ -682,6 +734,7 @@ public class OAuthApp extends Resource {
     ) {
         this.accessTokenTtl = accessTokenTtl;
         this.createdBy = createdBy;
+        this.creatorSid = creatorSid;
         this.dateCreated = dateCreated;
         this.description = description;
         this.friendlyName = friendlyName;
@@ -706,6 +759,7 @@ public class OAuthApp extends Resource {
         return (
             Objects.equals(accessTokenTtl, other.accessTokenTtl) &&
             Objects.equals(createdBy, other.createdBy) &&
+            Objects.equals(creatorSid, other.creatorSid) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(description, other.description) &&
             Objects.equals(friendlyName, other.friendlyName) &&
@@ -722,6 +776,7 @@ public class OAuthApp extends Resource {
         return Objects.hash(
             accessTokenTtl,
             createdBy,
+            creatorSid,
             dateCreated,
             description,
             friendlyName,

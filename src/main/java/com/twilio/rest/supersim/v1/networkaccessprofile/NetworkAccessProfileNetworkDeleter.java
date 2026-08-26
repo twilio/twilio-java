@@ -29,7 +29,8 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class NetworkAccessProfileNetworkDeleter
-    extends Deleter<NetworkAccessProfileNetwork> {
+    extends Deleter<NetworkAccessProfileNetwork>
+{
 
     private String pathNetworkAccessProfileSid;
     private String pathSid;
@@ -46,11 +47,10 @@ public class NetworkAccessProfileNetworkDeleter
         String path =
             "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "NetworkAccessProfileSid" + "}",
-                this.pathNetworkAccessProfileSid.toString()
-            );
+        path = path.replace(
+            "{" + "NetworkAccessProfileSid" + "}",
+            this.pathNetworkAccessProfileSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Predicate<Integer> deleteStatuses = i ->

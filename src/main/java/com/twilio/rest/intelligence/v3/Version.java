@@ -123,7 +123,7 @@ public class Version extends Resource {
                 return false;
             }
             UpdateVersionResponse other = (UpdateVersionResponse) o;
-            return (true);
+            return true;
         }
 
         @Override
@@ -358,9 +358,9 @@ public class Version extends Resource {
             > parameters,
             @JsonProperty("prompt") final String prompt,
             @JsonProperty("status") final Version.OperatorVersionStatus status,
-            @JsonProperty("trainingExamples") final List<
-                OperatorTrainingExample
-            > trainingExamples,
+            @JsonProperty(
+                "trainingExamples"
+            ) final List<OperatorTrainingExample> trainingExamples,
             @JsonProperty("version") final Integer version
         ) {
             this.author = author;
@@ -1109,7 +1109,7 @@ public class Version extends Resource {
             }
 
             OperatorContextKnowledge other = (OperatorContextKnowledge) o;
-            return (Objects.equals(enabled, other.enabled));
+            return Objects.equals(enabled, other.enabled);
         }
 
         @Override
@@ -1249,7 +1249,7 @@ public class Version extends Resource {
             }
 
             OperatorContextMemory other = (OperatorContextMemory) o;
-            return (Objects.equals(enabled, other.enabled));
+            return Objects.equals(enabled, other.enabled);
         }
 
         @Override

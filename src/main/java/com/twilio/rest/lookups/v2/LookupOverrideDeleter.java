@@ -45,11 +45,10 @@ public class LookupOverrideDeleter extends Deleter<LookupOverride> {
         String path = "/v2/PhoneNumbers/{PhoneNumber}/Overrides/{Field}";
 
         path = path.replace("{" + "Field" + "}", this.pathField.toString());
-        path =
-            path.replace(
-                "{" + "PhoneNumber" + "}",
-                this.pathPhoneNumber.toString()
-            );
+        path = path.replace(
+            "{" + "PhoneNumber" + "}",
+            this.pathPhoneNumber.toString()
+        );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

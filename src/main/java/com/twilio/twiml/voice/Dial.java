@@ -178,6 +178,7 @@ public class Dial extends TwiML {
     private final URI referUrl;
     private final HttpMethod referMethod;
     private final Dial.Events events;
+    private final String passports;
     private final String number;
 
     /**
@@ -211,6 +212,7 @@ public class Dial extends TwiML {
         this.referUrl = b.referUrl;
         this.referMethod = b.referMethod;
         this.events = b.events;
+        this.passports = b.passports;
         this.number = b.number;
     }
 
@@ -288,6 +290,9 @@ public class Dial extends TwiML {
         }
         if (this.getEvents() != null) {
             attrs.put("events", this.getEvents().toString());
+        }
+        if (this.getPassports() != null) {
+            attrs.put("passports", this.getPassports());
         }
 
         return attrs;
@@ -485,6 +490,15 @@ public class Dial extends TwiML {
     }
 
     /**
+     * Base64-encoded comma-separated identity passports (e.g. shaken, div)
+     *
+     * @return Base64-encoded comma-separated identity passports (e.g. shaken, div)
+     */
+    public String getPassports() {
+        return passports;
+    }
+
+    /**
      * Phone number to dial
      *
      * @return Phone number to dial
@@ -531,6 +545,7 @@ public class Dial extends TwiML {
         private URI referUrl;
         private HttpMethod referMethod;
         private Dial.Events events;
+        private String passports;
         private String number;
 
         /**
@@ -750,6 +765,15 @@ public class Dial extends TwiML {
         @JacksonXmlProperty(isAttribute = true, localName = "events")
         public Builder events(Dial.Events events) {
             this.events = events;
+            return this;
+        }
+
+        /**
+         * Base64-encoded comma-separated identity passports (e.g. shaken, div)
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "passports")
+        public Builder passports(String passports) {
+            this.passports = passports;
             return this;
         }
 

@@ -185,9 +185,9 @@ public class VerificationCheck extends Resource {
         @JsonProperty("payee") final String payee,
         @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("sna_attempts_error_codes") final List<
-            Object
-        > snaAttemptsErrorCodes,
+        @JsonProperty(
+            "sna_attempts_error_codes"
+        ) final List<Object> snaAttemptsErrorCodes,
         @JsonProperty("status") final String status,
         @JsonProperty("to") final String to,
         @JsonProperty("valid") final Boolean valid

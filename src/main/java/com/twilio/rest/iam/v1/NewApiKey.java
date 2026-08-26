@@ -17,7 +17,6 @@ package com.twilio.rest.iam.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,7 +25,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.type.*;
@@ -44,26 +42,6 @@ public class NewApiKey extends Resource {
 
     public static NewApiKeyCreator creator(final String accountSid) {
         return new NewApiKeyCreator(accountSid);
-    }
-
-    public enum Keytype {
-        RESTRICTED("restricted");
-
-        private final String value;
-
-        private Keytype(final String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Keytype forValue(final String value) {
-            return Promoter.enumFromString(value, Keytype.values());
-        }
     }
 
     /**

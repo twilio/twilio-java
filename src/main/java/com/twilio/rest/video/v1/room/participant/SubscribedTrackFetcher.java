@@ -48,11 +48,10 @@ public class SubscribedTrackFetcher extends Fetcher<SubscribedTrack> {
             "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks/{Sid}";
 
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
-        path =
-            path.replace(
-                "{" + "ParticipantSid" + "}",
-                this.pathParticipantSid.toString()
-            );
+        path = path.replace(
+            "{" + "ParticipantSid" + "}",
+            this.pathParticipantSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

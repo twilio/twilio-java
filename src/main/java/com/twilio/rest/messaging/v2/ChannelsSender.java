@@ -841,6 +841,11 @@ public class ChannelsSender extends Resource {
         private final String senderId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("friendly_name")
+        @Getter
+        private final String friendlyName;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("configuration")
         @Getter
         private final MessagingV2ChannelsSenderConfiguration configuration;
@@ -857,6 +862,7 @@ public class ChannelsSender extends Resource {
 
         private MessagingV2ChannelsSenderRequestsCreate(Builder builder) {
             this.senderId = builder.senderId;
+            this.friendlyName = builder.friendlyName;
             this.configuration = builder.configuration;
             this.webhook = builder.webhook;
             this.profile = builder.profile;
@@ -882,6 +888,9 @@ public class ChannelsSender extends Resource {
             @JsonProperty("sender_id")
             private String senderId;
 
+            @JsonProperty("friendly_name")
+            private String friendlyName;
+
             @JsonProperty("configuration")
             private MessagingV2ChannelsSenderConfiguration configuration;
 
@@ -894,6 +903,13 @@ public class ChannelsSender extends Resource {
             @JsonCreator
             public Builder(@JsonProperty("sender_id") final String senderId) {
                 this.senderId = senderId;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("friendly_name")
+            public Builder friendlyName(String friendlyName) {
+                this.friendlyName = friendlyName;
+                return this;
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -938,6 +954,7 @@ public class ChannelsSender extends Resource {
                 (MessagingV2ChannelsSenderRequestsCreate) o;
             return (
                 Objects.equals(senderId, other.senderId) &&
+                Objects.equals(friendlyName, other.friendlyName) &&
                 Objects.equals(configuration, other.configuration) &&
                 Objects.equals(webhook, other.webhook) &&
                 Objects.equals(profile, other.profile)
@@ -946,7 +963,13 @@ public class ChannelsSender extends Resource {
 
         @Override
         public int hashCode() {
-            return Objects.hash(senderId, configuration, webhook, profile);
+            return Objects.hash(
+                senderId,
+                friendlyName,
+                configuration,
+                webhook,
+                profile
+            );
         }
     }
 
@@ -1243,6 +1266,11 @@ public class ChannelsSender extends Resource {
     public static class MessagingV2ChannelsSenderRequestsUpdate {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("friendly_name")
+        @Getter
+        private final String friendlyName;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("configuration")
         @Getter
         private final MessagingV2ChannelsSenderConfiguration configuration;
@@ -1258,6 +1286,7 @@ public class ChannelsSender extends Resource {
         private final MessagingV2ChannelsSenderProfile profile;
 
         private MessagingV2ChannelsSenderRequestsUpdate(Builder builder) {
+            this.friendlyName = builder.friendlyName;
             this.configuration = builder.configuration;
             this.webhook = builder.webhook;
             this.profile = builder.profile;
@@ -1280,6 +1309,9 @@ public class ChannelsSender extends Resource {
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
+            @JsonProperty("friendly_name")
+            private String friendlyName;
+
             @JsonProperty("configuration")
             private MessagingV2ChannelsSenderConfiguration configuration;
 
@@ -1288,6 +1320,13 @@ public class ChannelsSender extends Resource {
 
             @JsonProperty("profile")
             private MessagingV2ChannelsSenderProfile profile;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("friendly_name")
+            public Builder friendlyName(String friendlyName) {
+                this.friendlyName = friendlyName;
+                return this;
+            }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("configuration")
@@ -1330,6 +1369,7 @@ public class ChannelsSender extends Resource {
             MessagingV2ChannelsSenderRequestsUpdate other =
                 (MessagingV2ChannelsSenderRequestsUpdate) o;
             return (
+                Objects.equals(friendlyName, other.friendlyName) &&
                 Objects.equals(configuration, other.configuration) &&
                 Objects.equals(webhook, other.webhook) &&
                 Objects.equals(profile, other.profile)
@@ -1338,7 +1378,7 @@ public class ChannelsSender extends Resource {
 
         @Override
         public int hashCode() {
-            return Objects.hash(configuration, webhook, profile);
+            return Objects.hash(friendlyName, configuration, webhook, profile);
         }
     }
 
@@ -1786,23 +1826,17 @@ public class ChannelsSender extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("websites")
         @Getter
-        private final List<
-            MessagingV2ChannelsSenderProfileGenericResponseWebsites
-        > websites;
+        private final List<MessagingV2ChannelsSenderProfileGenericResponseWebsites> websites;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("emails")
         @Getter
-        private final List<
-            MessagingV2ChannelsSenderProfileGenericResponseEmails
-        > emails;
+        private final List<MessagingV2ChannelsSenderProfileGenericResponseEmails> emails;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("phone_numbers")
         @Getter
-        private final List<
-            MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers
-        > phoneNumbers;
+        private final List<MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers> phoneNumbers;
 
         private MessagingV2ChannelsSenderProfileGenericResponse(
             Builder builder
@@ -1874,19 +1908,13 @@ public class ChannelsSender extends Resource {
             private String vertical;
 
             @JsonProperty("websites")
-            private List<
-                MessagingV2ChannelsSenderProfileGenericResponseWebsites
-            > websites;
+            private List<MessagingV2ChannelsSenderProfileGenericResponseWebsites> websites;
 
             @JsonProperty("emails")
-            private List<
-                MessagingV2ChannelsSenderProfileGenericResponseEmails
-            > emails;
+            private List<MessagingV2ChannelsSenderProfileGenericResponseEmails> emails;
 
             @JsonProperty("phone_numbers")
-            private List<
-                MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers
-            > phoneNumbers;
+            private List<MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers> phoneNumbers;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("name")
@@ -1968,9 +1996,7 @@ public class ChannelsSender extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("websites")
             public Builder websites(
-                List<
-                    MessagingV2ChannelsSenderProfileGenericResponseWebsites
-                > websites
+                List<MessagingV2ChannelsSenderProfileGenericResponseWebsites> websites
             ) {
                 this.websites = websites;
                 return this;
@@ -1979,9 +2005,7 @@ public class ChannelsSender extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("emails")
             public Builder emails(
-                List<
-                    MessagingV2ChannelsSenderProfileGenericResponseEmails
-                > emails
+                List<MessagingV2ChannelsSenderProfileGenericResponseEmails> emails
             ) {
                 this.emails = emails;
                 return this;
@@ -1990,9 +2014,7 @@ public class ChannelsSender extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("phone_numbers")
             public Builder phoneNumbers(
-                List<
-                    MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers
-                > phoneNumbers
+                List<MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers> phoneNumbers
             ) {
                 this.phoneNumbers = phoneNumbers;
                 return this;
@@ -2268,9 +2290,10 @@ public class ChannelsSender extends Resource {
     private final MessagingV2ChannelsSenderConfiguration configuration;
 
     @Getter
-    private final List<
-        MessagingV2ChannelsSenderOfflineReasonsItems
-    > offlineReasons;
+    private final String friendlyName;
+
+    @Getter
+    private final List<MessagingV2ChannelsSenderOfflineReasonsItems> offlineReasons;
 
     @Getter
     private final MessagingV2ChannelsSenderProfileGenericResponse profile;
@@ -2301,9 +2324,10 @@ public class ChannelsSender extends Resource {
         @JsonProperty(
             "configuration"
         ) final MessagingV2ChannelsSenderConfiguration configuration,
-        @JsonProperty("offline_reasons") final List<
-            MessagingV2ChannelsSenderOfflineReasonsItems
-        > offlineReasons,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty(
+            "offline_reasons"
+        ) final List<MessagingV2ChannelsSenderOfflineReasonsItems> offlineReasons,
         @JsonProperty(
             "profile"
         ) final MessagingV2ChannelsSenderProfileGenericResponse profile,
@@ -2318,6 +2342,7 @@ public class ChannelsSender extends Resource {
     ) {
         this.compliance = compliance;
         this.configuration = configuration;
+        this.friendlyName = friendlyName;
         this.offlineReasons = offlineReasons;
         this.profile = profile;
         this.properties = properties;
@@ -2342,6 +2367,7 @@ public class ChannelsSender extends Resource {
         return (
             Objects.equals(compliance, other.compliance) &&
             Objects.equals(configuration, other.configuration) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(offlineReasons, other.offlineReasons) &&
             Objects.equals(profile, other.profile) &&
             Objects.equals(properties, other.properties) &&
@@ -2358,6 +2384,7 @@ public class ChannelsSender extends Resource {
         return Objects.hash(
             compliance,
             configuration,
+            friendlyName,
             offlineReasons,
             profile,
             properties,

@@ -19,7 +19,6 @@ import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
-import com.twilio.exception.RestStandardException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
@@ -29,18 +28,19 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConfigurationFetcher
-    extends Fetcher<Configuration.FetchConfigurationResponse> {
+    extends Fetcher<Configuration.FetchConfigurationResponse>
+{
 
-    private String pathSid;
+    private String pathId;
 
-    public ConfigurationFetcher(final String pathSid) {
-        this.pathSid = pathSid;
+    public ConfigurationFetcher(final String pathId) {
+        this.pathId = pathId;
     }
 
     private Response makeRequest(final TwilioRestClient client) {
-        String path = "/v2/ControlPlane/Configurations/{Sid}";
+        String path = "/v2/ControlPlane/Configurations/{id}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -56,16 +56,6 @@ public class ConfigurationFetcher
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             InputStream inputStream = response.getStream();
-            RestStandardException standardException =
-                RestStandardException.fromJson(
-                    inputStream,
-                    client.getObjectMapper()
-                );
-            if (
-                standardException != null && standardException.getType() != null
-            ) {
-                throw new ApiException(standardException);
-            }
             RestException restException = RestException.fromJson(
                 inputStream,
                 client.getObjectMapper()
@@ -93,9 +83,9 @@ public class ConfigurationFetcher
     }
 
     @Override
-    public TwilioResponse<
-        Configuration.FetchConfigurationResponse
-    > fetchWithResponse(final TwilioRestClient client) {
+    public TwilioResponse<Configuration.FetchConfigurationResponse> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
         Configuration.FetchConfigurationResponse content =
             Configuration.FetchConfigurationResponse.fromJson(

@@ -73,11 +73,10 @@ public class WebhookReader extends Reader<Webhook> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Webhooks";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

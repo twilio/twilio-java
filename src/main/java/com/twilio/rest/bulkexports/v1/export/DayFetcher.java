@@ -40,11 +40,10 @@ public class DayFetcher extends Fetcher<Day> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Exports/{ResourceType}/Days/{Day}";
 
-        path =
-            path.replace(
-                "{" + "ResourceType" + "}",
-                this.pathResourceType.toString()
-            );
+        path = path.replace(
+            "{" + "ResourceType" + "}",
+            this.pathResourceType.toString()
+        );
         path = path.replace("{" + "Day" + "}", this.pathDay.toString());
 
         Request request = new Request(

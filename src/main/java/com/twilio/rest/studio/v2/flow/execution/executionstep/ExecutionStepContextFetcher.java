@@ -48,11 +48,10 @@ public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
             "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path =
-            path.replace(
-                "{" + "ExecutionSid" + "}",
-                this.pathExecutionSid.toString()
-            );
+        path = path.replace(
+            "{" + "ExecutionSid" + "}",
+            this.pathExecutionSid.toString()
+        );
         path = path.replace("{" + "StepSid" + "}", this.pathStepSid.toString());
 
         Request request = new Request(

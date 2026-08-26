@@ -60,16 +60,14 @@ public class IpAddressDeleter extends Deleter<IpAddress> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "IpAccessControlListSid" + "}",
-                this.pathIpAccessControlListSid.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
+        path = path.replace(
+            "{" + "IpAccessControlListSid" + "}",
+            this.pathIpAccessControlListSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Predicate<Integer> deleteStatuses = i ->

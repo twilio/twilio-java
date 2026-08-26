@@ -45,11 +45,10 @@ public class ItemAssignmentDeleter extends Deleter<ItemAssignment> {
         String path =
             "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "BundleSid" + "}",
-                this.pathBundleSid.toString()
-            );
+        path = path.replace(
+            "{" + "BundleSid" + "}",
+            this.pathBundleSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Predicate<Integer> deleteStatuses = i ->

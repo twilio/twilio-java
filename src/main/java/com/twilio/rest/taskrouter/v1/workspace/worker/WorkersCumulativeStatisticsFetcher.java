@@ -31,7 +31,8 @@ import java.io.InputStream;
 import java.time.ZonedDateTime;
 
 public class WorkersCumulativeStatisticsFetcher
-    extends Fetcher<WorkersCumulativeStatistics> {
+    extends Fetcher<WorkersCumulativeStatistics>
+{
 
     private String pathWorkspaceSid;
     private ZonedDateTime endDate;
@@ -75,11 +76,10 @@ public class WorkersCumulativeStatisticsFetcher
         String path =
             "/v1/Workspaces/{WorkspaceSid}/Workers/CumulativeStatistics";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
+        path = path.replace(
+            "{" + "WorkspaceSid" + "}",
+            this.pathWorkspaceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

@@ -39,11 +39,10 @@ public class PortingPortInDeleter extends Deleter<PortingPortIn> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Porting/PortIn/{PortInRequestSid}";
 
-        path =
-            path.replace(
-                "{" + "PortInRequestSid" + "}",
-                this.pathPortInRequestSid.toString()
-            );
+        path = path.replace(
+            "{" + "PortInRequestSid" + "}",
+            this.pathPortInRequestSid.toString()
+        );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

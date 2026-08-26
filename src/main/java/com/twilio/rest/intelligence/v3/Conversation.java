@@ -122,7 +122,7 @@ public class Conversation extends Resource {
                 return false;
             }
             UpdateConversationResponse other = (UpdateConversationResponse) o;
-            return (true);
+            return true;
         }
 
         @Override
@@ -222,13 +222,13 @@ public class Conversation extends Resource {
             ) final String conversationConfigurationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
-            @JsonProperty("intelligenceConfigurationIds") final List<
-                String
-            > intelligenceConfigurationIds,
+            @JsonProperty(
+                "intelligenceConfigurationIds"
+            ) final List<String> intelligenceConfigurationIds,
             @JsonProperty("name") final String name,
-            @JsonProperty("operatorResultIds") final List<
-                String
-            > operatorResultIds,
+            @JsonProperty(
+                "operatorResultIds"
+            ) final List<String> operatorResultIds,
             @JsonProperty("participants") final List<Participant> participants,
             @JsonProperty(
                 "status"
@@ -406,21 +406,21 @@ public class Conversation extends Resource {
             @JsonProperty("accountId") final String accountId,
             @JsonProperty("channelIds") final List<String> channelIds,
             @JsonProperty("channels") final List<Conversation.Channel> channels,
-            @JsonProperty("communications") final List<
-                Communication
-            > communications,
+            @JsonProperty(
+                "communications"
+            ) final List<Communication> communications,
             @JsonProperty(
                 "conversationConfigurationId"
             ) final String conversationConfigurationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
-            @JsonProperty("intelligenceConfigurationIds") final List<
-                String
-            > intelligenceConfigurationIds,
+            @JsonProperty(
+                "intelligenceConfigurationIds"
+            ) final List<String> intelligenceConfigurationIds,
             @JsonProperty("name") final String name,
-            @JsonProperty("operatorResultIds") final List<
-                String
-            > operatorResultIds,
+            @JsonProperty(
+                "operatorResultIds"
+            ) final List<String> operatorResultIds,
             @JsonProperty("participants") final List<Participant> participants,
             @JsonProperty(
                 "status"
@@ -646,6 +646,7 @@ public class Conversation extends Resource {
     }
 
     @JsonDeserialize(builder = ConversationListItem.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationListItem {
@@ -768,6 +769,7 @@ public class Conversation extends Resource {
             return mapper.readValue(jsonString, ConversationListItem.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -825,22 +827,22 @@ public class Conversation extends Resource {
                 ) final Conversation.ConversationStatus status,
                 @JsonProperty("createdAt") final ZonedDateTime createdAt,
                 @JsonProperty("updatedAt") final ZonedDateTime updatedAt,
-                @JsonProperty("intelligenceConfigurationIds") final List<
-                    String
-                > intelligenceConfigurationIds,
+                @JsonProperty(
+                    "intelligenceConfigurationIds"
+                ) final List<String> intelligenceConfigurationIds,
                 @JsonProperty(
                     "conversationConfigurationId"
                 ) final String conversationConfigurationId,
-                @JsonProperty("channels") final List<
-                    Conversation.Channel
-                > channels,
+                @JsonProperty(
+                    "channels"
+                ) final List<Conversation.Channel> channels,
                 @JsonProperty("channelIds") final List<String> channelIds,
-                @JsonProperty("participants") final List<
-                    Participant
-                > participants,
-                @JsonProperty("operatorResultIds") final List<
-                    String
-                > operatorResultIds
+                @JsonProperty(
+                    "participants"
+                ) final List<Participant> participants,
+                @JsonProperty(
+                    "operatorResultIds"
+                ) final List<String> operatorResultIds
             ) {
                 this.id = id;
                 this.accountId = accountId;
@@ -915,6 +917,7 @@ public class Conversation extends Resource {
     }
 
     @JsonDeserialize(builder = ListOperators200ResponseMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListOperators200ResponseMeta {
@@ -963,6 +966,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1033,6 +1037,7 @@ public class Conversation extends Resource {
     }
 
     @JsonDeserialize(builder = Participant.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Participant {
@@ -1078,6 +1083,7 @@ public class Conversation extends Resource {
             return mapper.readValue(jsonString, Participant.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1147,6 +1153,7 @@ public class Conversation extends Resource {
     }
 
     @JsonDeserialize(builder = Content.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Content {
@@ -1169,6 +1176,7 @@ public class Conversation extends Resource {
             return mapper.readValue(jsonString, Content.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1198,7 +1206,7 @@ public class Conversation extends Resource {
             }
 
             Content other = (Content) o;
-            return (Objects.equals(text, other.text));
+            return Objects.equals(text, other.text);
         }
 
         @Override
@@ -1208,6 +1216,7 @@ public class Conversation extends Resource {
     }
 
     @JsonDeserialize(builder = Communication.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Communication {
@@ -1257,6 +1266,7 @@ public class Conversation extends Resource {
             return mapper.readValue(jsonString, Communication.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

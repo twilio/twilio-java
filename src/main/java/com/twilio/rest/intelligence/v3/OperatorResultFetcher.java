@@ -19,7 +19,6 @@ import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
-import com.twilio.exception.RestStandardException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
@@ -29,7 +28,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class OperatorResultFetcher
-    extends Fetcher<OperatorResult.FetchOperatorResultResponse> {
+    extends Fetcher<OperatorResult.FetchOperatorResultResponse>
+{
 
     private String pathOperatorResultId;
 
@@ -40,11 +40,10 @@ public class OperatorResultFetcher
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v3/OperatorResults/{operatorResultId}";
 
-        path =
-            path.replace(
-                "{" + "operatorResultId" + "}",
-                this.pathOperatorResultId.toString()
-            );
+        path = path.replace(
+            "{" + "operatorResultId" + "}",
+            this.pathOperatorResultId.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -60,16 +59,6 @@ public class OperatorResultFetcher
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             InputStream inputStream = response.getStream();
-            RestStandardException standardException =
-                RestStandardException.fromJson(
-                    inputStream,
-                    client.getObjectMapper()
-                );
-            if (
-                standardException != null && standardException.getType() != null
-            ) {
-                throw new ApiException(standardException);
-            }
             RestException restException = RestException.fromJson(
                 inputStream,
                 client.getObjectMapper()
@@ -97,9 +86,9 @@ public class OperatorResultFetcher
     }
 
     @Override
-    public TwilioResponse<
-        OperatorResult.FetchOperatorResultResponse
-    > fetchWithResponse(final TwilioRestClient client) {
+    public TwilioResponse<OperatorResult.FetchOperatorResultResponse> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
         OperatorResult.FetchOperatorResultResponse content =
             OperatorResult.FetchOperatorResultResponse.fromJson(

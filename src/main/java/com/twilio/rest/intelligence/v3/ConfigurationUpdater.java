@@ -21,7 +21,6 @@ import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
-import com.twilio.exception.RestStandardException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
@@ -31,7 +30,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConfigurationUpdater
-    extends Updater<Configuration.UpdateConfigurationResponse> {
+    extends Updater<Configuration.UpdateConfigurationResponse>
+{
 
     private String pathId;
     private Configuration.UpdateConfigurationRequest updateConfigurationRequest;
@@ -72,16 +72,6 @@ public class ConfigurationUpdater
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             InputStream inputStream = response.getStream();
-            RestStandardException standardException =
-                RestStandardException.fromJson(
-                    inputStream,
-                    client.getObjectMapper()
-                );
-            if (
-                standardException != null && standardException.getType() != null
-            ) {
-                throw new ApiException(standardException);
-            }
             RestException restException = RestException.fromJson(
                 inputStream,
                 client.getObjectMapper()
@@ -109,9 +99,9 @@ public class ConfigurationUpdater
     }
 
     @Override
-    public TwilioResponse<
-        Configuration.UpdateConfigurationResponse
-    > updateWithResponse(final TwilioRestClient client) {
+    public TwilioResponse<Configuration.UpdateConfigurationResponse> updateWithResponse(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
         Configuration.UpdateConfigurationResponse content =
             Configuration.UpdateConfigurationResponse.fromJson(

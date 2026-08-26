@@ -40,11 +40,10 @@ public class WebhookFetcher extends Fetcher<Webhook> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Webhooks/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

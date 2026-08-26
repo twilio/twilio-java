@@ -342,9 +342,9 @@ public class Configuration extends Resource {
             "queue_stats_configuration"
         ) final Object queueStatsConfiguration,
         @JsonProperty("runtime_domain") final String runtimeDomain,
-        @JsonProperty("serverless_service_sids") final List<
-            String
-        > serverlessServiceSids,
+        @JsonProperty(
+            "serverless_service_sids"
+        ) final List<String> serverlessServiceSids,
         @JsonProperty("service_version") final String serviceVersion,
         @JsonProperty("status") final Configuration.Status status,
         @JsonProperty(
@@ -357,9 +357,9 @@ public class Configuration extends Resource {
         @JsonProperty(
             "taskrouter_target_workflow_sid"
         ) final String taskrouterTargetWorkflowSid,
-        @JsonProperty("taskrouter_taskqueues") final List<
-            Object
-        > taskrouterTaskqueues,
+        @JsonProperty(
+            "taskrouter_taskqueues"
+        ) final List<Object> taskrouterTaskqueues,
         @JsonProperty(
             "taskrouter_worker_attributes"
         ) final Object taskrouterWorkerAttributes,

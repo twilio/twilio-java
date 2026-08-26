@@ -52,16 +52,14 @@ public class ConfiguredPluginFetcher extends Fetcher<ConfiguredPlugin> {
         String path =
             "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins/{PluginSid}";
 
-        path =
-            path.replace(
-                "{" + "ConfigurationSid" + "}",
-                this.pathConfigurationSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "PluginSid" + "}",
-                this.pathPluginSid.toString()
-            );
+        path = path.replace(
+            "{" + "ConfigurationSid" + "}",
+            this.pathConfigurationSid.toString()
+        );
+        path = path.replace(
+            "{" + "PluginSid" + "}",
+            this.pathPluginSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

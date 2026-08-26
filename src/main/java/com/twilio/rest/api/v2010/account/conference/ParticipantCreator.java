@@ -86,8 +86,17 @@ public class ParticipantCreator extends Creator<Participant> {
     private HttpMethod amdStatusCallbackMethod;
     private String trim;
     private String callToken;
+    private String passports;
     private URI clientNotificationUrl;
     private String callerDisplayName;
+    private String emergencyCallerPosition;
+    private String emergencyCallerLocation;
+    private String emergencyName;
+    private String emergencyAddress;
+    private String emergencyZipCode;
+    private String emergencyCity;
+    private String emergencyState;
+    private String emergencyCountry;
 
     public ParticipantCreator(
         final String pathConferenceSid,
@@ -478,6 +487,11 @@ public class ParticipantCreator extends Creator<Participant> {
         return this;
     }
 
+    public ParticipantCreator setPassports(final String passports) {
+        this.passports = passports;
+        return this;
+    }
+
     public ParticipantCreator setClientNotificationUrl(
         final URI clientNotificationUrl
     ) {
@@ -500,6 +514,56 @@ public class ParticipantCreator extends Creator<Participant> {
         return this;
     }
 
+    public ParticipantCreator setEmergencyCallerPosition(
+        final String emergencyCallerPosition
+    ) {
+        this.emergencyCallerPosition = emergencyCallerPosition;
+        return this;
+    }
+
+    public ParticipantCreator setEmergencyCallerLocation(
+        final String emergencyCallerLocation
+    ) {
+        this.emergencyCallerLocation = emergencyCallerLocation;
+        return this;
+    }
+
+    public ParticipantCreator setEmergencyName(final String emergencyName) {
+        this.emergencyName = emergencyName;
+        return this;
+    }
+
+    public ParticipantCreator setEmergencyAddress(
+        final String emergencyAddress
+    ) {
+        this.emergencyAddress = emergencyAddress;
+        return this;
+    }
+
+    public ParticipantCreator setEmergencyZipCode(
+        final String emergencyZipCode
+    ) {
+        this.emergencyZipCode = emergencyZipCode;
+        return this;
+    }
+
+    public ParticipantCreator setEmergencyCity(final String emergencyCity) {
+        this.emergencyCity = emergencyCity;
+        return this;
+    }
+
+    public ParticipantCreator setEmergencyState(final String emergencyState) {
+        this.emergencyState = emergencyState;
+        return this;
+    }
+
+    public ParticipantCreator setEmergencyCountry(
+        final String emergencyCountry
+    ) {
+        this.emergencyCountry = emergencyCountry;
+        return this;
+    }
+
     private Response makeRequest(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json";
@@ -508,16 +572,14 @@ public class ParticipantCreator extends Creator<Participant> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ConferenceSid" + "}",
-                this.pathConferenceSid.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
+        path = path.replace(
+            "{" + "ConferenceSid" + "}",
+            this.pathConferenceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -1020,6 +1082,15 @@ public class ParticipantCreator extends Creator<Participant> {
             );
         }
 
+        if (passports != null) {
+            Serializer.toString(
+                request,
+                "Passports",
+                passports,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (clientNotificationUrl != null) {
             Serializer.toString(
                 request,
@@ -1034,6 +1105,78 @@ public class ParticipantCreator extends Creator<Participant> {
                 request,
                 "CallerDisplayName",
                 callerDisplayName,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (emergencyCallerPosition != null) {
+            Serializer.toString(
+                request,
+                "EmergencyCallerPosition",
+                emergencyCallerPosition,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (emergencyCallerLocation != null) {
+            Serializer.toString(
+                request,
+                "EmergencyCallerLocation",
+                emergencyCallerLocation,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (emergencyName != null) {
+            Serializer.toString(
+                request,
+                "EmergencyName",
+                emergencyName,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (emergencyAddress != null) {
+            Serializer.toString(
+                request,
+                "EmergencyAddress",
+                emergencyAddress,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (emergencyZipCode != null) {
+            Serializer.toString(
+                request,
+                "EmergencyZipCode",
+                emergencyZipCode,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (emergencyCity != null) {
+            Serializer.toString(
+                request,
+                "EmergencyCity",
+                emergencyCity,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (emergencyState != null) {
+            Serializer.toString(
+                request,
+                "EmergencyState",
+                emergencyState,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (emergencyCountry != null) {
+            Serializer.toString(
+                request,
+                "EmergencyCountry",
+                emergencyCountry,
                 ParameterType.URLENCODED
             );
         }

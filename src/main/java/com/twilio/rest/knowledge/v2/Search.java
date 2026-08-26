@@ -34,6 +34,7 @@ import com.twilio.type.*;
 import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -121,7 +122,7 @@ public class Search extends Resource {
                 return false;
             }
             UpdateSearchResponse other = (UpdateSearchResponse) o;
-            return (true);
+            return true;
         }
 
         @Override
@@ -199,7 +200,7 @@ public class Search extends Resource {
                 return false;
             }
             ListSearchResponse other = (ListSearchResponse) o;
-            return (true);
+            return true;
         }
 
         @Override
@@ -291,6 +292,7 @@ public class Search extends Resource {
     }
 
     @JsonDeserialize(builder = KnowledgeSearch.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class KnowledgeSearch {
@@ -327,6 +329,7 @@ public class Search extends Resource {
             return mapper.readValue(jsonString, KnowledgeSearch.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -385,6 +388,7 @@ public class Search extends Resource {
     }
 
     @JsonDeserialize(builder = KnowledgeChunkResult.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class KnowledgeChunkResult {
@@ -402,6 +406,26 @@ public class Search extends Resource {
         private final ZonedDateTime createdAt;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("chunkIndex")
+        @Getter
+        private final Integer chunkIndex;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("documentTitle")
+        @Getter
+        private final String documentTitle;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("documentUrl")
+        @Getter
+        private final URI documentUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("documentNumber")
+        @Getter
+        private final Integer documentNumber;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("score")
         @Getter
         private final Float score;
@@ -414,6 +438,10 @@ public class Search extends Resource {
         private KnowledgeChunkResult(Builder builder) {
             this.content = builder.content;
             this.createdAt = builder.createdAt;
+            this.chunkIndex = builder.chunkIndex;
+            this.documentTitle = builder.documentTitle;
+            this.documentUrl = builder.documentUrl;
+            this.documentNumber = builder.documentNumber;
             this.score = builder.score;
             this.knowledgeId = builder.knowledgeId;
         }
@@ -429,6 +457,7 @@ public class Search extends Resource {
             return mapper.readValue(jsonString, KnowledgeChunkResult.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -441,6 +470,18 @@ public class Search extends Resource {
             @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonProperty("createdAt")
             private ZonedDateTime createdAt;
+
+            @JsonProperty("chunkIndex")
+            private Integer chunkIndex;
+
+            @JsonProperty("documentTitle")
+            private String documentTitle;
+
+            @JsonProperty("documentUrl")
+            private URI documentUrl;
+
+            @JsonProperty("documentNumber")
+            private Integer documentNumber;
 
             @JsonProperty("score")
             private Float score;
@@ -463,6 +504,34 @@ public class Search extends Resource {
             @JsonProperty("createdAt")
             public Builder createdAt(ZonedDateTime createdAt) {
                 this.createdAt = createdAt;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("chunkIndex")
+            public Builder chunkIndex(Integer chunkIndex) {
+                this.chunkIndex = chunkIndex;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("documentTitle")
+            public Builder documentTitle(String documentTitle) {
+                this.documentTitle = documentTitle;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("documentUrl")
+            public Builder documentUrl(URI documentUrl) {
+                this.documentUrl = documentUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("documentNumber")
+            public Builder documentNumber(Integer documentNumber) {
+                this.documentNumber = documentNumber;
                 return this;
             }
 
@@ -499,6 +568,10 @@ public class Search extends Resource {
             return (
                 Objects.equals(content, other.content) &&
                 Objects.equals(createdAt, other.createdAt) &&
+                Objects.equals(chunkIndex, other.chunkIndex) &&
+                Objects.equals(documentTitle, other.documentTitle) &&
+                Objects.equals(documentUrl, other.documentUrl) &&
+                Objects.equals(documentNumber, other.documentNumber) &&
                 Objects.equals(score, other.score) &&
                 Objects.equals(knowledgeId, other.knowledgeId)
             );
@@ -506,7 +579,16 @@ public class Search extends Resource {
 
         @Override
         public int hashCode() {
-            return Objects.hash(content, createdAt, score, knowledgeId);
+            return Objects.hash(
+                content,
+                createdAt,
+                chunkIndex,
+                documentTitle,
+                documentUrl,
+                documentNumber,
+                score,
+                knowledgeId
+            );
         }
     }
 

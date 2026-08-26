@@ -34,7 +34,7 @@ public class NewApiKeyCreator extends Creator<NewApiKey> {
 
     private String accountSid;
     private String friendlyName;
-    private NewApiKey.Keytype keyType;
+    private String keyType;
     private Object policy;
 
     public NewApiKeyCreator(final String accountSid) {
@@ -51,7 +51,7 @@ public class NewApiKeyCreator extends Creator<NewApiKey> {
         return this;
     }
 
-    public NewApiKeyCreator setKeyType(final NewApiKey.Keytype keyType) {
+    public NewApiKeyCreator setKeyType(final String keyType) {
         this.keyType = keyType;
         return this;
     }

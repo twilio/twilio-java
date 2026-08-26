@@ -78,13 +78,14 @@ public class AssetVersionReader extends Reader<AssetVersion> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace("{" + "AssetSid" + "}", this.pathAssetSid.toString());
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "AssetSid" + "}",
+            this.pathAssetSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

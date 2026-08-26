@@ -46,11 +46,10 @@ public class EncryptedSentencesFetcher extends Fetcher<EncryptedSentences> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Transcripts/{TranscriptSid}/Sentences/Encrypted";
 
-        path =
-            path.replace(
-                "{" + "TranscriptSid" + "}",
-                this.pathTranscriptSid.toString()
-            );
+        path = path.replace(
+            "{" + "TranscriptSid" + "}",
+            this.pathTranscriptSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

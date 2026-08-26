@@ -38,11 +38,10 @@ public class BulkEligibilityFetcher extends Fetcher<BulkEligibility> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/HostedNumber/Eligibility/Bulk/{RequestId}";
 
-        path =
-            path.replace(
-                "{" + "RequestId" + "}",
-                this.pathRequestId.toString()
-            );
+        path = path.replace(
+            "{" + "RequestId" + "}",
+            this.pathRequestId.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

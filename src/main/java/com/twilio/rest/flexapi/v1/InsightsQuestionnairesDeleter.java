@@ -31,7 +31,8 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class InsightsQuestionnairesDeleter
-    extends Deleter<InsightsQuestionnaires> {
+    extends Deleter<InsightsQuestionnaires>
+{
 
     private String pathQuestionnaireSid;
     private String authorization;
@@ -51,11 +52,10 @@ public class InsightsQuestionnairesDeleter
         String path =
             "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
 
-        path =
-            path.replace(
-                "{" + "QuestionnaireSid" + "}",
-                this.pathQuestionnaireSid.toString()
-            );
+        path = path.replace(
+            "{" + "QuestionnaireSid" + "}",
+            this.pathQuestionnaireSid.toString()
+        );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

@@ -59,11 +59,10 @@ public class SubscribedEventCreator extends Creator<SubscribedEvent> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents";
 
-        path =
-            path.replace(
-                "{" + "SubscriptionSid" + "}",
-                this.pathSubscriptionSid.toString()
-            );
+        path = path.replace(
+            "{" + "SubscriptionSid" + "}",
+            this.pathSubscriptionSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

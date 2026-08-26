@@ -54,11 +54,10 @@ public class PluginVersionArchiveUpdater extends Updater<PluginVersionArchive> {
         String path =
             "/v1/PluginService/Plugins/{PluginSid}/Versions/{Sid}/Archive";
 
-        path =
-            path.replace(
-                "{" + "PluginSid" + "}",
-                this.pathPluginSid.toString()
-            );
+        path = path.replace(
+            "{" + "PluginSid" + "}",
+            this.pathPluginSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

@@ -176,6 +176,7 @@ public class NewFactor extends Resource {
     @JsonDeserialize(
         builder = CreateNewPasskeysFactorRequestConfigRelyingParty.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateNewPasskeysFactorRequestConfigRelyingParty {
@@ -217,6 +218,7 @@ public class NewFactor extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -285,6 +287,7 @@ public class NewFactor extends Resource {
     @JsonDeserialize(
         builder = CreateNewPasskeysFactorRequestConfig.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateNewPasskeysFactorRequestConfig {
@@ -330,6 +333,7 @@ public class NewFactor extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -424,6 +428,7 @@ public class NewFactor extends Resource {
     }
 
     @JsonDeserialize(builder = CreateNewPasskeysFactorRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateNewPasskeysFactorRequest {
@@ -466,6 +471,7 @@ public class NewFactor extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

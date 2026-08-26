@@ -71,6 +71,7 @@ public class RoleAssignment extends Resource {
     @JsonDeserialize(
         builder = PublicApiCreateRoleAssignmentRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class PublicApiCreateRoleAssignmentRequest {
@@ -126,6 +127,7 @@ public class RoleAssignment extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

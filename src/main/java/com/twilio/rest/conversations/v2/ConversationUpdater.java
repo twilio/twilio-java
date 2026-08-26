@@ -21,7 +21,6 @@ import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
-import com.twilio.exception.RestStandardException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
@@ -31,13 +30,14 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConversationUpdater
-    extends Updater<Conversation.UpdateConversationResponse> {
+    extends Updater<Conversation.UpdateConversationResponse>
+{
 
-    private String pathSid;
+    private String pathId;
     private Conversation.UpdateConversationByIdRequest updateConversationByIdRequest;
 
-    public ConversationUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public ConversationUpdater(final String pathId) {
+        this.pathId = pathId;
     }
 
     public ConversationUpdater setUpdateConversationByIdRequest(
@@ -48,9 +48,9 @@ public class ConversationUpdater
     }
 
     private Response makeRequest(final TwilioRestClient client) {
-        String path = "/v2/Conversations/{Sid}";
+        String path = "/v2/Conversations/{id}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
         Request request = new Request(
             HttpMethod.PUT,
@@ -68,16 +68,6 @@ public class ConversationUpdater
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             InputStream inputStream = response.getStream();
-            RestStandardException standardException =
-                RestStandardException.fromJson(
-                    inputStream,
-                    client.getObjectMapper()
-                );
-            if (
-                standardException != null && standardException.getType() != null
-            ) {
-                throw new ApiException(standardException);
-            }
             RestException restException = RestException.fromJson(
                 inputStream,
                 client.getObjectMapper()
@@ -105,9 +95,9 @@ public class ConversationUpdater
     }
 
     @Override
-    public TwilioResponse<
-        Conversation.UpdateConversationResponse
-    > updateWithResponse(final TwilioRestClient client) {
+    public TwilioResponse<Conversation.UpdateConversationResponse> updateWithResponse(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
         Conversation.UpdateConversationResponse content =
             Conversation.UpdateConversationResponse.fromJson(

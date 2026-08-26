@@ -29,7 +29,8 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class UserDefinedMessageSubscriptionDeleter
-    extends Deleter<UserDefinedMessageSubscription> {
+    extends Deleter<UserDefinedMessageSubscription>
+{
 
     private String pathAccountSid;
     private String pathCallSid;
@@ -61,11 +62,10 @@ public class UserDefinedMessageSubscriptionDeleter
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 

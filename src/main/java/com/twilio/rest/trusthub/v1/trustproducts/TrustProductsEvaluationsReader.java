@@ -34,7 +34,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TrustProductsEvaluationsReader
-    extends Reader<TrustProductsEvaluations> {
+    extends Reader<TrustProductsEvaluations>
+{
 
     private String pathTrustProductSid;
     private Long pageSize;
@@ -74,11 +75,10 @@ public class TrustProductsEvaluationsReader
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/TrustProducts/{TrustProductSid}/Evaluations";
 
-        path =
-            path.replace(
-                "{" + "TrustProductSid" + "}",
-                this.pathTrustProductSid.toString()
-            );
+        path = path.replace(
+            "{" + "TrustProductSid" + "}",
+            this.pathTrustProductSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

@@ -30,7 +30,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class WorkspaceRealTimeStatisticsFetcher
-    extends Fetcher<WorkspaceRealTimeStatistics> {
+    extends Fetcher<WorkspaceRealTimeStatistics>
+{
 
     private String pathWorkspaceSid;
     private String taskChannel;
@@ -49,11 +50,10 @@ public class WorkspaceRealTimeStatisticsFetcher
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/RealTimeStatistics";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
+        path = path.replace(
+            "{" + "WorkspaceSid" + "}",
+            this.pathWorkspaceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

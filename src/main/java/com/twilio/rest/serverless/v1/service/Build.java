@@ -98,7 +98,8 @@ public class Build extends Resource {
         NODE16("node16"),
         NODE18("node18"),
         NODE20("node20"),
-        NODE22("node22");
+        NODE22("node22"),
+        NODE24("node24");
 
         private final String value;
 

@@ -60,16 +60,14 @@ public class InviteCreator extends Creator<Invite> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChannelSid" + "}",
-                this.pathChannelSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "ChannelSid" + "}",
+            this.pathChannelSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

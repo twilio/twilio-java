@@ -45,11 +45,10 @@ public class UsAppToPersonDeleter extends Deleter<UsAppToPerson> {
         String path =
             "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.pathMessagingServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "MessagingServiceSid" + "}",
+            this.pathMessagingServiceSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Predicate<Integer> deleteStatuses = i ->

@@ -31,7 +31,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ComplianceRegistrationInquiriesCreator
-    extends Creator<ComplianceRegistrationInquiries> {
+    extends Creator<ComplianceRegistrationInquiries>
+{
 
     private ComplianceRegistrationInquiries.EndUserType endUserType;
     private ComplianceRegistrationInquiries.PhoneNumberType phoneNumberType;

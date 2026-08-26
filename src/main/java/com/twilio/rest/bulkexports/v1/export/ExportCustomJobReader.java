@@ -73,11 +73,10 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Exports/{ResourceType}/Jobs";
 
-        path =
-            path.replace(
-                "{" + "ResourceType" + "}",
-                this.pathResourceType.toString()
-            );
+        path = path.replace(
+            "{" + "ResourceType" + "}",
+            this.pathResourceType.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

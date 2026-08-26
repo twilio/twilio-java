@@ -29,7 +29,8 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class ConnectionPolicyTargetDeleter
-    extends Deleter<ConnectionPolicyTarget> {
+    extends Deleter<ConnectionPolicyTarget>
+{
 
     private String pathConnectionPolicySid;
     private String pathSid;
@@ -46,11 +47,10 @@ public class ConnectionPolicyTargetDeleter
         String path =
             "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ConnectionPolicySid" + "}",
-                this.pathConnectionPolicySid.toString()
-            );
+        path = path.replace(
+            "{" + "ConnectionPolicySid" + "}",
+            this.pathConnectionPolicySid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Predicate<Integer> deleteStatuses = i ->

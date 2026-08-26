@@ -44,11 +44,10 @@ public class ItemAssignmentFetcher extends Fetcher<ItemAssignment> {
         String path =
             "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "BundleSid" + "}",
-                this.pathBundleSid.toString()
-            );
+        path = path.replace(
+            "{" + "BundleSid" + "}",
+            this.pathBundleSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

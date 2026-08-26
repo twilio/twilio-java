@@ -73,8 +73,10 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/PhoneNumbers";
 
-        path =
-            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
+        path = path.replace(
+            "{" + "TrunkSid" + "}",
+            this.pathTrunkSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

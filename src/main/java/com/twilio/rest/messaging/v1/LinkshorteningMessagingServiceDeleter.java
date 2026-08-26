@@ -29,7 +29,8 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class LinkshorteningMessagingServiceDeleter
-    extends Deleter<LinkshorteningMessagingService> {
+    extends Deleter<LinkshorteningMessagingService>
+{
 
     private String pathDomainSid;
     private String pathMessagingServiceSid;
@@ -46,16 +47,14 @@ public class LinkshorteningMessagingServiceDeleter
         String path =
             "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}";
 
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.pathMessagingServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "DomainSid" + "}",
+            this.pathDomainSid.toString()
+        );
+        path = path.replace(
+            "{" + "MessagingServiceSid" + "}",
+            this.pathMessagingServiceSid.toString()
+        );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

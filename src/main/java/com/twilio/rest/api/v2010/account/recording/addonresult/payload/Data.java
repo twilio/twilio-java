@@ -139,7 +139,7 @@ public class Data extends Resource {
         }
 
         Data other = (Data) o;
-        return (Objects.equals(redirectTo, other.redirectTo));
+        return Objects.equals(redirectTo, other.redirectTo);
     }
 
     @Override

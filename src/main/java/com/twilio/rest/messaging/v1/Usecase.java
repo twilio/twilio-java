@@ -117,7 +117,7 @@ public class Usecase extends Resource {
         }
 
         Usecase other = (Usecase) o;
-        return (Objects.equals(usecases, other.usecases));
+        return Objects.equals(usecases, other.usecases);
     }
 
     @Override

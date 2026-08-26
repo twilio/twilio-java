@@ -43,16 +43,14 @@ public class FlexUserFetcher extends Fetcher<FlexUser> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Instances/{InstanceSid}/Users/{FlexUserSid}";
 
-        path =
-            path.replace(
-                "{" + "InstanceSid" + "}",
-                this.pathInstanceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "FlexUserSid" + "}",
-                this.pathFlexUserSid.toString()
-            );
+        path = path.replace(
+            "{" + "InstanceSid" + "}",
+            this.pathInstanceSid.toString()
+        );
+        path = path.replace(
+            "{" + "FlexUserSid" + "}",
+            this.pathFlexUserSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

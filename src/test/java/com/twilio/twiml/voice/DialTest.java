@@ -60,11 +60,12 @@ public class DialTest {
             .referUrl(URI.create("https://example.com"))
             .referMethod(HttpMethod.GET)
             .events(Dial.Events.CALL_PROGRESS_EVENT)
+            .passports("passports")
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>",
+            "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" passports=\"passports\" record=\"do-not-record\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>",
             elem.toXml()
         );
     }
@@ -295,10 +296,11 @@ public class DialTest {
             .referUrl(URI.create("https://example.com"))
             .referMethod(HttpMethod.GET)
             .events(Dial.Events.CALL_PROGRESS_EVENT)
+            .passports("passports")
             .build();
 
         Assert.assertEquals(
-            Dial.Builder.fromXml("<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>").build().toXml(),
+            Dial.Builder.fromXml("<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" passports=\"passports\" record=\"do-not-record\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>").build().toXml(),
             elem.toXml()
         );
     }

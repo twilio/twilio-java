@@ -33,7 +33,8 @@ import java.io.InputStream;
 import java.net.URI;
 
 public class ConnectionPolicyTargetUpdater
-    extends Updater<ConnectionPolicyTarget> {
+    extends Updater<ConnectionPolicyTarget>
+{
 
     private String pathConnectionPolicySid;
     private String pathSid;
@@ -86,11 +87,10 @@ public class ConnectionPolicyTargetUpdater
         String path =
             "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ConnectionPolicySid" + "}",
-                this.pathConnectionPolicySid.toString()
-            );
+        path = path.replace(
+            "{" + "ConnectionPolicySid" + "}",
+            this.pathConnectionPolicySid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

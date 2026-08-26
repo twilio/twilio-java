@@ -30,7 +30,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TaskQueueRealTimeStatisticsFetcher
-    extends Fetcher<TaskQueueRealTimeStatistics> {
+    extends Fetcher<TaskQueueRealTimeStatistics>
+{
 
     private String pathWorkspaceSid;
     private String pathTaskQueueSid;
@@ -55,16 +56,14 @@ public class TaskQueueRealTimeStatisticsFetcher
         String path =
             "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "TaskQueueSid" + "}",
-                this.pathTaskQueueSid.toString()
-            );
+        path = path.replace(
+            "{" + "WorkspaceSid" + "}",
+            this.pathWorkspaceSid.toString()
+        );
+        path = path.replace(
+            "{" + "TaskQueueSid" + "}",
+            this.pathTaskQueueSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

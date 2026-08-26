@@ -35,7 +35,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class DependentHostedNumberOrderReader
-    extends Reader<DependentHostedNumberOrder> {
+    extends Reader<DependentHostedNumberOrder>
+{
 
     private String pathSigningDocumentSid;
     private DependentHostedNumberOrder.Status status;
@@ -116,11 +117,10 @@ public class DependentHostedNumberOrderReader
         String path =
             "/v2/HostedNumber/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders";
 
-        path =
-            path.replace(
-                "{" + "SigningDocumentSid" + "}",
-                this.pathSigningDocumentSid.toString()
-            );
+        path = path.replace(
+            "{" + "SigningDocumentSid" + "}",
+            this.pathSigningDocumentSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

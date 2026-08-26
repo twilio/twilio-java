@@ -34,7 +34,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class IpAccessControlListMappingReader
-    extends Reader<IpAccessControlListMapping> {
+    extends Reader<IpAccessControlListMapping>
+{
 
     private String pathAccountSid;
     private String pathDomainSid;
@@ -88,16 +89,14 @@ public class IpAccessControlListMappingReader
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
+        path = path.replace(
+            "{" + "AccountSid" + "}",
+            this.pathAccountSid.toString()
+        );
+        path = path.replace(
+            "{" + "DomainSid" + "}",
+            this.pathDomainSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

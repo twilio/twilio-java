@@ -19,7 +19,6 @@ import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
-import com.twilio.exception.RestStandardException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
@@ -29,18 +28,19 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConversationFetcher
-    extends Fetcher<Conversation.FetchConversationResponse> {
+    extends Fetcher<Conversation.FetchConversationResponse>
+{
 
-    private String pathSid;
+    private String pathId;
 
-    public ConversationFetcher(final String pathSid) {
-        this.pathSid = pathSid;
+    public ConversationFetcher(final String pathId) {
+        this.pathId = pathId;
     }
 
     private Response makeRequest(final TwilioRestClient client) {
-        String path = "/v2/Conversations/{Sid}";
+        String path = "/v2/Conversations/{id}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -56,16 +56,6 @@ public class ConversationFetcher
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             InputStream inputStream = response.getStream();
-            RestStandardException standardException =
-                RestStandardException.fromJson(
-                    inputStream,
-                    client.getObjectMapper()
-                );
-            if (
-                standardException != null && standardException.getType() != null
-            ) {
-                throw new ApiException(standardException);
-            }
             RestException restException = RestException.fromJson(
                 inputStream,
                 client.getObjectMapper()
@@ -93,9 +83,9 @@ public class ConversationFetcher
     }
 
     @Override
-    public TwilioResponse<
-        Conversation.FetchConversationResponse
-    > fetchWithResponse(final TwilioRestClient client) {
+    public TwilioResponse<Conversation.FetchConversationResponse> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
         Conversation.FetchConversationResponse content =
             Conversation.FetchConversationResponse.fromJson(

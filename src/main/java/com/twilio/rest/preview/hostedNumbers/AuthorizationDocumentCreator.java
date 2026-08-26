@@ -33,7 +33,8 @@ import java.io.InputStream;
 import java.util.List;
 
 public class AuthorizationDocumentCreator
-    extends Creator<AuthorizationDocument> {
+    extends Creator<AuthorizationDocument>
+{
 
     private List<String> hostedNumberOrderSids;
     private String addressSid;

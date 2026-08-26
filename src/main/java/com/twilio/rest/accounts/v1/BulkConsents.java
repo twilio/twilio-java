@@ -117,7 +117,7 @@ public class BulkConsents extends Resource {
         }
 
         BulkConsents other = (BulkConsents) o;
-        return (Objects.equals(items, other.items));
+        return Objects.equals(items, other.items);
     }
 
     @Override

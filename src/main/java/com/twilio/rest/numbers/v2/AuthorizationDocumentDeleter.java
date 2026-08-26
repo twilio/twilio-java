@@ -29,7 +29,8 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class AuthorizationDocumentDeleter
-    extends Deleter<AuthorizationDocument> {
+    extends Deleter<AuthorizationDocument>
+{
 
     private String pathSid;
 

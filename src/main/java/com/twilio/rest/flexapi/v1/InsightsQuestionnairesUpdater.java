@@ -33,7 +33,8 @@ import java.io.InputStream;
 import java.util.List;
 
 public class InsightsQuestionnairesUpdater
-    extends Updater<InsightsQuestionnaires> {
+    extends Updater<InsightsQuestionnaires>
+{
 
     private String pathQuestionnaireSid;
     private String authorization;
@@ -91,11 +92,10 @@ public class InsightsQuestionnairesUpdater
         String path =
             "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
 
-        path =
-            path.replace(
-                "{" + "QuestionnaireSid" + "}",
-                this.pathQuestionnaireSid.toString()
-            );
+        path = path.replace(
+            "{" + "QuestionnaireSid" + "}",
+            this.pathQuestionnaireSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

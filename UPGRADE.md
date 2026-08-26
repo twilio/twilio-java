@@ -5,22 +5,47 @@ _`MAJOR` version bumps will have upgrade notes posted here._
 [2026-08-26] 12.x.x to 13.x.x
 -----------------------------
 ### Overview
-##### Twilio Java Helper Library's major version 13.0.0 includes a fix to PascalCase generation for enum and model names containing numbers.
+##### Twilio Java Helper Library's major version 13.0.0 includes:
+1. A fix to ensure nested response models gracefully handle unknown fields (forward compatibility).
+2. A fix to class name generation for nested models and enums whose schema names contain numbers (e.g., API version identifiers like `v2`).
 
 ##### Breaking Changes
 
-###### 1. Enum and model names
-Type names that contained numbers (e.g., from API version identifiers) previously had those numbers silently dropped. They are now included in the PascalCase output.
+###### 1. Nested model and enum class names corrected
+Type names derived from schema names containing numbers (e.g., `conversations.v2.action_status`) previously had those numbers silently dropped. They are now correctly included.
 
-Examples:
-- `ConversationsVConversationGroupingType` → `ConversationsV2ConversationGroupingType`
-- `Action.Status` → `Action.ConversationsV2ActionStatus`
+**Who is impacted:**
+Users who reference generated nested enum or model types by name in their code for the following resources:
+- `com.twilio.rest.conversations.v2.Action`
+- `com.twilio.rest.conversations.v2.Communication`
+- `com.twilio.rest.conversations.v2.Configuration`
+- `com.twilio.rest.conversations.v2.Conversation`
+- `com.twilio.rest.conversations.v2.Operation`
+- `com.twilio.rest.conversations.v2.Participant`
+- `com.twilio.rest.messaging.v2.ChannelsSender`
 
-Who is impacted:
-Users who reference generated enum or model types by name in their code where those types contain numbers in the API schema name.
+**Example of renamed type (generator fix):**
+
+| 12.x.x | 13.x.x |
+|---------|---------|
+| `Conversation.ConversationsVConversationGroupingType` | `Conversation.ConversationsV2ConversationGroupingType` |
 
 ##### Migration
-Update enum references.
+
+Find and replace the old type names with the corrected names. If you use any nested enum or model class from the affected resources above, update the class reference.
+
+```java
+// 12.x.x
+Conversation.ConversationsVConversationGroupingType type = Conversation.ConversationsVConversationGroupingType.OPEN;
+
+// 13.x.x
+Conversation.ConversationsV2ConversationGroupingType type = Conversation.ConversationsV2ConversationGroupingType.OPEN;
+```
+
+##### Non-Breaking Fix
+
+###### Forward compatibility for nested response models
+All nested response model Builder classes now include `@JsonIgnoreProperties(ignoreUnknown = true)`. This prevents `UnrecognizedPropertyException` when the API returns new fields that are not yet defined in the SDK. No code changes required — this fix is transparent to existing users.
 
 
 [2026-04-21] 11.x.x to 12.x.x

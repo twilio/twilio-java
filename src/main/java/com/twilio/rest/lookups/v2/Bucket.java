@@ -95,6 +95,7 @@ public class Bucket extends Resource {
             return mapper.readValue(jsonString, RateLimitRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

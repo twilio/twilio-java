@@ -331,6 +331,7 @@ public class Lookup extends Resource {
             return mapper.readValue(jsonString, Identifier.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

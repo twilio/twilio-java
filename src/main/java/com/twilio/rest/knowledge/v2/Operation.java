@@ -444,6 +444,7 @@ public class Operation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -533,6 +534,7 @@ public class Operation extends Resource {
             return mapper.readValue(jsonString, OperationStatusError.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

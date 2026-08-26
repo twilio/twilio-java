@@ -379,6 +379,7 @@ public class Trait extends Resource {
             return mapper.readValue(jsonString, ProfilesMeta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -501,6 +502,7 @@ public class Trait extends Resource {
             return mapper.readValue(jsonString, FullTrait.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

@@ -451,6 +451,7 @@ public class Recall extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -548,6 +549,7 @@ public class Recall extends Resource {
             return mapper.readValue(jsonString, Participant.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -654,6 +656,7 @@ public class Recall extends Resource {
             return mapper.readValue(jsonString, CommunicationContent.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -759,6 +762,7 @@ public class Recall extends Resource {
             return mapper.readValue(jsonString, CommunicationRecipients.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -932,6 +936,7 @@ public class Recall extends Resource {
             return mapper.readValue(jsonString, MemoryRetrievalRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1165,6 +1170,7 @@ public class Recall extends Resource {
             return mapper.readValue(jsonString, RecallObservationInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1366,6 +1372,7 @@ public class Recall extends Resource {
             return mapper.readValue(jsonString, RecallSummaryInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1550,6 +1557,7 @@ public class Recall extends Resource {
             return mapper.readValue(jsonString, Communication.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

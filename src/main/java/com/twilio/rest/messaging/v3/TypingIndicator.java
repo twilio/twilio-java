@@ -142,6 +142,7 @@ public class TypingIndicator extends Resource {
             return mapper.readValue(jsonString, TypingIndicatorRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

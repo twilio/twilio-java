@@ -423,6 +423,7 @@ public class Identifier extends Resource {
             return mapper.readValue(jsonString, _Identifier.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -504,6 +505,7 @@ public class Identifier extends Resource {
             return mapper.readValue(jsonString, IdentifierSet.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -592,6 +594,7 @@ public class Identifier extends Resource {
             return mapper.readValue(jsonString, IdentifierUpdate.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

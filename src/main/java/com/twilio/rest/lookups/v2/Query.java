@@ -140,6 +140,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, LookupBatchRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -386,6 +387,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, LookupBatchResponse.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -684,6 +686,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, LastSimSwapInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -787,6 +790,7 @@ public class Query extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -851,6 +855,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, RiskParameters.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -921,6 +926,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, LineStatusInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -998,6 +1004,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, LookupRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1068,6 +1075,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, CallForwardingInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1182,6 +1190,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, SmsPumpingRiskInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1341,6 +1350,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, ReassignedNumberInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1487,6 +1497,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, IdentityMatchParameters.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1729,6 +1740,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, IdentityMatchInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1956,6 +1968,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, LineTypeIntelligenceInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2096,6 +2109,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, SimSwapInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2224,6 +2238,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, CallerNameInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

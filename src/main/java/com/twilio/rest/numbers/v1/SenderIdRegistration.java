@@ -89,6 +89,7 @@ public class SenderIdRegistration extends Resource {
             return mapper.readValue(jsonString, NumbersV1EmbeddedSession.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -218,6 +219,7 @@ public class SenderIdRegistration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

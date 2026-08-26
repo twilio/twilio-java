@@ -556,6 +556,7 @@ public class KnowledgeBasis extends Resource {
             return mapper.readValue(jsonString, Meta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -664,6 +665,7 @@ public class KnowledgeBasis extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -795,6 +797,7 @@ public class KnowledgeBasis extends Resource {
             return mapper.readValue(jsonString, KnowledgeBase.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -924,6 +927,7 @@ public class KnowledgeBasis extends Resource {
             return mapper.readValue(jsonString, KnowledgeBaseCore.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

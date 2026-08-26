@@ -769,6 +769,7 @@ public class Conversation extends Resource {
             return mapper.readValue(jsonString, ConversationListItem.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -965,6 +966,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1081,6 +1083,7 @@ public class Conversation extends Resource {
             return mapper.readValue(jsonString, Participant.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1173,6 +1176,7 @@ public class Conversation extends Resource {
             return mapper.readValue(jsonString, Content.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1262,6 +1266,7 @@ public class Conversation extends Resource {
             return mapper.readValue(jsonString, Communication.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

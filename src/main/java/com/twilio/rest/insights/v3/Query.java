@@ -411,6 +411,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, InsightsQueryRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -504,6 +505,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, QueryDefinition.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -624,6 +626,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, PaginationMeta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -726,6 +729,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, QueryDefinitionFilters.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -820,6 +824,7 @@ public class Query extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -910,6 +915,7 @@ public class Query extends Resource {
             return mapper.readValue(jsonString, QueryDefinitionOrderBy.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

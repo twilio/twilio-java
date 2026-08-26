@@ -271,6 +271,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, FlowsPage.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -447,6 +448,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, Types.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -711,6 +713,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, CallToActionAction.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -854,6 +857,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, CarouselAction.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -983,6 +987,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, WhatsappCard.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1105,6 +1110,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, WhatsappAuthentication.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1221,6 +1227,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, QuickReplyAction.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1325,6 +1332,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, TwilioCard.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1433,6 +1441,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, AuthenticationAction.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1528,6 +1537,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, ContentCreateRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1631,6 +1641,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, TwilioCallToAction.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1721,6 +1732,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, ContentUpdateRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1827,6 +1839,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, TwilioQuickReply.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1905,6 +1918,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, TwilioMedia.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2015,6 +2029,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, TwilioFlows.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2134,6 +2149,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, FlowsPageComponent.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2255,6 +2271,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, WhatsappFlows.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2418,6 +2435,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, TwilioListPicker.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2526,6 +2544,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, TwilioCatalog.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2645,6 +2664,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, TwilioText.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2737,6 +2757,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, CatalogItem.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2881,6 +2902,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, TwilioSchedule.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2968,6 +2990,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, TwilioCarousel.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -3079,6 +3102,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, CardAction.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -3228,6 +3252,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, CarouselCard.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -3344,6 +3369,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, TwilioLocation.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -3459,6 +3485,7 @@ public class Content extends Resource {
             return mapper.readValue(jsonString, ListItem.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

@@ -403,6 +403,7 @@ public class Revision extends Resource {
             return mapper.readValue(jsonString, ObservationsMeta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -558,6 +559,7 @@ public class Revision extends Resource {
             return mapper.readValue(jsonString, ObservationInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

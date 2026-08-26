@@ -538,6 +538,7 @@ public class ConversationSummary extends Resource {
             return mapper.readValue(jsonString, CreateSummariesRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -620,6 +621,7 @@ public class ConversationSummary extends Resource {
             return mapper.readValue(jsonString, ObservationsMeta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -739,6 +741,7 @@ public class ConversationSummary extends Resource {
             return mapper.readValue(jsonString, SummaryCorePatch.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -870,6 +873,7 @@ public class ConversationSummary extends Resource {
             return mapper.readValue(jsonString, SummaryCore.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1019,6 +1023,7 @@ public class ConversationSummary extends Resource {
             return mapper.readValue(jsonString, SummaryInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

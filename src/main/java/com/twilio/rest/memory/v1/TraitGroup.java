@@ -523,6 +523,7 @@ public class TraitGroup extends Resource {
             return mapper.readValue(jsonString, TraitDefinition.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -632,6 +633,7 @@ public class TraitGroup extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -757,6 +759,7 @@ public class TraitGroup extends Resource {
             return mapper.readValue(jsonString, _TraitGroup.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -869,6 +872,7 @@ public class TraitGroup extends Resource {
             return mapper.readValue(jsonString, Meta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -974,6 +978,7 @@ public class TraitGroup extends Resource {
             return mapper.readValue(jsonString, PatchTraitGroupRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1063,6 +1068,7 @@ public class TraitGroup extends Resource {
             return mapper.readValue(jsonString, TraitGroupRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1195,6 +1201,7 @@ public class TraitGroup extends Resource {
             return mapper.readValue(jsonString, ValidationRule.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

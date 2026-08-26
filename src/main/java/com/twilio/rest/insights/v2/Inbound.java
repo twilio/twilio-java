@@ -110,6 +110,7 @@ public class Inbound extends Resource {
             return mapper.readValue(jsonString, PhoneNumberReportFilter.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -218,6 +219,7 @@ public class Inbound extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -348,6 +350,7 @@ public class Inbound extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -450,6 +453,7 @@ public class Inbound extends Resource {
             return mapper.readValue(jsonString, ReportFilter.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -544,6 +548,7 @@ public class Inbound extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -651,6 +656,7 @@ public class Inbound extends Resource {
             return mapper.readValue(jsonString, ReportMetadata.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

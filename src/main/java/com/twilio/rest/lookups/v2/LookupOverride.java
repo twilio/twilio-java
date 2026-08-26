@@ -199,6 +199,7 @@ public class LookupOverride extends Resource {
             return mapper.readValue(jsonString, OverridesRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

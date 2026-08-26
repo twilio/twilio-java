@@ -97,6 +97,7 @@ public class RateLimit extends Resource {
             return mapper.readValue(jsonString, RateLimitResponse.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

@@ -490,6 +490,7 @@ public class Store extends Resource {
             return mapper.readValue(jsonString, Meta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -595,6 +596,7 @@ public class Store extends Resource {
             return mapper.readValue(jsonString, PatchStoreRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -678,6 +680,7 @@ public class Store extends Resource {
             return mapper.readValue(jsonString, ServiceRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

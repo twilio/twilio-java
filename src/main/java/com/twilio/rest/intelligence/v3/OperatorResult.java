@@ -532,6 +532,7 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -607,6 +608,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, ExtractionResultResult.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -697,6 +699,7 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -826,6 +829,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, SystemMetaData.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -944,6 +948,7 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1047,6 +1052,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, OperatorReference.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1127,6 +1133,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, ResolvedContextKnowledge.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1212,6 +1219,7 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1291,6 +1299,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, TextResultResult.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1382,6 +1391,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, ExecutionDetails.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1499,6 +1509,7 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1577,6 +1588,7 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1648,6 +1660,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, ResolvedContext.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1736,6 +1749,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, ExecutionDetailsTrigger.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1821,6 +1835,7 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1903,6 +1918,7 @@ public class OperatorResult extends Resource {
             return mapper.readValue(jsonString, ResolvedContextMemory.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2040,6 +2056,7 @@ public class OperatorResult extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

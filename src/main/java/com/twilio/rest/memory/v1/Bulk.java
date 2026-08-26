@@ -321,6 +321,7 @@ public class Bulk extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -385,6 +386,7 @@ public class Bulk extends Resource {
             return mapper.readValue(jsonString, ProfileData.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

@@ -448,6 +448,7 @@ public class Profile extends Resource {
             return mapper.readValue(jsonString, ProfilesMeta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -547,6 +548,7 @@ public class Profile extends Resource {
             return mapper.readValue(jsonString, ProfileData.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -611,6 +613,7 @@ public class Profile extends Resource {
             return mapper.readValue(jsonString, ProfilePatch.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

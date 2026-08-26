@@ -87,6 +87,7 @@ public class ApprovalCreate extends Resource {
             return mapper.readValue(jsonString, ContentApprovalRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

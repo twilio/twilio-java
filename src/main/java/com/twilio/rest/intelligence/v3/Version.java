@@ -590,6 +590,7 @@ public class Version extends Resource {
             return mapper.readValue(jsonString, OperatorParameter.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -711,6 +712,7 @@ public class Version extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -853,6 +855,7 @@ public class Version extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1008,6 +1011,7 @@ public class Version extends Resource {
             return mapper.readValue(jsonString, OperatorContext.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1085,6 +1089,7 @@ public class Version extends Resource {
             return mapper.readValue(jsonString, OperatorContextKnowledge.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1155,6 +1160,7 @@ public class Version extends Resource {
             return mapper.readValue(jsonString, OperatorTrainingExample.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1227,6 +1233,7 @@ public class Version extends Resource {
             return mapper.readValue(jsonString, OperatorContextMemory.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

@@ -344,6 +344,7 @@ public class Chunk extends Resource {
             return mapper.readValue(jsonString, KnowledgeMeta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -451,6 +452,7 @@ public class Chunk extends Resource {
             return mapper.readValue(jsonString, KnowledgeChunk.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

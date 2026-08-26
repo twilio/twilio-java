@@ -328,6 +328,7 @@ public class Search extends Resource {
             return mapper.readValue(jsonString, KnowledgeSearch.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -431,6 +432,7 @@ public class Search extends Resource {
             return mapper.readValue(jsonString, KnowledgeChunkResult.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

@@ -489,6 +489,7 @@ public class IdentityResolutionSetting extends Resource {
             return mapper.readValue(jsonString, IdentifierConfig.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -642,6 +643,7 @@ public class IdentityResolutionSetting extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

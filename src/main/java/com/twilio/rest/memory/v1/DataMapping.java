@@ -617,6 +617,7 @@ public class DataMapping extends Resource {
             return mapper.readValue(jsonString, Meta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -734,6 +735,7 @@ public class DataMapping extends Resource {
             return mapper.readValue(jsonString, DataMappingCore.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -842,6 +844,7 @@ public class DataMapping extends Resource {
             return mapper.readValue(jsonString, DataMappingToTraits.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -936,6 +939,7 @@ public class DataMapping extends Resource {
             return mapper.readValue(jsonString, MappingTraitItem.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1053,6 +1057,7 @@ public class DataMapping extends Resource {
             return mapper.readValue(jsonString, CreateDataMappingInput.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1170,6 +1175,7 @@ public class DataMapping extends Resource {
             return mapper.readValue(jsonString, DataMappingFromDataSet.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1310,6 +1316,7 @@ public class DataMapping extends Resource {
             return mapper.readValue(jsonString, _DataMapping.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

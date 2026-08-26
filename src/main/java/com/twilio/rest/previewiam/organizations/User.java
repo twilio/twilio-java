@@ -174,6 +174,7 @@ public class User extends Resource {
             return mapper.readValue(jsonString, ScimUser.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -372,6 +373,7 @@ public class User extends Resource {
             return mapper.readValue(jsonString, ScimEmailAddress.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -480,6 +482,7 @@ public class User extends Resource {
             return mapper.readValue(jsonString, ScimMeta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -599,6 +602,7 @@ public class User extends Resource {
             return mapper.readValue(jsonString, ScimName.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -688,6 +692,7 @@ public class User extends Resource {
             return mapper.readValue(jsonString, ScimPatchOperation.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -782,6 +787,7 @@ public class User extends Resource {
             return mapper.readValue(jsonString, ScimPatchRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

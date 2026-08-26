@@ -17,7 +17,7 @@ jobs:
       id-token: write
     strategy:
       matrix:
-        java: [11, 17, 21]
+        java: [8, 11, 17, 21]
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
@@ -97,8 +97,8 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: mvn clean deploy -DskipTests=true -B -U -Prelease
 
-      - name: Submit metric to Datadog
-        uses: sendgrid/dx-automator/actions/datadog-release-metric@08b601b726671445abc798ed59881766ec8fefc6
-        env:
-          DD_API_KEY: ${{ secrets.DATADOG_API_KEY }}
+#      - name: Submit metric to Datadog
+#        uses: sendgrid/dx-automator/actions/datadog-release-metric@08b601b726671445abc798ed59881766ec8fefc6
+#        env:
+#          DD_API_KEY: ${{ secrets.DATADOG_API_KEY }}
 

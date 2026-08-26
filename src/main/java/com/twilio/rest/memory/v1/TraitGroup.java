@@ -463,7 +463,10 @@ public class TraitGroup extends Resource {
     }
 
     public enum RuleType {
-        STRING("STRING");
+        STRING("STRING"),
+        NUMBER("NUMBER"),
+        BOOLEAN("BOOLEAN"),
+        ARRAY("ARRAY");
 
         private final String value;
 
@@ -483,6 +486,7 @@ public class TraitGroup extends Resource {
     }
 
     @JsonDeserialize(builder = TraitDefinition.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TraitDefinition {
@@ -519,6 +523,7 @@ public class TraitGroup extends Resource {
             return mapper.readValue(jsonString, TraitDefinition.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -582,6 +587,7 @@ public class TraitGroup extends Resource {
     }
 
     @JsonDeserialize(builder = TraitGroupCoreTraitsValue.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TraitGroupCoreTraitsValue {
@@ -627,6 +633,7 @@ public class TraitGroup extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -706,6 +713,7 @@ public class TraitGroup extends Resource {
     }
 
     @JsonDeserialize(builder = _TraitGroup.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class _TraitGroup {
@@ -751,6 +759,7 @@ public class TraitGroup extends Resource {
             return mapper.readValue(jsonString, _TraitGroup.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -822,6 +831,7 @@ public class TraitGroup extends Resource {
     }
 
     @JsonDeserialize(builder = Meta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Meta {
@@ -862,6 +872,7 @@ public class TraitGroup extends Resource {
             return mapper.readValue(jsonString, Meta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -936,6 +947,7 @@ public class TraitGroup extends Resource {
     }
 
     @JsonDeserialize(builder = PatchTraitGroupRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class PatchTraitGroupRequest {
@@ -966,6 +978,7 @@ public class TraitGroup extends Resource {
             return mapper.readValue(jsonString, PatchTraitGroupRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1018,6 +1031,7 @@ public class TraitGroup extends Resource {
     }
 
     @JsonDeserialize(builder = TraitGroupRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TraitGroupRequest {
@@ -1054,6 +1068,7 @@ public class TraitGroup extends Resource {
             return mapper.readValue(jsonString, TraitGroupRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1119,39 +1134,10 @@ public class TraitGroup extends Resource {
     }
 
     @JsonDeserialize(builder = ValidationRule.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ValidationRule {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("max")
-        @Getter
-        private final BigDecimal max;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("maxItems")
-        @Getter
-        private final Integer maxItems;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("maxLength")
-        @Getter
-        private final Integer maxLength;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("min")
-        @Getter
-        private final BigDecimal min;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("minItems")
-        @Getter
-        private final Integer minItems;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("minLength")
-        @Getter
-        private final Integer minLength;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("pattern")
@@ -1159,19 +1145,49 @@ public class TraitGroup extends Resource {
         private final String pattern;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("minLength")
+        @Getter
+        private final Integer minLength;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("maxLength")
+        @Getter
+        private final Integer maxLength;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("ruleType")
         @Getter
         private final TraitGroup.RuleType ruleType;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("min")
+        @Getter
+        private final BigDecimal min;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("max")
+        @Getter
+        private final BigDecimal max;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("minItems")
+        @Getter
+        private final Integer minItems;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("maxItems")
+        @Getter
+        private final Integer maxItems;
+
         private ValidationRule(Builder builder) {
-            this.max = builder.max;
-            this.maxItems = builder.maxItems;
-            this.maxLength = builder.maxLength;
-            this.min = builder.min;
-            this.minItems = builder.minItems;
-            this.minLength = builder.minLength;
             this.pattern = builder.pattern;
+            this.minLength = builder.minLength;
+            this.maxLength = builder.maxLength;
             this.ruleType = builder.ruleType;
+            this.min = builder.min;
+            this.max = builder.max;
+            this.minItems = builder.minItems;
+            this.maxItems = builder.maxItems;
         }
 
         public static Builder builder() {
@@ -1185,65 +1201,38 @@ public class TraitGroup extends Resource {
             return mapper.readValue(jsonString, ValidationRule.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
-
-            @JsonProperty("max")
-            private BigDecimal max;
-
-            @JsonProperty("maxItems")
-            private Integer maxItems;
-
-            @JsonProperty("maxLength")
-            private Integer maxLength;
-
-            @JsonProperty("min")
-            private BigDecimal min;
-
-            @JsonProperty("minItems")
-            private Integer minItems;
-
-            @JsonProperty("minLength")
-            private Integer minLength;
 
             @JsonProperty("pattern")
             private String pattern;
 
+            @JsonProperty("minLength")
+            private Integer minLength;
+
+            @JsonProperty("maxLength")
+            private Integer maxLength;
+
             @JsonProperty("ruleType")
             private TraitGroup.RuleType ruleType;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("max")
-            public Builder max(BigDecimal max) {
-                this.max = max;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("maxItems")
-            public Builder maxItems(Integer maxItems) {
-                this.maxItems = maxItems;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("maxLength")
-            public Builder maxLength(Integer maxLength) {
-                this.maxLength = maxLength;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("min")
-            public Builder min(BigDecimal min) {
-                this.min = min;
-                return this;
-            }
+            private BigDecimal min;
+
+            @JsonProperty("max")
+            private BigDecimal max;
+
+            @JsonProperty("minItems")
+            private Integer minItems;
+
+            @JsonProperty("maxItems")
+            private Integer maxItems;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("minItems")
-            public Builder minItems(Integer minItems) {
-                this.minItems = minItems;
+            @JsonProperty("pattern")
+            public Builder pattern(String pattern) {
+                this.pattern = pattern;
                 return this;
             }
 
@@ -1255,9 +1244,9 @@ public class TraitGroup extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("pattern")
-            public Builder pattern(String pattern) {
-                this.pattern = pattern;
+            @JsonProperty("maxLength")
+            public Builder maxLength(Integer maxLength) {
+                this.maxLength = maxLength;
                 return this;
             }
 
@@ -1265,6 +1254,34 @@ public class TraitGroup extends Resource {
             @JsonProperty("ruleType")
             public Builder ruleType(TraitGroup.RuleType ruleType) {
                 this.ruleType = ruleType;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("min")
+            public Builder min(BigDecimal min) {
+                this.min = min;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("max")
+            public Builder max(BigDecimal max) {
+                this.max = max;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("minItems")
+            public Builder minItems(Integer minItems) {
+                this.minItems = minItems;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("maxItems")
+            public Builder maxItems(Integer maxItems) {
+                this.maxItems = maxItems;
                 return this;
             }
 
@@ -1285,28 +1302,28 @@ public class TraitGroup extends Resource {
 
             ValidationRule other = (ValidationRule) o;
             return (
-                Objects.equals(max, other.max) &&
-                Objects.equals(maxItems, other.maxItems) &&
-                Objects.equals(maxLength, other.maxLength) &&
-                Objects.equals(min, other.min) &&
-                Objects.equals(minItems, other.minItems) &&
-                Objects.equals(minLength, other.minLength) &&
                 Objects.equals(pattern, other.pattern) &&
-                Objects.equals(ruleType, other.ruleType)
+                Objects.equals(minLength, other.minLength) &&
+                Objects.equals(maxLength, other.maxLength) &&
+                Objects.equals(ruleType, other.ruleType) &&
+                Objects.equals(min, other.min) &&
+                Objects.equals(max, other.max) &&
+                Objects.equals(minItems, other.minItems) &&
+                Objects.equals(maxItems, other.maxItems)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                max,
-                maxItems,
-                maxLength,
-                min,
-                minItems,
-                minLength,
                 pattern,
-                ruleType
+                minLength,
+                maxLength,
+                ruleType,
+                min,
+                max,
+                minItems,
+                maxItems
             );
         }
     }

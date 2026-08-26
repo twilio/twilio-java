@@ -646,6 +646,7 @@ public class Conversation extends Resource {
     }
 
     @JsonDeserialize(builder = ConversationListItem.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationListItem {
@@ -768,6 +769,7 @@ public class Conversation extends Resource {
             return mapper.readValue(jsonString, ConversationListItem.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -915,6 +917,7 @@ public class Conversation extends Resource {
     }
 
     @JsonDeserialize(builder = ListOperators200ResponseMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListOperators200ResponseMeta {
@@ -963,6 +966,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1033,6 +1037,7 @@ public class Conversation extends Resource {
     }
 
     @JsonDeserialize(builder = Participant.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Participant {
@@ -1078,6 +1083,7 @@ public class Conversation extends Resource {
             return mapper.readValue(jsonString, Participant.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1147,6 +1153,7 @@ public class Conversation extends Resource {
     }
 
     @JsonDeserialize(builder = Content.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Content {
@@ -1169,6 +1176,7 @@ public class Conversation extends Resource {
             return mapper.readValue(jsonString, Content.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1208,6 +1216,7 @@ public class Conversation extends Resource {
     }
 
     @JsonDeserialize(builder = Communication.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Communication {
@@ -1257,6 +1266,7 @@ public class Conversation extends Resource {
             return mapper.readValue(jsonString, Communication.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

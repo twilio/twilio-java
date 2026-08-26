@@ -528,6 +528,7 @@ public class Observation extends Resource {
     }
 
     @JsonDeserialize(builder = ObservationsMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ObservationsMeta {
@@ -570,6 +571,7 @@ public class Observation extends Resource {
             return mapper.readValue(jsonString, ObservationsMeta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -644,6 +646,7 @@ public class Observation extends Resource {
     }
 
     @JsonDeserialize(builder = ObservationCore.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ObservationCore {
@@ -692,6 +695,7 @@ public class Observation extends Resource {
             return mapper.readValue(jsonString, ObservationCore.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -760,6 +764,7 @@ public class Observation extends Resource {
     }
 
     @JsonDeserialize(builder = CreateObservationsRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateObservationsRequest {
@@ -789,6 +794,7 @@ public class Observation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -830,6 +836,7 @@ public class Observation extends Resource {
     }
 
     @JsonDeserialize(builder = ObservationInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ObservationInfo {
@@ -910,6 +917,7 @@ public class Observation extends Resource {
             return mapper.readValue(jsonString, ObservationInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

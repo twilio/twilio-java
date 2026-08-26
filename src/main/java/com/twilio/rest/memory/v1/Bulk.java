@@ -293,6 +293,7 @@ public class Bulk extends Resource {
     }
 
     @JsonDeserialize(builder = UpdateProfilesBulkRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class UpdateProfilesBulkRequest {
@@ -320,6 +321,7 @@ public class Bulk extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -359,6 +361,7 @@ public class Bulk extends Resource {
     }
 
     @JsonDeserialize(builder = ProfileData.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ProfileData {
@@ -383,6 +386,7 @@ public class Bulk extends Resource {
             return mapper.readValue(jsonString, ProfileData.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

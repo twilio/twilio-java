@@ -55,6 +55,7 @@ public class Message extends Resource {
     @JsonDeserialize(
         builder = AssistantsV1ServiceAssistantSendMessageRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceAssistantSendMessageRequest {
@@ -111,6 +112,7 @@ public class Message extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

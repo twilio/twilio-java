@@ -360,6 +360,7 @@ public class Revision extends Resource {
     }
 
     @JsonDeserialize(builder = ObservationsMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ObservationsMeta {
@@ -402,6 +403,7 @@ public class Revision extends Resource {
             return mapper.readValue(jsonString, ObservationsMeta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -476,6 +478,7 @@ public class Revision extends Resource {
     }
 
     @JsonDeserialize(builder = ObservationInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ObservationInfo {
@@ -556,6 +559,7 @@ public class Revision extends Resource {
             return mapper.readValue(jsonString, ObservationInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

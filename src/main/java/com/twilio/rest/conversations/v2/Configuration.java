@@ -664,6 +664,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = ListConfiguration200ResponseMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListConfiguration200ResponseMeta {
@@ -712,6 +713,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -784,6 +786,7 @@ public class Configuration extends Resource {
     @JsonDeserialize(
         builder = UpdateConfigurationRequestChannelSettingsValueCaptureRules.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class UpdateConfigurationRequestChannelSettingsValueCaptureRules {
@@ -825,6 +828,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -888,6 +892,7 @@ public class Configuration extends Resource {
     @JsonDeserialize(
         builder = UpdateConfigurationRequestStatusCallbacks.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class UpdateConfigurationRequestStatusCallbacks {
@@ -921,6 +926,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -974,6 +980,7 @@ public class Configuration extends Resource {
     @JsonDeserialize(
         builder = UpdateConfigurationRequestChannelSettingsValue.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class UpdateConfigurationRequestChannelSettingsValue {
@@ -1011,6 +1018,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1074,6 +1082,7 @@ public class Configuration extends Resource {
     @JsonDeserialize(
         builder = CreateConfigurationRequestChannelSettingsValue.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateConfigurationRequestChannelSettingsValue {
@@ -1111,6 +1120,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1172,6 +1182,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = ConversationsV2ChannelSetting.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2ChannelSetting {
@@ -1205,6 +1216,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1262,6 +1274,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = UpdateConfigurationRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class UpdateConfigurationRequest {
@@ -1350,6 +1363,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1490,6 +1504,7 @@ public class Configuration extends Resource {
     @JsonDeserialize(
         builder = ConversationsV2StatusCallbackConfig.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2StatusCallbackConfig {
@@ -1523,6 +1538,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1574,6 +1590,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = ConversationsV2StatusTimeouts.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2StatusTimeouts {
@@ -1607,6 +1624,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1660,6 +1678,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = ConversationsV2CaptureRule.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2CaptureRule {
@@ -1699,6 +1718,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1757,6 +1777,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = CreateConfigurationRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateConfigurationRequest {
@@ -1842,6 +1863,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1984,6 +2006,7 @@ public class Configuration extends Resource {
     @JsonDeserialize(
         builder = ConversationsV2ConversationsV1Bridge.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2ConversationsV1Bridge {
@@ -2011,6 +2034,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2051,6 +2075,7 @@ public class Configuration extends Resource {
     @JsonDeserialize(
         builder = CreateConfigurationRequestChannelSettingsValueStatusTimeouts.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateConfigurationRequestChannelSettingsValueStatusTimeouts {
@@ -2086,6 +2111,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2143,6 +2169,7 @@ public class Configuration extends Resource {
     @JsonDeserialize(
         builder = UpdateConfigurationRequestChannelSettingsValueStatusTimeouts.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class UpdateConfigurationRequestChannelSettingsValueStatusTimeouts {
@@ -2178,6 +2205,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2235,6 +2263,7 @@ public class Configuration extends Resource {
     @JsonDeserialize(
         builder = ListConfiguration200ResponseConfigurations.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListConfiguration200ResponseConfigurations {
@@ -2354,6 +2383,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2565,6 +2595,7 @@ public class Configuration extends Resource {
     @JsonDeserialize(
         builder = CreateConfigurationRequestStatusCallbacks.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateConfigurationRequestStatusCallbacks {
@@ -2598,6 +2629,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2651,6 +2683,7 @@ public class Configuration extends Resource {
     @JsonDeserialize(
         builder = CreateConfigurationRequestChannelSettingsValueCaptureRules.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateConfigurationRequestChannelSettingsValueCaptureRules {
@@ -2692,6 +2725,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

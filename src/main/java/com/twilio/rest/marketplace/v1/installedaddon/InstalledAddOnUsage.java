@@ -57,6 +57,7 @@ public class InstalledAddOnUsage extends Resource {
     @JsonDeserialize(
         builder = MarketplaceV1InstalledAddOnInstalledAddOnUsage.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
@@ -98,6 +99,7 @@ public class InstalledAddOnUsage extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -157,6 +159,7 @@ public class InstalledAddOnUsage extends Resource {
     @JsonDeserialize(
         builder = MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
@@ -201,6 +204,7 @@ public class InstalledAddOnUsage extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

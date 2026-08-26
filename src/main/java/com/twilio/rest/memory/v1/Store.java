@@ -449,6 +449,7 @@ public class Store extends Resource {
     }
 
     @JsonDeserialize(builder = Meta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Meta {
@@ -489,6 +490,7 @@ public class Store extends Resource {
             return mapper.readValue(jsonString, Meta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -563,6 +565,7 @@ public class Store extends Resource {
     }
 
     @JsonDeserialize(builder = PatchStoreRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class PatchStoreRequest {
@@ -593,6 +596,7 @@ public class Store extends Resource {
             return mapper.readValue(jsonString, PatchStoreRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -645,6 +649,7 @@ public class Store extends Resource {
     }
 
     @JsonDeserialize(builder = ServiceRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ServiceRequest {
@@ -675,6 +680,7 @@ public class Store extends Resource {
             return mapper.readValue(jsonString, ServiceRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

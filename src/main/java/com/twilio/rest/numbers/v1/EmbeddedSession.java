@@ -55,6 +55,7 @@ public class EmbeddedSession extends Resource {
     @JsonDeserialize(
         builder = NumbersV1CreateEmbeddedSessionRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class NumbersV1CreateEmbeddedSessionRequest {
@@ -82,6 +83,7 @@ public class EmbeddedSession extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

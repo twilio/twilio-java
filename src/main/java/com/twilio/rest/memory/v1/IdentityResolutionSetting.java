@@ -428,6 +428,7 @@ public class IdentityResolutionSetting extends Resource {
     }
 
     @JsonDeserialize(builder = IdentifierConfig.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class IdentifierConfig {
@@ -488,6 +489,7 @@ public class IdentityResolutionSetting extends Resource {
             return mapper.readValue(jsonString, IdentifierConfig.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -607,6 +609,7 @@ public class IdentityResolutionSetting extends Resource {
     }
 
     @JsonDeserialize(builder = IdentityResolutionSettingsCore.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class IdentityResolutionSettingsCore {
@@ -640,6 +643,7 @@ public class IdentityResolutionSetting extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

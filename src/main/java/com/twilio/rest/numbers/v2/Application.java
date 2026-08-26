@@ -292,6 +292,7 @@ public class Application extends Resource {
     @JsonDeserialize(
         builder = CreateShortCodeApplicationResponseUserSignUp.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateShortCodeApplicationResponseUserSignUp {
@@ -368,6 +369,7 @@ public class Application extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -523,6 +525,7 @@ public class Application extends Resource {
     }
 
     @JsonDeserialize(builder = CreateShortCodeApplicationRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateShortCodeApplicationRequest {
@@ -578,6 +581,7 @@ public class Application extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -652,6 +656,7 @@ public class Application extends Resource {
     @JsonDeserialize(
         builder = CreateShortCodeApplicationResponseSetup.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateShortCodeApplicationResponseSetup {
@@ -739,6 +744,7 @@ public class Application extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -910,6 +916,7 @@ public class Application extends Resource {
     @JsonDeserialize(
         builder = CreateShortCodeApplicationRequestSetup.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateShortCodeApplicationRequestSetup {
@@ -937,6 +944,7 @@ public class Application extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -979,6 +987,7 @@ public class Application extends Resource {
     @JsonDeserialize(
         builder = CreateShortCodeApplicationResponseComplianceKeywords.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateShortCodeApplicationResponseComplianceKeywords {
@@ -1038,6 +1047,7 @@ public class Application extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1139,6 +1149,7 @@ public class Application extends Resource {
     @JsonDeserialize(
         builder = CreateShortCodeApplicationResponseBusinessInformation.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateShortCodeApplicationResponseBusinessInformation {
@@ -1192,6 +1203,7 @@ public class Application extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1306,6 +1318,7 @@ public class Application extends Resource {
     @JsonDeserialize(
         builder = CreateShortCodeApplicationResponseContentExamples.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateShortCodeApplicationResponseContentExamples {
@@ -1335,6 +1348,7 @@ public class Application extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1379,6 +1393,7 @@ public class Application extends Resource {
     @JsonDeserialize(
         builder = CreateShortCodeApplicationResponseSmsCampaignDetails.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateShortCodeApplicationResponseSmsCampaignDetails {
@@ -1508,6 +1523,7 @@ public class Application extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1809,6 +1825,7 @@ public class Application extends Resource {
     @JsonDeserialize(
         builder = CreateShortCodeApplicationRequestBusinessInformation.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateShortCodeApplicationRequestBusinessInformation {
@@ -1838,6 +1855,7 @@ public class Application extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

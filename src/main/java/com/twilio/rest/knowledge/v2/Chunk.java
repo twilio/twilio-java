@@ -301,6 +301,7 @@ public class Chunk extends Resource {
     }
 
     @JsonDeserialize(builder = KnowledgeMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class KnowledgeMeta {
@@ -343,6 +344,7 @@ public class Chunk extends Resource {
             return mapper.readValue(jsonString, KnowledgeMeta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -417,6 +419,7 @@ public class Chunk extends Resource {
     }
 
     @JsonDeserialize(builder = KnowledgeChunk.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class KnowledgeChunk {
@@ -449,6 +452,7 @@ public class Chunk extends Resource {
             return mapper.readValue(jsonString, KnowledgeChunk.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

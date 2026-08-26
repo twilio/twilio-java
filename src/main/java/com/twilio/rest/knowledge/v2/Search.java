@@ -291,6 +291,7 @@ public class Search extends Resource {
     }
 
     @JsonDeserialize(builder = KnowledgeSearch.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class KnowledgeSearch {
@@ -327,6 +328,7 @@ public class Search extends Resource {
             return mapper.readValue(jsonString, KnowledgeSearch.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -385,6 +387,7 @@ public class Search extends Resource {
     }
 
     @JsonDeserialize(builder = KnowledgeChunkResult.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class KnowledgeChunkResult {
@@ -429,6 +432,7 @@ public class Search extends Resource {
             return mapper.readValue(jsonString, KnowledgeChunkResult.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

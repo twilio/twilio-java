@@ -466,6 +466,7 @@ public class Action extends Resource {
     }
 
     @JsonDeserialize(builder = CreateConversationActionRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateConversationActionRequest {
@@ -502,6 +503,7 @@ public class Action extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -552,6 +554,7 @@ public class Action extends Resource {
     }
 
     @JsonDeserialize(builder = ConversationsV2SendMessagePayload.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2SendMessagePayload {
@@ -601,6 +604,7 @@ public class Action extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -674,6 +678,7 @@ public class Action extends Resource {
     }
 
     @JsonDeserialize(builder = ConversationsV2SendMessageContent.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2SendMessageContent {
@@ -719,6 +724,7 @@ public class Action extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -796,6 +802,7 @@ public class Action extends Resource {
     @JsonDeserialize(
         builder = ConversationsV2SendMessageParticipant.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2SendMessageParticipant {
@@ -835,6 +842,7 @@ public class Action extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

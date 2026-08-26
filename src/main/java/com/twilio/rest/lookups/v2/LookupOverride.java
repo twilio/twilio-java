@@ -168,6 +168,7 @@ public class LookupOverride extends Resource {
     }
 
     @JsonDeserialize(builder = OverridesRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OverridesRequest {
@@ -198,6 +199,7 @@ public class LookupOverride extends Resource {
             return mapper.readValue(jsonString, OverridesRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

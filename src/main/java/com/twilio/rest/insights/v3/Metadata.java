@@ -314,6 +314,7 @@ public class Metadata extends Resource {
     }
 
     @JsonDeserialize(builder = InsightsMetadataResponseCubes.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class InsightsMetadataResponseCubes {
@@ -363,6 +364,7 @@ public class Metadata extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -434,6 +436,7 @@ public class Metadata extends Resource {
     @JsonDeserialize(
         builder = InsightsMetadataResponseCubesDimensions.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class InsightsMetadataResponseCubesDimensions {
@@ -473,6 +476,7 @@ public class Metadata extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -534,6 +538,7 @@ public class Metadata extends Resource {
     @JsonDeserialize(
         builder = InsightsMetadataResponseCubesMeasures.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class InsightsMetadataResponseCubesMeasures {
@@ -579,6 +584,7 @@ public class Metadata extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

@@ -407,6 +407,7 @@ public class Operation extends Resource {
     }
 
     @JsonDeserialize(builder = OperationResultResourceId.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperationResultResourceId {
@@ -443,6 +444,7 @@ public class Operation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -489,6 +491,7 @@ public class Operation extends Resource {
     }
 
     @JsonDeserialize(builder = OperationStatusError.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperationStatusError {
@@ -531,6 +534,7 @@ public class Operation extends Resource {
             return mapper.readValue(jsonString, OperationStatusError.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

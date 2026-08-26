@@ -126,6 +126,7 @@ public class NewChallenge extends Resource {
     }
 
     @JsonDeserialize(builder = CreatePasskeysChallengeRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreatePasskeysChallengeRequest {
@@ -159,6 +160,7 @@ public class NewChallenge extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

@@ -403,6 +403,7 @@ public class Import extends Resource {
     @JsonDeserialize(
         builder = FetchProfileImportV2200ResponseSummary.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class FetchProfileImportV2200ResponseSummary {
@@ -436,6 +437,7 @@ public class Import extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -489,6 +491,7 @@ public class Import extends Resource {
     }
 
     @JsonDeserialize(builder = CreateProfilesImportV2Request.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateProfilesImportV2Request {
@@ -532,6 +535,7 @@ public class Import extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -588,6 +592,7 @@ public class Import extends Resource {
     }
 
     @JsonDeserialize(builder = ColumnMappingItem.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ColumnMappingItem {
@@ -628,6 +633,7 @@ public class Import extends Resource {
             return mapper.readValue(jsonString, ColumnMappingItem.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

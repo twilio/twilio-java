@@ -515,6 +515,7 @@ public class KnowledgeBasis extends Resource {
     }
 
     @JsonDeserialize(builder = Meta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Meta {
@@ -555,6 +556,7 @@ public class KnowledgeBasis extends Resource {
             return mapper.readValue(jsonString, Meta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -629,6 +631,7 @@ public class KnowledgeBasis extends Resource {
     }
 
     @JsonDeserialize(builder = UpdateKnowledgeBaseRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class UpdateKnowledgeBaseRequest {
@@ -662,6 +665,7 @@ public class KnowledgeBasis extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -714,6 +718,7 @@ public class KnowledgeBasis extends Resource {
     }
 
     @JsonDeserialize(builder = KnowledgeBase.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class KnowledgeBase {
@@ -792,6 +797,7 @@ public class KnowledgeBasis extends Resource {
             return mapper.readValue(jsonString, KnowledgeBase.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -890,6 +896,7 @@ public class KnowledgeBasis extends Resource {
     }
 
     @JsonDeserialize(builder = KnowledgeBaseCore.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class KnowledgeBaseCore {
@@ -920,6 +927,7 @@ public class KnowledgeBasis extends Resource {
             return mapper.readValue(jsonString, KnowledgeBaseCore.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

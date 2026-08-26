@@ -585,7 +585,8 @@ public class Communication extends Resource {
     }
 
     public enum Type {
-        TEXT("TEXT");
+        TEXT("TEXT"),
+        TRANSCRIPTION("TRANSCRIPTION");
 
         private final String value;
 
@@ -653,6 +654,7 @@ public class Communication extends Resource {
     }
 
     @JsonDeserialize(builder = ConversationsV2ParticipantAddress.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2ParticipantAddress {
@@ -695,6 +697,7 @@ public class Communication extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -756,6 +759,7 @@ public class Communication extends Resource {
     @JsonDeserialize(
         builder = CreateCommunicationInConversationRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateCommunicationInConversationRequest {
@@ -809,6 +813,7 @@ public class Communication extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -884,6 +889,7 @@ public class Communication extends Resource {
     @JsonDeserialize(
         builder = ConversationsV2ContentTranscriptionTranscription.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2ContentTranscriptionTranscription {
@@ -933,6 +939,7 @@ public class Communication extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1018,6 +1025,7 @@ public class Communication extends Resource {
     @JsonDeserialize(
         builder = ConversationsV2ContentTranscriptionTranscriptionWords.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2ContentTranscriptionTranscriptionWords {
@@ -1063,6 +1071,7 @@ public class Communication extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1145,6 +1154,7 @@ public class Communication extends Resource {
     @JsonDeserialize(
         builder = CreateCommunicationInConversationRequestAuthor.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateCommunicationInConversationRequestAuthor {
@@ -1189,6 +1199,7 @@ public class Communication extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1250,6 +1261,7 @@ public class Communication extends Resource {
     @JsonDeserialize(
         builder = ListCommunicationByConversation200ResponseCommunicationsRecipients.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListCommunicationByConversation200ResponseCommunicationsRecipients {
@@ -1300,6 +1312,7 @@ public class Communication extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1381,6 +1394,7 @@ public class Communication extends Resource {
     @JsonDeserialize(
         builder = ListCommunicationByConversation200ResponseMeta.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListCommunicationByConversation200ResponseMeta {
@@ -1428,6 +1442,7 @@ public class Communication extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1503,6 +1518,7 @@ public class Communication extends Resource {
     }
 
     @JsonDeserialize(builder = ContentTranscriptionTranscription.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ContentTranscriptionTranscription {
@@ -1542,6 +1558,7 @@ public class Communication extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1608,9 +1625,15 @@ public class Communication extends Resource {
     @JsonDeserialize(
         builder = CreateCommunicationInConversationRequestContent.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateCommunicationInConversationRequestContent {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        private final Communication.Type type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("text")
@@ -1622,17 +1645,12 @@ public class Communication extends Resource {
         @Getter
         private final ContentTranscriptionTranscription transcription;
 
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("type")
-        @Getter
-        private final Communication.Type type;
-
         private CreateCommunicationInConversationRequestContent(
             Builder builder
         ) {
+            this.type = builder.type;
             this.text = builder.text;
             this.transcription = builder.transcription;
-            this.type = builder.type;
         }
 
         public static Builder builder() {
@@ -1649,8 +1667,12 @@ public class Communication extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
+            @JsonProperty("type")
+            private Communication.Type type;
 
             @JsonProperty("text")
             private String text;
@@ -1658,8 +1680,12 @@ public class Communication extends Resource {
             @JsonProperty("transcription")
             private ContentTranscriptionTranscription transcription;
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("type")
-            private Communication.Type type;
+            public Builder type(Communication.Type type) {
+                this.type = type;
+                return this;
+            }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("text")
@@ -1674,13 +1700,6 @@ public class Communication extends Resource {
                 ContentTranscriptionTranscription transcription
             ) {
                 this.transcription = transcription;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("type")
-            public Builder type(Communication.Type type) {
-                this.type = type;
                 return this;
             }
 
@@ -1704,24 +1723,30 @@ public class Communication extends Resource {
             CreateCommunicationInConversationRequestContent other =
                 (CreateCommunicationInConversationRequestContent) o;
             return (
+                Objects.equals(type, other.type) &&
                 Objects.equals(text, other.text) &&
-                Objects.equals(transcription, other.transcription) &&
-                Objects.equals(type, other.type)
+                Objects.equals(transcription, other.transcription)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(text, transcription, type);
+            return Objects.hash(type, text, transcription);
         }
     }
 
     @JsonDeserialize(
         builder = ListCommunicationByConversation200ResponseCommunicationsContent.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListCommunicationByConversation200ResponseCommunicationsContent {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        private final Communication.Type type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("text")
@@ -1733,17 +1758,12 @@ public class Communication extends Resource {
         @Getter
         private final ConversationsV2ContentTranscriptionTranscription transcription;
 
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("type")
-        @Getter
-        private final Communication.Type type;
-
         private ListCommunicationByConversation200ResponseCommunicationsContent(
             Builder builder
         ) {
+            this.type = builder.type;
             this.text = builder.text;
             this.transcription = builder.transcription;
-            this.type = builder.type;
         }
 
         public static Builder builder() {
@@ -1760,8 +1780,12 @@ public class Communication extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
+            @JsonProperty("type")
+            private Communication.Type type;
 
             @JsonProperty("text")
             private String text;
@@ -1769,8 +1793,12 @@ public class Communication extends Resource {
             @JsonProperty("transcription")
             private ConversationsV2ContentTranscriptionTranscription transcription;
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("type")
-            private Communication.Type type;
+            public Builder type(Communication.Type type) {
+                this.type = type;
+                return this;
+            }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("text")
@@ -1785,13 +1813,6 @@ public class Communication extends Resource {
                 ConversationsV2ContentTranscriptionTranscription transcription
             ) {
                 this.transcription = transcription;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("type")
-            public Builder type(Communication.Type type) {
-                this.type = type;
                 return this;
             }
 
@@ -1815,21 +1836,22 @@ public class Communication extends Resource {
             ListCommunicationByConversation200ResponseCommunicationsContent other =
                 (ListCommunicationByConversation200ResponseCommunicationsContent) o;
             return (
+                Objects.equals(type, other.type) &&
                 Objects.equals(text, other.text) &&
-                Objects.equals(transcription, other.transcription) &&
-                Objects.equals(type, other.type)
+                Objects.equals(transcription, other.transcription)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(text, transcription, type);
+            return Objects.hash(type, text, transcription);
         }
     }
 
     @JsonDeserialize(
         builder = ListCommunicationByConversation200ResponseCommunications.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListCommunicationByConversation200ResponseCommunications {
@@ -1943,6 +1965,7 @@ public class Communication extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

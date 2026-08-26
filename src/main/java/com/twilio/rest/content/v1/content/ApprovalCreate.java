@@ -53,6 +53,7 @@ public class ApprovalCreate extends Resource {
     }
 
     @JsonDeserialize(builder = ContentApprovalRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ContentApprovalRequest {
@@ -86,6 +87,7 @@ public class ApprovalCreate extends Resource {
             return mapper.readValue(jsonString, ContentApprovalRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

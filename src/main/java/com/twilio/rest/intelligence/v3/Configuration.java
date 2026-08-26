@@ -628,6 +628,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = Operator.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Operator {
@@ -662,6 +663,7 @@ public class Configuration extends Resource {
             return mapper.readValue(jsonString, Operator.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -723,6 +725,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = Context.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Context {
@@ -751,6 +754,7 @@ public class Configuration extends Resource {
             return mapper.readValue(jsonString, Context.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -803,6 +807,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = Action.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Action {
@@ -841,6 +846,7 @@ public class Configuration extends Resource {
             return mapper.readValue(jsonString, Action.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -894,6 +900,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = RuleCreationRequestPayload.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class RuleCreationRequestPayload {
@@ -942,6 +949,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1011,6 +1019,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = ContextKnowledge.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ContextKnowledge {
@@ -1035,6 +1044,7 @@ public class Configuration extends Resource {
             return mapper.readValue(jsonString, ContextKnowledge.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1072,6 +1082,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = UpdateConfigurationRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class UpdateConfigurationRequest {
@@ -1114,6 +1125,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1174,6 +1186,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = Trigger.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Trigger {
@@ -1202,6 +1215,7 @@ public class Configuration extends Resource {
             return mapper.readValue(jsonString, Trigger.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1252,6 +1266,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = ContextMemory.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ContextMemory {
@@ -1276,6 +1291,7 @@ public class Configuration extends Resource {
             return mapper.readValue(jsonString, ContextMemory.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1315,6 +1331,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = ListConfigurations200ResponseMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListConfigurations200ResponseMeta {
@@ -1363,6 +1380,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1433,6 +1451,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = CreateConfigurationRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateConfigurationRequest {
@@ -1475,6 +1494,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1535,6 +1555,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = TriggerParameters.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TriggerParameters {
@@ -1559,6 +1580,7 @@ public class Configuration extends Resource {
             return mapper.readValue(jsonString, TriggerParameters.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1598,6 +1620,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = IntelligenceConfiguration.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class IntelligenceConfiguration {
@@ -1687,6 +1710,7 @@ public class Configuration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1792,6 +1816,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = Rule.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Rule {
@@ -1843,6 +1868,7 @@ public class Configuration extends Resource {
             return mapper.readValue(jsonString, Rule.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1913,6 +1939,7 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(builder = RuleUpdateRequestPayload.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class RuleUpdateRequestPayload {
@@ -1964,6 +1991,7 @@ public class Configuration extends Resource {
             return mapper.readValue(jsonString, RuleUpdateRequestPayload.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

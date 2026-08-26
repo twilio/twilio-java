@@ -55,6 +55,7 @@ public class SenderIdRegistration extends Resource {
     }
 
     @JsonDeserialize(builder = NumbersV1EmbeddedSession.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class NumbersV1EmbeddedSession {
@@ -88,6 +89,7 @@ public class SenderIdRegistration extends Resource {
             return mapper.readValue(jsonString, NumbersV1EmbeddedSession.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -137,6 +139,7 @@ public class SenderIdRegistration extends Resource {
     @JsonDeserialize(
         builder = NumbersV1CreateEmbeddedRegistrationRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class NumbersV1CreateEmbeddedRegistrationRequest {
@@ -216,6 +219,7 @@ public class SenderIdRegistration extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

@@ -68,6 +68,7 @@ public class Assistant extends Resource {
     }
 
     @JsonDeserialize(builder = AssistantsV1ServiceTool.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceTool {
@@ -176,6 +177,7 @@ public class Assistant extends Resource {
             return mapper.readValue(jsonString, AssistantsV1ServiceTool.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -307,6 +309,7 @@ public class Assistant extends Resource {
     }
 
     @JsonDeserialize(builder = AssistantsV1ServiceCustomerAi.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCustomerAi {
@@ -347,6 +350,7 @@ public class Assistant extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -411,6 +415,7 @@ public class Assistant extends Resource {
     @JsonDeserialize(
         builder = AssistantsV1ServiceUpdateAssistantRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceUpdateAssistantRequest {
@@ -462,6 +467,7 @@ public class Assistant extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -560,6 +566,7 @@ public class Assistant extends Resource {
     @JsonDeserialize(
         builder = AssistantsV1ServiceCreateAssistantRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCreateAssistantRequest {
@@ -611,6 +618,7 @@ public class Assistant extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -707,6 +715,7 @@ public class Assistant extends Resource {
     @JsonDeserialize(
         builder = AssistantsV1ServiceSegmentCredential.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceSegmentCredential {
@@ -746,6 +755,7 @@ public class Assistant extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -810,6 +820,7 @@ public class Assistant extends Resource {
     }
 
     @JsonDeserialize(builder = AssistantsV1ServiceKnowledge.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceKnowledge {
@@ -907,6 +918,7 @@ public class Assistant extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

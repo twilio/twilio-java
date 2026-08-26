@@ -513,6 +513,7 @@ public class ConversationSummary extends Resource {
     }
 
     @JsonDeserialize(builder = CreateSummariesRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateSummariesRequest {
@@ -537,6 +538,7 @@ public class ConversationSummary extends Resource {
             return mapper.readValue(jsonString, CreateSummariesRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -576,6 +578,7 @@ public class ConversationSummary extends Resource {
     }
 
     @JsonDeserialize(builder = ObservationsMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ObservationsMeta {
@@ -618,6 +621,7 @@ public class ConversationSummary extends Resource {
             return mapper.readValue(jsonString, ObservationsMeta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -692,6 +696,7 @@ public class ConversationSummary extends Resource {
     }
 
     @JsonDeserialize(builder = SummaryCorePatch.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class SummaryCorePatch {
@@ -736,6 +741,7 @@ public class ConversationSummary extends Resource {
             return mapper.readValue(jsonString, SummaryCorePatch.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -818,6 +824,7 @@ public class ConversationSummary extends Resource {
     }
 
     @JsonDeserialize(builder = SummaryCore.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class SummaryCore {
@@ -866,6 +873,7 @@ public class ConversationSummary extends Resource {
             return mapper.readValue(jsonString, SummaryCore.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -934,6 +942,7 @@ public class ConversationSummary extends Resource {
     }
 
     @JsonDeserialize(builder = SummaryInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class SummaryInfo {
@@ -1014,6 +1023,7 @@ public class ConversationSummary extends Resource {
             return mapper.readValue(jsonString, SummaryInfo.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

@@ -336,6 +336,7 @@ public class Trait extends Resource {
     }
 
     @JsonDeserialize(builder = ProfilesMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ProfilesMeta {
@@ -378,6 +379,7 @@ public class Trait extends Resource {
             return mapper.readValue(jsonString, ProfilesMeta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -452,6 +454,7 @@ public class Trait extends Resource {
     }
 
     @JsonDeserialize(builder = FullTrait.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class FullTrait {
@@ -499,6 +502,7 @@ public class Trait extends Resource {
             return mapper.readValue(jsonString, FullTrait.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

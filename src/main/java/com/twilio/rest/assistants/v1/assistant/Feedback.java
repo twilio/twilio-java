@@ -61,6 +61,7 @@ public class Feedback extends Resource {
     @JsonDeserialize(
         builder = AssistantsV1ServiceCreateFeedbackRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCreateFeedbackRequest {
@@ -106,6 +107,7 @@ public class Feedback extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

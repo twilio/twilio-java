@@ -80,6 +80,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = CountyCarrierValue.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CountyCarrierValue {
@@ -110,6 +111,7 @@ public class Report extends Resource {
             return mapper.readValue(jsonString, CountyCarrierValue.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -162,6 +164,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = CountyCarrierValueCarriers.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CountyCarrierValueCarriers {
@@ -207,6 +210,7 @@ public class Report extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -293,6 +297,7 @@ public class Report extends Resource {
     @JsonDeserialize(
         builder = AccountReportAnsweringMachineDetection.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AccountReportAnsweringMachineDetection {
@@ -333,6 +338,7 @@ public class Report extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -411,6 +417,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = AccountReportCallType.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AccountReportCallType {
@@ -459,6 +466,7 @@ public class Report extends Resource {
             return mapper.readValue(jsonString, AccountReportCallType.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -544,6 +552,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = VoiceIntegrityCallsPerBundle.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class VoiceIntegrityCallsPerBundle {
@@ -595,6 +604,7 @@ public class Report extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -690,6 +700,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = AccountReportCallDirection.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AccountReportCallDirection {
@@ -723,6 +734,7 @@ public class Report extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -775,6 +787,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = StirShaken.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class StirShaken {
@@ -811,6 +824,7 @@ public class Report extends Resource {
             return mapper.readValue(jsonString, StirShaken.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -874,6 +888,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = StirShakenCallCount.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class StirShakenCallCount {
@@ -910,6 +925,7 @@ public class Report extends Resource {
             return mapper.readValue(jsonString, StirShakenCallCount.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -975,6 +991,7 @@ public class Report extends Resource {
     @JsonDeserialize(
         builder = InsightsV2CreateAccountReportRequestTimeRange.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class InsightsV2CreateAccountReportRequestTimeRange {
@@ -1012,6 +1029,7 @@ public class Report extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1081,6 +1099,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = ReportFilter.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ReportFilter {
@@ -1111,6 +1130,7 @@ public class Report extends Resource {
             return mapper.readValue(jsonString, ReportFilter.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1163,6 +1183,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = BrandedUseCaseDetail.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class BrandedUseCaseDetail {
@@ -1217,6 +1238,7 @@ public class Report extends Resource {
             return mapper.readValue(jsonString, BrandedUseCaseDetail.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1323,6 +1345,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = AccountReportNetworkIssuesSdk.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AccountReportNetworkIssuesSdk {
@@ -1368,6 +1391,7 @@ public class Report extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1461,6 +1485,7 @@ public class Report extends Resource {
     @JsonDeserialize(
         builder = AccountReportNetworkIssuesTwilioGateway.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AccountReportNetworkIssuesTwilioGateway {
@@ -1500,6 +1525,7 @@ public class Report extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1578,6 +1604,7 @@ public class Report extends Resource {
     @JsonDeserialize(
         builder = AccountReportKYTOutboundCarrierCalling.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AccountReportKYTOutboundCarrierCalling {
@@ -1656,6 +1683,7 @@ public class Report extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1824,6 +1852,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = AccountReport.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AccountReport {
@@ -1932,6 +1961,7 @@ public class Report extends Resource {
             return mapper.readValue(jsonString, AccountReport.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2166,6 +2196,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = StirShakenAnswerRate.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class StirShakenAnswerRate {
@@ -2202,6 +2233,7 @@ public class Report extends Resource {
             return mapper.readValue(jsonString, StirShakenAnswerRate.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2267,6 +2299,7 @@ public class Report extends Resource {
     @JsonDeserialize(
         builder = InsightsV2CreateAccountReportRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class InsightsV2CreateAccountReportRequest {
@@ -2300,6 +2333,7 @@ public class Report extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2355,6 +2389,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = VoiceIntegrity.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class VoiceIntegrity {
@@ -2391,6 +2426,7 @@ public class Report extends Resource {
             return mapper.readValue(jsonString, VoiceIntegrity.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2460,6 +2496,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = StirShakenPercentage.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class StirShakenPercentage {
@@ -2496,6 +2533,7 @@ public class Report extends Resource {
             return mapper.readValue(jsonString, StirShakenPercentage.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2559,6 +2597,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = AccountReportKYT.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AccountReportKYT {
@@ -2583,6 +2622,7 @@ public class Report extends Resource {
             return mapper.readValue(jsonString, AccountReportKYT.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2629,6 +2669,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = BrandedCalling.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class BrandedCalling {
@@ -2683,6 +2724,7 @@ public class Report extends Resource {
             return mapper.readValue(jsonString, BrandedCalling.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2789,6 +2831,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = AccountReportCallState.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AccountReportCallState {
@@ -2837,6 +2880,7 @@ public class Report extends Resource {
             return mapper.readValue(jsonString, AccountReportCallState.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2922,6 +2966,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = AccountReportNetworkIssues.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AccountReportNetworkIssues {
@@ -2955,6 +3000,7 @@ public class Report extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -3009,6 +3055,7 @@ public class Report extends Resource {
     }
 
     @JsonDeserialize(builder = ReportMetadata.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ReportMetadata {
@@ -3049,6 +3096,7 @@ public class Report extends Resource {
             return mapper.readValue(jsonString, ReportMetadata.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

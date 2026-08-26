@@ -648,6 +648,7 @@ public class Participant extends Resource {
     @JsonDeserialize(
         builder = ListParticipantByConversation200ResponseMeta.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListParticipantByConversation200ResponseMeta {
@@ -693,6 +694,7 @@ public class Participant extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -770,6 +772,7 @@ public class Participant extends Resource {
     @JsonDeserialize(
         builder = CreateParticipantInConversationRequestAddresses.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateParticipantInConversationRequestAddresses {
@@ -814,6 +817,7 @@ public class Participant extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -877,6 +881,7 @@ public class Participant extends Resource {
     @JsonDeserialize(
         builder = UpdateParticipantInConversationRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class UpdateParticipantInConversationRequest {
@@ -924,6 +929,7 @@ public class Participant extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1005,6 +1011,7 @@ public class Participant extends Resource {
     @JsonDeserialize(
         builder = CreateParticipantInConversationRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateParticipantInConversationRequest {
@@ -1056,6 +1063,7 @@ public class Participant extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1137,6 +1145,7 @@ public class Participant extends Resource {
     @JsonDeserialize(
         builder = ListParticipantByConversation200ResponseParticipants.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListParticipantByConversation200ResponseParticipants {
@@ -1223,6 +1232,7 @@ public class Participant extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1366,6 +1376,7 @@ public class Participant extends Resource {
     }
 
     @JsonDeserialize(builder = ConversationsV2Address.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2Address {
@@ -1405,6 +1416,7 @@ public class Participant extends Resource {
             return mapper.readValue(jsonString, ConversationsV2Address.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

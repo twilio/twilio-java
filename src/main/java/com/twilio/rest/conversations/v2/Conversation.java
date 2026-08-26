@@ -817,6 +817,7 @@ public class Conversation extends Resource {
     @JsonDeserialize(
         builder = ListConversationByAccount200ResponseConversationsConfiguration.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListConversationByAccount200ResponseConversationsConfiguration {
@@ -895,6 +896,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1064,6 +1066,7 @@ public class Conversation extends Resource {
     @JsonDeserialize(
         builder = CreateConversationWithConfigRequestParticipants.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateConversationWithConfigRequestParticipants {
@@ -1113,6 +1116,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1196,6 +1200,7 @@ public class Conversation extends Resource {
     }
 
     @JsonDeserialize(builder = PatchConversationByIdRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class PatchConversationByIdRequest {
@@ -1235,6 +1240,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1303,6 +1309,7 @@ public class Conversation extends Resource {
     @JsonDeserialize(
         builder = ListConversationByAccount200ResponseMeta.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListConversationByAccount200ResponseMeta {
@@ -1351,6 +1358,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1423,6 +1431,7 @@ public class Conversation extends Resource {
     @JsonDeserialize(
         builder = CreateConversationWithConfigRequestConfiguration.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateConversationWithConfigRequestConfiguration {
@@ -1453,6 +1462,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1503,6 +1513,7 @@ public class Conversation extends Resource {
     }
 
     @JsonDeserialize(builder = ConversationsV2Participant.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2Participant {
@@ -1587,6 +1598,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1727,6 +1739,7 @@ public class Conversation extends Resource {
     }
 
     @JsonDeserialize(builder = UpdateConversationByIdRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class UpdateConversationByIdRequest {
@@ -1760,6 +1773,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1815,6 +1829,7 @@ public class Conversation extends Resource {
     @JsonDeserialize(
         builder = ConversationsV2StatusCallbackConfig.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2StatusCallbackConfig {
@@ -1848,6 +1863,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1901,6 +1917,7 @@ public class Conversation extends Resource {
     @JsonDeserialize(
         builder = PatchConversationByIdRequestConfiguration.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class PatchConversationByIdRequestConfiguration {
@@ -1928,6 +1945,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -1972,6 +1990,7 @@ public class Conversation extends Resource {
     @JsonDeserialize(
         builder = ListConversationByAccount200ResponseConversations.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListConversationByAccount200ResponseConversations {
@@ -2057,6 +2076,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2211,6 +2231,7 @@ public class Conversation extends Resource {
     @JsonDeserialize(
         builder = CreateConversationWithConfigRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateConversationWithConfigRequest {
@@ -2258,6 +2279,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2348,6 +2370,7 @@ public class Conversation extends Resource {
     @JsonDeserialize(
         builder = ConversationsV2ConversationsV1Bridge.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2ConversationsV1Bridge {
@@ -2375,6 +2398,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2413,6 +2437,7 @@ public class Conversation extends Resource {
     }
 
     @JsonDeserialize(builder = ConversationsV2Address.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ConversationsV2Address {
@@ -2452,6 +2477,7 @@ public class Conversation extends Resource {
             return mapper.readValue(jsonString, ConversationsV2Address.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -2512,6 +2538,7 @@ public class Conversation extends Resource {
     @JsonDeserialize(
         builder = CreateConversationWithConfigRequestParticipantsAddresses.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateConversationWithConfigRequestParticipantsAddresses {
@@ -2556,6 +2583,7 @@ public class Conversation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

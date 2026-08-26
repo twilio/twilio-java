@@ -405,6 +405,7 @@ public class Profile extends Resource {
     }
 
     @JsonDeserialize(builder = ProfilesMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ProfilesMeta {
@@ -447,6 +448,7 @@ public class Profile extends Resource {
             return mapper.readValue(jsonString, ProfilesMeta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -521,6 +523,7 @@ public class Profile extends Resource {
     }
 
     @JsonDeserialize(builder = ProfileData.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ProfileData {
@@ -545,6 +548,7 @@ public class Profile extends Resource {
             return mapper.readValue(jsonString, ProfileData.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -584,6 +588,7 @@ public class Profile extends Resource {
     }
 
     @JsonDeserialize(builder = ProfilePatch.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ProfilePatch {
@@ -608,6 +613,7 @@ public class Profile extends Resource {
             return mapper.readValue(jsonString, ProfilePatch.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

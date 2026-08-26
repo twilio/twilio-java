@@ -385,6 +385,7 @@ public class Operation extends Resource {
     @JsonDeserialize(
         builder = FetchOperationStatus200ResponseError.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class FetchOperationStatus200ResponseError {
@@ -436,6 +437,7 @@ public class Operation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

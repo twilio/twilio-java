@@ -40,8 +40,10 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}";
 
-        path =
-            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
+        path = path.replace(
+            "{" + "TrunkSid" + "}",
+            this.pathTrunkSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

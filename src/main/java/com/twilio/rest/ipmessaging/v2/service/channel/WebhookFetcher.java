@@ -47,16 +47,14 @@ public class WebhookFetcher extends Fetcher<Webhook> {
         String path =
             "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChannelSid" + "}",
-                this.pathChannelSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "ChannelSid" + "}",
+            this.pathChannelSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

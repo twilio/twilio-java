@@ -50,11 +50,10 @@ public class UserCreator extends Creator<User> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/scim/Users";
 
-        path =
-            path.replace(
-                "{" + "OrganizationSid" + "}",
-                this.pathOrganizationSid.toString()
-            );
+        path = path.replace(
+            "{" + "OrganizationSid" + "}",
+            this.pathOrganizationSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

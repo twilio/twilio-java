@@ -46,11 +46,10 @@ public class SyncMapItemFetcher extends Fetcher<SyncMapItem> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
         path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
         path = path.replace("{" + "Key" + "}", this.pathKey.toString());
 

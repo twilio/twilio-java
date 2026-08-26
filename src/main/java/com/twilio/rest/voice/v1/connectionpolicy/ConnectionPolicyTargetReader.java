@@ -34,7 +34,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConnectionPolicyTargetReader
-    extends Reader<ConnectionPolicyTarget> {
+    extends Reader<ConnectionPolicyTarget>
+{
 
     private String pathConnectionPolicySid;
     private Long pageSize;
@@ -74,11 +75,10 @@ public class ConnectionPolicyTargetReader
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets";
 
-        path =
-            path.replace(
-                "{" + "ConnectionPolicySid" + "}",
-                this.pathConnectionPolicySid.toString()
-            );
+        path = path.replace(
+            "{" + "ConnectionPolicySid" + "}",
+            this.pathConnectionPolicySid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

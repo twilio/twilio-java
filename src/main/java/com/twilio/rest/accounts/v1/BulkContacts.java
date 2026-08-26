@@ -117,7 +117,7 @@ public class BulkContacts extends Resource {
         }
 
         BulkContacts other = (BulkContacts) o;
-        return (Objects.equals(items, other.items));
+        return Objects.equals(items, other.items);
     }
 
     @Override

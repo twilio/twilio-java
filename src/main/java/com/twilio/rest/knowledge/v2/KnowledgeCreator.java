@@ -30,7 +30,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class KnowledgeCreator
-    extends Creator<Knowledge.CreateKnowledgeResponse> {
+    extends Creator<Knowledge.CreateKnowledgeResponse>
+{
 
     private String pathKbId;
     private Knowledge.KnowledgeCore knowledgeCore;

@@ -97,11 +97,10 @@ public class BindingReader extends Reader<Binding> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Bindings";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ChatServiceSid" + "}",
+            this.pathChatServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

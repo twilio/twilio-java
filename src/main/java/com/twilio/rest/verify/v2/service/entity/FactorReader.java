@@ -74,13 +74,14 @@ public class FactorReader extends Reader<Factor> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "Identity" + "}",
+            this.pathIdentity.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

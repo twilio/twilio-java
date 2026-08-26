@@ -31,7 +31,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class InsightsQuestionnairesQuestionCreator
-    extends Creator<InsightsQuestionnairesQuestion> {
+    extends Creator<InsightsQuestionnairesQuestion>
+{
 
     private String authorization;
     private String categorySid;

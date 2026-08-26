@@ -125,9 +125,9 @@ public class WorkersRealTimeStatistics extends Resource {
     @JsonCreator
     private WorkersRealTimeStatistics(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("activity_statistics") final List<
-            Object
-        > activityStatistics,
+        @JsonProperty(
+            "activity_statistics"
+        ) final List<Object> activityStatistics,
         @JsonProperty("total_workers") final Integer totalWorkers,
         @JsonProperty("url") final URI url,
         @JsonProperty("workspace_sid") final String workspaceSid

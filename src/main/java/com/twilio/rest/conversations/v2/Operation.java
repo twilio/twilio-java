@@ -122,7 +122,7 @@ public class Operation extends Resource {
                 return false;
             }
             UpdateOperationResponse other = (UpdateOperationResponse) o;
-            return (true);
+            return true;
         }
 
         @Override
@@ -206,7 +206,7 @@ public class Operation extends Resource {
                 return false;
             }
             ListOperationResponse other = (ListOperationResponse) o;
-            return (true);
+            return true;
         }
 
         @Override
@@ -276,7 +276,7 @@ public class Operation extends Resource {
         private final Map<String, String> related;
 
         @Getter
-        private final Operation.Status status;
+        private final Operation.ConversationsV2OperationStatusValue status;
 
         @Getter
         private final URI statusUrl;
@@ -290,7 +290,9 @@ public class Operation extends Resource {
             ) final FetchOperationStatus200ResponseError error,
             @JsonProperty("operationId") final String operationId,
             @JsonProperty("related") final Map<String, String> related,
-            @JsonProperty("status") final Operation.Status status,
+            @JsonProperty(
+                "status"
+            ) final Operation.ConversationsV2OperationStatusValue status,
             @JsonProperty("statusUrl") final URI statusUrl
         ) {
             this.completedAt = completedAt;
@@ -354,20 +356,18 @@ public class Operation extends Resource {
         }
     }
 
-    public static OperationFetcher fetcher(final String pathSid) {
-        return new OperationFetcher(pathSid);
+    public static OperationFetcher fetcher(final String pathId) {
+        return new OperationFetcher(pathId);
     }
 
-    public enum Status {
+    public enum ConversationsV2OperationStatusValue {
         PENDING("PENDING"),
-        RUNNING("RUNNING"),
-        CANCELLED("CANCELLED"),
         COMPLETED("COMPLETED"),
         FAILED("FAILED");
 
         private final String value;
 
-        private Status(final String value) {
+        private ConversationsV2OperationStatusValue(final String value) {
             this.value = value;
         }
 
@@ -377,14 +377,20 @@ public class Operation extends Resource {
         }
 
         @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
+        public static ConversationsV2OperationStatusValue forValue(
+            final String value
+        ) {
+            return Promoter.enumFromString(
+                value,
+                ConversationsV2OperationStatusValue.values()
+            );
         }
     }
 
     @JsonDeserialize(
         builder = FetchOperationStatus200ResponseError.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class FetchOperationStatus200ResponseError {
@@ -436,6 +442,7 @@ public class Operation extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

@@ -81,16 +81,14 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
         String path =
             "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/Statistics";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "WorkflowSid" + "}",
-                this.pathWorkflowSid.toString()
-            );
+        path = path.replace(
+            "{" + "WorkspaceSid" + "}",
+            this.pathWorkspaceSid.toString()
+        );
+        path = path.replace(
+            "{" + "WorkflowSid" + "}",
+            this.pathWorkflowSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

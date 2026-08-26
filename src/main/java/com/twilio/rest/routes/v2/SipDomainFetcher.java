@@ -38,11 +38,10 @@ public class SipDomainFetcher extends Fetcher<SipDomain> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/SipDomains/{SipDomain}";
 
-        path =
-            path.replace(
-                "{" + "SipDomain" + "}",
-                this.pathSipDomain.toString()
-            );
+        path = path.replace(
+            "{" + "SipDomain" + "}",
+            this.pathSipDomain.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

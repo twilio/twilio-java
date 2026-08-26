@@ -38,11 +38,10 @@ public class CountryFetcher extends Fetcher<Country> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Trunking/Countries/{IsoCountry}";
 
-        path =
-            path.replace(
-                "{" + "IsoCountry" + "}",
-                this.pathIsoCountry.toString()
-            );
+        path = path.replace(
+            "{" + "IsoCountry" + "}",
+            this.pathIsoCountry.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

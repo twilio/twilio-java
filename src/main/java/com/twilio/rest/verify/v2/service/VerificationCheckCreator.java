@@ -81,11 +81,10 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/VerificationCheck";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

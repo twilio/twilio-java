@@ -147,9 +147,9 @@ public class HostedNumberOrder extends Resource {
             @JsonProperty(
                 "verificationAttempts"
             ) final Integer verificationAttempts,
-            @JsonProperty("verificationCallSids") final List<
-                String
-            > verificationCallSids,
+            @JsonProperty(
+                "verificationCallSids"
+            ) final List<String> verificationCallSids,
             @JsonProperty("verificationCode") final String verificationCode,
             @JsonProperty(
                 "verificationDocumentSid"
@@ -314,7 +314,7 @@ public class HostedNumberOrder extends Resource {
             }
             UpdateHostedNumberOrderResponse other =
                 (UpdateHostedNumberOrderResponse) o;
-            return (true);
+            return true;
         }
 
         @Override
@@ -400,7 +400,7 @@ public class HostedNumberOrder extends Resource {
             }
             ListHostedNumberOrderResponse other =
                 (ListHostedNumberOrderResponse) o;
-            return (true);
+            return true;
         }
 
         @Override

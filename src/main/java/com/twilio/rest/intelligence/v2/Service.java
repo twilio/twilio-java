@@ -218,9 +218,9 @@ public class Service extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("language_code") final String languageCode,
         @JsonProperty("media_redaction") final Boolean mediaRedaction,
-        @JsonProperty("read_only_attached_operator_sids") final List<
-            String
-        > readOnlyAttachedOperatorSids,
+        @JsonProperty(
+            "read_only_attached_operator_sids"
+        ) final List<String> readOnlyAttachedOperatorSids,
         @JsonProperty("sid") final String sid,
         @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("url") final URI url,

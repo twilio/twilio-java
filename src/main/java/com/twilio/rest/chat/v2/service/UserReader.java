@@ -69,11 +69,10 @@ public class UserReader extends Reader<User> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Users";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

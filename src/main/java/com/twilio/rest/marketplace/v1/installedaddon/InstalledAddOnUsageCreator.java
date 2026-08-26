@@ -54,11 +54,10 @@ public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/InstalledAddOns/{InstalledAddOnSid}/Usage";
 
-        path =
-            path.replace(
-                "{" + "InstalledAddOnSid" + "}",
-                this.pathInstalledAddOnSid.toString()
-            );
+        path = path.replace(
+            "{" + "InstalledAddOnSid" + "}",
+            this.pathInstalledAddOnSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

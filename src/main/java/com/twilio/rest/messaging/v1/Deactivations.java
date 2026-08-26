@@ -117,7 +117,7 @@ public class Deactivations extends Resource {
         }
 
         Deactivations other = (Deactivations) o;
-        return (Objects.equals(redirectTo, other.redirectTo));
+        return Objects.equals(redirectTo, other.redirectTo);
     }
 
     @Override

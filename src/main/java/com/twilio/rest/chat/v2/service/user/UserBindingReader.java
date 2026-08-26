@@ -94,11 +94,10 @@ public class UserBindingReader extends Reader<UserBinding> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
 
         Request request = new Request(

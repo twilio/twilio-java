@@ -53,8 +53,10 @@ public class CredentialListCreator extends Creator<CredentialList> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/CredentialLists";
 
-        path =
-            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
+        path = path.replace(
+            "{" + "TrunkSid" + "}",
+            this.pathTrunkSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

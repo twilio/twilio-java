@@ -31,7 +31,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class MessagingConfigurationUpdater
-    extends Updater<MessagingConfiguration> {
+    extends Updater<MessagingConfiguration>
+{
 
     private String pathServiceSid;
     private String pathCountry;
@@ -58,11 +59,10 @@ public class MessagingConfigurationUpdater
         String path =
             "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
         path = path.replace("{" + "Country" + "}", this.pathCountry.toString());
 
         Request request = new Request(

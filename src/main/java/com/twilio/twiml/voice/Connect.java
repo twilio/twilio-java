@@ -184,15 +184,6 @@ public class Connect extends TwiML {
         }
 
         /**
-         * Add a child {@code <Assistant>} element
-         */
-        @JacksonXmlProperty(isAttribute = false, localName = "Assistant")
-        public Builder assistant(Assistant assistant) {
-            this.children.add(assistant);
-            return this;
-        }
-
-        /**
          * Add a child {@code <AiSession>} element
          */
         @JacksonXmlProperty(isAttribute = false, localName = "AiSession")

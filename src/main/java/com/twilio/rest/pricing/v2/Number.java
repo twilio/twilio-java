@@ -145,9 +145,9 @@ public class Number extends Resource {
         @JsonProperty("price_unit") @JsonDeserialize(
             using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,
-        @JsonProperty("terminating_prefix_prices") final List<
-            OutboundPrefixPriceWithOrigin
-        > terminatingPrefixPrices,
+        @JsonProperty(
+            "terminating_prefix_prices"
+        ) final List<OutboundPrefixPriceWithOrigin> terminatingPrefixPrices,
         @JsonProperty("url") final URI url
     ) {
         this.country = country;

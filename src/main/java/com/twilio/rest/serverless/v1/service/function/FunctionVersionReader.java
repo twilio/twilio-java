@@ -79,16 +79,14 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
         String path =
             "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "FunctionSid" + "}",
-                this.pathFunctionSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "FunctionSid" + "}",
+            this.pathFunctionSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

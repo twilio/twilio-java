@@ -49,6 +49,7 @@ public class ReferralConversion extends Resource {
     }
 
     @JsonDeserialize(builder = CreateReferralConversionRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateReferralConversionRequest {
@@ -76,6 +77,7 @@ public class ReferralConversion extends Resource {
             );
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -106,9 +108,7 @@ public class ReferralConversion extends Resource {
 
             CreateReferralConversionRequest other =
                 (CreateReferralConversionRequest) o;
-            return (
-                Objects.equals(referralAccountSid, other.referralAccountSid)
-            );
+            return Objects.equals(referralAccountSid, other.referralAccountSid);
         }
 
         @Override
@@ -193,7 +193,7 @@ public class ReferralConversion extends Resource {
         }
 
         ReferralConversion other = (ReferralConversion) o;
-        return (Objects.equals(convertedAccountSid, other.convertedAccountSid));
+        return Objects.equals(convertedAccountSid, other.convertedAccountSid);
     }
 
     @Override

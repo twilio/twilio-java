@@ -119,7 +119,7 @@ public class SinkValidate extends Resource {
         }
 
         SinkValidate other = (SinkValidate) o;
-        return (Objects.equals(result, other.result));
+        return Objects.equals(result, other.result);
     }
 
     @Override

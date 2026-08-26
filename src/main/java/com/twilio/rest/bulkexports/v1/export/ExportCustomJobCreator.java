@@ -85,11 +85,10 @@ public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Exports/{ResourceType}/Jobs";
 
-        path =
-            path.replace(
-                "{" + "ResourceType" + "}",
-                this.pathResourceType.toString()
-            );
+        path = path.replace(
+            "{" + "ResourceType" + "}",
+            this.pathResourceType.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

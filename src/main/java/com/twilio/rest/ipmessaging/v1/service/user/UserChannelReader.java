@@ -78,11 +78,10 @@ public class UserChannelReader extends Reader<UserChannel> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Users/{UserSid}/Channels";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
 
         Request request = new Request(

@@ -28,7 +28,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class DomainConfigMessagingServiceFetcher
-    extends Fetcher<DomainConfigMessagingService> {
+    extends Fetcher<DomainConfigMessagingService>
+{
 
     private String pathMessagingServiceSid;
 
@@ -42,11 +43,10 @@ public class DomainConfigMessagingServiceFetcher
         String path =
             "/v1/LinkShortening/MessagingService/{MessagingServiceSid}/DomainConfig";
 
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.pathMessagingServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "MessagingServiceSid" + "}",
+            this.pathMessagingServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

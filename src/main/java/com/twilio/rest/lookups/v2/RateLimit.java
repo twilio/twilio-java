@@ -48,6 +48,7 @@ public class RateLimit extends Resource {
     }
 
     @JsonDeserialize(builder = RateLimitResponse.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class RateLimitResponse {
@@ -96,6 +97,7 @@ public class RateLimit extends Resource {
             return mapper.readValue(jsonString, RateLimitResponse.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -256,7 +258,7 @@ public class RateLimit extends Resource {
         }
 
         RateLimit other = (RateLimit) o;
-        return (Objects.equals(rateLimits, other.rateLimits));
+        return Objects.equals(rateLimits, other.rateLimits);
     }
 
     @Override

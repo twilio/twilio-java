@@ -93,11 +93,10 @@ public class ReservationReader extends Reader<Reservation> {
         String path =
             "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
+        path = path.replace(
+            "{" + "WorkspaceSid" + "}",
+            this.pathWorkspaceSid.toString()
+        );
         path = path.replace("{" + "TaskSid" + "}", this.pathTaskSid.toString());
 
         Request request = new Request(

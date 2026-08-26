@@ -23,7 +23,6 @@ import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
-import com.twilio.exception.RestStandardException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
@@ -33,7 +32,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class KnowledgeBasisUpdater
-    extends Updater<KnowledgeBasis.UpdateKnowledgeBasisResponse> {
+    extends Updater<KnowledgeBasis.UpdateKnowledgeBasisResponse>
+{
 
     private String pathKbId;
     private String ifMatch;
@@ -81,16 +81,6 @@ public class KnowledgeBasisUpdater
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             InputStream inputStream = response.getStream();
-            RestStandardException standardException =
-                RestStandardException.fromJson(
-                    inputStream,
-                    client.getObjectMapper()
-                );
-            if (
-                standardException != null && standardException.getType() != null
-            ) {
-                throw new ApiException(standardException);
-            }
             RestException restException = RestException.fromJson(
                 inputStream,
                 client.getObjectMapper()
@@ -118,9 +108,9 @@ public class KnowledgeBasisUpdater
     }
 
     @Override
-    public TwilioResponse<
-        KnowledgeBasis.UpdateKnowledgeBasisResponse
-    > updateWithResponse(final TwilioRestClient client) {
+    public TwilioResponse<KnowledgeBasis.UpdateKnowledgeBasisResponse> updateWithResponse(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
         KnowledgeBasis.UpdateKnowledgeBasisResponse content =
             KnowledgeBasis.UpdateKnowledgeBasisResponse.fromJson(

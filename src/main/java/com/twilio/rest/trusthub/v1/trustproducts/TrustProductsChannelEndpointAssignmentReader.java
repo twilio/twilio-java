@@ -34,7 +34,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TrustProductsChannelEndpointAssignmentReader
-    extends Reader<TrustProductsChannelEndpointAssignment> {
+    extends Reader<TrustProductsChannelEndpointAssignment>
+{
 
     private String pathTrustProductSid;
     private String channelEndpointSid;
@@ -68,9 +69,9 @@ public class TrustProductsChannelEndpointAssignmentReader
         return this;
     }
 
-    public ResourceSetResponse<
-        TrustProductsChannelEndpointAssignment
-    > readWithResponse(final TwilioRestClient client) {
+    public ResourceSetResponse<TrustProductsChannelEndpointAssignment> readWithResponse(
+        final TwilioRestClient client
+    ) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<TrustProductsChannelEndpointAssignment> page = Page.fromJson(
@@ -92,11 +93,10 @@ public class TrustProductsChannelEndpointAssignmentReader
         String path =
             "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments";
 
-        path =
-            path.replace(
-                "{" + "TrustProductSid" + "}",
-                this.pathTrustProductSid.toString()
-            );
+        path = path.replace(
+            "{" + "TrustProductSid" + "}",
+            this.pathTrustProductSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

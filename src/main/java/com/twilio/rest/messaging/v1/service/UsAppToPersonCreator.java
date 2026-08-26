@@ -228,11 +228,10 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p";
 
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.pathMessagingServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "MessagingServiceSid" + "}",
+            this.pathMessagingServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

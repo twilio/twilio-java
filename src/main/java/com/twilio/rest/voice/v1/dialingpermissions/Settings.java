@@ -134,8 +134,7 @@ public class Settings extends Resource {
             Objects.equals(
                 dialingPermissionsInheritance,
                 other.dialingPermissionsInheritance
-            ) &&
-            Objects.equals(url, other.url)
+            ) && Objects.equals(url, other.url)
         );
     }
 

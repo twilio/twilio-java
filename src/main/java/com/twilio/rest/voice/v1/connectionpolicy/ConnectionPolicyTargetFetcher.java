@@ -28,7 +28,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConnectionPolicyTargetFetcher
-    extends Fetcher<ConnectionPolicyTarget> {
+    extends Fetcher<ConnectionPolicyTarget>
+{
 
     private String pathConnectionPolicySid;
     private String pathSid;
@@ -45,11 +46,10 @@ public class ConnectionPolicyTargetFetcher
         String path =
             "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ConnectionPolicySid" + "}",
-                this.pathConnectionPolicySid.toString()
-            );
+        path = path.replace(
+            "{" + "ConnectionPolicySid" + "}",
+            this.pathConnectionPolicySid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

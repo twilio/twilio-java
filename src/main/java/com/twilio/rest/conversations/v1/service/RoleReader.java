@@ -69,11 +69,10 @@ public class RoleReader extends Reader<Role> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Roles";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ChatServiceSid" + "}",
+            this.pathChatServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

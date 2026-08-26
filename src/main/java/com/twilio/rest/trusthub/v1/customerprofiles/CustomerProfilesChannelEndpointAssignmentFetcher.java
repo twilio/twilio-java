@@ -28,7 +28,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class CustomerProfilesChannelEndpointAssignmentFetcher
-    extends Fetcher<CustomerProfilesChannelEndpointAssignment> {
+    extends Fetcher<CustomerProfilesChannelEndpointAssignment>
+{
 
     private String pathCustomerProfileSid;
     private String pathSid;
@@ -45,11 +46,10 @@ public class CustomerProfilesChannelEndpointAssignmentFetcher
         String path =
             "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "CustomerProfileSid" + "}",
-                this.pathCustomerProfileSid.toString()
-            );
+        path = path.replace(
+            "{" + "CustomerProfileSid" + "}",
+            this.pathCustomerProfileSid.toString()
+        );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
@@ -93,9 +93,9 @@ public class CustomerProfilesChannelEndpointAssignmentFetcher
     }
 
     @Override
-    public TwilioResponse<
-        CustomerProfilesChannelEndpointAssignment
-    > fetchWithResponse(final TwilioRestClient client) {
+    public TwilioResponse<CustomerProfilesChannelEndpointAssignment> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
         CustomerProfilesChannelEndpointAssignment content =
             CustomerProfilesChannelEndpointAssignment.fromJson(

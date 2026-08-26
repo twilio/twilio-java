@@ -75,8 +75,10 @@ public class BrandVettingReader extends Reader<BrandVetting> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings";
 
-        path =
-            path.replace("{" + "BrandSid" + "}", this.pathBrandSid.toString());
+        path = path.replace(
+            "{" + "BrandSid" + "}",
+            this.pathBrandSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

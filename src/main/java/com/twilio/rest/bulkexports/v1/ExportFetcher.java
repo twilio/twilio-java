@@ -38,11 +38,10 @@ public class ExportFetcher extends Fetcher<Export> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Exports/{ResourceType}";
 
-        path =
-            path.replace(
-                "{" + "ResourceType" + "}",
-                this.pathResourceType.toString()
-            );
+        path = path.replace(
+            "{" + "ResourceType" + "}",
+            this.pathResourceType.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

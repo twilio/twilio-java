@@ -31,7 +31,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TrustProductsEntityAssignmentsCreator
-    extends Creator<TrustProductsEntityAssignments> {
+    extends Creator<TrustProductsEntityAssignments>
+{
 
     private String pathTrustProductSid;
     private String objectSid;
@@ -54,11 +55,10 @@ public class TrustProductsEntityAssignmentsCreator
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/TrustProducts/{TrustProductSid}/EntityAssignments";
 
-        path =
-            path.replace(
-                "{" + "TrustProductSid" + "}",
-                this.pathTrustProductSid.toString()
-            );
+        path = path.replace(
+            "{" + "TrustProductSid" + "}",
+            this.pathTrustProductSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

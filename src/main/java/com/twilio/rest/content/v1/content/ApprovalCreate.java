@@ -53,6 +53,7 @@ public class ApprovalCreate extends Resource {
     }
 
     @JsonDeserialize(builder = ContentApprovalRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ContentApprovalRequest {
@@ -67,9 +68,15 @@ public class ApprovalCreate extends Resource {
         @Getter
         private final String category;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("send_ttl_seconds")
+        @Getter
+        private final Integer sendTtlSeconds;
+
         private ContentApprovalRequest(Builder builder) {
             this.name = builder.name;
             this.category = builder.category;
+            this.sendTtlSeconds = builder.sendTtlSeconds;
         }
 
         public static Builder builder(
@@ -86,6 +93,7 @@ public class ApprovalCreate extends Resource {
             return mapper.readValue(jsonString, ContentApprovalRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -95,6 +103,9 @@ public class ApprovalCreate extends Resource {
             @JsonProperty("category")
             private String category;
 
+            @JsonProperty("send_ttl_seconds")
+            private Integer sendTtlSeconds;
+
             @JsonCreator
             public Builder(
                 @JsonProperty("name") final String name,
@@ -102,6 +113,13 @@ public class ApprovalCreate extends Resource {
             ) {
                 this.name = name;
                 this.category = category;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("send_ttl_seconds")
+            public Builder sendTtlSeconds(Integer sendTtlSeconds) {
+                this.sendTtlSeconds = sendTtlSeconds;
+                return this;
             }
 
             public ContentApprovalRequest build() {
@@ -122,13 +140,14 @@ public class ApprovalCreate extends Resource {
             ContentApprovalRequest other = (ContentApprovalRequest) o;
             return (
                 Objects.equals(name, other.name) &&
-                Objects.equals(category, other.category)
+                Objects.equals(category, other.category) &&
+                Objects.equals(sendTtlSeconds, other.sendTtlSeconds)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(name, category);
+            return Objects.hash(name, category, sendTtlSeconds);
         }
     }
 
@@ -203,6 +222,9 @@ public class ApprovalCreate extends Resource {
     private final String rejectionReason;
 
     @Getter
+    private final Integer sendTtlSeconds;
+
+    @Getter
     private final String status;
 
     @JsonCreator
@@ -214,6 +236,7 @@ public class ApprovalCreate extends Resource {
         @JsonProperty("content_type") final String contentType,
         @JsonProperty("name") final String name,
         @JsonProperty("rejection_reason") final String rejectionReason,
+        @JsonProperty("send_ttl_seconds") final Integer sendTtlSeconds,
         @JsonProperty("status") final String status
     ) {
         this.allowCategoryChange = allowCategoryChange;
@@ -221,6 +244,7 @@ public class ApprovalCreate extends Resource {
         this.contentType = contentType;
         this.name = name;
         this.rejectionReason = rejectionReason;
+        this.sendTtlSeconds = sendTtlSeconds;
         this.status = status;
     }
 
@@ -241,6 +265,7 @@ public class ApprovalCreate extends Resource {
             Objects.equals(contentType, other.contentType) &&
             Objects.equals(name, other.name) &&
             Objects.equals(rejectionReason, other.rejectionReason) &&
+            Objects.equals(sendTtlSeconds, other.sendTtlSeconds) &&
             Objects.equals(status, other.status)
         );
     }
@@ -253,6 +278,7 @@ public class ApprovalCreate extends Resource {
             contentType,
             name,
             rejectionReason,
+            sendTtlSeconds,
             status
         );
     }

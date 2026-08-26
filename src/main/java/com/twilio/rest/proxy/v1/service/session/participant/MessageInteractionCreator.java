@@ -87,21 +87,18 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
         String path =
             "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "SessionSid" + "}",
-                this.pathSessionSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ParticipantSid" + "}",
-                this.pathParticipantSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
+        path = path.replace(
+            "{" + "SessionSid" + "}",
+            this.pathSessionSid.toString()
+        );
+        path = path.replace(
+            "{" + "ParticipantSid" + "}",
+            this.pathParticipantSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

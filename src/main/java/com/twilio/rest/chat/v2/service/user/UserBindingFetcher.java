@@ -47,11 +47,10 @@ public class UserBindingFetcher extends Fetcher<UserBinding> {
         String path =
             "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 

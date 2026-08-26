@@ -38,11 +38,10 @@ public class SafelistFetcher extends Fetcher<Safelist> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/SafeList/Numbers/{PhoneNumber}";
 
-        path =
-            path.replace(
-                "{" + "PhoneNumber" + "}",
-                this.pathPhoneNumber.toString()
-            );
+        path = path.replace(
+            "{" + "PhoneNumber" + "}",
+            this.pathPhoneNumber.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

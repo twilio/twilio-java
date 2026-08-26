@@ -52,11 +52,10 @@ public class ActionCreator extends Creator<Action.CreateActionResponse> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Conversations/{ConversationId}/Actions";
 
-        path =
-            path.replace(
-                "{" + "ConversationId" + "}",
-                this.pathConversationId.toString()
-            );
+        path = path.replace(
+            "{" + "ConversationId" + "}",
+            this.pathConversationId.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

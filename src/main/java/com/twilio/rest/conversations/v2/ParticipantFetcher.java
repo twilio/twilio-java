@@ -19,7 +19,6 @@ import com.twilio.base.TwilioResponse;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
-import com.twilio.exception.RestStandardException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
@@ -29,28 +28,28 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ParticipantFetcher
-    extends Fetcher<Participant.FetchParticipantResponse> {
+    extends Fetcher<Participant.FetchParticipantResponse>
+{
 
-    private String pathConversationSid;
-    private String pathSid;
+    private String pathConversationId;
+    private String pathId;
 
     public ParticipantFetcher(
-        final String pathConversationSid,
-        final String pathSid
+        final String pathConversationId,
+        final String pathId
     ) {
-        this.pathConversationSid = pathConversationSid;
-        this.pathSid = pathSid;
+        this.pathConversationId = pathConversationId;
+        this.pathId = pathId;
     }
 
     private Response makeRequest(final TwilioRestClient client) {
-        String path = "/v2/Conversations/{ConversationSid}/Participants/{Sid}";
+        String path = "/v2/Conversations/{ConversationId}/Participants/{id}";
 
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace(
+            "{" + "ConversationId" + "}",
+            this.pathConversationId.toString()
+        );
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -66,16 +65,6 @@ public class ParticipantFetcher
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             InputStream inputStream = response.getStream();
-            RestStandardException standardException =
-                RestStandardException.fromJson(
-                    inputStream,
-                    client.getObjectMapper()
-                );
-            if (
-                standardException != null && standardException.getType() != null
-            ) {
-                throw new ApiException(standardException);
-            }
             RestException restException = RestException.fromJson(
                 inputStream,
                 client.getObjectMapper()
@@ -103,9 +92,9 @@ public class ParticipantFetcher
     }
 
     @Override
-    public TwilioResponse<
-        Participant.FetchParticipantResponse
-    > fetchWithResponse(final TwilioRestClient client) {
+    public TwilioResponse<Participant.FetchParticipantResponse> fetchWithResponse(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
         Participant.FetchParticipantResponse content =
             Participant.FetchParticipantResponse.fromJson(

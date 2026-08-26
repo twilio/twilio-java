@@ -91,6 +91,7 @@ public class User extends Resource {
     }
 
     @JsonDeserialize(builder = ScimUser.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ScimUser {
@@ -173,6 +174,7 @@ public class User extends Resource {
             return mapper.readValue(jsonString, ScimUser.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -334,6 +336,7 @@ public class User extends Resource {
     }
 
     @JsonDeserialize(builder = ScimEmailAddress.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ScimEmailAddress {
@@ -370,6 +373,7 @@ public class User extends Resource {
             return mapper.readValue(jsonString, ScimEmailAddress.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -433,6 +437,7 @@ public class User extends Resource {
     }
 
     @JsonDeserialize(builder = ScimMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ScimMeta {
@@ -477,6 +482,7 @@ public class User extends Resource {
             return mapper.readValue(jsonString, ScimMeta.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -567,6 +573,7 @@ public class User extends Resource {
     }
 
     @JsonDeserialize(builder = ScimName.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ScimName {
@@ -595,6 +602,7 @@ public class User extends Resource {
             return mapper.readValue(jsonString, ScimName.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -647,6 +655,7 @@ public class User extends Resource {
     }
 
     @JsonDeserialize(builder = ScimPatchOperation.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ScimPatchOperation {
@@ -683,6 +692,7 @@ public class User extends Resource {
             return mapper.readValue(jsonString, ScimPatchOperation.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
@@ -746,6 +756,7 @@ public class User extends Resource {
     }
 
     @JsonDeserialize(builder = ScimPatchRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ScimPatchRequest {
@@ -776,6 +787,7 @@ public class User extends Resource {
             return mapper.readValue(jsonString, ScimPatchRequest.class);
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 

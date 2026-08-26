@@ -28,7 +28,8 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class LinkshorteningMessagingServiceCreator
-    extends Creator<LinkshorteningMessagingService> {
+    extends Creator<LinkshorteningMessagingService>
+{
 
     private String pathDomainSid;
     private String pathMessagingServiceSid;
@@ -45,16 +46,14 @@ public class LinkshorteningMessagingServiceCreator
         String path =
             "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}";
 
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.pathMessagingServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "DomainSid" + "}",
+            this.pathDomainSid.toString()
+        );
+        path = path.replace(
+            "{" + "MessagingServiceSid" + "}",
+            this.pathMessagingServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

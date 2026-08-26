@@ -79,11 +79,10 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
         String path = "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path =
-            path.replace(
-                "{" + "ExecutionSid" + "}",
-                this.pathExecutionSid.toString()
-            );
+        path = path.replace(
+            "{" + "ExecutionSid" + "}",
+            this.pathExecutionSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.GET,

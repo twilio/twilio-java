@@ -74,11 +74,10 @@ public class UserCreator extends Creator<User> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Users";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace(
+            "{" + "ServiceSid" + "}",
+            this.pathServiceSid.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,

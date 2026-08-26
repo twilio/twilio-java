@@ -30,13 +30,14 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class CommunicationCreator
-    extends Creator<Communication.CreateCommunicationResponse> {
+    extends Creator<Communication.CreateCommunicationResponse>
+{
 
-    private String pathConversationSid;
+    private String pathConversationId;
     private Communication.CreateCommunicationInConversationRequest createCommunicationInConversationRequest;
 
-    public CommunicationCreator(final String pathConversationSid) {
-        this.pathConversationSid = pathConversationSid;
+    public CommunicationCreator(final String pathConversationId) {
+        this.pathConversationId = pathConversationId;
     }
 
     public CommunicationCreator setCreateCommunicationInConversationRequest(
@@ -48,13 +49,12 @@ public class CommunicationCreator
     }
 
     private Response makeRequest(final TwilioRestClient client) {
-        String path = "/v2/Conversations/{ConversationSid}/Communications";
+        String path = "/v2/Conversations/{ConversationId}/Communications";
 
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
+        path = path.replace(
+            "{" + "ConversationId" + "}",
+            this.pathConversationId.toString()
+        );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -99,9 +99,9 @@ public class CommunicationCreator
     }
 
     @Override
-    public TwilioResponse<
-        Communication.CreateCommunicationResponse
-    > createWithResponse(final TwilioRestClient client) {
+    public TwilioResponse<Communication.CreateCommunicationResponse> createWithResponse(
+        final TwilioRestClient client
+    ) {
         Response response = makeRequest(client);
         Communication.CreateCommunicationResponse content =
             Communication.CreateCommunicationResponse.fromJson(

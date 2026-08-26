@@ -360,6 +360,7 @@ public class Revision extends Resource {
     }
 
     @JsonDeserialize(builder = ObservationsMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ObservationsMeta {
@@ -476,6 +477,7 @@ public class Revision extends Resource {
     }
 
     @JsonDeserialize(builder = ObservationInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ObservationInfo {

@@ -392,6 +392,7 @@ public class Identifier extends Resource {
     }
 
     @JsonDeserialize(builder = _Identifier.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class _Identifier {
@@ -469,6 +470,7 @@ public class Identifier extends Resource {
     }
 
     @JsonDeserialize(builder = IdentifierSet.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class IdentifierSet {
@@ -549,6 +551,7 @@ public class Identifier extends Resource {
     }
 
     @JsonDeserialize(builder = IdentifierUpdate.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class IdentifierUpdate {

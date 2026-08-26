@@ -513,6 +513,7 @@ public class ConversationSummary extends Resource {
     }
 
     @JsonDeserialize(builder = CreateSummariesRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateSummariesRequest {
@@ -576,6 +577,7 @@ public class ConversationSummary extends Resource {
     }
 
     @JsonDeserialize(builder = ObservationsMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ObservationsMeta {
@@ -692,6 +694,7 @@ public class ConversationSummary extends Resource {
     }
 
     @JsonDeserialize(builder = SummaryCorePatch.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class SummaryCorePatch {
@@ -818,6 +821,7 @@ public class ConversationSummary extends Resource {
     }
 
     @JsonDeserialize(builder = SummaryCore.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class SummaryCore {
@@ -934,6 +938,7 @@ public class ConversationSummary extends Resource {
     }
 
     @JsonDeserialize(builder = SummaryInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class SummaryInfo {

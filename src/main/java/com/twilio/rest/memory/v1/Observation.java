@@ -528,6 +528,7 @@ public class Observation extends Resource {
     }
 
     @JsonDeserialize(builder = ObservationsMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ObservationsMeta {
@@ -644,6 +645,7 @@ public class Observation extends Resource {
     }
 
     @JsonDeserialize(builder = ObservationCore.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ObservationCore {
@@ -760,6 +762,7 @@ public class Observation extends Resource {
     }
 
     @JsonDeserialize(builder = CreateObservationsRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateObservationsRequest {
@@ -830,6 +833,7 @@ public class Observation extends Resource {
     }
 
     @JsonDeserialize(builder = ObservationInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ObservationInfo {

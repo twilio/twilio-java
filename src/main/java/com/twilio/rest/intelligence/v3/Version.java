@@ -547,6 +547,7 @@ public class Version extends Resource {
     }
 
     @JsonDeserialize(builder = OperatorParameter.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperatorParameter {
@@ -661,6 +662,7 @@ public class Version extends Resource {
     }
 
     @JsonDeserialize(builder = ListOperators200ResponseMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListOperators200ResponseMeta {
@@ -781,6 +783,7 @@ public class Version extends Resource {
     @JsonDeserialize(
         builder = ListOperatorVersions200ResponseItems.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListOperatorVersions200ResponseItems {
@@ -974,6 +977,7 @@ public class Version extends Resource {
     }
 
     @JsonDeserialize(builder = OperatorContext.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperatorContext {
@@ -1056,6 +1060,7 @@ public class Version extends Resource {
     }
 
     @JsonDeserialize(builder = OperatorContextKnowledge.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperatorContextKnowledge {
@@ -1119,6 +1124,7 @@ public class Version extends Resource {
     }
 
     @JsonDeserialize(builder = OperatorTrainingExample.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperatorTrainingExample {
@@ -1196,6 +1202,7 @@ public class Version extends Resource {
     }
 
     @JsonDeserialize(builder = OperatorContextMemory.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperatorContextMemory {

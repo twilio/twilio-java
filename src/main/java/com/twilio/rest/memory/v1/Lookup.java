@@ -300,6 +300,7 @@ public class Lookup extends Resource {
     }
 
     @JsonDeserialize(builder = Identifier.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Identifier {

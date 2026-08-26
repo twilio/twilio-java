@@ -55,6 +55,7 @@ public class SenderIdRegistration extends Resource {
     }
 
     @JsonDeserialize(builder = NumbersV1EmbeddedSession.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class NumbersV1EmbeddedSession {
@@ -137,6 +138,7 @@ public class SenderIdRegistration extends Resource {
     @JsonDeserialize(
         builder = NumbersV1CreateEmbeddedRegistrationRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class NumbersV1CreateEmbeddedRegistrationRequest {

@@ -69,6 +69,7 @@ public class Knowledge extends Resource {
     @JsonDeserialize(
         builder = AssistantsV1ServiceUpdateKnowledgeRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceUpdateKnowledgeRequest {
@@ -239,6 +240,7 @@ public class Knowledge extends Resource {
     @JsonDeserialize(
         builder = AssistantsV1ServiceCreatePolicyRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCreatePolicyRequest {
@@ -378,6 +380,7 @@ public class Knowledge extends Resource {
     @JsonDeserialize(
         builder = AssistantsV1ServiceCreateKnowledgeRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCreateKnowledgeRequest {

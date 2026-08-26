@@ -106,6 +106,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = CallForwardingInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CallForwardingInfo {
@@ -193,6 +194,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = SmsPumpingRiskInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class SmsPumpingRiskInfo {
@@ -371,6 +373,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = ReassignedNumberInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ReassignedNumberInfo {
@@ -474,6 +477,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = IdentityMatchInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class IdentityMatchInfo {
@@ -742,6 +746,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = LastSimSwapInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class LastSimSwapInfo {
@@ -855,6 +860,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = LineTypeIntelligenceInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class LineTypeIntelligenceInfo {
@@ -994,6 +1000,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = SimSwapInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class SimSwapInfo {
@@ -1133,6 +1140,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = LineStatusInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class LineStatusInfo {
@@ -1215,6 +1223,7 @@ public class PhoneNumber extends Resource {
     }
 
     @JsonDeserialize(builder = CallerNameInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CallerNameInfo {

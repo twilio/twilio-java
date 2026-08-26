@@ -64,6 +64,7 @@ public class Bucket extends Resource {
     }
 
     @JsonDeserialize(builder = RateLimitRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class RateLimitRequest {

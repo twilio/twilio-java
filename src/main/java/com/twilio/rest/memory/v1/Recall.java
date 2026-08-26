@@ -423,6 +423,7 @@ public class Recall extends Resource {
     }
 
     @JsonDeserialize(builder = MemoryRetrievalResponseMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MemoryRetrievalResponseMeta {
@@ -487,6 +488,7 @@ public class Recall extends Resource {
     }
 
     @JsonDeserialize(builder = Participant.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Participant {
@@ -627,6 +629,7 @@ public class Recall extends Resource {
     }
 
     @JsonDeserialize(builder = CommunicationContent.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CommunicationContent {
@@ -690,6 +693,7 @@ public class Recall extends Resource {
     }
 
     @JsonDeserialize(builder = CommunicationRecipients.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CommunicationRecipients {
@@ -857,6 +861,7 @@ public class Recall extends Resource {
     }
 
     @JsonDeserialize(builder = MemoryRetrievalRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MemoryRetrievalRequest {
@@ -1073,6 +1078,7 @@ public class Recall extends Resource {
     }
 
     @JsonDeserialize(builder = RecallObservationInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class RecallObservationInfo {
@@ -1273,6 +1279,7 @@ public class Recall extends Resource {
     }
 
     @JsonDeserialize(builder = RecallSummaryInfo.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class RecallSummaryInfo {
@@ -1473,6 +1480,7 @@ public class Recall extends Resource {
     }
 
     @JsonDeserialize(builder = Communication.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Communication {

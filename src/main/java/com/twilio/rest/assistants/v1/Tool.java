@@ -70,6 +70,7 @@ public class Tool extends Resource {
     @JsonDeserialize(
         builder = AssistantsV1ServiceCreatePolicyRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCreatePolicyRequest {
@@ -209,6 +210,7 @@ public class Tool extends Resource {
     @JsonDeserialize(
         builder = AssistantsV1ServiceUpdateToolRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceUpdateToolRequest {
@@ -392,6 +394,7 @@ public class Tool extends Resource {
     @JsonDeserialize(
         builder = AssistantsV1ServiceCreateToolRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCreateToolRequest {
@@ -567,6 +570,7 @@ public class Tool extends Resource {
     }
 
     @JsonDeserialize(builder = AssistantsV1ServicePolicy.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServicePolicy {

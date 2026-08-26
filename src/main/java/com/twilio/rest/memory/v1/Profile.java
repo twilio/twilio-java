@@ -405,6 +405,7 @@ public class Profile extends Resource {
     }
 
     @JsonDeserialize(builder = ProfilesMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ProfilesMeta {
@@ -521,6 +522,7 @@ public class Profile extends Resource {
     }
 
     @JsonDeserialize(builder = ProfileData.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ProfileData {
@@ -584,6 +586,7 @@ public class Profile extends Resource {
     }
 
     @JsonDeserialize(builder = ProfilePatch.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ProfilePatch {

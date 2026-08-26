@@ -89,6 +89,7 @@ public class PortingPortIn extends Resource {
     }
 
     @JsonDeserialize(builder = NumbersV1PortingAddress.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class NumbersV1PortingAddress {
@@ -227,6 +228,7 @@ public class PortingPortIn extends Resource {
     @JsonDeserialize(
         builder = NumbersV1PortingPortInCreatePhoneNumbers.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class NumbersV1PortingPortInCreatePhoneNumbers {
@@ -315,6 +317,7 @@ public class PortingPortIn extends Resource {
     @JsonDeserialize(
         builder = NumbersV1PortingPortInPhoneNumberResult.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class NumbersV1PortingPortInPhoneNumberResult {
@@ -627,6 +630,7 @@ public class PortingPortIn extends Resource {
     }
 
     @JsonDeserialize(builder = NumbersV1PortingPortInCreate.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class NumbersV1PortingPortInCreate {
@@ -913,6 +917,7 @@ public class PortingPortIn extends Resource {
     @JsonDeserialize(
         builder = NumbersV1PortingLosingCarrierInformation.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class NumbersV1PortingLosingCarrierInformation {

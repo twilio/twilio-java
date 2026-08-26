@@ -293,6 +293,7 @@ public class Bulk extends Resource {
     }
 
     @JsonDeserialize(builder = UpdateProfilesBulkRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class UpdateProfilesBulkRequest {
@@ -359,6 +360,7 @@ public class Bulk extends Resource {
     }
 
     @JsonDeserialize(builder = ProfileData.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ProfileData {

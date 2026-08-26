@@ -340,6 +340,7 @@ public class Event extends Resource {
     @JsonDeserialize(
         builder = CommunicationLifecycleEventRecipient.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CommunicationLifecycleEventRecipient {
@@ -424,6 +425,7 @@ public class Event extends Resource {
     }
 
     @JsonDeserialize(builder = ProfileEventRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ProfileEventRequest {
@@ -506,6 +508,7 @@ public class Event extends Resource {
     }
 
     @JsonDeserialize(builder = CommunicationLifecycleEventSender.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CommunicationLifecycleEventSender {
@@ -590,24 +593,22 @@ public class Event extends Resource {
     }
 
     @JsonDeserialize(builder = ProfileEventRequestEvents.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ProfileEventRequestEvents {
 
+        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("communicationId")
+        @JsonProperty("timestamp")
         @Getter
-        private final String communicationId;
+        private final ZonedDateTime timestamp;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("communicationStatus")
+        @JsonProperty("lifecycle")
         @Getter
-        private final String communicationStatus;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("communicationType")
-        @Getter
-        private final String communicationType;
+        private final String lifecycle;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("conversationId")
@@ -615,9 +616,34 @@ public class Event extends Resource {
         private final String conversationId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("communicationId")
+        @Getter
+        private final String communicationId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("communicationType")
+        @Getter
+        private final String communicationType;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("communicationStatus")
+        @Getter
+        private final String communicationStatus;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("direction")
         @Getter
         private final Event.Direction direction;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sender")
+        @Getter
+        private final CommunicationLifecycleEventSender sender;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("recipient")
+        @Getter
+        private final CommunicationLifecycleEventRecipient recipient;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("errorCode")
@@ -629,40 +655,18 @@ public class Event extends Resource {
         @Getter
         private final String errorMessage;
 
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("lifecycle")
-        @Getter
-        private final String lifecycle;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("recipient")
-        @Getter
-        private final CommunicationLifecycleEventRecipient recipient;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("sender")
-        @Getter
-        private final CommunicationLifecycleEventSender sender;
-
-        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
-        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("timestamp")
-        @Getter
-        private final ZonedDateTime timestamp;
-
         private ProfileEventRequestEvents(Builder builder) {
-            this.communicationId = builder.communicationId;
-            this.communicationStatus = builder.communicationStatus;
-            this.communicationType = builder.communicationType;
+            this.timestamp = builder.timestamp;
+            this.lifecycle = builder.lifecycle;
             this.conversationId = builder.conversationId;
+            this.communicationId = builder.communicationId;
+            this.communicationType = builder.communicationType;
+            this.communicationStatus = builder.communicationStatus;
             this.direction = builder.direction;
+            this.sender = builder.sender;
+            this.recipient = builder.recipient;
             this.errorCode = builder.errorCode;
             this.errorMessage = builder.errorMessage;
-            this.lifecycle = builder.lifecycle;
-            this.recipient = builder.recipient;
-            this.sender = builder.sender;
-            this.timestamp = builder.timestamp;
         }
 
         public static Builder builder() {
@@ -682,36 +686,6 @@ public class Event extends Resource {
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
-            @JsonProperty("communicationId")
-            private String communicationId;
-
-            @JsonProperty("communicationStatus")
-            private String communicationStatus;
-
-            @JsonProperty("communicationType")
-            private String communicationType;
-
-            @JsonProperty("conversationId")
-            private String conversationId;
-
-            @JsonProperty("direction")
-            private Event.Direction direction;
-
-            @JsonProperty("errorCode")
-            private String errorCode;
-
-            @JsonProperty("errorMessage")
-            private String errorMessage;
-
-            @JsonProperty("lifecycle")
-            private String lifecycle;
-
-            @JsonProperty("recipient")
-            private CommunicationLifecycleEventRecipient recipient;
-
-            @JsonProperty("sender")
-            private CommunicationLifecycleEventSender sender;
-
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
@@ -719,24 +693,51 @@ public class Event extends Resource {
             @JsonProperty("timestamp")
             private ZonedDateTime timestamp;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("lifecycle")
+            private String lifecycle;
+
+            @JsonProperty("conversationId")
+            private String conversationId;
+
             @JsonProperty("communicationId")
-            public Builder communicationId(String communicationId) {
-                this.communicationId = communicationId;
-                return this;
-            }
+            private String communicationId;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("communicationStatus")
-            public Builder communicationStatus(String communicationStatus) {
-                this.communicationStatus = communicationStatus;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("communicationType")
-            public Builder communicationType(String communicationType) {
-                this.communicationType = communicationType;
+            private String communicationType;
+
+            @JsonProperty("communicationStatus")
+            private String communicationStatus;
+
+            @JsonProperty("direction")
+            private Event.Direction direction;
+
+            @JsonProperty("sender")
+            private CommunicationLifecycleEventSender sender;
+
+            @JsonProperty("recipient")
+            private CommunicationLifecycleEventRecipient recipient;
+
+            @JsonProperty("errorCode")
+            private String errorCode;
+
+            @JsonProperty("errorMessage")
+            private String errorMessage;
+
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("timestamp")
+            public Builder timestamp(ZonedDateTime timestamp) {
+                this.timestamp = timestamp;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("lifecycle")
+            public Builder lifecycle(String lifecycle) {
+                this.lifecycle = lifecycle;
                 return this;
             }
 
@@ -748,9 +749,46 @@ public class Event extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("communicationId")
+            public Builder communicationId(String communicationId) {
+                this.communicationId = communicationId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("communicationType")
+            public Builder communicationType(String communicationType) {
+                this.communicationType = communicationType;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("communicationStatus")
+            public Builder communicationStatus(String communicationStatus) {
+                this.communicationStatus = communicationStatus;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("direction")
             public Builder direction(Event.Direction direction) {
                 this.direction = direction;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("sender")
+            public Builder sender(CommunicationLifecycleEventSender sender) {
+                this.sender = sender;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("recipient")
+            public Builder recipient(
+                CommunicationLifecycleEventRecipient recipient
+            ) {
+                this.recipient = recipient;
                 return this;
             }
 
@@ -765,40 +803,6 @@ public class Event extends Resource {
             @JsonProperty("errorMessage")
             public Builder errorMessage(String errorMessage) {
                 this.errorMessage = errorMessage;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("lifecycle")
-            public Builder lifecycle(String lifecycle) {
-                this.lifecycle = lifecycle;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("recipient")
-            public Builder recipient(
-                CommunicationLifecycleEventRecipient recipient
-            ) {
-                this.recipient = recipient;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("sender")
-            public Builder sender(CommunicationLifecycleEventSender sender) {
-                this.sender = sender;
-                return this;
-            }
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("timestamp")
-            public Builder timestamp(ZonedDateTime timestamp) {
-                this.timestamp = timestamp;
                 return this;
             }
 
@@ -819,37 +823,37 @@ public class Event extends Resource {
 
             ProfileEventRequestEvents other = (ProfileEventRequestEvents) o;
             return (
+                Objects.equals(timestamp, other.timestamp) &&
+                Objects.equals(lifecycle, other.lifecycle) &&
+                Objects.equals(conversationId, other.conversationId) &&
                 Objects.equals(communicationId, other.communicationId) &&
+                Objects.equals(communicationType, other.communicationType) &&
                 Objects.equals(
                     communicationStatus,
                     other.communicationStatus
                 ) &&
-                Objects.equals(communicationType, other.communicationType) &&
-                Objects.equals(conversationId, other.conversationId) &&
                 Objects.equals(direction, other.direction) &&
-                Objects.equals(errorCode, other.errorCode) &&
-                Objects.equals(errorMessage, other.errorMessage) &&
-                Objects.equals(lifecycle, other.lifecycle) &&
-                Objects.equals(recipient, other.recipient) &&
                 Objects.equals(sender, other.sender) &&
-                Objects.equals(timestamp, other.timestamp)
+                Objects.equals(recipient, other.recipient) &&
+                Objects.equals(errorCode, other.errorCode) &&
+                Objects.equals(errorMessage, other.errorMessage)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                communicationId,
-                communicationStatus,
-                communicationType,
-                conversationId,
-                direction,
-                errorCode,
-                errorMessage,
+                timestamp,
                 lifecycle,
-                recipient,
+                conversationId,
+                communicationId,
+                communicationType,
+                communicationStatus,
+                direction,
                 sender,
-                timestamp
+                recipient,
+                errorCode,
+                errorMessage
             );
         }
     }

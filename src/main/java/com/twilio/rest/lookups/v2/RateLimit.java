@@ -48,6 +48,7 @@ public class RateLimit extends Resource {
     }
 
     @JsonDeserialize(builder = RateLimitResponse.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class RateLimitResponse {

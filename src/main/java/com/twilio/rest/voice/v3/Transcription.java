@@ -388,7 +388,8 @@ public class Transcription extends Resource {
     }
 
     public enum InputSource {
-        SOURCE_ID("SOURCE_ID");
+        SOURCE_ID("SOURCE_ID"),
+        MEDIA_URL("MEDIA_URL");
 
         private final String value;
 
@@ -470,6 +471,7 @@ public class Transcription extends Resource {
     }
 
     @JsonDeserialize(builder = VoiceV3TranscriptionParticipant.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class VoiceV3TranscriptionParticipant {
@@ -594,6 +596,7 @@ public class Transcription extends Resource {
     @JsonDeserialize(
         builder = VoiceV3TranscriptionTranscriptionStatusCallback.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class VoiceV3TranscriptionTranscriptionStatusCallback {
@@ -703,6 +706,7 @@ public class Transcription extends Resource {
     @JsonDeserialize(
         builder = VoiceV3TranscriptionResolvedConfiguration.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class VoiceV3TranscriptionResolvedConfiguration {
@@ -887,9 +891,35 @@ public class Transcription extends Resource {
     }
 
     @JsonDeserialize(builder = CreateV3TranscriptionsRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateV3TranscriptionsRequest {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("transcriptionConfigurationId")
+        @Getter
+        private final String transcriptionConfigurationId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("inputSource")
+        @Getter
+        private final Transcription.InputSource inputSource;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sourceId")
+        @Getter
+        private final String sourceId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("participants")
+        @Getter
+        private final List<VoiceV3TranscriptionParticipant> participants;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mediaUrl")
+        @Getter
+        private final URI mediaUrl;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
@@ -898,39 +928,14 @@ public class Transcription extends Resource {
         @Getter
         private final ZonedDateTime audioStartedAt;
 
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("inputSource")
-        @Getter
-        private final Transcription.InputSource inputSource;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("mediaUrl")
-        @Getter
-        private final URI mediaUrl;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("participants")
-        @Getter
-        private final List<VoiceV3TranscriptionParticipant> participants;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("sourceId")
-        @Getter
-        private final String sourceId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("transcriptionConfigurationId")
-        @Getter
-        private final String transcriptionConfigurationId;
-
         private CreateV3TranscriptionsRequest(Builder builder) {
-            this.audioStartedAt = builder.audioStartedAt;
-            this.inputSource = builder.inputSource;
-            this.mediaUrl = builder.mediaUrl;
-            this.participants = builder.participants;
-            this.sourceId = builder.sourceId;
             this.transcriptionConfigurationId =
                 builder.transcriptionConfigurationId;
+            this.inputSource = builder.inputSource;
+            this.sourceId = builder.sourceId;
+            this.participants = builder.participants;
+            this.mediaUrl = builder.mediaUrl;
+            this.audioStartedAt = builder.audioStartedAt;
         }
 
         public static Builder builder() {
@@ -950,6 +955,21 @@ public class Transcription extends Resource {
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
+            @JsonProperty("transcriptionConfigurationId")
+            private String transcriptionConfigurationId;
+
+            @JsonProperty("inputSource")
+            private Transcription.InputSource inputSource;
+
+            @JsonProperty("sourceId")
+            private String sourceId;
+
+            @JsonProperty("participants")
+            private List<VoiceV3TranscriptionParticipant> participants;
+
+            @JsonProperty("mediaUrl")
+            private URI mediaUrl;
+
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
@@ -957,29 +977,13 @@ public class Transcription extends Resource {
             @JsonProperty("audioStartedAt")
             private ZonedDateTime audioStartedAt;
 
-            @JsonProperty("inputSource")
-            private Transcription.InputSource inputSource;
-
-            @JsonProperty("mediaUrl")
-            private URI mediaUrl;
-
-            @JsonProperty("participants")
-            private List<VoiceV3TranscriptionParticipant> participants;
-
-            @JsonProperty("sourceId")
-            private String sourceId;
-
-            @JsonProperty("transcriptionConfigurationId")
-            private String transcriptionConfigurationId;
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("audioStartedAt")
-            public Builder audioStartedAt(ZonedDateTime audioStartedAt) {
-                this.audioStartedAt = audioStartedAt;
+            @JsonProperty("transcriptionConfigurationId")
+            public Builder transcriptionConfigurationId(
+                String transcriptionConfigurationId
+            ) {
+                this.transcriptionConfigurationId =
+                    transcriptionConfigurationId;
                 return this;
             }
 
@@ -991,9 +995,9 @@ public class Transcription extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("mediaUrl")
-            public Builder mediaUrl(URI mediaUrl) {
-                this.mediaUrl = mediaUrl;
+            @JsonProperty("sourceId")
+            public Builder sourceId(String sourceId) {
+                this.sourceId = sourceId;
                 return this;
             }
 
@@ -1007,19 +1011,20 @@ public class Transcription extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("sourceId")
-            public Builder sourceId(String sourceId) {
-                this.sourceId = sourceId;
+            @JsonProperty("mediaUrl")
+            public Builder mediaUrl(URI mediaUrl) {
+                this.mediaUrl = mediaUrl;
                 return this;
             }
 
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
+            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("transcriptionConfigurationId")
-            public Builder transcriptionConfigurationId(
-                String transcriptionConfigurationId
-            ) {
-                this.transcriptionConfigurationId =
-                    transcriptionConfigurationId;
+            @JsonProperty("audioStartedAt")
+            public Builder audioStartedAt(ZonedDateTime audioStartedAt) {
+                this.audioStartedAt = audioStartedAt;
                 return this;
             }
 
@@ -1041,27 +1046,27 @@ public class Transcription extends Resource {
             CreateV3TranscriptionsRequest other =
                 (CreateV3TranscriptionsRequest) o;
             return (
-                Objects.equals(audioStartedAt, other.audioStartedAt) &&
-                Objects.equals(inputSource, other.inputSource) &&
-                Objects.equals(mediaUrl, other.mediaUrl) &&
-                Objects.equals(participants, other.participants) &&
-                Objects.equals(sourceId, other.sourceId) &&
                 Objects.equals(
                     transcriptionConfigurationId,
                     other.transcriptionConfigurationId
-                )
+                ) &&
+                Objects.equals(inputSource, other.inputSource) &&
+                Objects.equals(sourceId, other.sourceId) &&
+                Objects.equals(participants, other.participants) &&
+                Objects.equals(mediaUrl, other.mediaUrl) &&
+                Objects.equals(audioStartedAt, other.audioStartedAt)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                audioStartedAt,
+                transcriptionConfigurationId,
                 inputSource,
-                mediaUrl,
-                participants,
                 sourceId,
-                transcriptionConfigurationId
+                participants,
+                mediaUrl,
+                audioStartedAt
             );
         }
     }
@@ -1069,6 +1074,7 @@ public class Transcription extends Resource {
     @JsonDeserialize(
         builder = VoiceV3TranscriptionResolvedConfigurationParticipantDefaults.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class VoiceV3TranscriptionResolvedConfigurationParticipantDefaults {
@@ -1159,6 +1165,7 @@ public class Transcription extends Resource {
     }
 
     @JsonDeserialize(builder = VoiceV3TranscriptionTranscription.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class VoiceV3TranscriptionTranscription {

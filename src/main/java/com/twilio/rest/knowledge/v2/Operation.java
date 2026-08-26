@@ -407,6 +407,7 @@ public class Operation extends Resource {
     }
 
     @JsonDeserialize(builder = OperationResultResourceId.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperationResultResourceId {
@@ -489,6 +490,7 @@ public class Operation extends Resource {
     }
 
     @JsonDeserialize(builder = OperationStatusError.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OperationStatusError {

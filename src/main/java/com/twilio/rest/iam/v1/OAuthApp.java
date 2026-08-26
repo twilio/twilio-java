@@ -68,6 +68,7 @@ public class OAuthApp extends Resource {
     @JsonDeserialize(
         builder = IamV1OrganizationVendorOauthAppUpdateRequestPolicy.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class IamV1OrganizationVendorOauthAppUpdateRequestPolicy {
@@ -160,6 +161,7 @@ public class OAuthApp extends Resource {
     @JsonDeserialize(
         builder = IamV1AccountVendorOauthAppCreateRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class IamV1AccountVendorOauthAppCreateRequest {
@@ -343,6 +345,7 @@ public class OAuthApp extends Resource {
     @JsonDeserialize(
         builder = IamV1OrganizationVendoroauthappPolicy.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class IamV1OrganizationVendoroauthappPolicy {
@@ -431,6 +434,7 @@ public class OAuthApp extends Resource {
     @JsonDeserialize(
         builder = IamV1AccountVendorOauthAppUpdateRequest.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class IamV1AccountVendorOauthAppUpdateRequest {

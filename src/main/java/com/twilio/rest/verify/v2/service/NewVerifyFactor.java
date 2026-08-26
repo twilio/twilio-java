@@ -171,6 +171,7 @@ public class NewVerifyFactor extends Resource {
     }
 
     @JsonDeserialize(builder = VerifyPasskeysFactorRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class VerifyPasskeysFactorRequest {
@@ -324,6 +325,7 @@ public class NewVerifyFactor extends Resource {
     @JsonDeserialize(
         builder = VerifyPasskeysFactorRequestResponse.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class VerifyPasskeysFactorRequestResponse {

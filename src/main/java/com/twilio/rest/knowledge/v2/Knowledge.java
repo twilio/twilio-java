@@ -568,7 +568,9 @@ public class Knowledge extends Resource {
     }
 
     public enum Type {
-        TEXT("Text");
+        TEXT("Text"),
+        WEB("Web"),
+        FILE("File");
 
         private final String value;
 
@@ -584,34 +586,6 @@ public class Knowledge extends Resource {
         @JsonCreator
         public static Type forValue(final String value) {
             return Promoter.enumFromString(value, Type.values());
-        }
-    }
-
-    public enum SupportedFileMimeType {
-        TEXT_CSV("text/csv"),
-        TEXT_MARKDOWN("text/markdown"),
-        TEXT_MDX("text/mdx"),
-        APPLICATION_PDF("application/pdf"),
-        TEXT_TAB_SEPARATED_VALUES("text/tab-separated-values"),
-        TEXT_PLAIN("text/plain");
-
-        private final String value;
-
-        private SupportedFileMimeType(final String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static SupportedFileMimeType forValue(final String value) {
-            return Promoter.enumFromString(
-                value,
-                SupportedFileMimeType.values()
-            );
         }
     }
 
@@ -639,6 +613,7 @@ public class Knowledge extends Resource {
     }
 
     @JsonDeserialize(builder = KnowledgeCore.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class KnowledgeCore {
@@ -736,6 +711,7 @@ public class Knowledge extends Resource {
     }
 
     @JsonDeserialize(builder = KnowledgeMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class KnowledgeMeta {
@@ -852,14 +828,25 @@ public class Knowledge extends Resource {
     }
 
     @JsonDeserialize(builder = KnowledgeSourceTypes.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class KnowledgeSourceTypes {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        private final Knowledge.Type type;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("content")
         @Getter
         private final String content;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("url")
+        @Getter
+        private final URI url;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("crawlDepth")
@@ -882,19 +869,14 @@ public class Knowledge extends Resource {
         private final Integer fileSize;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mimeType")
+        @Getter
+        private final SupportedFileMimeType mimeType;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("importUrl")
         @Getter
         private final URI importUrl;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("mimeType")
-        @Getter
-        private final Knowledge.SupportedFileMimeType mimeType;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("type")
-        @Getter
-        private final Knowledge.Type type;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
@@ -903,22 +885,17 @@ public class Knowledge extends Resource {
         @Getter
         private final ZonedDateTime uploadExpiration;
 
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("url")
-        @Getter
-        private final URI url;
-
         private KnowledgeSourceTypes(Builder builder) {
+            this.type = builder.type;
             this.content = builder.content;
+            this.url = builder.url;
             this.crawlDepth = builder.crawlDepth;
             this.crawlPeriod = builder.crawlPeriod;
             this.fileName = builder.fileName;
             this.fileSize = builder.fileSize;
-            this.importUrl = builder.importUrl;
             this.mimeType = builder.mimeType;
-            this.type = builder.type;
+            this.importUrl = builder.importUrl;
             this.uploadExpiration = builder.uploadExpiration;
-            this.url = builder.url;
         }
 
         public static Builder builder() {
@@ -935,8 +912,14 @@ public class Knowledge extends Resource {
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
+            @JsonProperty("type")
+            private Knowledge.Type type;
+
             @JsonProperty("content")
             private String content;
+
+            @JsonProperty("url")
+            private URI url;
 
             @JsonProperty("crawlDepth")
             private Integer crawlDepth;
@@ -950,14 +933,11 @@ public class Knowledge extends Resource {
             @JsonProperty("fileSize")
             private Integer fileSize;
 
+            @JsonProperty("mimeType")
+            private SupportedFileMimeType mimeType;
+
             @JsonProperty("importUrl")
             private URI importUrl;
-
-            @JsonProperty("mimeType")
-            private Knowledge.SupportedFileMimeType mimeType;
-
-            @JsonProperty("type")
-            private Knowledge.Type type;
 
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
@@ -966,13 +946,24 @@ public class Knowledge extends Resource {
             @JsonProperty("uploadExpiration")
             private ZonedDateTime uploadExpiration;
 
-            @JsonProperty("url")
-            private URI url;
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            public Builder type(Knowledge.Type type) {
+                this.type = type;
+                return this;
+            }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("content")
             public Builder content(String content) {
                 this.content = content;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("url")
+            public Builder url(URI url) {
+                this.url = url;
                 return this;
             }
 
@@ -1005,23 +996,16 @@ public class Knowledge extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("importUrl")
-            public Builder importUrl(URI importUrl) {
-                this.importUrl = importUrl;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("mimeType")
-            public Builder mimeType(Knowledge.SupportedFileMimeType mimeType) {
+            public Builder mimeType(SupportedFileMimeType mimeType) {
                 this.mimeType = mimeType;
                 return this;
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("type")
-            public Builder type(Knowledge.Type type) {
-                this.type = type;
+            @JsonProperty("importUrl")
+            public Builder importUrl(URI importUrl) {
+                this.importUrl = importUrl;
                 return this;
             }
 
@@ -1033,13 +1017,6 @@ public class Knowledge extends Resource {
             @JsonProperty("uploadExpiration")
             public Builder uploadExpiration(ZonedDateTime uploadExpiration) {
                 this.uploadExpiration = uploadExpiration;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("url")
-            public Builder url(URI url) {
-                this.url = url;
                 return this;
             }
 
@@ -1060,37 +1037,84 @@ public class Knowledge extends Resource {
 
             KnowledgeSourceTypes other = (KnowledgeSourceTypes) o;
             return (
+                Objects.equals(type, other.type) &&
                 Objects.equals(content, other.content) &&
+                Objects.equals(url, other.url) &&
                 Objects.equals(crawlDepth, other.crawlDepth) &&
                 Objects.equals(crawlPeriod, other.crawlPeriod) &&
                 Objects.equals(fileName, other.fileName) &&
                 Objects.equals(fileSize, other.fileSize) &&
-                Objects.equals(importUrl, other.importUrl) &&
                 Objects.equals(mimeType, other.mimeType) &&
-                Objects.equals(type, other.type) &&
-                Objects.equals(uploadExpiration, other.uploadExpiration) &&
-                Objects.equals(url, other.url)
+                Objects.equals(importUrl, other.importUrl) &&
+                Objects.equals(uploadExpiration, other.uploadExpiration)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
+                type,
                 content,
+                url,
                 crawlDepth,
                 crawlPeriod,
                 fileName,
                 fileSize,
-                importUrl,
                 mimeType,
-                type,
-                uploadExpiration,
-                url
+                importUrl,
+                uploadExpiration
             );
         }
     }
 
+    @JsonDeserialize(builder = SupportedFileMimeType.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class SupportedFileMimeType {
+
+        private SupportedFileMimeType(Builder builder) {}
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static SupportedFileMimeType fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, SupportedFileMimeType.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            public SupportedFileMimeType build() {
+                return new SupportedFileMimeType(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+    }
+
     @JsonDeserialize(builder = _Knowledge.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class _Knowledge {

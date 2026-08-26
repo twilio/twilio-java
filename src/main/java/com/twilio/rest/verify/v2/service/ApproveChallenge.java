@@ -172,6 +172,7 @@ public class ApproveChallenge extends Resource {
     @JsonDeserialize(
         builder = ApprovePasskeysChallengeRequestResponse.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ApprovePasskeysChallengeRequestResponse {
@@ -293,6 +294,7 @@ public class ApproveChallenge extends Resource {
     }
 
     @JsonDeserialize(builder = ApprovePasskeysChallengeRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ApprovePasskeysChallengeRequest {

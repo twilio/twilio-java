@@ -428,6 +428,7 @@ public class IdentityResolutionSetting extends Resource {
     }
 
     @JsonDeserialize(builder = IdentifierConfig.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class IdentifierConfig {
@@ -607,6 +608,7 @@ public class IdentityResolutionSetting extends Resource {
     }
 
     @JsonDeserialize(builder = IdentityResolutionSettingsCore.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class IdentityResolutionSettingsCore {

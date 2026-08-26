@@ -218,6 +218,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = FlowsPage.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class FlowsPage {
@@ -345,6 +346,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = Types.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Types {
@@ -651,6 +653,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = CallToActionAction.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CallToActionAction {
@@ -799,6 +802,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = CarouselAction.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CarouselAction {
@@ -930,6 +934,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = WhatsappCard.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class WhatsappCard {
@@ -1061,6 +1066,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = WhatsappAuthentication.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class WhatsappAuthentication {
@@ -1178,6 +1184,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = QuickReplyAction.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class QuickReplyAction {
@@ -1275,6 +1282,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = TwilioCard.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioCard {
@@ -1391,6 +1399,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = AuthenticationAction.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AuthenticationAction {
@@ -1473,6 +1482,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = ContentCreateRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ContentCreateRequest {
@@ -1587,6 +1597,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = TwilioCallToAction.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioCallToAction {
@@ -1667,6 +1678,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = ContentUpdateRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ContentUpdateRequest {
@@ -1781,6 +1793,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = TwilioQuickReply.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioQuickReply {
@@ -1861,6 +1874,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = TwilioMedia.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioMedia {
@@ -1941,6 +1955,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = TwilioFlows.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioFlows {
@@ -2088,6 +2103,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = FlowsPageComponent.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class FlowsPageComponent {
@@ -2168,6 +2184,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = WhatsappFlows.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class WhatsappFlows {
@@ -2360,6 +2377,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = TwilioListPicker.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioListPicker {
@@ -2453,6 +2471,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = TwilioCatalog.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioCatalog {
@@ -2601,6 +2620,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = TwilioText.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioText {
@@ -2662,6 +2682,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = CatalogItem.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CatalogItem {
@@ -2819,6 +2840,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = TwilioSchedule.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioSchedule {
@@ -2912,6 +2934,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = TwilioCarousel.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioCarousel {
@@ -2992,6 +3015,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = CardAction.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CardAction {
@@ -3157,6 +3181,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = CarouselCard.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CarouselCard {
@@ -3267,6 +3292,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = TwilioLocation.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioLocation {
@@ -3398,6 +3424,7 @@ public class Content extends Resource {
     }
 
     @JsonDeserialize(builder = ListItem.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListItem {

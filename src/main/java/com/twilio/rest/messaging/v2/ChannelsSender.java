@@ -262,6 +262,7 @@ public class ChannelsSender extends Resource {
     @JsonDeserialize(
         builder = MessagingV2ChannelsSenderProfileGenericResponseWebsites.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderProfileGenericResponseWebsites {
@@ -352,6 +353,7 @@ public class ChannelsSender extends Resource {
     }
 
     @JsonDeserialize(builder = MessagingV2ChannelsSenderProfile.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderProfile {
@@ -657,6 +659,7 @@ public class ChannelsSender extends Resource {
     }
 
     @JsonDeserialize(builder = MessagingV2RcsComplianceResponse.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2RcsComplianceResponse {
@@ -745,6 +748,7 @@ public class ChannelsSender extends Resource {
     }
 
     @JsonDeserialize(builder = MessagingV2RcsCarrier.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2RcsCarrier {
@@ -831,6 +835,7 @@ public class ChannelsSender extends Resource {
     @JsonDeserialize(
         builder = MessagingV2ChannelsSenderRequestsCreate.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderRequestsCreate {
@@ -953,6 +958,7 @@ public class ChannelsSender extends Resource {
     @JsonDeserialize(
         builder = MessagingV2ChannelsSenderProfileGenericResponseEmails.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderProfileGenericResponseEmails {
@@ -1045,6 +1051,7 @@ public class ChannelsSender extends Resource {
     @JsonDeserialize(
         builder = MessagingV2ChannelsSenderProperties.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderProperties {
@@ -1133,6 +1140,7 @@ public class ChannelsSender extends Resource {
     @JsonDeserialize(
         builder = MessagingV2ChannelsSenderOfflineReasonsItems.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderOfflineReasonsItems {
@@ -1238,6 +1246,7 @@ public class ChannelsSender extends Resource {
     @JsonDeserialize(
         builder = MessagingV2ChannelsSenderRequestsUpdate.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderRequestsUpdate {
@@ -1345,6 +1354,7 @@ public class ChannelsSender extends Resource {
     @JsonDeserialize(
         builder = MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers {
@@ -1437,6 +1447,7 @@ public class ChannelsSender extends Resource {
     @JsonDeserialize(
         builder = MessagingV2RcsComplianceCountryResponse.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2RcsComplianceCountryResponse {
@@ -1557,6 +1568,7 @@ public class ChannelsSender extends Resource {
     }
 
     @JsonDeserialize(builder = MessagingV2ChannelsSenderWebhook.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderWebhook {
@@ -1724,6 +1736,7 @@ public class ChannelsSender extends Resource {
     @JsonDeserialize(
         builder = MessagingV2ChannelsSenderProfileGenericResponse.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderProfileGenericResponse {
@@ -2059,6 +2072,7 @@ public class ChannelsSender extends Resource {
     @JsonDeserialize(
         builder = MessagingV2ChannelsSenderConfiguration.Builder.class
     )
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderConfiguration {

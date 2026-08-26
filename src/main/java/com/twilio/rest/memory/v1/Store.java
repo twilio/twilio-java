@@ -449,6 +449,7 @@ public class Store extends Resource {
     }
 
     @JsonDeserialize(builder = Meta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Meta {
@@ -563,6 +564,7 @@ public class Store extends Resource {
     }
 
     @JsonDeserialize(builder = PatchStoreRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class PatchStoreRequest {
@@ -645,6 +647,7 @@ public class Store extends Resource {
     }
 
     @JsonDeserialize(builder = ServiceRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ServiceRequest {

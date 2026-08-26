@@ -49,6 +49,7 @@ public class ReferralConversion extends Resource {
     }
 
     @JsonDeserialize(builder = CreateReferralConversionRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateReferralConversionRequest {

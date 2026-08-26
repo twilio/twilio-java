@@ -380,6 +380,7 @@ public class Query extends Resource {
     }
 
     @JsonDeserialize(builder = InsightsQueryRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class InsightsQueryRequest {
@@ -460,6 +461,7 @@ public class Query extends Resource {
     }
 
     @JsonDeserialize(builder = QueryDefinition.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class QueryDefinition {
@@ -576,6 +578,7 @@ public class Query extends Resource {
     }
 
     @JsonDeserialize(builder = PaginationMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class PaginationMeta {
@@ -690,6 +693,7 @@ public class Query extends Resource {
     }
 
     @JsonDeserialize(builder = QueryDefinitionFilters.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class QueryDefinitionFilters {
@@ -776,6 +780,7 @@ public class Query extends Resource {
     }
 
     @JsonDeserialize(builder = QueryDefinitionFiltersExpressions.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class QueryDefinitionFiltersExpressions {
@@ -874,6 +879,7 @@ public class Query extends Resource {
     }
 
     @JsonDeserialize(builder = QueryDefinitionOrderBy.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class QueryDefinitionOrderBy {

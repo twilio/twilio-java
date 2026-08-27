@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-x64
     if: github.repository_owner == 'twilio'
     timeout-minutes: 20
-    environment: production
+    environment: pre-production
     permissions:
       contents: read
       id-token: write

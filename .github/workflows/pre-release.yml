@@ -2,7 +2,7 @@ name: Cluster Tests and Release Readiness
 
 on:
   push:
-    branches: [gated-release]
+    branches: [main]
   schedule:
     - cron: '0 15 * * 1'  # 8AM PST every Monday
   workflow_dispatch:
@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-x64
     if: github.repository_owner == 'twilio'
     timeout-minutes: 20
+#     todo: when the bot allows another env to exist
+#    environment: pre-production
     environment: production
     permissions:
       contents: read

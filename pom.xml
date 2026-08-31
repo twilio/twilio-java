@@ -466,8 +466,7 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${javadoc.plugin.version}</version>
         <configuration>
-          <reportOutputDirectory>.</reportOutputDirectory>
-          <destDir>docs</destDir>
+          <outputDirectory>${project.basedir}/docs</outputDirectory>
           <source>8</source>
           <show>public</show>
           <nohelp>true</nohelp>

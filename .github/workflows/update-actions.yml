@@ -1,0 +1,20 @@
+name: Update pinned GitHub Actions
+
+on:
+  push:
+    branches: ['test-java-v4']
+  schedule:
+    - cron: '0 9 * * 1'  # weekly, Monday 9am UTC
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-x64
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: suzuki-shunsuke/pinact-action@3132770ecce73073bcd618342c7f4092ed2f994c # v3.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}

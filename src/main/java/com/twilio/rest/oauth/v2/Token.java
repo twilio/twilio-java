@@ -38,8 +38,8 @@ import lombok.ToString;
 @ToString
 public class Token extends Resource {
 
-    public static TokenCreator creator(final String grantType) {
-        return new TokenCreator(grantType);
+    public static TokenCreator creator() {
+        return new TokenCreator();
     }
 
     /**

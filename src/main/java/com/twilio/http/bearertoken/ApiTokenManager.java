@@ -20,7 +20,8 @@ public class ApiTokenManager implements TokenManager {
 
     @Override
     public String fetchAccessToken() {
-        TokenCreator tokenCreator = Token.creator().setGrantType(grantType).setClientId(clientId).setClientSecret(clientSecret);
+        TokenCreator tokenCreator = Token.creator(grantType).setClientId(clientId).setClientSecret(clientSecret);
+        
         if (this.code != null) tokenCreator.setCode(code);
         if (this.redirectUri != null) tokenCreator.setRedirectUri(redirectUri);
         if (this.audience != null) tokenCreator.setAudience(audience);

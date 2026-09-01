@@ -44,7 +44,9 @@ public class TokenCreator extends Creator<Token> {
     private String scope;
     private String codeVerifier;
 
-    public TokenCreator() {}
+    public TokenCreator(final String grantType) {
+        this.grantType = grantType;
+    }
 
     public TokenCreator setGrantType(final String grantType) {
         this.grantType = grantType;

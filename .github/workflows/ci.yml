@@ -25,10 +25,26 @@ jobs:
           java-version: "11"
           cache: "maven"
 
+      - name: Print Maven settings.xml (before OIDC)
+        run: |
+          if [ -f ~/.m2/settings.xml ]; then
+            sed -E 's/.*(password|token).*/SOMETHING SECRET/I' ~/.m2/settings.xml
+          else
+            echo "~/.m2/settings.xml does not exist"
+          fi
+
       - name: Artifactory OIDC
         if: ${{ !github.event.pull_request.head.repo.fork }}
-        uses: twilio/sdk-actions/artifactory-oidc@645dd125886c4e19c657b162522ae46c1c8f2d0f # java_maven
+        uses: twilio/sdk-actions/artifactory-oidc@97794ed86013544c414c75b816ae0cc032af1e13 # oidc_support_setupjava
         with:
           ecosystem: "maven"
+
+      - name: Print Maven settings.xml (after OIDC)
+        run: |
+          if [ -f ~/.m2/settings.xml ]; then
+            sed -E 's/.*(password|token).*/SOMETHING SECRET/I' ~/.m2/settings.xml
+          else
+            echo "~/.m2/settings.xml does not exist"
+          fi
 
       - run: mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V

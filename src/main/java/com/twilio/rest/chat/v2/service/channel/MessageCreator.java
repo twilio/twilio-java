@@ -98,14 +98,16 @@ public class MessageCreator extends Creator<Message> {
         String path =
             "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
-        path = path.replace(
-            "{" + "ChannelSid" + "}",
-            this.pathChannelSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

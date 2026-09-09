@@ -101,10 +101,11 @@ public class WorkflowCreator extends Creator<Workflow> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows";
 
-        path = path.replace(
-            "{" + "WorkspaceSid" + "}",
-            this.pathWorkspaceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

@@ -48,14 +48,8 @@ import lombok.ToString;
 @ToString
 public class NewChallenge extends Resource {
 
-    public static NewChallengeCreator creator(
-        final String pathServiceSid,
-        final NewChallenge.CreatePasskeysChallengeRequest createPasskeysChallengeRequest
-    ) {
-        return new NewChallengeCreator(
-            pathServiceSid,
-            createPasskeysChallengeRequest
-        );
+    public static NewChallengeCreator creator(final String pathServiceSid) {
+        return new NewChallengeCreator(pathServiceSid);
     }
 
     public enum Status {

@@ -39,10 +39,11 @@ public class NotificationFetcher extends Fetcher<Notification> {
         String path =
             "/v1/Services/{ChatServiceSid}/Configuration/Notifications";
 
-        path = path.replace(
-            "{" + "ChatServiceSid" + "}",
-            this.pathChatServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ChatServiceSid" + "}",
+                this.pathChatServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

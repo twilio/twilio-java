@@ -31,8 +31,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class CustomerProfilesChannelEndpointAssignmentCreator
-    extends Creator<CustomerProfilesChannelEndpointAssignment>
-{
+    extends Creator<CustomerProfilesChannelEndpointAssignment> {
 
     private String pathCustomerProfileSid;
     private String channelEndpointType;
@@ -66,10 +65,11 @@ public class CustomerProfilesChannelEndpointAssignmentCreator
         String path =
             "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments";
 
-        path = path.replace(
-            "{" + "CustomerProfileSid" + "}",
-            this.pathCustomerProfileSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "CustomerProfileSid" + "}",
+                this.pathCustomerProfileSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -114,9 +114,9 @@ public class CustomerProfilesChannelEndpointAssignmentCreator
     }
 
     @Override
-    public TwilioResponse<CustomerProfilesChannelEndpointAssignment> createWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        CustomerProfilesChannelEndpointAssignment
+    > createWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         CustomerProfilesChannelEndpointAssignment content =
             CustomerProfilesChannelEndpointAssignment.fromJson(

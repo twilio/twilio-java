@@ -44,10 +44,11 @@ public class SchemaVersionFetcher extends Fetcher<SchemaVersion> {
         String path = "/v1/Schemas/{Id}/Versions/{SchemaVersion}";
 
         path = path.replace("{" + "Id" + "}", this.pathId.toString());
-        path = path.replace(
-            "{" + "SchemaVersion" + "}",
-            this.pathSchemaVersion.toString()
-        );
+        path =
+            path.replace(
+                "{" + "SchemaVersion" + "}",
+                this.pathSchemaVersion.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

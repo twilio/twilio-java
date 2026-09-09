@@ -73,10 +73,11 @@ public class RateLimitReader extends Reader<RateLimit> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/RateLimits";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

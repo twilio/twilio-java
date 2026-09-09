@@ -39,10 +39,11 @@ public class BrandRegistrationOtpCreator extends Creator<BrandRegistrationOtp> {
         String path =
             "/v1/a2p/BrandRegistrations/{BrandRegistrationSid}/SmsOtp";
 
-        path = path.replace(
-            "{" + "BrandRegistrationSid" + "}",
-            this.pathBrandRegistrationSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "BrandRegistrationSid" + "}",
+                this.pathBrandRegistrationSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

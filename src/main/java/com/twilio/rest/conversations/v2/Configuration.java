@@ -281,16 +281,16 @@ public class Configuration extends Resource {
             @JsonProperty("description") final String description,
             @JsonProperty("displayName") final String displayName,
             @JsonProperty("id") final String id,
-            @JsonProperty(
-                "intelligenceConfigurationIds"
-            ) final List<String> intelligenceConfigurationIds,
+            @JsonProperty("intelligenceConfigurationIds") final List<
+                String
+            > intelligenceConfigurationIds,
             @JsonProperty(
                 "memoryExtractionEnabled"
             ) final Boolean memoryExtractionEnabled,
             @JsonProperty("memoryStoreId") final String memoryStoreId,
-            @JsonProperty(
-                "statusCallbacks"
-            ) final List<ConversationsV2StatusCallbackConfig> statusCallbacks,
+            @JsonProperty("statusCallbacks") final List<
+                ConversationsV2StatusCallbackConfig
+            > statusCallbacks,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt,
             @JsonProperty("version") final Long version
         ) {
@@ -388,8 +388,20 @@ public class Configuration extends Resource {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PatchConfigurationResponse extends Resource {
 
+        @Getter
+        private final Map<String, String> related;
+
+        @Getter
+        private final URI statusUrl;
+
         @JsonCreator
-        private PatchConfigurationResponse() {}
+        private PatchConfigurationResponse(
+            @JsonProperty("related") final Map<String, String> related,
+            @JsonProperty("statusUrl") final URI statusUrl
+        ) {
+            this.related = related;
+            this.statusUrl = statusUrl;
+        }
 
         public static PatchConfigurationResponse fromJson(
             final InputStream json,
@@ -418,12 +430,15 @@ public class Configuration extends Resource {
                 return false;
             }
             PatchConfigurationResponse other = (PatchConfigurationResponse) o;
-            return true;
+            return (
+                Objects.equals(related, other.related) &&
+                Objects.equals(statusUrl, other.statusUrl)
+            );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash();
+            return Objects.hash(related, statusUrl);
         }
     }
 
@@ -488,16 +503,16 @@ public class Configuration extends Resource {
             @JsonProperty("description") final String description,
             @JsonProperty("displayName") final String displayName,
             @JsonProperty("id") final String id,
-            @JsonProperty(
-                "intelligenceConfigurationIds"
-            ) final List<String> intelligenceConfigurationIds,
+            @JsonProperty("intelligenceConfigurationIds") final List<
+                String
+            > intelligenceConfigurationIds,
             @JsonProperty(
                 "memoryExtractionEnabled"
             ) final Boolean memoryExtractionEnabled,
             @JsonProperty("memoryStoreId") final String memoryStoreId,
-            @JsonProperty(
-                "statusCallbacks"
-            ) final List<ConversationsV2StatusCallbackConfig> statusCallbacks,
+            @JsonProperty("statusCallbacks") final List<
+                ConversationsV2StatusCallbackConfig
+            > statusCallbacks,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt,
             @JsonProperty("version") final Long version
         ) {
@@ -606,6 +621,10 @@ public class Configuration extends Resource {
 
     public static ConfigurationReader reader() {
         return new ConfigurationReader();
+    }
+
+    public static ConfigurationPatcher patcher(final String pathId) {
+        return new ConfigurationPatcher(pathId);
     }
 
     public static ConfigurationUpdater updater(final String pathId) {
@@ -1004,6 +1023,77 @@ public class Configuration extends Resource {
     }
 
     @JsonDeserialize(
+        builder = PatchConfigurationRequestConversationsV1Bridge.Builder.class
+    )
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class PatchConfigurationRequestConversationsV1Bridge {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("serviceId")
+        @Getter
+        private final String serviceId;
+
+        private PatchConfigurationRequestConversationsV1Bridge(
+            Builder builder
+        ) {
+            this.serviceId = builder.serviceId;
+        }
+
+        public static Builder builder(final String serviceId) {
+            return new Builder(serviceId);
+        }
+
+        public static PatchConfigurationRequestConversationsV1Bridge fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                PatchConfigurationRequestConversationsV1Bridge.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("serviceId")
+            private String serviceId;
+
+            @JsonCreator
+            public Builder(@JsonProperty("serviceId") final String serviceId) {
+                this.serviceId = serviceId;
+            }
+
+            public PatchConfigurationRequestConversationsV1Bridge build() {
+                return new PatchConfigurationRequestConversationsV1Bridge(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            PatchConfigurationRequestConversationsV1Bridge other =
+                (PatchConfigurationRequestConversationsV1Bridge) o;
+            return (Objects.equals(serviceId, other.serviceId));
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(serviceId);
+        }
+    }
+
+    @JsonDeserialize(
         builder = UpdateConfigurationRequestChannelSettingsValue.Builder.class
     )
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -1019,7 +1109,9 @@ public class Configuration extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("captureRules")
         @Getter
-        private final List<UpdateConfigurationRequestChannelSettingsValueCaptureRules> captureRules;
+        private final List<
+            UpdateConfigurationRequestChannelSettingsValueCaptureRules
+        > captureRules;
 
         private UpdateConfigurationRequestChannelSettingsValue(
             Builder builder
@@ -1050,7 +1142,9 @@ public class Configuration extends Resource {
             private UpdateConfigurationRequestChannelSettingsValueStatusTimeouts statusTimeouts;
 
             @JsonProperty("captureRules")
-            private List<UpdateConfigurationRequestChannelSettingsValueCaptureRules> captureRules;
+            private List<
+                UpdateConfigurationRequestChannelSettingsValueCaptureRules
+            > captureRules;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("statusTimeouts")
@@ -1064,7 +1158,9 @@ public class Configuration extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("captureRules")
             public Builder captureRules(
-                List<UpdateConfigurationRequestChannelSettingsValueCaptureRules> captureRules
+                List<
+                    UpdateConfigurationRequestChannelSettingsValueCaptureRules
+                > captureRules
             ) {
                 this.captureRules = captureRules;
                 return this;
@@ -1115,7 +1211,9 @@ public class Configuration extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("captureRules")
         @Getter
-        private final List<CreateConfigurationRequestChannelSettingsValueCaptureRules> captureRules;
+        private final List<
+            CreateConfigurationRequestChannelSettingsValueCaptureRules
+        > captureRules;
 
         private CreateConfigurationRequestChannelSettingsValue(
             Builder builder
@@ -1146,7 +1244,9 @@ public class Configuration extends Resource {
             private CreateConfigurationRequestChannelSettingsValueStatusTimeouts statusTimeouts;
 
             @JsonProperty("captureRules")
-            private List<CreateConfigurationRequestChannelSettingsValueCaptureRules> captureRules;
+            private List<
+                CreateConfigurationRequestChannelSettingsValueCaptureRules
+            > captureRules;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("statusTimeouts")
@@ -1160,7 +1260,9 @@ public class Configuration extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("captureRules")
             public Builder captureRules(
-                List<CreateConfigurationRequestChannelSettingsValueCaptureRules> captureRules
+                List<
+                    CreateConfigurationRequestChannelSettingsValueCaptureRules
+                > captureRules
             ) {
                 this.captureRules = captureRules;
                 return this;
@@ -1259,7 +1361,7 @@ public class Configuration extends Resource {
 
             CreateConfigurationRequestConversationsV1Bridge other =
                 (CreateConfigurationRequestConversationsV1Bridge) o;
-            return Objects.equals(serviceId, other.serviceId);
+            return (Objects.equals(serviceId, other.serviceId));
         }
 
         @Override
@@ -1397,7 +1499,9 @@ public class Configuration extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("statusCallbacks")
         @Getter
-        private final List<UpdateConfigurationRequestStatusCallbacks> statusCallbacks;
+        private final List<
+            UpdateConfigurationRequestStatusCallbacks
+        > statusCallbacks;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("intelligenceConfigurationIds")
@@ -1477,7 +1581,9 @@ public class Configuration extends Resource {
             > channelSettings;
 
             @JsonProperty("statusCallbacks")
-            private List<UpdateConfigurationRequestStatusCallbacks> statusCallbacks;
+            private List<
+                UpdateConfigurationRequestStatusCallbacks
+            > statusCallbacks;
 
             @JsonProperty("intelligenceConfigurationIds")
             private List<String> intelligenceConfigurationIds;
@@ -1695,6 +1801,261 @@ public class Configuration extends Resource {
         }
     }
 
+    @JsonDeserialize(builder = PatchConfigurationRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class PatchConfigurationRequest {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("displayName")
+        @Getter
+        private final String displayName;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("description")
+        @Getter
+        private final String description;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("conversationGroupingType")
+        @Getter
+        private final Configuration.ConversationGroupingType conversationGroupingType;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("memoryStoreId")
+        @Getter
+        private final String memoryStoreId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("channelSettings")
+        @Getter
+        private final Map<
+            String,
+            PatchConfigurationRequestChannelSettingsValue
+        > channelSettings;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("statusCallbacks")
+        @Getter
+        private final List<
+            UpdateConfigurationRequestStatusCallbacks
+        > statusCallbacks;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("intelligenceConfigurationIds")
+        @Getter
+        private final List<String> intelligenceConfigurationIds;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("memoryExtractionEnabled")
+        @Getter
+        private final Boolean memoryExtractionEnabled;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("conversationsV1Bridge")
+        @Getter
+        private final PatchConfigurationRequestConversationsV1Bridge conversationsV1Bridge;
+
+        private PatchConfigurationRequest(Builder builder) {
+            this.displayName = builder.displayName;
+            this.description = builder.description;
+            this.conversationGroupingType = builder.conversationGroupingType;
+            this.memoryStoreId = builder.memoryStoreId;
+            this.channelSettings = builder.channelSettings;
+            this.statusCallbacks = builder.statusCallbacks;
+            this.intelligenceConfigurationIds =
+                builder.intelligenceConfigurationIds;
+            this.memoryExtractionEnabled = builder.memoryExtractionEnabled;
+            this.conversationsV1Bridge = builder.conversationsV1Bridge;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static PatchConfigurationRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                PatchConfigurationRequest.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("displayName")
+            private String displayName;
+
+            @JsonProperty("description")
+            private String description;
+
+            @JsonProperty("conversationGroupingType")
+            private Configuration.ConversationGroupingType conversationGroupingType;
+
+            @JsonProperty("memoryStoreId")
+            private String memoryStoreId;
+
+            @JsonProperty("channelSettings")
+            private Map<
+                String,
+                PatchConfigurationRequestChannelSettingsValue
+            > channelSettings;
+
+            @JsonProperty("statusCallbacks")
+            private List<
+                UpdateConfigurationRequestStatusCallbacks
+            > statusCallbacks;
+
+            @JsonProperty("intelligenceConfigurationIds")
+            private List<String> intelligenceConfigurationIds;
+
+            @JsonProperty("memoryExtractionEnabled")
+            private Boolean memoryExtractionEnabled;
+
+            @JsonProperty("conversationsV1Bridge")
+            private PatchConfigurationRequestConversationsV1Bridge conversationsV1Bridge;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("displayName")
+            public Builder displayName(String displayName) {
+                this.displayName = displayName;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("description")
+            public Builder description(String description) {
+                this.description = description;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("conversationGroupingType")
+            public Builder conversationGroupingType(
+                Configuration.ConversationGroupingType conversationGroupingType
+            ) {
+                this.conversationGroupingType = conversationGroupingType;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("memoryStoreId")
+            public Builder memoryStoreId(String memoryStoreId) {
+                this.memoryStoreId = memoryStoreId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("channelSettings")
+            public Builder channelSettings(
+                Map<
+                    String,
+                    PatchConfigurationRequestChannelSettingsValue
+                > channelSettings
+            ) {
+                this.channelSettings = channelSettings;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("statusCallbacks")
+            public Builder statusCallbacks(
+                List<UpdateConfigurationRequestStatusCallbacks> statusCallbacks
+            ) {
+                this.statusCallbacks = statusCallbacks;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("intelligenceConfigurationIds")
+            public Builder intelligenceConfigurationIds(
+                List<String> intelligenceConfigurationIds
+            ) {
+                this.intelligenceConfigurationIds =
+                    intelligenceConfigurationIds;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("memoryExtractionEnabled")
+            public Builder memoryExtractionEnabled(
+                Boolean memoryExtractionEnabled
+            ) {
+                this.memoryExtractionEnabled = memoryExtractionEnabled;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("conversationsV1Bridge")
+            public Builder conversationsV1Bridge(
+                PatchConfigurationRequestConversationsV1Bridge conversationsV1Bridge
+            ) {
+                this.conversationsV1Bridge = conversationsV1Bridge;
+                return this;
+            }
+
+            public PatchConfigurationRequest build() {
+                return new PatchConfigurationRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            PatchConfigurationRequest other = (PatchConfigurationRequest) o;
+            return (
+                Objects.equals(displayName, other.displayName) &&
+                Objects.equals(description, other.description) &&
+                Objects.equals(
+                    conversationGroupingType,
+                    other.conversationGroupingType
+                ) &&
+                Objects.equals(memoryStoreId, other.memoryStoreId) &&
+                Objects.equals(channelSettings, other.channelSettings) &&
+                Objects.equals(statusCallbacks, other.statusCallbacks) &&
+                Objects.equals(
+                    intelligenceConfigurationIds,
+                    other.intelligenceConfigurationIds
+                ) &&
+                Objects.equals(
+                    memoryExtractionEnabled,
+                    other.memoryExtractionEnabled
+                ) &&
+                Objects.equals(
+                    conversationsV1Bridge,
+                    other.conversationsV1Bridge
+                )
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                displayName,
+                description,
+                conversationGroupingType,
+                memoryStoreId,
+                channelSettings,
+                statusCallbacks,
+                intelligenceConfigurationIds,
+                memoryExtractionEnabled,
+                conversationsV1Bridge
+            );
+        }
+    }
+
     @JsonDeserialize(builder = ConversationsV2StatusTimeouts.Builder.class)
     @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -1882,6 +2243,106 @@ public class Configuration extends Resource {
         }
     }
 
+    @JsonDeserialize(
+        builder = PatchConfigurationRequestChannelSettingsValue.Builder.class
+    )
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class PatchConfigurationRequestChannelSettingsValue {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("statusTimeouts")
+        @Getter
+        private final UpdateConfigurationRequestChannelSettingsValueStatusTimeouts statusTimeouts;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("captureRules")
+        @Getter
+        private final List<
+            UpdateConfigurationRequestChannelSettingsValueCaptureRules
+        > captureRules;
+
+        private PatchConfigurationRequestChannelSettingsValue(Builder builder) {
+            this.statusTimeouts = builder.statusTimeouts;
+            this.captureRules = builder.captureRules;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static PatchConfigurationRequestChannelSettingsValue fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                PatchConfigurationRequestChannelSettingsValue.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("statusTimeouts")
+            private UpdateConfigurationRequestChannelSettingsValueStatusTimeouts statusTimeouts;
+
+            @JsonProperty("captureRules")
+            private List<
+                UpdateConfigurationRequestChannelSettingsValueCaptureRules
+            > captureRules;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("statusTimeouts")
+            public Builder statusTimeouts(
+                UpdateConfigurationRequestChannelSettingsValueStatusTimeouts statusTimeouts
+            ) {
+                this.statusTimeouts = statusTimeouts;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("captureRules")
+            public Builder captureRules(
+                List<
+                    UpdateConfigurationRequestChannelSettingsValueCaptureRules
+                > captureRules
+            ) {
+                this.captureRules = captureRules;
+                return this;
+            }
+
+            public PatchConfigurationRequestChannelSettingsValue build() {
+                return new PatchConfigurationRequestChannelSettingsValue(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            PatchConfigurationRequestChannelSettingsValue other =
+                (PatchConfigurationRequestChannelSettingsValue) o;
+            return (
+                Objects.equals(statusTimeouts, other.statusTimeouts) &&
+                Objects.equals(captureRules, other.captureRules)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(statusTimeouts, captureRules);
+        }
+    }
+
     @JsonDeserialize(builder = CreateConfigurationRequest.Builder.class)
     @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -1919,7 +2380,9 @@ public class Configuration extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("statusCallbacks")
         @Getter
-        private final List<CreateConfigurationRequestStatusCallbacks> statusCallbacks;
+        private final List<
+            CreateConfigurationRequestStatusCallbacks
+        > statusCallbacks;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("intelligenceConfigurationIds")
@@ -1996,7 +2459,9 @@ public class Configuration extends Resource {
             > channelSettings;
 
             @JsonProperty("statusCallbacks")
-            private List<CreateConfigurationRequestStatusCallbacks> statusCallbacks;
+            private List<
+                CreateConfigurationRequestStatusCallbacks
+            > statusCallbacks;
 
             @JsonProperty("intelligenceConfigurationIds")
             private List<String> intelligenceConfigurationIds;
@@ -2188,7 +2653,7 @@ public class Configuration extends Resource {
 
             ConversationsV2ConversationsV1Bridge other =
                 (ConversationsV2ConversationsV1Bridge) o;
-            return Objects.equals(serviceId, other.serviceId);
+            return (Objects.equals(serviceId, other.serviceId));
         }
 
         @Override

@@ -651,7 +651,9 @@ public class PortingPortIn extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("phone_numbers")
         @Getter
-        private final List<NumbersV1PortingPortInCreatePhoneNumbers> phoneNumbers;
+        private final List<
+            NumbersV1PortingPortInCreatePhoneNumbers
+        > phoneNumbers;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("losing_carrier_information")
@@ -1339,15 +1341,15 @@ public class PortingPortIn extends Resource {
         @JsonProperty(
             "losing_carrier_information"
         ) final NumbersV1PortingLosingCarrierInformation losingCarrierInformation,
-        @JsonProperty(
-            "notification_emails"
-        ) final List<String> notificationEmails,
+        @JsonProperty("notification_emails") final List<
+            String
+        > notificationEmails,
         @JsonProperty(
             "order_cancellation_reason"
         ) final String orderCancellationReason,
-        @JsonProperty(
-            "phone_numbers"
-        ) final List<NumbersV1PortingPortInPhoneNumberResult> phoneNumbers,
+        @JsonProperty("phone_numbers") final List<
+            NumbersV1PortingPortInPhoneNumberResult
+        > phoneNumbers,
         @JsonProperty("port_in_request_sid") final String portInRequestSid,
         @JsonProperty(
             "port_in_request_status"

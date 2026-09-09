@@ -32,8 +32,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConversationSummaryCreator
-    extends Creator<ConversationSummary.CreateConversationSummaryResponse>
-{
+    extends Creator<ConversationSummary.CreateConversationSummaryResponse> {
 
     private String pathStoreId;
     private String pathProfileId;
@@ -77,10 +76,11 @@ public class ConversationSummaryCreator
             "/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -126,9 +126,9 @@ public class ConversationSummaryCreator
     }
 
     @Override
-    public TwilioResponse<ConversationSummary.CreateConversationSummaryResponse> createWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        ConversationSummary.CreateConversationSummaryResponse
+    > createWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         ConversationSummary.CreateConversationSummaryResponse content =
             ConversationSummary.CreateConversationSummaryResponse.fromJson(

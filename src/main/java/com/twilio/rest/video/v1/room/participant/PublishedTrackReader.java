@@ -80,10 +80,11 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
             "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks";
 
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
-        path = path.replace(
-            "{" + "ParticipantSid" + "}",
-            this.pathParticipantSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ParticipantSid" + "}",
+                this.pathParticipantSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

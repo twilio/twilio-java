@@ -77,14 +77,16 @@ public class CredentialCreator extends Creator<Credential> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path = path.replace(
-            "{" + "AccountSid" + "}",
-            this.pathAccountSid.toString()
-        );
-        path = path.replace(
-            "{" + "CredentialListSid" + "}",
-            this.pathCredentialListSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "CredentialListSid" + "}",
+                this.pathCredentialListSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

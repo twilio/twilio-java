@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TrustProductsChannelEndpointAssignmentFetcher
-    extends Fetcher<TrustProductsChannelEndpointAssignment>
-{
+    extends Fetcher<TrustProductsChannelEndpointAssignment> {
 
     private String pathTrustProductSid;
     private String pathSid;
@@ -46,10 +45,11 @@ public class TrustProductsChannelEndpointAssignmentFetcher
         String path =
             "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid}";
 
-        path = path.replace(
-            "{" + "TrustProductSid" + "}",
-            this.pathTrustProductSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "TrustProductSid" + "}",
+                this.pathTrustProductSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
@@ -93,9 +93,9 @@ public class TrustProductsChannelEndpointAssignmentFetcher
     }
 
     @Override
-    public TwilioResponse<TrustProductsChannelEndpointAssignment> fetchWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        TrustProductsChannelEndpointAssignment
+    > fetchWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         TrustProductsChannelEndpointAssignment content =
             TrustProductsChannelEndpointAssignment.fromJson(

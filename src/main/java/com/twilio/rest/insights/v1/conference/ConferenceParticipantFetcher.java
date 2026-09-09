@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConferenceParticipantFetcher
-    extends Fetcher<ConferenceParticipant>
-{
+    extends Fetcher<ConferenceParticipant> {
 
     private String pathConferenceSid;
     private String pathParticipantSid;
@@ -60,14 +59,16 @@ public class ConferenceParticipantFetcher
         String path =
             "/v1/Conferences/{ConferenceSid}/Participants/{ParticipantSid}";
 
-        path = path.replace(
-            "{" + "ConferenceSid" + "}",
-            this.pathConferenceSid.toString()
-        );
-        path = path.replace(
-            "{" + "ParticipantSid" + "}",
-            this.pathParticipantSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ConferenceSid" + "}",
+                this.pathConferenceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ParticipantSid" + "}",
+                this.pathParticipantSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

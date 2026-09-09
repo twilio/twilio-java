@@ -156,9 +156,9 @@ public class TaskQueueRealTimeStatistics extends Resource {
     @JsonCreator
     private TaskQueueRealTimeStatistics(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty(
-            "activity_statistics"
-        ) final List<Object> activityStatistics,
+        @JsonProperty("activity_statistics") final List<
+            Object
+        > activityStatistics,
         @JsonProperty(
             "longest_relative_task_age_in_queue"
         ) final Integer longestRelativeTaskAgeInQueue,

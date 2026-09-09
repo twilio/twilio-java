@@ -122,7 +122,7 @@ public class Search extends Resource {
                 return false;
             }
             UpdateSearchResponse other = (UpdateSearchResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -200,7 +200,7 @@ public class Search extends Resource {
                 return false;
             }
             ListSearchResponse other = (ListSearchResponse) o;
-            return true;
+            return (true);
         }
 
         @Override

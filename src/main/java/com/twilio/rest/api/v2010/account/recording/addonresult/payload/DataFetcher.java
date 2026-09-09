@@ -64,22 +64,26 @@ public class DataFetcher extends Fetcher<Data> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path = path.replace(
-            "{" + "AccountSid" + "}",
-            this.pathAccountSid.toString()
-        );
-        path = path.replace(
-            "{" + "ReferenceSid" + "}",
-            this.pathReferenceSid.toString()
-        );
-        path = path.replace(
-            "{" + "AddOnResultSid" + "}",
-            this.pathAddOnResultSid.toString()
-        );
-        path = path.replace(
-            "{" + "PayloadSid" + "}",
-            this.pathPayloadSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ReferenceSid" + "}",
+                this.pathReferenceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "AddOnResultSid" + "}",
+                this.pathAddOnResultSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "PayloadSid" + "}",
+                this.pathPayloadSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

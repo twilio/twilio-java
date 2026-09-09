@@ -52,14 +52,16 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path = path.replace(
-            "{" + "AccountSid" + "}",
-            this.pathAccountSid.toString()
-        );
-        path = path.replace(
-            "{" + "ConnectAppSid" + "}",
-            this.pathConnectAppSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ConnectAppSid" + "}",
+                this.pathConnectAppSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

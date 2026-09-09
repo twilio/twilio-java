@@ -43,14 +43,16 @@ public class AccountFetcher extends Fetcher<Account> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/Accounts/{AccountSid}";
 
-        path = path.replace(
-            "{" + "OrganizationSid" + "}",
-            this.pathOrganizationSid.toString()
-        );
-        path = path.replace(
-            "{" + "AccountSid" + "}",
-            this.pathAccountSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "OrganizationSid" + "}",
+                this.pathOrganizationSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

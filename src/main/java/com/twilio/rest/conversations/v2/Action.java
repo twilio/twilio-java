@@ -179,7 +179,7 @@ public class Action extends Resource {
                 return false;
             }
             UpdateActionResponse other = (UpdateActionResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -257,7 +257,7 @@ public class Action extends Resource {
                 return false;
             }
             ListActionResponse other = (ListActionResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -428,7 +428,8 @@ public class Action extends Resource {
         SMS("SMS"),
         RCS("RCS"),
         WHATSAPP("WHATSAPP"),
-        CHAT("CHAT");
+        CHAT("CHAT"),
+        VIDEO("VIDEO");
 
         private final String value;
 
@@ -635,9 +636,9 @@ public class Action extends Resource {
                 @JsonProperty(
                     "from"
                 ) final ConversationsV2SendMessageParticipant from,
-                @JsonProperty(
-                    "to"
-                ) final List<ConversationsV2SendMessageParticipant> to,
+                @JsonProperty("to") final List<
+                    ConversationsV2SendMessageParticipant
+                > to,
                 @JsonProperty(
                     "content"
                 ) final ConversationsV2SendMessageContent content

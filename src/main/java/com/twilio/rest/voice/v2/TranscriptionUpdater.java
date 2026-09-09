@@ -49,10 +49,11 @@ public class TranscriptionUpdater extends Updater<Transcription> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Configurations/Transcription/{IdOrUniqueName}";
 
-        path = path.replace(
-            "{" + "IdOrUniqueName" + "}",
-            this.pathIdOrUniqueName.toString()
-        );
+        path =
+            path.replace(
+                "{" + "IdOrUniqueName" + "}",
+                this.pathIdOrUniqueName.toString()
+            );
 
         Request request = new Request(
             HttpMethod.PUT,

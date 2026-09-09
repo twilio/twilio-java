@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TraitGroupFetcher
-    extends Fetcher<TraitGroup.FetchTraitGroupResponse>
-{
+    extends Fetcher<TraitGroup.FetchTraitGroupResponse> {
 
     private String pathStoreId;
     private String pathTraitGroupName;
@@ -73,10 +72,11 @@ public class TraitGroupFetcher
             "/v1/ControlPlane/Stores/{storeId}/TraitGroups/{traitGroupName}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "traitGroupName" + "}",
-            this.pathTraitGroupName.toString()
-        );
+        path =
+            path.replace(
+                "{" + "traitGroupName" + "}",
+                this.pathTraitGroupName.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

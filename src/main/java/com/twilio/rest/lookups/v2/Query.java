@@ -820,7 +820,7 @@ public class Query extends Resource {
             }
 
             ReassignedNumberParameters other = (ReassignedNumberParameters) o;
-            return Objects.equals(lastVerifiedDate, other.lastVerifiedDate);
+            return (Objects.equals(lastVerifiedDate, other.lastVerifiedDate));
         }
 
         @Override
@@ -885,7 +885,7 @@ public class Query extends Resource {
             }
 
             RiskParameters other = (RiskParameters) o;
-            return Objects.equals(partnerSubId, other.partnerSubId);
+            return (Objects.equals(partnerSubId, other.partnerSubId));
         }
 
         @Override
@@ -1034,7 +1034,7 @@ public class Query extends Resource {
             }
 
             LookupRequest other = (LookupRequest) o;
-            return Objects.equals(phoneNumbers, other.phoneNumbers);
+            return (Objects.equals(phoneNumbers, other.phoneNumbers));
         }
 
         @Override
@@ -1121,7 +1121,8 @@ public class Query extends Resource {
                 Objects.equals(
                     callForwardingEnabled,
                     other.callForwardingEnabled
-                ) && Objects.equals(errorCode, other.errorCode)
+                ) &&
+                Objects.equals(errorCode, other.errorCode)
             );
         }
 
@@ -2360,9 +2361,9 @@ public class Query extends Resource {
 
     @JsonCreator
     private Query(
-        @JsonProperty(
-            "phone_numbers"
-        ) final List<LookupBatchResponse> phoneNumbers
+        @JsonProperty("phone_numbers") final List<
+            LookupBatchResponse
+        > phoneNumbers
     ) {
         this.phoneNumbers = phoneNumbers;
     }
@@ -2378,7 +2379,7 @@ public class Query extends Resource {
         }
 
         Query other = (Query) o;
-        return Objects.equals(phoneNumbers, other.phoneNumbers);
+        return (Objects.equals(phoneNumbers, other.phoneNumbers));
     }
 
     @Override

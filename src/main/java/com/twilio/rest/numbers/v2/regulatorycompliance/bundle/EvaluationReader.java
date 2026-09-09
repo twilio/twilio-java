@@ -74,10 +74,11 @@ public class EvaluationReader extends Reader<Evaluation> {
         String path =
             "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations";
 
-        path = path.replace(
-            "{" + "BundleSid" + "}",
-            this.pathBundleSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "BundleSid" + "}",
+                this.pathBundleSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

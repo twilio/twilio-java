@@ -2654,9 +2654,11 @@ public class Report extends Resource {
             }
 
             AccountReportKYT other = (AccountReportKYT) o;
-            return Objects.equals(
-                outboundCarrierCalling,
-                other.outboundCarrierCalling
+            return (
+                Objects.equals(
+                    outboundCarrierCalling,
+                    other.outboundCarrierCalling
+                )
             );
         }
 

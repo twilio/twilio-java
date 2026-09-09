@@ -43,10 +43,11 @@ public class TaskQueueFetcher extends Fetcher<TaskQueue> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}";
 
-        path = path.replace(
-            "{" + "WorkspaceSid" + "}",
-            this.pathWorkspaceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

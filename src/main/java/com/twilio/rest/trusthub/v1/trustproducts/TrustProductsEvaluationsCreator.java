@@ -31,8 +31,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TrustProductsEvaluationsCreator
-    extends Creator<TrustProductsEvaluations>
-{
+    extends Creator<TrustProductsEvaluations> {
 
     private String pathTrustProductSid;
     private String policySid;
@@ -55,10 +54,11 @@ public class TrustProductsEvaluationsCreator
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/TrustProducts/{TrustProductSid}/Evaluations";
 
-        path = path.replace(
-            "{" + "TrustProductSid" + "}",
-            this.pathTrustProductSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "TrustProductSid" + "}",
+                this.pathTrustProductSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

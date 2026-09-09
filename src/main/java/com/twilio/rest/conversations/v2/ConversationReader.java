@@ -38,8 +38,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class ConversationReader
-    extends Reader<Conversation.ListConversationResponse>
-{
+    extends Reader<Conversation.ListConversationResponse> {
 
     private List<Conversation.Status> status;
     private String channelId;
@@ -74,9 +73,9 @@ public class ConversationReader
         return this;
     }
 
-    public ResourceSetResponse<Conversation.ListConversationResponse> readWithResponse(
-        final TwilioRestClient client
-    ) {
+    public ResourceSetResponse<
+        Conversation.ListConversationResponse
+    > readWithResponse(final TwilioRestClient client) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<Conversation.ListConversationResponse> page = Page.fromJson(

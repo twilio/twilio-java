@@ -34,8 +34,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class InteractionChannelParticipantReader
-    extends Reader<InteractionChannelParticipant>
-{
+    extends Reader<InteractionChannelParticipant> {
 
     private String pathInteractionSid;
     private String pathChannelSid;
@@ -80,14 +79,16 @@ public class InteractionChannelParticipantReader
         String path =
             "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants";
 
-        path = path.replace(
-            "{" + "InteractionSid" + "}",
-            this.pathInteractionSid.toString()
-        );
-        path = path.replace(
-            "{" + "ChannelSid" + "}",
-            this.pathChannelSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "InteractionSid" + "}",
+                this.pathInteractionSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

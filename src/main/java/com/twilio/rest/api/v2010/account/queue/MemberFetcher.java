@@ -56,14 +56,13 @@ public class MemberFetcher extends Fetcher<Member> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path = path.replace(
-            "{" + "AccountSid" + "}",
-            this.pathAccountSid.toString()
-        );
-        path = path.replace(
-            "{" + "QueueSid" + "}",
-            this.pathQueueSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace("{" + "QueueSid" + "}", this.pathQueueSid.toString());
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
         Request request = new Request(

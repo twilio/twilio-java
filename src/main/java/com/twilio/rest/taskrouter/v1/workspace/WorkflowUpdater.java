@@ -106,10 +106,11 @@ public class WorkflowUpdater extends Updater<Workflow> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}";
 
-        path = path.replace(
-            "{" + "WorkspaceSid" + "}",
-            this.pathWorkspaceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

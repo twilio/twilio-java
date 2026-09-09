@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class OperatorResultFetcher
-    extends Fetcher<OperatorResult.FetchOperatorResultResponse>
-{
+    extends Fetcher<OperatorResult.FetchOperatorResultResponse> {
 
     private String pathOperatorResultId;
 
@@ -40,10 +39,11 @@ public class OperatorResultFetcher
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v3/OperatorResults/{operatorResultId}";
 
-        path = path.replace(
-            "{" + "operatorResultId" + "}",
-            this.pathOperatorResultId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "operatorResultId" + "}",
+                this.pathOperatorResultId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -86,9 +86,9 @@ public class OperatorResultFetcher
     }
 
     @Override
-    public TwilioResponse<OperatorResult.FetchOperatorResultResponse> fetchWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        OperatorResult.FetchOperatorResultResponse
+    > fetchWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         OperatorResult.FetchOperatorResultResponse content =
             OperatorResult.FetchOperatorResultResponse.fromJson(

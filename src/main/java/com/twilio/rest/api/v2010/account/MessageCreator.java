@@ -56,6 +56,7 @@ public class MessageCreator extends Creator<Message> {
     private ZonedDateTime sendAt;
     private Boolean sendAsMms;
     private String contentVariables;
+    private String messageIntent;
     private Message.RiskCheck riskCheck;
     private com.twilio.type.PhoneNumber from;
     private com.twilio.type.PhoneNumber fallbackFrom;
@@ -264,6 +265,11 @@ public class MessageCreator extends Creator<Message> {
         return this;
     }
 
+    public MessageCreator setMessageIntent(final String messageIntent) {
+        this.messageIntent = messageIntent;
+        return this;
+    }
+
     public MessageCreator setRiskCheck(final Message.RiskCheck riskCheck) {
         this.riskCheck = riskCheck;
         return this;
@@ -326,10 +332,11 @@ public class MessageCreator extends Creator<Message> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path = path.replace(
-            "{" + "AccountSid" + "}",
-            this.pathAccountSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -540,6 +547,15 @@ public class MessageCreator extends Creator<Message> {
                 request,
                 "ContentVariables",
                 contentVariables,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (messageIntent != null) {
+            Serializer.toString(
+                request,
+                "MessageIntent",
+                messageIntent,
                 ParameterType.URLENCODED
             );
         }

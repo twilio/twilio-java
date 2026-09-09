@@ -117,7 +117,7 @@ public class RuleExecution extends Resource {
                 return false;
             }
             UpdateRuleExecutionResponse other = (UpdateRuleExecutionResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -201,7 +201,7 @@ public class RuleExecution extends Resource {
                 return false;
             }
             ListRuleExecutionResponse other = (ListRuleExecutionResponse) o;
-            return true;
+            return (true);
         }
 
         @Override

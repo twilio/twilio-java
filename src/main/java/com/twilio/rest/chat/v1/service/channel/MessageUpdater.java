@@ -62,14 +62,16 @@ public class MessageUpdater extends Updater<Message> {
         String path =
             "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
-        path = path.replace(
-            "{" + "ChannelSid" + "}",
-            this.pathChannelSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

@@ -73,10 +73,8 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists";
 
-        path = path.replace(
-            "{" + "TrunkSid" + "}",
-            this.pathTrunkSid.toString()
-        );
+        path =
+            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -129,7 +129,7 @@ public class Observation extends Resource {
                 return false;
             }
             UpdateObservationResponse other = (UpdateObservationResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -931,9 +931,9 @@ public class Observation extends Resource {
 
             @JsonCreator
             public Builder(
-                @JsonProperty(
-                    "observations"
-                ) final List<ObservationCreateRequest> observations
+                @JsonProperty("observations") final List<
+                    ObservationCreateRequest
+                > observations
             ) {
                 this.observations = observations;
             }
@@ -954,7 +954,7 @@ public class Observation extends Resource {
             }
 
             CreateObservationsRequest other = (CreateObservationsRequest) o;
-            return Objects.equals(observations, other.observations);
+            return (Objects.equals(observations, other.observations));
         }
 
         @Override

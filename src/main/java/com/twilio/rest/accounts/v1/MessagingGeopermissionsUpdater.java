@@ -33,8 +33,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class MessagingGeopermissionsUpdater
-    extends Updater<MessagingGeopermissions>
-{
+    extends Updater<MessagingGeopermissions> {
 
     private List<Object> permissions;
 

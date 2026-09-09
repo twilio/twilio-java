@@ -45,10 +45,11 @@ public class KnowledgeDeleter extends Deleter<Knowledge> {
         String path = "/v2/KnowledgeBases/{kbId}/Knowledge/{knowledgeId}";
 
         path = path.replace("{" + "kbId" + "}", this.pathKbId.toString());
-        path = path.replace(
-            "{" + "knowledgeId" + "}",
-            this.pathKnowledgeId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "knowledgeId" + "}",
+                this.pathKnowledgeId.toString()
+            );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

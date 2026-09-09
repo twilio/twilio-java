@@ -39,8 +39,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 public class ConversationReader
-    extends Reader<Conversation.ListConversationResponse>
-{
+    extends Reader<Conversation.ListConversationResponse> {
 
     private Integer pageSize;
     private String pageToken;
@@ -133,9 +132,9 @@ public class ConversationReader
         return setOperatorIds(Promoter.listOfOne(operatorIds));
     }
 
-    public ResourceSetResponse<Conversation.ListConversationResponse> readWithResponse(
-        final TwilioRestClient client
-    ) {
+    public ResourceSetResponse<
+        Conversation.ListConversationResponse
+    > readWithResponse(final TwilioRestClient client) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<Conversation.ListConversationResponse> page = Page.fromJson(

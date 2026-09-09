@@ -40,10 +40,11 @@ public class SessionFetcher extends Fetcher<Session> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Sessions/{Sid}";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

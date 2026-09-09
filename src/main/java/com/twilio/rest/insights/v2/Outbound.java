@@ -18,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,18 +25,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.type.*;
 import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -49,118 +44,8 @@ import lombok.ToString;
 @ToString
 public class Outbound extends Resource {
 
-    public static OutboundCreator creator() {
-        return new OutboundCreator();
-    }
-
     public static OutboundReader reader(final String pathReportId) {
         return new OutboundReader(pathReportId);
-    }
-
-    public enum ReportStatus {
-        CREATED("created"),
-        RUNNING("running"),
-        COMPLETED("completed");
-
-        private final String value;
-
-        private ReportStatus(final String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ReportStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ReportStatus.values());
-        }
-    }
-
-    @JsonDeserialize(builder = PhoneNumberReportFilter.Builder.class)
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class PhoneNumberReportFilter {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("key")
-        @Getter
-        private final String key;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("values")
-        @Getter
-        private final List<String> values;
-
-        private PhoneNumberReportFilter(Builder builder) {
-            this.key = builder.key;
-            this.values = builder.values;
-        }
-
-        public static Builder builder() {
-            return new Builder();
-        }
-
-        public static PhoneNumberReportFilter fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(jsonString, PhoneNumberReportFilter.class);
-        }
-
-        @JsonIgnoreProperties(ignoreUnknown = true)
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonProperty("key")
-            private String key;
-
-            @JsonProperty("values")
-            private List<String> values;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("key")
-            public Builder key(String key) {
-                this.key = key;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("values")
-            public Builder values(List<String> values) {
-                this.values = values;
-                return this;
-            }
-
-            public PhoneNumberReportFilter build() {
-                return new PhoneNumberReportFilter(this);
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            PhoneNumberReportFilter other = (PhoneNumberReportFilter) o;
-            return (
-                Objects.equals(key, other.key) &&
-                Objects.equals(values, other.values)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(key, values);
-        }
     }
 
     @JsonDeserialize(
@@ -505,434 +390,6 @@ public class Outbound extends Resource {
     }
 
     @JsonDeserialize(
-        builder = InsightsV2CreatePhoneNumbersReportRequestTimeRange.Builder.class
-    )
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class InsightsV2CreatePhoneNumbersReportRequestTimeRange {
-
-        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
-        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("start_datetime")
-        @Getter
-        private final ZonedDateTime startDatetime;
-
-        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
-        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("end_datetime")
-        @Getter
-        private final ZonedDateTime endDatetime;
-
-        private InsightsV2CreatePhoneNumbersReportRequestTimeRange(
-            Builder builder
-        ) {
-            this.startDatetime = builder.startDatetime;
-            this.endDatetime = builder.endDatetime;
-        }
-
-        public static Builder builder() {
-            return new Builder();
-        }
-
-        public static InsightsV2CreatePhoneNumbersReportRequestTimeRange fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                InsightsV2CreatePhoneNumbersReportRequestTimeRange.class
-            );
-        }
-
-        @JsonIgnoreProperties(ignoreUnknown = true)
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-            @JsonProperty("start_datetime")
-            private ZonedDateTime startDatetime;
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-            @JsonProperty("end_datetime")
-            private ZonedDateTime endDatetime;
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("start_datetime")
-            public Builder startDatetime(ZonedDateTime startDatetime) {
-                this.startDatetime = startDatetime;
-                return this;
-            }
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("end_datetime")
-            public Builder endDatetime(ZonedDateTime endDatetime) {
-                this.endDatetime = endDatetime;
-                return this;
-            }
-
-            public InsightsV2CreatePhoneNumbersReportRequestTimeRange build() {
-                return new InsightsV2CreatePhoneNumbersReportRequestTimeRange(
-                    this
-                );
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            InsightsV2CreatePhoneNumbersReportRequestTimeRange other =
-                (InsightsV2CreatePhoneNumbersReportRequestTimeRange) o;
-            return (
-                Objects.equals(startDatetime, other.startDatetime) &&
-                Objects.equals(endDatetime, other.endDatetime)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(startDatetime, endDatetime);
-        }
-    }
-
-    @JsonDeserialize(builder = ReportFilter.Builder.class)
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class ReportFilter {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("key")
-        @Getter
-        private final String key;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("values")
-        @Getter
-        private final List<String> values;
-
-        private ReportFilter(Builder builder) {
-            this.key = builder.key;
-            this.values = builder.values;
-        }
-
-        public static Builder builder() {
-            return new Builder();
-        }
-
-        public static ReportFilter fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(jsonString, ReportFilter.class);
-        }
-
-        @JsonIgnoreProperties(ignoreUnknown = true)
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonProperty("key")
-            private String key;
-
-            @JsonProperty("values")
-            private List<String> values;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("key")
-            public Builder key(String key) {
-                this.key = key;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("values")
-            public Builder values(List<String> values) {
-                this.values = values;
-                return this;
-            }
-
-            public ReportFilter build() {
-                return new ReportFilter(this);
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            ReportFilter other = (ReportFilter) o;
-            return (
-                Objects.equals(key, other.key) &&
-                Objects.equals(values, other.values)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(key, values);
-        }
-    }
-
-    @JsonDeserialize(
-        builder = InsightsV2CreatePhoneNumbersReportRequest.Builder.class
-    )
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class InsightsV2CreatePhoneNumbersReportRequest {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("time_range")
-        @Getter
-        private final InsightsV2CreatePhoneNumbersReportRequestTimeRange timeRange;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("filters")
-        @Getter
-        private final List<PhoneNumberReportFilter> filters;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("size")
-        @Getter
-        private final Integer size;
-
-        private InsightsV2CreatePhoneNumbersReportRequest(Builder builder) {
-            this.timeRange = builder.timeRange;
-            this.filters = builder.filters;
-            this.size = builder.size;
-        }
-
-        public static Builder builder() {
-            return new Builder();
-        }
-
-        public static InsightsV2CreatePhoneNumbersReportRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                InsightsV2CreatePhoneNumbersReportRequest.class
-            );
-        }
-
-        @JsonIgnoreProperties(ignoreUnknown = true)
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonProperty("time_range")
-            private InsightsV2CreatePhoneNumbersReportRequestTimeRange timeRange;
-
-            @JsonProperty("filters")
-            private List<PhoneNumberReportFilter> filters;
-
-            @JsonProperty("size")
-            private Integer size;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("time_range")
-            public Builder timeRange(
-                InsightsV2CreatePhoneNumbersReportRequestTimeRange timeRange
-            ) {
-                this.timeRange = timeRange;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("filters")
-            public Builder filters(List<PhoneNumberReportFilter> filters) {
-                this.filters = filters;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("size")
-            public Builder size(Integer size) {
-                this.size = size;
-                return this;
-            }
-
-            public InsightsV2CreatePhoneNumbersReportRequest build() {
-                return new InsightsV2CreatePhoneNumbersReportRequest(this);
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            InsightsV2CreatePhoneNumbersReportRequest other =
-                (InsightsV2CreatePhoneNumbersReportRequest) o;
-            return (
-                Objects.equals(timeRange, other.timeRange) &&
-                Objects.equals(filters, other.filters) &&
-                Objects.equals(size, other.size)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(timeRange, filters, size);
-        }
-    }
-
-    @JsonDeserialize(builder = ReportMetadata.Builder.class)
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class ReportMetadata {
-
-        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
-        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("start_datetime")
-        @Getter
-        private final ZonedDateTime startDatetime;
-
-        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
-        @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("end_datetime")
-        @Getter
-        private final ZonedDateTime endDatetime;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("filters")
-        @Getter
-        private final List<ReportFilter> filters;
-
-        private ReportMetadata(Builder builder) {
-            this.startDatetime = builder.startDatetime;
-            this.endDatetime = builder.endDatetime;
-            this.filters = builder.filters;
-        }
-
-        public static Builder builder() {
-            return new Builder();
-        }
-
-        public static ReportMetadata fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(jsonString, ReportMetadata.class);
-        }
-
-        @JsonIgnoreProperties(ignoreUnknown = true)
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-            @JsonProperty("start_datetime")
-            private ZonedDateTime startDatetime;
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-            @JsonProperty("end_datetime")
-            private ZonedDateTime endDatetime;
-
-            @JsonProperty("filters")
-            private List<ReportFilter> filters;
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("start_datetime")
-            public Builder startDatetime(ZonedDateTime startDatetime) {
-                this.startDatetime = startDatetime;
-                return this;
-            }
-
-            @JsonDeserialize(
-                using = com.twilio.converter.ISO8601Deserializer.class
-            )
-            @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("end_datetime")
-            public Builder endDatetime(ZonedDateTime endDatetime) {
-                this.endDatetime = endDatetime;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("filters")
-            public Builder filters(List<ReportFilter> filters) {
-                this.filters = filters;
-                return this;
-            }
-
-            public ReportMetadata build() {
-                return new ReportMetadata(this);
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            ReportMetadata other = (ReportMetadata) o;
-            return (
-                Objects.equals(startDatetime, other.startDatetime) &&
-                Objects.equals(endDatetime, other.endDatetime) &&
-                Objects.equals(filters, other.filters)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(startDatetime, endDatetime, filters);
-        }
-    }
-
-    @JsonDeserialize(
         builder = InsightsV2OutboundPhoneNumberReportCallStatePercentage.Builder.class
     )
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -1133,9 +590,6 @@ public class Outbound extends Resource {
     }
 
     @Getter
-    private final String accountSid;
-
-    @Getter
     private final Map<String, Float> answerRateDeviceType;
 
     @Getter
@@ -1163,29 +617,16 @@ public class Outbound extends Resource {
     private final Float potentialRobocallsPercentage;
 
     @Getter
-    private final String reportId;
-
-    @Getter
-    private final ReportMetadata requestMeta;
-
-    @Getter
     private final Float shortDurationCallsPercentage;
 
     @Getter
     private final Float silentCallsPercentage;
 
     @Getter
-    private final Outbound.ReportStatus status;
-
-    @Getter
     private final Integer totalCalls;
-
-    @Getter
-    private final URI url;
 
     @JsonCreator
     private Outbound(
-        @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("answer_rate_device_type") final Map<
             String,
             Float
@@ -1193,9 +634,9 @@ public class Outbound extends Resource {
         @JsonProperty(
             "answering_machine_detection"
         ) final InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection answeringMachineDetection,
-        @JsonProperty(
-            "blocked_calls_by_carrier"
-        ) final List<CountyCarrierValue> blockedCallsByCarrier,
+        @JsonProperty("blocked_calls_by_carrier") final List<
+            CountyCarrierValue
+        > blockedCallsByCarrier,
         @JsonProperty("call_answer_score") final Float callAnswerScore,
         @JsonProperty(
             "call_state_percentage"
@@ -1211,19 +652,14 @@ public class Outbound extends Resource {
         @JsonProperty(
             "potential_robocalls_percentage"
         ) final Float potentialRobocallsPercentage,
-        @JsonProperty("report_id") final String reportId,
-        @JsonProperty("request_meta") final ReportMetadata requestMeta,
         @JsonProperty(
             "short_duration_calls_percentage"
         ) final Float shortDurationCallsPercentage,
         @JsonProperty(
             "silent_calls_percentage"
         ) final Float silentCallsPercentage,
-        @JsonProperty("status") final Outbound.ReportStatus status,
-        @JsonProperty("total_calls") final Integer totalCalls,
-        @JsonProperty("url") final URI url
+        @JsonProperty("total_calls") final Integer totalCalls
     ) {
-        this.accountSid = accountSid;
         this.answerRateDeviceType = answerRateDeviceType;
         this.answeringMachineDetection = answeringMachineDetection;
         this.blockedCallsByCarrier = blockedCallsByCarrier;
@@ -1233,13 +669,9 @@ public class Outbound extends Resource {
         this.handle = handle;
         this.longDurationCallsPercentage = longDurationCallsPercentage;
         this.potentialRobocallsPercentage = potentialRobocallsPercentage;
-        this.reportId = reportId;
-        this.requestMeta = requestMeta;
         this.shortDurationCallsPercentage = shortDurationCallsPercentage;
         this.silentCallsPercentage = silentCallsPercentage;
-        this.status = status;
         this.totalCalls = totalCalls;
-        this.url = url;
     }
 
     @Override
@@ -1254,7 +686,6 @@ public class Outbound extends Resource {
 
         Outbound other = (Outbound) o;
         return (
-            Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(answerRateDeviceType, other.answerRateDeviceType) &&
             Objects.equals(
                 answeringMachineDetection,
@@ -1276,8 +707,6 @@ public class Outbound extends Resource {
                 potentialRobocallsPercentage,
                 other.potentialRobocallsPercentage
             ) &&
-            Objects.equals(reportId, other.reportId) &&
-            Objects.equals(requestMeta, other.requestMeta) &&
             Objects.equals(
                 shortDurationCallsPercentage,
                 other.shortDurationCallsPercentage
@@ -1286,16 +715,13 @@ public class Outbound extends Resource {
                 silentCallsPercentage,
                 other.silentCallsPercentage
             ) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(totalCalls, other.totalCalls) &&
-            Objects.equals(url, other.url)
+            Objects.equals(totalCalls, other.totalCalls)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
             answerRateDeviceType,
             answeringMachineDetection,
             blockedCallsByCarrier,
@@ -1305,13 +731,9 @@ public class Outbound extends Resource {
             handle,
             longDurationCallsPercentage,
             potentialRobocallsPercentage,
-            reportId,
-            requestMeta,
             shortDurationCallsPercentage,
             silentCallsPercentage,
-            status,
-            totalCalls,
-            url
+            totalCalls
         );
     }
 }

@@ -193,7 +193,9 @@ public class SmsVerification extends Resource {
     }
 
     @Getter
-    private final List<NumbersV1SmsVerificationSendCodeAttempts> sendCodeAttempts;
+    private final List<
+        NumbersV1SmsVerificationSendCodeAttempts
+    > sendCodeAttempts;
 
     @Getter
     private final String to;
@@ -203,9 +205,9 @@ public class SmsVerification extends Resource {
 
     @JsonCreator
     private SmsVerification(
-        @JsonProperty(
-            "sendCodeAttempts"
-        ) final List<NumbersV1SmsVerificationSendCodeAttempts> sendCodeAttempts,
+        @JsonProperty("sendCodeAttempts") final List<
+            NumbersV1SmsVerificationSendCodeAttempts
+        > sendCodeAttempts,
         @JsonProperty("to") final String to,
         @JsonProperty("verificationSid") final String verificationSid
     ) {

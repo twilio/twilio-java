@@ -127,7 +127,7 @@ public class Lookup extends Resource {
                 return false;
             }
             UpdateLookupResponse other = (UpdateLookupResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -205,7 +205,7 @@ public class Lookup extends Resource {
                 return false;
             }
             ListLookupResponse other = (ListLookupResponse) o;
-            return true;
+            return (true);
         }
 
         @Override

@@ -29,8 +29,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ObservationPatcher
-    extends Patcher<Observation.PatchObservationResponse>
-{
+    extends Patcher<Observation.PatchObservationResponse> {
 
     private String pathStoreId;
     private String pathProfileId;
@@ -64,14 +63,16 @@ public class ObservationPatcher
             "/v1/Stores/{storeId}/Profiles/{profileId}/Observations/{observationId}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
-        path = path.replace(
-            "{" + "observationId" + "}",
-            this.pathObservationId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
+        path =
+            path.replace(
+                "{" + "observationId" + "}",
+                this.pathObservationId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.PATCH,

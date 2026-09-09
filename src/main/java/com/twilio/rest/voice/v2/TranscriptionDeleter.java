@@ -39,10 +39,11 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Configurations/Transcription/{IdOrUniqueName}";
 
-        path = path.replace(
-            "{" + "IdOrUniqueName" + "}",
-            this.pathIdOrUniqueName.toString()
-        );
+        path =
+            path.replace(
+                "{" + "IdOrUniqueName" + "}",
+                this.pathIdOrUniqueName.toString()
+            );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

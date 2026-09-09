@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class InsightsSettingsCommentFetcher
-    extends Fetcher<InsightsSettingsComment>
-{
+    extends Fetcher<InsightsSettingsComment> {
 
     private String authorization;
 

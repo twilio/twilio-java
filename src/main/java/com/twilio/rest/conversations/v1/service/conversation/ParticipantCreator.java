@@ -111,14 +111,16 @@ public class ParticipantCreator extends Creator<Participant> {
         String path =
             "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants";
 
-        path = path.replace(
-            "{" + "ChatServiceSid" + "}",
-            this.pathChatServiceSid.toString()
-        );
-        path = path.replace(
-            "{" + "ConversationSid" + "}",
-            this.pathConversationSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ChatServiceSid" + "}",
+                this.pathChatServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ConversationSid" + "}",
+                this.pathConversationSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

@@ -34,8 +34,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class CustomerProfilesEvaluationsReader
-    extends Reader<CustomerProfilesEvaluations>
-{
+    extends Reader<CustomerProfilesEvaluations> {
 
     private String pathCustomerProfileSid;
     private Long pageSize;
@@ -74,10 +73,11 @@ public class CustomerProfilesEvaluationsReader
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations";
 
-        path = path.replace(
-            "{" + "CustomerProfileSid" + "}",
-            this.pathCustomerProfileSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "CustomerProfileSid" + "}",
+                this.pathCustomerProfileSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

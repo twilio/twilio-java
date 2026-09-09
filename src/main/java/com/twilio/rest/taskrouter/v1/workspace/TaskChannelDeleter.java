@@ -44,10 +44,11 @@ public class TaskChannelDeleter extends Deleter<TaskChannel> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}";
 
-        path = path.replace(
-            "{" + "WorkspaceSid" + "}",
-            this.pathWorkspaceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Predicate<Integer> deleteStatuses = i ->

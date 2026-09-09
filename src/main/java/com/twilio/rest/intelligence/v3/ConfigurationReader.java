@@ -36,8 +36,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConfigurationReader
-    extends Reader<Configuration.ListConfigurationResponse>
-{
+    extends Reader<Configuration.ListConfigurationResponse> {
 
     private Integer pageSize;
     private String pageToken;
@@ -54,9 +53,9 @@ public class ConfigurationReader
         return this;
     }
 
-    public ResourceSetResponse<Configuration.ListConfigurationResponse> readWithResponse(
-        final TwilioRestClient client
-    ) {
+    public ResourceSetResponse<
+        Configuration.ListConfigurationResponse
+    > readWithResponse(final TwilioRestClient client) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<Configuration.ListConfigurationResponse> page = Page.fromJson(

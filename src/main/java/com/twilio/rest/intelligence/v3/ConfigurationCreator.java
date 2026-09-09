@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConfigurationCreator
-    extends Creator<Configuration.CreateConfigurationResponse>
-{
+    extends Creator<Configuration.CreateConfigurationResponse> {
 
     private Configuration.CreateConfigurationRequest createConfigurationRequest;
 
@@ -94,9 +93,9 @@ public class ConfigurationCreator
     }
 
     @Override
-    public TwilioResponse<Configuration.CreateConfigurationResponse> createWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Configuration.CreateConfigurationResponse
+    > createWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Configuration.CreateConfigurationResponse content =
             Configuration.CreateConfigurationResponse.fromJson(

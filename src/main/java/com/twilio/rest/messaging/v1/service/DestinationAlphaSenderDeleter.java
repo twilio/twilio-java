@@ -29,8 +29,7 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class DestinationAlphaSenderDeleter
-    extends Deleter<DestinationAlphaSender>
-{
+    extends Deleter<DestinationAlphaSender> {
 
     private String pathServiceSid;
     private String pathSid;
@@ -46,10 +45,11 @@ public class DestinationAlphaSenderDeleter
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/DestinationAlphaSenders/{Sid}";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Predicate<Integer> deleteStatuses = i ->

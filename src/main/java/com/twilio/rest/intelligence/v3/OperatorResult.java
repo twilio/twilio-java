@@ -123,7 +123,7 @@ public class OperatorResult extends Resource {
             }
             UpdateOperatorResultResponse other =
                 (UpdateOperatorResultResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -209,7 +209,7 @@ public class OperatorResult extends Resource {
         private final List<String> referenceIds;
 
         @Getter
-        private final TextResultResult result;
+        private final Object result;
 
         @JsonCreator
         private ListOperatorResultResponse(
@@ -229,7 +229,7 @@ public class OperatorResult extends Resource {
             @JsonProperty("operator") final OperatorReference operator,
             @JsonProperty("outputFormat") final String outputFormat,
             @JsonProperty("referenceIds") final List<String> referenceIds,
-            @JsonProperty("result") final TextResultResult result
+            @JsonProperty("result") final Object result
         ) {
             this.accountId = accountId;
             this.conversationId = conversationId;
@@ -383,7 +383,7 @@ public class OperatorResult extends Resource {
         private final List<String> referenceIds;
 
         @Getter
-        private final ExtractionResultResult result;
+        private final Object result;
 
         @JsonCreator
         private FetchOperatorResultResponse(
@@ -403,7 +403,7 @@ public class OperatorResult extends Resource {
             @JsonProperty("operator") final OperatorReference operator,
             @JsonProperty("outputFormat") final String outputFormat,
             @JsonProperty("referenceIds") final List<String> referenceIds,
-            @JsonProperty("result") final ExtractionResultResult result
+            @JsonProperty("result") final Object result
         ) {
             this.accountId = accountId;
             this.conversationId = conversationId;
@@ -495,158 +495,6 @@ public class OperatorResult extends Resource {
 
     public static OperatorResultReader reader() {
         return new OperatorResultReader();
-    }
-
-    @JsonDeserialize(builder = ExtractionResultResultEntities.Builder.class)
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class ExtractionResultResultEntities {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("text")
-        @Getter
-        private final String text;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("label")
-        @Getter
-        private final String label;
-
-        private ExtractionResultResultEntities(Builder builder) {
-            this.text = builder.text;
-            this.label = builder.label;
-        }
-
-        public static Builder builder(final String text, final String label) {
-            return new Builder(text, label);
-        }
-
-        public static ExtractionResultResultEntities fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                ExtractionResultResultEntities.class
-            );
-        }
-
-        @JsonIgnoreProperties(ignoreUnknown = true)
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonProperty("text")
-            private String text;
-
-            @JsonProperty("label")
-            private String label;
-
-            @JsonCreator
-            public Builder(
-                @JsonProperty("text") final String text,
-                @JsonProperty("label") final String label
-            ) {
-                this.text = text;
-                this.label = label;
-            }
-
-            public ExtractionResultResultEntities build() {
-                return new ExtractionResultResultEntities(this);
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            ExtractionResultResultEntities other =
-                (ExtractionResultResultEntities) o;
-            return (
-                Objects.equals(text, other.text) &&
-                Objects.equals(label, other.label)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(text, label);
-        }
-    }
-
-    @JsonDeserialize(builder = ExtractionResultResult.Builder.class)
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class ExtractionResultResult {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("entities")
-        @Getter
-        private final List<ExtractionResultResultEntities> entities;
-
-        private ExtractionResultResult(Builder builder) {
-            this.entities = builder.entities;
-        }
-
-        public static Builder builder(
-            final List<ExtractionResultResultEntities> entities
-        ) {
-            return new Builder(entities);
-        }
-
-        public static ExtractionResultResult fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(jsonString, ExtractionResultResult.class);
-        }
-
-        @JsonIgnoreProperties(ignoreUnknown = true)
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonProperty("entities")
-            private List<ExtractionResultResultEntities> entities;
-
-            @JsonCreator
-            public Builder(
-                @JsonProperty(
-                    "entities"
-                ) final List<ExtractionResultResultEntities> entities
-            ) {
-                this.entities = entities;
-            }
-
-            public ExtractionResultResult build() {
-                return new ExtractionResultResult(this);
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            ExtractionResultResult other = (ExtractionResultResult) o;
-            return Objects.equals(entities, other.entities);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(entities);
-        }
     }
 
     @JsonDeserialize(builder = ListOperators200ResponseMeta.Builder.class)
@@ -1142,9 +990,9 @@ public class OperatorResult extends Resource {
 
             @JsonCreator
             public Builder(
-                @JsonProperty(
-                    "sources"
-                ) final List<ResolvedContextKnowledgeSources> sources
+                @JsonProperty("sources") final List<
+                    ResolvedContextKnowledgeSources
+                > sources
             ) {
                 this.sources = sources;
             }
@@ -1165,7 +1013,7 @@ public class OperatorResult extends Resource {
             }
 
             ResolvedContextKnowledge other = (ResolvedContextKnowledge) o;
-            return Objects.equals(sources, other.sources);
+            return (Objects.equals(sources, other.sources));
         }
 
         @Override
@@ -1327,7 +1175,7 @@ public class OperatorResult extends Resource {
             }
 
             TextResultResult other = (TextResultResult) o;
-            return Objects.equals(text, other.text);
+            return (Objects.equals(text, other.text));
         }
 
         @Override
@@ -1417,9 +1265,9 @@ public class OperatorResult extends Resource {
                     "communications"
                 ) final ExecutionDetailsCommunications communications,
                 @JsonProperty("channels") final List<String> channels,
-                @JsonProperty(
-                    "participants"
-                ) final List<ExecutionDetailsParticipants> participants
+                @JsonProperty("participants") final List<
+                    ExecutionDetailsParticipants
+                > participants
             ) {
                 this.trigger = trigger;
                 this.communications = communications;
@@ -1619,7 +1467,7 @@ public class OperatorResult extends Resource {
 
             OperatorResultsResponseBaseMetadata other =
                 (OperatorResultsResponseBaseMetadata) o;
-            return Objects.equals(system, other.system);
+            return (Objects.equals(system, other.system));
         }
 
         @Override
@@ -2026,7 +1874,7 @@ public class OperatorResult extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("result")
         @Getter
-        private final TextResultResult result;
+        private final Object result;
 
         private OperatorResultsResponseV1(Builder builder) {
             this.outputFormat = builder.outputFormat;
@@ -2095,7 +1943,7 @@ public class OperatorResult extends Resource {
             private OperatorResultsResponseBaseMetadata metadata;
 
             @JsonProperty("result")
-            private TextResultResult result;
+            private Object result;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("outputFormat")
@@ -2177,7 +2025,7 @@ public class OperatorResult extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("result")
-            public Builder result(TextResultResult result) {
+            public Builder result(Object result) {
                 this.result = result;
                 return this;
             }

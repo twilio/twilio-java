@@ -29,14 +29,14 @@ import com.twilio.rest.Domains;
 import com.twilio.type.*;
 import java.io.InputStream;
 
-public class InboundCreator extends Creator<Inbound> {
+public class OutboundReportCreator extends Creator<OutboundReport> {
 
-    private Inbound.InsightsV2CreatePhoneNumbersReportRequest insightsV2CreatePhoneNumbersReportRequest;
+    private OutboundReport.InsightsV2CreatePhoneNumbersReportRequest insightsV2CreatePhoneNumbersReportRequest;
 
-    public InboundCreator() {}
+    public OutboundReportCreator() {}
 
-    public InboundCreator setInsightsV2CreatePhoneNumbersReportRequest(
-        final Inbound.InsightsV2CreatePhoneNumbersReportRequest insightsV2CreatePhoneNumbersReportRequest
+    public OutboundReportCreator setInsightsV2CreatePhoneNumbersReportRequest(
+        final OutboundReport.InsightsV2CreatePhoneNumbersReportRequest insightsV2CreatePhoneNumbersReportRequest
     ) {
         this.insightsV2CreatePhoneNumbersReportRequest =
             insightsV2CreatePhoneNumbersReportRequest;
@@ -44,7 +44,7 @@ public class InboundCreator extends Creator<Inbound> {
     }
 
     private Response makeRequest(final TwilioRestClient client) {
-        String path = "/v2/Voice/Reports/PhoneNumbers/Inbound";
+        String path = "/v2/Voice/Reports/PhoneNumbers/Outbound";
 
         Request request = new Request(
             HttpMethod.POST,
@@ -58,7 +58,7 @@ public class InboundCreator extends Creator<Inbound> {
 
         if (response == null) {
             throw new ApiConnectionException(
-                "Inbound creation failed: Unable to connect to server"
+                "OutboundReport creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             InputStream inputStream = response.getStream();
@@ -78,17 +78,20 @@ public class InboundCreator extends Creator<Inbound> {
     }
 
     @Override
-    public Inbound create(final TwilioRestClient client) {
+    public OutboundReport create(final TwilioRestClient client) {
         Response response = makeRequest(client);
-        return Inbound.fromJson(response.getStream(), client.getObjectMapper());
+        return OutboundReport.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public TwilioResponse<Inbound> createWithResponse(
+    public TwilioResponse<OutboundReport> createWithResponse(
         final TwilioRestClient client
     ) {
         Response response = makeRequest(client);
-        Inbound content = Inbound.fromJson(
+        OutboundReport content = OutboundReport.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
@@ -103,7 +106,7 @@ public class InboundCreator extends Creator<Inbound> {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (insightsV2CreatePhoneNumbersReportRequest != null) {
             request.setBody(
-                Inbound.toJson(
+                OutboundReport.toJson(
                     insightsV2CreatePhoneNumbersReportRequest,
                     objectMapper
                 )

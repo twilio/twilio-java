@@ -120,7 +120,7 @@ public class Bulk extends Resource {
                 return false;
             }
             UpdateBulkResponse other = (UpdateBulkResponse) o;
-            return Objects.equals(message, other.message);
+            return (Objects.equals(message, other.message));
         }
 
         @Override
@@ -198,7 +198,7 @@ public class Bulk extends Resource {
                 return false;
             }
             ListBulkResponse other = (ListBulkResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -351,7 +351,7 @@ public class Bulk extends Resource {
             }
 
             UpdateProfilesBulkRequest other = (UpdateProfilesBulkRequest) o;
-            return Objects.equals(profiles, other.profiles);
+            return (Objects.equals(profiles, other.profiles));
         }
 
         @Override
@@ -416,7 +416,7 @@ public class Bulk extends Resource {
             }
 
             ProfileData other = (ProfileData) o;
-            return Objects.equals(traits, other.traits);
+            return (Objects.equals(traits, other.traits));
         }
 
         @Override

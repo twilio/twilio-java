@@ -31,8 +31,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class AuthCallsCredentialListMappingCreator
-    extends Creator<AuthCallsCredentialListMapping>
-{
+    extends Creator<AuthCallsCredentialListMapping> {
 
     private String pathAccountSid;
     private String pathDomainSid;
@@ -71,14 +70,16 @@ public class AuthCallsCredentialListMappingCreator
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path = path.replace(
-            "{" + "AccountSid" + "}",
-            this.pathAccountSid.toString()
-        );
-        path = path.replace(
-            "{" + "DomainSid" + "}",
-            this.pathDomainSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "DomainSid" + "}",
+                this.pathDomainSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

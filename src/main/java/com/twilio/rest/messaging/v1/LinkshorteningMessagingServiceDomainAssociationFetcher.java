@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class LinkshorteningMessagingServiceDomainAssociationFetcher
-    extends Fetcher<LinkshorteningMessagingServiceDomainAssociation>
-{
+    extends Fetcher<LinkshorteningMessagingServiceDomainAssociation> {
 
     private String pathMessagingServiceSid;
 
@@ -43,10 +42,11 @@ public class LinkshorteningMessagingServiceDomainAssociationFetcher
         String path =
             "/v1/LinkShortening/MessagingServices/{MessagingServiceSid}/Domain";
 
-        path = path.replace(
-            "{" + "MessagingServiceSid" + "}",
-            this.pathMessagingServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "MessagingServiceSid" + "}",
+                this.pathMessagingServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -89,9 +89,9 @@ public class LinkshorteningMessagingServiceDomainAssociationFetcher
     }
 
     @Override
-    public TwilioResponse<LinkshorteningMessagingServiceDomainAssociation> fetchWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        LinkshorteningMessagingServiceDomainAssociation
+    > fetchWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         LinkshorteningMessagingServiceDomainAssociation content =
             LinkshorteningMessagingServiceDomainAssociation.fromJson(

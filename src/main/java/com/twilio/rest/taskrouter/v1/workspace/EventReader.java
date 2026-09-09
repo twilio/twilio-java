@@ -136,10 +136,11 @@ public class EventReader extends Reader<Event> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Events";
 
-        path = path.replace(
-            "{" + "WorkspaceSid" + "}",
-            this.pathWorkspaceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

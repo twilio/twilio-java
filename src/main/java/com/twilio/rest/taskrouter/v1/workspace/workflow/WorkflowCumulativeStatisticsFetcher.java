@@ -31,8 +31,7 @@ import java.io.InputStream;
 import java.time.ZonedDateTime;
 
 public class WorkflowCumulativeStatisticsFetcher
-    extends Fetcher<WorkflowCumulativeStatistics>
-{
+    extends Fetcher<WorkflowCumulativeStatistics> {
 
     private String pathWorkspaceSid;
     private String pathWorkflowSid;
@@ -89,14 +88,16 @@ public class WorkflowCumulativeStatisticsFetcher
         String path =
             "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/CumulativeStatistics";
 
-        path = path.replace(
-            "{" + "WorkspaceSid" + "}",
-            this.pathWorkspaceSid.toString()
-        );
-        path = path.replace(
-            "{" + "WorkflowSid" + "}",
-            this.pathWorkflowSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "WorkflowSid" + "}",
+                this.pathWorkflowSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

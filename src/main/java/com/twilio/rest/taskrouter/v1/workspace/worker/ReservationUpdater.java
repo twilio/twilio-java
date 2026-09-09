@@ -499,14 +499,16 @@ public class ReservationUpdater extends Updater<Reservation> {
         String path =
             "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}";
 
-        path = path.replace(
-            "{" + "WorkspaceSid" + "}",
-            this.pathWorkspaceSid.toString()
-        );
-        path = path.replace(
-            "{" + "WorkerSid" + "}",
-            this.pathWorkerSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "WorkerSid" + "}",
+                this.pathWorkerSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

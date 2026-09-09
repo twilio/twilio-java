@@ -64,13 +64,13 @@ public class Recall extends Resource {
 
         @JsonCreator
         private CreateRecallResponse(
-            @JsonProperty(
-                "communications"
-            ) final List<Communication> communications,
+            @JsonProperty("communications") final List<
+                Communication
+            > communications,
             @JsonProperty("meta") final MemoryRetrievalResponseMeta meta,
-            @JsonProperty(
-                "observations"
-            ) final List<RecallObservationInfo> observations,
+            @JsonProperty("observations") final List<
+                RecallObservationInfo
+            > observations,
             @JsonProperty("summaries") final List<RecallSummaryInfo> summaries
         ) {
             this.communications = communications;
@@ -147,7 +147,7 @@ public class Recall extends Resource {
                 return false;
             }
             UpdateRecallResponse other = (UpdateRecallResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -225,7 +225,7 @@ public class Recall extends Resource {
                 return false;
             }
             ListRecallResponse other = (ListRecallResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -479,7 +479,7 @@ public class Recall extends Resource {
             }
 
             MemoryRetrievalResponseMeta other = (MemoryRetrievalResponseMeta) o;
-            return Objects.equals(queryTime, other.queryTime);
+            return (Objects.equals(queryTime, other.queryTime));
         }
 
         @Override
@@ -686,7 +686,7 @@ public class Recall extends Resource {
             }
 
             CommunicationContent other = (CommunicationContent) o;
-            return Objects.equals(text, other.text);
+            return (Objects.equals(text, other.text));
         }
 
         @Override
@@ -1595,9 +1595,9 @@ public class Recall extends Resource {
                 @JsonProperty("id") final String id,
                 @JsonProperty("content") final CommunicationContent content,
                 @JsonProperty("author") final Participant author,
-                @JsonProperty(
-                    "recipients"
-                ) final List<CommunicationRecipients> recipients
+                @JsonProperty("recipients") final List<
+                    CommunicationRecipients
+                > recipients
             ) {
                 this.id = id;
                 this.content = content;

@@ -34,8 +34,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class AvailableAddOnExtensionReader
-    extends Reader<AvailableAddOnExtension>
-{
+    extends Reader<AvailableAddOnExtension> {
 
     private String pathAvailableAddOnSid;
     private Long pageSize;
@@ -76,10 +75,11 @@ public class AvailableAddOnExtensionReader
         String path =
             "/marketplace/AvailableAddOns/{AvailableAddOnSid}/Extensions";
 
-        path = path.replace(
-            "{" + "AvailableAddOnSid" + "}",
-            this.pathAvailableAddOnSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AvailableAddOnSid" + "}",
+                this.pathAvailableAddOnSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

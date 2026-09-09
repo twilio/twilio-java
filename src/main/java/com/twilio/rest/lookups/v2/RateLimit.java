@@ -258,7 +258,7 @@ public class RateLimit extends Resource {
         }
 
         RateLimit other = (RateLimit) o;
-        return Objects.equals(rateLimits, other.rateLimits);
+        return (Objects.equals(rateLimits, other.rateLimits));
     }
 
     @Override

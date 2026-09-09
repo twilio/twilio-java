@@ -115,7 +115,7 @@ public class Trait extends Resource {
                 return false;
             }
             UpdateTraitResponse other = (UpdateTraitResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -499,8 +499,10 @@ public class Trait extends Resource {
             return new Builder(name, traitGroup);
         }
 
-        public static FullTrait fromJson(String jsonString, ObjectMapper mapper)
-            throws IOException {
+        public static FullTrait fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
             return mapper.readValue(jsonString, FullTrait.class);
         }
 

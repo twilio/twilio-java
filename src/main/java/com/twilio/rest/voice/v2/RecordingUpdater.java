@@ -49,10 +49,11 @@ public class RecordingUpdater extends Updater<Recording> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Configurations/Recording/{IdOrUniqueName}";
 
-        path = path.replace(
-            "{" + "IdOrUniqueName" + "}",
-            this.pathIdOrUniqueName.toString()
-        );
+        path =
+            path.replace(
+                "{" + "IdOrUniqueName" + "}",
+                this.pathIdOrUniqueName.toString()
+            );
 
         Request request = new Request(
             HttpMethod.PUT,

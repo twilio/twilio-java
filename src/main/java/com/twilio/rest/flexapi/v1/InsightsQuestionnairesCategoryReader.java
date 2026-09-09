@@ -34,8 +34,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class InsightsQuestionnairesCategoryReader
-    extends Reader<InsightsQuestionnairesCategory>
-{
+    extends Reader<InsightsQuestionnairesCategory> {
 
     private Long pageSize;
     private String authorization;

@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class A2PCampaignRegistrationCreator
-    extends Creator<A2PCampaignRegistration>
-{
+    extends Creator<A2PCampaignRegistration> {
 
     private A2PCampaignRegistration.TrusthubV1A2pCampaignRegistrationRequest trusthubV1A2pCampaignRegistrationRequest;
 

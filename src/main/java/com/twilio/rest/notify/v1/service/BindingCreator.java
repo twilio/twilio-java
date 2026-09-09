@@ -101,10 +101,11 @@ public class BindingCreator extends Creator<Binding> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Bindings";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

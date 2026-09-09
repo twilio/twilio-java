@@ -49,10 +49,11 @@ public class UsAppToPersonUsecaseFetcher extends Fetcher<UsAppToPersonUsecase> {
         String path =
             "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases";
 
-        path = path.replace(
-            "{" + "MessagingServiceSid" + "}",
-            this.pathMessagingServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "MessagingServiceSid" + "}",
+                this.pathMessagingServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

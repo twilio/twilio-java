@@ -69,14 +69,16 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path = path.replace(
-            "{" + "AccountSid" + "}",
-            this.pathAccountSid.toString()
-        );
-        path = path.replace(
-            "{" + "ResourceSid" + "}",
-            this.pathResourceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ResourceSid" + "}",
+                this.pathResourceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

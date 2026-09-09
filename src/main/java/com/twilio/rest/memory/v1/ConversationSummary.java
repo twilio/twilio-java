@@ -131,7 +131,7 @@ public class ConversationSummary extends Resource {
             }
             UpdateConversationSummaryResponse other =
                 (UpdateConversationSummaryResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -568,7 +568,7 @@ public class ConversationSummary extends Resource {
             }
 
             CreateSummariesRequest other = (CreateSummariesRequest) o;
-            return Objects.equals(summaries, other.summaries);
+            return (Objects.equals(summaries, other.summaries));
         }
 
         @Override

@@ -74,10 +74,11 @@ public class TranscriptionUpdater extends Updater<Transcription> {
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path = path.replace(
-            "{" + "AccountSid" + "}",
-            this.pathAccountSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 

@@ -130,7 +130,7 @@ public class Import extends Resource {
                 return false;
             }
             UpdateImportResponse other = (UpdateImportResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -215,7 +215,7 @@ public class Import extends Resource {
                 return false;
             }
             ListImportResponse other = (ListImportResponse) o;
-            return Objects.equals(imports, other.imports);
+            return (Objects.equals(imports, other.imports));
         }
 
         @Override
@@ -289,9 +289,9 @@ public class Import extends Resource {
 
         @JsonCreator
         private FetchImportResponse(
-            @JsonProperty(
-                "columnMappings"
-            ) final List<ColumnMappingItem> columnMappings,
+            @JsonProperty("columnMappings") final List<
+                ColumnMappingItem
+            > columnMappings,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("fileSize") final Integer fileSize,
             @JsonProperty("filename") final String filename,
@@ -573,9 +573,9 @@ public class Import extends Resource {
             public Builder(
                 @JsonProperty("filename") final String filename,
                 @JsonProperty("fileSize") final Integer fileSize,
-                @JsonProperty(
-                    "columnMappings"
-                ) final List<ColumnMappingItem> columnMappings
+                @JsonProperty("columnMappings") final List<
+                    ColumnMappingItem
+                > columnMappings
             ) {
                 this.filename = filename;
                 this.fileSize = fileSize;

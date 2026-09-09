@@ -63,10 +63,11 @@ public class UserPatcher extends Patcher<User> {
     public User patch(final TwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/scim/Users/{UserSid}";
 
-        path = path.replace(
-            "{" + "OrganizationSid" + "}",
-            this.pathOrganizationSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "OrganizationSid" + "}",
+                this.pathOrganizationSid.toString()
+            );
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
 
         Request request = new Request(

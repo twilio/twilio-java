@@ -34,8 +34,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class SupportingDocumentTypeReader
-    extends Reader<SupportingDocumentType>
-{
+    extends Reader<SupportingDocumentType> {
 
     private Long pageSize;
 

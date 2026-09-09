@@ -34,8 +34,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class SigningRequestConfigurationReader
-    extends Reader<SigningRequestConfiguration>
-{
+    extends Reader<SigningRequestConfiguration> {
 
     private String country;
     private String product;

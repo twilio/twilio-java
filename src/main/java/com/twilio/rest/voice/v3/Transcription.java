@@ -39,6 +39,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
@@ -146,7 +147,7 @@ public class Transcription extends Resource {
                 return false;
             }
             UpdateTranscriptionResponse other = (UpdateTranscriptionResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -219,6 +220,9 @@ public class Transcription extends Resource {
         private final String id;
 
         @Getter
+        private final Map<String, String> links;
+
+        @Getter
         private final URI mediaUrl;
 
         @Getter
@@ -250,10 +254,11 @@ public class Transcription extends Resource {
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("duration") final Integer duration,
             @JsonProperty("id") final String id,
+            @JsonProperty("links") final Map<String, String> links,
             @JsonProperty("mediaUrl") final URI mediaUrl,
-            @JsonProperty(
-                "participants"
-            ) final List<VoiceV3TranscriptionParticipant> participants,
+            @JsonProperty("participants") final List<
+                VoiceV3TranscriptionParticipant
+            > participants,
             @JsonProperty(
                 "resolvedConfiguration"
             ) final VoiceV3TranscriptionResolvedConfiguration resolvedConfiguration,
@@ -271,6 +276,7 @@ public class Transcription extends Resource {
             this.createdAt = createdAt;
             this.duration = duration;
             this.id = id;
+            this.links = links;
             this.mediaUrl = mediaUrl;
             this.participants = participants;
             this.resolvedConfiguration = resolvedConfiguration;
@@ -315,6 +321,7 @@ public class Transcription extends Resource {
                 Objects.equals(createdAt, other.createdAt) &&
                 Objects.equals(duration, other.duration) &&
                 Objects.equals(id, other.id) &&
+                Objects.equals(links, other.links) &&
                 Objects.equals(mediaUrl, other.mediaUrl) &&
                 Objects.equals(participants, other.participants) &&
                 Objects.equals(
@@ -341,6 +348,7 @@ public class Transcription extends Resource {
                 createdAt,
                 duration,
                 id,
+                links,
                 mediaUrl,
                 participants,
                 resolvedConfiguration,
@@ -859,7 +867,9 @@ public class Transcription extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("participantDefaults")
         @Getter
-        private final List<VoiceV3TranscriptionResolvedConfigurationParticipantDefaults> participantDefaults;
+        private final List<
+            VoiceV3TranscriptionResolvedConfigurationParticipantDefaults
+        > participantDefaults;
 
         private VoiceV3TranscriptionResolvedConfiguration(Builder builder) {
             this.transcriptionEngine = builder.transcriptionEngine;
@@ -906,7 +916,9 @@ public class Transcription extends Resource {
             private String conversationConfigurationId;
 
             @JsonProperty("participantDefaults")
-            private List<VoiceV3TranscriptionResolvedConfigurationParticipantDefaults> participantDefaults;
+            private List<
+                VoiceV3TranscriptionResolvedConfigurationParticipantDefaults
+            > participantDefaults;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("transcriptionEngine")
@@ -950,7 +962,9 @@ public class Transcription extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("participantDefaults")
             public Builder participantDefaults(
-                List<VoiceV3TranscriptionResolvedConfigurationParticipantDefaults> participantDefaults
+                List<
+                    VoiceV3TranscriptionResolvedConfigurationParticipantDefaults
+                > participantDefaults
             ) {
                 this.participantDefaults = participantDefaults;
                 return this;
@@ -1363,6 +1377,11 @@ public class Transcription extends Resource {
         @Getter
         private final URI url;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("links")
+        @Getter
+        private final Map<String, String> links;
+
         private VoiceV3TranscriptionTranscription(Builder builder) {
             this.id = builder.id;
             this.accountId = builder.accountId;
@@ -1379,6 +1398,7 @@ public class Transcription extends Resource {
             this.createdAt = builder.createdAt;
             this.updatedAt = builder.updatedAt;
             this.url = builder.url;
+            this.links = builder.links;
         }
 
         public static Builder builder(
@@ -1469,6 +1489,9 @@ public class Transcription extends Resource {
             @JsonProperty("url")
             private URI url;
 
+            @JsonProperty("links")
+            private Map<String, String> links;
+
             @JsonCreator
             public Builder(
                 @JsonProperty("id") final String id,
@@ -1548,6 +1571,13 @@ public class Transcription extends Resource {
                 return this;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("links")
+            public Builder links(Map<String, String> links) {
+                this.links = links;
+                return this;
+            }
+
             public VoiceV3TranscriptionTranscription build() {
                 return new VoiceV3TranscriptionTranscription(this);
             }
@@ -1585,7 +1615,8 @@ public class Transcription extends Resource {
                 ) &&
                 Objects.equals(createdAt, other.createdAt) &&
                 Objects.equals(updatedAt, other.updatedAt) &&
-                Objects.equals(url, other.url)
+                Objects.equals(url, other.url) &&
+                Objects.equals(links, other.links)
             );
         }
 
@@ -1605,7 +1636,8 @@ public class Transcription extends Resource {
                 resolvedConfiguration,
                 createdAt,
                 updatedAt,
-                url
+                url,
+                links
             );
         }
     }

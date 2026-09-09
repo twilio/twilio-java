@@ -38,10 +38,11 @@ public class DomainCertsFetcher extends Fetcher<DomainCerts> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/LinkShortening/Domains/{DomainSid}/Certificate";
 
-        path = path.replace(
-            "{" + "DomainSid" + "}",
-            this.pathDomainSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "DomainSid" + "}",
+                this.pathDomainSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

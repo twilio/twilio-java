@@ -48,10 +48,11 @@ public class ExecutionStepFetcher extends Fetcher<ExecutionStep> {
             "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid}";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path = path.replace(
-            "{" + "ExecutionSid" + "}",
-            this.pathExecutionSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ExecutionSid" + "}",
+                this.pathExecutionSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(

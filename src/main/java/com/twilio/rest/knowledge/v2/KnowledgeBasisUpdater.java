@@ -32,8 +32,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class KnowledgeBasisUpdater
-    extends Updater<KnowledgeBasis.UpdateKnowledgeBasisResponse>
-{
+    extends Updater<KnowledgeBasis.UpdateKnowledgeBasisResponse> {
 
     private String pathKbId;
     private String ifMatch;
@@ -108,9 +107,9 @@ public class KnowledgeBasisUpdater
     }
 
     @Override
-    public TwilioResponse<KnowledgeBasis.UpdateKnowledgeBasisResponse> updateWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        KnowledgeBasis.UpdateKnowledgeBasisResponse
+    > updateWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         KnowledgeBasis.UpdateKnowledgeBasisResponse content =
             KnowledgeBasis.UpdateKnowledgeBasisResponse.fromJson(

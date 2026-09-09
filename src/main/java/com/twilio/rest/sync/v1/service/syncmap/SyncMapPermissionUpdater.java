@@ -74,15 +74,14 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
         String path =
             "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
-        path = path.replace(
-            "{" + "Identity" + "}",
-            this.pathIdentity.toString()
-        );
+        path =
+            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
         Request request = new Request(
             HttpMethod.POST,

@@ -51,10 +51,11 @@ public class TypeUpdater extends Updater<Type> {
         String path = "/v2/Configurations/{Type}/{IdOrUniqueName}";
 
         path = path.replace("{" + "Type" + "}", this.pathType.toString());
-        path = path.replace(
-            "{" + "IdOrUniqueName" + "}",
-            this.pathIdOrUniqueName.toString()
-        );
+        path =
+            path.replace(
+                "{" + "IdOrUniqueName" + "}",
+                this.pathIdOrUniqueName.toString()
+            );
 
         Request request = new Request(
             HttpMethod.PUT,

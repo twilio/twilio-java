@@ -29,8 +29,7 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class AuthCallsIpAccessControlListMappingDeleter
-    extends Deleter<AuthCallsIpAccessControlListMapping>
-{
+    extends Deleter<AuthCallsIpAccessControlListMapping> {
 
     private String pathAccountSid;
     private String pathDomainSid;
@@ -62,14 +61,16 @@ public class AuthCallsIpAccessControlListMappingDeleter
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path = path.replace(
-            "{" + "AccountSid" + "}",
-            this.pathAccountSid.toString()
-        );
-        path = path.replace(
-            "{" + "DomainSid" + "}",
-            this.pathDomainSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "DomainSid" + "}",
+                this.pathDomainSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Predicate<Integer> deleteStatuses = i ->

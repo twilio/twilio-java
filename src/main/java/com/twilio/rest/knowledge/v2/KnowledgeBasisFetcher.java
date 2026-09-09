@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class KnowledgeBasisFetcher
-    extends Fetcher<KnowledgeBasis.FetchKnowledgeBasisResponse>
-{
+    extends Fetcher<KnowledgeBasis.FetchKnowledgeBasisResponse> {
 
     private String pathKbId;
 
@@ -83,9 +82,9 @@ public class KnowledgeBasisFetcher
     }
 
     @Override
-    public TwilioResponse<KnowledgeBasis.FetchKnowledgeBasisResponse> fetchWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        KnowledgeBasis.FetchKnowledgeBasisResponse
+    > fetchWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         KnowledgeBasis.FetchKnowledgeBasisResponse content =
             KnowledgeBasis.FetchKnowledgeBasisResponse.fromJson(

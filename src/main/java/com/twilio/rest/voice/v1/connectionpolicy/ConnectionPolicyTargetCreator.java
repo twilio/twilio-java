@@ -33,8 +33,7 @@ import java.io.InputStream;
 import java.net.URI;
 
 public class ConnectionPolicyTargetCreator
-    extends Creator<ConnectionPolicyTarget>
-{
+    extends Creator<ConnectionPolicyTarget> {
 
     private String pathConnectionPolicySid;
     private URI target;
@@ -85,10 +84,11 @@ public class ConnectionPolicyTargetCreator
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets";
 
-        path = path.replace(
-            "{" + "ConnectionPolicySid" + "}",
-            this.pathConnectionPolicySid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ConnectionPolicySid" + "}",
+                this.pathConnectionPolicySid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

@@ -32,8 +32,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConfigurationUpdater
-    extends Updater<Configuration.UpdateConfigurationResponse>
-{
+    extends Updater<Configuration.UpdateConfigurationResponse> {
 
     private String pathId;
     private String idempotencyKey;
@@ -104,9 +103,9 @@ public class ConfigurationUpdater
     }
 
     @Override
-    public TwilioResponse<Configuration.UpdateConfigurationResponse> updateWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Configuration.UpdateConfigurationResponse
+    > updateWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Configuration.UpdateConfigurationResponse content =
             Configuration.UpdateConfigurationResponse.fromJson(

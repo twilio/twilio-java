@@ -73,10 +73,11 @@ public class FunctionReader extends Reader<Function> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Functions";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

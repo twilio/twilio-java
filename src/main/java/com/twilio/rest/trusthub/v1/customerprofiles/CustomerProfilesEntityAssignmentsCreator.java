@@ -31,8 +31,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class CustomerProfilesEntityAssignmentsCreator
-    extends Creator<CustomerProfilesEntityAssignments>
-{
+    extends Creator<CustomerProfilesEntityAssignments> {
 
     private String pathCustomerProfileSid;
     private String objectSid;
@@ -56,10 +55,11 @@ public class CustomerProfilesEntityAssignmentsCreator
         String path =
             "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments";
 
-        path = path.replace(
-            "{" + "CustomerProfileSid" + "}",
-            this.pathCustomerProfileSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "CustomerProfileSid" + "}",
+                this.pathCustomerProfileSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

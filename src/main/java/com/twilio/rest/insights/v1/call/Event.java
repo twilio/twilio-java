@@ -754,7 +754,7 @@ public class Event extends Resource {
             }
 
             InterruptEvent other = (InterruptEvent) o;
-            return Objects.equals(type, other.type);
+            return (Objects.equals(type, other.type));
         }
 
         @Override
@@ -1060,7 +1060,7 @@ public class Event extends Resource {
             }
 
             LatencyEvent other = (LatencyEvent) o;
-            return Objects.equals(latencyMs, other.latencyMs);
+            return (Objects.equals(latencyMs, other.latencyMs));
         }
 
         @Override

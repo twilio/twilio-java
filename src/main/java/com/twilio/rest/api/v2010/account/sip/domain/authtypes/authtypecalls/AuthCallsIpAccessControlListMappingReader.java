@@ -34,8 +34,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class AuthCallsIpAccessControlListMappingReader
-    extends Reader<AuthCallsIpAccessControlListMapping>
-{
+    extends Reader<AuthCallsIpAccessControlListMapping> {
 
     private String pathAccountSid;
     private String pathDomainSid;
@@ -62,9 +61,9 @@ public class AuthCallsIpAccessControlListMappingReader
         return this;
     }
 
-    public ResourceSetResponse<AuthCallsIpAccessControlListMapping> readWithResponse(
-        final TwilioRestClient client
-    ) {
+    public ResourceSetResponse<
+        AuthCallsIpAccessControlListMapping
+    > readWithResponse(final TwilioRestClient client) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<AuthCallsIpAccessControlListMapping> page = Page.fromJson(
@@ -90,14 +89,16 @@ public class AuthCallsIpAccessControlListMappingReader
             this.pathAccountSid == null
                 ? client.getAccountSid()
                 : this.pathAccountSid;
-        path = path.replace(
-            "{" + "AccountSid" + "}",
-            this.pathAccountSid.toString()
-        );
-        path = path.replace(
-            "{" + "DomainSid" + "}",
-            this.pathDomainSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "DomainSid" + "}",
+                this.pathDomainSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

@@ -89,9 +89,9 @@ public class Conversation extends Resource {
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("name") final String name,
-            @JsonProperty(
-                "participants"
-            ) final List<ConversationsV2Participant> participants,
+            @JsonProperty("participants") final List<
+                ConversationsV2Participant
+            > participants,
             @JsonProperty(
                 "status"
             ) final Conversation.ConversationsV2ConversationStatus status,
@@ -204,9 +204,9 @@ public class Conversation extends Resource {
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("name") final String name,
-            @JsonProperty(
-                "participants"
-            ) final List<ConversationsV2Participant> participants,
+            @JsonProperty("participants") final List<
+                ConversationsV2Participant
+            > participants,
             @JsonProperty(
                 "status"
             ) final Conversation.ConversationsV2ConversationStatus status,
@@ -376,9 +376,9 @@ public class Conversation extends Resource {
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("name") final String name,
-            @JsonProperty(
-                "participants"
-            ) final List<ConversationsV2Participant> participants,
+            @JsonProperty("participants") final List<
+                ConversationsV2Participant
+            > participants,
             @JsonProperty(
                 "status"
             ) final Conversation.ConversationsV2ConversationStatus status,
@@ -491,9 +491,9 @@ public class Conversation extends Resource {
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("name") final String name,
-            @JsonProperty(
-                "participants"
-            ) final List<ConversationsV2Participant> participants,
+            @JsonProperty("participants") final List<
+                ConversationsV2Participant
+            > participants,
             @JsonProperty(
                 "status"
             ) final Conversation.ConversationsV2ConversationStatus status,
@@ -606,9 +606,9 @@ public class Conversation extends Resource {
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
             @JsonProperty("name") final String name,
-            @JsonProperty(
-                "participants"
-            ) final List<ConversationsV2Participant> participants,
+            @JsonProperty("participants") final List<
+                ConversationsV2Participant
+            > participants,
             @JsonProperty(
                 "status"
             ) final Conversation.ConversationsV2ConversationStatus status,
@@ -756,7 +756,8 @@ public class Conversation extends Resource {
         SMS("SMS"),
         RCS("RCS"),
         WHATSAPP("WHATSAPP"),
-        CHAT("CHAT");
+        CHAT("CHAT"),
+        VIDEO("VIDEO");
 
         private final String value;
 
@@ -839,7 +840,8 @@ public class Conversation extends Resource {
         SMS("SMS"),
         RCS("RCS"),
         WHATSAPP("WHATSAPP"),
-        CHAT("CHAT");
+        CHAT("CHAT"),
+        VIDEO("VIDEO");
 
         private final String value;
 
@@ -1183,7 +1185,9 @@ public class Conversation extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("addresses")
         @Getter
-        private final List<CreateConversationWithConfigRequestParticipantsAddresses> addresses;
+        private final List<
+            CreateConversationWithConfigRequestParticipantsAddresses
+        > addresses;
 
         private CreateConversationWithConfigRequestParticipants(
             Builder builder
@@ -1222,7 +1226,9 @@ public class Conversation extends Resource {
             private String profileId;
 
             @JsonProperty("addresses")
-            private List<CreateConversationWithConfigRequestParticipantsAddresses> addresses;
+            private List<
+                CreateConversationWithConfigRequestParticipantsAddresses
+            > addresses;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("name")
@@ -1248,7 +1254,9 @@ public class Conversation extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("addresses")
             public Builder addresses(
-                List<CreateConversationWithConfigRequestParticipantsAddresses> addresses
+                List<
+                    CreateConversationWithConfigRequestParticipantsAddresses
+                > addresses
             ) {
                 this.addresses = addresses;
                 return this;
@@ -1586,9 +1594,11 @@ public class Conversation extends Resource {
 
             CreateConversationWithConfigRequestConfiguration other =
                 (CreateConversationWithConfigRequestConfiguration) o;
-            return Objects.equals(
-                intelligenceConfigurationIds,
-                other.intelligenceConfigurationIds
+            return (
+                Objects.equals(
+                    intelligenceConfigurationIds,
+                    other.intelligenceConfigurationIds
+                )
             );
         }
 
@@ -1668,10 +1678,9 @@ public class Conversation extends Resource {
         public static Builder builder(
             final String id,
             final String conversationId,
-            final String accountId,
-            final String name
+            final String accountId
         ) {
-            return new Builder(id, conversationId, accountId, name);
+            return new Builder(id, conversationId, accountId);
         }
 
         public static ConversationsV2Participant fromJson(
@@ -1727,13 +1736,18 @@ public class Conversation extends Resource {
             public Builder(
                 @JsonProperty("id") final String id,
                 @JsonProperty("conversationId") final String conversationId,
-                @JsonProperty("accountId") final String accountId,
-                @JsonProperty("name") final String name
+                @JsonProperty("accountId") final String accountId
             ) {
                 this.id = id;
                 this.conversationId = conversationId;
                 this.accountId = accountId;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("name")
+            public Builder name(String name) {
                 this.name = name;
+                return this;
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -2066,7 +2080,7 @@ public class Conversation extends Resource {
 
             PatchConversationByIdRequestConfiguration other =
                 (PatchConversationByIdRequestConfiguration) o;
-            return Objects.equals(statusCallbacks, other.statusCallbacks);
+            return (Objects.equals(statusCallbacks, other.statusCallbacks));
         }
 
         @Override
@@ -2344,7 +2358,9 @@ public class Conversation extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("participants")
         @Getter
-        private final List<CreateConversationWithConfigRequestParticipants> participants;
+        private final List<
+            CreateConversationWithConfigRequestParticipants
+        > participants;
 
         private CreateConversationWithConfigRequest(Builder builder) {
             this.configurationId = builder.configurationId;
@@ -2381,7 +2397,9 @@ public class Conversation extends Resource {
             private CreateConversationWithConfigRequestConfiguration configuration;
 
             @JsonProperty("participants")
-            private List<CreateConversationWithConfigRequestParticipants> participants;
+            private List<
+                CreateConversationWithConfigRequestParticipants
+            > participants;
 
             @JsonCreator
             public Builder(
@@ -2409,7 +2427,9 @@ public class Conversation extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("participants")
             public Builder participants(
-                List<CreateConversationWithConfigRequestParticipants> participants
+                List<
+                    CreateConversationWithConfigRequestParticipants
+                > participants
             ) {
                 this.participants = participants;
                 return this;
@@ -2511,7 +2531,7 @@ public class Conversation extends Resource {
 
             ConversationsV2ConversationsV1Bridge other =
                 (ConversationsV2ConversationsV1Bridge) o;
-            return Objects.equals(serviceId, other.serviceId);
+            return (Objects.equals(serviceId, other.serviceId));
         }
 
         @Override

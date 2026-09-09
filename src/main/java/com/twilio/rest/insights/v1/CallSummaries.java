@@ -998,9 +998,9 @@ public class CallSummaries extends Resource {
     @JsonCreator
     private CallSummaries(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty(
-            "agent_session_summaries"
-        ) final List<CallSummaryAgentSessionSummary> agentSessionSummaries,
+        @JsonProperty("agent_session_summaries") final List<
+            CallSummaryAgentSessionSummary
+        > agentSessionSummaries,
         @JsonProperty("annotation") final Object annotation,
         @JsonProperty("answered_by") final CallSummaries.AnsweredBy answeredBy,
         @JsonProperty("attributes") final Object attributes,

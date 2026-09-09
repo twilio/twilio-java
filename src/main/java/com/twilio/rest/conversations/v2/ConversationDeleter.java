@@ -34,8 +34,7 @@ public class ConversationDeleter
     extends ResourceDeleter<
         Conversation,
         Conversation.DeleteConversationResponse
-    >
-{
+    > {
 
     private String pathId;
     private String idempotencyKey;
@@ -98,9 +97,9 @@ public class ConversationDeleter
     }
 
     @Override
-    public TwilioResponse<Conversation.DeleteConversationResponse> deleteWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Conversation.DeleteConversationResponse
+    > deleteWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Conversation.DeleteConversationResponse content =
             Conversation.DeleteConversationResponse.fromJson(

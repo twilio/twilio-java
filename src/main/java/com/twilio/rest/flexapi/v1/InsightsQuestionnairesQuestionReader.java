@@ -36,8 +36,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class InsightsQuestionnairesQuestionReader
-    extends Reader<InsightsQuestionnairesQuestion>
-{
+    extends Reader<InsightsQuestionnairesQuestion> {
 
     private List<String> categorySid;
     private Long pageSize;

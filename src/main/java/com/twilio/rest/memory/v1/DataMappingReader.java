@@ -36,8 +36,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class DataMappingReader
-    extends Reader<DataMapping.ListDataMappingResponse>
-{
+    extends Reader<DataMapping.ListDataMappingResponse> {
 
     private String pathStoreId;
     private Integer pageSize;
@@ -69,9 +68,9 @@ public class DataMappingReader
         return this;
     }
 
-    public ResourceSetResponse<DataMapping.ListDataMappingResponse> readWithResponse(
-        final TwilioRestClient client
-    ) {
+    public ResourceSetResponse<
+        DataMapping.ListDataMappingResponse
+    > readWithResponse(final TwilioRestClient client) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<DataMapping.ListDataMappingResponse> page = Page.fromJson(

@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConversationUpdater
-    extends Updater<Conversation.UpdateConversationResponse>
-{
+    extends Updater<Conversation.UpdateConversationResponse> {
 
     private String pathId;
     private Conversation.UpdateConversationByIdRequest updateConversationByIdRequest;
@@ -95,9 +94,9 @@ public class ConversationUpdater
     }
 
     @Override
-    public TwilioResponse<Conversation.UpdateConversationResponse> updateWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Conversation.UpdateConversationResponse
+    > updateWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Conversation.UpdateConversationResponse content =
             Conversation.UpdateConversationResponse.fromJson(

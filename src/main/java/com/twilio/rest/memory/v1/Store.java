@@ -129,7 +129,7 @@ public class Store extends Resource {
                 return false;
             }
             UpdateStoreResponse other = (UpdateStoreResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -229,7 +229,7 @@ public class Store extends Resource {
                 return false;
             }
             ListStoreResponse other = (ListStoreResponse) o;
-            return Objects.equals(stores, other.stores);
+            return (Objects.equals(stores, other.stores));
         }
 
         @Override

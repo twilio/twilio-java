@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class RuleExecutionCreator
-    extends Creator<RuleExecution.CreateRuleExecutionResponse>
-{
+    extends Creator<RuleExecution.CreateRuleExecutionResponse> {
 
     private RuleExecution.CreateRuleExecutionRequest createRuleExecutionRequest;
 
@@ -94,9 +93,9 @@ public class RuleExecutionCreator
     }
 
     @Override
-    public TwilioResponse<RuleExecution.CreateRuleExecutionResponse> createWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        RuleExecution.CreateRuleExecutionResponse
+    > createWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         RuleExecution.CreateRuleExecutionResponse content =
             RuleExecution.CreateRuleExecutionResponse.fromJson(

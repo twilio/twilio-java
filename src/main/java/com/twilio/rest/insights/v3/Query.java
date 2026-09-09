@@ -136,7 +136,7 @@ public class Query extends Resource {
                 return false;
             }
             UpdateQueryResponse other = (UpdateQueryResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -214,7 +214,7 @@ public class Query extends Resource {
                 return false;
             }
             ListQueryResponse other = (ListQueryResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -741,9 +741,9 @@ public class Query extends Resource {
 
             @JsonCreator
             public Builder(
-                @JsonProperty(
-                    "expressions"
-                ) final List<QueryDefinitionFiltersExpressions> expressions
+                @JsonProperty("expressions") final List<
+                    QueryDefinitionFiltersExpressions
+                > expressions
             ) {
                 this.expressions = expressions;
             }

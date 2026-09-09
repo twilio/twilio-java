@@ -54,14 +54,16 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
-        path = path.replace(
-            "{" + "StreamSid" + "}",
-            this.pathStreamSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "StreamSid" + "}",
+                this.pathStreamSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

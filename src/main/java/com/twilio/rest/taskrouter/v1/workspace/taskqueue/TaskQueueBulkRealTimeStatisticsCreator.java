@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TaskQueueBulkRealTimeStatisticsCreator
-    extends Creator<TaskQueueBulkRealTimeStatistics>
-{
+    extends Creator<TaskQueueBulkRealTimeStatistics> {
 
     private String pathWorkspaceSid;
     private Object body;
@@ -51,10 +50,11 @@ public class TaskQueueBulkRealTimeStatisticsCreator
         String path =
             "/v1/Workspaces/{WorkspaceSid}/TaskQueues/RealTimeStatistics";
 
-        path = path.replace(
-            "{" + "WorkspaceSid" + "}",
-            this.pathWorkspaceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

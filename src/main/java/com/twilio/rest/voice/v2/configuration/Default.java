@@ -111,7 +111,7 @@ public class Default extends Resource {
             }
 
             DefaultConfigurationRequest other = (DefaultConfigurationRequest) o;
-            return Objects.equals(configurationId, other.configurationId);
+            return (Objects.equals(configurationId, other.configurationId));
         }
 
         @Override

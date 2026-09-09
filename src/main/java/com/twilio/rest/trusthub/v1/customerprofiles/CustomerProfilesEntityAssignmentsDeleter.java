@@ -29,8 +29,7 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class CustomerProfilesEntityAssignmentsDeleter
-    extends Deleter<CustomerProfilesEntityAssignments>
-{
+    extends Deleter<CustomerProfilesEntityAssignments> {
 
     private String pathCustomerProfileSid;
     private String pathSid;
@@ -47,10 +46,11 @@ public class CustomerProfilesEntityAssignmentsDeleter
         String path =
             "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}";
 
-        path = path.replace(
-            "{" + "CustomerProfileSid" + "}",
-            this.pathCustomerProfileSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "CustomerProfileSid" + "}",
+                this.pathCustomerProfileSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Predicate<Integer> deleteStatuses = i ->

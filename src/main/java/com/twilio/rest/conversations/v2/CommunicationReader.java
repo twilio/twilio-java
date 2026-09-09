@@ -36,8 +36,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class CommunicationReader
-    extends Reader<Communication.ListCommunicationResponse>
-{
+    extends Reader<Communication.ListCommunicationResponse> {
 
     private String pathConversationId;
     private String channelId;
@@ -63,9 +62,9 @@ public class CommunicationReader
         return this;
     }
 
-    public ResourceSetResponse<Communication.ListCommunicationResponse> readWithResponse(
-        final TwilioRestClient client
-    ) {
+    public ResourceSetResponse<
+        Communication.ListCommunicationResponse
+    > readWithResponse(final TwilioRestClient client) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<Communication.ListCommunicationResponse> page = Page.fromJson(
@@ -86,10 +85,11 @@ public class CommunicationReader
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v2/Conversations/{ConversationId}/Communications";
 
-        path = path.replace(
-            "{" + "ConversationId" + "}",
-            this.pathConversationId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ConversationId" + "}",
+                this.pathConversationId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -189,10 +189,11 @@ public class CommunicationReader
     ) {
         String path = "/v2/Conversations/{ConversationId}/Communications";
 
-        path = path.replace(
-            "{" + "ConversationId" + "}",
-            this.pathConversationId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ConversationId" + "}",
+                this.pathConversationId.toString()
+            );
 
         path = path + page.previousQueryString();
         Request request = new Request(
@@ -211,10 +212,11 @@ public class CommunicationReader
     ) {
         String path = "/v2/Conversations/{ConversationId}/Communications";
 
-        path = path.replace(
-            "{" + "ConversationId" + "}",
-            this.pathConversationId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ConversationId" + "}",
+                this.pathConversationId.toString()
+            );
 
         path = path + page.nextQueryString();
         Request request = new Request(

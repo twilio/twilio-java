@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class CommunicationCreator
-    extends Creator<Communication.CreateCommunicationResponse>
-{
+    extends Creator<Communication.CreateCommunicationResponse> {
 
     private String pathConversationId;
     private Communication.CreateCommunicationInConversationRequest createCommunicationInConversationRequest;
@@ -51,10 +50,11 @@ public class CommunicationCreator
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Conversations/{ConversationId}/Communications";
 
-        path = path.replace(
-            "{" + "ConversationId" + "}",
-            this.pathConversationId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ConversationId" + "}",
+                this.pathConversationId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -99,9 +99,9 @@ public class CommunicationCreator
     }
 
     @Override
-    public TwilioResponse<Communication.CreateCommunicationResponse> createWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Communication.CreateCommunicationResponse
+    > createWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Communication.CreateCommunicationResponse content =
             Communication.CreateCommunicationResponse.fromJson(

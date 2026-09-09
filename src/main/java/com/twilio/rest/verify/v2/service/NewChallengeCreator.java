@@ -34,12 +34,8 @@ public class NewChallengeCreator extends Creator<NewChallenge> {
     private String pathServiceSid;
     private NewChallenge.CreatePasskeysChallengeRequest createPasskeysChallengeRequest;
 
-    public NewChallengeCreator(
-        final String pathServiceSid,
-        final NewChallenge.CreatePasskeysChallengeRequest createPasskeysChallengeRequest
-    ) {
+    public NewChallengeCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
-        this.createPasskeysChallengeRequest = createPasskeysChallengeRequest;
     }
 
     public NewChallengeCreator setCreatePasskeysChallengeRequest(
@@ -52,10 +48,11 @@ public class NewChallengeCreator extends Creator<NewChallenge> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Passkeys/Challenges";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

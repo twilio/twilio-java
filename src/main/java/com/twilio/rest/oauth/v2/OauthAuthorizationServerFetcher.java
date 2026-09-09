@@ -29,8 +29,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class OauthAuthorizationServerFetcher
-    extends Fetcher<OauthAuthorizationServer>
-{
+    extends Fetcher<OauthAuthorizationServer> {
 
     public OauthAuthorizationServerFetcher() {}
 

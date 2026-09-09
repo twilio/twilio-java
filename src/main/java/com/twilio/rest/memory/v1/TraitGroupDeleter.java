@@ -29,8 +29,7 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class TraitGroupDeleter
-    extends ResourceDeleter<TraitGroup, TraitGroup.DeleteTraitGroupResponse>
-{
+    extends ResourceDeleter<TraitGroup, TraitGroup.DeleteTraitGroupResponse> {
 
     private String pathStoreId;
     private String pathTraitGroupName;
@@ -48,10 +47,11 @@ public class TraitGroupDeleter
             "/v1/ControlPlane/Stores/{storeId}/TraitGroups/{traitGroupName}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "traitGroupName" + "}",
-            this.pathTraitGroupName.toString()
-        );
+        path =
+            path.replace(
+                "{" + "traitGroupName" + "}",
+                this.pathTraitGroupName.toString()
+            );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;
@@ -96,9 +96,9 @@ public class TraitGroupDeleter
     }
 
     @Override
-    public TwilioResponse<TraitGroup.DeleteTraitGroupResponse> deleteWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        TraitGroup.DeleteTraitGroupResponse
+    > deleteWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         TraitGroup.DeleteTraitGroupResponse content =
             TraitGroup.DeleteTraitGroupResponse.fromJson(

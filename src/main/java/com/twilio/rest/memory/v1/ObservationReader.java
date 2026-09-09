@@ -37,8 +37,7 @@ import java.io.InputStream;
 import java.time.ZonedDateTime;
 
 public class ObservationReader
-    extends Reader<Observation.ListObservationResponse>
-{
+    extends Reader<Observation.ListObservationResponse> {
 
     private String pathStoreId;
     private String pathProfileId;
@@ -101,9 +100,9 @@ public class ObservationReader
         return this;
     }
 
-    public ResourceSetResponse<Observation.ListObservationResponse> readWithResponse(
-        final TwilioRestClient client
-    ) {
+    public ResourceSetResponse<
+        Observation.ListObservationResponse
+    > readWithResponse(final TwilioRestClient client) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<Observation.ListObservationResponse> page = Page.fromJson(
@@ -125,10 +124,11 @@ public class ObservationReader
         String path = "/v1/Stores/{storeId}/Profiles/{profileId}/Observations";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -230,10 +230,11 @@ public class ObservationReader
         String path = "/v1/Stores/{storeId}/Profiles/{profileId}/Observations";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         path = path + page.previousQueryString();
         Request request = new Request(
@@ -253,10 +254,11 @@ public class ObservationReader
         String path = "/v1/Stores/{storeId}/Profiles/{profileId}/Observations";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         path = path + page.nextQueryString();
         Request request = new Request(

@@ -44,10 +44,11 @@ public class EngagementContextFetcher extends Fetcher<EngagementContext> {
         String path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Context";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path = path.replace(
-            "{" + "EngagementSid" + "}",
-            this.pathEngagementSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "EngagementSid" + "}",
+                this.pathEngagementSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

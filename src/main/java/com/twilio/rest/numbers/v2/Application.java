@@ -975,7 +975,7 @@ public class Application extends Resource {
 
             CreateShortCodeApplicationRequestSetup other =
                 (CreateShortCodeApplicationRequestSetup) o;
-            return Objects.equals(chargesApply, other.chargesApply);
+            return (Objects.equals(chargesApply, other.chargesApply));
         }
 
         @Override
@@ -1381,7 +1381,7 @@ public class Application extends Resource {
 
             CreateShortCodeApplicationResponseContentExamples other =
                 (CreateShortCodeApplicationResponseContentExamples) o;
-            return Objects.equals(examples, other.examples);
+            return (Objects.equals(examples, other.examples));
         }
 
         @Override
@@ -1890,9 +1890,11 @@ public class Application extends Resource {
 
             CreateShortCodeApplicationRequestBusinessInformation other =
                 (CreateShortCodeApplicationRequestBusinessInformation) o;
-            return Objects.equals(
-                customerFacingProfile,
-                other.customerFacingProfile
+            return (
+                Objects.equals(
+                    customerFacingProfile,
+                    other.customerFacingProfile
+                )
             );
         }
 
@@ -2054,9 +2056,9 @@ public class Application extends Resource {
         ) final ZonedDateTime dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty(
-            "notification_emails"
-        ) final List<String> notificationEmails,
+        @JsonProperty("notification_emails") final List<
+            String
+        > notificationEmails,
         @JsonProperty("reviewer") final String reviewer,
         @JsonProperty(
             "setup"

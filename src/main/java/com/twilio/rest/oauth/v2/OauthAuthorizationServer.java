@@ -201,40 +201,48 @@ public class OauthAuthorizationServer extends Resource {
     private final URI authorizationEndpoint;
 
     @Getter
-    private final List<OauthAuthorizationServer.CodeChallengeMethodsSupported> codeChallengeMethodsSupported;
+    private final List<
+        OauthAuthorizationServer.CodeChallengeMethodsSupported
+    > codeChallengeMethodsSupported;
 
     @Getter
-    private final List<OauthAuthorizationServer.GrantTypesSupported> grantTypesSupported;
+    private final List<
+        OauthAuthorizationServer.GrantTypesSupported
+    > grantTypesSupported;
 
     @Getter
     private final URI issuer;
 
     @Getter
-    private final List<OauthAuthorizationServer.ResponseTypesSupported> responseTypesSupported;
+    private final List<
+        OauthAuthorizationServer.ResponseTypesSupported
+    > responseTypesSupported;
 
     @Getter
     private final URI tokenEndpoint;
 
     @Getter
-    private final List<OauthAuthorizationServer.TokenEndpointAuthMethodsSupported> tokenEndpointAuthMethodsSupported;
+    private final List<
+        OauthAuthorizationServer.TokenEndpointAuthMethodsSupported
+    > tokenEndpointAuthMethodsSupported;
 
     @JsonCreator
     private OauthAuthorizationServer(
         @JsonProperty("authorization_endpoint") final URI authorizationEndpoint,
-        @JsonProperty(
-            "code_challenge_methods_supported"
-        ) final List<OauthAuthorizationServer.CodeChallengeMethodsSupported> codeChallengeMethodsSupported,
-        @JsonProperty(
-            "grant_types_supported"
-        ) final List<OauthAuthorizationServer.GrantTypesSupported> grantTypesSupported,
+        @JsonProperty("code_challenge_methods_supported") final List<
+            OauthAuthorizationServer.CodeChallengeMethodsSupported
+        > codeChallengeMethodsSupported,
+        @JsonProperty("grant_types_supported") final List<
+            OauthAuthorizationServer.GrantTypesSupported
+        > grantTypesSupported,
         @JsonProperty("issuer") final URI issuer,
-        @JsonProperty(
-            "response_types_supported"
-        ) final List<OauthAuthorizationServer.ResponseTypesSupported> responseTypesSupported,
+        @JsonProperty("response_types_supported") final List<
+            OauthAuthorizationServer.ResponseTypesSupported
+        > responseTypesSupported,
         @JsonProperty("token_endpoint") final URI tokenEndpoint,
-        @JsonProperty(
-            "token_endpoint_auth_methods_supported"
-        ) final List<OauthAuthorizationServer.TokenEndpointAuthMethodsSupported> tokenEndpointAuthMethodsSupported
+        @JsonProperty("token_endpoint_auth_methods_supported") final List<
+            OauthAuthorizationServer.TokenEndpointAuthMethodsSupported
+        > tokenEndpointAuthMethodsSupported
     ) {
         this.authorizationEndpoint = authorizationEndpoint;
         this.codeChallengeMethodsSupported = codeChallengeMethodsSupported;

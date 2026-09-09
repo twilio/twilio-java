@@ -29,8 +29,7 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class AccountDefaultConfigurationDeleter
-    extends Deleter<AccountDefaultConfiguration>
-{
+    extends Deleter<AccountDefaultConfiguration> {
 
     private String pathType;
 

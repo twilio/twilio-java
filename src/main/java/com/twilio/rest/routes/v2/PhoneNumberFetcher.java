@@ -38,10 +38,11 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/PhoneNumbers/{PhoneNumber}";
 
-        path = path.replace(
-            "{" + "PhoneNumber" + "}",
-            this.pathPhoneNumber.toString()
-        );
+        path =
+            path.replace(
+                "{" + "PhoneNumber" + "}",
+                this.pathPhoneNumber.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

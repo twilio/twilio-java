@@ -32,8 +32,9 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class IdentityResolutionSettingUpdater
-    extends Updater<IdentityResolutionSetting.UpdateIdentityResolutionSettingResponse>
-{
+    extends Updater<
+        IdentityResolutionSetting.UpdateIdentityResolutionSettingResponse
+    > {
 
     private String pathStoreId;
     private String ifMatch;
@@ -109,9 +110,9 @@ public class IdentityResolutionSettingUpdater
     }
 
     @Override
-    public TwilioResponse<IdentityResolutionSetting.UpdateIdentityResolutionSettingResponse> updateWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        IdentityResolutionSetting.UpdateIdentityResolutionSettingResponse
+    > updateWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         IdentityResolutionSetting.UpdateIdentityResolutionSettingResponse content =
             IdentityResolutionSetting.UpdateIdentityResolutionSettingResponse.fromJson(

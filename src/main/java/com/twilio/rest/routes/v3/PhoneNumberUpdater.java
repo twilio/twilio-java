@@ -31,8 +31,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class PhoneNumberUpdater
-    extends Updater<PhoneNumber.UpdatePhoneNumberResponse>
-{
+    extends Updater<PhoneNumber.UpdatePhoneNumberResponse> {
 
     private String pathPhoneNumber;
     private String voiceRegion;
@@ -61,10 +60,11 @@ public class PhoneNumberUpdater
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v3/PhoneNumbers/{phoneNumber}";
 
-        path = path.replace(
-            "{" + "phoneNumber" + "}",
-            this.pathPhoneNumber.toString()
-        );
+        path =
+            path.replace(
+                "{" + "phoneNumber" + "}",
+                this.pathPhoneNumber.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -109,9 +109,9 @@ public class PhoneNumberUpdater
     }
 
     @Override
-    public TwilioResponse<PhoneNumber.UpdatePhoneNumberResponse> updateWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        PhoneNumber.UpdatePhoneNumberResponse
+    > updateWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         PhoneNumber.UpdatePhoneNumberResponse content =
             PhoneNumber.UpdatePhoneNumberResponse.fromJson(

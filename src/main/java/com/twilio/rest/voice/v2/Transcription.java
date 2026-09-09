@@ -471,7 +471,9 @@ public class Transcription extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("participantDefaults")
         @Getter
-        private final List<VoiceV2ConfigurationTranscriptionParticipantDefault> participantDefaults;
+        private final List<
+            VoiceV2ConfigurationTranscriptionParticipantDefault
+        > participantDefaults;
 
         private VoiceV2ConfigurationTranscriptionConfiguration(
             Builder builder
@@ -491,7 +493,9 @@ public class Transcription extends Resource {
             final Transcription.ConfigurationType configurationType,
             final String transcriptionEngine,
             final String language,
-            final List<VoiceV2ConfigurationTranscriptionParticipantDefault> participantDefaults
+            final List<
+                VoiceV2ConfigurationTranscriptionParticipantDefault
+            > participantDefaults
         ) {
             return new Builder(
                 configurationType,
@@ -534,7 +538,9 @@ public class Transcription extends Resource {
             private String conversationConfigurationId;
 
             @JsonProperty("participantDefaults")
-            private List<VoiceV2ConfigurationTranscriptionParticipantDefault> participantDefaults;
+            private List<
+                VoiceV2ConfigurationTranscriptionParticipantDefault
+            > participantDefaults;
 
             @JsonCreator
             public Builder(
@@ -545,9 +551,9 @@ public class Transcription extends Resource {
                     "transcriptionEngine"
                 ) final String transcriptionEngine,
                 @JsonProperty("language") final String language,
-                @JsonProperty(
-                    "participantDefaults"
-                ) final List<VoiceV2ConfigurationTranscriptionParticipantDefault> participantDefaults
+                @JsonProperty("participantDefaults") final List<
+                    VoiceV2ConfigurationTranscriptionParticipantDefault
+                > participantDefaults
             ) {
                 this.configurationType = configurationType;
                 this.transcriptionEngine = transcriptionEngine;

@@ -80,10 +80,11 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
             "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks";
 
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
-        path = path.replace(
-            "{" + "ParticipantSid" + "}",
-            this.pathParticipantSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ParticipantSid" + "}",
+                this.pathParticipantSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

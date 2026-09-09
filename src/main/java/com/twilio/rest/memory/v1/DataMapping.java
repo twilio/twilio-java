@@ -137,7 +137,7 @@ public class DataMapping extends Resource {
                 return false;
             }
             UpdateDataMappingResponse other = (UpdateDataMappingResponse) o;
-            return true;
+            return (true);
         }
 
         @Override

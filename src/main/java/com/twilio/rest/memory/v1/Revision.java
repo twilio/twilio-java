@@ -120,7 +120,7 @@ public class Revision extends Resource {
                 return false;
             }
             UpdateRevisionResponse other = (UpdateRevisionResponse) o;
-            return true;
+            return (true);
         }
 
         @Override

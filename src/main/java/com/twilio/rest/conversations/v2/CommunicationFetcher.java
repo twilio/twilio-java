@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class CommunicationFetcher
-    extends Fetcher<Communication.FetchCommunicationResponse>
-{
+    extends Fetcher<Communication.FetchCommunicationResponse> {
 
     private String pathConversationId;
     private String pathId;
@@ -45,10 +44,11 @@ public class CommunicationFetcher
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Conversations/{ConversationId}/Communications/{id}";
 
-        path = path.replace(
-            "{" + "ConversationId" + "}",
-            this.pathConversationId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ConversationId" + "}",
+                this.pathConversationId.toString()
+            );
         path = path.replace("{" + "id" + "}", this.pathId.toString());
 
         Request request = new Request(
@@ -92,9 +92,9 @@ public class CommunicationFetcher
     }
 
     @Override
-    public TwilioResponse<Communication.FetchCommunicationResponse> fetchWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Communication.FetchCommunicationResponse
+    > fetchWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Communication.FetchCommunicationResponse content =
             Communication.FetchCommunicationResponse.fromJson(

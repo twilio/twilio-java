@@ -32,8 +32,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TranscriptionCreator
-    extends Creator<Transcription.CreateTranscriptionResponse>
-{
+    extends Creator<Transcription.CreateTranscriptionResponse> {
 
     private String idempotencyKey;
     private Transcription.CreateV3TranscriptionsRequest createV3TranscriptionsRequest;
@@ -103,9 +102,9 @@ public class TranscriptionCreator
     }
 
     @Override
-    public TwilioResponse<Transcription.CreateTranscriptionResponse> createWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Transcription.CreateTranscriptionResponse
+    > createWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Transcription.CreateTranscriptionResponse content =
             Transcription.CreateTranscriptionResponse.fromJson(

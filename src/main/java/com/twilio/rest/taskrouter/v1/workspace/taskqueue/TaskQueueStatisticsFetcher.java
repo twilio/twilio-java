@@ -81,14 +81,16 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
         String path =
             "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/Statistics";
 
-        path = path.replace(
-            "{" + "WorkspaceSid" + "}",
-            this.pathWorkspaceSid.toString()
-        );
-        path = path.replace(
-            "{" + "TaskQueueSid" + "}",
-            this.pathTaskQueueSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "TaskQueueSid" + "}",
+                this.pathTaskQueueSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

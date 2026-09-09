@@ -32,8 +32,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class KnowledgeUpdater
-    extends Updater<Knowledge.UpdateKnowledgeResponse>
-{
+    extends Updater<Knowledge.UpdateKnowledgeResponse> {
 
     private String pathKbId;
     private String pathKnowledgeId;
@@ -64,10 +63,11 @@ public class KnowledgeUpdater
         String path = "/v2/KnowledgeBases/{kbId}/Knowledge/{knowledgeId}";
 
         path = path.replace("{" + "kbId" + "}", this.pathKbId.toString());
-        path = path.replace(
-            "{" + "knowledgeId" + "}",
-            this.pathKnowledgeId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "knowledgeId" + "}",
+                this.pathKnowledgeId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.PATCH,

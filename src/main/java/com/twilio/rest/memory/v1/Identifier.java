@@ -125,7 +125,7 @@ public class Identifier extends Resource {
                 return false;
             }
             UpdateIdentifierResponse other = (UpdateIdentifierResponse) o;
-            return true;
+            return (true);
         }
 
         @Override

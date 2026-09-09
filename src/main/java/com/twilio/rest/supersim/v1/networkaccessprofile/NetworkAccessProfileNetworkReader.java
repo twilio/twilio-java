@@ -34,8 +34,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class NetworkAccessProfileNetworkReader
-    extends Reader<NetworkAccessProfileNetwork>
-{
+    extends Reader<NetworkAccessProfileNetwork> {
 
     private String pathNetworkAccessProfileSid;
     private Long pageSize;
@@ -75,10 +74,11 @@ public class NetworkAccessProfileNetworkReader
         String path =
             "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks";
 
-        path = path.replace(
-            "{" + "NetworkAccessProfileSid" + "}",
-            this.pathNetworkAccessProfileSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "NetworkAccessProfileSid" + "}",
+                this.pathNetworkAccessProfileSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

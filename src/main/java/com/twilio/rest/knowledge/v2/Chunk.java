@@ -114,7 +114,7 @@ public class Chunk extends Resource {
                 return false;
             }
             UpdateChunkResponse other = (UpdateChunkResponse) o;
-            return true;
+            return (true);
         }
 
         @Override

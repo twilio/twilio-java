@@ -36,8 +36,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class OperatorResultReader
-    extends Reader<OperatorResult.ListOperatorResultResponse>
-{
+    extends Reader<OperatorResult.ListOperatorResultResponse> {
 
     private String conversationId;
     private String intelligenceConfigurationId;
@@ -74,9 +73,9 @@ public class OperatorResultReader
         return this;
     }
 
-    public ResourceSetResponse<OperatorResult.ListOperatorResultResponse> readWithResponse(
-        final TwilioRestClient client
-    ) {
+    public ResourceSetResponse<
+        OperatorResult.ListOperatorResultResponse
+    > readWithResponse(final TwilioRestClient client) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<OperatorResult.ListOperatorResultResponse> page = Page.fromJson(

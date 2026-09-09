@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class A2PBrandRegistrationEmbeddedSessionCreator
-    extends Creator<A2PBrandRegistrationEmbeddedSession>
-{
+    extends Creator<A2PBrandRegistrationEmbeddedSession> {
 
     private String pathId;
 
@@ -83,9 +82,9 @@ public class A2PBrandRegistrationEmbeddedSessionCreator
     }
 
     @Override
-    public TwilioResponse<A2PBrandRegistrationEmbeddedSession> createWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        A2PBrandRegistrationEmbeddedSession
+    > createWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         A2PBrandRegistrationEmbeddedSession content =
             A2PBrandRegistrationEmbeddedSession.fromJson(

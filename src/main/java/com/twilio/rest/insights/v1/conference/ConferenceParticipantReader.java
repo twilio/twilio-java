@@ -93,10 +93,11 @@ public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Conferences/{ConferenceSid}/Participants";
 
-        path = path.replace(
-            "{" + "ConferenceSid" + "}",
-            this.pathConferenceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ConferenceSid" + "}",
+                this.pathConferenceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

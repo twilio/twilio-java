@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class InsightsQuestionnairesFetcher
-    extends Fetcher<InsightsQuestionnaires>
-{
+    extends Fetcher<InsightsQuestionnaires> {
 
     private String pathQuestionnaireSid;
     private String authorization;
@@ -51,10 +50,11 @@ public class InsightsQuestionnairesFetcher
         String path =
             "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
 
-        path = path.replace(
-            "{" + "QuestionnaireSid" + "}",
-            this.pathQuestionnaireSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "QuestionnaireSid" + "}",
+                this.pathQuestionnaireSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

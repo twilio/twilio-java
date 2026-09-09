@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConversationSummaryFetcher
-    extends Fetcher<ConversationSummary.FetchConversationSummaryResponse>
-{
+    extends Fetcher<ConversationSummary.FetchConversationSummaryResponse> {
 
     private String pathStoreId;
     private String pathProfileId;
@@ -50,14 +49,16 @@ public class ConversationSummaryFetcher
             "/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries/{summaryId}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
-        path = path.replace(
-            "{" + "summaryId" + "}",
-            this.pathSummaryId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
+        path =
+            path.replace(
+                "{" + "summaryId" + "}",
+                this.pathSummaryId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -100,9 +101,9 @@ public class ConversationSummaryFetcher
     }
 
     @Override
-    public TwilioResponse<ConversationSummary.FetchConversationSummaryResponse> fetchWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        ConversationSummary.FetchConversationSummaryResponse
+    > fetchWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         ConversationSummary.FetchConversationSummaryResponse content =
             ConversationSummary.FetchConversationSummaryResponse.fromJson(

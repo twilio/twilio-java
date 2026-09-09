@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class SupportingDocumentTypeFetcher
-    extends Fetcher<SupportingDocumentType>
-{
+    extends Fetcher<SupportingDocumentType> {
 
     private String pathSid;
 

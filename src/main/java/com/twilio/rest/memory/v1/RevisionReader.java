@@ -94,14 +94,16 @@ public class RevisionReader extends Reader<Revision.ListRevisionResponse> {
             "/v1/Stores/{storeId}/Profiles/{profileId}/Observations/{observationId}/Revisions";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
-        path = path.replace(
-            "{" + "observationId" + "}",
-            this.pathObservationId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
+        path =
+            path.replace(
+                "{" + "observationId" + "}",
+                this.pathObservationId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -204,14 +206,16 @@ public class RevisionReader extends Reader<Revision.ListRevisionResponse> {
             "/v1/Stores/{storeId}/Profiles/{profileId}/Observations/{observationId}/Revisions";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
-        path = path.replace(
-            "{" + "observationId" + "}",
-            this.pathObservationId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
+        path =
+            path.replace(
+                "{" + "observationId" + "}",
+                this.pathObservationId.toString()
+            );
 
         path = path + page.previousQueryString();
         Request request = new Request(
@@ -232,14 +236,16 @@ public class RevisionReader extends Reader<Revision.ListRevisionResponse> {
             "/v1/Stores/{storeId}/Profiles/{profileId}/Observations/{observationId}/Revisions";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
-        path = path.replace(
-            "{" + "observationId" + "}",
-            this.pathObservationId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
+        path =
+            path.replace(
+                "{" + "observationId" + "}",
+                this.pathObservationId.toString()
+            );
 
         path = path + page.nextQueryString();
         Request request = new Request(

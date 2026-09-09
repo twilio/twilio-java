@@ -259,7 +259,7 @@ public class PhoneNumber extends Resource {
                 return false;
             }
             ListPhoneNumberResponse other = (ListPhoneNumberResponse) o;
-            return true;
+            return (true);
         }
 
         @Override

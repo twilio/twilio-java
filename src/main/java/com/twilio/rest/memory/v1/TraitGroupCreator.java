@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class TraitGroupCreator
-    extends Creator<TraitGroup.CreateTraitGroupResponse>
-{
+    extends Creator<TraitGroup.CreateTraitGroupResponse> {
 
     private String pathStoreId;
     private TraitGroup.TraitGroupRequest traitGroupRequest;
@@ -95,9 +94,9 @@ public class TraitGroupCreator
     }
 
     @Override
-    public TwilioResponse<TraitGroup.CreateTraitGroupResponse> createWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        TraitGroup.CreateTraitGroupResponse
+    > createWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         TraitGroup.CreateTraitGroupResponse content =
             TraitGroup.CreateTraitGroupResponse.fromJson(

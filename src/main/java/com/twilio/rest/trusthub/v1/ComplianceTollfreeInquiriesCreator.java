@@ -33,8 +33,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class ComplianceTollfreeInquiriesCreator
-    extends Creator<ComplianceTollfreeInquiries>
-{
+    extends Creator<ComplianceTollfreeInquiries> {
 
     private com.twilio.type.PhoneNumber tollfreePhoneNumber;
     private String notificationEmail;

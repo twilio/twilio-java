@@ -43,14 +43,13 @@ public class ActionFetcher extends Fetcher<Action.FetchActionResponse> {
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v2/Conversations/{ConversationId}/Actions/{ActionId}";
 
-        path = path.replace(
-            "{" + "ConversationId" + "}",
-            this.pathConversationId.toString()
-        );
-        path = path.replace(
-            "{" + "ActionId" + "}",
-            this.pathActionId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ConversationId" + "}",
+                this.pathConversationId.toString()
+            );
+        path =
+            path.replace("{" + "ActionId" + "}", this.pathActionId.toString());
 
         Request request = new Request(
             HttpMethod.GET,

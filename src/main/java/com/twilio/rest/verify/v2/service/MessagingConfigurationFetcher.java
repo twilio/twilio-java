@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class MessagingConfigurationFetcher
-    extends Fetcher<MessagingConfiguration>
-{
+    extends Fetcher<MessagingConfiguration> {
 
     private String pathServiceSid;
     private String pathCountry;
@@ -46,10 +45,11 @@ public class MessagingConfigurationFetcher
         String path =
             "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "Country" + "}", this.pathCountry.toString());
 
         Request request = new Request(

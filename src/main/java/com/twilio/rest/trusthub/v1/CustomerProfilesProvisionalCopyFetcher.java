@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class CustomerProfilesProvisionalCopyFetcher
-    extends Fetcher<CustomerProfilesProvisionalCopy>
-{
+    extends Fetcher<CustomerProfilesProvisionalCopy> {
 
     private String pathCustomerProfileSid;
 
@@ -43,10 +42,11 @@ public class CustomerProfilesProvisionalCopyFetcher
         String path =
             "/v1/CustomerProfiles/{CustomerProfileSid}/ProvisionalCopy";
 
-        path = path.replace(
-            "{" + "CustomerProfileSid" + "}",
-            this.pathCustomerProfileSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "CustomerProfileSid" + "}",
+                this.pathCustomerProfileSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

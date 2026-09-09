@@ -69,10 +69,11 @@ public class DayReader extends Reader<Day> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/v1/Exports/{ResourceType}/Days";
 
-        path = path.replace(
-            "{" + "ResourceType" + "}",
-            this.pathResourceType.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ResourceType" + "}",
+                this.pathResourceType.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

@@ -36,8 +36,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ConversationSummaryReader
-    extends Reader<ConversationSummary.ListConversationSummaryResponse>
-{
+    extends Reader<ConversationSummary.ListConversationSummaryResponse> {
 
     private String pathStoreId;
     private String pathProfileId;
@@ -78,9 +77,9 @@ public class ConversationSummaryReader
         return this;
     }
 
-    public ResourceSetResponse<ConversationSummary.ListConversationSummaryResponse> readWithResponse(
-        final TwilioRestClient client
-    ) {
+    public ResourceSetResponse<
+        ConversationSummary.ListConversationSummaryResponse
+    > readWithResponse(final TwilioRestClient client) {
         Request request = buildFirstPageRequest(client);
         Response response = makeRequest(client, request);
         Page<ConversationSummary.ListConversationSummaryResponse> page =
@@ -90,8 +89,9 @@ public class ConversationSummaryReader
                 ConversationSummary.ListConversationSummaryResponse.class,
                 client.getObjectMapper()
             );
-        ResourceSet<ConversationSummary.ListConversationSummaryResponse> resourceSet =
-            new ResourceSet<>(this, client, page);
+        ResourceSet<
+            ConversationSummary.ListConversationSummaryResponse
+        > resourceSet = new ResourceSet<>(this, client, page);
         return new ResourceSetResponse<>(
             resourceSet,
             response.getStatusCode(),
@@ -104,10 +104,11 @@ public class ConversationSummaryReader
             "/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -120,9 +121,9 @@ public class ConversationSummaryReader
     }
 
     @Override
-    public ResourceSet<ConversationSummary.ListConversationSummaryResponse> read(
-        final TwilioRestClient client
-    ) {
+    public ResourceSet<
+        ConversationSummary.ListConversationSummaryResponse
+    > read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -189,10 +190,9 @@ public class ConversationSummaryReader
         return response;
     }
 
-    private Page<ConversationSummary.ListConversationSummaryResponse> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<
+        ConversationSummary.ListConversationSummaryResponse
+    > pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = makeRequest(client, request);
         return TokenPaginationPage.fromJson(
             "summaries",
@@ -203,7 +203,9 @@ public class ConversationSummaryReader
     }
 
     @Override
-    public Page<ConversationSummary.ListConversationSummaryResponse> previousPage(
+    public Page<
+        ConversationSummary.ListConversationSummaryResponse
+    > previousPage(
         final Page<ConversationSummary.ListConversationSummaryResponse> page,
         final TwilioRestClient client
     ) {
@@ -211,10 +213,11 @@ public class ConversationSummaryReader
             "/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         path = path + page.previousQueryString();
         Request request = new Request(
@@ -235,10 +238,11 @@ public class ConversationSummaryReader
             "/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
 
         path = path + page.nextQueryString();
         Request request = new Request(

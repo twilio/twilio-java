@@ -137,7 +137,7 @@ public class Profile extends Resource {
                 return false;
             }
             UpdateProfileResponse other = (UpdateProfileResponse) o;
-            return true;
+            return (true);
         }
 
         @Override
@@ -232,7 +232,7 @@ public class Profile extends Resource {
                 return false;
             }
             ListProfileResponse other = (ListProfileResponse) o;
-            return Objects.equals(profiles, other.profiles);
+            return (Objects.equals(profiles, other.profiles));
         }
 
         @Override
@@ -578,7 +578,7 @@ public class Profile extends Resource {
             }
 
             ProfileData other = (ProfileData) o;
-            return Objects.equals(traits, other.traits);
+            return (Objects.equals(traits, other.traits));
         }
 
         @Override
@@ -643,7 +643,7 @@ public class Profile extends Resource {
             }
 
             ProfilePatch other = (ProfilePatch) o;
-            return Objects.equals(traits, other.traits);
+            return (Objects.equals(traits, other.traits));
         }
 
         @Override

@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class A2PCampaignRegistrationEmbeddedSessionCreator
-    extends Creator<A2PCampaignRegistrationEmbeddedSession>
-{
+    extends Creator<A2PCampaignRegistrationEmbeddedSession> {
 
     private String pathId;
 
@@ -83,9 +82,9 @@ public class A2PCampaignRegistrationEmbeddedSessionCreator
     }
 
     @Override
-    public TwilioResponse<A2PCampaignRegistrationEmbeddedSession> createWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        A2PCampaignRegistrationEmbeddedSession
+    > createWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         A2PCampaignRegistrationEmbeddedSession content =
             A2PCampaignRegistrationEmbeddedSession.fromJson(

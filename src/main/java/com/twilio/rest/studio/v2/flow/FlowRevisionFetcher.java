@@ -44,10 +44,8 @@ public class FlowRevisionFetcher extends Fetcher<FlowRevision> {
         String path = "/v2/Flows/{Sid}/Revisions/{Revision}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path = path.replace(
-            "{" + "Revision" + "}",
-            this.pathRevision.toString()
-        );
+        path =
+            path.replace("{" + "Revision" + "}", this.pathRevision.toString());
 
         Request request = new Request(
             HttpMethod.GET,

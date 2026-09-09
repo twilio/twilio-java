@@ -30,8 +30,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class EncryptedOperatorResultsFetcher
-    extends Fetcher<EncryptedOperatorResults>
-{
+    extends Fetcher<EncryptedOperatorResults> {
 
     private String pathTranscriptSid;
     private Boolean redacted;
@@ -49,10 +48,11 @@ public class EncryptedOperatorResultsFetcher
         String path =
             "/v2/Transcripts/{TranscriptSid}/OperatorResults/Encrypted";
 
-        path = path.replace(
-            "{" + "TranscriptSid" + "}",
-            this.pathTranscriptSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "TranscriptSid" + "}",
+                this.pathTranscriptSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

@@ -458,7 +458,9 @@ public class TollfreeVerification extends Resource {
     private final URI url;
 
     @Getter
-    private final List<TollfreeVerification.UseCaseCategories> useCaseCategories;
+    private final List<
+        TollfreeVerification.UseCaseCategories
+    > useCaseCategories;
 
     @Getter
     private final String useCaseSummary;
@@ -573,9 +575,9 @@ public class TollfreeVerification extends Resource {
         ) final String tollfreePhoneNumberSid,
         @JsonProperty("trust_product_sid") final String trustProductSid,
         @JsonProperty("url") final URI url,
-        @JsonProperty(
-            "use_case_categories"
-        ) final List<TollfreeVerification.UseCaseCategories> useCaseCategories,
+        @JsonProperty("use_case_categories") final List<
+            TollfreeVerification.UseCaseCategories
+        > useCaseCategories,
         @JsonProperty("use_case_summary") final String useCaseSummary,
         @JsonProperty("vetting_id") final String vettingId,
         @JsonProperty("vetting_id_expiration") @JsonDeserialize(

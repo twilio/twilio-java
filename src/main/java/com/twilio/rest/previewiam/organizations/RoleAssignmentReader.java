@@ -97,10 +97,11 @@ public class RoleAssignmentReader extends Reader<RoleAssignment> {
     private Request buildFirstPageRequest(final TwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/RoleAssignments";
 
-        path = path.replace(
-            "{" + "OrganizationSid" + "}",
-            this.pathOrganizationSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "OrganizationSid" + "}",
+                this.pathOrganizationSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

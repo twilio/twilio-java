@@ -136,7 +136,7 @@ public class TraitGroup extends Resource {
                 return false;
             }
             UpdateTraitGroupResponse other = (UpdateTraitGroupResponse) o;
-            return true;
+            return (true);
         }
 
         @Override

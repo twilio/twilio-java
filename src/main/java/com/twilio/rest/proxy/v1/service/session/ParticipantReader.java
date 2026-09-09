@@ -79,14 +79,16 @@ public class ParticipantReader extends Reader<Participant> {
         String path =
             "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
-        path = path.replace(
-            "{" + "SessionSid" + "}",
-            this.pathSessionSid.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "SessionSid" + "}",
+                this.pathSessionSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

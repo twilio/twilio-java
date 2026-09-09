@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class ObservationFetcher
-    extends Fetcher<Observation.FetchObservationResponse>
-{
+    extends Fetcher<Observation.FetchObservationResponse> {
 
     private String pathStoreId;
     private String pathProfileId;
@@ -50,14 +49,16 @@ public class ObservationFetcher
             "/v1/Stores/{storeId}/Profiles/{profileId}/Observations/{observationId}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
-        path = path.replace(
-            "{" + "observationId" + "}",
-            this.pathObservationId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
+        path =
+            path.replace(
+                "{" + "observationId" + "}",
+                this.pathObservationId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -100,9 +101,9 @@ public class ObservationFetcher
     }
 
     @Override
-    public TwilioResponse<Observation.FetchObservationResponse> fetchWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Observation.FetchObservationResponse
+    > fetchWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Observation.FetchObservationResponse content =
             Observation.FetchObservationResponse.fromJson(

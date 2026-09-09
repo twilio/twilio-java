@@ -29,8 +29,10 @@ import java.io.InputStream;
 import java.util.function.Predicate;
 
 public class ObservationDeleter
-    extends ResourceDeleter<Observation, Observation.DeleteObservationResponse>
-{
+    extends ResourceDeleter<
+        Observation,
+        Observation.DeleteObservationResponse
+    > {
 
     private String pathStoreId;
     private String pathProfileId;
@@ -51,14 +53,16 @@ public class ObservationDeleter
             "/v1/Stores/{storeId}/Profiles/{profileId}/Observations/{observationId}";
 
         path = path.replace("{" + "storeId" + "}", this.pathStoreId.toString());
-        path = path.replace(
-            "{" + "profileId" + "}",
-            this.pathProfileId.toString()
-        );
-        path = path.replace(
-            "{" + "observationId" + "}",
-            this.pathObservationId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "profileId" + "}",
+                this.pathProfileId.toString()
+            );
+        path =
+            path.replace(
+                "{" + "observationId" + "}",
+                this.pathObservationId.toString()
+            );
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;
@@ -103,9 +107,9 @@ public class ObservationDeleter
     }
 
     @Override
-    public TwilioResponse<Observation.DeleteObservationResponse> deleteWithResponse(
-        final TwilioRestClient client
-    ) {
+    public TwilioResponse<
+        Observation.DeleteObservationResponse
+    > deleteWithResponse(final TwilioRestClient client) {
         Response response = makeRequest(client);
         Observation.DeleteObservationResponse content =
             Observation.DeleteObservationResponse.fromJson(

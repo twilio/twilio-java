@@ -48,18 +48,18 @@ public class DocumentPermissionDeleter extends Deleter<DocumentPermission> {
         String path =
             "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
 
-        path = path.replace(
-            "{" + "ServiceSid" + "}",
-            this.pathServiceSid.toString()
-        );
-        path = path.replace(
-            "{" + "DocumentSid" + "}",
-            this.pathDocumentSid.toString()
-        );
-        path = path.replace(
-            "{" + "Identity" + "}",
-            this.pathIdentity.toString()
-        );
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "DocumentSid" + "}",
+                this.pathDocumentSid.toString()
+            );
+        path =
+            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
         Predicate<Integer> deleteStatuses = i ->
             i != null && i >= 200 && i < 300;

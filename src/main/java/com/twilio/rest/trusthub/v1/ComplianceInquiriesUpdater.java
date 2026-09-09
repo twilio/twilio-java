@@ -60,10 +60,11 @@ public class ComplianceInquiriesUpdater extends Updater<ComplianceInquiries> {
         String path =
             "/v1/ComplianceInquiries/Customers/{CustomerId}/Initialize";
 
-        path = path.replace(
-            "{" + "CustomerId" + "}",
-            this.pathCustomerId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "CustomerId" + "}",
+                this.pathCustomerId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,

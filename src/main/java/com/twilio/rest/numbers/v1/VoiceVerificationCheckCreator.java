@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class VoiceVerificationCheckCreator
-    extends Creator<VoiceVerificationCheck>
-{
+    extends Creator<VoiceVerificationCheck> {
 
     public VoiceVerificationCheckCreator() {}
 

@@ -28,8 +28,7 @@ import com.twilio.type.*;
 import java.io.InputStream;
 
 public class KnowledgeFetcher
-    extends Fetcher<Knowledge.FetchKnowledgeResponse>
-{
+    extends Fetcher<Knowledge.FetchKnowledgeResponse> {
 
     private String pathKbId;
     private String pathKnowledgeId;
@@ -46,10 +45,11 @@ public class KnowledgeFetcher
         String path = "/v2/KnowledgeBases/{kbId}/Knowledge/{knowledgeId}";
 
         path = path.replace("{" + "kbId" + "}", this.pathKbId.toString());
-        path = path.replace(
-            "{" + "knowledgeId" + "}",
-            this.pathKnowledgeId.toString()
-        );
+        path =
+            path.replace(
+                "{" + "knowledgeId" + "}",
+                this.pathKnowledgeId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

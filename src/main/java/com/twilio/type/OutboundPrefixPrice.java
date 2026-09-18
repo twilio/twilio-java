@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,8 +23,8 @@ public class OutboundPrefixPrice {
 
     private final List<String> prefixes;
     private final String friendlyName;
-    private final double basePrice;
-    private final double currentPrice;
+    private final BigDecimal basePrice;
+    private final BigDecimal currentPrice;
 
     /**
      * Initialize an OutboundPrefixPrice.
@@ -36,8 +37,8 @@ public class OutboundPrefixPrice {
     @JsonCreator
     public OutboundPrefixPrice(@JsonProperty("prefixes") final List<String> prefixes,
                                @JsonProperty("friendly_name") final String friendlyName,
-                               @JsonProperty("base_price") final double basePrice,
-                               @JsonProperty("current_price") final double currentPrice) {
+                               @JsonProperty("base_price") final BigDecimal basePrice,
+                               @JsonProperty("current_price") final BigDecimal currentPrice) {
         this.prefixes = prefixes;
         this.friendlyName = friendlyName;
         this.basePrice = basePrice;
@@ -52,11 +53,49 @@ public class OutboundPrefixPrice {
         return friendlyName;
     }
 
+    /**
+     * Returns the retail price per minute to make a call to numbers matching this prefix list. The value returned by
+     * this method is represented as a {@code double}, which may result in loss of precision.
+     *
+     * @return the retail price per minute to make a call to numbers matching this prefix list
+     *
+     * @deprecated please use {{@link #getBasePriceDecimal()}} instead for a lossless representation of the price
+     */
+    @Deprecated
     public double getBasePrice() {
+        return basePrice.doubleValue();
+    }
+
+    /**
+     * Returns the retail price per minute to make a call to numbers matching this prefix list.
+     *
+     * @return the retail price per minute to make a call to numbers matching this prefix list
+     */
+    public BigDecimal getBasePriceDecimal() {
         return basePrice;
     }
 
+    /**
+     * Returns the current price per minute (which accounts for any volume or custom price discounts) to make a call to
+     * numbers matching this prefix list. The value returned by this method is represented as a {@code double}, which
+     * may result in loss of precision.
+     *
+     * @return the current price per minute to make a call to numbers matching this prefix list
+     *
+     * @deprecated please use {{@link #getCurrentPriceDecimal()} instead for a lossless representation of the price
+     */
+    @Deprecated
     public double getCurrentPrice() {
+        return currentPrice.doubleValue();
+    }
+
+    /**
+     * Returns the current price per minute (which accounts for any volume or custom price discounts) to make a call to
+     * numbers matching this prefix list.
+     *
+     * @return the current price per minute to make a call to numbers matching this prefix list
+     */
+    public BigDecimal getCurrentPriceDecimal() {
         return currentPrice;
     }
 

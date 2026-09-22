@@ -1,6 +1,9 @@
-.PHONY: install analysis test test-docker docs
+.PHONY: githooks install analysis test test-docker docs
 
-install:
+githooks:
+	ln -sf ../../githooks/pre-commit .git/hooks/pre-commit
+
+install: githooks
 	@java -version || (echo "Java is not installed, please install Java >= 7"; exit 1);
 	mvn clean install
 	mvn dependency:resolve-plugins

@@ -400,8 +400,11 @@ public class Store extends Resource {
         return new StoreReader();
     }
 
-    public static StorePatcher patcher(final String pathStoreId) {
-        return new StorePatcher(pathStoreId);
+    public static StorePatcher patcher(
+        final String pathStoreId,
+        final Store.PatchStoreRequest patchStoreRequest
+    ) {
+        return new StorePatcher(pathStoreId, patchStoreRequest);
     }
 
     public enum Status {

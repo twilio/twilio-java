@@ -40,10 +40,12 @@ public class DataMappingPatcher
 
     public DataMappingPatcher(
         final String pathStoreId,
-        final String pathDataMappingId
+        final String pathDataMappingId,
+        final DataMapping.DataMappingCore dataMappingCore
     ) {
         this.pathStoreId = pathStoreId;
         this.pathDataMappingId = pathDataMappingId;
+        this.dataMappingCore = dataMappingCore;
     }
 
     public DataMappingPatcher setDataMappingCore(

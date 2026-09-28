@@ -42,11 +42,13 @@ public class StreamTest {
             .track(Stream.Track.INBOUND_TRACK)
             .statusCallback("status_callback")
             .statusCallbackMethod(Stream.StatusCallbackMethod.GET)
+            .audioFormat("audio_format")
+            .sampleRate("sample_rate")
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>",
+            "<Stream audioFormat=\"audio_format\" connectorName=\"connector_name\" name=\"name\" sampleRate=\"sample_rate\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>",
             elem.toXml()
         );
     }
@@ -166,10 +168,12 @@ public class StreamTest {
             .track(Stream.Track.INBOUND_TRACK)
             .statusCallback("status_callback")
             .statusCallbackMethod(Stream.StatusCallbackMethod.GET)
+            .audioFormat("audio_format")
+            .sampleRate("sample_rate")
             .build();
 
         Assert.assertEquals(
-            Stream.Builder.fromXml("<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>").build().toXml(),
+            Stream.Builder.fromXml("<Stream audioFormat=\"audio_format\" connectorName=\"connector_name\" name=\"name\" sampleRate=\"sample_rate\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>").build().toXml(),
             elem.toXml()
         );
     }

@@ -412,9 +412,14 @@ public class TraitGroup extends Resource {
 
     public static TraitGroupPatcher patcher(
         final String pathStoreId,
-        final String pathTraitGroupName
+        final String pathTraitGroupName,
+        final TraitGroup.PatchTraitGroupRequest patchTraitGroupRequest
     ) {
-        return new TraitGroupPatcher(pathStoreId, pathTraitGroupName);
+        return new TraitGroupPatcher(
+            pathStoreId,
+            pathTraitGroupName,
+            patchTraitGroupRequest
+        );
     }
 
     public enum OrderBy {

@@ -56,6 +56,9 @@ public class Conversation extends Resource {
         private final String accountId;
 
         @Getter
+        private final String actionId;
+
+        @Getter
         private final ListConversationByAccount200ResponseConversationsConfiguration configuration;
 
         @Getter
@@ -66,6 +69,9 @@ public class Conversation extends Resource {
 
         @Getter
         private final String id;
+
+        @Getter
+        private final Map<String, String> metadata;
 
         @Getter
         private final String name;
@@ -82,12 +88,14 @@ public class Conversation extends Resource {
         @JsonCreator
         private CreateConversationResponse(
             @JsonProperty("accountId") final String accountId,
+            @JsonProperty("actionId") final String actionId,
             @JsonProperty(
                 "configuration"
             ) final ListConversationByAccount200ResponseConversationsConfiguration configuration,
             @JsonProperty("configurationId") final String configurationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
+            @JsonProperty("metadata") final Map<String, String> metadata,
             @JsonProperty("name") final String name,
             @JsonProperty("participants") final List<
                 ConversationsV2Participant
@@ -98,10 +106,12 @@ public class Conversation extends Resource {
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
             this.accountId = accountId;
+            this.actionId = actionId;
             this.configuration = configuration;
             this.configurationId = configurationId;
             this.createdAt = createdAt;
             this.id = id;
+            this.metadata = metadata;
             this.name = name;
             this.participants = participants;
             this.status = status;
@@ -137,10 +147,12 @@ public class Conversation extends Resource {
             CreateConversationResponse other = (CreateConversationResponse) o;
             return (
                 Objects.equals(accountId, other.accountId) &&
+                Objects.equals(actionId, other.actionId) &&
                 Objects.equals(configuration, other.configuration) &&
                 Objects.equals(configurationId, other.configurationId) &&
                 Objects.equals(createdAt, other.createdAt) &&
                 Objects.equals(id, other.id) &&
+                Objects.equals(metadata, other.metadata) &&
                 Objects.equals(name, other.name) &&
                 Objects.equals(participants, other.participants) &&
                 Objects.equals(status, other.status) &&
@@ -152,10 +164,12 @@ public class Conversation extends Resource {
         public int hashCode() {
             return Objects.hash(
                 accountId,
+                actionId,
                 configuration,
                 configurationId,
                 createdAt,
                 id,
+                metadata,
                 name,
                 participants,
                 status,
@@ -171,6 +185,9 @@ public class Conversation extends Resource {
         private final String accountId;
 
         @Getter
+        private final String actionId;
+
+        @Getter
         private final ListConversationByAccount200ResponseConversationsConfiguration configuration;
 
         @Getter
@@ -181,6 +198,9 @@ public class Conversation extends Resource {
 
         @Getter
         private final String id;
+
+        @Getter
+        private final Map<String, String> metadata;
 
         @Getter
         private final String name;
@@ -197,12 +217,14 @@ public class Conversation extends Resource {
         @JsonCreator
         private UpdateConversationResponse(
             @JsonProperty("accountId") final String accountId,
+            @JsonProperty("actionId") final String actionId,
             @JsonProperty(
                 "configuration"
             ) final ListConversationByAccount200ResponseConversationsConfiguration configuration,
             @JsonProperty("configurationId") final String configurationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
+            @JsonProperty("metadata") final Map<String, String> metadata,
             @JsonProperty("name") final String name,
             @JsonProperty("participants") final List<
                 ConversationsV2Participant
@@ -213,10 +235,12 @@ public class Conversation extends Resource {
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
             this.accountId = accountId;
+            this.actionId = actionId;
             this.configuration = configuration;
             this.configurationId = configurationId;
             this.createdAt = createdAt;
             this.id = id;
+            this.metadata = metadata;
             this.name = name;
             this.participants = participants;
             this.status = status;
@@ -252,10 +276,12 @@ public class Conversation extends Resource {
             UpdateConversationResponse other = (UpdateConversationResponse) o;
             return (
                 Objects.equals(accountId, other.accountId) &&
+                Objects.equals(actionId, other.actionId) &&
                 Objects.equals(configuration, other.configuration) &&
                 Objects.equals(configurationId, other.configurationId) &&
                 Objects.equals(createdAt, other.createdAt) &&
                 Objects.equals(id, other.id) &&
+                Objects.equals(metadata, other.metadata) &&
                 Objects.equals(name, other.name) &&
                 Objects.equals(participants, other.participants) &&
                 Objects.equals(status, other.status) &&
@@ -267,10 +293,12 @@ public class Conversation extends Resource {
         public int hashCode() {
             return Objects.hash(
                 accountId,
+                actionId,
                 configuration,
                 configurationId,
                 createdAt,
                 id,
+                metadata,
                 name,
                 participants,
                 status,
@@ -343,6 +371,9 @@ public class Conversation extends Resource {
         private final String accountId;
 
         @Getter
+        private final String actionId;
+
+        @Getter
         private final ListConversationByAccount200ResponseConversationsConfiguration configuration;
 
         @Getter
@@ -353,6 +384,9 @@ public class Conversation extends Resource {
 
         @Getter
         private final String id;
+
+        @Getter
+        private final Map<String, String> metadata;
 
         @Getter
         private final String name;
@@ -369,12 +403,14 @@ public class Conversation extends Resource {
         @JsonCreator
         private ListConversationResponse(
             @JsonProperty("accountId") final String accountId,
+            @JsonProperty("actionId") final String actionId,
             @JsonProperty(
                 "configuration"
             ) final ListConversationByAccount200ResponseConversationsConfiguration configuration,
             @JsonProperty("configurationId") final String configurationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
+            @JsonProperty("metadata") final Map<String, String> metadata,
             @JsonProperty("name") final String name,
             @JsonProperty("participants") final List<
                 ConversationsV2Participant
@@ -385,10 +421,12 @@ public class Conversation extends Resource {
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
             this.accountId = accountId;
+            this.actionId = actionId;
             this.configuration = configuration;
             this.configurationId = configurationId;
             this.createdAt = createdAt;
             this.id = id;
+            this.metadata = metadata;
             this.name = name;
             this.participants = participants;
             this.status = status;
@@ -424,10 +462,12 @@ public class Conversation extends Resource {
             ListConversationResponse other = (ListConversationResponse) o;
             return (
                 Objects.equals(accountId, other.accountId) &&
+                Objects.equals(actionId, other.actionId) &&
                 Objects.equals(configuration, other.configuration) &&
                 Objects.equals(configurationId, other.configurationId) &&
                 Objects.equals(createdAt, other.createdAt) &&
                 Objects.equals(id, other.id) &&
+                Objects.equals(metadata, other.metadata) &&
                 Objects.equals(name, other.name) &&
                 Objects.equals(participants, other.participants) &&
                 Objects.equals(status, other.status) &&
@@ -439,10 +479,12 @@ public class Conversation extends Resource {
         public int hashCode() {
             return Objects.hash(
                 accountId,
+                actionId,
                 configuration,
                 configurationId,
                 createdAt,
                 id,
+                metadata,
                 name,
                 participants,
                 status,
@@ -458,6 +500,9 @@ public class Conversation extends Resource {
         private final String accountId;
 
         @Getter
+        private final String actionId;
+
+        @Getter
         private final ListConversationByAccount200ResponseConversationsConfiguration configuration;
 
         @Getter
@@ -468,6 +513,9 @@ public class Conversation extends Resource {
 
         @Getter
         private final String id;
+
+        @Getter
+        private final Map<String, String> metadata;
 
         @Getter
         private final String name;
@@ -484,12 +532,14 @@ public class Conversation extends Resource {
         @JsonCreator
         private PatchConversationResponse(
             @JsonProperty("accountId") final String accountId,
+            @JsonProperty("actionId") final String actionId,
             @JsonProperty(
                 "configuration"
             ) final ListConversationByAccount200ResponseConversationsConfiguration configuration,
             @JsonProperty("configurationId") final String configurationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
+            @JsonProperty("metadata") final Map<String, String> metadata,
             @JsonProperty("name") final String name,
             @JsonProperty("participants") final List<
                 ConversationsV2Participant
@@ -500,10 +550,12 @@ public class Conversation extends Resource {
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
             this.accountId = accountId;
+            this.actionId = actionId;
             this.configuration = configuration;
             this.configurationId = configurationId;
             this.createdAt = createdAt;
             this.id = id;
+            this.metadata = metadata;
             this.name = name;
             this.participants = participants;
             this.status = status;
@@ -539,10 +591,12 @@ public class Conversation extends Resource {
             PatchConversationResponse other = (PatchConversationResponse) o;
             return (
                 Objects.equals(accountId, other.accountId) &&
+                Objects.equals(actionId, other.actionId) &&
                 Objects.equals(configuration, other.configuration) &&
                 Objects.equals(configurationId, other.configurationId) &&
                 Objects.equals(createdAt, other.createdAt) &&
                 Objects.equals(id, other.id) &&
+                Objects.equals(metadata, other.metadata) &&
                 Objects.equals(name, other.name) &&
                 Objects.equals(participants, other.participants) &&
                 Objects.equals(status, other.status) &&
@@ -554,10 +608,12 @@ public class Conversation extends Resource {
         public int hashCode() {
             return Objects.hash(
                 accountId,
+                actionId,
                 configuration,
                 configurationId,
                 createdAt,
                 id,
+                metadata,
                 name,
                 participants,
                 status,
@@ -573,6 +629,9 @@ public class Conversation extends Resource {
         private final String accountId;
 
         @Getter
+        private final String actionId;
+
+        @Getter
         private final ListConversationByAccount200ResponseConversationsConfiguration configuration;
 
         @Getter
@@ -583,6 +642,9 @@ public class Conversation extends Resource {
 
         @Getter
         private final String id;
+
+        @Getter
+        private final Map<String, String> metadata;
 
         @Getter
         private final String name;
@@ -599,12 +661,14 @@ public class Conversation extends Resource {
         @JsonCreator
         private FetchConversationResponse(
             @JsonProperty("accountId") final String accountId,
+            @JsonProperty("actionId") final String actionId,
             @JsonProperty(
                 "configuration"
             ) final ListConversationByAccount200ResponseConversationsConfiguration configuration,
             @JsonProperty("configurationId") final String configurationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("id") final String id,
+            @JsonProperty("metadata") final Map<String, String> metadata,
             @JsonProperty("name") final String name,
             @JsonProperty("participants") final List<
                 ConversationsV2Participant
@@ -615,10 +679,12 @@ public class Conversation extends Resource {
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
             this.accountId = accountId;
+            this.actionId = actionId;
             this.configuration = configuration;
             this.configurationId = configurationId;
             this.createdAt = createdAt;
             this.id = id;
+            this.metadata = metadata;
             this.name = name;
             this.participants = participants;
             this.status = status;
@@ -654,10 +720,12 @@ public class Conversation extends Resource {
             FetchConversationResponse other = (FetchConversationResponse) o;
             return (
                 Objects.equals(accountId, other.accountId) &&
+                Objects.equals(actionId, other.actionId) &&
                 Objects.equals(configuration, other.configuration) &&
                 Objects.equals(configurationId, other.configurationId) &&
                 Objects.equals(createdAt, other.createdAt) &&
                 Objects.equals(id, other.id) &&
+                Objects.equals(metadata, other.metadata) &&
                 Objects.equals(name, other.name) &&
                 Objects.equals(participants, other.participants) &&
                 Objects.equals(status, other.status) &&
@@ -669,10 +737,12 @@ public class Conversation extends Resource {
         public int hashCode() {
             return Objects.hash(
                 accountId,
+                actionId,
                 configuration,
                 configurationId,
                 createdAt,
                 id,
+                metadata,
                 name,
                 participants,
                 status,
@@ -907,6 +977,69 @@ public class Conversation extends Resource {
                 value,
                 ConversationsV2ConversationGroupingType.values()
             );
+        }
+    }
+
+    @JsonDeserialize(builder = ConversationWorkflow.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class ConversationWorkflow {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("flowId")
+        @Getter
+        private final String flowId;
+
+        private ConversationWorkflow(Builder builder) {
+            this.flowId = builder.flowId;
+        }
+
+        public static Builder builder(final String flowId) {
+            return new Builder(flowId);
+        }
+
+        public static ConversationWorkflow fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, ConversationWorkflow.class);
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("flowId")
+            private String flowId;
+
+            @JsonCreator
+            public Builder(@JsonProperty("flowId") final String flowId) {
+                this.flowId = flowId;
+            }
+
+            public ConversationWorkflow build() {
+                return new ConversationWorkflow(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ConversationWorkflow other = (ConversationWorkflow) o;
+            return (Objects.equals(flowId, other.flowId));
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(flowId);
         }
     }
 
@@ -1316,10 +1449,16 @@ public class Conversation extends Resource {
         @Getter
         private final PatchConversationByIdRequestConfiguration configuration;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("metadata")
+        @Getter
+        private final Map<String, String> metadata;
+
         private PatchConversationByIdRequest(Builder builder) {
             this.name = builder.name;
             this.status = builder.status;
             this.configuration = builder.configuration;
+            this.metadata = builder.metadata;
         }
 
         public static Builder builder() {
@@ -1349,6 +1488,9 @@ public class Conversation extends Resource {
             @JsonProperty("configuration")
             private PatchConversationByIdRequestConfiguration configuration;
 
+            @JsonProperty("metadata")
+            private Map<String, String> metadata;
+
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("name")
             public Builder name(String name) {
@@ -1372,6 +1514,13 @@ public class Conversation extends Resource {
                 return this;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("metadata")
+            public Builder metadata(Map<String, String> metadata) {
+                this.metadata = metadata;
+                return this;
+            }
+
             public PatchConversationByIdRequest build() {
                 return new PatchConversationByIdRequest(this);
             }
@@ -1392,13 +1541,14 @@ public class Conversation extends Resource {
             return (
                 Objects.equals(name, other.name) &&
                 Objects.equals(status, other.status) &&
-                Objects.equals(configuration, other.configuration)
+                Objects.equals(configuration, other.configuration) &&
+                Objects.equals(metadata, other.metadata)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(name, status, configuration);
+            return Objects.hash(name, status, configuration, metadata);
         }
     }
 
@@ -1537,11 +1687,17 @@ public class Conversation extends Resource {
         @Getter
         private final List<String> intelligenceConfigurationIds;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("workflows")
+        @Getter
+        private final List<ConversationWorkflow> workflows;
+
         private CreateConversationWithConfigRequestConfiguration(
             Builder builder
         ) {
             this.intelligenceConfigurationIds =
                 builder.intelligenceConfigurationIds;
+            this.workflows = builder.workflows;
         }
 
         public static Builder builder() {
@@ -1565,6 +1721,9 @@ public class Conversation extends Resource {
             @JsonProperty("intelligenceConfigurationIds")
             private List<String> intelligenceConfigurationIds;
 
+            @JsonProperty("workflows")
+            private List<ConversationWorkflow> workflows;
+
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("intelligenceConfigurationIds")
             public Builder intelligenceConfigurationIds(
@@ -1572,6 +1731,13 @@ public class Conversation extends Resource {
             ) {
                 this.intelligenceConfigurationIds =
                     intelligenceConfigurationIds;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("workflows")
+            public Builder workflows(List<ConversationWorkflow> workflows) {
+                this.workflows = workflows;
                 return this;
             }
 
@@ -1598,13 +1764,14 @@ public class Conversation extends Resource {
                 Objects.equals(
                     intelligenceConfigurationIds,
                     other.intelligenceConfigurationIds
-                )
+                ) &&
+                Objects.equals(workflows, other.workflows)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(intelligenceConfigurationIds);
+            return Objects.hash(intelligenceConfigurationIds, workflows);
         }
     }
 
@@ -1856,9 +2023,15 @@ public class Conversation extends Resource {
         @Getter
         private final Conversation.Status status;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("metadata")
+        @Getter
+        private final Map<String, String> metadata;
+
         private UpdateConversationByIdRequest(Builder builder) {
             this.name = builder.name;
             this.status = builder.status;
+            this.metadata = builder.metadata;
         }
 
         public static Builder builder(final Conversation.Status status) {
@@ -1885,6 +2058,9 @@ public class Conversation extends Resource {
             @JsonProperty("status")
             private Conversation.Status status;
 
+            @JsonProperty("metadata")
+            private Map<String, String> metadata;
+
             @JsonCreator
             public Builder(
                 @JsonProperty("status") final Conversation.Status status
@@ -1896,6 +2072,13 @@ public class Conversation extends Resource {
             @JsonProperty("name")
             public Builder name(String name) {
                 this.name = name;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("metadata")
+            public Builder metadata(Map<String, String> metadata) {
+                this.metadata = metadata;
                 return this;
             }
 
@@ -1918,13 +2101,14 @@ public class Conversation extends Resource {
                 (UpdateConversationByIdRequest) o;
             return (
                 Objects.equals(name, other.name) &&
-                Objects.equals(status, other.status)
+                Objects.equals(status, other.status) &&
+                Objects.equals(metadata, other.metadata)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(name, status);
+            return Objects.hash(name, status, metadata);
         }
     }
 
@@ -2142,9 +2326,19 @@ public class Conversation extends Resource {
         private final ListConversationByAccount200ResponseConversationsConfiguration configuration;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("metadata")
+        @Getter
+        private final Map<String, String> metadata;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("participants")
         @Getter
         private final List<ConversationsV2Participant> participants;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("actionId")
+        @Getter
+        private final String actionId;
 
         private ListConversationByAccount200ResponseConversations(
             Builder builder
@@ -2157,7 +2351,9 @@ public class Conversation extends Resource {
             this.createdAt = builder.createdAt;
             this.updatedAt = builder.updatedAt;
             this.configuration = builder.configuration;
+            this.metadata = builder.metadata;
             this.participants = builder.participants;
+            this.actionId = builder.actionId;
         }
 
         public static Builder builder(
@@ -2214,8 +2410,14 @@ public class Conversation extends Resource {
             @JsonProperty("configuration")
             private ListConversationByAccount200ResponseConversationsConfiguration configuration;
 
+            @JsonProperty("metadata")
+            private Map<String, String> metadata;
+
             @JsonProperty("participants")
             private List<ConversationsV2Participant> participants;
+
+            @JsonProperty("actionId")
+            private String actionId;
 
             @JsonCreator
             public Builder(
@@ -2276,11 +2478,25 @@ public class Conversation extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("metadata")
+            public Builder metadata(Map<String, String> metadata) {
+                this.metadata = metadata;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("participants")
             public Builder participants(
                 List<ConversationsV2Participant> participants
             ) {
                 this.participants = participants;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("actionId")
+            public Builder actionId(String actionId) {
+                this.actionId = actionId;
                 return this;
             }
 
@@ -2312,7 +2528,9 @@ public class Conversation extends Resource {
                 Objects.equals(createdAt, other.createdAt) &&
                 Objects.equals(updatedAt, other.updatedAt) &&
                 Objects.equals(configuration, other.configuration) &&
-                Objects.equals(participants, other.participants)
+                Objects.equals(metadata, other.metadata) &&
+                Objects.equals(participants, other.participants) &&
+                Objects.equals(actionId, other.actionId)
             );
         }
 
@@ -2327,7 +2545,9 @@ public class Conversation extends Resource {
                 createdAt,
                 updatedAt,
                 configuration,
-                participants
+                metadata,
+                participants,
+                actionId
             );
         }
     }
@@ -2362,11 +2582,17 @@ public class Conversation extends Resource {
             CreateConversationWithConfigRequestParticipants
         > participants;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("metadata")
+        @Getter
+        private final Map<String, String> metadata;
+
         private CreateConversationWithConfigRequest(Builder builder) {
             this.configurationId = builder.configurationId;
             this.name = builder.name;
             this.configuration = builder.configuration;
             this.participants = builder.participants;
+            this.metadata = builder.metadata;
         }
 
         public static Builder builder(final String configurationId) {
@@ -2400,6 +2626,9 @@ public class Conversation extends Resource {
             private List<
                 CreateConversationWithConfigRequestParticipants
             > participants;
+
+            @JsonProperty("metadata")
+            private Map<String, String> metadata;
 
             @JsonCreator
             public Builder(
@@ -2435,6 +2664,13 @@ public class Conversation extends Resource {
                 return this;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("metadata")
+            public Builder metadata(Map<String, String> metadata) {
+                this.metadata = metadata;
+                return this;
+            }
+
             public CreateConversationWithConfigRequest build() {
                 return new CreateConversationWithConfigRequest(this);
             }
@@ -2456,7 +2692,8 @@ public class Conversation extends Resource {
                 Objects.equals(configurationId, other.configurationId) &&
                 Objects.equals(name, other.name) &&
                 Objects.equals(configuration, other.configuration) &&
-                Objects.equals(participants, other.participants)
+                Objects.equals(participants, other.participants) &&
+                Objects.equals(metadata, other.metadata)
             );
         }
 
@@ -2466,7 +2703,8 @@ public class Conversation extends Resource {
                 configurationId,
                 name,
                 configuration,
-                participants
+                participants,
+                metadata
             );
         }
     }

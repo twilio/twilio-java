@@ -40,10 +40,12 @@ public class TraitGroupPatcher
 
     public TraitGroupPatcher(
         final String pathStoreId,
-        final String pathTraitGroupName
+        final String pathTraitGroupName,
+        final TraitGroup.PatchTraitGroupRequest patchTraitGroupRequest
     ) {
         this.pathStoreId = pathStoreId;
         this.pathTraitGroupName = pathTraitGroupName;
+        this.patchTraitGroupRequest = patchTraitGroupRequest;
     }
 
     public TraitGroupPatcher setPatchTraitGroupRequest(

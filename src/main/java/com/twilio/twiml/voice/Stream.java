@@ -59,6 +59,8 @@ public class Stream extends TwiML {
     private final Stream.Track track;
     private final String statusCallback;
     private final Stream.StatusCallbackMethod statusCallbackMethod;
+    private final String audioFormat;
+    private final String sampleRate;
 
     /**
      * For XML Serialization/Deserialization
@@ -78,6 +80,8 @@ public class Stream extends TwiML {
         this.track = b.track;
         this.statusCallback = b.statusCallback;
         this.statusCallbackMethod = b.statusCallbackMethod;
+        this.audioFormat = b.audioFormat;
+        this.sampleRate = b.sampleRate;
     }
 
     /**
@@ -106,6 +110,12 @@ public class Stream extends TwiML {
         }
         if (this.getStatusCallbackMethod() != null) {
             attrs.put("statusCallbackMethod", this.getStatusCallbackMethod().toString());
+        }
+        if (this.getAudioFormat() != null) {
+            attrs.put("audioFormat", this.getAudioFormat());
+        }
+        if (this.getSampleRate() != null) {
+            attrs.put("sampleRate", this.getSampleRate());
         }
 
         return attrs;
@@ -166,6 +176,24 @@ public class Stream extends TwiML {
     }
 
     /**
+     * Required Audio Format
+     *
+     * @return Required Audio Format
+     */
+    public String getAudioFormat() {
+        return audioFormat;
+    }
+
+    /**
+     * Sample Rate for HD Codec
+     *
+     * @return Sample Rate for HD Codec
+     */
+    public String getSampleRate() {
+        return sampleRate;
+    }
+
+    /**
      * Create a new {@code <Stream>} element
      */
     @JsonPOJOBuilder(withPrefix = "")
@@ -190,6 +218,8 @@ public class Stream extends TwiML {
         private Stream.Track track;
         private String statusCallback;
         private Stream.StatusCallbackMethod statusCallbackMethod;
+        private String audioFormat;
+        private String sampleRate;
 
         /**
          * Friendly name given to the Stream
@@ -242,6 +272,24 @@ public class Stream extends TwiML {
         @JacksonXmlProperty(isAttribute = true, localName = "statusCallbackMethod")
         public Builder statusCallbackMethod(Stream.StatusCallbackMethod statusCallbackMethod) {
             this.statusCallbackMethod = statusCallbackMethod;
+            return this;
+        }
+
+        /**
+         * Required Audio Format
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "audioFormat")
+        public Builder audioFormat(String audioFormat) {
+            this.audioFormat = audioFormat;
+            return this;
+        }
+
+        /**
+         * Sample Rate for HD Codec
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "sampleRate")
+        public Builder sampleRate(String sampleRate) {
+            this.sampleRate = sampleRate;
             return this;
         }
 

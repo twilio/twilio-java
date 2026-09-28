@@ -505,9 +505,14 @@ public class DataMapping extends Resource {
 
     public static DataMappingPatcher patcher(
         final String pathStoreId,
-        final String pathDataMappingId
+        final String pathDataMappingId,
+        final DataMapping.DataMappingCore dataMappingCore
     ) {
-        return new DataMappingPatcher(pathStoreId, pathDataMappingId);
+        return new DataMappingPatcher(
+            pathStoreId,
+            pathDataMappingId,
+            dataMappingCore
+        );
     }
 
     public enum OrderBy {

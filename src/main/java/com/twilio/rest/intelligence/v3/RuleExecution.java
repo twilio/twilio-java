@@ -33,6 +33,8 @@ import com.twilio.type.*;
 import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
@@ -321,11 +323,17 @@ public class RuleExecution extends Resource {
         @Getter
         private final String conversationId;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("rule")
+        @Getter
+        private final RuleOverride rule;
+
         private CreateRuleExecutionRequest(Builder builder) {
             this.intelligenceConfigurationId =
                 builder.intelligenceConfigurationId;
             this.ruleId = builder.ruleId;
             this.conversationId = builder.conversationId;
+            this.rule = builder.rule;
         }
 
         public static Builder builder(
@@ -363,6 +371,9 @@ public class RuleExecution extends Resource {
             @JsonProperty("conversationId")
             private String conversationId;
 
+            @JsonProperty("rule")
+            private RuleOverride rule;
+
             @JsonCreator
             public Builder(
                 @JsonProperty(
@@ -374,6 +385,13 @@ public class RuleExecution extends Resource {
                 this.intelligenceConfigurationId = intelligenceConfigurationId;
                 this.ruleId = ruleId;
                 this.conversationId = conversationId;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("rule")
+            public Builder rule(RuleOverride rule) {
+                this.rule = rule;
+                return this;
             }
 
             public CreateRuleExecutionRequest build() {
@@ -398,7 +416,8 @@ public class RuleExecution extends Resource {
                     other.intelligenceConfigurationId
                 ) &&
                 Objects.equals(ruleId, other.ruleId) &&
-                Objects.equals(conversationId, other.conversationId)
+                Objects.equals(conversationId, other.conversationId) &&
+                Objects.equals(rule, other.rule)
             );
         }
 
@@ -407,8 +426,158 @@ public class RuleExecution extends Resource {
             return Objects.hash(
                 intelligenceConfigurationId,
                 ruleId,
-                conversationId
+                conversationId,
+                rule
             );
+        }
+    }
+
+    @JsonDeserialize(builder = RuleOverride.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class RuleOverride {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("operators")
+        @Getter
+        private final List<OperatorOverride> operators;
+
+        private RuleOverride(Builder builder) {
+            this.operators = builder.operators;
+        }
+
+        public static Builder builder(final List<OperatorOverride> operators) {
+            return new Builder(operators);
+        }
+
+        public static RuleOverride fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, RuleOverride.class);
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("operators")
+            private List<OperatorOverride> operators;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty("operators") final List<
+                    OperatorOverride
+                > operators
+            ) {
+                this.operators = operators;
+            }
+
+            public RuleOverride build() {
+                return new RuleOverride(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            RuleOverride other = (RuleOverride) o;
+            return (Objects.equals(operators, other.operators));
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(operators);
+        }
+    }
+
+    @JsonDeserialize(builder = OperatorOverride.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class OperatorOverride {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        private final String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("parameters")
+        @Getter
+        private final Map<String, Object> parameters;
+
+        private OperatorOverride(Builder builder) {
+            this.id = builder.id;
+            this.parameters = builder.parameters;
+        }
+
+        public static Builder builder(
+            final String id,
+            final Map<String, Object> parameters
+        ) {
+            return new Builder(id, parameters);
+        }
+
+        public static OperatorOverride fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, OperatorOverride.class);
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("parameters")
+            private Map<String, Object> parameters;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty("id") final String id,
+                @JsonProperty("parameters") final Map<String, Object> parameters
+            ) {
+                this.id = id;
+                this.parameters = parameters;
+            }
+
+            public OperatorOverride build() {
+                return new OperatorOverride(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            OperatorOverride other = (OperatorOverride) o;
+            return (
+                Objects.equals(id, other.id) &&
+                Objects.equals(parameters, other.parameters)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, parameters);
         }
     }
 

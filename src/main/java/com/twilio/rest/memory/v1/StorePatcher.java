@@ -36,8 +36,12 @@ public class StorePatcher extends Patcher<Store.PatchStoreResponse> {
     private String ifMatch;
     private Store.PatchStoreRequest patchStoreRequest;
 
-    public StorePatcher(final String pathStoreId) {
+    public StorePatcher(
+        final String pathStoreId,
+        final Store.PatchStoreRequest patchStoreRequest
+    ) {
         this.pathStoreId = pathStoreId;
+        this.patchStoreRequest = patchStoreRequest;
     }
 
     public StorePatcher setPatchStoreRequest(

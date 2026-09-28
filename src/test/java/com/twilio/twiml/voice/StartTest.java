@@ -71,6 +71,8 @@ public class StartTest {
                     .track(Stream.Track.INBOUND_TRACK)
                     .statusCallback("status_callback")
                     .statusCallbackMethod(Stream.StatusCallbackMethod.GET)
+                    .audioFormat("audio_format")
+                    .sampleRate("sample_rate")
                     .build());
 
         builder.siprec(new Siprec.Builder()
@@ -113,7 +115,7 @@ public class StartTest {
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Start>" +
-                "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
+                "<Stream audioFormat=\"audio_format\" connectorName=\"connector_name\" name=\"name\" sampleRate=\"sample_rate\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>" +
                 "<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" intelligenceService=\"intelligence_service\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>" +
                 "<Recording channels=\"mono\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"recording_status_callback\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" track=\"inbound\" trim=\"trim-silence\"/>" +
@@ -221,6 +223,8 @@ public class StartTest {
                     .track(Stream.Track.INBOUND_TRACK)
                     .statusCallback("status_callback")
                     .statusCallbackMethod(Stream.StatusCallbackMethod.GET)
+                    .audioFormat("audio_format")
+                    .sampleRate("sample_rate")
                     .build());
 
         builder.siprec(new Siprec.Builder()
@@ -262,7 +266,7 @@ public class StartTest {
 
         Assert.assertEquals(
             Start.Builder.fromXml("<Start>" +
-                "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
+                "<Stream audioFormat=\"audio_format\" connectorName=\"connector_name\" name=\"name\" sampleRate=\"sample_rate\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>" +
                 "<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" intelligenceService=\"intelligence_service\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>" +
                 "<Recording channels=\"mono\" recordingConfigurationId=\"recording_configuration_id\" recordingStatusCallback=\"recording_status_callback\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" track=\"inbound\" trim=\"trim-silence\"/>" +

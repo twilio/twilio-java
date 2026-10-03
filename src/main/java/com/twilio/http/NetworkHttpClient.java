@@ -45,6 +45,8 @@ public class NetworkHttpClient extends HttpClient {
 
     protected final CloseableHttpClient client;
 
+    private final RequestConfig requestConfig;
+
     private boolean isCustomClient;
 
     /**
@@ -70,6 +72,7 @@ public class NetworkHttpClient extends HttpClient {
      * @param socketConfig  a SocketConfig.
      */
     public NetworkHttpClient(final RequestConfig requestConfig, final SocketConfig socketConfig) {
+        this.requestConfig = requestConfig;
         Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
             // The Accept header is intentionally omitted to support both SCIM and JSON content types.
@@ -109,6 +112,7 @@ public class NetworkHttpClient extends HttpClient {
      * @param clientBuilder an HttpClientBuilder.
      */
     public NetworkHttpClient(HttpClientBuilder clientBuilder) {
+        this.requestConfig = DEFAULT_REQUEST_CONFIG;
         Collection<BasicHeader> headers = Arrays.asList(
                 new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
                 new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
@@ -133,7 +137,9 @@ public class NetworkHttpClient extends HttpClient {
         HttpMethod method = request.getMethod();
         HttpUriRequestBase httpUriRequestBase = createHttpUriRequestBase(request);
 
-        httpUriRequestBase.setConfig(DEFAULT_REQUEST_CONFIG);
+        if (!isCustomClient) {
+            httpUriRequestBase.setConfig(this.requestConfig);
+        }
 
         httpUriRequestBase.setVersion(HttpVersion.HTTP_1_1);
 

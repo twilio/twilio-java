@@ -14,8 +14,10 @@
 
 package com.twilio.rest.numbers.v1;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
 import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,7 +31,20 @@ import java.io.InputStream;
 
 public class SmsVerificationCreator extends Creator<SmsVerification> {
 
-    public SmsVerificationCreator() {}
+    private SmsVerification.NumbersV1SmsVerificationRequest numbersV1SmsVerificationRequest;
+
+    public SmsVerificationCreator(
+        final SmsVerification.NumbersV1SmsVerificationRequest numbersV1SmsVerificationRequest
+    ) {
+        this.numbersV1SmsVerificationRequest = numbersV1SmsVerificationRequest;
+    }
+
+    public SmsVerificationCreator setNumbersV1SmsVerificationRequest(
+        final SmsVerification.NumbersV1SmsVerificationRequest numbersV1SmsVerificationRequest
+    ) {
+        this.numbersV1SmsVerificationRequest = numbersV1SmsVerificationRequest;
+        return this;
+    }
 
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/CallerIds/SmsVerifications";
@@ -39,6 +54,8 @@ public class SmsVerificationCreator extends Creator<SmsVerification> {
             Domains.NUMBERS.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.JSON);
+        addPostParams(request, client);
 
         Response response = client.request(request);
 
@@ -86,5 +103,17 @@ public class SmsVerificationCreator extends Creator<SmsVerification> {
             response.getStatusCode(),
             response.getHeaders()
         );
+    }
+
+    private void addPostParams(final Request request, TwilioRestClient client) {
+        ObjectMapper objectMapper = client.getObjectMapper();
+        if (numbersV1SmsVerificationRequest != null) {
+            request.setBody(
+                SmsVerification.toJson(
+                    numbersV1SmsVerificationRequest,
+                    objectMapper
+                )
+            );
+        }
     }
 }

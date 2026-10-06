@@ -16,12 +16,15 @@ package com.twilio.rest.numbers.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
@@ -31,6 +34,7 @@ import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -38,8 +42,117 @@ import lombok.ToString;
 @ToString
 public class SmsVerificationCheck extends Resource {
 
-    public static SmsVerificationCheckCreator creator() {
-        return new SmsVerificationCheckCreator();
+    public static SmsVerificationCheckCreator creator(
+        final SmsVerificationCheck.NumbersV1SmsVerificationCheckRequest numbersV1SmsVerificationCheckRequest
+    ) {
+        return new SmsVerificationCheckCreator(
+            numbersV1SmsVerificationCheckRequest
+        );
+    }
+
+    @JsonDeserialize(
+        builder = NumbersV1SmsVerificationCheckRequest.Builder.class
+    )
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class NumbersV1SmsVerificationCheckRequest {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("to")
+        @Getter
+        private final String to;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("verification_code")
+        @Getter
+        private final String verificationCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("friendly_name")
+        @Getter
+        private final String friendlyName;
+
+        private NumbersV1SmsVerificationCheckRequest(Builder builder) {
+            this.to = builder.to;
+            this.verificationCode = builder.verificationCode;
+            this.friendlyName = builder.friendlyName;
+        }
+
+        public static Builder builder(
+            final String to,
+            final String verificationCode
+        ) {
+            return new Builder(to, verificationCode);
+        }
+
+        public static NumbersV1SmsVerificationCheckRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                NumbersV1SmsVerificationCheckRequest.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("to")
+            private String to;
+
+            @JsonProperty("verification_code")
+            private String verificationCode;
+
+            @JsonProperty("friendly_name")
+            private String friendlyName;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty("to") final String to,
+                @JsonProperty("verification_code") final String verificationCode
+            ) {
+                this.to = to;
+                this.verificationCode = verificationCode;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("friendly_name")
+            public Builder friendlyName(String friendlyName) {
+                this.friendlyName = friendlyName;
+                return this;
+            }
+
+            public NumbersV1SmsVerificationCheckRequest build() {
+                return new NumbersV1SmsVerificationCheckRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            NumbersV1SmsVerificationCheckRequest other =
+                (NumbersV1SmsVerificationCheckRequest) o;
+            return (
+                Objects.equals(to, other.to) &&
+                Objects.equals(verificationCode, other.verificationCode) &&
+                Objects.equals(friendlyName, other.friendlyName)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(to, verificationCode, friendlyName);
+        }
     }
 
     /**

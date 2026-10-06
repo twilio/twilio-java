@@ -1458,6 +1458,11 @@ public class Communication extends Resource {
         private final String channelId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("resourceId")
+        @Getter
+        private final String resourceId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("recipients")
         @Getter
         private final List<
@@ -1475,6 +1480,7 @@ public class Communication extends Resource {
             this.author = builder.author;
             this.content = builder.content;
             this.channelId = builder.channelId;
+            this.resourceId = builder.resourceId;
             this.recipients = builder.recipients;
             this.occurredAt = builder.occurredAt;
         }
@@ -1512,6 +1518,9 @@ public class Communication extends Resource {
             @JsonProperty("channelId")
             private String channelId;
 
+            @JsonProperty("resourceId")
+            private String resourceId;
+
             @JsonProperty("recipients")
             private List<
                 CreateCommunicationInConversationRequestRecipients
@@ -1548,6 +1557,13 @@ public class Communication extends Resource {
                 return this;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("resourceId")
+            public Builder resourceId(String resourceId) {
+                this.resourceId = resourceId;
+                return this;
+            }
+
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
             )
@@ -1580,6 +1596,7 @@ public class Communication extends Resource {
                 Objects.equals(author, other.author) &&
                 Objects.equals(content, other.content) &&
                 Objects.equals(channelId, other.channelId) &&
+                Objects.equals(resourceId, other.resourceId) &&
                 Objects.equals(recipients, other.recipients) &&
                 Objects.equals(occurredAt, other.occurredAt)
             );
@@ -1591,6 +1608,7 @@ public class Communication extends Resource {
                 author,
                 content,
                 channelId,
+                resourceId,
                 recipients,
                 occurredAt
             );

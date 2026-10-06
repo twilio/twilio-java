@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
@@ -36,6 +37,7 @@ import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 import lombok.Builder;
@@ -116,6 +118,35 @@ public class ChannelsSender extends Resource {
         @JsonCreator
         public static CallbackMethod forValue(final String value) {
             return Promoter.enumFromString(value, CallbackMethod.values());
+        }
+    }
+
+    public enum PendingDisplayNameStatus {
+        PENDING_REVIEW("PENDING_REVIEW"),
+        APPROVED("APPROVED"),
+        DECLINED("DECLINED"),
+        PIN_MISMATCH("PIN_MISMATCH"),
+        REGISTRATION_FAILED("REGISTRATION_FAILED"),
+        EXPIRED("EXPIRED"),
+        COMPLETED("COMPLETED");
+
+        private final String value;
+
+        private PendingDisplayNameStatus(final String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static PendingDisplayNameStatus forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                PendingDisplayNameStatus.values()
+            );
         }
     }
 
@@ -209,6 +240,29 @@ public class ChannelsSender extends Resource {
         @JsonCreator
         public static AccountType forValue(final String value) {
             return Promoter.enumFromString(value, AccountType.values());
+        }
+    }
+
+    public enum DisplayNameStatus {
+        UPDATING("updating"),
+        NO_CHANGE("no_change"),
+        PENDING_REVIEW("pending_review"),
+        ERROR("error");
+
+        private final String value;
+
+        private DisplayNameStatus(final String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static DisplayNameStatus forValue(final String value) {
+            return Promoter.enumFromString(value, DisplayNameStatus.values());
         }
     }
 
@@ -2336,12 +2390,25 @@ public class ChannelsSender extends Resource {
     private final MessagingV2ChannelsSenderConfiguration configuration;
 
     @Getter
+    private final ChannelsSender.DisplayNameStatus displayNameStatus;
+
+    @Getter
     private final String friendlyName;
 
     @Getter
     private final List<
         MessagingV2ChannelsSenderOfflineReasonsItems
     > offlineReasons;
+
+    @Getter
+    private final String pendingDisplayName;
+
+    @Getter
+    private final ChannelsSender.PendingDisplayNameStatus pendingDisplayNameStatus;
+
+    @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
+    @Getter
+    private final ZonedDateTime pendingDisplayNameStatusDate;
 
     @Getter
     private final MessagingV2ChannelsSenderProfileGenericResponse profile;
@@ -2372,10 +2439,22 @@ public class ChannelsSender extends Resource {
         @JsonProperty(
             "configuration"
         ) final MessagingV2ChannelsSenderConfiguration configuration,
+        @JsonProperty(
+            "display_name_status"
+        ) final ChannelsSender.DisplayNameStatus displayNameStatus,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("offline_reasons") final List<
             MessagingV2ChannelsSenderOfflineReasonsItems
         > offlineReasons,
+        @JsonProperty("pending_display_name") final String pendingDisplayName,
+        @JsonProperty(
+            "pending_display_name_status"
+        ) final ChannelsSender.PendingDisplayNameStatus pendingDisplayNameStatus,
+        @JsonProperty("pending_display_name_status_date") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) @JsonSerialize(
+            using = com.twilio.converter.ISO8601Serializer.class
+        ) final ZonedDateTime pendingDisplayNameStatusDate,
         @JsonProperty(
             "profile"
         ) final MessagingV2ChannelsSenderProfileGenericResponse profile,
@@ -2390,8 +2469,12 @@ public class ChannelsSender extends Resource {
     ) {
         this.compliance = compliance;
         this.configuration = configuration;
+        this.displayNameStatus = displayNameStatus;
         this.friendlyName = friendlyName;
         this.offlineReasons = offlineReasons;
+        this.pendingDisplayName = pendingDisplayName;
+        this.pendingDisplayNameStatus = pendingDisplayNameStatus;
+        this.pendingDisplayNameStatusDate = pendingDisplayNameStatusDate;
         this.profile = profile;
         this.properties = properties;
         this.senderId = senderId;
@@ -2415,8 +2498,18 @@ public class ChannelsSender extends Resource {
         return (
             Objects.equals(compliance, other.compliance) &&
             Objects.equals(configuration, other.configuration) &&
+            Objects.equals(displayNameStatus, other.displayNameStatus) &&
             Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(offlineReasons, other.offlineReasons) &&
+            Objects.equals(pendingDisplayName, other.pendingDisplayName) &&
+            Objects.equals(
+                pendingDisplayNameStatus,
+                other.pendingDisplayNameStatus
+            ) &&
+            Objects.equals(
+                pendingDisplayNameStatusDate,
+                other.pendingDisplayNameStatusDate
+            ) &&
             Objects.equals(profile, other.profile) &&
             Objects.equals(properties, other.properties) &&
             Objects.equals(senderId, other.senderId) &&
@@ -2432,8 +2525,12 @@ public class ChannelsSender extends Resource {
         return Objects.hash(
             compliance,
             configuration,
+            displayNameStatus,
             friendlyName,
             offlineReasons,
+            pendingDisplayName,
+            pendingDisplayNameStatus,
+            pendingDisplayNameStatusDate,
             profile,
             properties,
             senderId,

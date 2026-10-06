@@ -257,7 +257,13 @@ public class Configuration extends Resource {
         private final String memoryStoreId;
 
         @Getter
+        private final List<String> observationExtractionStrategyIds;
+
+        @Getter
         private final List<ConversationsV2StatusCallbackConfig> statusCallbacks;
+
+        @Getter
+        private final List<String> traitExtractionStrategyIds;
 
         @Getter
         private final ZonedDateTime updatedAt;
@@ -288,9 +294,15 @@ public class Configuration extends Resource {
                 "memoryExtractionEnabled"
             ) final Boolean memoryExtractionEnabled,
             @JsonProperty("memoryStoreId") final String memoryStoreId,
+            @JsonProperty("observationExtractionStrategyIds") final List<
+                String
+            > observationExtractionStrategyIds,
             @JsonProperty("statusCallbacks") final List<
                 ConversationsV2StatusCallbackConfig
             > statusCallbacks,
+            @JsonProperty("traitExtractionStrategyIds") final List<
+                String
+            > traitExtractionStrategyIds,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt,
             @JsonProperty("version") final Long version
         ) {
@@ -304,7 +316,10 @@ public class Configuration extends Resource {
             this.intelligenceConfigurationIds = intelligenceConfigurationIds;
             this.memoryExtractionEnabled = memoryExtractionEnabled;
             this.memoryStoreId = memoryStoreId;
+            this.observationExtractionStrategyIds =
+                observationExtractionStrategyIds;
             this.statusCallbacks = statusCallbacks;
+            this.traitExtractionStrategyIds = traitExtractionStrategyIds;
             this.updatedAt = updatedAt;
             this.version = version;
         }
@@ -359,7 +374,15 @@ public class Configuration extends Resource {
                     other.memoryExtractionEnabled
                 ) &&
                 Objects.equals(memoryStoreId, other.memoryStoreId) &&
+                Objects.equals(
+                    observationExtractionStrategyIds,
+                    other.observationExtractionStrategyIds
+                ) &&
                 Objects.equals(statusCallbacks, other.statusCallbacks) &&
+                Objects.equals(
+                    traitExtractionStrategyIds,
+                    other.traitExtractionStrategyIds
+                ) &&
                 Objects.equals(updatedAt, other.updatedAt) &&
                 Objects.equals(version, other.version)
             );
@@ -378,7 +401,9 @@ public class Configuration extends Resource {
                 intelligenceConfigurationIds,
                 memoryExtractionEnabled,
                 memoryStoreId,
+                observationExtractionStrategyIds,
                 statusCallbacks,
+                traitExtractionStrategyIds,
                 updatedAt,
                 version
             );
@@ -479,7 +504,13 @@ public class Configuration extends Resource {
         private final String memoryStoreId;
 
         @Getter
+        private final List<String> observationExtractionStrategyIds;
+
+        @Getter
         private final List<ConversationsV2StatusCallbackConfig> statusCallbacks;
+
+        @Getter
+        private final List<String> traitExtractionStrategyIds;
 
         @Getter
         private final ZonedDateTime updatedAt;
@@ -510,9 +541,15 @@ public class Configuration extends Resource {
                 "memoryExtractionEnabled"
             ) final Boolean memoryExtractionEnabled,
             @JsonProperty("memoryStoreId") final String memoryStoreId,
+            @JsonProperty("observationExtractionStrategyIds") final List<
+                String
+            > observationExtractionStrategyIds,
             @JsonProperty("statusCallbacks") final List<
                 ConversationsV2StatusCallbackConfig
             > statusCallbacks,
+            @JsonProperty("traitExtractionStrategyIds") final List<
+                String
+            > traitExtractionStrategyIds,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt,
             @JsonProperty("version") final Long version
         ) {
@@ -526,7 +563,10 @@ public class Configuration extends Resource {
             this.intelligenceConfigurationIds = intelligenceConfigurationIds;
             this.memoryExtractionEnabled = memoryExtractionEnabled;
             this.memoryStoreId = memoryStoreId;
+            this.observationExtractionStrategyIds =
+                observationExtractionStrategyIds;
             this.statusCallbacks = statusCallbacks;
+            this.traitExtractionStrategyIds = traitExtractionStrategyIds;
             this.updatedAt = updatedAt;
             this.version = version;
         }
@@ -581,7 +621,15 @@ public class Configuration extends Resource {
                     other.memoryExtractionEnabled
                 ) &&
                 Objects.equals(memoryStoreId, other.memoryStoreId) &&
+                Objects.equals(
+                    observationExtractionStrategyIds,
+                    other.observationExtractionStrategyIds
+                ) &&
                 Objects.equals(statusCallbacks, other.statusCallbacks) &&
+                Objects.equals(
+                    traitExtractionStrategyIds,
+                    other.traitExtractionStrategyIds
+                ) &&
                 Objects.equals(updatedAt, other.updatedAt) &&
                 Objects.equals(version, other.version)
             );
@@ -600,7 +648,9 @@ public class Configuration extends Resource {
                 intelligenceConfigurationIds,
                 memoryExtractionEnabled,
                 memoryStoreId,
+                observationExtractionStrategyIds,
                 statusCallbacks,
+                traitExtractionStrategyIds,
                 updatedAt,
                 version
             );
@@ -2902,6 +2952,16 @@ public class Configuration extends Resource {
         private final List<String> intelligenceConfigurationIds;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("traitExtractionStrategyIds")
+        @Getter
+        private final List<String> traitExtractionStrategyIds;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("observationExtractionStrategyIds")
+        @Getter
+        private final List<String> observationExtractionStrategyIds;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("memoryExtractionEnabled")
         @Getter
         private final Boolean memoryExtractionEnabled;
@@ -2940,6 +3000,10 @@ public class Configuration extends Resource {
             this.statusCallbacks = builder.statusCallbacks;
             this.intelligenceConfigurationIds =
                 builder.intelligenceConfigurationIds;
+            this.traitExtractionStrategyIds =
+                builder.traitExtractionStrategyIds;
+            this.observationExtractionStrategyIds =
+                builder.observationExtractionStrategyIds;
             this.memoryExtractionEnabled = builder.memoryExtractionEnabled;
             this.conversationsV1Bridge = builder.conversationsV1Bridge;
             this.createdAt = builder.createdAt;
@@ -3000,6 +3064,12 @@ public class Configuration extends Resource {
 
             @JsonProperty("intelligenceConfigurationIds")
             private List<String> intelligenceConfigurationIds;
+
+            @JsonProperty("traitExtractionStrategyIds")
+            private List<String> traitExtractionStrategyIds;
+
+            @JsonProperty("observationExtractionStrategyIds")
+            private List<String> observationExtractionStrategyIds;
 
             @JsonProperty("memoryExtractionEnabled")
             private Boolean memoryExtractionEnabled;
@@ -3066,6 +3136,25 @@ public class Configuration extends Resource {
             ) {
                 this.intelligenceConfigurationIds =
                     intelligenceConfigurationIds;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("traitExtractionStrategyIds")
+            public Builder traitExtractionStrategyIds(
+                List<String> traitExtractionStrategyIds
+            ) {
+                this.traitExtractionStrategyIds = traitExtractionStrategyIds;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("observationExtractionStrategyIds")
+            public Builder observationExtractionStrategyIds(
+                List<String> observationExtractionStrategyIds
+            ) {
+                this.observationExtractionStrategyIds =
+                    observationExtractionStrategyIds;
                 return this;
             }
 
@@ -3149,6 +3238,14 @@ public class Configuration extends Resource {
                     other.intelligenceConfigurationIds
                 ) &&
                 Objects.equals(
+                    traitExtractionStrategyIds,
+                    other.traitExtractionStrategyIds
+                ) &&
+                Objects.equals(
+                    observationExtractionStrategyIds,
+                    other.observationExtractionStrategyIds
+                ) &&
+                Objects.equals(
                     memoryExtractionEnabled,
                     other.memoryExtractionEnabled
                 ) &&
@@ -3173,6 +3270,8 @@ public class Configuration extends Resource {
                 channelSettings,
                 statusCallbacks,
                 intelligenceConfigurationIds,
+                traitExtractionStrategyIds,
+                observationExtractionStrategyIds,
                 memoryExtractionEnabled,
                 conversationsV1Bridge,
                 createdAt,

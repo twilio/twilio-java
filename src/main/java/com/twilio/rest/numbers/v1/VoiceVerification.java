@@ -16,21 +16,28 @@ package com.twilio.rest.numbers.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.type.*;
 import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Objects;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -38,8 +45,242 @@ import lombok.ToString;
 @ToString
 public class VoiceVerification extends Resource {
 
-    public static VoiceVerificationCreator creator() {
-        return new VoiceVerificationCreator();
+    public static VoiceVerificationCreator creator(
+        final VoiceVerification.NumbersV1VoiceVerificationRequest numbersV1VoiceVerificationRequest
+    ) {
+        return new VoiceVerificationCreator(numbersV1VoiceVerificationRequest);
+    }
+
+    public enum StatusCallbackMethod {
+        HEAD("HEAD"),
+        GET("GET"),
+        POST("POST"),
+        PATCH("PATCH"),
+        PUT("PUT"),
+        DELETE("DELETE");
+
+        private final String value;
+
+        private StatusCallbackMethod(final String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static StatusCallbackMethod forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                StatusCallbackMethod.values()
+            );
+        }
+    }
+
+    @JsonDeserialize(builder = NumbersV1VoiceVerificationRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class NumbersV1VoiceVerificationRequest {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("phone_number")
+        @Getter
+        private final String phoneNumber;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("friendly_name")
+        @Getter
+        private final String friendlyName;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("custom_code")
+        @Getter
+        private final String customCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("call_delay")
+        @Getter
+        private final String callDelay;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("status_callback")
+        @Getter
+        private final URI statusCallback;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("status_callback_method")
+        @Getter
+        private final VoiceVerification.StatusCallbackMethod statusCallbackMethod;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("extension")
+        @Getter
+        private final String extension;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("custom_success_message")
+        @Getter
+        private final String customSuccessMessage;
+
+        private NumbersV1VoiceVerificationRequest(Builder builder) {
+            this.phoneNumber = builder.phoneNumber;
+            this.friendlyName = builder.friendlyName;
+            this.customCode = builder.customCode;
+            this.callDelay = builder.callDelay;
+            this.statusCallback = builder.statusCallback;
+            this.statusCallbackMethod = builder.statusCallbackMethod;
+            this.extension = builder.extension;
+            this.customSuccessMessage = builder.customSuccessMessage;
+        }
+
+        public static Builder builder(final String phoneNumber) {
+            return new Builder(phoneNumber);
+        }
+
+        public static NumbersV1VoiceVerificationRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                NumbersV1VoiceVerificationRequest.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("phone_number")
+            private String phoneNumber;
+
+            @JsonProperty("friendly_name")
+            private String friendlyName;
+
+            @JsonProperty("custom_code")
+            private String customCode;
+
+            @JsonProperty("call_delay")
+            private String callDelay;
+
+            @JsonProperty("status_callback")
+            private URI statusCallback;
+
+            @JsonProperty("status_callback_method")
+            private VoiceVerification.StatusCallbackMethod statusCallbackMethod;
+
+            @JsonProperty("extension")
+            private String extension;
+
+            @JsonProperty("custom_success_message")
+            private String customSuccessMessage;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty("phone_number") final String phoneNumber
+            ) {
+                this.phoneNumber = phoneNumber;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("friendly_name")
+            public Builder friendlyName(String friendlyName) {
+                this.friendlyName = friendlyName;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("custom_code")
+            public Builder customCode(String customCode) {
+                this.customCode = customCode;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("call_delay")
+            public Builder callDelay(String callDelay) {
+                this.callDelay = callDelay;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("status_callback")
+            public Builder statusCallback(URI statusCallback) {
+                this.statusCallback = statusCallback;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("status_callback_method")
+            public Builder statusCallbackMethod(
+                VoiceVerification.StatusCallbackMethod statusCallbackMethod
+            ) {
+                this.statusCallbackMethod = statusCallbackMethod;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("extension")
+            public Builder extension(String extension) {
+                this.extension = extension;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("custom_success_message")
+            public Builder customSuccessMessage(String customSuccessMessage) {
+                this.customSuccessMessage = customSuccessMessage;
+                return this;
+            }
+
+            public NumbersV1VoiceVerificationRequest build() {
+                return new NumbersV1VoiceVerificationRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            NumbersV1VoiceVerificationRequest other =
+                (NumbersV1VoiceVerificationRequest) o;
+            return (
+                Objects.equals(phoneNumber, other.phoneNumber) &&
+                Objects.equals(friendlyName, other.friendlyName) &&
+                Objects.equals(customCode, other.customCode) &&
+                Objects.equals(callDelay, other.callDelay) &&
+                Objects.equals(statusCallback, other.statusCallback) &&
+                Objects.equals(
+                    statusCallbackMethod,
+                    other.statusCallbackMethod
+                ) &&
+                Objects.equals(extension, other.extension) &&
+                Objects.equals(customSuccessMessage, other.customSuccessMessage)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                phoneNumber,
+                friendlyName,
+                customCode,
+                callDelay,
+                statusCallback,
+                statusCallbackMethod,
+                extension,
+                customSuccessMessage
+            );
+        }
     }
 
     /**

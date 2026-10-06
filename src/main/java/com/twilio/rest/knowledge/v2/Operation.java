@@ -413,25 +413,25 @@ public class Operation extends Resource {
     public static class OperationResultResourceId {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("type")
-        @Getter
-        private final Operation.Type type;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
         @Getter
         private final String id;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        private final Operation.Type type;
+
         private OperationResultResourceId(Builder builder) {
-            this.type = builder.type;
             this.id = builder.id;
+            this.type = builder.type;
         }
 
         public static Builder builder(
-            final Operation.Type type,
-            final String id
+            final String id,
+            final Operation.Type type
         ) {
-            return new Builder(type, id);
+            return new Builder(id, type);
         }
 
         public static OperationResultResourceId fromJson(
@@ -448,19 +448,19 @@ public class Operation extends Resource {
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
-            @JsonProperty("type")
-            private Operation.Type type;
-
             @JsonProperty("id")
             private String id;
 
+            @JsonProperty("type")
+            private Operation.Type type;
+
             @JsonCreator
             public Builder(
-                @JsonProperty("type") final Operation.Type type,
-                @JsonProperty("id") final String id
+                @JsonProperty("id") final String id,
+                @JsonProperty("type") final Operation.Type type
             ) {
-                this.type = type;
                 this.id = id;
+                this.type = type;
             }
 
             public OperationResultResourceId build() {
@@ -480,13 +480,13 @@ public class Operation extends Resource {
 
             OperationResultResourceId other = (OperationResultResourceId) o;
             return (
-                Objects.equals(type, other.type) && Objects.equals(id, other.id)
+                Objects.equals(id, other.id) && Objects.equals(type, other.type)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(type, id);
+            return Objects.hash(id, type);
         }
     }
 

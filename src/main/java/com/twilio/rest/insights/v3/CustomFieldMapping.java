@@ -37,7 +37,6 @@ import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
@@ -60,7 +59,7 @@ public class CustomFieldMapping extends Resource {
         private final String description;
 
         @Getter
-        private final IntelligenceOperatorEntityMetadata entityMetadata;
+        private final EntityMetadata entityMetadata;
 
         @Getter
         private final String id;
@@ -78,9 +77,7 @@ public class CustomFieldMapping extends Resource {
             ) final CustomFieldMapping.MappingCategory category,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("description") final String description,
-            @JsonProperty(
-                "entityMetadata"
-            ) final IntelligenceOperatorEntityMetadata entityMetadata,
+            @JsonProperty("entityMetadata") final EntityMetadata entityMetadata,
             @JsonProperty("id") final String id,
             @JsonProperty("name") final String name,
             @JsonProperty("updatedAt") final ZonedDateTime updatedAt
@@ -236,8 +233,47 @@ public class CustomFieldMapping extends Resource {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ListCustomFieldMappingResponse extends Resource {
 
+        @Getter
+        private final CustomFieldMapping.MappingCategory category;
+
+        @Getter
+        private final ZonedDateTime createdAt;
+
+        @Getter
+        private final String description;
+
+        @Getter
+        private final EntityMetadata entityMetadata;
+
+        @Getter
+        private final String id;
+
+        @Getter
+        private final String name;
+
+        @Getter
+        private final ZonedDateTime updatedAt;
+
         @JsonCreator
-        private ListCustomFieldMappingResponse() {}
+        private ListCustomFieldMappingResponse(
+            @JsonProperty(
+                "category"
+            ) final CustomFieldMapping.MappingCategory category,
+            @JsonProperty("createdAt") final ZonedDateTime createdAt,
+            @JsonProperty("description") final String description,
+            @JsonProperty("entityMetadata") final EntityMetadata entityMetadata,
+            @JsonProperty("id") final String id,
+            @JsonProperty("name") final String name,
+            @JsonProperty("updatedAt") final ZonedDateTime updatedAt
+        ) {
+            this.category = category;
+            this.createdAt = createdAt;
+            this.description = description;
+            this.entityMetadata = entityMetadata;
+            this.id = id;
+            this.name = name;
+            this.updatedAt = updatedAt;
+        }
 
         public static ListCustomFieldMappingResponse fromJson(
             final InputStream json,
@@ -267,20 +303,75 @@ public class CustomFieldMapping extends Resource {
             }
             ListCustomFieldMappingResponse other =
                 (ListCustomFieldMappingResponse) o;
-            return (true);
+            return (
+                Objects.equals(category, other.category) &&
+                Objects.equals(createdAt, other.createdAt) &&
+                Objects.equals(description, other.description) &&
+                Objects.equals(entityMetadata, other.entityMetadata) &&
+                Objects.equals(id, other.id) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(updatedAt, other.updatedAt)
+            );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash();
+            return Objects.hash(
+                category,
+                createdAt,
+                description,
+                entityMetadata,
+                id,
+                name,
+                updatedAt
+            );
         }
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PatchCustomFieldMappingResponse extends Resource {
 
+        @Getter
+        private final CustomFieldMapping.MappingCategory category;
+
+        @Getter
+        private final ZonedDateTime createdAt;
+
+        @Getter
+        private final String description;
+
+        @Getter
+        private final EntityMetadata entityMetadata;
+
+        @Getter
+        private final String id;
+
+        @Getter
+        private final String name;
+
+        @Getter
+        private final ZonedDateTime updatedAt;
+
         @JsonCreator
-        private PatchCustomFieldMappingResponse() {}
+        private PatchCustomFieldMappingResponse(
+            @JsonProperty(
+                "category"
+            ) final CustomFieldMapping.MappingCategory category,
+            @JsonProperty("createdAt") final ZonedDateTime createdAt,
+            @JsonProperty("description") final String description,
+            @JsonProperty("entityMetadata") final EntityMetadata entityMetadata,
+            @JsonProperty("id") final String id,
+            @JsonProperty("name") final String name,
+            @JsonProperty("updatedAt") final ZonedDateTime updatedAt
+        ) {
+            this.category = category;
+            this.createdAt = createdAt;
+            this.description = description;
+            this.entityMetadata = entityMetadata;
+            this.id = id;
+            this.name = name;
+            this.updatedAt = updatedAt;
+        }
 
         public static PatchCustomFieldMappingResponse fromJson(
             final InputStream json,
@@ -310,12 +401,28 @@ public class CustomFieldMapping extends Resource {
             }
             PatchCustomFieldMappingResponse other =
                 (PatchCustomFieldMappingResponse) o;
-            return true;
+            return (
+                Objects.equals(category, other.category) &&
+                Objects.equals(createdAt, other.createdAt) &&
+                Objects.equals(description, other.description) &&
+                Objects.equals(entityMetadata, other.entityMetadata) &&
+                Objects.equals(id, other.id) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(updatedAt, other.updatedAt)
+            );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash();
+            return Objects.hash(
+                category,
+                createdAt,
+                description,
+                entityMetadata,
+                id,
+                name,
+                updatedAt
+            );
         }
     }
 
@@ -323,15 +430,45 @@ public class CustomFieldMapping extends Resource {
     public static class FetchCustomFieldMappingResponse extends Resource {
 
         @Getter
-        private final List<CustomFieldMappingResponse> mappings;
+        private final CustomFieldMapping.MappingCategory category;
+
+        @Getter
+        private final ZonedDateTime createdAt;
+
+        @Getter
+        private final String description;
+
+        @Getter
+        private final EntityMetadata entityMetadata;
+
+        @Getter
+        private final String id;
+
+        @Getter
+        private final String name;
+
+        @Getter
+        private final ZonedDateTime updatedAt;
 
         @JsonCreator
         private FetchCustomFieldMappingResponse(
-            @JsonProperty("mappings") final List<
-                CustomFieldMappingResponse
-            > mappings
+            @JsonProperty(
+                "category"
+            ) final CustomFieldMapping.MappingCategory category,
+            @JsonProperty("createdAt") final ZonedDateTime createdAt,
+            @JsonProperty("description") final String description,
+            @JsonProperty("entityMetadata") final EntityMetadata entityMetadata,
+            @JsonProperty("id") final String id,
+            @JsonProperty("name") final String name,
+            @JsonProperty("updatedAt") final ZonedDateTime updatedAt
         ) {
-            this.mappings = mappings;
+            this.category = category;
+            this.createdAt = createdAt;
+            this.description = description;
+            this.entityMetadata = entityMetadata;
+            this.id = id;
+            this.name = name;
+            this.updatedAt = updatedAt;
         }
 
         public static FetchCustomFieldMappingResponse fromJson(
@@ -362,12 +499,28 @@ public class CustomFieldMapping extends Resource {
             }
             FetchCustomFieldMappingResponse other =
                 (FetchCustomFieldMappingResponse) o;
-            return Objects.equals(mappings, other.mappings);
+            return (
+                Objects.equals(category, other.category) &&
+                Objects.equals(createdAt, other.createdAt) &&
+                Objects.equals(description, other.description) &&
+                Objects.equals(entityMetadata, other.entityMetadata) &&
+                Objects.equals(id, other.id) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(updatedAt, other.updatedAt)
+            );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(mappings);
+            return Objects.hash(
+                category,
+                createdAt,
+                description,
+                entityMetadata,
+                id,
+                name,
+                updatedAt
+            );
         }
     }
 
@@ -377,8 +530,24 @@ public class CustomFieldMapping extends Resource {
         return new CustomFieldMappingCreator(customFieldMappingRequest);
     }
 
-    public static CustomFieldMappingFetcher fetcher() {
-        return new CustomFieldMappingFetcher();
+    public static CustomFieldMappingFetcher fetcher(
+        final String pathMappingId
+    ) {
+        return new CustomFieldMappingFetcher(pathMappingId);
+    }
+
+    public static CustomFieldMappingReader reader() {
+        return new CustomFieldMappingReader();
+    }
+
+    public static CustomFieldMappingPatcher patcher(
+        final String pathMappingId,
+        final CustomFieldMapping.CustomFieldMappingUpdateRequest customFieldMappingUpdateRequest
+    ) {
+        return new CustomFieldMappingPatcher(
+            pathMappingId,
+            customFieldMappingUpdateRequest
+        );
     }
 
     public enum SourceType {
@@ -421,6 +590,383 @@ public class CustomFieldMapping extends Resource {
         }
     }
 
+    @JsonDeserialize(builder = CustomFieldMappingUpdateRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CustomFieldMappingUpdateRequest {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("entityMetadata")
+        @Getter
+        private final EntityMetadataUpdate entityMetadata;
+
+        private CustomFieldMappingUpdateRequest(Builder builder) {
+            this.entityMetadata = builder.entityMetadata;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CustomFieldMappingUpdateRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CustomFieldMappingUpdateRequest.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("entityMetadata")
+            private EntityMetadataUpdate entityMetadata;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("entityMetadata")
+            public Builder entityMetadata(EntityMetadataUpdate entityMetadata) {
+                this.entityMetadata = entityMetadata;
+                return this;
+            }
+
+            public CustomFieldMappingUpdateRequest build() {
+                return new CustomFieldMappingUpdateRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CustomFieldMappingUpdateRequest other =
+                (CustomFieldMappingUpdateRequest) o;
+            return (Objects.equals(entityMetadata, other.entityMetadata));
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(entityMetadata);
+        }
+    }
+
+    @JsonDeserialize(builder = IntelligenceOperatorSource.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class IntelligenceOperatorSource {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("operatorId")
+        @Getter
+        private final String operatorId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("operatorName")
+        @Getter
+        private final String operatorName;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("field")
+        @Getter
+        private final String field;
+
+        private IntelligenceOperatorSource(Builder builder) {
+            this.operatorId = builder.operatorId;
+            this.operatorName = builder.operatorName;
+            this.field = builder.field;
+        }
+
+        public static Builder builder(
+            final String operatorId,
+            final String field
+        ) {
+            return new Builder(operatorId, field);
+        }
+
+        public static IntelligenceOperatorSource fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                IntelligenceOperatorSource.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("operatorId")
+            private String operatorId;
+
+            @JsonProperty("operatorName")
+            private String operatorName;
+
+            @JsonProperty("field")
+            private String field;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty("operatorId") final String operatorId,
+                @JsonProperty("field") final String field
+            ) {
+                this.operatorId = operatorId;
+                this.field = field;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("operatorName")
+            public Builder operatorName(String operatorName) {
+                this.operatorName = operatorName;
+                return this;
+            }
+
+            public IntelligenceOperatorSource build() {
+                return new IntelligenceOperatorSource(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            IntelligenceOperatorSource other = (IntelligenceOperatorSource) o;
+            return (
+                Objects.equals(operatorId, other.operatorId) &&
+                Objects.equals(operatorName, other.operatorName) &&
+                Objects.equals(field, other.field)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(operatorId, operatorName, field);
+        }
+    }
+
+    @JsonDeserialize(builder = PaginationMeta.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class PaginationMeta {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("key")
+        @Getter
+        private final String key;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("pageSize")
+        @Getter
+        private final Integer pageSize;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("previousToken")
+        @Getter
+        private final String previousToken;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("nextToken")
+        @Getter
+        private final String nextToken;
+
+        private PaginationMeta(Builder builder) {
+            this.key = builder.key;
+            this.pageSize = builder.pageSize;
+            this.previousToken = builder.previousToken;
+            this.nextToken = builder.nextToken;
+        }
+
+        public static Builder builder(
+            final String key,
+            final Integer pageSize
+        ) {
+            return new Builder(key, pageSize);
+        }
+
+        public static PaginationMeta fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, PaginationMeta.class);
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("key")
+            private String key;
+
+            @JsonProperty("pageSize")
+            private Integer pageSize;
+
+            @JsonProperty("previousToken")
+            private String previousToken;
+
+            @JsonProperty("nextToken")
+            private String nextToken;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty("key") final String key,
+                @JsonProperty("pageSize") final Integer pageSize
+            ) {
+                this.key = key;
+                this.pageSize = pageSize;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("previousToken")
+            public Builder previousToken(String previousToken) {
+                this.previousToken = previousToken;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("nextToken")
+            public Builder nextToken(String nextToken) {
+                this.nextToken = nextToken;
+                return this;
+            }
+
+            public PaginationMeta build() {
+                return new PaginationMeta(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            PaginationMeta other = (PaginationMeta) o;
+            return (
+                Objects.equals(key, other.key) &&
+                Objects.equals(pageSize, other.pageSize) &&
+                Objects.equals(previousToken, other.previousToken) &&
+                Objects.equals(nextToken, other.nextToken)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(key, pageSize, previousToken, nextToken);
+        }
+    }
+
+    @JsonDeserialize(builder = EntityMetadataUpdate.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class EntityMetadataUpdate {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sourceType")
+        @Getter
+        private final CustomFieldMapping.SourceType sourceType;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("intelligenceOperator")
+        @Getter
+        private final IntelligenceOperatorSourceUpdate intelligenceOperator;
+
+        private EntityMetadataUpdate(Builder builder) {
+            this.sourceType = builder.sourceType;
+            this.intelligenceOperator = builder.intelligenceOperator;
+        }
+
+        public static Builder builder(
+            final CustomFieldMapping.SourceType sourceType
+        ) {
+            return new Builder(sourceType);
+        }
+
+        public static EntityMetadataUpdate fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, EntityMetadataUpdate.class);
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("sourceType")
+            private CustomFieldMapping.SourceType sourceType;
+
+            @JsonProperty("intelligenceOperator")
+            private IntelligenceOperatorSourceUpdate intelligenceOperator;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty(
+                    "sourceType"
+                ) final CustomFieldMapping.SourceType sourceType
+            ) {
+                this.sourceType = sourceType;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("intelligenceOperator")
+            public Builder intelligenceOperator(
+                IntelligenceOperatorSourceUpdate intelligenceOperator
+            ) {
+                this.intelligenceOperator = intelligenceOperator;
+                return this;
+            }
+
+            public EntityMetadataUpdate build() {
+                return new EntityMetadataUpdate(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            EntityMetadataUpdate other = (EntityMetadataUpdate) o;
+            return (
+                Objects.equals(sourceType, other.sourceType) &&
+                Objects.equals(intelligenceOperator, other.intelligenceOperator)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(sourceType, intelligenceOperator);
+        }
+    }
+
     @JsonDeserialize(builder = CustomFieldMappingRequest.Builder.class)
     @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -445,7 +991,7 @@ public class CustomFieldMapping extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("entityMetadata")
         @Getter
-        private final IntelligenceOperatorEntityMetadata entityMetadata;
+        private final EntityMetadata entityMetadata;
 
         private CustomFieldMappingRequest(Builder builder) {
             this.category = builder.category;
@@ -457,7 +1003,7 @@ public class CustomFieldMapping extends Resource {
         public static Builder builder(
             final CustomFieldMapping.MappingCategory category,
             final String name,
-            final IntelligenceOperatorEntityMetadata entityMetadata
+            final EntityMetadata entityMetadata
         ) {
             return new Builder(category, name, entityMetadata);
         }
@@ -486,7 +1032,7 @@ public class CustomFieldMapping extends Resource {
             private String description;
 
             @JsonProperty("entityMetadata")
-            private IntelligenceOperatorEntityMetadata entityMetadata;
+            private EntityMetadata entityMetadata;
 
             @JsonCreator
             public Builder(
@@ -496,7 +1042,7 @@ public class CustomFieldMapping extends Resource {
                 @JsonProperty("name") final String name,
                 @JsonProperty(
                     "entityMetadata"
-                ) final IntelligenceOperatorEntityMetadata entityMetadata
+                ) final EntityMetadata entityMetadata
             ) {
                 this.category = category;
                 this.name = name;
@@ -540,6 +1086,165 @@ public class CustomFieldMapping extends Resource {
         }
     }
 
+    @JsonDeserialize(builder = EntityMetadata.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class EntityMetadata {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sourceType")
+        @Getter
+        private final CustomFieldMapping.SourceType sourceType;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("intelligenceOperator")
+        @Getter
+        private final IntelligenceOperatorSource intelligenceOperator;
+
+        private EntityMetadata(Builder builder) {
+            this.sourceType = builder.sourceType;
+            this.intelligenceOperator = builder.intelligenceOperator;
+        }
+
+        public static Builder builder(
+            final CustomFieldMapping.SourceType sourceType
+        ) {
+            return new Builder(sourceType);
+        }
+
+        public static EntityMetadata fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, EntityMetadata.class);
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("sourceType")
+            private CustomFieldMapping.SourceType sourceType;
+
+            @JsonProperty("intelligenceOperator")
+            private IntelligenceOperatorSource intelligenceOperator;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty(
+                    "sourceType"
+                ) final CustomFieldMapping.SourceType sourceType
+            ) {
+                this.sourceType = sourceType;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("intelligenceOperator")
+            public Builder intelligenceOperator(
+                IntelligenceOperatorSource intelligenceOperator
+            ) {
+                this.intelligenceOperator = intelligenceOperator;
+                return this;
+            }
+
+            public EntityMetadata build() {
+                return new EntityMetadata(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            EntityMetadata other = (EntityMetadata) o;
+            return (
+                Objects.equals(sourceType, other.sourceType) &&
+                Objects.equals(intelligenceOperator, other.intelligenceOperator)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(sourceType, intelligenceOperator);
+        }
+    }
+
+    @JsonDeserialize(builder = IntelligenceOperatorSourceUpdate.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class IntelligenceOperatorSourceUpdate {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("field")
+        @Getter
+        private final String field;
+
+        private IntelligenceOperatorSourceUpdate(Builder builder) {
+            this.field = builder.field;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static IntelligenceOperatorSourceUpdate fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                IntelligenceOperatorSourceUpdate.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("field")
+            private String field;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("field")
+            public Builder field(String field) {
+                this.field = field;
+                return this;
+            }
+
+            public IntelligenceOperatorSourceUpdate build() {
+                return new IntelligenceOperatorSourceUpdate(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            IntelligenceOperatorSourceUpdate other =
+                (IntelligenceOperatorSourceUpdate) o;
+            return (Objects.equals(field, other.field));
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(field);
+        }
+    }
+
     @JsonDeserialize(builder = CustomFieldMappingResponse.Builder.class)
     @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -569,7 +1274,7 @@ public class CustomFieldMapping extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("entityMetadata")
         @Getter
-        private final IntelligenceOperatorEntityMetadata entityMetadata;
+        private final EntityMetadata entityMetadata;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonSerialize(using = com.twilio.converter.ISO8601Serializer.class)
@@ -598,7 +1303,7 @@ public class CustomFieldMapping extends Resource {
         public static Builder builder(
             final CustomFieldMapping.MappingCategory category,
             final String name,
-            final IntelligenceOperatorEntityMetadata entityMetadata
+            final EntityMetadata entityMetadata
         ) {
             return new Builder(category, name, entityMetadata);
         }
@@ -630,7 +1335,7 @@ public class CustomFieldMapping extends Resource {
             private String description;
 
             @JsonProperty("entityMetadata")
-            private IntelligenceOperatorEntityMetadata entityMetadata;
+            private EntityMetadata entityMetadata;
 
             @JsonDeserialize(
                 using = com.twilio.converter.ISO8601Deserializer.class
@@ -654,7 +1359,7 @@ public class CustomFieldMapping extends Resource {
                 @JsonProperty("name") final String name,
                 @JsonProperty(
                     "entityMetadata"
-                ) final IntelligenceOperatorEntityMetadata entityMetadata
+                ) final EntityMetadata entityMetadata
             ) {
                 this.category = category;
                 this.name = name;
@@ -735,124 +1440,6 @@ public class CustomFieldMapping extends Resource {
                 createdAt,
                 updatedAt
             );
-        }
-    }
-
-    @JsonDeserialize(builder = IntelligenceOperatorEntityMetadata.Builder.class)
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class IntelligenceOperatorEntityMetadata {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("sourceType")
-        @Getter
-        private final CustomFieldMapping.SourceType sourceType;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("operatorId")
-        @Getter
-        private final String operatorId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("operatorName")
-        @Getter
-        private final String operatorName;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("field")
-        @Getter
-        private final String field;
-
-        private IntelligenceOperatorEntityMetadata(Builder builder) {
-            this.sourceType = builder.sourceType;
-            this.operatorId = builder.operatorId;
-            this.operatorName = builder.operatorName;
-            this.field = builder.field;
-        }
-
-        public static Builder builder(
-            final CustomFieldMapping.SourceType sourceType,
-            final String operatorId,
-            final String field
-        ) {
-            return new Builder(sourceType, operatorId, field);
-        }
-
-        public static IntelligenceOperatorEntityMetadata fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                IntelligenceOperatorEntityMetadata.class
-            );
-        }
-
-        @JsonIgnoreProperties(ignoreUnknown = true)
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonProperty("sourceType")
-            private CustomFieldMapping.SourceType sourceType;
-
-            @JsonProperty("operatorId")
-            private String operatorId;
-
-            @JsonProperty("operatorName")
-            private String operatorName;
-
-            @JsonProperty("field")
-            private String field;
-
-            @JsonCreator
-            public Builder(
-                @JsonProperty(
-                    "sourceType"
-                ) final CustomFieldMapping.SourceType sourceType,
-                @JsonProperty("operatorId") final String operatorId,
-                @JsonProperty("field") final String field
-            ) {
-                this.sourceType = sourceType;
-                this.operatorId = operatorId;
-                this.field = field;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("operatorName")
-            public Builder operatorName(String operatorName) {
-                this.operatorName = operatorName;
-                return this;
-            }
-
-            public IntelligenceOperatorEntityMetadata build() {
-                return new IntelligenceOperatorEntityMetadata(this);
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            IntelligenceOperatorEntityMetadata other =
-                (IntelligenceOperatorEntityMetadata) o;
-            return (
-                Objects.equals(sourceType, other.sourceType) &&
-                Objects.equals(operatorId, other.operatorId) &&
-                Objects.equals(operatorName, other.operatorName) &&
-                Objects.equals(field, other.field)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(sourceType, operatorId, operatorName, field);
         }
     }
 

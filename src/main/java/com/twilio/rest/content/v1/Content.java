@@ -2882,7 +2882,7 @@ public class Content extends Resource {
         private final String title;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("timeSlots")
+        @JsonProperty("time_slots")
         @Getter
         private final String timeSlots;
 
@@ -2917,14 +2917,14 @@ public class Content extends Resource {
             @JsonProperty("title")
             private String title;
 
-            @JsonProperty("timeSlots")
+            @JsonProperty("time_slots")
             private String timeSlots;
 
             @JsonCreator
             public Builder(
                 @JsonProperty("id") final String id,
                 @JsonProperty("title") final String title,
-                @JsonProperty("timeSlots") final String timeSlots
+                @JsonProperty("time_slots") final String timeSlots
             ) {
                 this.id = id;
                 this.title = title;

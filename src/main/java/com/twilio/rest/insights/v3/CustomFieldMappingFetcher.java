@@ -30,11 +30,21 @@ import java.io.InputStream;
 public class CustomFieldMappingFetcher
     extends Fetcher<CustomFieldMapping.FetchCustomFieldMappingResponse> {
 
-    public CustomFieldMappingFetcher() {}
+    private String pathMappingId;
+
+    public CustomFieldMappingFetcher(final String pathMappingId) {
+        this.pathMappingId = pathMappingId;
+    }
 
     private Response makeRequest(final TwilioRestClient client) {
         String path =
-            "/v3/ControlPlane/ConversationInsights/CustomFieldMappings";
+            "/v3/ControlPlane/ConversationInsights/CustomFieldMappings/{mappingId}";
+
+        path =
+            path.replace(
+                "{" + "mappingId" + "}",
+                this.pathMappingId.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

@@ -62,6 +62,10 @@ public class AuthorizationDocument extends Resource {
         );
     }
 
+    public static AuthorizationDocumentDeleter deleter(final String pathSid) {
+        return new AuthorizationDocumentDeleter(pathSid);
+    }
+
     public static AuthorizationDocumentFetcher fetcher(final String pathSid) {
         return new AuthorizationDocumentFetcher(pathSid);
     }

@@ -61,6 +61,9 @@ public class Action extends Resource {
         private final ZonedDateTime createdAt;
 
         @Getter
+        private final String failureReason;
+
+        @Getter
         private final String id;
 
         @Getter
@@ -80,6 +83,7 @@ public class Action extends Resource {
             @JsonProperty("completedAt") final ZonedDateTime completedAt,
             @JsonProperty("conversationId") final String conversationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
+            @JsonProperty("failureReason") final String failureReason,
             @JsonProperty("id") final String id,
             @JsonProperty("related") final Map<String, String> related,
             @JsonProperty(
@@ -91,6 +95,7 @@ public class Action extends Resource {
             this.completedAt = completedAt;
             this.conversationId = conversationId;
             this.createdAt = createdAt;
+            this.failureReason = failureReason;
             this.id = id;
             this.related = related;
             this.status = status;
@@ -126,6 +131,7 @@ public class Action extends Resource {
                 Objects.equals(completedAt, other.completedAt) &&
                 Objects.equals(conversationId, other.conversationId) &&
                 Objects.equals(createdAt, other.createdAt) &&
+                Objects.equals(failureReason, other.failureReason) &&
                 Objects.equals(id, other.id) &&
                 Objects.equals(related, other.related) &&
                 Objects.equals(status, other.status) &&
@@ -140,6 +146,7 @@ public class Action extends Resource {
                 completedAt,
                 conversationId,
                 createdAt,
+                failureReason,
                 id,
                 related,
                 status,
@@ -318,6 +325,9 @@ public class Action extends Resource {
         private final ZonedDateTime createdAt;
 
         @Getter
+        private final String failureReason;
+
+        @Getter
         private final String id;
 
         @Getter
@@ -337,6 +347,7 @@ public class Action extends Resource {
             @JsonProperty("completedAt") final ZonedDateTime completedAt,
             @JsonProperty("conversationId") final String conversationId,
             @JsonProperty("createdAt") final ZonedDateTime createdAt,
+            @JsonProperty("failureReason") final String failureReason,
             @JsonProperty("id") final String id,
             @JsonProperty("related") final Map<String, String> related,
             @JsonProperty(
@@ -348,6 +359,7 @@ public class Action extends Resource {
             this.completedAt = completedAt;
             this.conversationId = conversationId;
             this.createdAt = createdAt;
+            this.failureReason = failureReason;
             this.id = id;
             this.related = related;
             this.status = status;
@@ -383,6 +395,7 @@ public class Action extends Resource {
                 Objects.equals(completedAt, other.completedAt) &&
                 Objects.equals(conversationId, other.conversationId) &&
                 Objects.equals(createdAt, other.createdAt) &&
+                Objects.equals(failureReason, other.failureReason) &&
                 Objects.equals(id, other.id) &&
                 Objects.equals(related, other.related) &&
                 Objects.equals(status, other.status) &&
@@ -397,6 +410,7 @@ public class Action extends Resource {
                 completedAt,
                 conversationId,
                 createdAt,
+                failureReason,
                 id,
                 related,
                 status,

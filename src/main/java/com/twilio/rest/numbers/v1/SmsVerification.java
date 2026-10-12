@@ -43,8 +43,113 @@ import lombok.ToString;
 @ToString
 public class SmsVerification extends Resource {
 
-    public static SmsVerificationCreator creator() {
-        return new SmsVerificationCreator();
+    public static SmsVerificationCreator creator(
+        final SmsVerification.NumbersV1SmsVerificationRequest numbersV1SmsVerificationRequest
+    ) {
+        return new SmsVerificationCreator(numbersV1SmsVerificationRequest);
+    }
+
+    @JsonDeserialize(builder = NumbersV1SmsVerificationRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class NumbersV1SmsVerificationRequest {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("to")
+        @Getter
+        private final String to;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("locale")
+        @Getter
+        private final String locale;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("friendly_name")
+        @Getter
+        private final String friendlyName;
+
+        private NumbersV1SmsVerificationRequest(Builder builder) {
+            this.to = builder.to;
+            this.locale = builder.locale;
+            this.friendlyName = builder.friendlyName;
+        }
+
+        public static Builder builder(final String to) {
+            return new Builder(to);
+        }
+
+        public static NumbersV1SmsVerificationRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                NumbersV1SmsVerificationRequest.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("to")
+            private String to;
+
+            @JsonProperty("locale")
+            private String locale;
+
+            @JsonProperty("friendly_name")
+            private String friendlyName;
+
+            @JsonCreator
+            public Builder(@JsonProperty("to") final String to) {
+                this.to = to;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("locale")
+            public Builder locale(String locale) {
+                this.locale = locale;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("friendly_name")
+            public Builder friendlyName(String friendlyName) {
+                this.friendlyName = friendlyName;
+                return this;
+            }
+
+            public NumbersV1SmsVerificationRequest build() {
+                return new NumbersV1SmsVerificationRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            NumbersV1SmsVerificationRequest other =
+                (NumbersV1SmsVerificationRequest) o;
+            return (
+                Objects.equals(to, other.to) &&
+                Objects.equals(locale, other.locale) &&
+                Objects.equals(friendlyName, other.friendlyName)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(to, locale, friendlyName);
+        }
     }
 
     @JsonDeserialize(

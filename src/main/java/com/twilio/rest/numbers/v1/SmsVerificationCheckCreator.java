@@ -14,8 +14,10 @@
 
 package com.twilio.rest.numbers.v1;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
 import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,7 +31,22 @@ import java.io.InputStream;
 
 public class SmsVerificationCheckCreator extends Creator<SmsVerificationCheck> {
 
-    public SmsVerificationCheckCreator() {}
+    private SmsVerificationCheck.NumbersV1SmsVerificationCheckRequest numbersV1SmsVerificationCheckRequest;
+
+    public SmsVerificationCheckCreator(
+        final SmsVerificationCheck.NumbersV1SmsVerificationCheckRequest numbersV1SmsVerificationCheckRequest
+    ) {
+        this.numbersV1SmsVerificationCheckRequest =
+            numbersV1SmsVerificationCheckRequest;
+    }
+
+    public SmsVerificationCheckCreator setNumbersV1SmsVerificationCheckRequest(
+        final SmsVerificationCheck.NumbersV1SmsVerificationCheckRequest numbersV1SmsVerificationCheckRequest
+    ) {
+        this.numbersV1SmsVerificationCheckRequest =
+            numbersV1SmsVerificationCheckRequest;
+        return this;
+    }
 
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/CallerIds/SmsVerificationChecks";
@@ -39,6 +56,8 @@ public class SmsVerificationCheckCreator extends Creator<SmsVerificationCheck> {
             Domains.NUMBERS.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.JSON);
+        addPostParams(request, client);
 
         Response response = client.request(request);
 
@@ -86,5 +105,17 @@ public class SmsVerificationCheckCreator extends Creator<SmsVerificationCheck> {
             response.getStatusCode(),
             response.getHeaders()
         );
+    }
+
+    private void addPostParams(final Request request, TwilioRestClient client) {
+        ObjectMapper objectMapper = client.getObjectMapper();
+        if (numbersV1SmsVerificationCheckRequest != null) {
+            request.setBody(
+                SmsVerificationCheck.toJson(
+                    numbersV1SmsVerificationCheckRequest,
+                    objectMapper
+                )
+            );
+        }
     }
 }

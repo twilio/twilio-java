@@ -14,8 +14,10 @@
 
 package com.twilio.rest.numbers.v1;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
 import com.twilio.base.TwilioResponse;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,7 +31,22 @@ import java.io.InputStream;
 
 public class VoiceVerificationCreator extends Creator<VoiceVerification> {
 
-    public VoiceVerificationCreator() {}
+    private VoiceVerification.NumbersV1VoiceVerificationRequest numbersV1VoiceVerificationRequest;
+
+    public VoiceVerificationCreator(
+        final VoiceVerification.NumbersV1VoiceVerificationRequest numbersV1VoiceVerificationRequest
+    ) {
+        this.numbersV1VoiceVerificationRequest =
+            numbersV1VoiceVerificationRequest;
+    }
+
+    public VoiceVerificationCreator setNumbersV1VoiceVerificationRequest(
+        final VoiceVerification.NumbersV1VoiceVerificationRequest numbersV1VoiceVerificationRequest
+    ) {
+        this.numbersV1VoiceVerificationRequest =
+            numbersV1VoiceVerificationRequest;
+        return this;
+    }
 
     private Response makeRequest(final TwilioRestClient client) {
         String path = "/v1/CallerIds/VoiceVerifications";
@@ -39,6 +56,8 @@ public class VoiceVerificationCreator extends Creator<VoiceVerification> {
             Domains.NUMBERS.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.JSON);
+        addPostParams(request, client);
 
         Response response = client.request(request);
 
@@ -86,5 +105,17 @@ public class VoiceVerificationCreator extends Creator<VoiceVerification> {
             response.getStatusCode(),
             response.getHeaders()
         );
+    }
+
+    private void addPostParams(final Request request, TwilioRestClient client) {
+        ObjectMapper objectMapper = client.getObjectMapper();
+        if (numbersV1VoiceVerificationRequest != null) {
+            request.setBody(
+                VoiceVerification.toJson(
+                    numbersV1VoiceVerificationRequest,
+                    objectMapper
+                )
+            );
+        }
     }
 }

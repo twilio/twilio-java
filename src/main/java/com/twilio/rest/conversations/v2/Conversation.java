@@ -1087,6 +1087,16 @@ public class Conversation extends Resource {
         private final List<String> intelligenceConfigurationIds;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("traitExtractionStrategyIds")
+        @Getter
+        private final List<String> traitExtractionStrategyIds;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("observationExtractionStrategyIds")
+        @Getter
+        private final List<String> observationExtractionStrategyIds;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("memoryExtractionEnabled")
         @Getter
         private final Boolean memoryExtractionEnabled;
@@ -1107,6 +1117,10 @@ public class Conversation extends Resource {
             this.statusCallbacks = builder.statusCallbacks;
             this.intelligenceConfigurationIds =
                 builder.intelligenceConfigurationIds;
+            this.traitExtractionStrategyIds =
+                builder.traitExtractionStrategyIds;
+            this.observationExtractionStrategyIds =
+                builder.observationExtractionStrategyIds;
             this.memoryExtractionEnabled = builder.memoryExtractionEnabled;
             this.conversationsV1Bridge = builder.conversationsV1Bridge;
         }
@@ -1149,6 +1163,12 @@ public class Conversation extends Resource {
 
             @JsonProperty("intelligenceConfigurationIds")
             private List<String> intelligenceConfigurationIds;
+
+            @JsonProperty("traitExtractionStrategyIds")
+            private List<String> traitExtractionStrategyIds;
+
+            @JsonProperty("observationExtractionStrategyIds")
+            private List<String> observationExtractionStrategyIds;
 
             @JsonProperty("memoryExtractionEnabled")
             private Boolean memoryExtractionEnabled;
@@ -1215,6 +1235,25 @@ public class Conversation extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("traitExtractionStrategyIds")
+            public Builder traitExtractionStrategyIds(
+                List<String> traitExtractionStrategyIds
+            ) {
+                this.traitExtractionStrategyIds = traitExtractionStrategyIds;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("observationExtractionStrategyIds")
+            public Builder observationExtractionStrategyIds(
+                List<String> observationExtractionStrategyIds
+            ) {
+                this.observationExtractionStrategyIds =
+                    observationExtractionStrategyIds;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("memoryExtractionEnabled")
             public Builder memoryExtractionEnabled(
                 Boolean memoryExtractionEnabled
@@ -1266,6 +1305,14 @@ public class Conversation extends Resource {
                     other.intelligenceConfigurationIds
                 ) &&
                 Objects.equals(
+                    traitExtractionStrategyIds,
+                    other.traitExtractionStrategyIds
+                ) &&
+                Objects.equals(
+                    observationExtractionStrategyIds,
+                    other.observationExtractionStrategyIds
+                ) &&
+                Objects.equals(
                     memoryExtractionEnabled,
                     other.memoryExtractionEnabled
                 ) &&
@@ -1286,6 +1333,8 @@ public class Conversation extends Resource {
                 channelSettings,
                 statusCallbacks,
                 intelligenceConfigurationIds,
+                traitExtractionStrategyIds,
+                observationExtractionStrategyIds,
                 memoryExtractionEnabled,
                 conversationsV1Bridge
             );
@@ -1688,6 +1737,16 @@ public class Conversation extends Resource {
         private final List<String> intelligenceConfigurationIds;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("traitExtractionStrategyIds")
+        @Getter
+        private final List<String> traitExtractionStrategyIds;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("observationExtractionStrategyIds")
+        @Getter
+        private final List<String> observationExtractionStrategyIds;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("workflows")
         @Getter
         private final List<ConversationWorkflow> workflows;
@@ -1697,6 +1756,10 @@ public class Conversation extends Resource {
         ) {
             this.intelligenceConfigurationIds =
                 builder.intelligenceConfigurationIds;
+            this.traitExtractionStrategyIds =
+                builder.traitExtractionStrategyIds;
+            this.observationExtractionStrategyIds =
+                builder.observationExtractionStrategyIds;
             this.workflows = builder.workflows;
         }
 
@@ -1721,6 +1784,12 @@ public class Conversation extends Resource {
             @JsonProperty("intelligenceConfigurationIds")
             private List<String> intelligenceConfigurationIds;
 
+            @JsonProperty("traitExtractionStrategyIds")
+            private List<String> traitExtractionStrategyIds;
+
+            @JsonProperty("observationExtractionStrategyIds")
+            private List<String> observationExtractionStrategyIds;
+
             @JsonProperty("workflows")
             private List<ConversationWorkflow> workflows;
 
@@ -1731,6 +1800,25 @@ public class Conversation extends Resource {
             ) {
                 this.intelligenceConfigurationIds =
                     intelligenceConfigurationIds;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("traitExtractionStrategyIds")
+            public Builder traitExtractionStrategyIds(
+                List<String> traitExtractionStrategyIds
+            ) {
+                this.traitExtractionStrategyIds = traitExtractionStrategyIds;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("observationExtractionStrategyIds")
+            public Builder observationExtractionStrategyIds(
+                List<String> observationExtractionStrategyIds
+            ) {
+                this.observationExtractionStrategyIds =
+                    observationExtractionStrategyIds;
                 return this;
             }
 
@@ -1765,13 +1853,26 @@ public class Conversation extends Resource {
                     intelligenceConfigurationIds,
                     other.intelligenceConfigurationIds
                 ) &&
+                Objects.equals(
+                    traitExtractionStrategyIds,
+                    other.traitExtractionStrategyIds
+                ) &&
+                Objects.equals(
+                    observationExtractionStrategyIds,
+                    other.observationExtractionStrategyIds
+                ) &&
                 Objects.equals(workflows, other.workflows)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(intelligenceConfigurationIds, workflows);
+            return Objects.hash(
+                intelligenceConfigurationIds,
+                traitExtractionStrategyIds,
+                observationExtractionStrategyIds,
+                workflows
+            );
         }
     }
 

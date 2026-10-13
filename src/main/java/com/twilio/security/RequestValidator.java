@@ -140,9 +140,9 @@ public class RequestValidator {
                 url.getUserInfo(),
                 url.getHost(),
                 newPort,
-                url.getPath(),
-                url.getQuery(),
-                url.getFragment()).toString();
+                url.getRawPath(),
+                url.getRawQuery(),
+                url.getRawFragment()).toString();
         } catch (Exception e) {
             return url.toString();
         }

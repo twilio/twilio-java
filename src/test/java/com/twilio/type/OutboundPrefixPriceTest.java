@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 /**
@@ -19,8 +20,8 @@ public class OutboundPrefixPriceTest extends TypeTest {
             "        \"xyz\"\n" +
             "    ],\n" +
             "    \"friendly_name\": \"name\",\n" +
-            "    \"base_price\": 1.00,\n" +
-            "    \"current_price\": 2.00\n" +
+            "    \"base_price\": \"1.00\",\n" +
+            "    \"current_price\": \"2.00\"\n" +
             "}";
 
         OutboundPrefixPrice opp = fromJson(json, OutboundPrefixPrice.class);
@@ -28,5 +29,8 @@ public class OutboundPrefixPriceTest extends TypeTest {
         Assert.assertEquals("name", opp.getFriendlyName());
         Assert.assertEquals(1.00, opp.getBasePrice(), 0.00);
         Assert.assertEquals(2.00, opp.getCurrentPrice(), 0.00);
+        Assert.assertEquals(new BigDecimal("1.00"), opp.getBasePriceDecimal());
+        Assert.assertEquals(new BigDecimal("2.00"), opp.getCurrentPriceDecimal());
+
     }
 }

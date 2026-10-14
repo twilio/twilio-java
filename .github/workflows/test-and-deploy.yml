@@ -5,6 +5,11 @@ on:
     tags:
       - '*'
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Validate the Maven Central bundle on Sonatype without publishing (deployment is dropped)'
+        type: boolean
+        default: false
 
 jobs:
   test:
@@ -41,7 +46,7 @@ jobs:
     name: Publish to Maven Central
     needs: [test]
     runs-on: ubuntu-x64
-    if: success() && github.ref_type == 'tag' && github.repository_owner == 'twilio'
+    if: success() && (github.ref_type == 'tag' || inputs.dry_run) && github.repository_owner == 'twilio'
     environment:
       name: production
       url: https://central.sonatype.com/artifact/com.twilio.sdk/twilio/${{ github.ref_name }}
@@ -68,6 +73,7 @@ jobs:
         run: echo "GITHUB_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: Create GitHub Release
+        if: ${{ !inputs.dry_run }}
         uses: sendgrid/dx-automator/actions/release@08b601b726671445abc798ed59881766ec8fefc6
         with:
           footer: '**[Maven](https://central.sonatype.com/artifact/com.twilio.sdk/twilio/${version})**'
@@ -95,7 +101,7 @@ jobs:
           MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-        run: mvn clean deploy -DskipTests=true -B -U -Prelease
+        run: mvn clean deploy -DskipTests=true -B -U -Prelease ${{ inputs.dry_run && '-Dcentral.autoPublish=false -Dcentral.dropValidated=true' || '' }}
 
 #      - name: Submit metric to Datadog
 #        uses: sendgrid/dx-automator/actions/datadog-release-metric@08b601b726671445abc798ed59881766ec8fefc6

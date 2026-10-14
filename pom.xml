@@ -101,16 +101,22 @@
           <name>release</name>
         </property>
       </activation>
+      <properties>
+        <!-- Override on the command line for a dry run: -Dcentral.autoPublish=false -Dcentral.dropValidated=true -->
+        <central.autoPublish>true</central.autoPublish>
+        <central.dropValidated>false</central.dropValidated>
+      </properties>
       <build>
         <plugins>
           <plugin>
-            <groupId>org.sonatype.central</groupId>
+            <groupId>io.github.mavenplugins</groupId>
             <artifactId>central-publishing-maven-plugin</artifactId>
-            <version>0.8.0</version>
+            <version>1.3.1</version>
             <extensions>true</extensions>
             <configuration>
               <publishingServerId>central</publishingServerId>
-              <autoPublish>true</autoPublish>
+              <autoPublish>${central.autoPublish}</autoPublish>
+              <dropValidated>${central.dropValidated}</dropValidated>
             </configuration>
           </plugin>
           <plugin>

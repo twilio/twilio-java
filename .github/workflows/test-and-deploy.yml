@@ -88,6 +88,21 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: GPG_PASSPHRASE
 
+      # Workaround for apache/maven#13388: Maven 3.10.0 (default on the runner image) makes
+      # central-publishing-maven-plugin stage local-repository files (maven-metadata-local.xml,
+      # _remote.repositories) into the bundle, which Maven Central rejects with
+      # "Bundle has content that does NOT have a .pom file". Tracked upstream in
+      # mavenplugins/central-publishing-maven-plugin#79 / #80. Remove once the plugin is fixed.
+      - name: Pin Maven 3.9.16
+        env:
+          MAVEN_VERSION: 3.9.16
+        run: |
+          base="https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+          curl -fsSL "$base" -o "$RUNNER_TEMP/maven.tgz"
+          echo "$(curl -fsSL "$base.sha512" | cut -d' ' -f1)  $RUNNER_TEMP/maven.tgz" | sha512sum -c -
+          tar -xzf "$RUNNER_TEMP/maven.tgz" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/apache-maven-${MAVEN_VERSION}/bin" >> "$GITHUB_PATH"
+
       - run: mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
 
       - name: Publish to Maven Central

@@ -4,8 +4,11 @@ import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.http.IRequest.FormParameters;
 import com.twilio.http.IRequest.FormParameters.Type;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
 import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.util.Timeout;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
@@ -16,6 +19,9 @@ import org.junit.rules.TemporaryFolder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
+import org.mockito.ArgumentCaptor;
+
+import java.lang.reflect.Field;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -372,6 +378,47 @@ public class NetworkHttpClientTest {
         assertEquals(201, response.getStatusCode());
         assertEquals("created", response.getContent());
 
+    }
+
+    @Test
+    public void testMakeRequestUsesConstructorRequestConfig() throws Exception {
+        RequestConfig customConfig = RequestConfig.custom()
+            .setResponseTimeout(Timeout.ofMilliseconds(12345))
+            .build();
+
+        CloseableHttpClient injectedClient = mock(CloseableHttpClient.class);
+        ArgumentCaptor<HttpUriRequestBase> requestCaptor = ArgumentCaptor.forClass(HttpUriRequestBase.class);
+        when(injectedClient.execute(requestCaptor.capture())).thenReturn(mockResponse);
+        when(mockEntity.isRepeatable()).thenReturn(true);
+        when(mockEntity.getContentLength()).thenReturn(1L);
+        when(mockEntity.getContent()).thenReturn(new ByteArrayInputStream("ok".getBytes("UTF-8")));
+        when(mockResponse.getEntity()).thenReturn(mockEntity);
+        when(mockResponse.getCode()).thenReturn(200);
+
+        NetworkHttpClient clientWithConfig = new NetworkHttpClient(customConfig);
+        Field clientField = NetworkHttpClient.class.getDeclaredField("client");
+        clientField.setAccessible(true);
+        clientField.set(clientWithConfig, injectedClient);
+
+        when(mockRequest.getMethod()).thenReturn(HttpMethod.GET);
+        when(mockRequest.constructURL()).thenReturn(new URL("http://foo.com/hello"));
+        when(mockRequest.requiresAuthentication()).thenReturn(false);
+        when(mockRequest.getHeaderParams()).thenReturn(new HashMap<>());
+
+        clientWithConfig.makeRequest(mockRequest);
+
+        assertEquals(customConfig, requestCaptor.getValue().getConfig());
+    }
+
+    @Test
+    public void testCustomHttpClientBuilderDoesNotSetPerRequestConfig() throws IOException {
+        setup(200, "frobozz", HttpMethod.GET, false);
+
+        client.makeRequest(mockRequest);
+
+        ArgumentCaptor<HttpUriRequestBase> requestCaptor = ArgumentCaptor.forClass(HttpUriRequestBase.class);
+        verify(mockClient).execute(requestCaptor.capture());
+        assertNull(requestCaptor.getValue().getConfig());
     }
 
 }

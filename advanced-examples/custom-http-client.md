@@ -161,7 +161,7 @@ public class ProxiedTwilioClientCreator {
 
 ### Keep the distrusted-intermediate check
 
-The default `NetworkHttpClient` refuses TLS connections whose certificate chain contains one of eight intermediate certificates with compromised keys (CVE-2026-111943, the same list Go distrusts as of Go 1.27.3 and 1.26.10). A client built from your own `HttpClientBuilder` only gets this check if it uses `DistrustedIntermediates.createConnectionManager()` as its connection manager, as the example above does. If you use a different HTTP stack, `DistrustedIntermediates.createSslContext()` and `DistrustedIntermediates.createTrustManager()` give you the same check.
+The default `NetworkHttpClient` refuses TLS connections whose certificate chain contains one of eight intermediate certificates with compromised keys (CVE-2026-111943, the same list Go distrusts as of Go 1.27.3 and 1.26.10). A client built from your own `HttpClientBuilder` only gets this check if it uses `DistrustedIntermediates.createConnectionManager()` as its connection manager, as the example above does.
 
 In this example, we use some environment variables loaded at the program startup to retrieve various configuration settings:
 

@@ -44,8 +44,6 @@ import org.apache.hc.core5.ssl.SSLInitializationException;
  * HttpClient httpClient = new NetworkHttpClient(HttpClientBuilder.create().setConnectionManager(connectionManager));
  * }</pre>
  *
- * <p>Other HTTP stacks can use {@link #createSslContext()} or {@link #createTrustManager()}.
- *
  * <p>Java's trust manager API exposes the chain the server sent rather than the path the JDK built from it, so
  * the check applies to the sent chain. That is slightly stricter than Go, which accepts a connection if any
  * verified chain avoids these certificates.
@@ -84,21 +82,12 @@ public final class DistrustedIntermediates {
     }
 
     /**
-     * Create an SSL context that trusts the JVM's default trust store, minus the distrusted intermediates.
-     *
-     * @return an initialized SSL context
-     */
-    public static SSLContext createSslContext() {
-        return createSslContext(createTrustManager());
-    }
-
-    /**
      * Create a trust manager that delegates to the JVM's default trust manager, then refuses chains that contain a
      * distrusted intermediate.
      *
      * @return an X509 trust manager
      */
-    public static X509TrustManager createTrustManager() {
+    static X509TrustManager createTrustManager() {
         return wrap(defaultTrustManager(), DISTRUSTED_SPKI_SHA256);
     }
 

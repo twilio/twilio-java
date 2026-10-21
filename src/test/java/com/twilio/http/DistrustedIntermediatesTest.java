@@ -10,6 +10,7 @@ import java.security.cert.X509Certificate;
 import java.util.Collections;
 import java.util.Set;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -167,6 +168,16 @@ public class DistrustedIntermediatesTest {
     }
 
     @Test
+    public void testHostnameMismatchIsRejected() throws Exception {
+        assertHostnameMismatchRejected(networkClient(trustsRoot, Collections.<String>emptySet()));
+    }
+
+    @Test
+    public void testPre54ConnectionManagerRejectsHostnameMismatch() throws Exception {
+        assertHostnameMismatchRejected(customClient(Collections.<String>emptySet(), true));
+    }
+
+    @Test
     public void testDefaultClientStillRejectsUnknownRoot() {
         try {
             new NetworkHttpClient().makeRequest(get());
@@ -187,6 +198,41 @@ public class DistrustedIntermediatesTest {
         }
         // The request, including its Authorization header, never reached the server.
         assertEquals(0, server.getRequestCount());
+    }
+
+    // The chain is trusted and nothing in it is distrusted; only the hostname is wrong, so a rejection shows that
+    // hostname verification survived the connection manager rebuild.
+    private void assertHostnameMismatchRejected(final HttpClient client) throws Exception {
+        final HeldCertificate otherHost = new HeldCertificate.Builder()
+            .commonName("example.com")
+            .addSubjectAlternativeName("example.com")
+            .signedBy(intermediate)
+            .build();
+        final MockWebServer mismatched = new MockWebServer();
+        mismatched.useHttps(new HandshakeCertificates.Builder()
+            .heldCertificate(otherHost, intermediate.certificate())
+            .build()
+            .sslSocketFactory(), false);
+        mismatched.start(InetAddress.getByName(HOST), 0);
+        try {
+            client.makeRequest(new Request(HttpMethod.GET, "https://" + HOST + ":" + mismatched.getPort() + "/"));
+            fail("expected hostname verification to fail");
+        } catch (final ApiException e) {
+            assertTrue("unexpected failure: " + e, causedBy(e, SSLException.class));
+            assertFalse(causedByDistrust(e));
+        } finally {
+            mismatched.shutdown();
+        }
+        assertEquals(0, mismatched.getRequestCount());
+    }
+
+    private static boolean causedBy(final Throwable e, final Class<? extends Throwable> type) {
+        for (Throwable t = e; t != null; t = t.getCause()) {
+            if (type.isInstance(t)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static boolean causedByDistrust(final Throwable e) {

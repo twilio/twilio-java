@@ -78,6 +78,7 @@ However, within the helper library, there is an implementation of `com.twilio.ht
 Now that we understand how all the components fit together, we can create our own `TwilioRestClient` that can connect through a proxy server. To make this reusable, here’s a class that you can use to create this `TwilioRestClient` whenever you need one:
 
 ```java
+import com.twilio.http.DistrustedIntermediates;
 import com.twilio.http.HttpClient;
 import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.TwilioRestClient;
@@ -123,7 +124,8 @@ public class ProxiedTwilioClientCreator {
       .setConnectTimeout(Timeout.ofMilliseconds(10000))
       .build();
 
-    PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
+    // Refuse certificate chains that contain a distrusted intermediate, as the default client does.
+    PoolingHttpClientConnectionManager connectionManager = DistrustedIntermediates.createConnectionManager();
     connectionManager.setDefaultMaxPerRoute(10);
     connectionManager.setMaxTotal(10 * 2);
 
@@ -156,6 +158,10 @@ public class ProxiedTwilioClientCreator {
   }
 }
 ```
+
+### Keep the distrusted-intermediate check
+
+The default `NetworkHttpClient` refuses TLS connections whose certificate chain contains one of eight intermediate certificates with compromised keys (CVE-2026-111943, the same list Go distrusts as of Go 1.27.3 and 1.26.10). A client built from your own `HttpClientBuilder` only gets this check if it uses `DistrustedIntermediates.createConnectionManager()` as its connection manager, as the example above does. If you use a different HTTP stack, `DistrustedIntermediates.createSslContext()` and `DistrustedIntermediates.createTrustManager()` give you the same check.
 
 In this example, we use some environment variables loaded at the program startup to retrieve various configuration settings:
 

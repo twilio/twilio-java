@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;
+import javax.net.ssl.X509TrustManager;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPatch;
@@ -70,6 +71,14 @@ public class NetworkHttpClient extends HttpClient {
      * @param socketConfig  a SocketConfig.
      */
     public NetworkHttpClient(final RequestConfig requestConfig, final SocketConfig socketConfig) {
+        this(requestConfig, socketConfig, DistrustedIntermediates.createTrustManager());
+    }
+
+    NetworkHttpClient(
+        final RequestConfig requestConfig,
+        final SocketConfig socketConfig,
+        final X509TrustManager trustManager
+    ) {
         Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
             // The Accept header is intentionally omitted to support both SCIM and JSON content types.
@@ -85,7 +94,7 @@ public class NetworkHttpClient extends HttpClient {
             clientBuilder.useSystemProperties();
         }
 
-        PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
+        PoolingHttpClientConnectionManager connectionManager = DistrustedIntermediates.createConnectionManager(trustManager);
         connectionManager.setDefaultSocketConfig(socketConfig);
         /*
          *  Example: Lets say client has one server.

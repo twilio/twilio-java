@@ -178,7 +178,7 @@ public final class DistrustedIntermediates {
 
     static void checkChain(final X509Certificate[] chain, final Set<String> distrusted) throws CertificateException {
         if (containsDistrusted(chain, distrusted)) {
-            throw new CertificateException("Certificate chain contains a distrusted intermediate certificate");
+            throw new CertificateException("Certificate chain which you are using contains a distrusted intermediate certificate");
         }
     }
 

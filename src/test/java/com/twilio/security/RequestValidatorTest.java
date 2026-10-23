@@ -34,6 +34,27 @@ public class RequestValidatorTest {
     }
 
     @Test
+    public void testValidateHmacSha256() {
+        String sha256Signature = "033hgUJA9M/hXIZsYjwkerEP/DBm35nEri5FhCYjA5s=";
+
+        Assert.assertTrue(validator.validate(url, params, sha256Signature, "HMAC_SHA256"));
+        Assert.assertFalse("SHA256 signature must not pass as SHA1", validator.validate(url, params, sha256Signature));
+        Assert.assertFalse(validator.validate(url, params, signature, "HMAC_SHA256"));
+    }
+
+    @Test
+    public void testValidateDefaultsToSha1WhenAlgorithmMissing() {
+        Assert.assertTrue(validator.validate(url, params, signature, null));
+        Assert.assertTrue(validator.validate(url, params, signature, ""));
+        Assert.assertTrue(validator.validate(url, params, signature, "HMAC_SHA1"));
+    }
+
+    @Test
+    public void testValidateFailsForUnknownAlgorithm() {
+        Assert.assertFalse(validator.validate(url, params, signature, "HMAC_MD5"));
+    }
+
+    @Test
     public void testFailsWhenIncorrect() {
         signature = "NOTRSOYDt4T1cUTdK1PDd93/VVr8B8=";
         boolean isValid = validator.validate(url, params, signature);

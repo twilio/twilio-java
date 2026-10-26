@@ -27,10 +27,13 @@ and the receiver also checks the body hash.
 Validating with the SDK:
 
 ```java
-RequestValidator validator = new RequestValidator(sharedKeySecret); // the Auth Token for unsigned-by-key webhooks
-validator.validate(url, params, signature);                         // HMAC-SHA1, unchanged
-validator.validate(url, params, signature, "HMAC_SHA256");          // HMAC-SHA256
-validator.validate(url, jsonBody, signature, "HMAC_SHA256");        // JSON body (bodySHA256)
+String settings = request.getHeader(RequestValidator.SIGNATURE_SETTINGS_HEADER);
+String algorithm = RequestValidator.getSignatureAlgorithm(settings); // HMAC_SHA1 when the header is absent
+RequestValidator validator = new RequestValidator(settings != null ? sharedKeySecret : authToken);
+
+validator.validate(url, params, signature, algorithm);   // form body
+validator.validate(url, jsonBody, signature, algorithm); // JSON body (bodySHA256)
+validator.validate(url, params, signature);              // existing code: HMAC-SHA1, unchanged
 ```
 
 ## Prerequisites

@@ -55,6 +55,28 @@ public class RequestValidatorTest {
     }
 
     @Test
+    public void testValidateWithBodyHmacSha256() throws URISyntaxException {
+        String url = this.url + "&bodySHA256=" + bodyHash;
+        String sha256Signature = "+UOCWf84gdgo/5Hpg4m5/EgKnJA2/TbOw5sPNVr3bPk=";
+
+        Assert.assertTrue(validator.validate(url, body, sha256Signature, RequestValidator.HMAC_SHA256));
+        Assert.assertFalse(validator.validate(url, body, sha256Signature));
+        Assert.assertFalse(validator.validate(url, "tampered", sha256Signature, RequestValidator.HMAC_SHA256));
+    }
+
+    @Test
+    public void testGetSignatureAlgorithm() {
+        Assert.assertEquals(RequestValidator.HMAC_SHA256,
+            RequestValidator.getSignatureAlgorithm("key=webhooks_sharedkey_01abc,algorithm=HMAC_SHA256"));
+        Assert.assertEquals(RequestValidator.HMAC_SHA1,
+            RequestValidator.getSignatureAlgorithm("key=webhooks_sharedkey_01abc, algorithm=HMAC_SHA1"));
+        Assert.assertEquals(RequestValidator.HMAC_SHA1, RequestValidator.getSignatureAlgorithm(null));
+        Assert.assertEquals(RequestValidator.HMAC_SHA1, RequestValidator.getSignatureAlgorithm(""));
+        Assert.assertEquals(RequestValidator.HMAC_SHA1, RequestValidator.getSignatureAlgorithm("key=webhooks_sharedkey_01abc"));
+        Assert.assertEquals(RequestValidator.HMAC_SHA1, RequestValidator.getSignatureAlgorithm("algorithm="));
+    }
+
+    @Test
     public void testFailsWhenIncorrect() {
         signature = "NOTRSOYDt4T1cUTdK1PDd93/VVr8B8=";
         boolean isValid = validator.validate(url, params, signature);

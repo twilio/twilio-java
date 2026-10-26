@@ -44,9 +44,9 @@ public class WebhookReceiver {
         throws Exception {
         String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
         String signature = orEmpty(exchange.getRequestHeaders().getFirst("X-Twilio-Signature"));
-        String settings = exchange.getRequestHeaders().getFirst("X-Twilio-Webhooks-Signature-Settings");
+        String settings = exchange.getRequestHeaders().getFirst(RequestValidator.SIGNATURE_SETTINGS_HEADER);
         String contentType = orEmpty(exchange.getRequestHeaders().getFirst("Content-Type"));
-        String algorithm = algorithmFrom(settings);
+        String algorithm = RequestValidator.getSignatureAlgorithm(settings);
         String secret = settings != null ? sharedKeySecret : authToken;
 
         // Validate against the URL Twilio called (public URL + path + query), not localhost.
@@ -69,7 +69,7 @@ public class WebhookReceiver {
             + " contentType=" + (contentType.isEmpty() ? "-" : contentType.split(";")[0])
             + " bodySHA256InUrl=" + url.contains("bodySHA256=")
             + " signed=" + (settings != null ? "SHARED_KEY" : "AUTH_TOKEN")
-            + " algorithm=" + (algorithm == null ? "HMAC_SHA1" : algorithm)
+            + " algorithm=" + algorithm
             + " valid=" + valid
             + " legacySha1Valid=" + legacySha1Valid);
 
@@ -80,20 +80,6 @@ public class WebhookReceiver {
         } else {
             respond(exchange, 200, "application/json", "{\"valid\":" + valid + "}");
         }
-    }
-
-    /** Parses "key=<id>,algorithm=<alg>"; a missing or empty header (or no algorithm) means HMAC-SHA1. */
-    private static String algorithmFrom(String settingsHeader) {
-        if (settingsHeader == null || settingsHeader.isBlank()) {
-            return null;
-        }
-        for (String part : settingsHeader.split(",")) {
-            String p = part.trim();
-            if (p.startsWith("algorithm=")) {
-                return p.substring("algorithm=".length());
-            }
-        }
-        return null;
     }
 
     private static Map<String, String> formParams(String body) {

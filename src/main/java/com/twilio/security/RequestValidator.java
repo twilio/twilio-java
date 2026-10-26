@@ -17,11 +17,20 @@ import org.apache.hc.core5.net.URIBuilder;
 
 public class RequestValidator {
 
-    private static final String HMAC_SHA1 = "HmacSHA1";
-    private static final String HMAC_SHA256 = "HmacSHA256";
+    /** Header Twilio adds to webhooks signed with a SharedKey: {@code key=<sharedKeyId>,algorithm=<algorithm>}. */
+    public static final String SIGNATURE_SETTINGS_HEADER = "X-Twilio-Webhooks-Signature-Settings";
+    public static final String HMAC_SHA1 = "HMAC_SHA1";
+    public static final String HMAC_SHA256 = "HMAC_SHA256";
+
+    private static final String JCA_HMAC_SHA1 = "HmacSHA1";
+    private static final String JCA_HMAC_SHA256 = "HmacSHA256";
 
     private final byte[] secret;
 
+    /**
+     * @param authToken the secret the webhook was signed with: the account Auth Token, or the SharedKey secret
+     *                  when the request carries {@link #SIGNATURE_SETTINGS_HEADER}
+     */
     public RequestValidator(String authToken) {
         this.secret = authToken.getBytes();
     }
@@ -31,7 +40,10 @@ public class RequestValidator {
     }
 
     /**
-     * @param algorithm {@code HMAC_SHA1} or {@code HMAC_SHA256}; null or empty means {@code HMAC_SHA1}
+     * Validates a webhook signed with the given algorithm.
+     *
+     * @param algorithm {@link #HMAC_SHA1} or {@link #HMAC_SHA256}; null or empty means {@link #HMAC_SHA1}.
+     *                  Any other value fails validation. See {@link #getSignatureAlgorithm(String)}.
      */
     public boolean validate(String url, Map<String, String> params, String expectedSignature, String algorithm) {
         String macAlgorithm = toMacAlgorithm(algorithm);
@@ -51,6 +63,11 @@ public class RequestValidator {
         return validate(url, body, expectedSignature, null);
     }
 
+    /**
+     * Validates a webhook with a JSON body (the URL carries {@code bodySHA256}) signed with the given algorithm.
+     *
+     * @param algorithm see {@link #validate(String, Map, String, String)}
+     */
     public boolean validate(String url, String body, String expectedSignature, String algorithm)
         throws URISyntaxException {
         Map<String, String> empty = new HashMap<>();
@@ -84,12 +101,30 @@ public class RequestValidator {
         return secureCompare(expectedSHA, hexString);
     }
 
-    private static String toMacAlgorithm(String algorithm) {
-        if (algorithm == null || algorithm.isEmpty() || algorithm.equalsIgnoreCase("HMAC_SHA1")) {
-            return HMAC_SHA1;
+    /**
+     * Returns the signing algorithm named in the {@link #SIGNATURE_SETTINGS_HEADER} value. A missing or empty
+     * header (or one without {@code algorithm=}) means the legacy Auth Token signature, {@link #HMAC_SHA1}.
+     *
+     * @param signatureSettingsHeader the header value, e.g. {@code key=webhooks_sharedkey_...,algorithm=HMAC_SHA256}
+     */
+    public static String getSignatureAlgorithm(String signatureSettingsHeader) {
+        if (signatureSettingsHeader != null) {
+            for (String part : signatureSettingsHeader.split(",")) {
+                String[] keyValue = part.split("=", 2);
+                if (keyValue.length == 2 && keyValue[0].trim().equals("algorithm") && !keyValue[1].trim().isEmpty()) {
+                    return keyValue[1].trim();
+                }
+            }
         }
-        if (algorithm.equalsIgnoreCase("HMAC_SHA256")) {
-            return HMAC_SHA256;
+        return HMAC_SHA1;
+    }
+
+    private static String toMacAlgorithm(String algorithm) {
+        if (algorithm == null || algorithm.isEmpty() || algorithm.equalsIgnoreCase(HMAC_SHA1)) {
+            return JCA_HMAC_SHA1;
+        }
+        if (algorithm.equalsIgnoreCase(HMAC_SHA256)) {
+            return JCA_HMAC_SHA256;
         }
         return null;
     }

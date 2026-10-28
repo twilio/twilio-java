@@ -31,7 +31,7 @@ jobs:
         uses: actions/setup-java@e9fbacdec3bb3b6036605a3e6f7995d66773a8c6 # v3.14.2
         with:
           distribution: temurin
-          java-version: '11'
+          java-version: '17.0.21' # distrust eMudhra affected certificates
           cache: maven
 
       - run: mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
@@ -71,7 +71,7 @@ jobs:
         uses: actions/setup-java@e9fbacdec3bb3b6036605a3e6f7995d66773a8c6 # v3.14.2
         with:
           distribution: temurin
-          java-version: '11'
+          java-version: '17.0.21' # distrust eMudhra affected certificates
           cache: maven
 
       - run: mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V

@@ -31,7 +31,11 @@ jobs:
         with:
           distribution: temurin
           java-version: ${{ matrix.java }}
+          check-latest: true
           cache: maven
+
+      - name: Distrust compromised eMudhra roots
+        run: .github/scripts/distrust-emudhra.sh
 
       - run: mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
       - name: Run unit tests
@@ -74,13 +78,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-#      - name: Build and push Docker image
+#      - name: Build and push Docker image # Before enabling this, modify Dockerfile base image.
 #        run: make docker-build && make docker-push
 
       - name: Set up Java for Maven Central publish
         uses: actions/setup-java@e9fbacdec3bb3b6036605a3e6f7995d66773a8c6 # v3.14.2
         with:
-          java-version: '11'
+          java-version: '17.0.21' # distrust eMudhra affected certificates
           distribution: temurin
           server-id: central
           server-username: MAVEN_USERNAME

@@ -41,7 +41,11 @@ jobs:
         with:
           distribution: temurin
           java-version: ${{ matrix.java }}
+          check-latest: true
           cache: maven
+
+      - name: Distrust compromised eMudhra roots
+        run: .github/scripts/distrust-emudhra.sh
 
       - run: mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
 

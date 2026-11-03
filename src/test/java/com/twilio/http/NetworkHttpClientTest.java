@@ -374,4 +374,45 @@ public class NetworkHttpClientTest {
 
     }
 
+
+    @Test
+    public void testCustomResponseTimeoutIsRespected() throws Exception {
+        final com.sun.net.httpserver.HttpServer server =
+            com.sun.net.httpserver.HttpServer.create(new java.net.InetSocketAddress("localhost", 0), 0);
+        server.createContext("/", exchange -> {
+            try {
+                Thread.sleep(3000);
+                exchange.sendResponseHeaders(200, -1);
+            } catch (InterruptedException | IOException ignored) {
+                // client gave up
+            } finally {
+                exchange.close();
+            }
+        });
+        server.start();
+        try {
+            final org.apache.hc.client5.http.config.RequestConfig config =
+                org.apache.hc.client5.http.config.RequestConfig.custom()
+                    .setResponseTimeout(org.apache.hc.core5.util.Timeout.ofMilliseconds(300))
+                    .build();
+            final NetworkHttpClient timeoutClient = new NetworkHttpClient(config);
+            final Request request = new Request(
+                HttpMethod.GET,
+                "http://localhost:" + server.getAddress().getPort() + "/"
+            );
+
+            final long start = System.nanoTime();
+            try {
+                timeoutClient.makeRequest(request);
+                fail("Expected the request to time out");
+            } catch (com.twilio.exception.ApiException e) {
+                assertTrue(e.getCause() instanceof java.net.SocketTimeoutException
+                    || e.getCause() instanceof org.apache.hc.core5.http.ConnectionRequestTimeoutException);
+            }
+            final long elapsedMs = (System.nanoTime() - start) / 1_000_000;
+            assertTrue("Timeout took " + elapsedMs + "ms", elapsedMs < 2500);
+        } finally {
+            server.stop(0);
+        }
+    }
 }

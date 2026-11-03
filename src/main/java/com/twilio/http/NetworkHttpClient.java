@@ -133,8 +133,6 @@ public class NetworkHttpClient extends HttpClient {
         HttpMethod method = request.getMethod();
         HttpUriRequestBase httpUriRequestBase = createHttpUriRequestBase(request);
 
-        httpUriRequestBase.setConfig(DEFAULT_REQUEST_CONFIG);
-
         httpUriRequestBase.setVersion(HttpVersion.HTTP_1_1);
 
         if (request.requiresAuthentication()) {

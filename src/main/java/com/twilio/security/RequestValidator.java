@@ -17,6 +17,8 @@ import org.apache.hc.core5.net.URIBuilder;
 
 public class RequestValidator {
 
+    /** Header that carries the webhook signature. */
+    public static final String SIGNATURE_HEADER = "X-Twilio-Signature";
     /** Header Twilio adds to webhooks signed with a SharedKey: {@code key=<sharedKeyId>,algorithm=<algorithm>}. */
     public static final String SIGNATURE_SETTINGS_HEADER = "X-Twilio-Webhooks-Signature-Settings";
     public static final String HMAC_SHA1 = "HMAC_SHA1";

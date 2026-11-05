@@ -50,17 +50,32 @@ public class Import extends Resource {
     public static class CreateImportResponse extends Resource {
 
         @Getter
+        private final ZonedDateTime createdAt;
+
+        @Getter
         private final String importId;
+
+        @Getter
+        private final String operationId;
+
+        @Getter
+        private final String statusUrl;
 
         @Getter
         private final String url;
 
         @JsonCreator
         private CreateImportResponse(
+            @JsonProperty("createdAt") final ZonedDateTime createdAt,
             @JsonProperty("importId") final String importId,
+            @JsonProperty("operationId") final String operationId,
+            @JsonProperty("statusUrl") final String statusUrl,
             @JsonProperty("url") final String url
         ) {
+            this.createdAt = createdAt;
             this.importId = importId;
+            this.operationId = operationId;
+            this.statusUrl = statusUrl;
             this.url = url;
         }
 
@@ -89,14 +104,23 @@ public class Import extends Resource {
             }
             CreateImportResponse other = (CreateImportResponse) o;
             return (
+                Objects.equals(createdAt, other.createdAt) &&
                 Objects.equals(importId, other.importId) &&
+                Objects.equals(operationId, other.operationId) &&
+                Objects.equals(statusUrl, other.statusUrl) &&
                 Objects.equals(url, other.url)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(importId, url);
+            return Objects.hash(
+                createdAt,
+                importId,
+                operationId,
+                statusUrl,
+                url
+            );
         }
     }
 

@@ -33,6 +33,7 @@ import com.twilio.type.*;
 import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -87,13 +88,28 @@ public class Bulk extends Resource {
     public static class UpdateBulkResponse extends Resource {
 
         @Getter
+        private final ZonedDateTime createdAt;
+
+        @Getter
         private final String message;
+
+        @Getter
+        private final String operationId;
+
+        @Getter
+        private final String statusUrl;
 
         @JsonCreator
         private UpdateBulkResponse(
-            @JsonProperty("message") final String message
+            @JsonProperty("createdAt") final ZonedDateTime createdAt,
+            @JsonProperty("message") final String message,
+            @JsonProperty("operationId") final String operationId,
+            @JsonProperty("statusUrl") final String statusUrl
         ) {
+            this.createdAt = createdAt;
             this.message = message;
+            this.operationId = operationId;
+            this.statusUrl = statusUrl;
         }
 
         public static UpdateBulkResponse fromJson(
@@ -120,12 +136,17 @@ public class Bulk extends Resource {
                 return false;
             }
             UpdateBulkResponse other = (UpdateBulkResponse) o;
-            return (Objects.equals(message, other.message));
+            return (
+                Objects.equals(createdAt, other.createdAt) &&
+                Objects.equals(message, other.message) &&
+                Objects.equals(operationId, other.operationId) &&
+                Objects.equals(statusUrl, other.statusUrl)
+            );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(message);
+            return Objects.hash(createdAt, message, operationId, statusUrl);
         }
     }
 

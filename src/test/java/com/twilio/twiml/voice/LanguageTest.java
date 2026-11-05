@@ -41,11 +41,15 @@ public class LanguageTest {
             .voice("voice")
             .transcriptionProvider("transcription_provider")
             .speechModel("speech_model")
+            .hints("hints")
+            .asrSmartFormat(true)
+            .ttsTextNormalization("tts_text_normalization")
+            .ttsLanguageTextNormalization(true)
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Language code=\"code\" speechModel=\"speech_model\" transcriptionProvider=\"transcription_provider\" ttsProvider=\"tts_provider\" voice=\"voice\"/>",
+            "<Language asrSmartFormat=\"true\" code=\"code\" hints=\"hints\" speechModel=\"speech_model\" transcriptionProvider=\"transcription_provider\" ttsLanguageTextNormalization=\"true\" ttsProvider=\"tts_provider\" ttsTextNormalization=\"tts_text_normalization\" voice=\"voice\"/>",
             elem.toXml()
         );
     }
@@ -128,10 +132,14 @@ public class LanguageTest {
             .voice("voice")
             .transcriptionProvider("transcription_provider")
             .speechModel("speech_model")
+            .hints("hints")
+            .asrSmartFormat(true)
+            .ttsTextNormalization("tts_text_normalization")
+            .ttsLanguageTextNormalization(true)
             .build();
 
         Assert.assertEquals(
-            Language.Builder.fromXml("<Language code=\"code\" speechModel=\"speech_model\" transcriptionProvider=\"transcription_provider\" ttsProvider=\"tts_provider\" voice=\"voice\"/>").build().toXml(),
+            Language.Builder.fromXml("<Language asrSmartFormat=\"true\" code=\"code\" hints=\"hints\" speechModel=\"speech_model\" transcriptionProvider=\"transcription_provider\" ttsLanguageTextNormalization=\"true\" ttsProvider=\"tts_provider\" ttsTextNormalization=\"tts_text_normalization\" voice=\"voice\"/>").build().toXml(),
             elem.toXml()
         );
     }

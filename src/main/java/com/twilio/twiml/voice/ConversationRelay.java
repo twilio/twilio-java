@@ -48,6 +48,17 @@ public class ConversationRelay extends TwiML {
     private final String deepgramsmartformat;
     private final String ignorebackchannel;
     private final String events;
+    private final Boolean partialPromptOnHangup;
+    private final String eagerEotThreshold;
+    private final Boolean asrSmartFormat;
+    private final String ttsTextNormalization;
+    private final Boolean ttsLanguageTextNormalization;
+    private final Boolean elevenlabsLanguageTextNormalization;
+    private final String includeInPrompt;
+    private final String customerName;
+    private final Boolean applicationReconnect;
+    private final Boolean echoPromptFiltering;
+    private final Boolean turnDetection;
 
     /**
      * For XML Serialization/Deserialization
@@ -87,6 +98,17 @@ public class ConversationRelay extends TwiML {
         this.deepgramsmartformat = b.deepgramsmartformat;
         this.ignorebackchannel = b.ignorebackchannel;
         this.events = b.events;
+        this.partialPromptOnHangup = b.partialPromptOnHangup;
+        this.eagerEotThreshold = b.eagerEotThreshold;
+        this.asrSmartFormat = b.asrSmartFormat;
+        this.ttsTextNormalization = b.ttsTextNormalization;
+        this.ttsLanguageTextNormalization = b.ttsLanguageTextNormalization;
+        this.elevenlabsLanguageTextNormalization = b.elevenlabsLanguageTextNormalization;
+        this.includeInPrompt = b.includeInPrompt;
+        this.customerName = b.customerName;
+        this.applicationReconnect = b.applicationReconnect;
+        this.echoPromptFiltering = b.echoPromptFiltering;
+        this.turnDetection = b.turnDetection;
     }
 
     /**
@@ -175,6 +197,39 @@ public class ConversationRelay extends TwiML {
         }
         if (this.getEvents() != null) {
             attrs.put("events", this.getEvents());
+        }
+        if (this.isPartialPromptOnHangup() != null) {
+            attrs.put("partialPromptOnHangup", this.isPartialPromptOnHangup().toString());
+        }
+        if (this.getEagerEotThreshold() != null) {
+            attrs.put("eagerEotThreshold", this.getEagerEotThreshold());
+        }
+        if (this.isAsrSmartFormat() != null) {
+            attrs.put("asrSmartFormat", this.isAsrSmartFormat().toString());
+        }
+        if (this.getTtsTextNormalization() != null) {
+            attrs.put("ttsTextNormalization", this.getTtsTextNormalization());
+        }
+        if (this.isTtsLanguageTextNormalization() != null) {
+            attrs.put("ttsLanguageTextNormalization", this.isTtsLanguageTextNormalization().toString());
+        }
+        if (this.isElevenlabsLanguageTextNormalization() != null) {
+            attrs.put("elevenlabsLanguageTextNormalization", this.isElevenlabsLanguageTextNormalization().toString());
+        }
+        if (this.getIncludeInPrompt() != null) {
+            attrs.put("includeInPrompt", this.getIncludeInPrompt());
+        }
+        if (this.getCustomerName() != null) {
+            attrs.put("customerName", this.getCustomerName());
+        }
+        if (this.isApplicationReconnect() != null) {
+            attrs.put("applicationReconnect", this.isApplicationReconnect().toString());
+        }
+        if (this.isEchoPromptFiltering() != null) {
+            attrs.put("echoPromptFiltering", this.isEchoPromptFiltering().toString());
+        }
+        if (this.isTurnDetection() != null) {
+            attrs.put("turnDetection", this.isTurnDetection().toString());
         }
 
         return attrs;
@@ -444,6 +499,125 @@ public class ConversationRelay extends TwiML {
     }
 
     /**
+     * Whether the in-progress partial transcript should be reported as a prompt
+     * when the call hangs up
+     *
+     * @return Whether the in-progress partial transcript should be reported as a
+     *         prompt when the call hangs up
+     */
+    public Boolean isPartialPromptOnHangup() {
+        return partialPromptOnHangup;
+    }
+
+    /**
+     * Eager end-of-turn confidence threshold, which fires before the end-of-turn
+     * threshold. The value can be between 0.3 and 0.9
+     *
+     * @return Eager end-of-turn confidence threshold, which fires before the
+     *         end-of-turn threshold. The value can be between 0.3 and 0.9
+     */
+    public String getEagerEotThreshold() {
+        return eagerEotThreshold;
+    }
+
+    /**
+     * Whether smart formatting should be applied to transcripts. Takes precedence
+     * over deepgramSmartFormat
+     *
+     * @return Whether smart formatting should be applied to transcripts. Takes
+     *         precedence over deepgramSmartFormat
+     */
+    public Boolean isAsrSmartFormat() {
+        return asrSmartFormat;
+    }
+
+    /**
+     * Text normalization for text-to-speech. The value can be auto, on, or off.
+     * Takes precedence over elevenlabsTextNormalization
+     *
+     * @return Text normalization for text-to-speech. The value can be auto, on, or
+     *         off. Takes precedence over elevenlabsTextNormalization
+     */
+    public String getTtsTextNormalization() {
+        return ttsTextNormalization;
+    }
+
+    /**
+     * Whether language-specific text normalization should be applied for
+     * text-to-speech
+     *
+     * @return Whether language-specific text normalization should be applied for
+     *         text-to-speech
+     */
+    public Boolean isTtsLanguageTextNormalization() {
+        return ttsLanguageTextNormalization;
+    }
+
+    /**
+     * Legacy alias of ttsLanguageTextNormalization
+     *
+     * @return Legacy alias of ttsLanguageTextNormalization
+     */
+    public Boolean isElevenlabsLanguageTextNormalization() {
+        return elevenlabsLanguageTextNormalization;
+    }
+
+    /**
+     * Extra fields to be included in prompt messages. The value can be turn-state
+     * or prompt-segments
+     *
+     * @return Extra fields to be included in prompt messages. The value can be
+     *         turn-state or prompt-segments
+     */
+    public String getIncludeInPrompt() {
+        return includeInPrompt;
+    }
+
+    /**
+     * Customer name sent to Conversations and Conversational Intelligence. Defaults
+     * to the caller ID
+     *
+     * @return Customer name sent to Conversations and Conversational Intelligence.
+     *         Defaults to the caller ID
+     */
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    /**
+     * Whether the WebSocket connection to the application should be reconnected if
+     * it drops during the call. Defaults to false
+     *
+     * @return Whether the WebSocket connection to the application should be
+     *         reconnected if it drops during the call. Defaults to false
+     */
+    public Boolean isApplicationReconnect() {
+        return applicationReconnect;
+    }
+
+    /**
+     * Whether transcripts that echo the agent's own text-to-speech should be
+     * dropped. Defaults to false
+     *
+     * @return Whether transcripts that echo the agent's own text-to-speech should
+     *         be dropped. Defaults to false
+     */
+    public Boolean isEchoPromptFiltering() {
+        return echoPromptFiltering;
+    }
+
+    /**
+     * Whether turn detection should be used to decide when the caller has finished
+     * speaking. Defaults to false
+     *
+     * @return Whether turn detection should be used to decide when the caller has
+     *         finished speaking. Defaults to false
+     */
+    public Boolean isTurnDetection() {
+        return turnDetection;
+    }
+
+    /**
      * Create a new {@code <ConversationRelay>} element
      */
     @JsonPOJOBuilder(withPrefix = "")
@@ -488,6 +662,17 @@ public class ConversationRelay extends TwiML {
         private String deepgramsmartformat;
         private String ignorebackchannel;
         private String events;
+        private Boolean partialPromptOnHangup;
+        private String eagerEotThreshold;
+        private Boolean asrSmartFormat;
+        private String ttsTextNormalization;
+        private Boolean ttsLanguageTextNormalization;
+        private Boolean elevenlabsLanguageTextNormalization;
+        private String includeInPrompt;
+        private String customerName;
+        private Boolean applicationReconnect;
+        private Boolean echoPromptFiltering;
+        private Boolean turnDetection;
 
         /**
          * URL of the remote service where the session is connected to
@@ -733,6 +918,115 @@ public class ConversationRelay extends TwiML {
         @JacksonXmlProperty(isAttribute = true, localName = "events")
         public Builder events(String events) {
             this.events = events;
+            return this;
+        }
+
+        /**
+         * Whether the in-progress partial transcript should be reported as a prompt
+         * when the call hangs up
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "partialPromptOnHangup")
+        public Builder partialPromptOnHangup(Boolean partialPromptOnHangup) {
+            this.partialPromptOnHangup = partialPromptOnHangup;
+            return this;
+        }
+
+        /**
+         * Eager end-of-turn confidence threshold, which fires before the end-of-turn
+         * threshold. The value can be between 0.3 and 0.9
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "eagerEotThreshold")
+        public Builder eagerEotThreshold(String eagerEotThreshold) {
+            this.eagerEotThreshold = eagerEotThreshold;
+            return this;
+        }
+
+        /**
+         * Whether smart formatting should be applied to transcripts. Takes precedence
+         * over deepgramSmartFormat
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "asrSmartFormat")
+        public Builder asrSmartFormat(Boolean asrSmartFormat) {
+            this.asrSmartFormat = asrSmartFormat;
+            return this;
+        }
+
+        /**
+         * Text normalization for text-to-speech. The value can be auto, on, or off.
+         * Takes precedence over elevenlabsTextNormalization
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "ttsTextNormalization")
+        public Builder ttsTextNormalization(String ttsTextNormalization) {
+            this.ttsTextNormalization = ttsTextNormalization;
+            return this;
+        }
+
+        /**
+         * Whether language-specific text normalization should be applied for
+         * text-to-speech
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "ttsLanguageTextNormalization")
+        public Builder ttsLanguageTextNormalization(Boolean ttsLanguageTextNormalization) {
+            this.ttsLanguageTextNormalization = ttsLanguageTextNormalization;
+            return this;
+        }
+
+        /**
+         * Legacy alias of ttsLanguageTextNormalization
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "elevenlabsLanguageTextNormalization")
+        public Builder elevenlabsLanguageTextNormalization(Boolean elevenlabsLanguageTextNormalization) {
+            this.elevenlabsLanguageTextNormalization = elevenlabsLanguageTextNormalization;
+            return this;
+        }
+
+        /**
+         * Extra fields to be included in prompt messages. The value can be turn-state
+         * or prompt-segments
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "includeInPrompt")
+        public Builder includeInPrompt(String includeInPrompt) {
+            this.includeInPrompt = includeInPrompt;
+            return this;
+        }
+
+        /**
+         * Customer name sent to Conversations and Conversational Intelligence. Defaults
+         * to the caller ID
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "customerName")
+        public Builder customerName(String customerName) {
+            this.customerName = customerName;
+            return this;
+        }
+
+        /**
+         * Whether the WebSocket connection to the application should be reconnected if
+         * it drops during the call. Defaults to false
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "applicationReconnect")
+        public Builder applicationReconnect(Boolean applicationReconnect) {
+            this.applicationReconnect = applicationReconnect;
+            return this;
+        }
+
+        /**
+         * Whether transcripts that echo the agent's own text-to-speech should be
+         * dropped. Defaults to false
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "echoPromptFiltering")
+        public Builder echoPromptFiltering(Boolean echoPromptFiltering) {
+            this.echoPromptFiltering = echoPromptFiltering;
+            return this;
+        }
+
+        /**
+         * Whether turn detection should be used to decide when the caller has finished
+         * speaking. Defaults to false
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "turnDetection")
+        public Builder turnDetection(Boolean turnDetection) {
+            this.turnDetection = turnDetection;
             return this;
         }
 

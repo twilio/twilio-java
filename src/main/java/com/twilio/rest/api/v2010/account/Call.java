@@ -304,6 +304,9 @@ public class Call extends Resource {
     private final Call.Status status;
 
     @Getter
+    private final String stirVerstat;
+
+    @Getter
     private final Map<String, String> subresourceUris;
 
     @Getter
@@ -351,6 +354,7 @@ public class Call extends Resource {
             using = com.twilio.converter.RFC2822Deserializer.class
         ) final ZonedDateTime startTime,
         @JsonProperty("status") final Call.Status status,
+        @JsonProperty("stir_verstat") final String stirVerstat,
         @JsonProperty("subresource_uris") final Map<
             String,
             String
@@ -381,6 +385,7 @@ public class Call extends Resource {
         this.sid = sid;
         this.startTime = startTime;
         this.status = status;
+        this.stirVerstat = stirVerstat;
         this.subresourceUris = subresourceUris;
         this.to = to;
         this.toFormatted = toFormatted;
@@ -421,6 +426,7 @@ public class Call extends Resource {
             Objects.equals(sid, other.sid) &&
             Objects.equals(startTime, other.startTime) &&
             Objects.equals(status, other.status) &&
+            Objects.equals(stirVerstat, other.stirVerstat) &&
             Objects.equals(subresourceUris, other.subresourceUris) &&
             Objects.equals(to, other.to) &&
             Objects.equals(toFormatted, other.toFormatted) &&
@@ -453,6 +459,7 @@ public class Call extends Resource {
             sid,
             startTime,
             status,
+            stirVerstat,
             subresourceUris,
             to,
             toFormatted,

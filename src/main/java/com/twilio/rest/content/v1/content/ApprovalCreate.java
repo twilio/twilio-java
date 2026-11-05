@@ -52,6 +52,16 @@ public class ApprovalCreate extends Resource {
         );
     }
 
+    public static ApprovalCreateUpdater updater(
+        final String pathContentSid,
+        final ApprovalCreate.ContentApprovalUpdateRequest contentApprovalUpdateRequest
+    ) {
+        return new ApprovalCreateUpdater(
+            pathContentSid,
+            contentApprovalUpdateRequest
+        );
+    }
+
     @JsonDeserialize(builder = ContentApprovalRequest.Builder.class)
     @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -73,10 +83,16 @@ public class ApprovalCreate extends Resource {
         @Getter
         private final Integer sendTtlSeconds;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("bid_amount")
+        @Getter
+        private final Integer bidAmount;
+
         private ContentApprovalRequest(Builder builder) {
             this.name = builder.name;
             this.category = builder.category;
             this.sendTtlSeconds = builder.sendTtlSeconds;
+            this.bidAmount = builder.bidAmount;
         }
 
         public static Builder builder(
@@ -106,6 +122,9 @@ public class ApprovalCreate extends Resource {
             @JsonProperty("send_ttl_seconds")
             private Integer sendTtlSeconds;
 
+            @JsonProperty("bid_amount")
+            private Integer bidAmount;
+
             @JsonCreator
             public Builder(
                 @JsonProperty("name") final String name,
@@ -119,6 +138,13 @@ public class ApprovalCreate extends Resource {
             @JsonProperty("send_ttl_seconds")
             public Builder sendTtlSeconds(Integer sendTtlSeconds) {
                 this.sendTtlSeconds = sendTtlSeconds;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("bid_amount")
+            public Builder bidAmount(Integer bidAmount) {
+                this.bidAmount = bidAmount;
                 return this;
             }
 
@@ -141,13 +167,83 @@ public class ApprovalCreate extends Resource {
             return (
                 Objects.equals(name, other.name) &&
                 Objects.equals(category, other.category) &&
-                Objects.equals(sendTtlSeconds, other.sendTtlSeconds)
+                Objects.equals(sendTtlSeconds, other.sendTtlSeconds) &&
+                Objects.equals(bidAmount, other.bidAmount)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(name, category, sendTtlSeconds);
+            return Objects.hash(name, category, sendTtlSeconds, bidAmount);
+        }
+    }
+
+    @JsonDeserialize(builder = ContentApprovalUpdateRequest.Builder.class)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class ContentApprovalUpdateRequest {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("bid_amount")
+        @Getter
+        private final Integer bidAmount;
+
+        private ContentApprovalUpdateRequest(Builder builder) {
+            this.bidAmount = builder.bidAmount;
+        }
+
+        public static Builder builder(final Integer bidAmount) {
+            return new Builder(bidAmount);
+        }
+
+        public static ContentApprovalUpdateRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                ContentApprovalUpdateRequest.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("bid_amount")
+            private Integer bidAmount;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty("bid_amount") final Integer bidAmount
+            ) {
+                this.bidAmount = bidAmount;
+            }
+
+            public ContentApprovalUpdateRequest build() {
+                return new ContentApprovalUpdateRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ContentApprovalUpdateRequest other =
+                (ContentApprovalUpdateRequest) o;
+            return (Objects.equals(bidAmount, other.bidAmount));
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(bidAmount);
         }
     }
 
@@ -210,6 +306,9 @@ public class ApprovalCreate extends Resource {
     private final Boolean allowCategoryChange;
 
     @Getter
+    private final Integer bidAmount;
+
+    @Getter
     private final String category;
 
     @Getter
@@ -232,6 +331,7 @@ public class ApprovalCreate extends Resource {
         @JsonProperty(
             "allow_category_change"
         ) final Boolean allowCategoryChange,
+        @JsonProperty("bid_amount") final Integer bidAmount,
         @JsonProperty("category") final String category,
         @JsonProperty("content_type") final String contentType,
         @JsonProperty("name") final String name,
@@ -240,6 +340,7 @@ public class ApprovalCreate extends Resource {
         @JsonProperty("status") final String status
     ) {
         this.allowCategoryChange = allowCategoryChange;
+        this.bidAmount = bidAmount;
         this.category = category;
         this.contentType = contentType;
         this.name = name;
@@ -261,6 +362,7 @@ public class ApprovalCreate extends Resource {
         ApprovalCreate other = (ApprovalCreate) o;
         return (
             Objects.equals(allowCategoryChange, other.allowCategoryChange) &&
+            Objects.equals(bidAmount, other.bidAmount) &&
             Objects.equals(category, other.category) &&
             Objects.equals(contentType, other.contentType) &&
             Objects.equals(name, other.name) &&
@@ -274,6 +376,7 @@ public class ApprovalCreate extends Resource {
     public int hashCode() {
         return Objects.hash(
             allowCategoryChange,
+            bidAmount,
             category,
             contentType,
             name,

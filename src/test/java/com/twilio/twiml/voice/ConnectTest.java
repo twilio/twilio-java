@@ -131,6 +131,17 @@ public class ConnectTest {
                     .deepgramsmartformat("deepgramSmartFormat")
                     .ignorebackchannel("ignoreBackchannel")
                     .events("events")
+                    .partialPromptOnHangup(true)
+                    .eagerEotThreshold("eager_eot_threshold")
+                    .asrSmartFormat(true)
+                    .ttsTextNormalization("tts_text_normalization")
+                    .ttsLanguageTextNormalization(true)
+                    .elevenlabsLanguageTextNormalization(true)
+                    .includeInPrompt("include_in_prompt")
+                    .customerName("customer_name")
+                    .applicationReconnect(true)
+                    .echoPromptFiltering(true)
+                    .turnDetection(true)
                     .build());
 
         builder.aiSession(new AiSession.Builder()
@@ -153,7 +164,7 @@ public class ConnectTest {
                 "<Stream audioFormat=\"audio_format\" connectorName=\"connector_name\" name=\"name\" sampleRate=\"sample_rate\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\"/>" +
                 "<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" url=\"https://example.com\"/>" +
-                "<ConversationRelay backgroundnoisereduction=\"backgroundNoiseReduction\" debug=\"debug\" deepgramsmartformat=\"deepgramSmartFormat\" dtmfDetection=\"true\" elevenlabsTextNormalization=\"elevenlabs_text_normalization\" events=\"events\" hints=\"hints\" ignorebackchannel=\"ignoreBackchannel\" intelligenceService=\"intelligence_service\" interruptSensitivity=\"interrupt_sensitivity\" interruptible=\"interruptible\" language=\"language\" partialPrompts=\"true\" preemptible=\"true\" profanityFilter=\"true\" reportInputDuringAgentSpeech=\"true\" speechModel=\"speech_model\" speechtimeout=\"speechTimeout\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" url=\"url\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"welcome_greeting_interruptible\"/>" +
+                "<ConversationRelay applicationReconnect=\"true\" asrSmartFormat=\"true\" backgroundnoisereduction=\"backgroundNoiseReduction\" customerName=\"customer_name\" debug=\"debug\" deepgramsmartformat=\"deepgramSmartFormat\" dtmfDetection=\"true\" eagerEotThreshold=\"eager_eot_threshold\" echoPromptFiltering=\"true\" elevenlabsLanguageTextNormalization=\"true\" elevenlabsTextNormalization=\"elevenlabs_text_normalization\" events=\"events\" hints=\"hints\" ignorebackchannel=\"ignoreBackchannel\" includeInPrompt=\"include_in_prompt\" intelligenceService=\"intelligence_service\" interruptSensitivity=\"interrupt_sensitivity\" interruptible=\"interruptible\" language=\"language\" partialPromptOnHangup=\"true\" partialPrompts=\"true\" preemptible=\"true\" profanityFilter=\"true\" reportInputDuringAgentSpeech=\"true\" speechModel=\"speech_model\" speechtimeout=\"speechTimeout\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsLanguageTextNormalization=\"true\" ttsProvider=\"tts_provider\" ttsTextNormalization=\"tts_text_normalization\" turnDetection=\"true\" url=\"url\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"welcome_greeting_interruptible\"/>" +
                 "<AiSession aiConnector=\"ai_connector\" aiSessionConfiguration=\"ai_session_configuration\"/>" +
                 "<ConversationRelaySession connector=\"connector\" sessionConfiguration=\"session_configuration\"/>" +
             "</Connect>",
@@ -320,6 +331,17 @@ public class ConnectTest {
                     .deepgramsmartformat("deepgramSmartFormat")
                     .ignorebackchannel("ignoreBackchannel")
                     .events("events")
+                    .partialPromptOnHangup(true)
+                    .eagerEotThreshold("eager_eot_threshold")
+                    .asrSmartFormat(true)
+                    .ttsTextNormalization("tts_text_normalization")
+                    .ttsLanguageTextNormalization(true)
+                    .elevenlabsLanguageTextNormalization(true)
+                    .includeInPrompt("include_in_prompt")
+                    .customerName("customer_name")
+                    .applicationReconnect(true)
+                    .echoPromptFiltering(true)
+                    .turnDetection(true)
                     .build());
 
         builder.aiSession(new AiSession.Builder()
@@ -341,7 +363,7 @@ public class ConnectTest {
                 "<Stream audioFormat=\"audio_format\" connectorName=\"connector_name\" name=\"name\" sampleRate=\"sample_rate\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\"/>" +
                 "<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" url=\"https://example.com\"/>" +
-                "<ConversationRelay backgroundnoisereduction=\"backgroundNoiseReduction\" debug=\"debug\" deepgramsmartformat=\"deepgramSmartFormat\" dtmfDetection=\"true\" elevenlabsTextNormalization=\"elevenlabs_text_normalization\" events=\"events\" hints=\"hints\" ignorebackchannel=\"ignoreBackchannel\" intelligenceService=\"intelligence_service\" interruptSensitivity=\"interrupt_sensitivity\" interruptible=\"interruptible\" language=\"language\" partialPrompts=\"true\" preemptible=\"true\" profanityFilter=\"true\" reportInputDuringAgentSpeech=\"true\" speechModel=\"speech_model\" speechtimeout=\"speechTimeout\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" url=\"url\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"welcome_greeting_interruptible\"/>" +
+                "<ConversationRelay applicationReconnect=\"true\" asrSmartFormat=\"true\" backgroundnoisereduction=\"backgroundNoiseReduction\" customerName=\"customer_name\" debug=\"debug\" deepgramsmartformat=\"deepgramSmartFormat\" dtmfDetection=\"true\" eagerEotThreshold=\"eager_eot_threshold\" echoPromptFiltering=\"true\" elevenlabsLanguageTextNormalization=\"true\" elevenlabsTextNormalization=\"elevenlabs_text_normalization\" events=\"events\" hints=\"hints\" ignorebackchannel=\"ignoreBackchannel\" includeInPrompt=\"include_in_prompt\" intelligenceService=\"intelligence_service\" interruptSensitivity=\"interrupt_sensitivity\" interruptible=\"interruptible\" language=\"language\" partialPromptOnHangup=\"true\" partialPrompts=\"true\" preemptible=\"true\" profanityFilter=\"true\" reportInputDuringAgentSpeech=\"true\" speechModel=\"speech_model\" speechtimeout=\"speechTimeout\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsLanguageTextNormalization=\"true\" ttsProvider=\"tts_provider\" ttsTextNormalization=\"tts_text_normalization\" turnDetection=\"true\" url=\"url\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"welcome_greeting_interruptible\"/>" +
                 "<AiSession aiConnector=\"ai_connector\" aiSessionConfiguration=\"ai_session_configuration\"/>" +
                 "<ConversationRelaySession connector=\"connector\" sessionConfiguration=\"session_configuration\"/>" +
             "</Connect>").build().toXml(),

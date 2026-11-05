@@ -260,6 +260,9 @@ public class Configuration extends Resource {
         private final List<String> observationExtractionStrategyIds;
 
         @Getter
+        private final String redactionConfigurationId;
+
+        @Getter
         private final List<ConversationsV2StatusCallbackConfig> statusCallbacks;
 
         @Getter
@@ -297,6 +300,9 @@ public class Configuration extends Resource {
             @JsonProperty("observationExtractionStrategyIds") final List<
                 String
             > observationExtractionStrategyIds,
+            @JsonProperty(
+                "redactionConfigurationId"
+            ) final String redactionConfigurationId,
             @JsonProperty("statusCallbacks") final List<
                 ConversationsV2StatusCallbackConfig
             > statusCallbacks,
@@ -318,6 +324,7 @@ public class Configuration extends Resource {
             this.memoryStoreId = memoryStoreId;
             this.observationExtractionStrategyIds =
                 observationExtractionStrategyIds;
+            this.redactionConfigurationId = redactionConfigurationId;
             this.statusCallbacks = statusCallbacks;
             this.traitExtractionStrategyIds = traitExtractionStrategyIds;
             this.updatedAt = updatedAt;
@@ -378,6 +385,10 @@ public class Configuration extends Resource {
                     observationExtractionStrategyIds,
                     other.observationExtractionStrategyIds
                 ) &&
+                Objects.equals(
+                    redactionConfigurationId,
+                    other.redactionConfigurationId
+                ) &&
                 Objects.equals(statusCallbacks, other.statusCallbacks) &&
                 Objects.equals(
                     traitExtractionStrategyIds,
@@ -402,6 +413,7 @@ public class Configuration extends Resource {
                 memoryExtractionEnabled,
                 memoryStoreId,
                 observationExtractionStrategyIds,
+                redactionConfigurationId,
                 statusCallbacks,
                 traitExtractionStrategyIds,
                 updatedAt,
@@ -507,6 +519,9 @@ public class Configuration extends Resource {
         private final List<String> observationExtractionStrategyIds;
 
         @Getter
+        private final String redactionConfigurationId;
+
+        @Getter
         private final List<ConversationsV2StatusCallbackConfig> statusCallbacks;
 
         @Getter
@@ -544,6 +559,9 @@ public class Configuration extends Resource {
             @JsonProperty("observationExtractionStrategyIds") final List<
                 String
             > observationExtractionStrategyIds,
+            @JsonProperty(
+                "redactionConfigurationId"
+            ) final String redactionConfigurationId,
             @JsonProperty("statusCallbacks") final List<
                 ConversationsV2StatusCallbackConfig
             > statusCallbacks,
@@ -565,6 +583,7 @@ public class Configuration extends Resource {
             this.memoryStoreId = memoryStoreId;
             this.observationExtractionStrategyIds =
                 observationExtractionStrategyIds;
+            this.redactionConfigurationId = redactionConfigurationId;
             this.statusCallbacks = statusCallbacks;
             this.traitExtractionStrategyIds = traitExtractionStrategyIds;
             this.updatedAt = updatedAt;
@@ -625,6 +644,10 @@ public class Configuration extends Resource {
                     observationExtractionStrategyIds,
                     other.observationExtractionStrategyIds
                 ) &&
+                Objects.equals(
+                    redactionConfigurationId,
+                    other.redactionConfigurationId
+                ) &&
                 Objects.equals(statusCallbacks, other.statusCallbacks) &&
                 Objects.equals(
                     traitExtractionStrategyIds,
@@ -649,6 +672,7 @@ public class Configuration extends Resource {
                 memoryExtractionEnabled,
                 memoryStoreId,
                 observationExtractionStrategyIds,
+                redactionConfigurationId,
                 statusCallbacks,
                 traitExtractionStrategyIds,
                 updatedAt,
@@ -2967,6 +2991,11 @@ public class Configuration extends Resource {
         private final Boolean memoryExtractionEnabled;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("redactionConfigurationId")
+        @Getter
+        private final String redactionConfigurationId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("conversationsV1Bridge")
         @Getter
         private final ConversationsV2ConversationsV1Bridge conversationsV1Bridge;
@@ -3005,6 +3034,7 @@ public class Configuration extends Resource {
             this.observationExtractionStrategyIds =
                 builder.observationExtractionStrategyIds;
             this.memoryExtractionEnabled = builder.memoryExtractionEnabled;
+            this.redactionConfigurationId = builder.redactionConfigurationId;
             this.conversationsV1Bridge = builder.conversationsV1Bridge;
             this.createdAt = builder.createdAt;
             this.updatedAt = builder.updatedAt;
@@ -3073,6 +3103,9 @@ public class Configuration extends Resource {
 
             @JsonProperty("memoryExtractionEnabled")
             private Boolean memoryExtractionEnabled;
+
+            @JsonProperty("redactionConfigurationId")
+            private String redactionConfigurationId;
 
             @JsonProperty("conversationsV1Bridge")
             private ConversationsV2ConversationsV1Bridge conversationsV1Bridge;
@@ -3168,6 +3201,15 @@ public class Configuration extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("redactionConfigurationId")
+            public Builder redactionConfigurationId(
+                String redactionConfigurationId
+            ) {
+                this.redactionConfigurationId = redactionConfigurationId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("conversationsV1Bridge")
             public Builder conversationsV1Bridge(
                 ConversationsV2ConversationsV1Bridge conversationsV1Bridge
@@ -3250,6 +3292,10 @@ public class Configuration extends Resource {
                     other.memoryExtractionEnabled
                 ) &&
                 Objects.equals(
+                    redactionConfigurationId,
+                    other.redactionConfigurationId
+                ) &&
+                Objects.equals(
                     conversationsV1Bridge,
                     other.conversationsV1Bridge
                 ) &&
@@ -3273,6 +3319,7 @@ public class Configuration extends Resource {
                 traitExtractionStrategyIds,
                 observationExtractionStrategyIds,
                 memoryExtractionEnabled,
+                redactionConfigurationId,
                 conversationsV1Bridge,
                 createdAt,
                 updatedAt,

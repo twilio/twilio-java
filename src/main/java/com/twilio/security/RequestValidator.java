@@ -17,6 +17,8 @@ import org.apache.hc.core5.net.URIBuilder;
 
 public class RequestValidator {
 
+    /** Header that carries the webhook signature. */
+    public static final String SIGNATURE_HEADER = "X-Twilio-Signature";
     /** Header Twilio adds to webhooks signed with a SharedKey: {@code key=<sharedKeyId>,algorithm=<algorithm>}. */
     public static final String SIGNATURE_SETTINGS_HEADER = "X-Twilio-Webhooks-Signature-Settings";
     public static final String HMAC_SHA1 = "HMAC_SHA1";
@@ -33,6 +35,12 @@ public class RequestValidator {
      */
     public RequestValidator(String authToken) {
         this.secret = authToken.getBytes();
+        // The key used to be built here, as a SecretKeySpec, which rejects an empty secret with an
+        // IllegalArgumentException. The signing key is now built per request, because its algorithm depends on
+        // the request. Keep failing fast on an empty secret so existing HMAC-SHA1 callers see no change.
+        if (secret.length == 0) {
+            throw new IllegalArgumentException("Empty key");
+        }
     }
 
     public boolean validate(String url, Map<String, String> params, String expectedSignature) {

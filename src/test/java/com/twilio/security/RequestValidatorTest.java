@@ -333,4 +333,10 @@ public class RequestValidatorTest {
         Assert.assertFalse("Validation should fail with empty signature", isValid);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorRejectsEmptySecret() {
+        // Existing callers relied on an empty secret failing at construction
+        new RequestValidator("");
+    }
+
 }

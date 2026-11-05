@@ -27,6 +27,10 @@ public class Language extends TwiML {
     private final String voice;
     private final String transcriptionProvider;
     private final String speechModel;
+    private final String hints;
+    private final Boolean asrSmartFormat;
+    private final String ttsTextNormalization;
+    private final Boolean ttsLanguageTextNormalization;
 
     /**
      * For XML Serialization/Deserialization
@@ -45,6 +49,10 @@ public class Language extends TwiML {
         this.voice = b.voice;
         this.transcriptionProvider = b.transcriptionProvider;
         this.speechModel = b.speechModel;
+        this.hints = b.hints;
+        this.asrSmartFormat = b.asrSmartFormat;
+        this.ttsTextNormalization = b.ttsTextNormalization;
+        this.ttsLanguageTextNormalization = b.ttsLanguageTextNormalization;
     }
 
     /**
@@ -70,6 +78,18 @@ public class Language extends TwiML {
         }
         if (this.getSpeechModel() != null) {
             attrs.put("speechModel", this.getSpeechModel());
+        }
+        if (this.getHints() != null) {
+            attrs.put("hints", this.getHints());
+        }
+        if (this.isAsrSmartFormat() != null) {
+            attrs.put("asrSmartFormat", this.isAsrSmartFormat().toString());
+        }
+        if (this.getTtsTextNormalization() != null) {
+            attrs.put("ttsTextNormalization", this.getTtsTextNormalization());
+        }
+        if (this.isTtsLanguageTextNormalization() != null) {
+            attrs.put("ttsLanguageTextNormalization", this.isTtsLanguageTextNormalization().toString());
         }
 
         return attrs;
@@ -121,6 +141,48 @@ public class Language extends TwiML {
     }
 
     /**
+     * Phrases to help better accuracy in speech recognition of this language
+     *
+     * @return Phrases to help better accuracy in speech recognition of this
+     *         language
+     */
+    public String getHints() {
+        return hints;
+    }
+
+    /**
+     * Whether smart formatting should be applied to transcripts of this language
+     *
+     * @return Whether smart formatting should be applied to transcripts of this
+     *         language
+     */
+    public Boolean isAsrSmartFormat() {
+        return asrSmartFormat;
+    }
+
+    /**
+     * Text normalization for text-to-speech of this language. The value can be
+     * auto, on, or off
+     *
+     * @return Text normalization for text-to-speech of this language. The value
+     *         can be auto, on, or off
+     */
+    public String getTtsTextNormalization() {
+        return ttsTextNormalization;
+    }
+
+    /**
+     * Whether language-specific text normalization should be applied for
+     * text-to-speech of this language
+     *
+     * @return Whether language-specific text normalization should be applied for
+     *         text-to-speech of this language
+     */
+    public Boolean isTtsLanguageTextNormalization() {
+        return ttsLanguageTextNormalization;
+    }
+
+    /**
      * Create a new {@code <Language>} element
      */
     @JsonPOJOBuilder(withPrefix = "")
@@ -144,6 +206,10 @@ public class Language extends TwiML {
         private String voice;
         private String transcriptionProvider;
         private String speechModel;
+        private String hints;
+        private Boolean asrSmartFormat;
+        private String ttsTextNormalization;
+        private Boolean ttsLanguageTextNormalization;
 
         /**
          * Language code of this language setting is for
@@ -187,6 +253,44 @@ public class Language extends TwiML {
         @JacksonXmlProperty(isAttribute = true, localName = "speechModel")
         public Builder speechModel(String speechModel) {
             this.speechModel = speechModel;
+            return this;
+        }
+
+        /**
+         * Phrases to help better accuracy in speech recognition of this language
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "hints")
+        public Builder hints(String hints) {
+            this.hints = hints;
+            return this;
+        }
+
+        /**
+         * Whether smart formatting should be applied to transcripts of this language
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "asrSmartFormat")
+        public Builder asrSmartFormat(Boolean asrSmartFormat) {
+            this.asrSmartFormat = asrSmartFormat;
+            return this;
+        }
+
+        /**
+         * Text normalization for text-to-speech of this language. The value can be
+         * auto, on, or off
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "ttsTextNormalization")
+        public Builder ttsTextNormalization(String ttsTextNormalization) {
+            this.ttsTextNormalization = ttsTextNormalization;
+            return this;
+        }
+
+        /**
+         * Whether language-specific text normalization should be applied for
+         * text-to-speech of this language
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "ttsLanguageTextNormalization")
+        public Builder ttsLanguageTextNormalization(Boolean ttsLanguageTextNormalization) {
+            this.ttsLanguageTextNormalization = ttsLanguageTextNormalization;
             return this;
         }
 

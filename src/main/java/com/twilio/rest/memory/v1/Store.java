@@ -35,6 +35,7 @@ import com.twilio.type.*;
 import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 import lombok.Builder;
@@ -296,6 +297,9 @@ public class Store extends Resource {
     public static class FetchStoreResponse extends Resource {
 
         @Getter
+        private final ZonedDateTime dataAsOf;
+
+        @Getter
         private final String description;
 
         @Getter
@@ -315,6 +319,7 @@ public class Store extends Resource {
 
         @JsonCreator
         private FetchStoreResponse(
+            @JsonProperty("dataAsOf") final ZonedDateTime dataAsOf,
             @JsonProperty("description") final String description,
             @JsonProperty("displayName") final String displayName,
             @JsonProperty("id") final String id,
@@ -324,6 +329,7 @@ public class Store extends Resource {
             @JsonProperty("status") final Store.Status status,
             @JsonProperty("version") final Integer version
         ) {
+            this.dataAsOf = dataAsOf;
             this.description = description;
             this.displayName = displayName;
             this.id = id;
@@ -357,6 +363,7 @@ public class Store extends Resource {
             }
             FetchStoreResponse other = (FetchStoreResponse) o;
             return (
+                Objects.equals(dataAsOf, other.dataAsOf) &&
                 Objects.equals(description, other.description) &&
                 Objects.equals(displayName, other.displayName) &&
                 Objects.equals(id, other.id) &&
@@ -372,6 +379,7 @@ public class Store extends Resource {
         @Override
         public int hashCode() {
             return Objects.hash(
+                dataAsOf,
                 description,
                 displayName,
                 id,

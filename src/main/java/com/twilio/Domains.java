@@ -48,6 +48,7 @@ public enum Domains {
     VERIFY("verify"),
     VIDEO("video"),
     VOICE("voice"),
+    WEBHOOKS("webhooks"),
     WIRELESS("wireless");
 
     private final String value;

@@ -825,6 +825,7 @@ public class Conversation extends Resource {
         VOICE("VOICE"),
         SMS("SMS"),
         RCS("RCS"),
+        EMAIL("EMAIL"),
         WHATSAPP("WHATSAPP"),
         CHAT("CHAT"),
         VIDEO("VIDEO");
@@ -845,6 +846,33 @@ public class Conversation extends Resource {
             return Promoter.enumFromString(
                 value,
                 ConversationsV2Channel.values()
+            );
+        }
+    }
+
+    public enum ConversationGroupingType {
+        GROUP_BY_PROFILE("GROUP_BY_PROFILE"),
+        GROUP_BY_PARTICIPANT_ADDRESSES("GROUP_BY_PARTICIPANT_ADDRESSES"),
+        GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE(
+            "GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE"
+        );
+
+        private final String value;
+
+        private ConversationGroupingType(final String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ConversationGroupingType forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                ConversationGroupingType.values()
             );
         }
     }
@@ -909,6 +937,7 @@ public class Conversation extends Resource {
         VOICE("VOICE"),
         SMS("SMS"),
         RCS("RCS"),
+        EMAIL("EMAIL"),
         WHATSAPP("WHATSAPP"),
         CHAT("CHAT"),
         VIDEO("VIDEO");
@@ -1102,6 +1131,11 @@ public class Conversation extends Resource {
         private final Boolean memoryExtractionEnabled;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("redactionConfigurationId")
+        @Getter
+        private final String redactionConfigurationId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("conversationsV1Bridge")
         @Getter
         private final ConversationsV2ConversationsV1Bridge conversationsV1Bridge;
@@ -1122,6 +1156,7 @@ public class Conversation extends Resource {
             this.observationExtractionStrategyIds =
                 builder.observationExtractionStrategyIds;
             this.memoryExtractionEnabled = builder.memoryExtractionEnabled;
+            this.redactionConfigurationId = builder.redactionConfigurationId;
             this.conversationsV1Bridge = builder.conversationsV1Bridge;
         }
 
@@ -1172,6 +1207,9 @@ public class Conversation extends Resource {
 
             @JsonProperty("memoryExtractionEnabled")
             private Boolean memoryExtractionEnabled;
+
+            @JsonProperty("redactionConfigurationId")
+            private String redactionConfigurationId;
 
             @JsonProperty("conversationsV1Bridge")
             private ConversationsV2ConversationsV1Bridge conversationsV1Bridge;
@@ -1263,6 +1301,15 @@ public class Conversation extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("redactionConfigurationId")
+            public Builder redactionConfigurationId(
+                String redactionConfigurationId
+            ) {
+                this.redactionConfigurationId = redactionConfigurationId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("conversationsV1Bridge")
             public Builder conversationsV1Bridge(
                 ConversationsV2ConversationsV1Bridge conversationsV1Bridge
@@ -1317,6 +1364,10 @@ public class Conversation extends Resource {
                     other.memoryExtractionEnabled
                 ) &&
                 Objects.equals(
+                    redactionConfigurationId,
+                    other.redactionConfigurationId
+                ) &&
+                Objects.equals(
                     conversationsV1Bridge,
                     other.conversationsV1Bridge
                 )
@@ -1336,6 +1387,7 @@ public class Conversation extends Resource {
                 traitExtractionStrategyIds,
                 observationExtractionStrategyIds,
                 memoryExtractionEnabled,
+                redactionConfigurationId,
                 conversationsV1Bridge
             );
         }
@@ -1602,6 +1654,175 @@ public class Conversation extends Resource {
     }
 
     @JsonDeserialize(
+        builder = CreateConversationWithConfigRequestConfigurationChannelSettingsValue.Builder.class
+    )
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CreateConversationWithConfigRequestConfigurationChannelSettingsValue {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("statusTimeouts")
+        @Getter
+        private final CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts statusTimeouts;
+
+        private CreateConversationWithConfigRequestConfigurationChannelSettingsValue(
+            Builder builder
+        ) {
+            this.statusTimeouts = builder.statusTimeouts;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CreateConversationWithConfigRequestConfigurationChannelSettingsValue fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CreateConversationWithConfigRequestConfigurationChannelSettingsValue.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("statusTimeouts")
+            private CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts statusTimeouts;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("statusTimeouts")
+            public Builder statusTimeouts(
+                CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts statusTimeouts
+            ) {
+                this.statusTimeouts = statusTimeouts;
+                return this;
+            }
+
+            public CreateConversationWithConfigRequestConfigurationChannelSettingsValue build() {
+                return new CreateConversationWithConfigRequestConfigurationChannelSettingsValue(
+                    this
+                );
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateConversationWithConfigRequestConfigurationChannelSettingsValue other =
+                (CreateConversationWithConfigRequestConfigurationChannelSettingsValue) o;
+            return (Objects.equals(statusTimeouts, other.statusTimeouts));
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(statusTimeouts);
+        }
+    }
+
+    @JsonDeserialize(
+        builder = CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts.Builder.class
+    )
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("inactive")
+        @Getter
+        private final Integer inactive;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("closed")
+        @Getter
+        private final Integer closed;
+
+        private CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts(
+            Builder builder
+        ) {
+            this.inactive = builder.inactive;
+            this.closed = builder.closed;
+        }
+
+        public static Builder builder(final Integer closed) {
+            return new Builder(closed);
+        }
+
+        public static CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("inactive")
+            private Integer inactive;
+
+            @JsonProperty("closed")
+            private Integer closed;
+
+            @JsonCreator
+            public Builder(@JsonProperty("closed") final Integer closed) {
+                this.closed = closed;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("inactive")
+            public Builder inactive(Integer inactive) {
+                this.inactive = inactive;
+                return this;
+            }
+
+            public CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts build() {
+                return new CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts(
+                    this
+                );
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts other =
+                (CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts) o;
+            return (
+                Objects.equals(inactive, other.inactive) &&
+                Objects.equals(closed, other.closed)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(inactive, closed);
+        }
+    }
+
+    @JsonDeserialize(
         builder = ListConversationByAccount200ResponseMeta.Builder.class
     )
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -1732,6 +1953,29 @@ public class Conversation extends Resource {
     public static class CreateConversationWithConfigRequestConfiguration {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("conversationGroupingType")
+        @Getter
+        private final Conversation.ConversationGroupingType conversationGroupingType;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("memoryStoreId")
+        @Getter
+        private final String memoryStoreId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("channelSettings")
+        @Getter
+        private final Map<
+            String,
+            CreateConversationWithConfigRequestConfigurationChannelSettingsValue
+        > channelSettings;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("memoryExtractionEnabled")
+        @Getter
+        private final Boolean memoryExtractionEnabled;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("intelligenceConfigurationIds")
         @Getter
         private final List<String> intelligenceConfigurationIds;
@@ -1747,6 +1991,13 @@ public class Conversation extends Resource {
         private final List<String> observationExtractionStrategyIds;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("statusCallbacks")
+        @Getter
+        private final List<
+            CreateConversationWithConfigRequestConfigurationStatusCallbacks
+        > statusCallbacks;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("workflows")
         @Getter
         private final List<ConversationWorkflow> workflows;
@@ -1754,12 +2005,17 @@ public class Conversation extends Resource {
         private CreateConversationWithConfigRequestConfiguration(
             Builder builder
         ) {
+            this.conversationGroupingType = builder.conversationGroupingType;
+            this.memoryStoreId = builder.memoryStoreId;
+            this.channelSettings = builder.channelSettings;
+            this.memoryExtractionEnabled = builder.memoryExtractionEnabled;
             this.intelligenceConfigurationIds =
                 builder.intelligenceConfigurationIds;
             this.traitExtractionStrategyIds =
                 builder.traitExtractionStrategyIds;
             this.observationExtractionStrategyIds =
                 builder.observationExtractionStrategyIds;
+            this.statusCallbacks = builder.statusCallbacks;
             this.workflows = builder.workflows;
         }
 
@@ -1781,6 +2037,21 @@ public class Conversation extends Resource {
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
+            @JsonProperty("conversationGroupingType")
+            private Conversation.ConversationGroupingType conversationGroupingType;
+
+            @JsonProperty("memoryStoreId")
+            private String memoryStoreId;
+
+            @JsonProperty("channelSettings")
+            private Map<
+                String,
+                CreateConversationWithConfigRequestConfigurationChannelSettingsValue
+            > channelSettings;
+
+            @JsonProperty("memoryExtractionEnabled")
+            private Boolean memoryExtractionEnabled;
+
             @JsonProperty("intelligenceConfigurationIds")
             private List<String> intelligenceConfigurationIds;
 
@@ -1790,8 +2061,50 @@ public class Conversation extends Resource {
             @JsonProperty("observationExtractionStrategyIds")
             private List<String> observationExtractionStrategyIds;
 
+            @JsonProperty("statusCallbacks")
+            private List<
+                CreateConversationWithConfigRequestConfigurationStatusCallbacks
+            > statusCallbacks;
+
             @JsonProperty("workflows")
             private List<ConversationWorkflow> workflows;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("conversationGroupingType")
+            public Builder conversationGroupingType(
+                Conversation.ConversationGroupingType conversationGroupingType
+            ) {
+                this.conversationGroupingType = conversationGroupingType;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("memoryStoreId")
+            public Builder memoryStoreId(String memoryStoreId) {
+                this.memoryStoreId = memoryStoreId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("channelSettings")
+            public Builder channelSettings(
+                Map<
+                    String,
+                    CreateConversationWithConfigRequestConfigurationChannelSettingsValue
+                > channelSettings
+            ) {
+                this.channelSettings = channelSettings;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("memoryExtractionEnabled")
+            public Builder memoryExtractionEnabled(
+                Boolean memoryExtractionEnabled
+            ) {
+                this.memoryExtractionEnabled = memoryExtractionEnabled;
+                return this;
+            }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("intelligenceConfigurationIds")
@@ -1823,6 +2136,17 @@ public class Conversation extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("statusCallbacks")
+            public Builder statusCallbacks(
+                List<
+                    CreateConversationWithConfigRequestConfigurationStatusCallbacks
+                > statusCallbacks
+            ) {
+                this.statusCallbacks = statusCallbacks;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("workflows")
             public Builder workflows(List<ConversationWorkflow> workflows) {
                 this.workflows = workflows;
@@ -1850,6 +2174,16 @@ public class Conversation extends Resource {
                 (CreateConversationWithConfigRequestConfiguration) o;
             return (
                 Objects.equals(
+                    conversationGroupingType,
+                    other.conversationGroupingType
+                ) &&
+                Objects.equals(memoryStoreId, other.memoryStoreId) &&
+                Objects.equals(channelSettings, other.channelSettings) &&
+                Objects.equals(
+                    memoryExtractionEnabled,
+                    other.memoryExtractionEnabled
+                ) &&
+                Objects.equals(
                     intelligenceConfigurationIds,
                     other.intelligenceConfigurationIds
                 ) &&
@@ -1861,6 +2195,7 @@ public class Conversation extends Resource {
                     observationExtractionStrategyIds,
                     other.observationExtractionStrategyIds
                 ) &&
+                Objects.equals(statusCallbacks, other.statusCallbacks) &&
                 Objects.equals(workflows, other.workflows)
             );
         }
@@ -1868,11 +2203,108 @@ public class Conversation extends Resource {
         @Override
         public int hashCode() {
             return Objects.hash(
+                conversationGroupingType,
+                memoryStoreId,
+                channelSettings,
+                memoryExtractionEnabled,
                 intelligenceConfigurationIds,
                 traitExtractionStrategyIds,
                 observationExtractionStrategyIds,
+                statusCallbacks,
                 workflows
             );
+        }
+    }
+
+    @JsonDeserialize(
+        builder = CreateConversationWithConfigRequestConfigurationStatusCallbacks.Builder.class
+    )
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class CreateConversationWithConfigRequestConfigurationStatusCallbacks {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("url")
+        @Getter
+        private final URI url;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("method")
+        @Getter
+        private final Conversation.Method method;
+
+        private CreateConversationWithConfigRequestConfigurationStatusCallbacks(
+            Builder builder
+        ) {
+            this.url = builder.url;
+            this.method = builder.method;
+        }
+
+        public static Builder builder(final URI url) {
+            return new Builder(url);
+        }
+
+        public static CreateConversationWithConfigRequestConfigurationStatusCallbacks fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                CreateConversationWithConfigRequestConfigurationStatusCallbacks.class
+            );
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("url")
+            private URI url;
+
+            @JsonProperty("method")
+            private Conversation.Method method;
+
+            @JsonCreator
+            public Builder(@JsonProperty("url") final URI url) {
+                this.url = url;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("method")
+            public Builder method(Conversation.Method method) {
+                this.method = method;
+                return this;
+            }
+
+            public CreateConversationWithConfigRequestConfigurationStatusCallbacks build() {
+                return new CreateConversationWithConfigRequestConfigurationStatusCallbacks(
+                    this
+                );
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateConversationWithConfigRequestConfigurationStatusCallbacks other =
+                (CreateConversationWithConfigRequestConfigurationStatusCallbacks) o;
+            return (
+                Objects.equals(url, other.url) &&
+                Objects.equals(method, other.method)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(url, method);
         }
     }
 
@@ -2457,12 +2889,8 @@ public class Conversation extends Resource {
             this.actionId = builder.actionId;
         }
 
-        public static Builder builder(
-            final String id,
-            final String accountId,
-            final String configurationId
-        ) {
-            return new Builder(id, accountId, configurationId);
+        public static Builder builder(final String id, final String accountId) {
+            return new Builder(id, accountId);
         }
 
         public static ListConversationByAccount200ResponseConversations fromJson(
@@ -2523,12 +2951,17 @@ public class Conversation extends Resource {
             @JsonCreator
             public Builder(
                 @JsonProperty("id") final String id,
-                @JsonProperty("accountId") final String accountId,
-                @JsonProperty("configurationId") final String configurationId
+                @JsonProperty("accountId") final String accountId
             ) {
                 this.id = id;
                 this.accountId = accountId;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("configurationId")
+            public Builder configurationId(String configurationId) {
                 this.configurationId = configurationId;
+                return this;
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -2696,8 +3129,8 @@ public class Conversation extends Resource {
             this.metadata = builder.metadata;
         }
 
-        public static Builder builder(final String configurationId) {
-            return new Builder(configurationId);
+        public static Builder builder() {
+            return new Builder();
         }
 
         public static CreateConversationWithConfigRequest fromJson(
@@ -2731,11 +3164,11 @@ public class Conversation extends Resource {
             @JsonProperty("metadata")
             private Map<String, String> metadata;
 
-            @JsonCreator
-            public Builder(
-                @JsonProperty("configurationId") final String configurationId
-            ) {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("configurationId")
+            public Builder configurationId(String configurationId) {
                 this.configurationId = configurationId;
+                return this;
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)

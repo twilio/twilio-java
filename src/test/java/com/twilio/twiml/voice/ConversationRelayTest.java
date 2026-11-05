@@ -62,11 +62,22 @@ public class ConversationRelayTest {
             .deepgramsmartformat("deepgramSmartFormat")
             .ignorebackchannel("ignoreBackchannel")
             .events("events")
+            .partialPromptOnHangup(true)
+            .eagerEotThreshold("eager_eot_threshold")
+            .asrSmartFormat(true)
+            .ttsTextNormalization("tts_text_normalization")
+            .ttsLanguageTextNormalization(true)
+            .elevenlabsLanguageTextNormalization(true)
+            .includeInPrompt("include_in_prompt")
+            .customerName("customer_name")
+            .applicationReconnect(true)
+            .echoPromptFiltering(true)
+            .turnDetection(true)
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<ConversationRelay backgroundnoisereduction=\"backgroundNoiseReduction\" debug=\"debug\" deepgramsmartformat=\"deepgramSmartFormat\" dtmfDetection=\"true\" elevenlabsTextNormalization=\"elevenlabs_text_normalization\" events=\"events\" hints=\"hints\" ignorebackchannel=\"ignoreBackchannel\" intelligenceService=\"intelligence_service\" interruptSensitivity=\"interrupt_sensitivity\" interruptible=\"interruptible\" language=\"language\" partialPrompts=\"true\" preemptible=\"true\" profanityFilter=\"true\" reportInputDuringAgentSpeech=\"true\" speechModel=\"speech_model\" speechtimeout=\"speechTimeout\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" url=\"url\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"welcome_greeting_interruptible\"/>",
+            "<ConversationRelay applicationReconnect=\"true\" asrSmartFormat=\"true\" backgroundnoisereduction=\"backgroundNoiseReduction\" customerName=\"customer_name\" debug=\"debug\" deepgramsmartformat=\"deepgramSmartFormat\" dtmfDetection=\"true\" eagerEotThreshold=\"eager_eot_threshold\" echoPromptFiltering=\"true\" elevenlabsLanguageTextNormalization=\"true\" elevenlabsTextNormalization=\"elevenlabs_text_normalization\" events=\"events\" hints=\"hints\" ignorebackchannel=\"ignoreBackchannel\" includeInPrompt=\"include_in_prompt\" intelligenceService=\"intelligence_service\" interruptSensitivity=\"interrupt_sensitivity\" interruptible=\"interruptible\" language=\"language\" partialPromptOnHangup=\"true\" partialPrompts=\"true\" preemptible=\"true\" profanityFilter=\"true\" reportInputDuringAgentSpeech=\"true\" speechModel=\"speech_model\" speechtimeout=\"speechTimeout\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsLanguageTextNormalization=\"true\" ttsProvider=\"tts_provider\" ttsTextNormalization=\"tts_text_normalization\" turnDetection=\"true\" url=\"url\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"welcome_greeting_interruptible\"/>",
             elem.toXml()
         );
     }
@@ -92,6 +103,10 @@ public class ConversationRelayTest {
                     .voice("voice")
                     .transcriptionProvider("transcription_provider")
                     .speechModel("speech_model")
+                    .hints("hints")
+                    .asrSmartFormat(true)
+                    .ttsTextNormalization("tts_text_normalization")
+                    .ttsLanguageTextNormalization(true)
                     .build());
 
         builder.parameter(new Parameter.Builder().name("name").value("value").build());
@@ -101,7 +116,7 @@ public class ConversationRelayTest {
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<ConversationRelay>" +
-                "<Language code=\"code\" speechModel=\"speech_model\" transcriptionProvider=\"transcription_provider\" ttsProvider=\"tts_provider\" voice=\"voice\"/>" +
+                "<Language asrSmartFormat=\"true\" code=\"code\" hints=\"hints\" speechModel=\"speech_model\" transcriptionProvider=\"transcription_provider\" ttsLanguageTextNormalization=\"true\" ttsProvider=\"tts_provider\" ttsTextNormalization=\"tts_text_normalization\" voice=\"voice\"/>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
             "</ConversationRelay>",
             elem.toXml()
@@ -215,10 +230,21 @@ public class ConversationRelayTest {
             .deepgramsmartformat("deepgramSmartFormat")
             .ignorebackchannel("ignoreBackchannel")
             .events("events")
+            .partialPromptOnHangup(true)
+            .eagerEotThreshold("eager_eot_threshold")
+            .asrSmartFormat(true)
+            .ttsTextNormalization("tts_text_normalization")
+            .ttsLanguageTextNormalization(true)
+            .elevenlabsLanguageTextNormalization(true)
+            .includeInPrompt("include_in_prompt")
+            .customerName("customer_name")
+            .applicationReconnect(true)
+            .echoPromptFiltering(true)
+            .turnDetection(true)
             .build();
 
         Assert.assertEquals(
-            ConversationRelay.Builder.fromXml("<ConversationRelay backgroundnoisereduction=\"backgroundNoiseReduction\" debug=\"debug\" deepgramsmartformat=\"deepgramSmartFormat\" dtmfDetection=\"true\" elevenlabsTextNormalization=\"elevenlabs_text_normalization\" events=\"events\" hints=\"hints\" ignorebackchannel=\"ignoreBackchannel\" intelligenceService=\"intelligence_service\" interruptSensitivity=\"interrupt_sensitivity\" interruptible=\"interruptible\" language=\"language\" partialPrompts=\"true\" preemptible=\"true\" profanityFilter=\"true\" reportInputDuringAgentSpeech=\"true\" speechModel=\"speech_model\" speechtimeout=\"speechTimeout\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" url=\"url\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"welcome_greeting_interruptible\"/>").build().toXml(),
+            ConversationRelay.Builder.fromXml("<ConversationRelay applicationReconnect=\"true\" asrSmartFormat=\"true\" backgroundnoisereduction=\"backgroundNoiseReduction\" customerName=\"customer_name\" debug=\"debug\" deepgramsmartformat=\"deepgramSmartFormat\" dtmfDetection=\"true\" eagerEotThreshold=\"eager_eot_threshold\" echoPromptFiltering=\"true\" elevenlabsLanguageTextNormalization=\"true\" elevenlabsTextNormalization=\"elevenlabs_text_normalization\" events=\"events\" hints=\"hints\" ignorebackchannel=\"ignoreBackchannel\" includeInPrompt=\"include_in_prompt\" intelligenceService=\"intelligence_service\" interruptSensitivity=\"interrupt_sensitivity\" interruptible=\"interruptible\" language=\"language\" partialPromptOnHangup=\"true\" partialPrompts=\"true\" preemptible=\"true\" profanityFilter=\"true\" reportInputDuringAgentSpeech=\"true\" speechModel=\"speech_model\" speechtimeout=\"speechTimeout\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsLanguageTextNormalization=\"true\" ttsProvider=\"tts_provider\" ttsTextNormalization=\"tts_text_normalization\" turnDetection=\"true\" url=\"url\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"welcome_greeting_interruptible\"/>").build().toXml(),
             elem.toXml()
         );
     }
@@ -233,6 +259,10 @@ public class ConversationRelayTest {
                     .voice("voice")
                     .transcriptionProvider("transcription_provider")
                     .speechModel("speech_model")
+                    .hints("hints")
+                    .asrSmartFormat(true)
+                    .ttsTextNormalization("tts_text_normalization")
+                    .ttsLanguageTextNormalization(true)
                     .build());
 
         builder.parameter(new Parameter.Builder().name("name").value("value").build());
@@ -241,7 +271,7 @@ public class ConversationRelayTest {
 
         Assert.assertEquals(
             ConversationRelay.Builder.fromXml("<ConversationRelay>" +
-                "<Language code=\"code\" speechModel=\"speech_model\" transcriptionProvider=\"transcription_provider\" ttsProvider=\"tts_provider\" voice=\"voice\"/>" +
+                "<Language asrSmartFormat=\"true\" code=\"code\" hints=\"hints\" speechModel=\"speech_model\" transcriptionProvider=\"transcription_provider\" ttsLanguageTextNormalization=\"true\" ttsProvider=\"tts_provider\" ttsTextNormalization=\"tts_text_normalization\" voice=\"voice\"/>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
             "</ConversationRelay>").build().toXml(),
             elem.toXml()

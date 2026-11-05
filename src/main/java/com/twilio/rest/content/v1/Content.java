@@ -125,7 +125,10 @@ public class Content extends Resource {
         PHONE_NUMBER("PHONE_NUMBER"),
         QUICK_REPLY("QUICK_REPLY"),
         COPY_CODE("COPY_CODE"),
-        VOICE_CALL("VOICE_CALL");
+        VOICE_CALL("VOICE_CALL"),
+        PIX("PIX"),
+        BOLETO("BOLETO"),
+        PAYMENT_LINK("PAYMENT_LINK");
 
         private final String value;
 
@@ -3083,6 +3086,11 @@ public class Content extends Resource {
         @Getter
         private final Content.WebviewSizeType webviewSize;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("digitable_line")
+        @Getter
+        private final String digitableLine;
+
         private CardAction(Builder builder) {
             this.type = builder.type;
             this.title = builder.title;
@@ -3091,13 +3099,11 @@ public class Content extends Resource {
             this.id = builder.id;
             this.code = builder.code;
             this.webviewSize = builder.webviewSize;
+            this.digitableLine = builder.digitableLine;
         }
 
-        public static Builder builder(
-            final Content.CardActionType type,
-            final String title
-        ) {
-            return new Builder(type, title);
+        public static Builder builder(final Content.CardActionType type) {
+            return new Builder(type);
         }
 
         public static CardAction fromJson(
@@ -3132,13 +3138,21 @@ public class Content extends Resource {
             @JsonProperty("webview_size")
             private Content.WebviewSizeType webviewSize;
 
+            @JsonProperty("digitable_line")
+            private String digitableLine;
+
             @JsonCreator
             public Builder(
-                @JsonProperty("type") final Content.CardActionType type,
-                @JsonProperty("title") final String title
+                @JsonProperty("type") final Content.CardActionType type
             ) {
                 this.type = type;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("title")
+            public Builder title(String title) {
                 this.title = title;
+                return this;
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -3176,6 +3190,13 @@ public class Content extends Resource {
                 return this;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("digitable_line")
+            public Builder digitableLine(String digitableLine) {
+                this.digitableLine = digitableLine;
+                return this;
+            }
+
             public CardAction build() {
                 return new CardAction(this);
             }
@@ -3199,13 +3220,23 @@ public class Content extends Resource {
                 Objects.equals(phone, other.phone) &&
                 Objects.equals(id, other.id) &&
                 Objects.equals(code, other.code) &&
-                Objects.equals(webviewSize, other.webviewSize)
+                Objects.equals(webviewSize, other.webviewSize) &&
+                Objects.equals(digitableLine, other.digitableLine)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(type, title, url, phone, id, code, webviewSize);
+            return Objects.hash(
+                type,
+                title,
+                url,
+                phone,
+                id,
+                code,
+                webviewSize,
+                digitableLine
+            );
         }
     }
 

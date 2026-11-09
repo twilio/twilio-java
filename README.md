@@ -354,6 +354,8 @@ That will output XML that looks like this:
 
 To use a custom HTTP client with this helper library, please see the [advanced example of how to do so](./advanced-examples/custom-http-client.md).
 
+The default HTTP client refuses TLS connections whose certificate chain contains one of eight intermediate certificates with compromised keys (CVE-2026-111943). A client built from your own `HttpClientBuilder` doesn't get this check unless you set `DistrustedIntermediates.createConnectionManager()` as its connection manager, as the [advanced example](./advanced-examples/custom-http-client.md#keep-the-distrusted-intermediate-check) shows.
+
 ## Docker image
 
 The `Dockerfile` present in this repository and its respective `twilio/twilio-java` Docker image are currently used by Twilio for testing purposes only.

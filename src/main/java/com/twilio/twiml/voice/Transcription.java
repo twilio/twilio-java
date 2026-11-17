@@ -67,6 +67,8 @@ public class Transcription extends TwiML {
     private final String hints;
     private final Boolean enableAutomaticPunctuation;
     private final String intelligenceService;
+    private final String conversationId;
+    private final String conversationConfiguration;
 
     /**
      * For XML Serialization/Deserialization
@@ -94,6 +96,8 @@ public class Transcription extends TwiML {
         this.hints = b.hints;
         this.enableAutomaticPunctuation = b.enableAutomaticPunctuation;
         this.intelligenceService = b.intelligenceService;
+        this.conversationId = b.conversationId;
+        this.conversationConfiguration = b.conversationConfiguration;
     }
 
     /**
@@ -146,6 +150,12 @@ public class Transcription extends TwiML {
         }
         if (this.getIntelligenceService() != null) {
             attrs.put("intelligenceService", this.getIntelligenceService());
+        }
+        if (this.getConversationId() != null) {
+            attrs.put("conversationId", this.getConversationId());
+        }
+        if (this.getConversationConfiguration() != null) {
+            attrs.put("conversationConfiguration", this.getConversationConfiguration());
         }
 
         return attrs;
@@ -278,6 +288,25 @@ public class Transcription extends TwiML {
     }
 
     /**
+     * The ID of the Conversation
+     *
+     * @return The ID of the Conversation
+     */
+    public String getConversationId() {
+        return conversationId;
+    }
+
+    /**
+     * The ID or the unique name of the Conversation configuration to be used
+     *
+     * @return The ID or the unique name of the Conversation configuration to be
+     *         used
+     */
+    public String getConversationConfiguration() {
+        return conversationConfiguration;
+    }
+
+    /**
      * Create a new {@code <Transcription>} element
      */
     @JsonPOJOBuilder(withPrefix = "")
@@ -310,6 +339,8 @@ public class Transcription extends TwiML {
         private String hints;
         private Boolean enableAutomaticPunctuation;
         private String intelligenceService;
+        private String conversationId;
+        private String conversationConfiguration;
 
         /**
          * Friendly name given to the Transcription
@@ -434,6 +465,24 @@ public class Transcription extends TwiML {
         @JacksonXmlProperty(isAttribute = true, localName = "intelligenceService")
         public Builder intelligenceService(String intelligenceService) {
             this.intelligenceService = intelligenceService;
+            return this;
+        }
+
+        /**
+         * The ID of the Conversation
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "conversationId")
+        public Builder conversationId(String conversationId) {
+            this.conversationId = conversationId;
+            return this;
+        }
+
+        /**
+         * The ID or the unique name of the Conversation configuration to be used
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "conversationConfiguration")
+        public Builder conversationConfiguration(String conversationConfiguration) {
+            this.conversationConfiguration = conversationConfiguration;
             return this;
         }
 

@@ -59,6 +59,8 @@ public class ConversationRelay extends TwiML {
     private final Boolean applicationReconnect;
     private final Boolean echoPromptFiltering;
     private final Boolean turnDetection;
+    private final String conversationId;
+    private final String conversationConfiguration;
 
     /**
      * For XML Serialization/Deserialization
@@ -109,6 +111,8 @@ public class ConversationRelay extends TwiML {
         this.applicationReconnect = b.applicationReconnect;
         this.echoPromptFiltering = b.echoPromptFiltering;
         this.turnDetection = b.turnDetection;
+        this.conversationId = b.conversationId;
+        this.conversationConfiguration = b.conversationConfiguration;
     }
 
     /**
@@ -230,6 +234,12 @@ public class ConversationRelay extends TwiML {
         }
         if (this.isTurnDetection() != null) {
             attrs.put("turnDetection", this.isTurnDetection().toString());
+        }
+        if (this.getConversationId() != null) {
+            attrs.put("conversationId", this.getConversationId());
+        }
+        if (this.getConversationConfiguration() != null) {
+            attrs.put("conversationConfiguration", this.getConversationConfiguration());
         }
 
         return attrs;
@@ -618,6 +628,25 @@ public class ConversationRelay extends TwiML {
     }
 
     /**
+     * The ID of the Conversation
+     *
+     * @return The ID of the Conversation
+     */
+    public String getConversationId() {
+        return conversationId;
+    }
+
+    /**
+     * The ID or the unique name of the Conversation configuration to be used
+     *
+     * @return The ID or the unique name of the Conversation configuration to be
+     *         used
+     */
+    public String getConversationConfiguration() {
+        return conversationConfiguration;
+    }
+
+    /**
      * Create a new {@code <ConversationRelay>} element
      */
     @JsonPOJOBuilder(withPrefix = "")
@@ -673,6 +702,8 @@ public class ConversationRelay extends TwiML {
         private Boolean applicationReconnect;
         private Boolean echoPromptFiltering;
         private Boolean turnDetection;
+        private String conversationId;
+        private String conversationConfiguration;
 
         /**
          * URL of the remote service where the session is connected to
@@ -1027,6 +1058,24 @@ public class ConversationRelay extends TwiML {
         @JacksonXmlProperty(isAttribute = true, localName = "turnDetection")
         public Builder turnDetection(Boolean turnDetection) {
             this.turnDetection = turnDetection;
+            return this;
+        }
+
+        /**
+         * The ID of the Conversation
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "conversationId")
+        public Builder conversationId(String conversationId) {
+            this.conversationId = conversationId;
+            return this;
+        }
+
+        /**
+         * The ID or the unique name of the Conversation configuration to be used
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "conversationConfiguration")
+        public Builder conversationConfiguration(String conversationConfiguration) {
+            this.conversationConfiguration = conversationConfiguration;
             return this;
         }
 

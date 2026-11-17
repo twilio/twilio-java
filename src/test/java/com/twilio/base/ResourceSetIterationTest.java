@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 // Simple test resource for testing ResourceSet iteration
@@ -66,6 +68,33 @@ public class ResourceSetIterationTest {
     @Before
     public void init() {
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void testIncreasingLimitFetchesAdditionalPages() {
+        TestResource resource1 = new TestResource("resource1");
+        TestResource resource2 = new TestResource("resource2");
+        TestResource resource3 = new TestResource("resource3");
+        TestResource resource4 = new TestResource("resource4");
+        Page<TestResource> nextPage = mock(Page.class);
+        TestReader reader = mock(TestReader.class, org.mockito.Mockito.CALLS_REAL_METHODS);
+        reader.pageSize(2).limit(2);
+        when(page.getRecords()).thenReturn(Arrays.asList(resource1, resource2));
+        when(page.getPageSize()).thenReturn(2);
+        when(page.hasNextPage()).thenReturn(true);
+        when(nextPage.getRecords()).thenReturn(Arrays.asList(resource3, resource4));
+        when(reader.nextPage(page, client)).thenReturn(nextPage);
+
+        ResourceSet<TestResource> resourceSet = new ResourceSet<>(reader, client, page);
+        resourceSet.setLimit(4);
+
+        List<TestResource> results = new ArrayList<>();
+        for (TestResource resource : resourceSet) {
+            results.add(resource);
+        }
+        Assert.assertEquals(Arrays.asList(resource1, resource2, resource3, resource4), results);
+        Assert.assertEquals(2, resourceSet.getPageLimit());
+        verify(reader).nextPage(page, client);
     }
 
     @Test

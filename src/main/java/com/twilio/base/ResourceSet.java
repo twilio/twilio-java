@@ -67,6 +67,7 @@ public class ResourceSet<E extends Resource> implements Iterable<E> {
 
     public ResourceSet<E> setLimit(final long limit) {
         reader.limit(limit);
+        this.pageLimit = (long)(Math.ceil((double)limit / (double)firstPage.getPageSize()));
         return this;
     }
 

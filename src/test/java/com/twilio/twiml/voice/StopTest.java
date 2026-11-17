@@ -82,6 +82,15 @@ public class StopTest {
                     .hints("hints")
                     .enableAutomaticPunctuation(true)
                     .intelligenceService("intelligence_service")
+                    .conversationId("conversation_id")
+                    .conversationConfiguration("conversation_configuration")
+                    .build());
+
+        builder.mediaFilter(new MediaFilter.Builder()
+                    .name("name")
+                    .filterType(MediaFilter.FilterType.NOISE)
+                    .model("model")
+                    .track(MediaFilter.Track.INBOUND_TRACK)
                     .build());
 
         Stop elem = builder.build();
@@ -91,7 +100,8 @@ public class StopTest {
             "<Stop>" +
                 "<Stream audioFormat=\"audio_format\" connectorName=\"connector_name\" name=\"name\" sampleRate=\"sample_rate\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>" +
-                "<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" intelligenceService=\"intelligence_service\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>" +
+                "<Transcription conversationConfiguration=\"conversation_configuration\" conversationId=\"conversation_id\" enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" intelligenceService=\"intelligence_service\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>" +
+                "<MediaFilter filterType=\"noise\" model=\"model\" name=\"name\" track=\"inbound_track\"/>" +
             "</Stop>",
             elem.toXml()
         );
@@ -223,6 +233,15 @@ public class StopTest {
                     .hints("hints")
                     .enableAutomaticPunctuation(true)
                     .intelligenceService("intelligence_service")
+                    .conversationId("conversation_id")
+                    .conversationConfiguration("conversation_configuration")
+                    .build());
+
+        builder.mediaFilter(new MediaFilter.Builder()
+                    .name("name")
+                    .filterType(MediaFilter.FilterType.NOISE)
+                    .model("model")
+                    .track(MediaFilter.Track.INBOUND_TRACK)
                     .build());
 
         final Stop elem = builder.build();
@@ -231,7 +250,8 @@ public class StopTest {
             Stop.Builder.fromXml("<Stop>" +
                 "<Stream audioFormat=\"audio_format\" connectorName=\"connector_name\" name=\"name\" sampleRate=\"sample_rate\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>" +
-                "<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" intelligenceService=\"intelligence_service\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>" +
+                "<Transcription conversationConfiguration=\"conversation_configuration\" conversationId=\"conversation_id\" enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" intelligenceService=\"intelligence_service\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>" +
+                "<MediaFilter filterType=\"noise\" model=\"model\" name=\"name\" track=\"inbound_track\"/>" +
             "</Stop>").build().toXml(),
             elem.toXml()
         );
@@ -247,6 +267,8 @@ public class StopTest {
 
         builder.transcription(new Transcription.Builder().build());
 
+        builder.mediaFilter(new MediaFilter.Builder().build());
+
         final Stop elem = builder.build();
 
         Assert.assertEquals(
@@ -254,6 +276,7 @@ public class StopTest {
                 "<Stream/>" +
                 "<Siprec/>" +
                 "<Transcription/>" +
+                "<MediaFilter/>" +
             "</Stop>").build().toXml(),
             elem.toXml()
         );

@@ -170,6 +170,9 @@ public class Trait extends Resource {
         private final String name;
 
         @Getter
+        private final String source;
+
+        @Getter
         private final ZonedDateTime timestamp;
 
         @Getter
@@ -181,11 +184,13 @@ public class Trait extends Resource {
         @JsonCreator
         private ListTraitResponse(
             @JsonProperty("name") final String name,
+            @JsonProperty("source") final String source,
             @JsonProperty("timestamp") final ZonedDateTime timestamp,
             @JsonProperty("traitGroup") final String traitGroup,
             @JsonProperty("value") final Object value
         ) {
             this.name = name;
+            this.source = source;
             this.timestamp = timestamp;
             this.traitGroup = traitGroup;
             this.value = value;
@@ -217,6 +222,7 @@ public class Trait extends Resource {
             ListTraitResponse other = (ListTraitResponse) o;
             return (
                 Objects.equals(name, other.name) &&
+                Objects.equals(source, other.source) &&
                 Objects.equals(timestamp, other.timestamp) &&
                 Objects.equals(traitGroup, other.traitGroup) &&
                 Objects.equals(value, other.value)
@@ -225,7 +231,7 @@ public class Trait extends Resource {
 
         @Override
         public int hashCode() {
-            return Objects.hash(name, timestamp, traitGroup, value);
+            return Objects.hash(name, source, timestamp, traitGroup, value);
         }
     }
 
@@ -485,11 +491,17 @@ public class Trait extends Resource {
         @Getter
         private final ZonedDateTime timestamp;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("source")
+        @Getter
+        private final String source;
+
         private FullTrait(Builder builder) {
             this.name = builder.name;
             this.value = builder.value;
             this.traitGroup = builder.traitGroup;
             this.timestamp = builder.timestamp;
+            this.source = builder.source;
         }
 
         public static Builder builder(
@@ -526,6 +538,9 @@ public class Trait extends Resource {
             @JsonProperty("timestamp")
             private ZonedDateTime timestamp;
 
+            @JsonProperty("source")
+            private String source;
+
             @JsonCreator
             public Builder(
                 @JsonProperty("name") final String name,
@@ -553,6 +568,13 @@ public class Trait extends Resource {
                 return this;
             }
 
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("source")
+            public Builder source(String source) {
+                this.source = source;
+                return this;
+            }
+
             public FullTrait build() {
                 return new FullTrait(this);
             }
@@ -573,13 +595,14 @@ public class Trait extends Resource {
                 Objects.equals(name, other.name) &&
                 Objects.equals(value, other.value) &&
                 Objects.equals(traitGroup, other.traitGroup) &&
-                Objects.equals(timestamp, other.timestamp)
+                Objects.equals(timestamp, other.timestamp) &&
+                Objects.equals(source, other.source)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(name, value, traitGroup, timestamp);
+            return Objects.hash(name, value, traitGroup, timestamp, source);
         }
     }
 

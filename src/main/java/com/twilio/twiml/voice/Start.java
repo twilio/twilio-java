@@ -157,6 +157,15 @@ public class Start extends TwiML {
         }
 
         /**
+         * Add a child {@code <MediaFilter>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "MediaFilter")
+        public Builder mediaFilter(MediaFilter mediaFilter) {
+            this.children.add(mediaFilter);
+            return this;
+        }
+
+        /**
          * Add a child {@code <Recording>} element
          */
         @JacksonXmlProperty(isAttribute = false, localName = "Recording")

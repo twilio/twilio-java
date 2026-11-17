@@ -80,6 +80,15 @@ public class Stop extends TwiML {
         }
 
         /**
+         * Add a child {@code <MediaFilter>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "MediaFilter")
+        public Builder mediaFilter(MediaFilter mediaFilter) {
+            this.children.add(mediaFilter);
+            return this;
+        }
+
+        /**
          * Create and return resulting {@code <Stop>} element
          */
         public Stop build() {

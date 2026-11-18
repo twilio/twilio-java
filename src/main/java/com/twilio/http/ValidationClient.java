@@ -37,6 +37,7 @@ import java.util.Map;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 
 import java.security.Key;
+import javax.net.ssl.X509TrustManager;
 
 public class ValidationClient extends HttpClient {
 
@@ -148,6 +149,18 @@ public class ValidationClient extends HttpClient {
                             final RequestConfig requestConfig,
                             final SocketConfig socketConfig,
                             final SecureDigestAlgorithm<? extends Key, ?> algorithm) {
+        this(accountSid, credentialSid, signingKey, privateKey, requestConfig, socketConfig, algorithm,
+            DistrustedIntermediates.createTrustManager());
+    }
+
+    ValidationClient(final String accountSid,
+                     final String credentialSid,
+                     final String signingKey,
+                     final PrivateKey privateKey,
+                     final RequestConfig requestConfig,
+                     final SocketConfig socketConfig,
+                     final SecureDigestAlgorithm<? extends Key, ?> algorithm,
+                     final X509TrustManager trustManager) {
 
         Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
@@ -155,7 +168,8 @@ public class ValidationClient extends HttpClient {
             new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
 
-        final PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
+        final PoolingHttpClientConnectionManager connectionManager =
+            DistrustedIntermediates.createConnectionManager(trustManager);
         connectionManager.setDefaultSocketConfig(socketConfig);
         /*
          *  Example: Lets say client has one server.

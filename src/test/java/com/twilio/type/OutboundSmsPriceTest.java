@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Collections;
 
 /**
@@ -19,8 +20,8 @@ public class OutboundSmsPriceTest extends TypeTest {
             "    \"carrier\": \"att\",\n" +
             "    \"prices\": [{\n" +
             "        \"type\": \"local\",\n" +
-            "        \"base_price\": 1.00,\n" +
-            "        \"current_price\": 2.00\n" +
+            "        \"base_price\": \"1.00\",\n" +
+            "        \"current_price\": \"2.00\"\n" +
             "    }]\n" +
             "}";
 
@@ -29,7 +30,7 @@ public class OutboundSmsPriceTest extends TypeTest {
         Assert.assertEquals("mnc", osp.getMnc());
         Assert.assertEquals("att", osp.getCarrier());
         Assert.assertEquals(Collections.singletonList(
-            new InboundSmsPrice(1.00, 2.00, InboundSmsPrice.Type.LOCAL)
+            new InboundSmsPrice(new BigDecimal("1.00"), new BigDecimal("2.00"), InboundSmsPrice.Type.LOCAL)
         ), osp.getPrices());
     }
 }

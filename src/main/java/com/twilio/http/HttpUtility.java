@@ -1,6 +1,7 @@
 package com.twilio.http;
 
 import com.twilio.Twilio;
+import com.twilio.exception.InvalidRequestException;
 import lombok.experimental.UtilityClass;
 
 import java.net.URI;
@@ -58,5 +59,23 @@ public class HttpUtility {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    /**
+     * Validates a path parameter so it always stays a single URL path segment.
+     * Rejects URL-structural characters ("/", "?", "#") and dot segments that could
+     * redirect an SDK call to a different endpoint (path-parameter injection).
+     * Other characters are percent-encoded later by {@link Request#buildURL()}.
+     *
+     * @param value the raw path parameter
+     * @return the same value, if valid
+     * @throws InvalidRequestException if the value is null, empty, a dot segment or contains "/", "?" or "#"
+     */
+    public String validatePathParam(final String value) {
+        if (value == null || value.isEmpty() || value.equals(".") || value.equals("..")
+                || value.indexOf('/') >= 0 || value.indexOf('?') >= 0 || value.indexOf('#') >= 0) {
+            throw new InvalidRequestException("Invalid path parameter: must not be empty, '.', '..' or contain '/', '?', '#'", value);
+        }
+        return value;
     }
 }

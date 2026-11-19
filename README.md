@@ -27,10 +27,12 @@ This library supports the following Java implementations:
 - OpenJDK 11
 - OpenJDK 17
 - OpenJDK 21
+- OpenJDK 25
 - OracleJDK 8
 - OracleJDK 11
 - OracleJDK 17
 - OracleJDK 21
+- OracleJDK 25
 
 For Java 7 support, use `twilio-java` major version `7.X.X`.
 

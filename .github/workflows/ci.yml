@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: ${{ github.event.inputs.java-version == 'all' && fromJson('[8, 11, 17, 21]') || fromJson(format('[{0}]', github.event.inputs.java-version || '11')) }}
+        java: ${{ github.event.inputs.java-version == 'all' && fromJson('[8, 11, 17, 21, 25]') || fromJson(format('[{0}]', github.event.inputs.java-version || '11')) }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
